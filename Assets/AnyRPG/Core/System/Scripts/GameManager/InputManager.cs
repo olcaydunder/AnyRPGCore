@@ -943,24 +943,41 @@ namespace AnyRPG {
                 //Debug.Log("mouse.current was null");
                 mouse = InputSystem.GetDevice<Mouse>();
             }
-            if (mouse == null) {
-                //Debug.Log("No mouse device found");
-                return; // Safeguard if no mouse is connected
-            }
 
-            mouseDeltaX = mouse.delta.x.ReadValue() * 0.05f;
-            mouseDeltaY = mouse.delta.y.ReadValue() * 0.05f;
-            mousePosition = mouse.position.ReadValue();
+            // pointer state: read from the mouse, or synthesize it from touches on mobile
+            bool leftPressed, leftReleased, rightPressed, rightReleased, middlePressed, middleReleased;
+            float scrollDelta;
+            bool usingTouch = false;
+            if (mouse != null) {
+                mouseDeltaX = mouse.delta.x.ReadValue() * 0.05f;
+                mouseDeltaY = mouse.delta.y.ReadValue() * 0.05f;
+                mousePosition = mouse.position.ReadValue();
+                leftPressed = leftPressed;
+                leftReleased = leftReleased;
+                rightPressed = rightPressed;
+                rightReleased = rightReleased;
+                middlePressed = middlePressed;
+                middleReleased = middleReleased;
+                scrollDelta = mouse.scroll.y.ReadValue() / 24f;
+            } else if (ReadTouchAsMouse(out leftPressed, out leftReleased, out rightPressed, out rightReleased, out scrollDelta)) {
+                usingTouch = true;
+                middlePressed = false;
+                middleReleased = false;
+            } else {
+                //Debug.Log("No mouse or touchscreen device found");
+                return; // Safeguard if no pointer device is connected
+            }
             //Debug.Log($"Mouse position: {mousePosition.ToString()} delta: ({mouseDeltaX}, {mouseDeltaY}) scroll delta Y: {mouseScrollDeltaY}");
 
 
             // track left mouse button up and down events to determine difference in click vs drag
-            if (mouse.leftButton.wasReleasedThisFrame) {
+            if (leftReleased) {
                 if (leftMouseButtonDown) {
                     leftMouseButtonUpPosition = mousePosition;
                     leftMouseButtonUp = true;
                     //Debug.Log($"down mouse position: {leftMouseButtonDownPosition.ToString()} up mouse position: {leftMouseButtonUpPosition.ToString()}");
-                    if (leftMouseButtonUpPosition == leftMouseButtonDownPosition) {
+                    if (leftMouseButtonUpPosition == leftMouseButtonDownPosition
+                        || (usingTouch && Vector3.Distance(leftMouseButtonUpPosition, leftMouseButtonDownPosition) < touchTapTolerance)) {
                         leftMouseButtonClicked = true;
                     }
                     leftMouseButtonDown = false;
@@ -971,12 +988,13 @@ namespace AnyRPG {
             }
 
             // track right mouse button up and down events to determine difference in click vs drag
-            if (mouse.rightButton.wasReleasedThisFrame) {
+            if (rightReleased) {
                 if (rightMouseButtonDown) {
                     rightMouseButtonUpPosition = mousePosition;
                     rightMouseButtonUp = true;
                     //Debug.Log($"down mouse position: {rightMouseButtonDownPosition.ToString()} up mouse position: {rightMouseButtonUpPosition.ToString()}");
-                    if (rightMouseButtonUpPosition == rightMouseButtonDownPosition) {
+                    if (rightMouseButtonUpPosition == rightMouseButtonDownPosition
+                        || (usingTouch && Vector3.Distance(rightMouseButtonUpPosition, rightMouseButtonDownPosition) < touchTapTolerance)) {
                         rightMouseButtonClicked = true;
                     }
                     rightMouseButtonDown = false;
@@ -988,7 +1006,7 @@ namespace AnyRPG {
 
 
             // track middle mouse button up and down events to determine difference in click vs drag
-            if (mouse.middleButton.wasReleasedThisFrame && middleMouseButtonDown) {
+            if (middleReleased && middleMouseButtonDown) {
                 middleMouseButtonUpPosition = mousePosition;
                 middleMouseButtonUp = true;
                 //Debug.Log($"down mouse position: {rightMouseButtonDownPosition.ToString()} up mouse position: {rightMouseButtonUpPosition.ToString()}");
@@ -1007,7 +1025,7 @@ namespace AnyRPG {
             if (!screenRect.Contains(mousePosition))
                 return;
 
-            if (mouse.rightButton.wasPressedThisFrame) {
+            if (rightPressed) {
                 rightMouseButtonDown = true;
                 rightMouseButtonDownPosition = mousePosition;
                 // IGNORE NAMEPLATES FOR THE PURPOSE OF CAMERA MOVEMENT
@@ -1017,7 +1035,7 @@ namespace AnyRPG {
             }
 
             // track left mouse button up and down events to determine difference in click vs drag
-            if (mouse.leftButton.wasPressedThisFrame) {
+            if (leftPressed) {
                 leftMouseButtonDown = true;
                 leftMouseButtonDownPosition = mousePosition;
                 if (EventSystem.current.IsPointerOverGameObject() && (namePlateManager != null ? !namePlateManager.MouseOverNameplate() : true)) {
@@ -1025,7 +1043,7 @@ namespace AnyRPG {
                 }
             }
 
-            if (mouse.middleButton.wasPressedThisFrame) {
+            if (middlePressed) {
                 middleMouseButtonDown = true;
                 middleMouseButtonDownPosition = mousePosition;
                 if (EventSystem.current.IsPointerOverGameObject() && (namePlateManager != null ? !namePlateManager.MouseOverNameplate() : true)) {
@@ -1033,12 +1051,98 @@ namespace AnyRPG {
                 }
             }
 
-            mouseScrollDeltaY = mouse.scroll.y.ReadValue() / 24f;
+            mouseScrollDeltaY = scrollDelta;
             if (mouseScrollDeltaY != 0f) {
                 //Debug.Log($"Mouse scrolled: {mouseScrollDeltaY}");
                 mouseScrolled = true;
             }
 
+        }
+
+        // ---- touch support (mobile) ----
+        // one finger acts as the left mouse button (tap to move / interact / attack),
+        // two fingers act as the right mouse button (drag to rotate the camera) and pinch acts as the scroll wheel (zoom)
+
+        private const float touchTapTolerance = 25f;
+        private bool touchLeftHeld = false;
+        private bool touchRightHeld = false;
+        private bool touchGestureLock = false;
+        private int lastTouchCount = 0;
+        private float lastPinchDistance = -1f;
+        private Vector2 lastTouchPosition = Vector2.zero;
+
+        private bool ReadTouchAsMouse(out bool leftPressed, out bool leftReleased, out bool rightPressed, out bool rightReleased, out float scrollDelta) {
+            leftPressed = leftReleased = rightPressed = rightReleased = false;
+            scrollDelta = 0f;
+
+            Touchscreen touchscreen = Touchscreen.current;
+            if (touchscreen == null) {
+                return false;
+            }
+
+            int activeCount = 0;
+            Vector2 first = Vector2.zero;
+            Vector2 second = Vector2.zero;
+            foreach (TouchControl touch in touchscreen.touches) {
+                if (touch.press.isPressed == false) {
+                    continue;
+                }
+                if (activeCount == 0) {
+                    first = touch.position.ReadValue();
+                } else if (activeCount == 1) {
+                    second = touch.position.ReadValue();
+                }
+                activeCount++;
+            }
+
+            bool wantLeft = activeCount == 1;
+            bool wantRight = activeCount >= 2;
+            Vector2 position = activeCount >= 2 ? (first + second) * 0.5f : (activeCount == 1 ? first : lastTouchPosition);
+
+            // movement since last frame (only while a finger stays down)
+            bool wasHeld = touchLeftHeld || touchRightHeld;
+            // no jump when a finger is added or lifted (the reference point changes)
+            Vector2 delta = (wasHeld && activeCount > 0 && activeCount == lastTouchCount) ? position - lastTouchPosition : Vector2.zero;
+            lastTouchCount = activeCount;
+            mouseDeltaX = delta.x * 0.05f;
+            mouseDeltaY = delta.y * 0.05f;
+            mousePosition = position;
+            lastTouchPosition = position;
+
+            // a second finger turns a one finger press into a camera drag - cancel the pending tap
+            // and ignore the remaining finger until every finger is lifted
+            if (wantRight) {
+                if (touchLeftHeld) {
+                    leftMouseButtonDown = false;
+                }
+                touchGestureLock = true;
+            }
+            if (activeCount == 0) {
+                touchGestureLock = false;
+            }
+            if (touchGestureLock) {
+                wantLeft = false;
+            }
+
+            leftPressed = wantLeft && !touchLeftHeld;
+            leftReleased = !wantLeft && touchLeftHeld;
+            rightPressed = wantRight && !touchRightHeld;
+            rightReleased = !wantRight && touchRightHeld;
+            touchLeftHeld = wantLeft;
+            touchRightHeld = wantRight;
+
+            // pinch to zoom
+            if (activeCount >= 2) {
+                float distance = Vector2.Distance(first, second);
+                if (lastPinchDistance > 0f) {
+                    scrollDelta = (distance - lastPinchDistance) * 0.02f;
+                }
+                lastPinchDistance = distance;
+            } else {
+                lastPinchDistance = -1f;
+            }
+
+            return true;
         }
 
         public void ResetToDefault() {
