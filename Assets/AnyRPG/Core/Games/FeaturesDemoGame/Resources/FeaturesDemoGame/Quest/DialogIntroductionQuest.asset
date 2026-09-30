@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: DialogIntroductionQuest
   m_EditorClassIdentifier: 
   resourceName: Dialog Introduction
-  displayName: "Kazan Han'\u0131n \u00c7a\u011fr\u0131s\u0131"
+  displayName: "Olcayto Han'\u0131n \u00c7a\u011fr\u0131s\u0131"
   icon: {fileID: 0}
   iconBackgroundImage: {fileID: 0}
-  description: "Kazan Han oban\u0131n t\u00fcm yi\u011fitlerini ota\u011f\u0131na \u00e7a\u011f\u0131r\u0131yor. \u00d6nce onu dinle, sonra \u00e7a\u011fr\u0131ya uy."
+  description: "Olcayto Han oban\u0131n t\u00fcm yi\u011fitlerini ota\u011f\u0131na \u00e7a\u011f\u0131r\u0131yor. \u00d6nce onu dinle, sonra \u00e7a\u011fr\u0131ya uy."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   isAchievement: 0

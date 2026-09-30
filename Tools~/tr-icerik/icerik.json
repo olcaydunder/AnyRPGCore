@@ -25,7 +25,7 @@
   "UnitProfile": {
     "Blue Archer": {"ad": "Bozok Okçusu"},
     "Blue Blood Knight": {"ad": "Bozok Kan Süvarisi"},
-    "Blue Boss": {"ad": "Olcayto Bey", "aciklama": "Bozokların beyi. Adı kutlu anlamına gelir; boyunu hiçbir savaşta yalnız bırakmamıştır."},
+    "Blue Boss": {"ad": "Bozok Beyi"},
     "Blue Fighter": {"ad": "Bozok Baturu"},
     "Blue Fire Mage": {"ad": "Bozok Ateş Kamı"},
     "Blue Ice Mage": {"ad": "Bozok Ayaz Kamı"},
@@ -52,7 +52,7 @@
     "Red Thief": {"ad": "Üçok Akıncısı"},
     "Red Warrior": {"ad": "Üçok Alpı"},
 
-    "Quest NPC": {"ad": "Kazan Han"},
+    "Quest NPC": {"ad": "Olcayto Han", "aciklama": "Oğuz obalarının başı. Adı kutlu anlamına gelir; boylarını hiçbir savaşta yalnız bırakmamıştır."},
     "Dialog NPC": {"ad": "Bilge Tonyukuk"},
     "Change Name NPC": {"ad": "Dede Korkut"},
     "Cutscene NPC": {"ad": "Oğuz Kağan"},
@@ -101,8 +101,8 @@
 
   "Quest": {
     "Dialog Introduction": {
-      "ad": "Kazan Han'ın Çağrısı",
-      "aciklama": "Kazan Han obanın tüm yiğitlerini otağına çağırıyor. Önce onu dinle, sonra çağrıya uy."
+      "ad": "Olcayto Han'ın Çağrısı",
+      "aciklama": "Olcayto Han obanın tüm yiğitlerini otağına çağırıyor. Önce onu dinle, sonra çağrıya uy."
     },
     "Collection": {
       "ad": "Alp'in Donanımı",
