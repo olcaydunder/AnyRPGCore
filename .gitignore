@@ -83,7 +83,7 @@ Assets/Screenshots*
 Assets/Settings/Build Profiles/*
 Assets/Sketchfab*
 Assets/Standard*
-Assets/TextMesh*
+# TextMesh Pro Essential Resources are committed so cloud builds can render text
 Assets/UMA*
 Assets/UnusedExternalContent*
 AssetBundles/
