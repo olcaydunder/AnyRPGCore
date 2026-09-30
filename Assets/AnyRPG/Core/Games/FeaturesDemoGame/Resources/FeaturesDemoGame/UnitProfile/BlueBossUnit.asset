@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: "Bozok Beyi"
   icon: {fileID: 21300000, guid: ddc11cfd0bc3b22489ffaba76d4aaa30, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: "Bozoklar\u0131n beyi. Ad\u0131 kutlu anlam\u0131na gelir; boyunu hi\u00e7bir sava\u015fta yaln\u0131z b\u0131rakmam\u0131\u015ft\u0131r."
+  description: 
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0
