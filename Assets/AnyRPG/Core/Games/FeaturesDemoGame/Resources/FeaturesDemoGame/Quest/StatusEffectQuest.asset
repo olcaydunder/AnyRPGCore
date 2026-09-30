@@ -13,14 +13,10 @@ MonoBehaviour:
   m_Name: StatusEffectQuest
   m_EditorClassIdentifier: 
   resourceName: Status Effect
-  displayName: 
+  displayName: "Umay'\u0131n \u015eefkati"
   icon: {fileID: 0}
   iconBackgroundImage: {fileID: 0}
-  description: 'This is a quest that requires you to place a status effect on your
-    character.
-
-
-'
+  description: "Umay Ana, yaral\u0131 yi\u011fitleri kanatlar\u0131n\u0131n alt\u0131na al\u0131r. Umay'\u0131n \u015eefkati'ni kendi \u00fczerinde ta\u015f\u0131."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0
@@ -57,5 +53,5 @@ MonoBehaviour:
       type: {class: StatusEffectObjective, ns: AnyRPG, asm: Assembly-CSharp}
       data:
         amount: 1
-        overrideDisplayName: 
+        overrideDisplayName: "Umay'\u0131n \u015eefkati'ni kazan"
         effectName: Heal Over Time

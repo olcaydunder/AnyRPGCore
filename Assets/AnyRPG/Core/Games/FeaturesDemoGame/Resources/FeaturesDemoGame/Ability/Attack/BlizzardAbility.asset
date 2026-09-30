@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlizzardAbility
   m_EditorClassIdentifier: 
   resourceName: Blizzard
-  displayName: 
+  displayName: "Ayaz Ata'n\u0131n Nefesi"
   icon: {fileID: 21300000, guid: 402c20b859995ac49ac6ff0a243926ff, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: a blizzard

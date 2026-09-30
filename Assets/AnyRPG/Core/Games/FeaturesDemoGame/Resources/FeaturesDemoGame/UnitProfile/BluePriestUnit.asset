@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BluePriestUnit
   m_EditorClassIdentifier: 
   resourceName: Blue Priest
-  displayName: 
+  displayName: "Bozok Otac\u0131s\u0131"
   icon: {fileID: 21300000, guid: 0ee71fa7ff80d914f86e421cae7a12fc, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 

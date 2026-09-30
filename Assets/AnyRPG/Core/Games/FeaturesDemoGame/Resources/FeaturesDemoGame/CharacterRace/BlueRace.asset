@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlueRace
   m_EditorClassIdentifier: 
   resourceName: Blue
-  displayName: 
+  displayName: "Bozok Soyu"
   icon: {fileID: 0}
   iconBackgroundImage: {fileID: 0}
   description: 

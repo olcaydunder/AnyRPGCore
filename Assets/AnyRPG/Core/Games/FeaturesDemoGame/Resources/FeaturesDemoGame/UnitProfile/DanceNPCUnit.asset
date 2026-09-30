@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DanceNPCUnit
   m_EditorClassIdentifier: 
   resourceName: Dance NPC
-  displayName: 
+  displayName: "Semah\u00e7\u0131 G\u00fclbahar"
   icon: {fileID: 21300000, guid: 6e19024c02939bc41b1aa135f53055a2, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 

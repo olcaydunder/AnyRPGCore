@@ -13,17 +13,10 @@ MonoBehaviour:
   m_Name: UseAbilityQuest
   m_EditorClassIdentifier: 
   resourceName: Use Ability
-  displayName: 
+  displayName: "\u0130lk Kan"
   icon: {fileID: 0}
   iconBackgroundImage: {fileID: 0}
-  description: 'This is a quest that requires you to use abilities.
-
-
-    You can
-    use the ability by attacking any enemy.
-
-
-'
+  description: "Bir alp ad\u0131n\u0131 sava\u015f meydan\u0131nda kazan\u0131r. Herhangi bir d\u00fc\u015fmana sald\u0131rarak ilk darbeni vur."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0
@@ -60,5 +53,5 @@ MonoBehaviour:
       type: {class: UseAbilityObjective, ns: AnyRPG, asm: Assembly-CSharp}
       data:
         amount: 1
-        overrideDisplayName: 
+        overrideDisplayName: "Bir d\u00fc\u015fmana sald\u0131r"
         abilityName: Attack

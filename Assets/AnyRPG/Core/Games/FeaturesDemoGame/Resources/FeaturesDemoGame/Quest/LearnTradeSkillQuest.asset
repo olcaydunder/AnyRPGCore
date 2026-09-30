@@ -13,14 +13,10 @@ MonoBehaviour:
   m_Name: LearnTradeSkillQuest
   m_EditorClassIdentifier: 
   resourceName: Learn Trade Skill
-  displayName: 
+  displayName: "Oban\u0131n Zanaatlar\u0131"
   icon: {fileID: 0}
   iconBackgroundImage: {fileID: 0}
-  description: 'This is a quest that requires you to learn trade skills.
-
-
-    You
-    can learn all the trade skills at the trainer'
+  description: "Obada herkesin bir zanaat\u0131 vard\u0131r. Ustadan odunculuk, bal\u0131k\u00e7\u0131l\u0131k, madencilik ve otac\u0131l\u0131\u011f\u0131 \u00f6\u011fren."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0
@@ -60,26 +56,26 @@ MonoBehaviour:
       data:
         amount: 1
         deprecatedType: 
-        overrideDisplayName: 
+        overrideDisplayName: "Odunculu\u011fu \u00f6\u011fren"
         skillName: Logging
     00000001:
       type: {class: TradeSkillObjective, ns: AnyRPG, asm: Assembly-CSharp}
       data:
         amount: 1
         deprecatedType: 
-        overrideDisplayName: 
+        overrideDisplayName: "Bal\u0131k\u00e7\u0131l\u0131\u011f\u0131 \u00f6\u011fren"
         skillName: Fishing
     00000002:
       type: {class: TradeSkillObjective, ns: AnyRPG, asm: Assembly-CSharp}
       data:
         amount: 1
         deprecatedType: 
-        overrideDisplayName: 
+        overrideDisplayName: "Madencili\u011fi \u00f6\u011fren"
         skillName: Mining
     00000003:
       type: {class: TradeSkillObjective, ns: AnyRPG, asm: Assembly-CSharp}
       data:
         amount: 1
         deprecatedType: 
-        overrideDisplayName: 
+        overrideDisplayName: "Otac\u0131l\u0131\u011f\u0131 \u00f6\u011fren"
         skillName: Herbalism

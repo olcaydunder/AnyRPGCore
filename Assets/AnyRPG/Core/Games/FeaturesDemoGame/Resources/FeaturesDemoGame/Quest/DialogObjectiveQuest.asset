@@ -13,18 +13,10 @@ MonoBehaviour:
   m_Name: DialogObjectiveQuest
   m_EditorClassIdentifier: 
   resourceName: Dialog Objective
-  displayName: 
+  displayName: "Bilgeden \u00d6\u011f\u00fct"
   icon: {fileID: 0}
   iconBackgroundImage: {fileID: 0}
-  description: 'This is a dialog objective quest.
-
-
-    To complete it, you must
-    complete, or have completed the dialog objective.
-
-
-    You can find the dialog
-    on the Dialog NPC.'
+  description: "Bilge Tonyukuk y\u00fcz y\u0131ll\u0131k bir \u00e7\u0131nar gibidir. Yan\u0131na git ve s\u00f6ylediklerine kulak ver."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   isAchievement: 0
@@ -72,5 +64,5 @@ MonoBehaviour:
       data:
         amount: 1
         type: 
-        overrideDisplayName: 
+        overrideDisplayName: "Bilge Tonyukuk'u dinle"
         dialogName: Speech Bubble Dialog

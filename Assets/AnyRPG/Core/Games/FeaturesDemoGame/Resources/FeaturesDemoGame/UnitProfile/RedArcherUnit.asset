@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RedArcherUnit
   m_EditorClassIdentifier: 
   resourceName: Red Archer
-  displayName: 
+  displayName: "\u00dc\u00e7ok Ok\u00e7usu"
   icon: {fileID: 21300000, guid: c7a81cc530c9336489e7f6dbe5c8ecda, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 

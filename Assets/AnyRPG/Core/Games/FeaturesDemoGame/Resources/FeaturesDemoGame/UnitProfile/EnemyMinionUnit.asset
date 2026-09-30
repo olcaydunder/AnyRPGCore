@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnemyMinionUnit
   m_EditorClassIdentifier: 
   resourceName: Enemy Minion
-  displayName: 
+  displayName: "Albast\u0131"
   icon: {fileID: 21300000, guid: 12c08866d8df8c04b97eb8e8ad039df9, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 

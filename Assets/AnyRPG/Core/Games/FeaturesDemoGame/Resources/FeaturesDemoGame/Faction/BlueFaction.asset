@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BlueFaction
   m_EditorClassIdentifier: 
   resourceName: Blue
-  displayName: 
+  displayName: "Bozoklar"
   icon: {fileID: 21300000, guid: 9f2383ebb700b7b4abbb9b6de35299ef, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: 
+  description: "O\u011fuz Ka\u011fan'\u0131n b\u00fcy\u00fck o\u011fullar\u0131 G\u00fcn Han, Ay Han ve Y\u0131ld\u0131z Han'\u0131n soyundan gelen boylar. Oban\u0131n sa\u011f kolunu korurlar."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

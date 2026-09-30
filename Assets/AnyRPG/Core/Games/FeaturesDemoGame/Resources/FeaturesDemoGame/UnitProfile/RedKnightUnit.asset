@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RedKnightUnit
   m_EditorClassIdentifier: 
   resourceName: Red Knight
-  displayName: 
+  displayName: "\u00dc\u00e7ok S\u00fcvarisi"
   icon: {fileID: 21300000, guid: 048eefc2e1d37234f8e1ac94eb1c7594, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 

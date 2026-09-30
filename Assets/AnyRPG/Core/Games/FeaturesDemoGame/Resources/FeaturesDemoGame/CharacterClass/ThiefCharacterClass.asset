@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: ThiefCharacterClass
   m_EditorClassIdentifier: 
   resourceName: Thief
-  displayName: 
+  displayName: "Ak\u0131nc\u0131"
   icon: {fileID: 21300000, guid: 263cbe8a4d2bfd3428641051879e3f9a, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: 
+  description: "G\u00f6lgelerden h\u0131zla \u00e7\u0131k\u0131p d\u00fc\u015fman\u0131 gafil avlayan ak\u0131nc\u0131."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

@@ -25,15 +25,11 @@ MonoBehaviour:
   dialogNodes:
   - startTime: 0
     showTime: 0
-    description: This dialog has a prerequisite, and is repeatable
+    description: "Bu s\u0131rr\u0131 yaln\u0131zca ilk s\u00f6z\u00fcm\u00fc dinleyenlere a\u00e7ar\u0131m. Diledi\u011fin kadar tekrar dinleyebilirsin."
     nextOption: What prerequisite?
   - startTime: 0
     showTime: 0
-    description: 'To see it, you have have completed the Standard Dialog.
-
-
-      Do
-      you remember doing that?'
+    description: "O s\u00f6zleri hat\u0131rl\u0131yor musun?"
     nextOption: Now that you mention it...
   prerequisiteConditions:
   - requireAny: 0

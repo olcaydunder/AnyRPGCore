@@ -13,13 +13,10 @@ MonoBehaviour:
   m_Name: LearnAbilityQuest
   m_EditorClassIdentifier: 
   resourceName: Learn Ability
-  displayName: 
+  displayName: "Ayaz Ata'n\u0131n Nefesi"
   icon: {fileID: 0}
   iconBackgroundImage: {fileID: 0}
-  description: 'This is a quest that requires you to learn abilities.
-
-
-'
+  description: "K\u0131\u015f ruhu Ayaz Ata, g\u00fcc\u00fcn\u00fc yaln\u0131zca lay\u0131k g\u00f6rd\u00fcklerine verir. Onun dondurucu nefesini \u00f6\u011fren."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0
@@ -56,5 +53,5 @@ MonoBehaviour:
       type: {class: LearnAbilityObjective, ns: AnyRPG, asm: Assembly-CSharp}
       data:
         amount: 1
-        overrideDisplayName: 
+        overrideDisplayName: "Ayaz Ata'n\u0131n Nefesi'ni \u00f6\u011fren"
         abilityName: Blizzard

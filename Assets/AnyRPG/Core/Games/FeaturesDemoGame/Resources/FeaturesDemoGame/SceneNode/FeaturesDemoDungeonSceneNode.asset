@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FeaturesDemoDungeonSceneNode
   m_EditorClassIdentifier: 
   resourceName: Features Demo Dungeon
-  displayName: 
+  displayName: "Erlik'in Ma\u011faras\u0131"
   icon: {fileID: 0}
   iconBackgroundImage: {fileID: 0}
   description: A dangerous volcanic valley with lava, enemy minions, and a tough

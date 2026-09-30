@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SpawnCharactersNPCUnit
   m_EditorClassIdentifier: 
   resourceName: Spawn Characters NPC
-  displayName: 
+  displayName: "Er Meydan\u0131 A\u011fas\u0131"
   icon: {fileID: 21300000, guid: 7ef0ad7a9479f7041afaf88b46f9a9d8, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 

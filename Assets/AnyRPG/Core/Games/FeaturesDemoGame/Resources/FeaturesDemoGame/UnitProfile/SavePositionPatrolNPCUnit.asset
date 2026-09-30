@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SavePositionPatrolNPCUnit
   m_EditorClassIdentifier: 
   resourceName: Save Position Patrol NPC
-  displayName: 
+  displayName: "Ulak"
   icon: {fileID: 21300000, guid: ddc11cfd0bc3b22489ffaba76d4aaa30, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 

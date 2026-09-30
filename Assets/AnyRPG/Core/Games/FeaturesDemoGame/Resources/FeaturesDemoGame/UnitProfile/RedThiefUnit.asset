@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RedThiefUnit
   m_EditorClassIdentifier: 
   resourceName: Red Thief
-  displayName: 
+  displayName: "\u00dc\u00e7ok Ak\u0131nc\u0131s\u0131"
   icon: {fileID: 21300000, guid: c7a81cc530c9336489e7f6dbe5c8ecda, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 

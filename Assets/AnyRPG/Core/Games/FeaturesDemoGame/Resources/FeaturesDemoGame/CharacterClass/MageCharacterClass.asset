@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: MageCharacterClass
   m_EditorClassIdentifier: 
   resourceName: Mage
-  displayName: 
+  displayName: "Kam"
   icon: {fileID: 21300000, guid: 8b04cac8505abbb47bd5c91db3229c44, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: 
+  description: "G\u00f6k ile yer aras\u0131nda yolculuk eden, ruhlarla konu\u015fan \u015faman."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

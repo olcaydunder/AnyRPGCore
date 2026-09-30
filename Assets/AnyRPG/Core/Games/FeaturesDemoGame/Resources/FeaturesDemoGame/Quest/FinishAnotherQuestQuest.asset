@@ -13,14 +13,10 @@ MonoBehaviour:
   m_Name: FinishAnotherQuestQuest
   m_EditorClassIdentifier: 
   resourceName: Finish Another Quest
-  displayName: 
+  displayName: "Sefere Haz\u0131rl\u0131k"
   icon: {fileID: 0}
   iconBackgroundImage: {fileID: 0}
-  description: 'This is a quest that requires you to finish another quest.
-
-
-    To
-    complete it, you must finish the other quest'
+  description: "Sefere \u00e7\u0131kmadan \u00f6nce donan\u0131m\u0131n\u0131 tamamlamal\u0131s\u0131n. Alp'in Donan\u0131m\u0131 g\u00f6revini bitir."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0
@@ -57,5 +53,5 @@ MonoBehaviour:
       type: {class: FinishQuestObjective, ns: AnyRPG, asm: Assembly-CSharp}
       data:
         amount: 1
-        overrideDisplayName: 
+        overrideDisplayName: "Alp'in Donan\u0131m\u0131 g\u00f6revini tamamla"
         questName: Collection

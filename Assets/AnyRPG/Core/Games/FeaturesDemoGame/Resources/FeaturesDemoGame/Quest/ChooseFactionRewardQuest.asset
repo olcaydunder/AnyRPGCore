@@ -13,17 +13,10 @@ MonoBehaviour:
   m_Name: ChooseFactionRewardQuest
   m_EditorClassIdentifier: 
   resourceName: Choose Faction Reward
-  displayName: 
+  displayName: "Boylar\u0131n Arma\u011fan\u0131"
   icon: {fileID: 0}
   iconBackgroundImage: {fileID: 0}
-  description: 'This quest allows you to choose one faction reward from several.
-
-
-    It
-    is started from an item.
-
-
-    It is also repeatable.'
+  description: "Bu t\u0131ls\u0131m seni boylardan birine yak\u0131nla\u015ft\u0131r\u0131r. Hangi boyun g\u00f6nl\u00fcn\u00fc kazanmak istedi\u011fini se\u00e7. Bu g\u00f6rev tekrar edilebilir."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

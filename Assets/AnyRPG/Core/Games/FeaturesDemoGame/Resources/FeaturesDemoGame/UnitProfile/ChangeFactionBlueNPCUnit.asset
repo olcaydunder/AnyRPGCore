@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ChangeFactionBlueNPCUnit
   m_EditorClassIdentifier: 
   resourceName: Change Faction Blue NPC
-  displayName: 
+  displayName: "Bozok El\u00e7isi"
   icon: {fileID: 21300000, guid: aca674fea32f9014db080ff9f9e78d95, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 

@@ -13,17 +13,10 @@ MonoBehaviour:
   m_Name: CollectionQuest
   m_EditorClassIdentifier: 
   resourceName: Collection
-  displayName: 
+  displayName: "Alp'in Donan\u0131m\u0131"
   icon: {fileID: 0}
   iconBackgroundImage: {fileID: 0}
-  description: 'This is a collection quest.
-
-
-    To complete it, you must collect
-    all the objectives.
-
-
-    You can find the items for this quest on the Vendor.'
+  description: "Hi\u00e7bir alp sefere eli bo\u015f \u00e7\u0131kmaz.\n\nT\u00fcccar Kara\u00e7or'dan bir Demir Kama ve bir Kurt Ba\u015fl\u0131 Kalkan edin."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0
@@ -61,7 +54,7 @@ MonoBehaviour:
       data:
         amount: 1
         deprecatedType: 
-        overrideDisplayName: 
+        overrideDisplayName: "Demir Kama edin"
         itemName: Medieval Dagger
         partialMatch: 0
     00000001:
@@ -69,6 +62,6 @@ MonoBehaviour:
       data:
         amount: 1
         deprecatedType: 
-        overrideDisplayName: 
+        overrideDisplayName: "Kurt Ba\u015fl\u0131 Kalkan edin"
         itemName: Medieval Shield
         partialMatch: 0

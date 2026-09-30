@@ -26,22 +26,22 @@ MonoBehaviour:
   dialogNodes:
   - startTime: 0
     showTime: 0
-    description: How can I help you?
+    description: "Sana nas\u0131l yard\u0131m edebilirim?"
     audioClip: {fileID: 8300000, guid: 1430870eaeabf6d4b92a3358307ba4e3, type: 3}
     nextOption: How can you help me?
   - startTime: 0
     showTime: 0
-    description: Looking to buy something?
+    description: "Bir \u015fey mi almak istiyorsun?"
     audioClip: {fileID: 8300000, guid: 2d505a5fee8475c4190e378085575626, type: 3}
     nextOption: I might be
   - startTime: 0
     showTime: 0
-    description: Lets trade
+    description: "Hadi al\u0131\u015fveri\u015f yapal\u0131m."
     audioClip: {fileID: 8300000, guid: 371cb9231a1d08b4980f3f1fee4f4c1b, type: 3}
     nextOption: What do you have for sale?
   - startTime: 0
     showTime: 0
-    description: Take a look around
+    description: "Mallar\u0131ma bir g\u00f6z at."
     audioClip: {fileID: 8300000, guid: 4c4ce7bf75a9c5d40ba3b46268e9651c, type: 3}
     nextOption: OK
   prerequisiteConditions: []

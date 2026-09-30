@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlueFighterUnit
   m_EditorClassIdentifier: 
   resourceName: Blue Fighter
-  displayName: 
+  displayName: "Bozok Baturu"
   icon: {fileID: 21300000, guid: c7a81cc530c9336489e7f6dbe5c8ecda, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 

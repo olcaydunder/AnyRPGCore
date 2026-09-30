@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: WarriorCharacterClass
   m_EditorClassIdentifier: 
   resourceName: Warrior
-  displayName: 
+  displayName: "Alp"
   icon: {fileID: 21300000, guid: d27a2139b4dd9d24ca4eac37a5ffd7c4, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: 
+  description: "Destanlara ad\u0131 ge\u00e7en, a\u011f\u0131r silahlarla sava\u015fan kahraman."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

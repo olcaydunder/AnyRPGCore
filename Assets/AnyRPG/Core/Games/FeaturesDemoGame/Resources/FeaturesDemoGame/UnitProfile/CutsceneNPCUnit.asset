@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CutsceneNPCUnit
   m_EditorClassIdentifier: 
   resourceName: Cutscene NPC
-  displayName: 
+  displayName: "O\u011fuz Ka\u011fan"
   icon: {fileID: 21300000, guid: fff03fbc1edf8e44ba5a7f8bb9eff0dd, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 

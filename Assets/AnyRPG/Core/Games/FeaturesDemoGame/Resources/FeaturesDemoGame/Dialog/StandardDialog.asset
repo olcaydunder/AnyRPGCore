@@ -25,15 +25,14 @@ MonoBehaviour:
   dialogNodes:
   - startTime: 0
     showTime: 0
-    description: This dialog can only be completed once
+    description: "Bu s\u00f6zleri sana yaln\u0131zca bir kez s\u00f6yleyece\u011fim."
     nextOption: Just once?
   - startTime: 0
     showTime: 0
-    description: Yes, once you complete it, the option to see it will disappear forever.
+    description: "Bir kez dinledin mi, bu s\u00f6z bir daha s\u00f6ylenmez."
     nextOption: Oh no
   - startTime: 0
     showTime: 0
-    description: Don't worry though, completing this dialog will unlock another dialog
-      and show you how to use prerequisites
+    description: "Ama \u00fcz\u00fclme. Bu s\u00f6z\u00fc dinleyen, ba\u015fka bir s\u0131rr\u0131 \u00f6\u011frenmeye hak kazan\u0131r."
     nextOption: Wow that's so neat!
   prerequisiteConditions: []

@@ -13,18 +13,10 @@ MonoBehaviour:
   m_Name: Repeatable3StepQuest
   m_EditorClassIdentifier: 
   resourceName: Repeatable 3 Step
-  displayName: 
+  displayName: "Ke\u015fif Kolu"
   icon: {fileID: 0}
   iconBackgroundImage: {fileID: 0}
-  description: 'This quest is repeatable.
-
-
-    It requires you to complete 3 tasks
-    in a specific order.
-
-
-    The objectives for each step will only show in the
-    quest tracker and quest log once the previous steps are complete'
+  description: "Ke\u015fif koluna kat\u0131l. Silah\u0131n\u0131 al, ma\u011faraya in ve kar\u015f\u0131la\u015ft\u0131\u011f\u0131n ilk d\u00fc\u015fmana sald\u0131r."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0
@@ -65,18 +57,18 @@ MonoBehaviour:
       type: {class: CollectObjective, ns: AnyRPG, asm: Assembly-CSharp}
       data:
         amount: 1
-        overrideDisplayName: 
+        overrideDisplayName: "Bir kama edin"
         itemName: Medieval Dagger
         partialMatch: 1
     - rid: 1
       type: {class: VisitZoneObjective, ns: AnyRPG, asm: Assembly-CSharp}
       data:
         amount: 1
-        overrideDisplayName: 
+        overrideDisplayName: "Erlik'in Ma\u011faras\u0131'na gir"
         zoneName: Features Demo Dungeon
     - rid: 8385465461168668690
       type: {class: UseAbilityObjective, ns: AnyRPG, asm: Assembly-CSharp}
       data:
         amount: 1
-        overrideDisplayName: 
+        overrideDisplayName: "Bir d\u00fc\u015fmana sald\u0131r"
         abilityName: Attack

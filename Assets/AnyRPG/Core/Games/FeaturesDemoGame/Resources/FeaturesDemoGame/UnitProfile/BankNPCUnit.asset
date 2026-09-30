@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BankNPCUnit
   m_EditorClassIdentifier: 
   resourceName: Bank NPC
-  displayName: 
+  displayName: "Hazinedar Toktam\u0131\u015f"
   icon: {fileID: 21300000, guid: ad52fded96584804b8098065d00e23d8, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 

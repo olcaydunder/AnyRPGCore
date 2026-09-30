@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: RepeatableQuest
   m_EditorClassIdentifier: 
   resourceName: Repeatable
-  displayName: 
+  displayName: "Obaya Yard\u0131m"
   icon: {fileID: 0}
   iconBackgroundImage: {fileID: 0}
-  description: This quest is repeatable.
+  description: "Obada i\u015f hi\u00e7 bitmez. \u0130stedi\u011fin kadar yard\u0131m edebilirsin."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   isAchievement: 0

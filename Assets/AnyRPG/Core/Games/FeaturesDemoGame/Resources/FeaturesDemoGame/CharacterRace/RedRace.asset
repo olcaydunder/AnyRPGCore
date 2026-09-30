@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RedRace
   m_EditorClassIdentifier: 
   resourceName: Red
-  displayName: 
+  displayName: "\u00dc\u00e7ok Soyu"
   icon: {fileID: 0}
   iconBackgroundImage: {fileID: 0}
   description: 

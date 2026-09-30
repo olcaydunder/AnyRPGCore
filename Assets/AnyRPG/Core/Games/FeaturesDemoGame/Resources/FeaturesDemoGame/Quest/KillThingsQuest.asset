@@ -13,14 +13,10 @@ MonoBehaviour:
   m_Name: KillThingsQuest
   m_EditorClassIdentifier: 
   resourceName: Kill Things
-  displayName: 
+  displayName: "Tepeg\u00f6z'\u00fcn Laneti"
   icon: {fileID: 0}
   iconBackgroundImage: {fileID: 0}
-  description: 'This is a quest that requires you to kill one or more targets.
-
-
-    You
-    can find these targets in the dungeon.'
+  description: "Erlik'in Ma\u011faras\u0131'n\u0131n derinliklerinde Tepeg\u00f6z uyand\u0131.\n\n\u00d6nce onun kulu Albast\u0131'y\u0131, sonra Tepeg\u00f6z'\u00fcn kendisini yen."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0
@@ -58,12 +54,12 @@ MonoBehaviour:
       data:
         amount: 1
         deprecatedType: 
-        overrideDisplayName: 
+        overrideDisplayName: "Albast\u0131'y\u0131 yen"
         targetName: Enemy Minion
     00000001:
       type: {class: KillObjective, ns: AnyRPG, asm: Assembly-CSharp}
       data:
         amount: 1
         deprecatedType: 
-        overrideDisplayName: 
+        overrideDisplayName: "Tepeg\u00f6z'\u00fc yen"
         targetName: Enemy Boss

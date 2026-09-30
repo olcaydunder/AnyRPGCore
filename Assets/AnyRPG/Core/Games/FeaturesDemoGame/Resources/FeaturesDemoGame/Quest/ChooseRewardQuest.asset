@@ -13,18 +13,10 @@ MonoBehaviour:
   m_Name: ChooseRewardQuest
   m_EditorClassIdentifier: 
   resourceName: Choose Reward
-  displayName: 
+  displayName: "Kam\u0131n Boh\u00e7as\u0131"
   icon: {fileID: 0}
   iconBackgroundImage: {fileID: 0}
-  description: 'This quest allows you to choose one reward from several.
-
-
-    It
-    is started from an item, so it is configured to allow completion without needing
-    to be in the quest log.
-
-
-    It is also repeatable.'
+  description: "Ya\u015fl\u0131 bir kam\u0131n boh\u00e7as\u0131ndan \u00e7\u0131kan bu ni\u015fan, sana birka\u00e7 arma\u011fan aras\u0131ndan se\u00e7me hakk\u0131 veriyor. Bu g\u00f6rev tekrar edilebilir."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

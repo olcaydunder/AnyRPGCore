@@ -25,14 +25,10 @@ MonoBehaviour:
   dialogNodes:
   - startTime: 0
     showTime: 0
-    description: 'This quest has an opening dialog.
-
-'
+    description: "Ho\u015f geldin yi\u011fit. O\u011fuz'un obas\u0131 seni bekliyordu."
     nextOption: 
   - startTime: 0
     showTime: 0
-    description: Because the Opening Dialog box is ticked in the configuration, it
-      will automatically look for a dialog with the quest and display it before giving
-      the option to accept the quest.
+    description: "Erlik'in kullar\u0131 yeralt\u0131ndan \u00e7\u0131k\u0131p yaylam\u0131za sald\u0131r\u0131yor. Bizimle birlikte sava\u015fmaya haz\u0131r m\u0131s\u0131n?"
     nextOption: 
   prerequisiteConditions: []

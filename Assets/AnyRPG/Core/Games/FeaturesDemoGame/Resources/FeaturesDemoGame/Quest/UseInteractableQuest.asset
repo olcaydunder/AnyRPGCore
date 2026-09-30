@@ -13,14 +13,10 @@ MonoBehaviour:
   m_Name: UseInteractableQuest
   m_EditorClassIdentifier: 
   resourceName: Use Interactable
-  displayName: 
+  displayName: "Er Meydan\u0131"
   icon: {fileID: 0}
   iconBackgroundImage: {fileID: 0}
-  description: 'This is a quest that requires you to interact with an interactable
-    or one of its options.
-
-
-    You can finish this quest at the Spawn Arena'
+  description: "Er Meydan\u0131'nda yi\u011fitler g\u00fc\u00e7lerini s\u0131nar. Meydana git ve Er Meydan\u0131 A\u011fas\u0131'ndan rakip \u00e7a\u011f\u0131r."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   isAchievement: 0
@@ -69,6 +65,6 @@ MonoBehaviour:
       data:
         amount: 1
         type: 
-        overrideDisplayName: 
+        overrideDisplayName: "Er Meydan\u0131'nda rakip \u00e7a\u011f\u0131r"
         interactableName: Spawn Characters
         requireCompletion: 0

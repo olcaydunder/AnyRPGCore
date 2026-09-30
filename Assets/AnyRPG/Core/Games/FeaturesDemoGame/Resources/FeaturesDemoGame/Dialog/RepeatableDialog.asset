@@ -25,10 +25,10 @@ MonoBehaviour:
   dialogNodes:
   - startTime: 0
     showTime: 0
-    description: This is a repeatable dialog.
+    description: "Gel otur, sana eski zamanlardan bir hik\u00e2ye anlatay\u0131m."
     nextOption: Repeatable?
   - startTime: 0
     showTime: 0
-    description: Yes, you can repeat it as many times as you want
+    description: "Evet, bu hik\u00e2yeyi istedi\u011fin kadar dinleyebilirsin."
     nextOption: I'm getting a sense of deja vu here
   prerequisiteConditions: []

@@ -13,14 +13,10 @@ MonoBehaviour:
   m_Name: VisitZoneQuest
   m_EditorClassIdentifier: 
   resourceName: Visit Zone
-  displayName: 
+  displayName: "Karanl\u0131\u011f\u0131n Kap\u0131s\u0131"
   icon: {fileID: 0}
   iconBackgroundImage: {fileID: 0}
-  description: 'This is a quest that requires you to visit a zone (scene).
-
-
-    You
-    can finish this quest by visiting the dungeon.'
+  description: "Albast\u0131lar yeralt\u0131ndan bir ma\u011faran\u0131n a\u011fz\u0131ndan \u00e7\u0131k\u0131yor. Erlik'in Ma\u011faras\u0131'n\u0131 bul ve i\u00e7ine gir."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   isAchievement: 0
@@ -68,5 +64,5 @@ MonoBehaviour:
       data:
         amount: 1
         type: 
-        overrideDisplayName: 
+        overrideDisplayName: "Erlik'in Ma\u011faras\u0131'na gir"
         zoneName: Features Demo Dungeon

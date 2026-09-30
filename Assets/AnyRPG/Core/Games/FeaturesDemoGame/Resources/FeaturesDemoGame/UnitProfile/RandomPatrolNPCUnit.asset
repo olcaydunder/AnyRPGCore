@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RandomPatrolNPCUnit
   m_EditorClassIdentifier: 
   resourceName: Random Patrol NPC
-  displayName: 
+  displayName: "Gezgin \u00c7oban"
   icon: {fileID: 21300000, guid: a0806a3b4c772394bb32991a369a4978, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 

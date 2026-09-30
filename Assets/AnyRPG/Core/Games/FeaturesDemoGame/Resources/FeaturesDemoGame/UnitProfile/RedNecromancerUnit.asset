@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RedNecromancerUnit
   m_EditorClassIdentifier: 
   resourceName: Red Necromancer
-  displayName: 
+  displayName: "\u00dc\u00e7ok Kara Kam\u0131"
   icon: {fileID: 21300000, guid: 3fe8d957725f36c45892c3b66afed644, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 

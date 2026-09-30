@@ -26,12 +26,12 @@ MonoBehaviour:
   dialogNodes:
   - startTime: 0
     showTime: 5
-    description: This is a repeatable dialog, but in a speech bubble
+    description: "Yurt, onu koruyan\u0131nd\u0131r."
     audioClip: {fileID: 0}
     nextOption: 
   - startTime: 5
     showTime: 5
-    description: This text will show at 5 seconds
+    description: "Erlik'in g\u00fcc\u00fc karanl\u0131kta b\u00fcy\u00fcr. I\u015f\u0131\u011f\u0131n\u0131 kaybetme."
     audioClip: {fileID: 0}
     nextOption: 
   prerequisiteConditions: []
