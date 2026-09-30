@@ -110,7 +110,7 @@ namespace AnyRPG {
             currentNavigationController?.CurrentNavigableElement?.DeSelect();
             if (saveManager.SaveGame(playerManagerClient.UnitController.CharacterSaveManager.SaveData)) {
                 uIManager.CloseSystemPopupWindows();
-                messageFeedManager.WriteMessage("Game Saved");
+                messageFeedManager.WriteMessage("Oyun kaydedildi");
             }
         }
 

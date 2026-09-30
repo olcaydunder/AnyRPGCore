@@ -1339,7 +1339,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press any key to continue
+  m_text: "Devam etmek i\u00e7in dokun"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
   m_sharedMaterial: {fileID: 0}
@@ -1649,7 +1649,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Somewhere in the past...
+  m_text: "Uzak ge\u00e7mi\u015fte..."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
   m_sharedMaterial: {fileID: 0}
@@ -11744,7 +11744,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Loading
+  m_text: "Y\u00fckleniyor"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}

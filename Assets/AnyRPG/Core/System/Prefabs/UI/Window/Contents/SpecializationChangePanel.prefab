@@ -1416,7 +1416,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Change Specialization?
+  m_text: "Uzmanl\u0131k de\u011fi\u015ftirilsin mi?"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
@@ -3808,7 +3808,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Abilities Learned:'
+  m_text: "\u00d6\u011frenilen Yetenekler:"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
@@ -5871,7 +5871,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Traits Learned:'
+  m_text: "\u00d6\u011frenilen \u00d6zellikler:"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}

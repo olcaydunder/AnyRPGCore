@@ -200,7 +200,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Name
+  m_text: "Ad"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
@@ -785,7 +785,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Close
+  m_text: "Kapat"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
@@ -922,7 +922,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Status
+  m_text: "Durum"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
@@ -1764,7 +1764,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Status
+  m_text: "Durum"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
@@ -2166,7 +2166,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Class
+  m_text: "S\u0131n\u0131f"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
@@ -2692,7 +2692,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Level
+  m_text: "Seviye"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
@@ -3167,7 +3167,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Friends
+  m_text: "Arkada\u015flar"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
@@ -3303,7 +3303,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Options
+  m_text: "Se\u00e7enekler"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
@@ -3864,7 +3864,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Name
+  m_text: "Ad"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
@@ -4057,7 +4057,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Level
+  m_text: "Seviye"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
@@ -6071,7 +6071,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Group
+  m_text: "Grup"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
@@ -6871,7 +6871,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Class
+  m_text: "S\u0131n\u0131f"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
@@ -8034,7 +8034,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Status
+  m_text: "Durum"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
@@ -9141,7 +9141,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Guild
+  m_text: "Lonca"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
@@ -9827,7 +9827,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Options
+  m_text: "Se\u00e7enekler"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
@@ -10814,7 +10814,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Name
+  m_text: "Ad"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
@@ -11502,7 +11502,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Group
+  m_text: "Grup"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
@@ -11639,7 +11639,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Level
+  m_text: "Seviye"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
@@ -12386,7 +12386,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Options
+  m_text: "Se\u00e7enekler"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
@@ -12833,7 +12833,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Class
+  m_text: "S\u0131n\u0131f"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}

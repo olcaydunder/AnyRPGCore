@@ -71,12 +71,12 @@ PrefabInstance:
     - target: {fileID: 8448294747759913886, guid: 940327016906947448ca06fe7bf422fb,
         type: 3}
       propertyPath: gameName
-      value: Features Demo Game
+      value: "\u00D6t\u00FCken Destan\u0131"
       objectReference: {fileID: 0}
     - target: {fileID: 8448294747759913886, guid: 940327016906947448ca06fe7bf422fb,
         type: 3}
       propertyPath: gameVersion
-      value: 0.1a
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 8448294747759913886, guid: 940327016906947448ca06fe7bf422fb,
         type: 3}

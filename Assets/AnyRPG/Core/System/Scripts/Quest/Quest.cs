@@ -306,7 +306,7 @@ namespace AnyRPG {
             }
 
             if (!itemCountMatches || !abilityCountMatches || !factionCountMatches || !skillCountMatches) {
-                sourceUnitController.WriteMessageFeedMessage("You must choose rewards before turning in this quest");
+                sourceUnitController.WriteMessageFeedMessage("Görevi teslim etmeden önce ödülünü seçmelisin");
                 return;
             }
 
@@ -323,7 +323,7 @@ namespace AnyRPG {
             // TO FIX: THIS CODE DOES NOT DEAL WITH PARTIAL STACKS AND WILL REQUEST ONE FULL SLOT FOR EVERY REWARD
             if (questRewardChoices.itemRewardIndexes.Count > 0) {
                 if (sourceUnitController.CharacterInventoryManager.EmptySlotCount() < questRewardChoices.itemRewardIndexes.Count) {
-                    sourceUnitController.WriteMessageFeedMessage("Not enough room in inventory!");
+                    sourceUnitController.WriteMessageFeedMessage("Envanterde yer yok!");
                     return;
                 }
                 foreach (int rewardIndex in questRewardChoices.itemRewardIndexes) {

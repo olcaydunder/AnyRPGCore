@@ -530,7 +530,7 @@ namespace AnyRPG {
                         playerManagerClient.ActiveUnitController.UnitEventController.NotifyOnRequestFollowInteractionTarget(interactable);
                     }
                 } else {
-                    messageFeedManager.WriteMessage($"{interactable.DisplayName} is out of range");
+                    messageFeedManager.WriteMessage($"{interactable.DisplayName} çok uzakta");
                 }
                 return;
             }

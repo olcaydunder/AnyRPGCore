@@ -828,7 +828,7 @@ namespace AnyRPG {
         public void HandleFactionChange(Faction newFaction, Faction oldFaction) {
             systemEventManager.NotifyOnFactionChange();
             systemEventManager.NotifyOnReputationChange(unitController);
-            messageFeedManager.WriteMessage($"Changed faction to {newFaction.DisplayName}");
+            messageFeedManager.WriteMessage($"Yeni boyun: {newFaction.DisplayName}");
         }
 
         public void HandleAddBag(InstantiatedBag bag, BagNode node) {
@@ -1004,7 +1004,7 @@ namespace AnyRPG {
 
         public void HandleGainXP(UnitController unitController, int gainedXP, int currentXP) {
             if (messageLogClient != null) {
-                messageLogClient.WriteSystemMessage($"You gain {gainedXP} experience");
+                messageLogClient.WriteSystemMessage($"{gainedXP} tecrübe kazandın");
             }
             if (activeUnitController != null) {
                 combatTextManager.SpawnCombatText(activeUnitController, gainedXP, CombatTextType.gainXP, CombatMagnitude.normal, null);

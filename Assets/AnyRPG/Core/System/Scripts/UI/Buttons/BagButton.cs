@@ -232,7 +232,7 @@ namespace AnyRPG {
                 playerManagerClient.UnitController.CharacterInventoryManager.RequestUnequipBag(bagNode.InstantiatedBag, (bagPanel is BankPanel));
                 ShowGamepadTooltip();
             } else {
-                messageFeedManager.WriteMessage("Not enough free inventory slots");
+                messageFeedManager.WriteMessage("Envanterde yeterli boş yuva yok");
             }
         }
 

@@ -211,6 +211,7 @@ namespace AnyRPG {
         private static MobileBootstrap instance = null;
 
         private readonly HashSet<int> scaledCanvases = new HashSet<int>();
+        private readonly Vector3[] windowCorners = new Vector3[4];
         private float nextCanvasScan = 0f;
         private float nextAutoSave = 0f;
 
@@ -246,9 +247,10 @@ namespace AnyRPG {
         private void Update() {
             if (Time.unscaledTime >= nextCanvasScan) {
                 nextCanvasScan = Time.unscaledTime + canvasScanInterval;
-                ScaleCanvases();
                 UpdateTouchButtons();
+                ScaleCanvases();
             }
+            FitWindowsOnScreen();
             if (Time.unscaledTime >= nextAutoSave) {
                 nextAutoSave = Time.unscaledTime + autoSaveInterval;
                 AutoSave();
@@ -322,6 +324,52 @@ namespace AnyRPG {
                 canvasScaler.referenceResolution = new Vector2(referenceHeight * 16f / 9f, referenceHeight);
                 canvasScaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
                 canvasScaler.matchWidthOrHeight = 1f;
+            }
+        }
+
+        /// <summary>
+        /// the windows were laid out for large monitors; shrink any open window that does not fit on the phone screen
+        /// and slide it back inside if part of it is off screen
+        /// </summary>
+        private void FitWindowsOnScreen() {
+            CloseableWindow[] windows = FindObjectsByType<CloseableWindow>(FindObjectsSortMode.None);
+            float screenWidth = Screen.width;
+            float screenHeight = Screen.height;
+            foreach (CloseableWindow window in windows) {
+                if (window == null || window.IsOpen == false) {
+                    continue;
+                }
+                RectTransform rectTransform = window.transform as RectTransform;
+                Canvas canvas = window.GetComponentInParent<Canvas>();
+                if (rectTransform == null || canvas == null || canvas.rootCanvas.renderMode != RenderMode.ScreenSpaceOverlay) {
+                    continue;
+                }
+                rectTransform.GetWorldCorners(windowCorners);
+                float width = windowCorners[2].x - windowCorners[0].x;
+                float height = windowCorners[2].y - windowCorners[0].y;
+                if (width <= 1f || height <= 1f) {
+                    continue;
+                }
+                if (width > screenWidth * 1.01f || height > screenHeight * 1.01f) {
+                    float fitFactor = Mathf.Min(screenWidth / width, screenHeight / height);
+                    rectTransform.localScale = rectTransform.localScale * fitFactor;
+                    rectTransform.GetWorldCorners(windowCorners);
+                }
+                float moveX = 0f;
+                float moveY = 0f;
+                if (windowCorners[0].x < -1f) {
+                    moveX = -windowCorners[0].x;
+                } else if (windowCorners[2].x > screenWidth + 1f) {
+                    moveX = screenWidth - windowCorners[2].x;
+                }
+                if (windowCorners[0].y < -1f) {
+                    moveY = -windowCorners[0].y;
+                } else if (windowCorners[2].y > screenHeight + 1f) {
+                    moveY = screenHeight - windowCorners[2].y;
+                }
+                if (moveX != 0f || moveY != 0f) {
+                    rectTransform.position = rectTransform.position + new Vector3(moveX, moveY, 0f);
+                }
             }
         }
 
