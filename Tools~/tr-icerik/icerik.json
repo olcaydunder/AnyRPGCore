@@ -25,7 +25,7 @@
   "UnitProfile": {
     "Blue Archer": {"ad": "Bozok Okçusu"},
     "Blue Blood Knight": {"ad": "Bozok Kan Süvarisi"},
-    "Blue Boss": {"ad": "Bozok Beyi"},
+    "Blue Boss": {"ad": "Olcayto Bey", "aciklama": "Bozokların beyi. Adı kutlu anlamına gelir; boyunu hiçbir savaşta yalnız bırakmamıştır."},
     "Blue Fighter": {"ad": "Bozok Baturu"},
     "Blue Fire Mage": {"ad": "Bozok Ateş Kamı"},
     "Blue Ice Mage": {"ad": "Bozok Ayaz Kamı"},
