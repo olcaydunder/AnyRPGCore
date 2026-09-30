@@ -193,6 +193,11 @@ namespace AnyRPG {
 
         public virtual void OnPointerClick(PointerEventData eventData) {
             if (eventData.button == PointerEventData.InputButton.Left) {
+                // touchscreens have no right button: a long press opens the right click action instead
+                if (MobileInput.IsLongPress()) {
+                    HandleRightClick();
+                    return;
+                }
                 HandleLeftClick();
             }
             if (eventData.button == PointerEventData.InputButton.Right) {

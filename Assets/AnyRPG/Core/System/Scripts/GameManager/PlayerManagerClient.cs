@@ -717,6 +717,12 @@ namespace AnyRPG {
 
             combatTextManager.SpawnCombatText(targetInteractable, amount, combatTextType, combatMagnitude, abilityEffectContext);
 
+            if (unitController != null) {
+                bool targetIsPlayer = targetInteractable != null && targetInteractable.gameObject == unitController.gameObject;
+                bool sourceIsPlayer = abilityEffectContext?.AbilityCaster != null && abilityEffectContext.AbilityCaster.gameObject == unitController.gameObject;
+                MobileFeedback.OnCombatText(targetIsPlayer, sourceIsPlayer, combatTextType, combatMagnitude);
+            }
+
             string textColor = ColorUtility.ToHtmlStringRGB(Color.white);
             string messageText = string.Empty;
             string sourceName = string.Empty;
@@ -858,6 +864,7 @@ namespace AnyRPG {
         }
 
         public void HandleMarkQuestComplete(UnitController sourceUnitController, QuestBase questBase) {
+            MobileFeedback.Success();
             systemEventManager.NotifyOnMarkQuestComplete(sourceUnitController, questBase);
         }
 
@@ -1007,10 +1014,12 @@ namespace AnyRPG {
 
         public void HandleLevelChanged(int newLevel) {
             systemEventManager.NotifyOnLevelChanged(unitController, newLevel);
-            messageFeedManager.WriteMessage(string.Format("YOU HAVE REACHED LEVEL {0}!", newLevel.ToString()));
+            MobileFeedback.Success();
+            messageFeedManager.WriteMessage(string.Format("SEVİYE {0} OLDUN!", newLevel.ToString()));
         }
 
         public void HandleBeforeDie(UnitController deadUnitController) {
+            MobileFeedback.Heavy();
             DeathActions();
             systemEventManager.NotifyOnPlayerDeath();
         }

@@ -19,63 +19,63 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 1672470528
-    m_Localized: Play
+    m_Localized: "Oyna"
     m_Metadata:
       m_Items: []
   - m_Id: 1773133824
-    m_Localized: Play Online
+    m_Localized: "\u00c7evrim \u0130\u00e7i Oyna"
     m_Metadata:
       m_Items: []
   - m_Id: 1777328128
-    m_Localized: Settings
+    m_Localized: "Ayarlar"
     m_Metadata:
       m_Items: []
   - m_Id: 1777328129
-    m_Localized: Credits
+    m_Localized: "Jenerik"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522432
-    m_Localized: Exit Game
+    m_Localized: "Oyundan \u00c7\u0131k"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522433
-    m_Localized: Settings
+    m_Localized: "Ayarlar"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522434
-    m_Localized: Sound
+    m_Localized: "Ses"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522435
-    m_Localized: Controls
+    m_Localized: "Kontroller"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522436
-    m_Localized: Video
+    m_Localized: "G\u00f6r\u00fcnt\u00fc"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522437
-    m_Localized: Key Bindings
+    m_Localized: "Tu\u015f Atamalar\u0131"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522438
-    m_Localized: User Interface
+    m_Localized: "Aray\u00fcz"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522439
-    m_Localized: Language
+    m_Localized: "Dil"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522440
-    m_Localized: Return
+    m_Localized: "Geri"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522441
-    m_Localized: Language
+    m_Localized: "Dil"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522442
-    m_Localized: English
+    m_Localized: "T\u00fcrk\u00e7e"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522443
@@ -83,275 +83,275 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 1781522444
-    m_Localized: On
+    m_Localized: "A\u00e7\u0131k"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522445
-    m_Localized: Off
+    m_Localized: "Kapal\u0131"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522446
-    m_Localized: Reset to Defaults
+    m_Localized: "Varsay\u0131lana D\u00f6n"
     m_Metadata:
       m_Items: []
   - m_Id: 5817702508650496
-    m_Localized: Play Offline
+    m_Localized: "\u00c7evrim D\u0131\u015f\u0131 Oyna"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522447
-    m_Localized: Low
+    m_Localized: "D\u00fc\u015f\u00fck"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522448
-    m_Localized: Medium
+    m_Localized: "Orta"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522449
-    m_Localized: High
+    m_Localized: "Y\u00fcksek"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522450
-    m_Localized: Default Settings
+    m_Localized: "Varsay\u0131lan Ayarlar"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522451
-    m_Localized: Sound
+    m_Localized: "Ses"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522452
-    m_Localized: Master Volume
+    m_Localized: "Genel Ses"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522453
-    m_Localized: Music Volume
+    m_Localized: "M\u00fczik"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522454
-    m_Localized: Effects Volume
+    m_Localized: "Efektler"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522455
-    m_Localized: Voice Volume
+    m_Localized: "Konu\u015fmalar"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522456
-    m_Localized: Ambient Volume
+    m_Localized: "Ortam Sesi"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522457
-    m_Localized: UI Volume
+    m_Localized: "Aray\u00fcz Sesi"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522458
-    m_Localized: Video
+    m_Localized: "G\u00f6r\u00fcnt\u00fc"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522459
-    m_Localized: Full Screen
+    m_Localized: "Tam Ekran"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522460
-    m_Localized: V-Sync
+    m_Localized: "Dikey E\u015fitleme"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522461
-    m_Localized: Resolution
+    m_Localized: "\u00c7\u00f6z\u00fcn\u00fcrl\u00fck"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522462
-    m_Localized: Shadow Quality
+    m_Localized: "G\u00f6lge Kalitesi"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522463
-    m_Localized: Texture Quality
+    m_Localized: "Doku Kalitesi"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522464
-    m_Localized: Graphics Quality
+    m_Localized: "Grafik Kalitesi"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522465
-    m_Localized: Controls
+    m_Localized: "Kontroller"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522466
-    m_Localized: Mouse Turn Speed
+    m_Localized: "D\u00f6nme H\u0131z\u0131"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522467
-    m_Localized: Mouse Look Speed
+    m_Localized: "Kamera H\u0131z\u0131"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522468
-    m_Localized: Keyboard Turn Speed
+    m_Localized: "Klavye D\u00f6nme H\u0131z\u0131"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522469
-    m_Localized: Joystick Turn Speed
+    m_Localized: "Kol D\u00f6nme H\u0131z\u0131"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522470
-    m_Localized: Joystick Look Speed
+    m_Localized: "Kol Kamera H\u0131z\u0131"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522471
-    m_Localized: Invert Mouse
+    m_Localized: "Kameray\u0131 Ters \u00c7evir"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522472
-    m_Localized: Invert Joystick
+    m_Localized: "Kolu Ters \u00c7evir"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522473
-    m_Localized: Gamepad Mode
+    m_Localized: "Oyun Kolu Modu"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522474
-    m_Localized: User Interface
+    m_Localized: "Aray\u00fcz"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522475
-    m_Localized: Lock UI
+    m_Localized: "Aray\u00fcz\u00fc Kilitle"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522476
-    m_Localized: Popup Window Opacity
+    m_Localized: "Pencere Saydaml\u0131\u011f\u0131"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522477
-    m_Localized: Inventory Opacity
+    m_Localized: "Envanter Saydaml\u0131\u011f\u0131"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522478
-    m_Localized: Inventory Slot Opacity
+    m_Localized: "Envanter Yuvas\u0131 Saydaml\u0131\u011f\u0131"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522479
-    m_Localized: Action Bar Opacity
+    m_Localized: "Yetenek \u00c7ubu\u011fu Saydaml\u0131\u011f\u0131"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522480
-    m_Localized: Paged Button Opacity
+    m_Localized: "Sayfa D\u00fc\u011fmesi Saydaml\u0131\u011f\u0131"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522481
-    m_Localized: System Menu Opacity
+    m_Localized: "Sistem Men\u00fcs\u00fc Saydaml\u0131\u011f\u0131"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522482
-    m_Localized: Quest Tracker Opacity
+    m_Localized: "G\u00f6rev Takibi Saydaml\u0131\u011f\u0131"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522483
-    m_Localized: Message Log Opacity
+    m_Localized: "Mesaj Kayd\u0131 Saydaml\u0131\u011f\u0131"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522484
-    m_Localized: Use Action Bar 1
+    m_Localized: "Yetenek \u00c7ubu\u011fu 1"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522485
-    m_Localized: Use Action Bar 2
+    m_Localized: "Yetenek \u00c7ubu\u011fu 2"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522486
-    m_Localized: Use Action Bar 3
+    m_Localized: "Yetenek \u00c7ubu\u011fu 3"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522487
-    m_Localized: Use Action Bar 4
+    m_Localized: "Yetenek \u00c7ubu\u011fu 4"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522488
-    m_Localized: Use Action Bar 5
+    m_Localized: "Yetenek \u00c7ubu\u011fu 5"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522489
-    m_Localized: Use Action Bar 6
+    m_Localized: "Yetenek \u00c7ubu\u011fu 6"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522490
-    m_Localized: Use Action Bar 7
+    m_Localized: "Yetenek \u00c7ubu\u011fu 7"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522491
-    m_Localized: Use Mini Map
+    m_Localized: "Mini Haritay\u0131 G\u00f6ster"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522492
-    m_Localized: Use Cast Bar
+    m_Localized: "B\u00fcy\u00fc \u00c7ubu\u011funu G\u00f6ster"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522493
-    m_Localized: Use Status Bar
+    m_Localized: "Durum \u00c7ubu\u011funu G\u00f6ster"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522494
-    m_Localized: Use System Bar
+    m_Localized: "Sistem \u00c7ubu\u011funu G\u00f6ster"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522495
-    m_Localized: Use Message Log
+    m_Localized: "Mesaj Kayd\u0131n\u0131 G\u00f6ster"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522496
-    m_Localized: Use Message Feed
+    m_Localized: "Bildirimleri G\u00f6ster"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522497
-    m_Localized: Use Experience Bar
+    m_Localized: "Tecr\u00fcbe \u00c7ubu\u011funu G\u00f6ster"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522498
-    m_Localized: Use Quest Tracker
+    m_Localized: "G\u00f6rev Takibini G\u00f6ster"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522499
-    m_Localized: Use Combat Text
+    m_Localized: "Sava\u015f Yaz\u0131lar\u0131n\u0131 G\u00f6ster"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522500
-    m_Localized: Use Player Unit Frame
+    m_Localized: "Oyuncu \u00c7er\u00e7evesini G\u00f6ster"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522501
-    m_Localized: Use Focus Unit Frame
+    m_Localized: "Odak \u00c7er\u00e7evesini G\u00f6ster"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522502
-    m_Localized: Use Group Unit Frames
+    m_Localized: "Grup \u00c7er\u00e7evelerini G\u00f6ster"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522503
-    m_Localized: Show Player Name
+    m_Localized: "Oyuncu Ad\u0131n\u0131 G\u00f6ster"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522504
-    m_Localized: Show Player Faction
+    m_Localized: "Oyuncu Boyunu G\u00f6ster"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522505
-    m_Localized: Hide Full Health Bar
+    m_Localized: "Dolu Can \u00c7ubu\u011funu Gizle"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522506
-    m_Localized: Default Window Positions
+    m_Localized: "Pencere Konumlar\u0131n\u0131 S\u0131f\u0131rla"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522507
-    m_Localized: Key Bindings
+    m_Localized: "Tu\u015f Atamalar\u0131"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522508
-    m_Localized: Movement
+    m_Localized: "Hareket"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522509
-    m_Localized: Action Bars
+    m_Localized: "Yetenek \u00c7ubuklar\u0131"
     m_Metadata:
       m_Items: []
   - m_Id: 1781522510
-    m_Localized: System
+    m_Localized: "Sistem"
     m_Metadata:
       m_Items: []
   references:

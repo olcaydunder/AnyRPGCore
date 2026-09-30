@@ -766,6 +766,7 @@ namespace AnyRPG {
             RegisterMouseActions();
             RegisterGamepadActions();
             RegisterKeyPresses();
+            RegisterVirtualKeyPresses();
 
         }
 
@@ -909,6 +910,17 @@ namespace AnyRPG {
             }
         }
 
+        /// <summary>
+        /// apply presses queued by on-screen touch buttons (see MobileInput.PressVirtualKey)
+        /// </summary>
+        private void RegisterVirtualKeyPresses() {
+            foreach (string actionName in MobileInput.ConsumeVirtualPresses()) {
+                if (inputActionNodes.ContainsKey(actionName)) {
+                    inputActionNodes[actionName].RegisterKeyPress();
+                }
+            }
+        }
+
         public bool KeyBindWasPressedOrHeld(string actionName) {
             if (inputActionNodes.ContainsKey(actionName) &&
                 (inputActionNodes[actionName].KeyPressed == true || inputActionNodes[actionName].KeyHeld == true)) {
@@ -1029,7 +1041,7 @@ namespace AnyRPG {
                 rightMouseButtonDown = true;
                 rightMouseButtonDownPosition = mousePosition;
                 // IGNORE NAMEPLATES FOR THE PURPOSE OF CAMERA MOVEMENT
-                if (EventSystem.current.IsPointerOverGameObject() && (namePlateManager != null ? !namePlateManager.MouseOverNameplate() : true)) {
+                if (MobileInput.PointerOverUI(mousePosition) && (namePlateManager != null ? !namePlateManager.MouseOverNameplate() : true)) {
                     rightMouseButtonClickedOverUI = true;
                 }
             }
@@ -1038,7 +1050,7 @@ namespace AnyRPG {
             if (leftPressed) {
                 leftMouseButtonDown = true;
                 leftMouseButtonDownPosition = mousePosition;
-                if (EventSystem.current.IsPointerOverGameObject() && (namePlateManager != null ? !namePlateManager.MouseOverNameplate() : true)) {
+                if (MobileInput.PointerOverUI(mousePosition) && (namePlateManager != null ? !namePlateManager.MouseOverNameplate() : true)) {
                     leftMouseButtonClickedOverUI = true;
                 }
             }
@@ -1046,7 +1058,7 @@ namespace AnyRPG {
             if (middlePressed) {
                 middleMouseButtonDown = true;
                 middleMouseButtonDownPosition = mousePosition;
-                if (EventSystem.current.IsPointerOverGameObject() && (namePlateManager != null ? !namePlateManager.MouseOverNameplate() : true)) {
+                if (MobileInput.PointerOverUI(mousePosition) && (namePlateManager != null ? !namePlateManager.MouseOverNameplate() : true)) {
                     middleMouseButtonClickedOverUI = true;
                 }
             }
@@ -1068,6 +1080,10 @@ namespace AnyRPG {
         private bool touchRightHeld = false;
         private bool touchGestureLock = false;
         private int lastTouchCount = 0;
+        private float touchPinchTravel = 0f;
+        private float touchDragTravel = 0f;
+        // 0 = undecided, 1 = pinch (zoom), 2 = drag (rotate)
+        private int touchTwoFingerMode = 0;
         private float lastPinchDistance = -1f;
         private Vector2 lastTouchPosition = Vector2.zero;
 
@@ -1103,7 +1119,6 @@ namespace AnyRPG {
             bool wasHeld = touchLeftHeld || touchRightHeld;
             // no jump when a finger is added or lifted (the reference point changes)
             Vector2 delta = (wasHeld && activeCount > 0 && activeCount == lastTouchCount) ? position - lastTouchPosition : Vector2.zero;
-            lastTouchCount = activeCount;
             mouseDeltaX = delta.x * 0.05f;
             mouseDeltaY = delta.y * 0.05f;
             mousePosition = position;
@@ -1131,16 +1146,33 @@ namespace AnyRPG {
             touchLeftHeld = wantLeft;
             touchRightHeld = wantRight;
 
-            // pinch to zoom
+            // pinch to zoom, or two finger drag to rotate - whichever movement is clearly larger wins for the rest of the gesture
             if (activeCount >= 2) {
                 float distance = Vector2.Distance(first, second);
-                if (lastPinchDistance > 0f) {
-                    scrollDelta = (distance - lastPinchDistance) * 0.02f;
+                if (lastPinchDistance > 0f && activeCount == lastTouchCount) {
+                    float pinchChange = distance - lastPinchDistance;
+                    touchPinchTravel += Mathf.Abs(pinchChange);
+                    touchDragTravel += delta.magnitude;
+                    if (touchTwoFingerMode == 0 && (touchPinchTravel > 30f || touchDragTravel > 30f)) {
+                        touchTwoFingerMode = touchPinchTravel > touchDragTravel ? 1 : 2;
+                    }
+                    if (touchTwoFingerMode == 1) {
+                        scrollDelta = pinchChange * 0.02f;
+                        mouseDeltaX = 0f;
+                        mouseDeltaY = 0f;
+                    } else if (touchTwoFingerMode == 0) {
+                        mouseDeltaX = 0f;
+                        mouseDeltaY = 0f;
+                    }
                 }
                 lastPinchDistance = distance;
             } else {
                 lastPinchDistance = -1f;
+                touchPinchTravel = 0f;
+                touchDragTravel = 0f;
+                touchTwoFingerMode = 0;
             }
+            lastTouchCount = activeCount;
 
             return true;
         }

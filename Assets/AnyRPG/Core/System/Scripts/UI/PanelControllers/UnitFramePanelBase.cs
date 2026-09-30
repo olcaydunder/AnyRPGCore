@@ -515,7 +515,8 @@ namespace AnyRPG {
                 return;
             }
 
-            if (pointerEventData.button == PointerEventData.InputButton.Right) {
+            if (pointerEventData.button == PointerEventData.InputButton.Right
+                || (pointerEventData.button == PointerEventData.InputButton.Left && MobileInput.IsLongPress())) {
                 HandleRightClick(pointerEventData.position);
             } else if (pointerEventData.button == PointerEventData.InputButton.Left) {
                 HandleLeftClick(pointerEventData.position);

@@ -89,6 +89,19 @@ namespace AnyRPG {
             }
         }
 
+        /// <summary>
+        /// write to a temporary file and swap it in, so the previous save survives if the app is killed mid-write
+        /// </summary>
+        private static void WriteFileSafely(string fullPath, string contents) {
+            string tempPath = fullPath + ".tmp";
+            File.WriteAllText(tempPath, contents);
+            if (File.Exists(fullPath)) {
+                File.Replace(tempPath, fullPath, null);
+            } else {
+                File.Move(tempPath, fullPath);
+            }
+        }
+
         public async void SaveOfflineStateSaveDataAsync() {
             // 1. Mark the save task as active on the Main Thread
             System.Threading.Interlocked.Increment(ref activeSaveTasks);
@@ -106,7 +119,7 @@ namespace AnyRPG {
                         if (!Directory.Exists(folderPath)) {
                             Directory.CreateDirectory(folderPath);
                         }
-                        File.WriteAllText(fullPath, jsonString);
+                        WriteFileSafely(fullPath, jsonString);
                     } catch (System.Exception ex) {
                         // Log errors back to the Unity console
                         Debug.LogError($"[Offline State Save Error]: {ex.Message}");
@@ -297,6 +310,13 @@ namespace AnyRPG {
         }
 
         public bool SaveGame(CharacterSaveData characterSaveData) {
+            return SaveGame(characterSaveData, false);
+        }
+
+        /// <summary>
+        /// silent = true is used by the automatic save and does not show "You cannot save here"
+        /// </summary>
+        public bool SaveGame(CharacterSaveData characterSaveData, bool silent) {
             //Debug.Log("Savemanager.SaveGame()");
 
             // check if the player is inside a trigger
@@ -323,7 +343,9 @@ namespace AnyRPG {
                     }
                 }
                 if (canSave == false) {
-                    messageFeedManager.WriteMessage("You cannot save here");
+                    if (silent == false) {
+                        messageFeedManager.WriteMessage("Burada kayıt yapamazsın");
+                    }
                     return false;
                 }
             }
@@ -370,7 +392,7 @@ namespace AnyRPG {
                         if (!Directory.Exists(folderPath)) {
                             Directory.CreateDirectory(folderPath);
                         }
-                        File.WriteAllText(fullPath, jsonString);
+                        WriteFileSafely(fullPath, jsonString);
                     } catch (System.Exception ex) {
                         Debug.LogError($"[Player Save Error] ID {singlePlayerSaveData.CharacterSaveData.CharacterId}: {ex.Message}");
                     }

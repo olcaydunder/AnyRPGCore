@@ -43,6 +43,23 @@ namespace AnyRPG {
             //graphicsQualityArea.Configure(systemGameManager);
             SetPlayerPrefsDefaults();
             InitializeSettings();
+
+            // screen resolution, full screen and vsync do nothing useful on a phone
+            if (Application.isMobilePlatform) {
+                HideSettingLine(resolutionDropDown != null ? resolutionDropDown.transform : null);
+                HideSettingLine(fullScreenButton != null ? fullScreenButton.transform : null);
+                HideSettingLine(vSyncButton != null ? vSyncButton.transform : null);
+            }
+        }
+
+        private void HideSettingLine(Transform settingTransform) {
+            Transform lineTransform = settingTransform;
+            while (lineTransform != null && lineTransform.name.EndsWith("Line") == false) {
+                lineTransform = lineTransform.parent;
+            }
+            if (lineTransform != null) {
+                lineTransform.gameObject.SetActive(false);
+            }
         }
 
         /*

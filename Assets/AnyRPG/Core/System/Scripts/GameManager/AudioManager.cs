@@ -298,6 +298,10 @@ namespace AnyRPG {
         }
 
         public void PlayUIHoverSound() {
+            // a touch press fires hover and click together - only play the click
+            if (MobileInput.TouchActive) {
+                return;
+            }
             if (uiClickSound != null) {
                 PlayUI(uiClickSound);
             }
@@ -305,6 +309,7 @@ namespace AnyRPG {
 
         public void PlayUIClickSound() {
             //Debug.Log("AudioManager.PlayUIClickSound()");
+            MobileFeedback.Tap();
             if (uiClickSound != null) {
                 //Debug.Log("AudioManager.PlayUIClickSound(): click sound is not null");
                 PlayUI(uiClickSound);

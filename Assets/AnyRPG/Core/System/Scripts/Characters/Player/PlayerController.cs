@@ -486,7 +486,7 @@ namespace AnyRPG {
             //Debug.Log($"{gameObject.name}.PlayerController.HandleRightMouseClick() mouse is in screen");
 
             // check if the right mouse button clicked on something and interact with it
-            if (EventSystem.current.IsPointerOverGameObject() == false) {
+            if (MobileInput.PointerOverUI(inputManager.mousePosition) == false) {
                 //Debug.Log($"{gameObject.name}.PlayerController.HandleRightMouseClick() right mouse button clicked and not over UI");
                 contextMenuService.CloseContextMenu();
 
@@ -670,7 +670,7 @@ namespace AnyRPG {
                 return;
             }
 
-            if (EventSystem.current.IsPointerOverGameObject() && !namePlateManager.MouseOverNameplate()) {
+            if (MobileInput.PointerOverUI(inputManager.mousePosition) && !namePlateManager.MouseOverNameplate()) {
                 //Debug.Log("PlayerController.HandleLeftMouseClick(): clicked over UI and not nameplate.  exiting");
                 return;
             }
@@ -684,6 +684,10 @@ namespace AnyRPG {
                 if (mouseOverInteractable.IsMouseOverBlocked() == false) {
                     //Debug.Log("PlayerController.HandleLeftMouseClick(): mouseover not blocked");
                     playerManagerClient.UnitController.SetTarget(mouseOverInteractable.CharacterTarget);
+                    // on a touchscreen there is no right click, so a tap both targets and interacts (talk, attack, loot, gather)
+                    if (MobileInput.TouchActive) {
+                        RightMouseInteraction(mouseOverInteractable.CharacterTarget);
+                    }
                     return;
                 }
             }

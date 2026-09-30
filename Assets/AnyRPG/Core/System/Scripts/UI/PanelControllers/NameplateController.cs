@@ -518,6 +518,10 @@ namespace AnyRPG {
             }
             if (pointerEventData.button == PointerEventData.InputButton.Left) {
                 HandleLeftClick();
+                // on a touchscreen a tap on a nameplate targets and interacts in one go
+                if (MobileInput.TouchActive) {
+                    HandleRightClick();
+                }
             }
             if (pointerEventData.button == PointerEventData.InputButton.Right) {
                 HandleRightClick();
