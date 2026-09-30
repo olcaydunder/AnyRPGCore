@@ -241,9 +241,9 @@ namespace AnyRPG {
             if (quest.ItemRewards.Count > 0) {
                 itemsHeading.gameObject.SetActive(true);
                 if (quest.MaxItemRewards > 0) {
-                    itemsHeading.GetComponent<TextMeshProUGUI>().text = "Choose " + quest.MaxItemRewards + " Item Rewards:";
+                    itemsHeading.GetComponent<TextMeshProUGUI>().text = quest.MaxItemRewards + " eşya ödülü seç:";
                 } else {
-                    itemsHeading.GetComponent<TextMeshProUGUI>().text = "Item Rewards:";
+                    itemsHeading.GetComponent<TextMeshProUGUI>().text = "Eşya Ödülleri:";
                 }
             }
             for (int i = 0; i < quest.ItemRewards.Count; i++) {
@@ -263,9 +263,9 @@ namespace AnyRPG {
             if (quest.AbilityRewards.Count > 0) {
                 abilitiesHeading.gameObject.SetActive(true);
                 if (quest.MaxAbilityRewards > 0) {
-                    abilitiesHeading.GetComponent<TextMeshProUGUI>().text = "Choose " + quest.MaxAbilityRewards + " Ability Rewards:";
+                    abilitiesHeading.GetComponent<TextMeshProUGUI>().text = quest.MaxAbilityRewards + " yetenek ödülü seç:";
                 } else {
-                    abilitiesHeading.GetComponent<TextMeshProUGUI>().text = "Ability Rewards:";
+                    abilitiesHeading.GetComponent<TextMeshProUGUI>().text = "Yetenek Ödülleri:";
                 }
             } else {
                 abilitiesHeading.GetComponent<TextMeshProUGUI>().text = "";
@@ -287,9 +287,9 @@ namespace AnyRPG {
             if (quest.FactionRewards.Count > 0) {
                 factionsHeading.gameObject.SetActive(true);
                 if (quest.MaxFactionRewards > 0) {
-                    factionsHeading.GetComponent<TextMeshProUGUI>().text = "Choose " + quest.MaxFactionRewards + " Reputation Rewards:";
+                    factionsHeading.GetComponent<TextMeshProUGUI>().text = quest.MaxFactionRewards + " itibar ödülü seç:";
                 } else {
-                    factionsHeading.GetComponent<TextMeshProUGUI>().text = "Reputation Rewards:";
+                    factionsHeading.GetComponent<TextMeshProUGUI>().text = "İtibar Ödülleri:";
                 }
             } else {
                 factionsHeading.GetComponent<TextMeshProUGUI>().text = "";
@@ -311,9 +311,9 @@ namespace AnyRPG {
             if (quest.SkillRewards.Count > 0) {
                 skillHeading.gameObject.SetActive(true);
                 if (quest.MaxSkillRewards > 0) {
-                    skillHeading.GetComponent<TextMeshProUGUI>().text = "Choose " + quest.MaxSkillRewards + " Skill Rewards:";
+                    skillHeading.GetComponent<TextMeshProUGUI>().text = quest.MaxSkillRewards + " beceri ödülü seç:";
                 } else {
-                    skillHeading.GetComponent<TextMeshProUGUI>().text = "Skill Rewards:";
+                    skillHeading.GetComponent<TextMeshProUGUI>().text = "Beceri Ödülleri:";
                 }
             } else {
                 skillHeading.GetComponent<TextMeshProUGUI>().text = "";

@@ -40,9 +40,9 @@ namespace AnyRPG {
             } else {
                 icon.sprite = systemConfigurationManager.UIConfiguration.DefaultFactionIcon;
                 icon.color = Color.white;
-                characterClassName.text = "None";
+                characterClassName.text = "Yok";
                 //description.text = this.faction.GetSummary();
-                description.text = "No specialization available";
+                description.text = "Uzmanlık yok";
             }
 
         }

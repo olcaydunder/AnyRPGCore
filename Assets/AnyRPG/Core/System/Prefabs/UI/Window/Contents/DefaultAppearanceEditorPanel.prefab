@@ -1014,7 +1014,7 @@ PrefabInstance:
     - target: {fileID: 8804057512231366710, guid: 0c105927afdf1284aad8828936745b69,
         type: 3}
       propertyPath: m_text
-      value: Female
+      value: "Kad\u0131n"
       objectReference: {fileID: 0}
     - target: {fileID: 8804057512231366710, guid: 0c105927afdf1284aad8828936745b69,
         type: 3}

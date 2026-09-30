@@ -4504,7 +4504,7 @@ PrefabInstance:
     - target: {fileID: 5181354365886595360, guid: bcbc9379988b3da4e8b551267d2059b6,
         type: 3}
       propertyPath: m_text
-      value: 'Postage: '
+      value: "Posta \u00dccreti: "
       objectReference: {fileID: 0}
     - target: {fileID: 5181354365886595360, guid: bcbc9379988b3da4e8b551267d2059b6,
         type: 3}

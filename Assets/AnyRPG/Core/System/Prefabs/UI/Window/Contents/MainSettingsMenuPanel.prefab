@@ -31038,7 +31038,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Pencere Konumlar\u0131n\u0131 S\u0131f\u0131rla"
+  m_text: "Pencereleri S\u0131f\u0131rla"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 9ff1637cc53af0c4f9d93e4706904ea7, type: 2}
@@ -50010,7 +50010,7 @@ PrefabInstance:
     - target: {fileID: 2694384579392727797, guid: 737ca772fe2dcf34db1935699f65f17b,
         type: 3}
       propertyPath: m_text
-      value: English
+      value: "T\u00fcrk\u00e7e"
       objectReference: {fileID: 0}
     - target: {fileID: 5036367805270494232, guid: 737ca772fe2dcf34db1935699f65f17b,
         type: 3}

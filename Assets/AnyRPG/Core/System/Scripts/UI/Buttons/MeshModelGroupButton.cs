@@ -8,7 +8,7 @@ namespace AnyRPG {
         public void ConfigureButton(SwappableMeshAppearancePanel swappableMeshAppearancePanelController, string meshModelGroup) {
             this.swappableMeshAppearancePanelController = swappableMeshAppearancePanelController;
             this.meshModelGroup = meshModelGroup;
-            text.text = meshModelGroup;
+            text.text = TurkishText.Translate(meshModelGroup);
         }
 
         public override void Interact() {

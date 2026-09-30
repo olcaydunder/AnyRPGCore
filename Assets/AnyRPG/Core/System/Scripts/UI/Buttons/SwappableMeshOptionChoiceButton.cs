@@ -24,7 +24,7 @@ namespace AnyRPG {
             }
             this.optionName = optionName;
             if (text != null) {
-                text.text = displayName;
+                text.text = TurkishText.Translate(displayName);
             }
         }
 

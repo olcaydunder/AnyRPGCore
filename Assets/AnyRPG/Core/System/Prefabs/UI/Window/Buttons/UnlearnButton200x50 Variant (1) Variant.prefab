@@ -125,7 +125,7 @@ PrefabInstance:
     - target: {fileID: 7357516931856506378, guid: 29f3258c48c60734d89b891d9417623b,
         type: 3}
       propertyPath: m_text
-      value: UNLEARN
+      value: "UNUT"
       objectReference: {fileID: 0}
     - target: {fileID: 7357516931856506378, guid: 29f3258c48c60734d89b891d9417623b,
         type: 3}

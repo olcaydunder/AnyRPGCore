@@ -7237,7 +7237,7 @@ MonoBehaviour:
   initializationScene: 
   mainMenuScene: 
   defaultStartingZone: 
-  defaultPlayerName: New Player
+  defaultPlayerName: Kahraman
   useNewGameWindow: 1
   editPlayerName: 1
   playerNameSource: 0

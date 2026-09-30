@@ -52,11 +52,11 @@ namespace AnyRPG {
             // format the button text
             string descriptionText = string.Empty;
             if (systemConfigurationManager.NewGameFaction == true) {
-                descriptionText += "Faction: " + (mySaveData.CharacterFaction == null || mySaveData.CharacterFaction == string.Empty ? "None" : MySaveData.CharacterFaction) + "\n";
+                descriptionText += "Boy: " + (mySaveData.CharacterFaction == null || mySaveData.CharacterFaction == string.Empty ? "Yok" : MySaveData.CharacterFaction) + "\n";
             }
             if (systemConfigurationManager.NewGameClass == true) {
-                descriptionText += "Class: " + (mySaveData.CharacterClass == null || mySaveData.CharacterClass == string.Empty ? "None" : mySaveData.CharacterClass) + "\n";
-                descriptionText += "Specialization: " + (mySaveData.ClassSpecialization == null || mySaveData.ClassSpecialization == string.Empty ? "None" : MySaveData.ClassSpecialization) + "\n";
+                descriptionText += "Sınıf: " + (mySaveData.CharacterClass == null || mySaveData.CharacterClass == string.Empty ? "Yok" : mySaveData.CharacterClass) + "\n";
+                descriptionText += "Uzmanlık: " + (mySaveData.ClassSpecialization == null || mySaveData.ClassSpecialization == string.Empty ? "Yok" : MySaveData.ClassSpecialization) + "\n";
             }
 
             // set the text on the button

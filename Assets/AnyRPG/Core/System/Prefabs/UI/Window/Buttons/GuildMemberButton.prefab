@@ -2049,7 +2049,7 @@ PrefabInstance:
     - target: {fileID: 2694384579392727797, guid: 737ca772fe2dcf34db1935699f65f17b,
         type: 3}
       propertyPath: m_text
-      value: Message
+      value: "Mesaj"
       objectReference: {fileID: 0}
     - target: {fileID: 2694384579392727797, guid: 737ca772fe2dcf34db1935699f65f17b,
         type: 3}
@@ -2263,7 +2263,7 @@ PrefabInstance:
     - target: {fileID: 2694384579392727797, guid: 737ca772fe2dcf34db1935699f65f17b,
         type: 3}
       propertyPath: m_text
-      value: Kick
+      value: "At"
       objectReference: {fileID: 0}
     - target: {fileID: 2694384579392727797, guid: 737ca772fe2dcf34db1935699f65f17b,
         type: 3}
@@ -2489,7 +2489,7 @@ PrefabInstance:
     - target: {fileID: 2694384579392727797, guid: 737ca772fe2dcf34db1935699f65f17b,
         type: 3}
       propertyPath: m_text
-      value: Promote
+      value: "Y\u00fckselt"
       objectReference: {fileID: 0}
     - target: {fileID: 2694384579392727797, guid: 737ca772fe2dcf34db1935699f65f17b,
         type: 3}

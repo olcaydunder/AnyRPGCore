@@ -265,7 +265,7 @@ namespace AnyRPG {
             characterCreatorManager.EnableLight();
 
             if (systemGameManager.GameMode == GameMode.Local) {
-                startButtonText.text = "Start Game";
+                startButtonText.text = "Oyunu Başlat";
             } else {
                 // network mode
                 if (networkManagerClient.ClientMode == NetworkServerMode.Lobby) {

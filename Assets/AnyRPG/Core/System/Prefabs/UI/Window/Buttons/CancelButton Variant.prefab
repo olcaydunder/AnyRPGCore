@@ -140,7 +140,7 @@ PrefabInstance:
     - target: {fileID: 8367533979239774534, guid: 2e854bbd9898b4240adc61410e09ce2e,
         type: 3}
       propertyPath: m_text
-      value: CANCEL
+      value: "\u0130PTAL"
       objectReference: {fileID: 0}
     - target: {fileID: 8367533979239774534, guid: 2e854bbd9898b4240adc61410e09ce2e,
         type: 3}

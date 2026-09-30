@@ -9,7 +9,7 @@ namespace AnyRPG {
 
         [Tooltip("If no next text is provided for a dialog, this text will be used")]
         [SerializeField]
-        private string defaultNextText = "Next";
+        private string defaultNextText = "Devam";
 
         [SerializeField]
         private TextMeshProUGUI characterNameText = null;

@@ -1621,7 +1621,7 @@ PrefabInstance:
     - target: {fileID: 2694384579392727797, guid: 737ca772fe2dcf34db1935699f65f17b,
         type: 3}
       propertyPath: m_text
-      value: Buy
+      value: "Sat\u0131n Al"
       objectReference: {fileID: 0}
     - target: {fileID: 2694384579392727797, guid: 737ca772fe2dcf34db1935699f65f17b,
         type: 3}
@@ -1835,7 +1835,7 @@ PrefabInstance:
     - target: {fileID: 2694384579392727797, guid: 737ca772fe2dcf34db1935699f65f17b,
         type: 3}
       propertyPath: m_text
-      value: Cancel
+      value: "\u0130ptal"
       objectReference: {fileID: 0}
     - target: {fileID: 2694384579392727797, guid: 737ca772fe2dcf34db1935699f65f17b,
         type: 3}

@@ -242,7 +242,7 @@ PrefabInstance:
     - target: {fileID: 2619885472282773746, guid: e74dc3838e3f3264a911a96877f40f93,
         type: 3}
       propertyPath: m_text
-      value: Take
+      value: "Al"
       objectReference: {fileID: 0}
     - target: {fileID: 2619885472282773746, guid: e74dc3838e3f3264a911a96877f40f93,
         type: 3}
@@ -399,7 +399,7 @@ PrefabInstance:
     - target: {fileID: 2619885472282773746, guid: e74dc3838e3f3264a911a96877f40f93,
         type: 3}
       propertyPath: m_text
-      value: Kick
+      value: "At"
       objectReference: {fileID: 0}
     - target: {fileID: 2619885472282773746, guid: e74dc3838e3f3264a911a96877f40f93,
         type: 3}
@@ -556,7 +556,7 @@ PrefabInstance:
     - target: {fileID: 2619885472282773746, guid: e74dc3838e3f3264a911a96877f40f93,
         type: 3}
       propertyPath: m_text
-      value: Drop
+      value: "B\u0131rak"
       objectReference: {fileID: 0}
     - target: {fileID: 2619885472282773746, guid: e74dc3838e3f3264a911a96877f40f93,
         type: 3}
@@ -713,7 +713,7 @@ PrefabInstance:
     - target: {fileID: 2619885472282773746, guid: e74dc3838e3f3264a911a96877f40f93,
         type: 3}
       propertyPath: m_text
-      value: Disband
+      value: "Da\u011f\u0131t"
       objectReference: {fileID: 0}
     - target: {fileID: 2619885472282773746, guid: e74dc3838e3f3264a911a96877f40f93,
         type: 3}
@@ -870,7 +870,7 @@ PrefabInstance:
     - target: {fileID: 2619885472282773746, guid: e74dc3838e3f3264a911a96877f40f93,
         type: 3}
       propertyPath: m_text
-      value: Split
+      value: "B\u00f6l"
       objectReference: {fileID: 0}
     - target: {fileID: 2619885472282773746, guid: e74dc3838e3f3264a911a96877f40f93,
         type: 3}
@@ -1027,7 +1027,7 @@ PrefabInstance:
     - target: {fileID: 2619885472282773746, guid: e74dc3838e3f3264a911a96877f40f93,
         type: 3}
       propertyPath: m_text
-      value: Sell
+      value: "Sat"
       objectReference: {fileID: 0}
     - target: {fileID: 2619885472282773746, guid: e74dc3838e3f3264a911a96877f40f93,
         type: 3}
@@ -1184,7 +1184,7 @@ PrefabInstance:
     - target: {fileID: 2619885472282773746, guid: e74dc3838e3f3264a911a96877f40f93,
         type: 3}
       propertyPath: m_text
-      value: Trade
+      value: "Takas"
       objectReference: {fileID: 0}
     - target: {fileID: 2619885472282773746, guid: e74dc3838e3f3264a911a96877f40f93,
         type: 3}
@@ -1341,7 +1341,7 @@ PrefabInstance:
     - target: {fileID: 2619885472282773746, guid: e74dc3838e3f3264a911a96877f40f93,
         type: 3}
       propertyPath: m_text
-      value: Leave
+      value: "Ayr\u0131l"
       objectReference: {fileID: 0}
     - target: {fileID: 2619885472282773746, guid: e74dc3838e3f3264a911a96877f40f93,
         type: 3}
@@ -1498,7 +1498,7 @@ PrefabInstance:
     - target: {fileID: 2619885472282773746, guid: e74dc3838e3f3264a911a96877f40f93,
         type: 3}
       propertyPath: m_text
-      value: Use
+      value: "Kullan"
       objectReference: {fileID: 0}
     - target: {fileID: 2619885472282773746, guid: e74dc3838e3f3264a911a96877f40f93,
         type: 3}
@@ -1655,7 +1655,7 @@ PrefabInstance:
     - target: {fileID: 2619885472282773746, guid: e74dc3838e3f3264a911a96877f40f93,
         type: 3}
       propertyPath: m_text
-      value: Inspect
+      value: "\u0130ncele"
       objectReference: {fileID: 0}
     - target: {fileID: 2619885472282773746, guid: e74dc3838e3f3264a911a96877f40f93,
         type: 3}
@@ -1807,7 +1807,7 @@ PrefabInstance:
     - target: {fileID: 2619885472282773746, guid: e74dc3838e3f3264a911a96877f40f93,
         type: 3}
       propertyPath: m_text
-      value: Destroy
+      value: "Yok Et"
       objectReference: {fileID: 0}
     - target: {fileID: 2619885472282773746, guid: e74dc3838e3f3264a911a96877f40f93,
         type: 3}
@@ -1964,7 +1964,7 @@ PrefabInstance:
     - target: {fileID: 2619885472282773746, guid: e74dc3838e3f3264a911a96877f40f93,
         type: 3}
       propertyPath: m_text
-      value: Mail
+      value: "Posta"
       objectReference: {fileID: 0}
     - target: {fileID: 2619885472282773746, guid: e74dc3838e3f3264a911a96877f40f93,
         type: 3}
@@ -2121,7 +2121,7 @@ PrefabInstance:
     - target: {fileID: 2619885472282773746, guid: e74dc3838e3f3264a911a96877f40f93,
         type: 3}
       propertyPath: m_text
-      value: Equip
+      value: "Ku\u015fan"
       objectReference: {fileID: 0}
     - target: {fileID: 2619885472282773746, guid: e74dc3838e3f3264a911a96877f40f93,
         type: 3}
@@ -2278,7 +2278,7 @@ PrefabInstance:
     - target: {fileID: 2619885472282773746, guid: e74dc3838e3f3264a911a96877f40f93,
         type: 3}
       propertyPath: m_text
-      value: Promote
+      value: "Y\u00fckselt"
       objectReference: {fileID: 0}
     - target: {fileID: 2619885472282773746, guid: e74dc3838e3f3264a911a96877f40f93,
         type: 3}
@@ -2435,7 +2435,7 @@ PrefabInstance:
     - target: {fileID: 2619885472282773746, guid: e74dc3838e3f3264a911a96877f40f93,
         type: 3}
       propertyPath: m_text
-      value: Unequip
+      value: "\u00c7\u0131kar"
       objectReference: {fileID: 0}
     - target: {fileID: 2619885472282773746, guid: e74dc3838e3f3264a911a96877f40f93,
         type: 3}
@@ -2592,7 +2592,7 @@ PrefabInstance:
     - target: {fileID: 2619885472282773746, guid: e74dc3838e3f3264a911a96877f40f93,
         type: 3}
       propertyPath: m_text
-      value: Store
+      value: "Depola"
       objectReference: {fileID: 0}
     - target: {fileID: 2619885472282773746, guid: e74dc3838e3f3264a911a96877f40f93,
         type: 3}
@@ -2749,7 +2749,7 @@ PrefabInstance:
     - target: {fileID: 2619885472282773746, guid: e74dc3838e3f3264a911a96877f40f93,
         type: 3}
       propertyPath: m_text
-      value: Invite
+      value: "Davet Et"
       objectReference: {fileID: 0}
     - target: {fileID: 2619885472282773746, guid: e74dc3838e3f3264a911a96877f40f93,
         type: 3}
@@ -2906,7 +2906,7 @@ PrefabInstance:
     - target: {fileID: 2619885472282773746, guid: e74dc3838e3f3264a911a96877f40f93,
         type: 3}
       propertyPath: m_text
-      value: Message
+      value: "Mesaj"
       objectReference: {fileID: 0}
     - target: {fileID: 2619885472282773746, guid: e74dc3838e3f3264a911a96877f40f93,
         type: 3}
@@ -3063,7 +3063,7 @@ PrefabInstance:
     - target: {fileID: 2619885472282773746, guid: e74dc3838e3f3264a911a96877f40f93,
         type: 3}
       propertyPath: m_text
-      value: Bank
+      value: "Banka"
       objectReference: {fileID: 0}
     - target: {fileID: 2619885472282773746, guid: e74dc3838e3f3264a911a96877f40f93,
         type: 3}

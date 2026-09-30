@@ -125,7 +125,7 @@ PrefabInstance:
     - target: {fileID: 5477525289529401935, guid: 74bc3abbf18acce44b390690ed21bb88,
         type: 3}
       propertyPath: m_text
-      value: LEARN
+      value: "\u00d6\u011eREN"
       objectReference: {fileID: 0}
     - target: {fileID: 5477525289529401935, guid: 74bc3abbf18acce44b390690ed21bb88,
         type: 3}

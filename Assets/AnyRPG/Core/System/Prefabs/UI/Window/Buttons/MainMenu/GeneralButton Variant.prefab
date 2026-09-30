@@ -130,7 +130,7 @@ PrefabInstance:
     - target: {fileID: 5350955010050868132, guid: 2bb97aaebe8f6d044b2ac64032780720,
         type: 3}
       propertyPath: m_text
-      value: GENERAL
+      value: "GENEL"
       objectReference: {fileID: 0}
     - target: {fileID: 5350955010050868132, guid: 2bb97aaebe8f6d044b2ac64032780720,
         type: 3}

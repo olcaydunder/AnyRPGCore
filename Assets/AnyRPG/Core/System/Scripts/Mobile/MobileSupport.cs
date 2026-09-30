@@ -203,8 +203,11 @@ namespace AnyRPG {
     /// </summary>
     public class MobileBootstrap : MonoBehaviour {
 
-        // the UI is laid out as if the screen was this many pixels tall, so it keeps the same physical size on every phone
-        private const float referenceHeight = 720f;
+        // in-game HUD canvases (built for 1:1 pixels on a monitor) are laid out as if the screen was this many pixels tall,
+        // which makes them about 1.35x larger on a 1080p phone and keeps the same physical size on every phone
+        private const float hudReferenceHeight = 800f;
+        // full screen menus were designed on a 1920x1080 canvas; keep that design and fit it to the screen height
+        private static readonly Vector2 menuReferenceResolution = new Vector2(1920f, 1080f);
         private const float canvasScanInterval = 1f;
         private const float autoSaveInterval = 180f;
 
@@ -307,7 +310,7 @@ namespace AnyRPG {
         private void ScaleCanvases() {
             Canvas[] canvases = FindObjectsByType<Canvas>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             foreach (Canvas canvas in canvases) {
-                if (canvas == null || canvas.isRootCanvas == false || canvas.renderMode == RenderMode.WorldSpace) {
+                if (canvas == null || canvas.isRootCanvas == false || canvas.renderMode == RenderMode.WorldSpace || canvas.name == "ErrorOverlayCanvas") {
                     continue;
                 }
                 int id = canvas.GetInstanceID();
@@ -317,11 +320,14 @@ namespace AnyRPG {
                 scaledCanvases.Add(id);
 
                 CanvasScaler canvasScaler = canvas.GetComponent<CanvasScaler>();
+                // canvases that already scale with the screen hold full screen menus (main menu, settings, character creation)
+                bool fullScreenMenu = (canvasScaler != null && canvasScaler.uiScaleMode == CanvasScaler.ScaleMode.ScaleWithScreenSize)
+                    || canvas.name.Contains("MainMenu");
                 if (canvasScaler == null) {
                     canvasScaler = canvas.gameObject.AddComponent<CanvasScaler>();
                 }
                 canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-                canvasScaler.referenceResolution = new Vector2(referenceHeight * 16f / 9f, referenceHeight);
+                canvasScaler.referenceResolution = fullScreenMenu ? menuReferenceResolution : new Vector2(hudReferenceHeight * 16f / 9f, hudReferenceHeight);
                 canvasScaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
                 canvasScaler.matchWidthOrHeight = 1f;
             }

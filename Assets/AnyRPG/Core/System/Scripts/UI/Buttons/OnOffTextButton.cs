@@ -19,13 +19,13 @@ namespace AnyRPG {
         public void SetOn() {
             //Debug.Log($"{gameObject.name}.OnOffTextButton.SetOn()");
 
-            text.text = "on";
+            text.text = "açık";
         }
 
         public void SetOff() {
             //Debug.Log($"{gameObject.name}.OnOffTextButton.SetOff()");
 
-            text.text = "off";
+            text.text = "kapalı";
         }
 
 

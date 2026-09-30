@@ -10,7 +10,7 @@
   "CharacterRace": {
     "Blue":    {"ad": "Bozok Soyu"},
     "Red":     {"ad": "Üçok Soyu"},
-    "Mecanim": {"ad": "Göçebe"}
+    "Mecanim": {"ad": "Göçebe", "aciklama": "Bozkırın özgür göçebe halkı. Yüzünü, saçını ve giysilerini dilediğin gibi seçebilirsin."}
   },
 
   "CharacterClass": {

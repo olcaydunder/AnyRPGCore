@@ -140,7 +140,7 @@ PrefabInstance:
     - target: {fileID: 456740866879103863, guid: 62dacd6de96f7174aa173bed431e8077,
         type: 3}
       propertyPath: m_text
-      value: SYSTEM
+      value: "S\u0130STEM"
       objectReference: {fileID: 0}
     - target: {fileID: 456740866879103863, guid: 62dacd6de96f7174aa173bed431e8077,
         type: 3}
