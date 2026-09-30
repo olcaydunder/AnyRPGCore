@@ -952,12 +952,12 @@ namespace AnyRPG {
                 mouseDeltaX = mouse.delta.x.ReadValue() * 0.05f;
                 mouseDeltaY = mouse.delta.y.ReadValue() * 0.05f;
                 mousePosition = mouse.position.ReadValue();
-                leftPressed = leftPressed;
-                leftReleased = leftReleased;
-                rightPressed = rightPressed;
-                rightReleased = rightReleased;
-                middlePressed = middlePressed;
-                middleReleased = middleReleased;
+                leftPressed = mouse.leftButton.wasPressedThisFrame;
+                leftReleased = mouse.leftButton.wasReleasedThisFrame;
+                rightPressed = mouse.rightButton.wasPressedThisFrame;
+                rightReleased = mouse.rightButton.wasReleasedThisFrame;
+                middlePressed = mouse.middleButton.wasPressedThisFrame;
+                middleReleased = mouse.middleButton.wasReleasedThisFrame;
                 scrollDelta = mouse.scroll.y.ReadValue() / 24f;
             } else if (ReadTouchAsMouse(out leftPressed, out leftReleased, out rightPressed, out rightReleased, out scrollDelta)) {
                 usingTouch = true;
