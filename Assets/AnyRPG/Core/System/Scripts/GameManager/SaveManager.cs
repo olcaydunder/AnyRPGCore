@@ -94,11 +94,16 @@ namespace AnyRPG {
         /// </summary>
         private static void WriteFileSafely(string fullPath, string contents) {
             string tempPath = fullPath + ".tmp";
-            File.WriteAllText(tempPath, contents);
-            if (File.Exists(fullPath)) {
-                File.Replace(tempPath, fullPath, null);
-            } else {
+            try {
+                File.WriteAllText(tempPath, contents);
+                if (File.Exists(fullPath)) {
+                    File.Delete(fullPath);
+                }
                 File.Move(tempPath, fullPath);
+            } catch (System.Exception exception) {
+                // fall back to a direct write so a save is never lost because of the safety step
+                Debug.LogWarning($"SaveManager.WriteFileSafely({fullPath}): {exception.Message}");
+                File.WriteAllText(fullPath, contents);
             }
         }
 

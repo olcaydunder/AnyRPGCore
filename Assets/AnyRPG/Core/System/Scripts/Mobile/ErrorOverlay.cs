@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,16 +8,25 @@ using UnityEngine.UI;
 namespace AnyRPG {
 
     /// <summary>
-    /// On phones there is no console to read error messages. This collects errors and exceptions while the game runs
-    /// and shows a small "Hata" (error) button in the corner when something goes wrong. Tapping it lists the latest errors,
-    /// and "Kopyala" copies the full report to the clipboard so it can be pasted into a message.
+    /// On phones there is no console to read error messages. This collects everything the game reports while it runs
+    /// (errors, exceptions, unhandled exceptions from any thread, failed background tasks, low memory warnings,
+    /// warnings and the latest log lines) and shows a small "Durum" (status) button at the top of the screen.
+    /// The button turns red and shows a count when an error happens. Tapping it opens a scrollable report with the
+    /// game state; "Kopyala" copies the full report to the clipboard so it can be pasted into a message.
+    /// Errors are also written to a file, so if the game crashes the next launch shows what happened before the crash.
     /// </summary>
     public class ErrorOverlay : MonoBehaviour {
 
-        private const int maxEntries = 25;
-        private const int maxStackLines = 4;
+        private const int maxErrors = 40;
+        private const int maxWarnings = 25;
+        private const int maxLogLines = 40;
+        private const int maxStackLines = 6;
+        private const string logFileName = "durum_kaydi.txt";
+        private const string previousLogFileName = "durum_kaydi_onceki.txt";
+        private const string cleanMarker = "#OTURUM_DURDU";
 
         private class ErrorEntry {
+            public string time;
             public string message;
             public string stack;
             public int count;
@@ -23,20 +34,24 @@ namespace AnyRPG {
 
         private static ErrorOverlay instance = null;
         private static readonly object entriesLock = new object();
-        private static readonly List<ErrorEntry> entries = new List<ErrorEntry>();
+        private static readonly List<ErrorEntry> errors = new List<ErrorEntry>();
         private static readonly List<string> warnings = new List<string>();
-        private const int maxWarnings = 15;
+        private static readonly List<string> logLines = new List<string>();
         private static int version = 0;
+        private static string logFilePath = null;
+        private static string previousSessionReport = string.Empty;
+        private static bool previousSessionEndedUnexpectedly = false;
+        private static float startTime = 0f;
 
         private int shownVersion = -1;
         private float fps = 0f;
         private float nextStatusRefresh = 0f;
         private GameObject canvasObject = null;
-        private GameObject badgeObject = null;
         private Text badgeText = null;
         private Image badgeImage = null;
         private GameObject panelObject = null;
         private Text panelText = null;
+        private ScrollRect scrollRect = null;
         private Font font = null;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
@@ -44,41 +59,107 @@ namespace AnyRPG {
             if (Application.isMobilePlatform == false || instance != null) {
                 return;
             }
+            startTime = Time.realtimeSinceStartup;
+            PrepareLogFile();
+
             Application.logMessageReceivedThreaded += HandleLog;
+            AppDomain.CurrentDomain.UnhandledException += HandleUnhandledException;
+            System.Threading.Tasks.TaskScheduler.UnobservedTaskException += HandleUnobservedTaskException;
+            Application.lowMemory += HandleLowMemory;
+
             GameObject overlayObject = new GameObject("ErrorOverlay");
             instance = overlayObject.AddComponent<ErrorOverlay>();
             DontDestroyOnLoad(overlayObject);
         }
 
+        // ---- collecting ----
+
         private static void HandleLog(string message, string stackTrace, LogType logType) {
-            if (logType == LogType.Warning) {
-                lock (entriesLock) {
+            string time = Timestamp();
+            lock (entriesLock) {
+                AddLogLine(time + " [" + logType + "] " + FirstLine(message));
+                if (logType == LogType.Warning) {
                     if (warnings.Contains(message) == false) {
                         warnings.Add(message);
                         if (warnings.Count > maxWarnings) {
                             warnings.RemoveAt(0);
                         }
                     }
+                    version++;
+                    return;
                 }
-                return;
+                if (logType == LogType.Log) {
+                    version++;
+                    return;
+                }
+                AddError(time, "[" + logType + "] " + message, stackTrace);
             }
-            if (logType != LogType.Error && logType != LogType.Exception && logType != LogType.Assert) {
-                return;
-            }
+        }
+
+        private static void HandleUnhandledException(object sender, UnhandledExceptionEventArgs args) {
+            Exception exception = args.ExceptionObject as Exception;
             lock (entriesLock) {
-                foreach (ErrorEntry existing in entries) {
-                    if (existing.message == message) {
-                        existing.count++;
-                        version++;
-                        return;
-                    }
+                AddError(Timestamp(), "[Yakalanmamış hata] " + (exception != null ? exception.GetType().Name + ": " + exception.Message : "bilinmiyor"),
+                    exception != null ? exception.StackTrace : string.Empty);
+            }
+        }
+
+        private static void HandleUnobservedTaskException(object sender, System.Threading.Tasks.UnobservedTaskExceptionEventArgs args) {
+            Exception exception = args.Exception != null && args.Exception.InnerException != null ? args.Exception.InnerException : args.Exception;
+            lock (entriesLock) {
+                AddError(Timestamp(), "[Arka plan görevi] " + (exception != null ? exception.GetType().Name + ": " + exception.Message : "bilinmiyor"),
+                    exception != null ? exception.StackTrace : string.Empty);
+            }
+        }
+
+        private static void HandleLowMemory() {
+            lock (entriesLock) {
+                string message = "Cihazın belleği azaldı (" + SystemInfo.systemMemorySize + " MB toplam)";
+                if (warnings.Contains(message) == false) {
+                    warnings.Add(message);
                 }
-                entries.Add(new ErrorEntry() { message = message, stack = ShortenStack(stackTrace), count = 1 });
-                if (entries.Count > maxEntries) {
-                    entries.RemoveAt(0);
-                }
+                AddLogLine(Timestamp() + " [Bellek] " + message);
                 version++;
             }
+        }
+
+        // must be called with entriesLock held
+        private static void AddError(string time, string message, string stackTrace) {
+            foreach (ErrorEntry existing in errors) {
+                if (existing.message == message) {
+                    existing.count++;
+                    version++;
+                    return;
+                }
+            }
+            ErrorEntry entry = new ErrorEntry() { time = time, message = message, stack = ShortenStack(stackTrace), count = 1 };
+            errors.Add(entry);
+            if (errors.Count > maxErrors) {
+                errors.RemoveAt(0);
+            }
+            version++;
+            AppendToFile(time + " " + message + "\n" + entry.stack);
+        }
+
+        // must be called with entriesLock held
+        private static void AddLogLine(string line) {
+            logLines.Add(line);
+            if (logLines.Count > maxLogLines) {
+                logLines.RemoveAt(0);
+            }
+        }
+
+        private static string Timestamp() {
+            return DateTime.Now.ToString("HH:mm:ss");
+        }
+
+        private static string FirstLine(string text) {
+            if (string.IsNullOrEmpty(text)) {
+                return string.Empty;
+            }
+            int newline = text.IndexOf('\n');
+            string line = newline >= 0 ? text.Substring(0, newline) : text;
+            return line.Length > 200 ? line.Substring(0, 200) + "..." : line;
         }
 
         private static string ShortenStack(string stackTrace) {
@@ -102,63 +183,125 @@ namespace AnyRPG {
             return builder.ToString();
         }
 
+        // ---- crash memory (errors are kept in a file so the next launch can show them) ----
+
+        private static void PrepareLogFile() {
+            try {
+                logFilePath = Path.Combine(Application.persistentDataPath, logFileName);
+                string previousPath = Path.Combine(Application.persistentDataPath, previousLogFileName);
+                if (File.Exists(logFilePath)) {
+                    string previous = File.ReadAllText(logFilePath);
+                    // the marker is written when the app goes to the background or quits; without it the game was killed while running
+                    previousSessionEndedUnexpectedly = previous.TrimEnd().EndsWith(cleanMarker) == false;
+                    previousSessionReport = previous.Replace(cleanMarker, string.Empty).Trim();
+                    File.Copy(logFilePath, previousPath, true);
+                }
+                File.WriteAllText(logFilePath, "Oturum başladı " + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "\n");
+            } catch (Exception) {
+                logFilePath = null;
+            }
+        }
+
+        private static void AppendToFile(string text) {
+            if (logFilePath == null) {
+                return;
+            }
+            lock (entriesLock) {
+                try {
+                    File.AppendAllText(logFilePath, text + "\n");
+                } catch (Exception) {
+                    // the report on screen still works without the file
+                }
+            }
+        }
+
+        private void OnApplicationPause(bool paused) {
+            AppendToFile(paused ? cleanMarker : "Oyuna dönüldü " + Timestamp());
+        }
+
+        private void OnApplicationQuit() {
+            AppendToFile(cleanMarker);
+        }
+
+        // ---- report ----
+
         private static string BuildReport(bool includeStack) {
             StringBuilder builder = new StringBuilder();
             builder.Append(BuildStatus()).Append('\n');
             lock (entriesLock) {
-                if (entries.Count == 0) {
+                builder.Append("\n== HATALAR (").Append(errors.Count).Append(") ==\n");
+                if (errors.Count == 0) {
                     builder.Append("Hata yok.\n");
                 }
-                for (int i = entries.Count - 1; i >= 0; i--) {
-                    ErrorEntry entry = entries[i];
-                    builder.Append(entry.count > 1 ? "(" + entry.count + "x) " : "").Append(entry.message).Append('\n');
+                for (int i = errors.Count - 1; i >= 0; i--) {
+                    ErrorEntry entry = errors[i];
+                    builder.Append(entry.time).Append(' ').Append(entry.count > 1 ? "(" + entry.count + " kez) " : "").Append(entry.message).Append('\n');
                     if (includeStack && entry.stack.Length > 0) {
                         builder.Append(entry.stack);
                     }
                 }
                 if (warnings.Count > 0) {
-                    builder.Append("\nUyarılar:\n");
+                    builder.Append("\n== UYARILAR (").Append(warnings.Count).Append(") ==\n");
                     for (int i = warnings.Count - 1; i >= 0; i--) {
-                        builder.Append("- ").Append(warnings[i]).Append('\n');
+                        builder.Append("- ").Append(FirstLine(warnings[i])).Append('\n');
                     }
                 }
+                if (logLines.Count > 0) {
+                    builder.Append("\n== SON KAYITLAR ==\n");
+                    for (int i = logLines.Count - 1; i >= 0; i--) {
+                        builder.Append(logLines[i]).Append('\n');
+                    }
+                }
+            }
+            if (previousSessionReport.Length > 0) {
+                builder.Append("\n== ÖNCEKİ OTURUM").Append(previousSessionEndedUnexpectedly ? " (beklenmedik şekilde kapandı, çökme olabilir)" : "").Append(" ==\n");
+                builder.Append(previousSessionReport.Length > 4000 ? previousSessionReport.Substring(previousSessionReport.Length - 4000) : previousSessionReport).Append('\n');
             }
             return builder.ToString();
         }
 
         /// <summary>
-        /// a one line summary of the game state, so a screenshot shows where things stopped
+        /// a short summary of the game state, so a screenshot shows where things stopped
         /// </summary>
         private static string BuildStatus() {
             StringBuilder builder = new StringBuilder();
             builder.Append("Sürüm ").Append(Application.version)
                 .Append(" | ").Append(SystemInfo.deviceModel)
-                .Append(" | ").Append(SystemInfo.graphicsDeviceType)
+                .Append(" | ").Append(SystemInfo.operatingSystem)
+                .Append('\n').Append(SystemInfo.graphicsDeviceType).Append(' ').Append(SystemInfo.graphicsDeviceName)
+                .Append(" | Bellek ").Append(SystemInfo.systemMemorySize).Append(" MB")
                 .Append(" | ").Append(Screen.width).Append('x').Append(Screen.height)
-                .Append(" | FPS ").Append(instance != null ? instance.fps.ToString("0") : "?").Append('\n');
+                .Append(" | FPS ").Append(instance != null ? instance.fps.ToString("0") : "?")
+                .Append(" | Süre ").Append(((int)(Time.realtimeSinceStartup - startTime))).Append(" sn").Append('\n');
             builder.Append("Sahneler:");
             for (int i = 0; i < UnityEngine.SceneManagement.SceneManager.sceneCount; i++) {
-                builder.Append(' ').Append(UnityEngine.SceneManagement.SceneManager.GetSceneAt(i).name);
+                UnityEngine.SceneManagement.Scene scene = UnityEngine.SceneManagement.SceneManager.GetSceneAt(i);
+                builder.Append(' ').Append(scene.name).Append(scene.isLoaded ? "" : "(yükleniyor)");
             }
             try {
                 SystemGameManager gameManager = FindAnyObjectByType<SystemGameManager>();
                 if (gameManager == null) {
-                    builder.Append(" | Oyun yöneticisi yok");
+                    builder.Append("\nOyun yöneticisi bulunamadı");
                 } else {
                     PlayerManagerClient playerManagerClient = gameManager.PlayerManagerClient;
-                    builder.Append(" | Oyuncu: ").Append(playerManagerClient != null && playerManagerClient.PlayerUnitSpawned ? "var" : "yok");
+                    builder.Append("\nOyuncu karakteri: ").Append(playerManagerClient != null && playerManagerClient.PlayerUnitSpawned ? "oluştu" : "yok");
+                    if (playerManagerClient != null && playerManagerClient.UnitController != null) {
+                        builder.Append(" (").Append(playerManagerClient.UnitController.gameObject.name).Append(')');
+                    }
                     CharacterCreatorManager creator = gameManager.CharacterCreatorManager;
-                    builder.Append(" | Önizleme: ").Append(creator != null && creator.UnitController != null ? "var" : "yok");
+                    builder.Append(" | Önizleme karakteri: ").Append(creator != null && creator.UnitController != null ? "var" : "yok");
                     CameraManager cameraManager = gameManager.CameraManager;
                     if (cameraManager != null && cameraManager.CharacterPreviewCamera != null) {
                         builder.Append(" | Önizleme kamerası: ").Append(cameraManager.CharacterPreviewCamera.enabled ? "açık" : "kapalı");
                     }
                 }
-            } catch (System.Exception exception) {
-                builder.Append(" | Durum okunamadı: ").Append(exception.Message);
+            } catch (Exception exception) {
+                builder.Append("\nDurum okunamadı: ").Append(exception.Message);
             }
             return builder.ToString();
         }
+
+        // ---- screen ----
 
         private void Update() {
             if (Time.unscaledDeltaTime > 0f) {
@@ -168,20 +311,21 @@ namespace AnyRPG {
                 CreateOverlay();
             }
             int currentVersion;
-            int entryCount;
+            int errorCount;
             lock (entriesLock) {
                 currentVersion = version;
-                entryCount = entries.Count;
+                errorCount = errors.Count;
             }
-            // refresh the open panel twice a second so the status line stays current
+            // refresh the open panel every second so the status lines stay current
             bool refreshPanel = panelObject.activeSelf && Time.unscaledTime >= nextStatusRefresh;
             if (currentVersion == shownVersion && refreshPanel == false) {
                 return;
             }
-            nextStatusRefresh = Time.unscaledTime + 0.5f;
+            nextStatusRefresh = Time.unscaledTime + 1f;
             shownVersion = currentVersion;
-            badgeText.text = entryCount > 0 ? "Hata (" + entryCount + ")" : "Durum";
-            badgeImage.color = entryCount > 0 ? new Color(0.7f, 0.05f, 0.05f, 0.85f) : new Color(0.15f, 0.15f, 0.15f, 0.45f);
+            bool alert = errorCount > 0 || previousSessionEndedUnexpectedly;
+            badgeText.text = errorCount > 0 ? "Hata (" + errorCount + ")" : (previousSessionEndedUnexpectedly ? "Çökme?" : "Durum");
+            badgeImage.color = alert ? new Color(0.7f, 0.05f, 0.05f, 0.85f) : new Color(0.15f, 0.15f, 0.15f, 0.45f);
             if (panelObject.activeSelf) {
                 panelText.text = BuildReport(false);
             }
@@ -202,42 +346,66 @@ namespace AnyRPG {
             canvasScaler.matchWidthOrHeight = 1f;
             canvasObject.AddComponent<GraphicRaycaster>();
 
-            // small red button in the top left corner
-            badgeObject = CreateButton(canvasObject.transform, "Hata", new Vector2(0f, 1f), new Vector2(90f, -30f), new Vector2(150f, 44f),
-                new Color(0.7f, 0.05f, 0.05f, 0.85f), TogglePanel, out badgeText);
+            // small button at the top center
+            GameObject badgeObject = CreateButton(canvasObject.transform, "Durum", new Vector2(0.5f, 1f), new Vector2(0f, -24f), new Vector2(140f, 40f),
+                new Color(0.15f, 0.15f, 0.15f, 0.45f), TogglePanel, out badgeText);
             badgeImage = badgeObject.GetComponent<Image>();
 
-            // the list of errors
+            // scrollable report
             panelObject = new GameObject("ErrorPanel");
             panelObject.transform.SetParent(canvasObject.transform, false);
             RectTransform panelRect = panelObject.AddComponent<RectTransform>();
-            panelRect.anchorMin = new Vector2(0.05f, 0.08f);
-            panelRect.anchorMax = new Vector2(0.95f, 0.85f);
+            panelRect.anchorMin = new Vector2(0.03f, 0.04f);
+            panelRect.anchorMax = new Vector2(0.97f, 0.9f);
             panelRect.offsetMin = Vector2.zero;
             panelRect.offsetMax = Vector2.zero;
             Image panelImage = panelObject.AddComponent<Image>();
-            panelImage.color = new Color(0f, 0f, 0f, 0.88f);
+            panelImage.color = new Color(0f, 0f, 0f, 0.9f);
 
-            GameObject textObject = new GameObject("ErrorText");
-            textObject.transform.SetParent(panelObject.transform, false);
+            GameObject viewportObject = new GameObject("Viewport");
+            viewportObject.transform.SetParent(panelObject.transform, false);
+            RectTransform viewportRect = viewportObject.AddComponent<RectTransform>();
+            viewportRect.anchorMin = Vector2.zero;
+            viewportRect.anchorMax = Vector2.one;
+            viewportRect.offsetMin = new Vector2(14f, 74f);
+            viewportRect.offsetMax = new Vector2(-14f, -10f);
+            Image viewportImage = viewportObject.AddComponent<Image>();
+            viewportImage.color = new Color(0f, 0f, 0f, 0.01f);
+            viewportObject.AddComponent<RectMask2D>();
+
+            GameObject textObject = new GameObject("ReportText");
+            textObject.transform.SetParent(viewportObject.transform, false);
             RectTransform textRect = textObject.AddComponent<RectTransform>();
-            textRect.anchorMin = Vector2.zero;
-            textRect.anchorMax = Vector2.one;
-            textRect.offsetMin = new Vector2(16f, 70f);
-            textRect.offsetMax = new Vector2(-16f, -12f);
+            textRect.anchorMin = new Vector2(0f, 1f);
+            textRect.anchorMax = new Vector2(1f, 1f);
+            textRect.pivot = new Vector2(0.5f, 1f);
+            textRect.anchoredPosition = Vector2.zero;
+            textRect.sizeDelta = new Vector2(0f, 100f);
             panelText = textObject.AddComponent<Text>();
             panelText.font = font;
-            panelText.fontSize = 16;
-            panelText.color = new Color(1f, 0.85f, 0.8f, 1f);
+            panelText.fontSize = 17;
+            panelText.color = new Color(1f, 0.88f, 0.82f, 1f);
             panelText.alignment = TextAnchor.UpperLeft;
             panelText.horizontalOverflow = HorizontalWrapMode.Wrap;
-            panelText.verticalOverflow = VerticalWrapMode.Truncate;
+            panelText.verticalOverflow = VerticalWrapMode.Overflow;
             panelText.raycastTarget = false;
+            ContentSizeFitter sizeFitter = textObject.AddComponent<ContentSizeFitter>();
+            sizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+
+            scrollRect = panelObject.AddComponent<ScrollRect>();
+            scrollRect.viewport = viewportRect;
+            scrollRect.content = textRect;
+            scrollRect.horizontal = false;
+            scrollRect.vertical = true;
+            scrollRect.movementType = ScrollRect.MovementType.Clamped;
+            scrollRect.scrollSensitivity = 30f;
 
             Text unusedText;
-            CreateButton(panelObject.transform, "Kopyala", new Vector2(0.5f, 0f), new Vector2(-100f, 36f), new Vector2(170f, 50f),
+            CreateButton(panelObject.transform, "Kopyala", new Vector2(0.5f, 0f), new Vector2(-190f, 38f), new Vector2(170f, 52f),
                 new Color(0.2f, 0.35f, 0.6f, 1f), CopyReport, out unusedText);
-            CreateButton(panelObject.transform, "Kapat", new Vector2(0.5f, 0f), new Vector2(100f, 36f), new Vector2(170f, 50f),
+            CreateButton(panelObject.transform, "Temizle", new Vector2(0.5f, 0f), new Vector2(0f, 38f), new Vector2(170f, 52f),
+                new Color(0.35f, 0.25f, 0.1f, 1f), ClearReport, out unusedText);
+            CreateButton(panelObject.transform, "Kapat", new Vector2(0.5f, 0f), new Vector2(190f, 38f), new Vector2(170f, 52f),
                 new Color(0.3f, 0.3f, 0.3f, 1f), TogglePanel, out unusedText);
             panelObject.SetActive(false);
         }
@@ -279,11 +447,24 @@ namespace AnyRPG {
             panelObject.SetActive(show);
             if (show) {
                 panelText.text = BuildReport(false);
+                scrollRect.verticalNormalizedPosition = 1f;
             }
         }
 
+        private void ClearReport() {
+            lock (entriesLock) {
+                errors.Clear();
+                warnings.Clear();
+                logLines.Clear();
+                version++;
+            }
+            previousSessionReport = string.Empty;
+            previousSessionEndedUnexpectedly = false;
+            panelText.text = BuildReport(false);
+        }
+
         private void CopyReport() {
-            GUIUtility.systemCopyBuffer = "Ötüken Destanı " + Application.version + " hata kaydı\n" + BuildReport(true);
+            GUIUtility.systemCopyBuffer = "Ötüken Destanı durum raporu\n" + BuildReport(true);
             MobileFeedback.Success();
         }
     }

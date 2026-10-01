@@ -18,6 +18,20 @@ namespace AnyRPG {
 
         private static readonly List<RaycastResult> raycastResults = new List<RaycastResult>();
         private static readonly List<string> virtualPresses = new List<string>();
+        private static Vector2 joystickValue = Vector2.zero;
+        private static bool joystickHeld = false;
+
+        /// <summary>
+        /// direction of the on-screen movement stick, -1..1 on each axis
+        /// </summary>
+        public static Vector2 JoystickValue { get { return joystickValue; } }
+
+        public static bool JoystickHeld { get { return joystickHeld; } }
+
+        public static void SetJoystick(Vector2 value, bool held) {
+            joystickValue = value;
+            joystickHeld = held;
+        }
         private static readonly List<string> consumedPresses = new List<string>();
 
         public static bool TouchActive {
@@ -220,7 +234,7 @@ namespace AnyRPG {
         private float nextAutoSave = 0f;
 
         private SystemGameManager systemGameManager = null;
-        private GameObject touchButtonsCanvas = null;
+        private MobileHud mobileHud = null;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void Initialize() {
@@ -385,66 +399,12 @@ namespace AnyRPG {
 
         private void UpdateTouchButtons() {
             bool show = MobileInput.TouchActive && PlayerInGame();
-            if (show && touchButtonsCanvas == null) {
-                CreateTouchButtons();
+            if (show && mobileHud == null) {
+                mobileHud = MobileHud.Create();
             }
-            if (touchButtonsCanvas != null && touchButtonsCanvas.activeSelf != show) {
-                touchButtonsCanvas.SetActive(show);
+            if (mobileHud != null && mobileHud.gameObject.activeSelf != show) {
+                mobileHud.gameObject.SetActive(show);
             }
-        }
-
-        private void CreateTouchButtons() {
-            touchButtonsCanvas = new GameObject("MobileTouchButtons");
-            DontDestroyOnLoad(touchButtonsCanvas);
-            Canvas canvas = touchButtonsCanvas.AddComponent<Canvas>();
-            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            canvas.sortingOrder = 50;
-            touchButtonsCanvas.AddComponent<GraphicRaycaster>();
-            // the canvas is scaled by ScaleCanvases on the next scan
-
-            Font font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-            CreateTouchButton(touchButtonsCanvas.transform, font, "Zıpla", new Vector2(-70f, 230f), "JUMP");
-            CreateTouchButton(touchButtonsCanvas.transform, font, "Hedef", new Vector2(-70f, 330f), "NEXTTARGET");
-        }
-
-        private void CreateTouchButton(Transform parent, Font font, string label, Vector2 position, string actionName) {
-            GameObject buttonObject = new GameObject(label + "Button");
-            buttonObject.transform.SetParent(parent, false);
-            RectTransform rectTransform = buttonObject.AddComponent<RectTransform>();
-            rectTransform.anchorMin = new Vector2(1f, 0f);
-            rectTransform.anchorMax = new Vector2(1f, 0f);
-            rectTransform.pivot = new Vector2(0.5f, 0.5f);
-            rectTransform.anchoredPosition = position;
-            rectTransform.sizeDelta = new Vector2(84f, 84f);
-
-            Image image = buttonObject.AddComponent<Image>();
-            image.color = new Color(0.1f, 0.08f, 0.06f, 0.55f);
-
-            Outline outline = buttonObject.AddComponent<Outline>();
-            outline.effectColor = new Color(0.85f, 0.7f, 0.4f, 0.8f);
-            outline.effectDistance = new Vector2(2f, -2f);
-
-            Button button = buttonObject.AddComponent<Button>();
-            button.targetGraphic = image;
-            button.onClick.AddListener(() => {
-                MobileInput.PressVirtualKey(actionName);
-                MobileFeedback.Tap();
-            });
-
-            GameObject textObject = new GameObject("Label");
-            textObject.transform.SetParent(buttonObject.transform, false);
-            RectTransform textRect = textObject.AddComponent<RectTransform>();
-            textRect.anchorMin = Vector2.zero;
-            textRect.anchorMax = Vector2.one;
-            textRect.offsetMin = Vector2.zero;
-            textRect.offsetMax = Vector2.zero;
-            Text text = textObject.AddComponent<Text>();
-            text.font = font;
-            text.text = label;
-            text.fontSize = 20;
-            text.alignment = TextAnchor.MiddleCenter;
-            text.color = new Color(0.95f, 0.9f, 0.8f, 1f);
-            text.raycastTarget = false;
         }
     }
 }

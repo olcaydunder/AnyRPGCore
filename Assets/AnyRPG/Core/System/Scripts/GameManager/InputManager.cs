@@ -765,6 +765,7 @@ namespace AnyRPG {
 
             RegisterMouseActions();
             RegisterGamepadActions();
+            RegisterVirtualJoystick();
             RegisterKeyPresses();
             RegisterVirtualKeyPresses();
 
@@ -907,6 +908,19 @@ namespace AnyRPG {
                 } else {
                     inputActionNode.UnRegisterKeyUp();
                 }
+            }
+        }
+
+        /// <summary>
+        /// the on-screen movement stick drives the same values as a gamepad's left stick
+        /// </summary>
+        private void RegisterVirtualJoystick() {
+            if (MobileInput.JoystickHeld) {
+                leftAnalogHorizontal = MobileInput.JoystickValue.x;
+                leftAnalogVertical = MobileInput.JoystickValue.y;
+            } else if (Gamepad.current == null) {
+                leftAnalogHorizontal = 0f;
+                leftAnalogVertical = 0f;
             }
         }
 
@@ -1080,6 +1094,8 @@ namespace AnyRPG {
         private bool touchRightHeld = false;
         private bool touchGestureLock = false;
         private int lastTouchCount = 0;
+        private readonly HashSet<int> knownTouchIds = new HashSet<int>();
+        private readonly HashSet<int> uiTouchIds = new HashSet<int>();
         private float touchPinchTravel = 0f;
         private float touchDragTravel = 0f;
         // 0 = undecided, 1 = pinch (zoom), 2 = drag (rotate)
@@ -1099,8 +1115,26 @@ namespace AnyRPG {
             int activeCount = 0;
             Vector2 first = Vector2.zero;
             Vector2 second = Vector2.zero;
+            bool uiTouchActive = false;
+            Vector2 uiTouchPosition = Vector2.zero;
             foreach (TouchControl touch in touchscreen.touches) {
+                int touchId = touch.touchId.ReadValue();
                 if (touch.press.isPressed == false) {
+                    knownTouchIds.Remove(touchId);
+                    uiTouchIds.Remove(touchId);
+                    continue;
+                }
+                // a new finger: remember whether it landed on the user interface (movement stick, buttons, windows)
+                if (knownTouchIds.Contains(touchId) == false) {
+                    knownTouchIds.Add(touchId);
+                    if (MobileInput.IsOverUI(touch.position.ReadValue())) {
+                        uiTouchIds.Add(touchId);
+                    }
+                }
+                // fingers on the user interface are handled by the UI and never move the camera or the character
+                if (uiTouchIds.Contains(touchId)) {
+                    uiTouchActive = true;
+                    uiTouchPosition = touch.position.ReadValue();
                     continue;
                 }
                 if (activeCount == 0) {
@@ -1113,7 +1147,7 @@ namespace AnyRPG {
 
             bool wantLeft = activeCount == 1;
             bool wantRight = activeCount >= 2;
-            Vector2 position = activeCount >= 2 ? (first + second) * 0.5f : (activeCount == 1 ? first : lastTouchPosition);
+            Vector2 position = activeCount >= 2 ? (first + second) * 0.5f : (activeCount == 1 ? first : (uiTouchActive ? uiTouchPosition : lastTouchPosition));
 
             // movement since last frame (only while a finger stays down)
             bool wasHeld = touchLeftHeld || touchRightHeld;
