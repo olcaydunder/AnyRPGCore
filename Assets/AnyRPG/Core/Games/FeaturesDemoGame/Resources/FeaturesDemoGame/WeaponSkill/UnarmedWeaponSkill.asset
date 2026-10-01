@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: UnarmedWeaponSkill
   m_EditorClassIdentifier: 
   resourceName: Unarmed
-  displayName: 
+  displayName: "Silahs\u0131z"
   icon: {fileID: 0}
   iconBackgroundImage: {fileID: 0}
   description: 

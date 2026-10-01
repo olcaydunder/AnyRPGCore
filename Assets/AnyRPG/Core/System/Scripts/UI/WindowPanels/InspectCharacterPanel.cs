@@ -195,17 +195,17 @@ namespace AnyRPG {
                 Debug.LogError("Must set statsdescription text in inspector!");
             }
             string updateString = string.Empty;
-            updateString += "Name: " + inspectCharacterService.TargetUnitController.BaseCharacter.CharacterName + "\n";
-            updateString += "Class: " + (inspectCharacterService.TargetUnitController.BaseCharacter.CharacterClass == null ? "None" : inspectCharacterService.TargetUnitController.BaseCharacter.CharacterClass.DisplayName) + "\n";
-            updateString += "Specialization: " + (inspectCharacterService.TargetUnitController.BaseCharacter.ClassSpecialization == null ? "None" : inspectCharacterService.TargetUnitController.BaseCharacter.ClassSpecialization.DisplayName) + "\n";
-            updateString += "Faction: " + (inspectCharacterService.TargetUnitController.BaseCharacter.Faction == null ? "None" : inspectCharacterService.TargetUnitController.BaseCharacter.Faction.DisplayName) + "\n";
-            updateString += "Unit Type: " + (inspectCharacterService.TargetUnitController.BaseCharacter.UnitType == null ? "None" : inspectCharacterService.TargetUnitController.BaseCharacter.UnitType.DisplayName) + "\n";
-            updateString += "Race: " + (inspectCharacterService.TargetUnitController.BaseCharacter.CharacterRace == null ? "None" : inspectCharacterService.TargetUnitController.BaseCharacter.CharacterRace.DisplayName) + "\n";
-            updateString += "Level: " + inspectCharacterService.TargetUnitController.CharacterStats.Level + "\n";
-            updateString += "Experience: " + inspectCharacterService.TargetUnitController.CharacterStats.CurrentXP + " / " + LevelEquations.GetXPNeededForLevel(inspectCharacterService.TargetUnitController.CharacterStats.Level, systemConfigurationManager) + "\n\n";
+            updateString += "Ad: " + inspectCharacterService.TargetUnitController.BaseCharacter.CharacterName + "\n";
+            updateString += "Sınıf: " + (inspectCharacterService.TargetUnitController.BaseCharacter.CharacterClass == null ? "Yok" : inspectCharacterService.TargetUnitController.BaseCharacter.CharacterClass.DisplayName) + "\n";
+            updateString += "Uzmanlık: " + (inspectCharacterService.TargetUnitController.BaseCharacter.ClassSpecialization == null ? "Yok" : inspectCharacterService.TargetUnitController.BaseCharacter.ClassSpecialization.DisplayName) + "\n";
+            updateString += "Boy: " + (inspectCharacterService.TargetUnitController.BaseCharacter.Faction == null ? "Yok" : inspectCharacterService.TargetUnitController.BaseCharacter.Faction.DisplayName) + "\n";
+            updateString += "Tür: " + (inspectCharacterService.TargetUnitController.BaseCharacter.UnitType == null ? "Yok" : inspectCharacterService.TargetUnitController.BaseCharacter.UnitType.DisplayName) + "\n";
+            updateString += "Soy: " + (inspectCharacterService.TargetUnitController.BaseCharacter.CharacterRace == null ? "Yok" : inspectCharacterService.TargetUnitController.BaseCharacter.CharacterRace.DisplayName) + "\n";
+            updateString += "Seviye: " + inspectCharacterService.TargetUnitController.CharacterStats.Level + "\n";
+            updateString += "Tecrübe: " + inspectCharacterService.TargetUnitController.CharacterStats.CurrentXP + " / " + LevelEquations.GetXPNeededForLevel(inspectCharacterService.TargetUnitController.CharacterStats.Level, systemConfigurationManager) + "\n\n";
 
             foreach (string statName in inspectCharacterService.TargetUnitController.CharacterStats.PrimaryStats.Keys) {
-                updateString += statName + ": " + inspectCharacterService.TargetUnitController.CharacterStats.PrimaryStats[statName].CurrentValue;
+                updateString += TurkishText.Translate(statName) + ": " + inspectCharacterService.TargetUnitController.CharacterStats.PrimaryStats[statName].CurrentValue;
                 if (inspectCharacterService.TargetUnitController.CharacterStats.PrimaryStats[statName].CurrentValue != inspectCharacterService.TargetUnitController.CharacterStats.PrimaryStats[statName].BaseValue) {
                     updateString += " ( " + inspectCharacterService.TargetUnitController.CharacterStats.PrimaryStats[statName].BaseValue +
                         ((inspectCharacterService.TargetUnitController.CharacterStats.PrimaryStats[statName].CurrentValue - inspectCharacterService.TargetUnitController.CharacterStats.PrimaryStats[statName].BaseValue) > 0 ? " <color=green>+" : " <color=red>") +
@@ -221,7 +221,7 @@ namespace AnyRPG {
                 updateString += inspectCharacterService.TargetUnitController.CharacterStats.PrimaryResource.DisplayName + ": " + inspectCharacterService.TargetUnitController.CharacterStats.CurrentPrimaryResource + " / " + inspectCharacterService.TargetUnitController.CharacterStats.MaxPrimaryResource + "\n\n";
             }
 
-            updateString += "Amor: " + inspectCharacterService.TargetUnitController.CharacterStats.SecondaryStats[SecondaryStatType.Armor].CurrentValue + "\n";
+            updateString += "Zırh: " + inspectCharacterService.TargetUnitController.CharacterStats.SecondaryStats[SecondaryStatType.Armor].CurrentValue + "\n";
             /*
             updateString += "Armor: " + inspectCharacterService.TargetUnitController.CharacterStats.SecondaryStats[SecondaryStatType.Armor].CurrentValue;
             if (inspectCharacterService.TargetUnitController.CharacterStats.SecondaryStats[SecondaryStatType.Armor].CurrentValue != inspectCharacterService.TargetUnitController.CharacterStats.SecondaryStats[SecondaryStatType.Armor].BaseValue) {
@@ -229,7 +229,7 @@ namespace AnyRPG {
             }
             */
 
-            updateString += "Physical Power: " +
+            updateString += "Fiziksel Güç: " +
                 (inspectCharacterService.TargetUnitController.CharacterStats.SecondaryStats[SecondaryStatType.PhysicalDamage].CurrentValue +
                 inspectCharacterService.TargetUnitController.CharacterStats.SecondaryStats[SecondaryStatType.Damage].CurrentValue);
             if (inspectCharacterService.TargetUnitController.CharacterStats.SecondaryStats[SecondaryStatType.PhysicalDamage].CurrentValue != inspectCharacterService.TargetUnitController.CharacterStats.SecondaryStats[SecondaryStatType.PhysicalDamage].BaseValue ||
@@ -242,7 +242,7 @@ namespace AnyRPG {
             }
             updateString += "\n";
 
-            updateString += "SpellPower: " +
+            updateString += "Büyü Gücü: " +
                 (inspectCharacterService.TargetUnitController.CharacterStats.SecondaryStats[SecondaryStatType.SpellDamage].CurrentValue +
                 inspectCharacterService.TargetUnitController.CharacterStats.SecondaryStats[SecondaryStatType.Damage].CurrentValue);
             if (inspectCharacterService.TargetUnitController.CharacterStats.SecondaryStats[SecondaryStatType.SpellDamage].CurrentValue != inspectCharacterService.TargetUnitController.CharacterStats.SecondaryStats[SecondaryStatType.SpellDamage].BaseValue ||
@@ -255,7 +255,7 @@ namespace AnyRPG {
             }
             updateString += "\n";
 
-            updateString += "Critical Hit Chance: " +
+            updateString += "Kritik Vuruş Şansı: " +
                 inspectCharacterService.TargetUnitController.CharacterStats.SecondaryStats[SecondaryStatType.CriticalStrike].CurrentValue + "%";
             if (inspectCharacterService.TargetUnitController.CharacterStats.SecondaryStats[SecondaryStatType.CriticalStrike].CurrentValue != inspectCharacterService.TargetUnitController.CharacterStats.SecondaryStats[SecondaryStatType.CriticalStrike].BaseValue) {
                 updateString += " ( " +
@@ -265,7 +265,7 @@ namespace AnyRPG {
             }
             updateString += "\n";
 
-            updateString += "Accuracy: " +
+            updateString += "İsabet: " +
                 LevelEquations.GetSecondaryStatForCharacter(SecondaryStatType.Accuracy, inspectCharacterService.TargetUnitController) +"%";
             if (inspectCharacterService.TargetUnitController.CharacterStats.SecondaryStats[SecondaryStatType.Accuracy].CurrentValue != inspectCharacterService.TargetUnitController.CharacterStats.SecondaryStats[SecondaryStatType.Accuracy].BaseValue) {
                 updateString += " ( " +
@@ -275,7 +275,7 @@ namespace AnyRPG {
             }
             updateString += "\n";
 
-            updateString += "Attack/Casting Speed: " +
+            updateString += "Saldırı/Büyü Hızı: " +
                 LevelEquations.GetSecondaryStatForCharacter(SecondaryStatType.Speed, inspectCharacterService.TargetUnitController) + "%";
             if (inspectCharacterService.TargetUnitController.CharacterStats.SecondaryStats[SecondaryStatType.Speed].CurrentValue != inspectCharacterService.TargetUnitController.CharacterStats.SecondaryStats[SecondaryStatType.Speed].BaseValue) {
                 updateString += " ( "
@@ -285,7 +285,7 @@ namespace AnyRPG {
             }
             updateString += "\n";
 
-            updateString += "Movement Speed: " + Mathf.Clamp(inspectCharacterService.TargetUnitController.CharacterStats.RunSpeed, 0, systemConfigurationManager.MaxMovementSpeed).ToString("F2") + " (m/s)\n\n";
+            updateString += "Hareket Hızı: " + Mathf.Clamp(inspectCharacterService.TargetUnitController.CharacterStats.RunSpeed, 0, systemConfigurationManager.MaxMovementSpeed).ToString("F2") + " (m/s)\n\n";
 
             statsDescription.text = updateString;
         }

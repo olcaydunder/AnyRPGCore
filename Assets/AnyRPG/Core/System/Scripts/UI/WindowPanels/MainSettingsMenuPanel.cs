@@ -35,12 +35,24 @@ namespace AnyRPG
 
         // game manager references
         private UIManager uIManager = null;
+        private LevelManagerClient levelManagerClient = null;
 
         public override void SetGameManagerReferences()
         {
             base.SetGameManagerReferences();
 
             uIManager = systemGameManager.UIManager;
+            levelManagerClient = systemGameManager.LevelManagerClient;
+        }
+
+        public override void ReceiveClosedWindowNotification()
+        {
+            base.ReceiveClosedWindowNotification();
+            // the main menu is hidden while the settings are open (see MainMenuPanel.SettingsMenu); bring it back
+            if (SystemGameManager.IsShuttingDown == false && levelManagerClient != null && levelManagerClient.IsMainMenu())
+            {
+                uIManager.mainMenuWindow.OpenWindow();
+            }
         }
 
         public void ResetSettingsPanels()

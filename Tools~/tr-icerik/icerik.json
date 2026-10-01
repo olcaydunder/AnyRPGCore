@@ -2214,5 +2214,158 @@
       "Hadi alışveriş yapalım.",
       "Mallarıma bir göz at."
     ]
+  },
+  "PowerResource": {
+    "Health": {
+      "ad": "Can"
+    },
+    "Mana": {
+      "ad": "Mana"
+    },
+    "Rage": {
+      "ad": "Öfke"
+    },
+    "Energy": {
+      "ad": "Enerji"
+    }
+  },
+  "CharacterStat": {
+    "Agility": {
+      "ad": "Çeviklik"
+    },
+    "Intellect": {
+      "ad": "Zekâ"
+    },
+    "Stamina": {
+      "ad": "Dayanıklılık"
+    },
+    "Strength": {
+      "ad": "Güç"
+    }
+  },
+  "ArmorClass": {
+    "Cloth": {
+      "ad": "Bez"
+    },
+    "Leather": {
+      "ad": "Deri"
+    },
+    "Plate": {
+      "ad": "Plaka"
+    }
+  },
+  "Currency": {
+    "Copper": {
+      "ad": "Bakır Akçe",
+      "aciklama": "Her yerde geçen değerli bir para."
+    },
+    "Silver": {
+      "ad": "Gümüş Akçe",
+      "aciklama": "Her yerde geçen değerli bir para."
+    },
+    "Gold": {
+      "ad": "Altın",
+      "aciklama": "Her yerde geçen değerli bir para."
+    }
+  },
+  "CurrencyGroup": {
+    "Gold": {
+      "ad": "Para"
+    }
+  },
+  "WeaponSkill": {
+    "Dagger": {
+      "ad": "Hançer"
+    },
+    "Wand": {
+      "ad": "Değnek"
+    },
+    "Crossbow": {
+      "ad": "Arbalet"
+    },
+    "Two Hand Sword": {
+      "ad": "İki Elli Kılıç"
+    },
+    "Unarmed": {
+      "ad": "Silahsız"
+    },
+    "Polearm": {
+      "ad": "Mızrak"
+    },
+    "Fist": {
+      "ad": "Pençe"
+    },
+    "Two Hand Mace": {
+      "ad": "İki Elli Gürz"
+    },
+    "Shield": {
+      "ad": "Kalkan"
+    },
+    "Staff": {
+      "ad": "Asa"
+    },
+    "Two Hand Axe": {
+      "ad": "İki Elli Balta"
+    },
+    "One Hand Mace": {
+      "ad": "Gürz"
+    },
+    "Bow": {
+      "ad": "Yay"
+    },
+    "One Hand Sword": {
+      "ad": "Kılıç"
+    },
+    "One Hand Axe": {
+      "ad": "Balta"
+    }
+  },
+  "UnitType": {
+    "Beast": {
+      "ad": "Hayvan"
+    }
+  },
+  "StatusEffectType": {
+    "Poison": {
+      "ad": "Zehir"
+    }
+  },
+  "ItemQuality": {
+    "Poor": {
+      "ad": "Değersiz",
+      "alanlar": {
+        "randomQualityPrefix": "Kusurlu"
+      }
+    },
+    "Common": {
+      "ad": "Sıradan"
+    },
+    "UnCommon": {
+      "ad": "Sıradışı",
+      "alanlar": {
+        "randomQualityPrefix": "Güçlü"
+      }
+    },
+    "Rare": {
+      "ad": "Nadir",
+      "alanlar": {
+        "randomQualityPrefix": "Üstün"
+      }
+    },
+    "Epic": {
+      "ad": "Destansı",
+      "alanlar": {
+        "randomQualityPrefix": "Eşsiz"
+      }
+    },
+    "Legendary": {
+      "ad": "Efsanevi",
+      "alanlar": {
+        "randomQualityPrefix": "Tanrısal"
+      }
+    },
+    "Heirloom": {
+      "ad": "Yadigâr"
+    }
   }
 }

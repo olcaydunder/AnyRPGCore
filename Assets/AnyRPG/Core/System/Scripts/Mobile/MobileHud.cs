@@ -18,7 +18,9 @@ namespace AnyRPG {
             DontDestroyOnLoad(canvasObject);
             Canvas canvas = canvasObject.AddComponent<Canvas>();
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            canvas.sortingOrder = 50;
+            // same layer as the other HUD parts (action bar, unit frames, mini map): windows (order 2) and menus (order 9)
+            // open on top of the controls instead of being covered by them
+            canvas.sortingOrder = 1;
             canvasObject.AddComponent<GraphicRaycaster>();
             // the canvas scaler is added by MobileBootstrap.ScaleCanvases (in-game HUD size)
             MobileHud hud = canvasObject.AddComponent<MobileHud>();

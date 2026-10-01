@@ -832,7 +832,7 @@ namespace AnyRPG {
             string addString = string.Empty;
             if (requireStealth == true) {
                 if (playerManagerClient.UnitController.CharacterStats.IsStealthed == false) {
-                    addString = string.Format("\n<color={0}>Requires Stealth</color>", "#ff0000ff");
+                    addString = string.Format("\n<color={0}>Gizlenmen gerekir</color>", "#ff0000ff");
                 }
             }
             if (weaponAffinityNames.Count == 0) {
@@ -852,7 +852,7 @@ namespace AnyRPG {
                 } else {
                     colorString = "#ff0000ff";
                 }
-                addString += string.Format("\n<color={0}>Requires Weapon(s): {1}</color>", colorString, string.Join(",", requireWeaponSkills));
+                addString += string.Format("\n<color={0}>Gereken silah: {1}</color>", colorString, string.Join(",", requireWeaponSkills));
             }
 
             if (requireItemNames.Count == 0) {
@@ -872,19 +872,19 @@ namespace AnyRPG {
                 } else {
                     colorString = "#ff0000ff";
                 }
-                addString += string.Format("\n<color={0}>Requires Item(s): {1}</color>", colorString, string.Join(",", requireItemList));
+                addString += string.Format("\n<color={0}>Gereken eşya: {1}</color>", colorString, string.Join(",", requireItemList));
             }
 
-            string abilityRange = (GetTargetOptions(playerManagerClient.UnitController).UseMeleeRange == true ? "melee" : GetTargetOptions(playerManagerClient.UnitController).MaxRange + " meters");
+            string abilityRange = (GetTargetOptions(playerManagerClient.UnitController).UseMeleeRange == true ? "yakın dövüş" : GetTargetOptions(playerManagerClient.UnitController).MaxRange + " metre");
 
             string costString = string.Empty;
             if (powerResource != null) {
-                costString = "\nCost: " + GetResourceCost(playerManagerClient.UnitController) + " " + powerResource.DisplayName;
+                costString = "\nBedel: " + GetResourceCost(playerManagerClient.UnitController) + " " + powerResource.DisplayName;
             }
 
             string coolDownString = GetCooldownString();
 
-            return string.Format("Cast time: {0} second(s)\nCooldown: {1} second(s){2}\nRange: {3}\n<color=#ffff00ff>{4}</color>{5}{6}",
+            return string.Format("Hazırlanma: {0} sn\nBekleme: {1} sn{2}\nMenzil: {3}\n<color=#ffff00ff>{4}</color>{5}{6}",
                 GetAbilityCastingTime(playerManagerClient.UnitController).ToString("F1"),
                 abilityCoolDown,
                 costString,
@@ -903,7 +903,7 @@ namespace AnyRPG {
                 if (playerManagerClient.UnitController.CharacterAbilityManager.AbilityCoolDownDictionary.ContainsKey(ResourceName)) {
                     dictionaryCooldown = playerManagerClient.UnitController.CharacterAbilityManager.AbilityCoolDownDictionary[ResourceName].RemainingCoolDown;
                 }
-                coolDownString = "\n\nCooldown Remaining: " + SystemAbilityController.GetTimeText(Mathf.Max(dictionaryCooldown, playerManagerClient.UnitController.CharacterAbilityManager.RemainingGlobalCoolDown)); ;
+                coolDownString = "\n\nKalan bekleme: " + SystemAbilityController.GetTimeText(Mathf.Max(dictionaryCooldown, playerManagerClient.UnitController.CharacterAbilityManager.RemainingGlobalCoolDown)); ;
             }
             return coolDownString;
         }

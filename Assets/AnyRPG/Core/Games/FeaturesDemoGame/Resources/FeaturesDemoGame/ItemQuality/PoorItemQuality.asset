@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PoorItemQuality
   m_EditorClassIdentifier: 
   resourceName: Poor
-  displayName: 
+  displayName: "De\u011fersiz"
   icon: {fileID: 0}
   iconBackgroundImage: {fileID: 21300000, guid: 03760cb19b6818b4ba3213d19fd9e9ea,
     type: 3}
@@ -23,7 +23,7 @@ MonoBehaviour:
   statMultiplier: 0.9
   allowRandomItems: 1
   randomWeight: 32
-  randomQualityPrefix: Inferior
+  randomQualityPrefix: "Kusurlu"
   randomStatCount: 0
   dynamicItemLevel: 0
   buyPriceMultiplier: 0.5

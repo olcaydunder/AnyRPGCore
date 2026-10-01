@@ -137,12 +137,12 @@ namespace AnyRPG {
             //Debug.Log($"{ResourceName}.InstantiatedItem.Use({sourceUnitController.gameObject.name})");
 
             if (!item.CharacterClassRequirementIsMet(sourceUnitController.BaseCharacter)) {
-                sourceUnitController.WriteMessageFeedMessage("You are not the right character class to use " + DisplayName);
+                sourceUnitController.WriteMessageFeedMessage(DisplayName + " senin sınıfına uygun değil");
                 return false;
             }
             //if (GetItemLevel(playerManager.UnitController.CharacterStats.Level) > playerManager.UnitController.CharacterStats.Level) {
             if (item.UseLevel > sourceUnitController.CharacterStats.Level) {
-                sourceUnitController.WriteMessageFeedMessage("You are too low level to use " + DisplayName);
+                sourceUnitController.WriteMessageFeedMessage(DisplayName + " için seviyen yetersiz");
                 return false;
             }
 

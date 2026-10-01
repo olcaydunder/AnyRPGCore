@@ -273,11 +273,11 @@ namespace AnyRPG {
             } else {
                 colorstring = "white";
             }
-            summaryLines.Add(string.Format("<color={0}>Item Level: {1}{2}</color>", colorstring, GetItemLevel(playerManagerClient.UnitController.CharacterStats.Level), itemRange));
+            summaryLines.Add(string.Format("<color={0}>Eşya Seviyesi: {1}{2}</color>", colorstring, GetItemLevel(playerManagerClient.UnitController.CharacterStats.Level), itemRange));
 
             // armor
             if (useArmorModifier) {
-                summaryLines.Add(string.Format(" +{0} Armor", GetArmorModifier(playerManagerClient.UnitController.CharacterStats.Level, usedItemQuality)));
+                summaryLines.Add(string.Format(" +{0} Zırh", GetArmorModifier(playerManagerClient.UnitController.CharacterStats.Level, usedItemQuality)));
             }
 
             // primary stats
@@ -286,7 +286,7 @@ namespace AnyRPG {
                 if (primaryStatModifier > 0f) {
                     summaryLines.Add(string.Format(" +{0} {1}",
                         primaryStatModifier,
-                        itemPrimaryStatNode.StatName));
+                        TurkishText.Translate(itemPrimaryStatNode.StatName)));
                 }
             }
 
@@ -294,15 +294,15 @@ namespace AnyRPG {
             foreach (ItemSecondaryStatNode itemSecondaryStatNode in usedSecondaryStats) {
                 summaryLines.Add(string.Format("<color=green> +{0} {1}</color>",
                                    GetSecondaryStatAddModifier(usedSecondaryStats, itemSecondaryStatNode.SecondaryStat, playerManagerClient.UnitController.CharacterStats.Level),
-                                   itemSecondaryStatNode.SecondaryStat.ToString()));
+                                   TurkishText.Translate(itemSecondaryStatNode.SecondaryStat.ToString())));
             }
 
             // abilities
             if (onEquipStatusEffectRef != null) {
-                summaryLines.Add(string.Format("<color=green>Cast On Equip: {0}</color>", onEquipStatusEffectRef.DisplayName));
+                summaryLines.Add(string.Format("<color=green>Kuşanınca: {0}</color>", onEquipStatusEffectRef.DisplayName));
             }
             foreach (AbilityProperties learnedAbility in LearnedAbilities) {
-                summaryLines.Add(string.Format("<color=green>Learn On Equip: {0}</color>", learnedAbility.DisplayName));
+                summaryLines.Add(string.Format("<color=green>Kuşanınca öğren: {0}</color>", learnedAbility.DisplayName));
             }
 
             if (equipmentSet != null) {

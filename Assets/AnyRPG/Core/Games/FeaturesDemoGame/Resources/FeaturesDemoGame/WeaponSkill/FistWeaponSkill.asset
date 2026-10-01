@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FistWeaponSkill
   m_EditorClassIdentifier: 
   resourceName: Fist
-  displayName: 
+  displayName: "Pen\u00e7e"
   icon: {fileID: 0}
   iconBackgroundImage: {fileID: 0}
   description: 

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StrengthStat
   m_EditorClassIdentifier: 
   resourceName: Strength
-  displayName: 
+  displayName: "G\u00fc\u00e7"
   icon: {fileID: 0}
   iconBackgroundImage: {fileID: 0}
   description: 

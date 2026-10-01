@@ -70,6 +70,9 @@ def main():
                     if folder == "Dialog":
                         t = set_nth(t, "description", 4, data)
                     else:
+                        if not re.search(r"^  displayName:", t, re.M):
+                            # some older assets were saved before the field existed; add it after resourceName
+                            t = re.sub(r"^(  resourceName: .*\n)", r"\1  displayName: \n", t, count=1, flags=re.M)
                         t = set_top(t, "displayName", data["ad"])
                         # nameplates show the unit's characterName; "karakter": null keeps the original
                         # (needed where a quest objective matches the character name)
@@ -79,6 +82,9 @@ def main():
                             t = set_top(t, "description", data["aciklama"])
                         if "hedefler" in data:
                             t = set_nth(t, "overrideDisplayName", 8, data["hedefler"])
+                        # other top level text fields, e.g. {"randomQualityPrefix": "Üstün"}
+                        for alan, deger in data.get("alanlar", {}).items():
+                            t = set_top(t, alan, deger)
                 except ValueError as e:
                     errors.append(f"{folder}/{name}: {e}")
                     continue

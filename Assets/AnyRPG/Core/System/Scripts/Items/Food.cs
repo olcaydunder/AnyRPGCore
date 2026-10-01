@@ -79,7 +79,7 @@ namespace AnyRPG {
         public override string GetCastableInformation() {
             string returnString = string.Empty;
             if (Ability != null) {
-                returnString += string.Format("<color=green>Use: {0}</color>", Ability.Description);
+                returnString += string.Format("<color=green>Kullan: {0}</color>", Ability.Description);
             }
             return returnString;
         }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: OneHandSwordWeaponSkill
   m_EditorClassIdentifier: 
   resourceName: One Hand Sword
-  displayName: 
+  displayName: "K\u0131l\u0131\u00e7"
   icon: {fileID: 0}
   iconBackgroundImage: {fileID: 0}
   description: 

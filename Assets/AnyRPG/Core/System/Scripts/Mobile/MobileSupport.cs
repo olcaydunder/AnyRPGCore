@@ -255,6 +255,13 @@ namespace AnyRPG {
         // in-game HUD canvases (built for 1:1 pixels on a monitor) are laid out as if the screen was this many pixels tall,
         // which makes them about 1.35x larger on a 1080p phone and keeps the same physical size on every phone
         private const float hudReferenceHeight = 800f;
+        // windows (bag, character, quests, vendor...) and their tooltips have 32 pixel slots and small text; on a phone they
+        // need to be bigger still to be read and tapped. Windows that end up larger than the screen are shrunk to fit by
+        // FitWindowsOnScreen, so they are never smaller than with the HUD size.
+        private const float windowReferenceHeight = 500f;
+        private static readonly HashSet<string> windowCanvasNames = new HashSet<string>() {
+            "PopupWindowContainerCanvas", "ToolTipCanvas", "HandIconCanvas"
+        };
         // full screen menus were designed on a 1920x1080 canvas; keep that design and fit it to the screen height
         private static readonly Vector2 menuReferenceResolution = new Vector2(1920f, 1080f);
         private const float canvasScanInterval = 1f;
@@ -408,7 +415,8 @@ namespace AnyRPG {
                     canvasScaler = canvas.gameObject.AddComponent<CanvasScaler>();
                 }
                 canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-                canvasScaler.referenceResolution = fullScreenMenu ? menuReferenceResolution : new Vector2(hudReferenceHeight * 16f / 9f, hudReferenceHeight);
+                float referenceHeight = windowCanvasNames.Contains(canvas.name) ? windowReferenceHeight : hudReferenceHeight;
+                canvasScaler.referenceResolution = fullScreenMenu ? menuReferenceResolution : new Vector2(referenceHeight * 16f / 9f, referenceHeight);
                 canvasScaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
                 canvasScaler.matchWidthOrHeight = 1f;
             }

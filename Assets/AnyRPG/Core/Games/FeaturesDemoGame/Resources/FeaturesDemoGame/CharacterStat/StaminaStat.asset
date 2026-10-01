@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StaminaStat
   m_EditorClassIdentifier: 
   resourceName: Stamina
-  displayName: 
+  displayName: "Dayan\u0131kl\u0131l\u0131k"
   icon: {fileID: 0}
   iconBackgroundImage: {fileID: 0}
   description: 

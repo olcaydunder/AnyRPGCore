@@ -182,11 +182,11 @@ namespace AnyRPG {
             List<string> abilitiesList = new List<string>();
 
             if (addScaledDamagePerSecond) {
-                abilitiesList.Add(string.Format("Damage Per Second: {0}", GetDamagePerSecond(playerManagerClient.UnitController.CharacterStats.Level, usedItemQuality)));
+                abilitiesList.Add(string.Format("Saniye başına hasar: {0}", GetDamagePerSecond(playerManagerClient.UnitController.CharacterStats.Level, usedItemQuality)));
             }
             if (onHitEffectList != null) {
                 foreach (AbilityEffectProperties abilityEffect in onHitEffectList) {
-                    abilitiesList.Add(string.Format("<color=green>Cast On Hit: {0}</color>", abilityEffect.DisplayName));
+                    abilitiesList.Add(string.Format("<color=green>Vuruşta: {0}</color>", abilityEffect.DisplayName));
                 }
             }
             string abilitiesString = string.Empty;
@@ -199,7 +199,7 @@ namespace AnyRPG {
                 if (!CanEquip(usedItemLevel, playerManagerClient.UnitController)) {
                     colorString = "red";
                 }
-                abilitiesString += string.Format("\n<color={0}>Required Skill: {1}</color>", colorString, weaponSkill.DisplayName);
+                abilitiesString += string.Format("\n<color={0}>Gereken beceri: {1}</color>", colorString, weaponSkill.DisplayName);
             }
             return base.GetDescription(usedItemQuality, usedItemLevel) + abilitiesString;
         }
@@ -212,7 +212,7 @@ namespace AnyRPG {
             }
             List<CharacterClass> allowedCharacterClasses = GetAllowedCharacterClasses();
             if (allowedCharacterClasses != null && allowedCharacterClasses.Count > 0 && !allowedCharacterClasses.Contains(baseCharacter.CharacterClass)) {
-                SystemGameManager.Instance.UIManager.MessageFeedManager.WriteMessage("You do not have the right weapon skill to equip " + DisplayName);
+                SystemGameManager.Instance.UIManager.MessageFeedManager.WriteMessage(DisplayName + " için gereken silah becerin yok");
                 return false;
             }
             return true;

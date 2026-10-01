@@ -48,7 +48,7 @@ namespace AnyRPG {
         public virtual string GetCastableInformation() {
             string returnString = string.Empty;
             if (Ability != null) {
-                returnString += string.Format("\n\n<color=green>Use: {0}</color>", toolTip);
+                returnString += string.Format("\n\n<color=green>Kullan: {0}</color>", toolTip);
             }
             return returnString;
         }

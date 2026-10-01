@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WandWeaponSkill
   m_EditorClassIdentifier: 
   resourceName: Wand
-  displayName: 
+  displayName: "De\u011fnek"
   icon: {fileID: 0}
   iconBackgroundImage: {fileID: 0}
   description: 

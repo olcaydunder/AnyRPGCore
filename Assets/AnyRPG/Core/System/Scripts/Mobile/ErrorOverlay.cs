@@ -45,6 +45,11 @@ namespace AnyRPG {
 
         private int shownVersion = -1;
         private float fps = 0f;
+        // smoothed CPU and GPU time per frame in milliseconds (needs "Frame Timing Stats" in the player settings);
+        // tells whether a low frame rate comes from the scripts (CPU) or from drawing (GPU)
+        private readonly FrameTiming[] frameTimings = new FrameTiming[1];
+        private float cpuFrameMs = 0f;
+        private float gpuFrameMs = 0f;
         private float nextStatusRefresh = 0f;
         private GameObject canvasObject = null;
         private Text badgeText = null;
@@ -273,6 +278,12 @@ namespace AnyRPG {
                 .Append(" | ").Append(Screen.width).Append('x').Append(Screen.height)
                 .Append(" | FPS ").Append(instance != null ? instance.fps.ToString("0") : "?")
                 .Append(" | Süre ").Append(((int)(Time.realtimeSinceStartup - startTime))).Append(" sn").Append('\n');
+            builder.Append("Kare süresi: işlemci ").Append(instance != null && instance.cpuFrameMs > 0f ? instance.cpuFrameMs.ToString("0.0") + " ms" : "?")
+                .Append(" | ekran kartı ").Append(instance != null && instance.gpuFrameMs > 0f ? instance.gpuFrameMs.ToString("0.0") + " ms" : "?")
+                .Append(" | ekran ").Append(Screen.currentResolution.refreshRateRatio.value.ToString("0")).Append(" Hz")
+                .Append(" | hedef ").Append(Application.targetFrameRate)
+                .Append(" | kalite ").Append(QualitySettings.names[QualitySettings.GetQualityLevel()])
+                .Append(" | pil ").Append((SystemInfo.batteryLevel * 100f).ToString("0")).Append('%').Append('\n');
             builder.Append("Sahneler:");
             for (int i = 0; i < UnityEngine.SceneManagement.SceneManager.sceneCount; i++) {
                 UnityEngine.SceneManagement.Scene scene = UnityEngine.SceneManagement.SceneManager.GetSceneAt(i);
@@ -310,6 +321,11 @@ namespace AnyRPG {
         private void Update() {
             if (Time.unscaledDeltaTime > 0f) {
                 fps = Mathf.Lerp(fps, 1f / Time.unscaledDeltaTime, 0.05f);
+            }
+            FrameTimingManager.CaptureFrameTimings();
+            if (FrameTimingManager.GetLatestTimings(1, frameTimings) > 0) {
+                cpuFrameMs = Mathf.Lerp(cpuFrameMs, (float)frameTimings[0].cpuFrameTime, 0.05f);
+                gpuFrameMs = Mathf.Lerp(gpuFrameMs, (float)frameTimings[0].gpuFrameTime, 0.05f);
             }
             if (canvasObject == null) {
                 CreateOverlay();

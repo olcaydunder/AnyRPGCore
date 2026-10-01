@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LeatherArmorClass
   m_EditorClassIdentifier: 
   resourceName: Leather
-  displayName: 
+  displayName: "Deri"
   icon: {fileID: 0}
   iconBackgroundImage: {fileID: 0}
   description: Leather armor

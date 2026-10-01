@@ -62,7 +62,7 @@ namespace AnyRPG {
         }
 
         public string GetQuestStartItemDescription() {
-            return string.Format("\n<color=green>Use: This item starts a quest</color>");
+            return string.Format("\n<color=green>Kullan: Bu eşya bir görev başlatır</color>");
         }
 
         public override void SetupScriptableObjects(SystemGameManager systemGameManager) {

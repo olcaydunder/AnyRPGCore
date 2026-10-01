@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RareItemQuality
   m_EditorClassIdentifier: 
   resourceName: Rare
-  displayName: 
+  displayName: "Nadir"
   icon: {fileID: 0}
   iconBackgroundImage: {fileID: 21300000, guid: 3af142d6ae2dfd449915f19e2722f5e2,
     type: 3}
@@ -23,7 +23,7 @@ MonoBehaviour:
   statMultiplier: 1.25
   allowRandomItems: 1
   randomWeight: 4
-  randomQualityPrefix: Superior
+  randomQualityPrefix: "\u00dcst\u00fcn"
   randomStatCount: 2
   dynamicItemLevel: 0
   buyPriceMultiplier: 5

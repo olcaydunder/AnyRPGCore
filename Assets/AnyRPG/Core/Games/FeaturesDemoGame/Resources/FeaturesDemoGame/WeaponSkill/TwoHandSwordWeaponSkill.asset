@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TwoHandSwordWeaponSkill
   m_EditorClassIdentifier: 
   resourceName: Two Hand Sword
-  displayName: 
+  displayName: "\u0130ki Elli K\u0131l\u0131\u00e7"
   icon: {fileID: 0}
   iconBackgroundImage: {fileID: 0}
   description: 

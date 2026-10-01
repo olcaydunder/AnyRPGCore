@@ -11,7 +11,7 @@ namespace AnyRPG {
             if (ability != null) {
                 abilityName = ability.DisplayName;
             }
-            return string.Format("\n<color=green>Use: Cast {0}</color>", abilityName);
+            return string.Format("\n<color=green>Kullan: {0}</color>", abilityName);
         }
         */
 

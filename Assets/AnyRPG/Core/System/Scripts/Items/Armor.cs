@@ -49,7 +49,7 @@ namespace AnyRPG {
                 if (!CanEquip(usedItemLevel, playerManagerClient.UnitController)) {
                     colorString = "red";
                 }
-                abilitiesString += string.Format("\n<color={0}>{1}</color>", colorString, armorClassName);
+                abilitiesString += string.Format("\n<color={0}>{1}</color>", colorString, TurkishText.Translate(armorClassName));
             }
 
             return base.GetDescription(usedItemQuality, usedItemLevel) + abilitiesString;
@@ -70,7 +70,7 @@ namespace AnyRPG {
             }
             List<CharacterClass> allowedCharacterClasses = GetAllowedCharacterClasses();
             if (allowedCharacterClasses != null && allowedCharacterClasses.Count > 0 && !allowedCharacterClasses.Contains(baseCharacter.CharacterClass)) {
-                messageFeedManager.WriteMessage("You do not have the right armor proficiency to equip " + DisplayName);
+                messageFeedManager.WriteMessage(DisplayName + " için gereken zırh yetkinliğin yok");
                 return false;
             }
             return true;

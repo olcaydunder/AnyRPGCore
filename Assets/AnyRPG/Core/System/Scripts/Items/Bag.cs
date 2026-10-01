@@ -48,7 +48,7 @@ namespace AnyRPG {
         }
 
         public string GetBagDescription() {
-            return string.Format("\n\n{0} slots", slots);
+            return string.Format("\n\n{0} göz", slots);
         }
 
 

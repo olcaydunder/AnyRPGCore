@@ -205,17 +205,17 @@ namespace AnyRPG {
                 descriptionString = $"\n<color=yellow><size=14>{descriptionString}</size></color>";
             }
             //if (systemConfigurationManager.UseEncumberance == true) {
-            descriptionString += $"\n<color=yellow><size=12>Weight: {weight} kg</size></color>";
+            descriptionString += $"\n<color=yellow><size=12>Ağırlık: {weight} kg</size></color>";
             //}
             if (characterClassRequirementList.Count > 0) {
                 string colorString = "red";
                 if (realCharacterClassRequirementList.Contains(playerManagerClient.UnitController.BaseCharacter.CharacterClass)) {
                     colorString = "white";
                 }
-                descriptionString += string.Format("\n\n<color={0}>Required Classes: {1}</color>", colorString, string.Join(",", characterClassRequirementList));
+                descriptionString += string.Format("\n\n<color={0}>Gereken Sınıflar: {1}</color>", colorString, string.Join(",", characterClassRequirementList));
             }
             if (Currency == null) {
-                descriptionString += "\n\nNo Sell Price";
+                descriptionString += "\n\nSatılamaz";
             }
 
             return string.Format("{0}", descriptionString);

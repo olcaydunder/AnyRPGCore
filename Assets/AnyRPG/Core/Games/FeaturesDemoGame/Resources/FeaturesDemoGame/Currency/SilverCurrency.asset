@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: SilverCurrency
   m_EditorClassIdentifier: 
   resourceName: Silver
-  displayName: 
+  displayName: "G\u00fcm\u00fc\u015f Ak\u00e7e"
   icon: {fileID: 21300000, guid: f1b8c2be19d939a4cb38c8c8d8374d03, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: A currency accepted almost everywhere
+  description: "Her yerde ge\u00e7en de\u011ferli bir para."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

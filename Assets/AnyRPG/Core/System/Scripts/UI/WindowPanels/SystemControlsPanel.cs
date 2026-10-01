@@ -134,11 +134,11 @@ namespace AnyRPG {
         public void ToggleinvertMouse() {
             if (PlayerPrefs.GetInt("MouseInvert") == 0) {
                 PlayerPrefs.SetInt("MouseInvert", 1);
-                uIManager.MessageFeedManager.WriteMessage("Invert Mouse: on");
+                uIManager.MessageFeedManager.WriteMessage("Ters Kamera: açık");
                 invertMouseButton.SetOn();
             } else {
                 PlayerPrefs.SetInt("MouseInvert", 0);
-                uIManager.MessageFeedManager.WriteMessage("Invert Mouse: off");
+                uIManager.MessageFeedManager.WriteMessage("Ters Kamera: kapalı");
                 invertMouseButton.SetOff();
             }
         }
@@ -146,11 +146,11 @@ namespace AnyRPG {
         public void ToggleInvertJoystick() {
             if (PlayerPrefs.GetInt("JoystickInvert") == 0) {
                 PlayerPrefs.SetInt("JoystickInvert", 1);
-                uIManager.MessageFeedManager.WriteMessage("Invert Joystick: on");
+                uIManager.MessageFeedManager.WriteMessage("Kolu Ters Çevir: açık");
                 invertJoystickButton.SetOn();
             } else {
                 PlayerPrefs.SetInt("JoystickInvert", 0);
-                uIManager.MessageFeedManager.WriteMessage("Invert Joystick: off");
+                uIManager.MessageFeedManager.WriteMessage("Kolu Ters Çevir: kapalı");
                 invertJoystickButton.SetOff();
             }
         }
@@ -158,12 +158,12 @@ namespace AnyRPG {
         public void ToggleGamepadMode() {
             if (PlayerPrefs.GetInt("GamepadMode") == 0) {
                 PlayerPrefs.SetInt("GamepadMode", 1);
-                uIManager.MessageFeedManager.WriteMessage("Gamepad Mode: on");
+                uIManager.MessageFeedManager.WriteMessage("Oyun Kolu Modu: açık");
                 gamepadModeButton.SetOn();
                 controlsManager.ActivateGamepadMode(true);
             } else {
                 PlayerPrefs.SetInt("GamepadMode", 0);
-                uIManager.MessageFeedManager.WriteMessage("Gamepad Mode: off");
+                uIManager.MessageFeedManager.WriteMessage("Oyun Kolu Modu: kapalı");
                 gamepadModeButton.SetOff();
                 controlsManager.DeactivateGamepadMode(true);
             }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PoisonStatusEffectType
   m_EditorClassIdentifier: 
   resourceName: Poison
-  displayName: 
+  displayName: "Zehir"
   icon: {fileID: 0}
   iconBackgroundImage: {fileID: 0}
   description: 

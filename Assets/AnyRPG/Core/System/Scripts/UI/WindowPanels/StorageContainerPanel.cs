@@ -43,7 +43,7 @@ namespace AnyRPG {
                 return;
             }
             float inventoryWeight = storageContainerManagerClient.StorageContainerComponent.Weight;
-            weightText.text = $"Weight: {Mathf.Ceil(inventoryWeight)} kg";
+            weightText.text = $"Ağırlık: {Mathf.Ceil(inventoryWeight)} kg";
         }
 
         public override void ProcessOpenWindowNotification() {

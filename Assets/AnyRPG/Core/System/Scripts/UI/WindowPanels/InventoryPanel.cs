@@ -87,9 +87,9 @@ namespace AnyRPG {
             float equippedWeight = playerManagerClient.UnitController.CharacterEquipmentManager.EquippedWeight;
             float totalWeight = inventoryWeight + equippedWeight;
             float carryWeight = playerManagerClient.UnitController.CharacterStats.SecondaryStats[SecondaryStatType.CarryWeight].CurrentValue + systemConfigurationManager.BaseCarryWeight;
-            carryWeightText.text = $"<color={(totalWeight > carryWeight ? "red" : "white")}>Inventory: {Mathf.Ceil(inventoryWeight)} kg\n" +
-                $"Equipped: {Mathf.Ceil(equippedWeight)} kg\n" +
-                $"Total: {Mathf.Ceil(totalWeight)}";
+            carryWeightText.text = $"<color={(totalWeight > carryWeight ? "red" : "white")}>Çanta: {Mathf.Ceil(inventoryWeight)} kg\n" +
+                $"Kuşanılan: {Mathf.Ceil(equippedWeight)} kg\n" +
+                $"Toplam: {Mathf.Ceil(totalWeight)}";
             if (systemConfigurationManager.UseEncumbrance == true) {
                 carryWeightText.text += $" / {Mathf.Ceil(carryWeight)}";
             }

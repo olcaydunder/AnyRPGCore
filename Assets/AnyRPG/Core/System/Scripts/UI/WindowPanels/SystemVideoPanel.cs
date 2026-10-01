@@ -138,7 +138,7 @@ namespace AnyRPG {
             List<string> options = new List<string>();
 
             for (int i = 0; i < graphicsQualities.Length; i++) {
-                options.Add(graphicsQualities[i]);
+                options.Add(TurkishText.Translate(graphicsQualities[i]));
             }
             graphicsQualityDropdown.AddOptions(options);
             //graphicsQualityDropdown.value = currentResolutionIndex;

@@ -40,7 +40,7 @@ namespace AnyRPG {
         public string GetCurrencyItemDescription(string gainCurrencyString) {
             //Debug.Log($"CurrencyItem.GetCurrencyItemDescription({currencyDisplayName}, {currencyGainAmount})");
 
-            return string.Format("\n<color=green>Use: Gain {0}</color>", gainCurrencyString);
+            return string.Format("\n<color=green>Kullan: {0} kazan</color>", gainCurrencyString);
         }
 
         public override void SetupScriptableObjects(SystemGameManager systemGameManager) {

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: HeirloomItemQuality
   m_EditorClassIdentifier: 
   resourceName: Heirloom
+  displayName: "Yadig\u00e2r"
   icon: {fileID: 0}
   iconBackgroundImage: {fileID: 21300000, guid: 03760cb19b6818b4ba3213d19fd9e9ea,
     type: 3}

@@ -3,13 +3,38 @@ using System.Collections.Generic;
 namespace AnyRPG {
 
     /// <summary>
-    /// Turkish labels for names that the engine also uses as internal keys (appearance groups and options, on/off).
+    /// Turkish labels for names that the engine also uses as internal keys (appearance groups and options, stats, armor classes,
+    /// graphics quality levels).
     /// Only the text shown on screen is translated; the keys stay unchanged so saves and equipment keep working.
     /// </summary>
     public static class TurkishText {
 
         private static readonly Dictionary<string, string> words = new Dictionary<string, string>() {
             { "None", "Yok" },
+            // primary stats (keys of CharacterStats.PrimaryStats) and secondary stat types
+            { "Stamina", "Dayanıklılık" },
+            { "Strength", "Güç" },
+            { "Intellect", "Zekâ" },
+            { "Agility", "Çeviklik" },
+            { "MovementSpeed", "Hareket Hızı" },
+            { "Accuracy", "İsabet" },
+            { "CriticalStrike", "Kritik Vuruş" },
+            { "Speed", "Hız" },
+            { "Damage", "Hasar" },
+            { "PhysicalDamage", "Fiziksel Hasar" },
+            { "SpellDamage", "Büyü Hasarı" },
+            { "CarryWeight", "Taşıma" },
+            // armor classes
+            { "Cloth", "Bez" },
+            { "Leather", "Deri" },
+            { "Plate", "Plaka" },
+            // graphics quality levels (ProjectSettings/QualitySettings)
+            { "Very Low", "Çok Düşük" },
+            { "Low", "Düşük" },
+            { "Medium", "Orta" },
+            { "High", "Yüksek" },
+            { "Very High", "Çok Yüksek" },
+            { "Ultra", "En Yüksek" },
             { "Head", "Yüz" },
             { "Hair", "Saç" },
             { "Body", "Beden" },

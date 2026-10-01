@@ -101,7 +101,10 @@ namespace AnyRPG {
             uIManager.playMenuWindow.CloseWindow();
             uIManager.playOnlineMenuWindow.CloseWindow();
             uIManager.deleteGameMenuWindow.CloseWindow();
-            //systemWindowManager.mainMenuWindow.CloseWindow();
+            // the settings window has its own button column in the same place as the main menu buttons, and its background
+            // is see-through, so both columns showed on top of each other. Hide the main menu until the settings close
+            // (MainSettingsMenuPanel.ReceiveClosedWindowNotification opens it again).
+            uIManager.mainMenuWindow.CloseWindow();
             uIManager.networkLoginWindow.CloseWindow();
             uIManager.settingsMenuWindow.OpenWindow();
         }

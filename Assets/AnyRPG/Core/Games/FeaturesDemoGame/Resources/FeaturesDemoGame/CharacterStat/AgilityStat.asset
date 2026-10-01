@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AgilityStat
   m_EditorClassIdentifier: 
   resourceName: Agility
-  displayName: 
+  displayName: "\u00c7eviklik"
   icon: {fileID: 0}
   iconBackgroundImage: {fileID: 0}
   description: 

@@ -38,17 +38,17 @@ namespace AnyRPG {
                 }
                 string abilityKnownString = string.Empty;
                 if (playerManagerClient.UnitController.CharacterAbilityManager.AbilityList.ContainsValue(recipe.CraftAbility)) {
-                    abilityKnownString = $"<color=white>Requires: {recipe.CraftAbility.DisplayName}</color>\n";
+                    abilityKnownString = $"<color=white>Gerekir: {recipe.CraftAbility.DisplayName}</color>\n";
                 } else {
-                    abilityKnownString = $"<color=red>Requires: {recipe.CraftAbility.DisplayName}</color>\n";
+                    abilityKnownString = $"<color=red>Gerekir: {recipe.CraftAbility.DisplayName}</color>\n";
                 }
                 // add string for required skill level if there is a required skill
                 string skillLevelString = string.Empty;
                 if (recipe.Skill != null) {
                     if (playerManagerClient.UnitController.CharacterSkillManager.HasSkill(recipe.Skill) && playerManagerClient.UnitController.CharacterSkillManager.GetSkillLevel(recipe.Skill) > recipe.RequiredSkillLevel) {
-                        skillLevelString = $"<color=white>Requires: {recipe.Skill.DisplayName} level {recipe.RequiredLevel}</color>\n";
+                        skillLevelString = $"<color=white>Gerekir: {recipe.Skill.DisplayName} seviye {recipe.RequiredLevel}</color>\n";
                     } else {
-                        skillLevelString = $"<color=red>Requires: {recipe.Skill.DisplayName} level {recipe.RequiredLevel}</color>\n";
+                        skillLevelString = $"<color=red>Gerekir: {recipe.Skill.DisplayName} seviye {recipe.RequiredLevel}</color>\n";
                     }
                 }
                 string characterLevelString = string.Empty;

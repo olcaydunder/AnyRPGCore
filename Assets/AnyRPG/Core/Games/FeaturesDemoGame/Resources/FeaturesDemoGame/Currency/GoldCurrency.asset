@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: GoldCurrency
   m_EditorClassIdentifier: 
   resourceName: Gold
-  displayName: 
+  displayName: "Alt\u0131n"
   icon: {fileID: 21300000, guid: 7a9abde8aeae464438c084fa9ff8824c, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: A valuable currency accepted almost everywhere
+  description: "Her yerde ge\u00e7en de\u011ferli bir para."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

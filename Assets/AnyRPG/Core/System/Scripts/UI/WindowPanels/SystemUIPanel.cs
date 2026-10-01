@@ -599,6 +599,17 @@ namespace AnyRPG {
             } else if (PlayerPrefs.GetInt("UseQuestTracker") == 1) {
                 useQuestTrackerButton.SetOn();
             }
+            // these two were never loaded, so their buttons kept the prefab text "off" whatever the setting was
+            if (PlayerPrefs.GetInt("UseSystemBar") == 0) {
+                useSystemBarButton.SetOff();
+            } else {
+                useSystemBarButton.SetOn();
+            }
+            if (PlayerPrefs.GetInt("UseActionBar1") == 0) {
+                useActionBar1Button.SetOff();
+            } else {
+                useActionBar1Button.SetOn();
+            }
             if (PlayerPrefs.GetInt("UseActionBar2") == 0) {
                 useActionBar2Button.SetOff();
             } else if (PlayerPrefs.GetInt("UseActionBar2") == 1) {
@@ -721,11 +732,11 @@ namespace AnyRPG {
         public void ToggleUseQuestTracker() {
             if (PlayerPrefs.GetInt("UseQuestTracker") == 0) {
                 PlayerPrefs.SetInt("UseQuestTracker", 1);
-                uIManager.MessageFeedManager.WriteMessage("Quest Tracker: on");
+                uIManager.MessageFeedManager.WriteMessage("Görev Takibi: açık");
                 useQuestTrackerButton.SetOn();
             } else {
                 PlayerPrefs.SetInt("UseQuestTracker", 0);
-                uIManager.MessageFeedManager.WriteMessage("Quest Tracker: off");
+                uIManager.MessageFeedManager.WriteMessage("Görev Takibi: kapalı");
                 useQuestTrackerButton.SetOff();
             }
             uIManager.CheckQuestTrackerSettings();
@@ -734,11 +745,11 @@ namespace AnyRPG {
         public void ToggleUseMessageLog() {
             if (PlayerPrefs.GetInt("UseMessageLog") == 0) {
                 PlayerPrefs.SetInt("UseMessageLog", 1);
-                uIManager.MessageFeedManager.WriteMessage("Combat Log: on");
+                uIManager.MessageFeedManager.WriteMessage("Savaş Kaydı: açık");
                 useMessageLogButton.SetOn();
             } else {
                 PlayerPrefs.SetInt("UseMessageLog", 0);
-                uIManager.MessageFeedManager.WriteMessage("Combat Log: off");
+                uIManager.MessageFeedManager.WriteMessage("Savaş Kaydı: kapalı");
                 useMessageLogButton.SetOff();
             }
             uIManager.CheckMessageLogSettings();
@@ -747,11 +758,11 @@ namespace AnyRPG {
         public void ToggleUseSystemBar() {
             if (PlayerPrefs.GetInt("UseSystemBar") == 0) {
                 PlayerPrefs.SetInt("UseSystemBar", 1);
-                uIManager.MessageFeedManager.WriteMessage("System Bar: on");
+                uIManager.MessageFeedManager.WriteMessage("Sistem Çubuğu: açık");
                 useSystemBarButton.SetOn();
             } else {
                 PlayerPrefs.SetInt("UseSystemBar", 0);
-                uIManager.MessageFeedManager.WriteMessage("System Bar: off");
+                uIManager.MessageFeedManager.WriteMessage("Sistem Çubuğu: kapalı");
                 useSystemBarButton.SetOff();
             }
             uIManager.UpdateActionBars();
@@ -760,11 +771,11 @@ namespace AnyRPG {
         public void ToggleUseActionBar1() {
             if (PlayerPrefs.GetInt("UseActionBar1") == 0) {
                 PlayerPrefs.SetInt("UseActionBar1", 1);
-                uIManager.MessageFeedManager.WriteMessage("Action Bar 1: on");
+                uIManager.MessageFeedManager.WriteMessage("Yetenek Çubuğu 1: açık");
                 useActionBar1Button.SetOn();
             } else {
                 PlayerPrefs.SetInt("UseActionBar1", 0);
-                uIManager.MessageFeedManager.WriteMessage("Action Bar 1: off");
+                uIManager.MessageFeedManager.WriteMessage("Yetenek Çubuğu 1: kapalı");
                 useActionBar1Button.SetOff();
             }
             uIManager.UpdateActionBars();
@@ -773,11 +784,11 @@ namespace AnyRPG {
         public void ToggleUseActionBar2() {
             if (PlayerPrefs.GetInt("UseActionBar2") == 0) {
                 PlayerPrefs.SetInt("UseActionBar2", 1);
-                uIManager.MessageFeedManager.WriteMessage("Action Bar 2: on");
+                uIManager.MessageFeedManager.WriteMessage("Yetenek Çubuğu 2: açık");
                 useActionBar2Button.SetOn();
             } else {
                 PlayerPrefs.SetInt("UseActionBar2", 0);
-                uIManager.MessageFeedManager.WriteMessage("Action Bar 2: off");
+                uIManager.MessageFeedManager.WriteMessage("Yetenek Çubuğu 2: kapalı");
                 useActionBar2Button.SetOff();
             }
             uIManager.UpdateActionBars();
@@ -786,11 +797,11 @@ namespace AnyRPG {
         public void ToggleUseActionBar3() {
             if (PlayerPrefs.GetInt("UseActionBar3") == 0) {
                 PlayerPrefs.SetInt("UseActionBar3", 1);
-                uIManager.MessageFeedManager.WriteMessage("Action Bar 3: on");
+                uIManager.MessageFeedManager.WriteMessage("Yetenek Çubuğu 3: açık");
                 useActionBar3Button.SetOn();
             } else {
                 PlayerPrefs.SetInt("UseActionBar3", 0);
-                uIManager.MessageFeedManager.WriteMessage("Action Bar 3: on");
+                uIManager.MessageFeedManager.WriteMessage("Yetenek Çubuğu 3: kapalı");
                 useActionBar3Button.SetOff();
             }
             uIManager.UpdateActionBars();
@@ -799,11 +810,11 @@ namespace AnyRPG {
         public void ToggleUseActionBar4() {
             if (PlayerPrefs.GetInt("UseActionBar4") == 0) {
                 PlayerPrefs.SetInt("UseActionBar4", 1);
-                uIManager.MessageFeedManager.WriteMessage("Action Bar 4: on");
+                uIManager.MessageFeedManager.WriteMessage("Yetenek Çubuğu 4: açık");
                 useActionBar4Button.SetOn();
             } else {
                 PlayerPrefs.SetInt("UseActionBar4", 0);
-                uIManager.MessageFeedManager.WriteMessage("Action Bar 4: off");
+                uIManager.MessageFeedManager.WriteMessage("Yetenek Çubuğu 4: kapalı");
                 useActionBar4Button.SetOff();
             }
             uIManager.UpdateActionBars();
@@ -812,11 +823,11 @@ namespace AnyRPG {
         public void ToggleUseActionBar5() {
             if (PlayerPrefs.GetInt("UseActionBar5") == 0) {
                 PlayerPrefs.SetInt("UseActionBar5", 1);
-                uIManager.MessageFeedManager.WriteMessage("Action Bar 5: on");
+                uIManager.MessageFeedManager.WriteMessage("Yetenek Çubuğu 5: açık");
                 useActionBar5Button.SetOn();
             } else {
                 PlayerPrefs.SetInt("UseActionBar5", 0);
-                uIManager.MessageFeedManager.WriteMessage("Action Bar 5: on");
+                uIManager.MessageFeedManager.WriteMessage("Yetenek Çubuğu 5: kapalı");
                 useActionBar5Button.SetOff();
             }
             uIManager.UpdateActionBars();
@@ -825,11 +836,11 @@ namespace AnyRPG {
         public void ToggleUseActionBar6() {
             if (PlayerPrefs.GetInt("UseActionBar6") == 0) {
                 PlayerPrefs.SetInt("UseActionBar6", 1);
-                uIManager.MessageFeedManager.WriteMessage("Action Bar 6: on");
+                uIManager.MessageFeedManager.WriteMessage("Yetenek Çubuğu 6: açık");
                 useActionBar6Button.SetOn();
             } else {
                 PlayerPrefs.SetInt("UseActionBar6", 0);
-                uIManager.MessageFeedManager.WriteMessage("Action Bar 6: off");
+                uIManager.MessageFeedManager.WriteMessage("Yetenek Çubuğu 6: kapalı");
                 useActionBar6Button.SetOff();
             }
             uIManager.UpdateActionBars();
@@ -838,11 +849,11 @@ namespace AnyRPG {
         public void ToggleUseActionBar7() {
             if (PlayerPrefs.GetInt("UseActionBar7") == 0) {
                 PlayerPrefs.SetInt("UseActionBar7", 1);
-                uIManager.MessageFeedManager.WriteMessage("Action Bar 7: on");
+                uIManager.MessageFeedManager.WriteMessage("Yetenek Çubuğu 7: açık");
                 useActionBar7Button.SetOn();
             } else {
                 PlayerPrefs.SetInt("UseActionBar7", 0);
-                uIManager.MessageFeedManager.WriteMessage("Action Bar 7: off");
+                uIManager.MessageFeedManager.WriteMessage("Yetenek Çubuğu 7: kapalı");
                 useActionBar7Button.SetOff();
             }
             uIManager.UpdateActionBars();
@@ -851,11 +862,11 @@ namespace AnyRPG {
         public void ToggleUseStatusEffectBar() {
             if (PlayerPrefs.GetInt("UseStatusEffectBar") == 0) {
                 PlayerPrefs.SetInt("UseStatusEffectBar", 1);
-                uIManager.MessageFeedManager.WriteMessage("Status Effect Bar: on");
+                uIManager.MessageFeedManager.WriteMessage("Etki Çubuğu: açık");
                 useStatusEffectBarButton.SetOn();
             } else {
                 PlayerPrefs.SetInt("UseStatusEffectBar", 0);
-                uIManager.MessageFeedManager.WriteMessage("Status Effect Bar: off");
+                uIManager.MessageFeedManager.WriteMessage("Etki Çubuğu: kapalı");
                 useStatusEffectBarButton.SetOff();
             }
             uIManager.UpdateStatusEffectBar();
@@ -864,11 +875,11 @@ namespace AnyRPG {
         public void ToggleUseFocusUnitFrameButton() {
             if (PlayerPrefs.GetInt("UseFocusUnitFrame") == 0) {
                 PlayerPrefs.SetInt("UseFocusUnitFrame", 1);
-                uIManager.MessageFeedManager.WriteMessage("Focus Unit Frame: on");
+                uIManager.MessageFeedManager.WriteMessage("Hedef Çerçevesi: açık");
                 useFocusUnitFrameButton.SetOn();
             } else {
                 PlayerPrefs.SetInt("UseFocusUnitFrame", 0);
-                uIManager.MessageFeedManager.WriteMessage("Focus Unit Frame: off");
+                uIManager.MessageFeedManager.WriteMessage("Hedef Çerçevesi: kapalı");
                 useFocusUnitFrameButton.SetOff();
             }
             uIManager.UpdateFocusUnitFrame();
@@ -877,11 +888,11 @@ namespace AnyRPG {
         public void ToggleUsePlayerUnitFrameButton() {
             if (PlayerPrefs.GetInt("UsePlayerUnitFrame") == 0) {
                 PlayerPrefs.SetInt("UsePlayerUnitFrame", 1);
-                uIManager.MessageFeedManager.WriteMessage("Player Unit Frame: on");
+                uIManager.MessageFeedManager.WriteMessage("Oyuncu Çerçevesi: açık");
                 usePlayerUnitFrameButton.SetOn();
             } else {
                 PlayerPrefs.SetInt("UsePlayerUnitFrame", 0);
-                uIManager.MessageFeedManager.WriteMessage("Player Unit Frame: off");
+                uIManager.MessageFeedManager.WriteMessage("Oyuncu Çerçevesi: kapalı");
                 usePlayerUnitFrameButton.SetOff();
             }
             uIManager.UpdatePlayerUnitFrame();
@@ -890,11 +901,11 @@ namespace AnyRPG {
         public void ToggleUseGroupUnitFramesButton() {
             if (PlayerPrefs.GetInt("UseGroupUnitFrames") == 0) {
                 PlayerPrefs.SetInt("UseGroupUnitFrames", 1);
-                uIManager.MessageFeedManager.WriteMessage("Group Unit Frames: on");
+                uIManager.MessageFeedManager.WriteMessage("Grup Çerçeveleri: açık");
                 useGroupUnitFramesButton.SetOn();
             } else {
                 PlayerPrefs.SetInt("UseGroupUnitFrames", 0);
-                uIManager.MessageFeedManager.WriteMessage("Group Unit Frames: off");
+                uIManager.MessageFeedManager.WriteMessage("Grup Çerçeveleri: kapalı");
                 useGroupUnitFramesButton.SetOff();
             }
             uIManager.CheckGroupUnitFramesPanelSettings();
@@ -903,11 +914,11 @@ namespace AnyRPG {
         public void ToggleUseFloatingCastBarButton() {
             if (PlayerPrefs.GetInt("UseFloatingCastBar") == 0) {
                 PlayerPrefs.SetInt("UseFloatingCastBar", 1);
-                uIManager.MessageFeedManager.WriteMessage("Floating Cast Bar: on");
+                uIManager.MessageFeedManager.WriteMessage("Büyü Çubuğu: açık");
                 useFloatingCastBarButton.SetOn();
             } else {
                 PlayerPrefs.SetInt("UseFloatingCastBar", 0);
-                uIManager.MessageFeedManager.WriteMessage("Floating Cast Bar: off");
+                uIManager.MessageFeedManager.WriteMessage("Büyü Çubuğu: kapalı");
                 useFloatingCastBarButton.SetOff();
             }
             uIManager.UpdateFloatingCastBar();
@@ -917,11 +928,11 @@ namespace AnyRPG {
             if (PlayerPrefs.GetInt("UseMiniMap") == 0) {
                 PlayerPrefs.SetInt("UseMiniMap", 1);
                 useMiniMapButton.SetOn();
-                uIManager.MessageFeedManager.WriteMessage("Minimap: on");
+                uIManager.MessageFeedManager.WriteMessage("Mini Harita: açık");
             } else {
                 PlayerPrefs.SetInt("UseMiniMap", 0);
                 useMiniMapButton.SetOff();
-                uIManager.MessageFeedManager.WriteMessage("Minimap: off");
+                uIManager.MessageFeedManager.WriteMessage("Mini Harita: kapalı");
             }
             uIManager.UpdateMiniMap();
         }
@@ -929,11 +940,11 @@ namespace AnyRPG {
         public void ToggleUseExperienceBarButton() {
             if (PlayerPrefs.GetInt("UseExperienceBar") == 0) {
                 PlayerPrefs.SetInt("UseExperienceBar", 1);
-                uIManager.MessageFeedManager.WriteMessage("Experience Bar: on");
+                uIManager.MessageFeedManager.WriteMessage("Tecrübe Çubuğu: açık");
                 useExperienceBarButton.SetOn();
             } else {
                 PlayerPrefs.SetInt("UseExperienceBar", 0);
-                uIManager.MessageFeedManager.WriteMessage("Experience Bar: off");
+                uIManager.MessageFeedManager.WriteMessage("Tecrübe Çubuğu: kapalı");
                 useExperienceBarButton.SetOff();
             }
             uIManager.UpdateExperienceBar();
@@ -942,11 +953,11 @@ namespace AnyRPG {
         public void ToggleUseFloatingCombatTextButton() {
             if (PlayerPrefs.GetInt("UseFloatingCombatText") == 0) {
                 PlayerPrefs.SetInt("UseFloatingCombatText", 1);
-                uIManager.MessageFeedManager.WriteMessage("Floating Combat Text: on");
+                uIManager.MessageFeedManager.WriteMessage("Hasar Yazıları: açık");
                 useFloatingCombatTextButton.SetOn();
             } else {
                 PlayerPrefs.SetInt("UseFloatingCombatText", 0);
-                uIManager.MessageFeedManager.WriteMessage("Floating Combat Text: off");
+                uIManager.MessageFeedManager.WriteMessage("Hasar Yazıları: kapalı");
                 useFloatingCombatTextButton.SetOff();
             }
             uIManager.UpdateFloatingCombatText();
@@ -955,10 +966,10 @@ namespace AnyRPG {
         public void ToggleUseMessageFeedButton() {
             if (PlayerPrefs.GetInt("UseMessageFeed") == 0) {
                 PlayerPrefs.SetInt("UseMessageFeed", 1);
-                uIManager.MessageFeedManager.WriteMessage("Use Message Feed: on");
+                uIManager.MessageFeedManager.WriteMessage("Bildirimler: açık");
                 useMessageFeedButton.SetOn();
             } else {
-                uIManager.MessageFeedManager.WriteMessage("Use Message Feed: off");
+                uIManager.MessageFeedManager.WriteMessage("Bildirimler: kapalı");
                 PlayerPrefs.SetInt("UseMessageFeed", 0);
                 useMessageFeedButton.SetOff();
             }
@@ -971,10 +982,10 @@ namespace AnyRPG {
             if (PlayerPrefs.GetInt("ShowPlayerName") == 0) {
                 PlayerPrefs.SetInt("ShowPlayerName", 1);
                 //Debug.Log("MainSettingsMenuController.ToggleShowPlayerNameButton(): showplayername now set to 1");
-                uIManager.MessageFeedManager.WriteMessage("Show Player Name: on");
+                uIManager.MessageFeedManager.WriteMessage("Oyuncu Adını Göster: açık");
                 showPlayerNameButton.SetOn();
             } else {
-                uIManager.MessageFeedManager.WriteMessage("Show Player Name: off");
+                uIManager.MessageFeedManager.WriteMessage("Oyuncu Adını Göster: kapalı");
                 PlayerPrefs.SetInt("ShowPlayerName", 0);
                 //Debug.Log("MainSettingsMenuController.ToggleShowPlayerNameButton(): showplayername now set to 0");
                 showPlayerNameButton.SetOff();
@@ -988,10 +999,10 @@ namespace AnyRPG {
             if (PlayerPrefs.GetInt("ShowPlayerFaction") == 0) {
                 PlayerPrefs.SetInt("ShowPlayerFaction", 1);
                 //Debug.Log("MainSettingsMenuController.ToggleShowPlayerNameButton(): showplayername now set to 1");
-                uIManager.MessageFeedManager.WriteMessage("Show Player Faction: on");
+                uIManager.MessageFeedManager.WriteMessage("Oyuncu Boyunu Göster: açık");
                 showPlayerFactionButton.SetOn();
             } else {
-                uIManager.MessageFeedManager.WriteMessage("Show Player Faction: off");
+                uIManager.MessageFeedManager.WriteMessage("Oyuncu Boyunu Göster: kapalı");
                 PlayerPrefs.SetInt("ShowPlayerFaction", 0);
                 //Debug.Log("MainSettingsMenuController.ToggleShowPlayerNameButton(): showplayername now set to 0");
                 showPlayerFactionButton.SetOff();
@@ -1004,10 +1015,10 @@ namespace AnyRPG {
             //Debug.Log("MainSettingsMenuController.ToggleHideFullHealthBarButton()");
             if (PlayerPrefs.GetInt("HideFullHealthBar") == 0) {
                 PlayerPrefs.SetInt("HideFullHealthBar", 1);
-                uIManager.MessageFeedManager.WriteMessage("Hide Full Healthbar: on");
+                uIManager.MessageFeedManager.WriteMessage("Dolu Can Çubuğunu Gizle: açık");
                 hideFullHealthBarButton.SetOn();
             } else {
-                uIManager.MessageFeedManager.WriteMessage("Hide full healthbar: off");
+                uIManager.MessageFeedManager.WriteMessage("Dolu Can Çubuğunu Gizle: kapalı");
                 PlayerPrefs.SetInt("HideFullHealthBar", 0);
                 hideFullHealthBarButton.SetOff();
             }
@@ -1018,10 +1029,10 @@ namespace AnyRPG {
         public void ToggleLockUIButton() {
             if (PlayerPrefs.GetInt("LockUI") == 0) {
                 PlayerPrefs.SetInt("LockUI", 1);
-                uIManager.MessageFeedManager.WriteMessage("Lock UI: on");
+                uIManager.MessageFeedManager.WriteMessage("Arayüzü Kilitle: açık");
                 lockUIButton.SetOn();
             } else {
-                uIManager.MessageFeedManager.WriteMessage("Lock UI: off");
+                uIManager.MessageFeedManager.WriteMessage("Arayüzü Kilitle: kapalı");
                 PlayerPrefs.SetInt("LockUI", 0);
                 lockUIButton.SetOff();
             }
