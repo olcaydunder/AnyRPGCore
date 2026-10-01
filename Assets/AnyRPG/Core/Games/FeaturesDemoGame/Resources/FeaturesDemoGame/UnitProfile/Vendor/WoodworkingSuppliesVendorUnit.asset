@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WoodworkingSuppliesVendorUnit
   m_EditorClassIdentifier: 
   resourceName: Woodworking Supplies Vendor
-  displayName: 
+  displayName: "Marangoz Malzemecisi"
   icon: {fileID: 21300000, guid: fff03fbc1edf8e44ba5a7f8bb9eff0dd, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 
@@ -153,7 +153,7 @@ MonoBehaviour:
   isPet: 0
   flightCapable: 0
   glideCapable: 0
-  characterName: Woodworking Supplies
+  characterName: "Marangoz Malzemecisi"
   title: 
   factionName: 
   unitTypeName: 

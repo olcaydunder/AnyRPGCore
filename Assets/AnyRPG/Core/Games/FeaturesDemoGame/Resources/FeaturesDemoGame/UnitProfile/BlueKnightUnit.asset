@@ -153,7 +153,7 @@ MonoBehaviour:
   isPet: 0
   flightCapable: 0
   glideCapable: 0
-  characterName: Blue Knight
+  characterName: "Bozok S\u00fcvarisi"
   title: 
   factionName: Blue
   unitTypeName: 

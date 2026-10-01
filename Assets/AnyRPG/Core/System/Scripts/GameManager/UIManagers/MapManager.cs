@@ -95,9 +95,15 @@ namespace AnyRPG {
             //RenderMapFromCamera();
             //renderTexture = new RenderTexture((int)levelManager.SceneBounds.size.x, (int)levelManager.SceneBounds.size.z, 16, RenderTextureFormat.ARGB32);
             mapTexture = new Texture2D((int)cameraSize * systemConfigurationManager.UIConfiguration.AutoPixelsPerMeter, (int)cameraSize * systemConfigurationManager.UIConfiguration.AutoPixelsPerMeter);
-            renderTexture = new RenderTexture((int)cameraSize * systemConfigurationManager.UIConfiguration.AutoPixelsPerMeter, (int)cameraSize * systemConfigurationManager.UIConfiguration.AutoPixelsPerMeter, 16, RenderTextureFormat.ARGB32);
+            renderTexture = new RenderTexture((int)cameraSize * systemConfigurationManager.UIConfiguration.AutoPixelsPerMeter, (int)cameraSize * systemConfigurationManager.UIConfiguration.AutoPixelsPerMeter, 24, RenderTextureFormat.ARGB32);
             renderTexture.Create();
             cameraManager.MainMapCamera.targetTexture = renderTexture;
+            // the overhead map needs no post processing (outline, color grading); skipping it avoids render graph errors on mobile
+            UnityEngine.Rendering.Universal.UniversalAdditionalCameraData mapCameraData = cameraManager.MainMapCamera.GetComponent<UnityEngine.Rendering.Universal.UniversalAdditionalCameraData>();
+            if (mapCameraData != null) {
+                mapCameraData.renderPostProcessing = false;
+                mapCameraData.renderShadows = false;
+            }
 
 
             float originalLodBias = QualitySettings.lodBias;

@@ -1012,8 +1012,8 @@ namespace AnyRPG {
             //Debug.Log($"{unitController.gameObject.name}.CharacterSavemanager.SaveActionButtonSaveData({actionButton.name}");
 
             ActionBarSaveData actionBarSaveData = new ActionBarSaveData();
-            actionBarSaveData.DisplayName = (actionButton.Useable == null ? string.Empty : (actionButton.Useable as IDescribable).DisplayName);
-            actionBarSaveData.savedName = (actionButton.SavedUseable == null ? string.Empty : (actionButton.SavedUseable as IDescribable).DisplayName);
+            actionBarSaveData.DisplayName = (actionButton.Useable == null ? string.Empty : (actionButton.Useable as IDescribable).ResourceName);
+            actionBarSaveData.savedName = (actionButton.SavedUseable == null ? string.Empty : (actionButton.SavedUseable as IDescribable).ResourceName);
             actionBarSaveData.isItem = (actionButton.Useable == null ? false : (actionButton.Useable is InstantiatedItem ? true : false));
             actionBarSaveDataList.Add(actionBarSaveData);
         }
@@ -1124,7 +1124,7 @@ namespace AnyRPG {
             saveData.AbilitySaveData.Clear();
             foreach (AbilityProperties baseAbility in unitController.CharacterAbilityManager.RawAbilityList.Values) {
                 AbilitySaveData abilitySaveData = new AbilitySaveData();
-                abilitySaveData.AbilityName = baseAbility.DisplayName;
+                abilitySaveData.AbilityName = baseAbility.ResourceName;
                 saveData.AbilitySaveData.Add(abilitySaveData);
             }
         }

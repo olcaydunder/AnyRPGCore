@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: InscriptionSkillTrainerNPCUnit
   m_EditorClassIdentifier: 
   resourceName: Inscription Skill Trainer NPC
-  displayName: 
+  displayName: "Yaz\u0131c\u0131 Usta"
   icon: {fileID: 21300000, guid: ad52fded96584804b8098065d00e23d8, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 
@@ -153,7 +153,7 @@ MonoBehaviour:
   isPet: 0
   flightCapable: 0
   glideCapable: 0
-  characterName: Inscription Trainer
+  characterName: "Yaz\u0131c\u0131 Usta"
   title: 
   factionName: 
   unitTypeName: 

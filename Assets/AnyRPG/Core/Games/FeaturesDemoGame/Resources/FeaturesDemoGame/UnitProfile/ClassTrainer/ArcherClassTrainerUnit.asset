@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ArcherClassTrainerUnit
   m_EditorClassIdentifier: 
   resourceName: Archer Class Trainer
-  displayName: 
+  displayName: "Ok\u00e7u Ustas\u0131"
   icon: {fileID: 21300000, guid: ca11e665135265746b7f06103090df62, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 
@@ -153,7 +153,7 @@ MonoBehaviour:
   isPet: 0
   flightCapable: 0
   glideCapable: 0
-  characterName: Archer Trainer
+  characterName: "Ok\u00e7u Ustas\u0131"
   title: 
   factionName: 
   unitTypeName: 

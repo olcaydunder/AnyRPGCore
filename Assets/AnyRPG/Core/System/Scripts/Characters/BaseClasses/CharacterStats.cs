@@ -1002,8 +1002,8 @@ namespace AnyRPG {
         }
 
         public StatusEffectNode GetStatusEffectNode(StatusEffectProperties statusEffect) {
-            if (statusEffects.ContainsKey(statusEffect.DisplayName)) {
-                return StatusEffects[statusEffect.DisplayName];
+            if (statusEffects.ContainsKey(statusEffect.ResourceName)) {
+                return StatusEffects[statusEffect.ResourceName];
             }
             return null;
         }

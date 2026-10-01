@@ -153,7 +153,7 @@ MonoBehaviour:
   isPet: 0
   flightCapable: 0
   glideCapable: 0
-  characterName: Change Name
+  characterName: "Dede Korkut"
   title: 
   factionName: 
   unitTypeName: 

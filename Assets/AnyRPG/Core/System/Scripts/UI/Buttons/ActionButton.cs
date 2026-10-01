@@ -363,7 +363,7 @@ namespace AnyRPG {
         public IEnumerator MonitorCooldown(IUseable useable) {
             //Debug.Log("ActionButton.MonitorAbility(" + ability.DisplayName + ")");
             while (Useable != null
-                && playerManagerClient.UnitController.CharacterAbilityManager.AbilityCoolDownDictionary.ContainsKey(useable.DisplayName)) {
+                && playerManagerClient.UnitController.CharacterAbilityManager.AbilityCoolDownDictionary.ContainsKey(useable.ResourceName)) {
                 UpdateVisual();
                 yield return null;
             }

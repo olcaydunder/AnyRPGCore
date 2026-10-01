@@ -1,104 +1,351 @@
 {
   "_aciklama": "Turk mitolojisi icerik seti. Anahtar: kategori klasoru / resourceName. Sadece gorunen ad (displayName) ve aciklama degisir; oyun ici baglantilar bozulmaz.",
-
   "Faction": {
-    "Blue":  {"ad": "Bozoklar", "aciklama": "Oğuz Kağan'ın büyük oğulları Gün Han, Ay Han ve Yıldız Han'ın soyundan gelen boylar. Obanın sağ kolunu korurlar."},
-    "Red":   {"ad": "Üçoklar",  "aciklama": "Oğuz Kağan'ın küçük oğulları Gök Han, Dağ Han ve Deniz Han'ın soyundan gelen boylar. Obanın sol kolunu korurlar."},
-    "Enemy": {"ad": "Erlik'in Ordusu", "aciklama": "Yeraltının efendisi Erlik Han'ın karanlık kulları. Ötüken'i ele geçirmek için yeryüzüne çıktılar."}
+    "Blue": {
+      "ad": "Bozoklar",
+      "aciklama": "Oğuz Kağan'ın büyük oğulları Gün Han, Ay Han ve Yıldız Han'ın soyundan gelen boylar. Obanın sağ kolunu korurlar."
+    },
+    "Red": {
+      "ad": "Üçoklar",
+      "aciklama": "Oğuz Kağan'ın küçük oğulları Gök Han, Dağ Han ve Deniz Han'ın soyundan gelen boylar. Obanın sol kolunu korurlar."
+    },
+    "Enemy": {
+      "ad": "Erlik'in Ordusu",
+      "aciklama": "Yeraltının efendisi Erlik Han'ın karanlık kulları. Ötüken'i ele geçirmek için yeryüzüne çıktılar."
+    }
   },
-
   "CharacterRace": {
-    "Blue":    {"ad": "Bozok Soyu"},
-    "Red":     {"ad": "Üçok Soyu"},
-    "Mecanim": {"ad": "Göçebe", "aciklama": "Bozkırın özgür göçebe halkı. Yüzünü, saçını ve giysilerini dilediğin gibi seçebilirsin."}
+    "Blue": {
+      "ad": "Bozok Soyu"
+    },
+    "Red": {
+      "ad": "Üçok Soyu"
+    },
+    "Mecanim": {
+      "ad": "Göçebe",
+      "aciklama": "Bozkırın özgür göçebe halkı. Yüzünü, saçını ve giysilerini dilediğin gibi seçebilirsin."
+    }
   },
-
   "CharacterClass": {
-    "Archer":  {"ad": "Okçu",   "aciklama": "Atının üstünden bile hedefini şaşırmayan usta okçu."},
-    "Fighter": {"ad": "Batur",  "aciklama": "Kılıcı ve kalkanıyla ön safta dövüşen yiğit."},
-    "Mage":    {"ad": "Kam",    "aciklama": "Gök ile yer arasında yolculuk eden, ruhlarla konuşan şaman."},
-    "Priest":  {"ad": "Otacı",  "aciklama": "Şifalı otları ve duaları ile yaraları saran şifacı."},
-    "Thief":   {"ad": "Akıncı", "aciklama": "Gölgelerden hızla çıkıp düşmanı gafil avlayan akıncı."},
-    "Warrior": {"ad": "Alp",    "aciklama": "Destanlara adı geçen, ağır silahlarla savaşan kahraman."}
+    "Archer": {
+      "ad": "Okçu",
+      "aciklama": "Atının üstünden bile hedefini şaşırmayan usta okçu."
+    },
+    "Fighter": {
+      "ad": "Batur",
+      "aciklama": "Kılıcı ve kalkanıyla ön safta dövüşen yiğit."
+    },
+    "Mage": {
+      "ad": "Kam",
+      "aciklama": "Gök ile yer arasında yolculuk eden, ruhlarla konuşan şaman."
+    },
+    "Priest": {
+      "ad": "Otacı",
+      "aciklama": "Şifalı otları ve duaları ile yaraları saran şifacı."
+    },
+    "Thief": {
+      "ad": "Akıncı",
+      "aciklama": "Gölgelerden hızla çıkıp düşmanı gafil avlayan akıncı."
+    },
+    "Warrior": {
+      "ad": "Alp",
+      "aciklama": "Destanlara adı geçen, ağır silahlarla savaşan kahraman."
+    }
   },
-
   "UnitProfile": {
-    "Blue Archer": {"ad": "Bozok Okçusu"},
-    "Blue Blood Knight": {"ad": "Bozok Kan Süvarisi"},
-    "Blue Boss": {"ad": "Bozok Beyi"},
-    "Blue Fighter": {"ad": "Bozok Baturu"},
-    "Blue Fire Mage": {"ad": "Bozok Ateş Kamı"},
-    "Blue Ice Mage": {"ad": "Bozok Ayaz Kamı"},
-    "Blue Knight": {"ad": "Bozok Süvarisi"},
-    "Blue Mage": {"ad": "Bozok Kamı"},
-    "Blue Marksman": {"ad": "Bozok Nişancısı"},
-    "Blue Necromancer": {"ad": "Bozok Kara Kamı"},
-    "Blue Priest": {"ad": "Bozok Otacısı"},
-    "Blue Ranger": {"ad": "Bozok İzcisi"},
-    "Blue Thief": {"ad": "Bozok Akıncısı"},
-    "Blue Warrior": {"ad": "Bozok Alpı"},
-    "Red Archer": {"ad": "Üçok Okçusu"},
-    "Red Blood Knight": {"ad": "Üçok Kan Süvarisi"},
-    "Red Boss": {"ad": "Üçok Beyi"},
-    "Red Fighter": {"ad": "Üçok Baturu"},
-    "Red Fire Mage": {"ad": "Üçok Ateş Kamı"},
-    "Red Ice Mage": {"ad": "Üçok Ayaz Kamı"},
-    "Red Knight": {"ad": "Üçok Süvarisi"},
-    "Red Mage": {"ad": "Üçok Kamı"},
-    "Red Marksman": {"ad": "Üçok Nişancısı"},
-    "Red Necromancer": {"ad": "Üçok Kara Kamı"},
-    "Red Priest": {"ad": "Üçok Otacısı"},
-    "Red Ranger": {"ad": "Üçok İzcisi"},
-    "Red Thief": {"ad": "Üçok Akıncısı"},
-    "Red Warrior": {"ad": "Üçok Alpı"},
-
-    "Quest NPC": {"ad": "Olcayto Han", "aciklama": "Oğuz obalarının başı. Adı kutlu anlamına gelir; boylarını hiçbir savaşta yalnız bırakmamıştır."},
-    "Dialog NPC": {"ad": "Bilge Tonyukuk"},
-    "Change Name NPC": {"ad": "Dede Korkut"},
-    "Cutscene NPC": {"ad": "Oğuz Kağan"},
-    "Vendor NPC": {"ad": "Tüccar Karaçor"},
-    "Bank NPC": {"ad": "Hazinedar Toktamış"},
-    "Change Appearance NPC": {"ad": "Ayna Kam"},
-    "Change Faction Blue NPC": {"ad": "Bozok Elçisi"},
-    "Change Faction Red NPC": {"ad": "Üçok Elçisi"},
-    "Dance NPC": {"ad": "Semahçı Gülbahar"},
-    "Play Music NPC": {"ad": "Kopuzcu Ozan"},
-    "Spawn Characters NPC": {"ad": "Er Meydanı Ağası"},
-    "Despawn Patrol NPC": {"ad": "Kervancı"},
-    "Loop Patrol NPC": {"ad": "Nöbetçi Alp"},
-    "Random Patrol NPC": {"ad": "Gezgin Çoban"},
-    "Save Position Patrol NPC": {"ad": "Ulak"},
-
-    "Enemy Minion": {"ad": "Albastı"},
-    "Enemy Boss": {"ad": "Tepegöz"},
-    "Dragon": {"ad": "Evren"}
+    "Blue Archer": {
+      "ad": "Bozok Okçusu"
+    },
+    "Blue Blood Knight": {
+      "ad": "Bozok Kan Süvarisi"
+    },
+    "Blue Boss": {
+      "ad": "Bozok Beyi"
+    },
+    "Blue Fighter": {
+      "ad": "Bozok Baturu"
+    },
+    "Blue Fire Mage": {
+      "ad": "Bozok Ateş Kamı"
+    },
+    "Blue Ice Mage": {
+      "ad": "Bozok Ayaz Kamı"
+    },
+    "Blue Knight": {
+      "ad": "Bozok Süvarisi"
+    },
+    "Blue Mage": {
+      "ad": "Bozok Kamı"
+    },
+    "Blue Marksman": {
+      "ad": "Bozok Nişancısı"
+    },
+    "Blue Necromancer": {
+      "ad": "Bozok Kara Kamı"
+    },
+    "Blue Priest": {
+      "ad": "Bozok Otacısı"
+    },
+    "Blue Ranger": {
+      "ad": "Bozok İzcisi"
+    },
+    "Blue Thief": {
+      "ad": "Bozok Akıncısı"
+    },
+    "Blue Warrior": {
+      "ad": "Bozok Alpı"
+    },
+    "Red Archer": {
+      "ad": "Üçok Okçusu"
+    },
+    "Red Blood Knight": {
+      "ad": "Üçok Kan Süvarisi"
+    },
+    "Red Boss": {
+      "ad": "Üçok Beyi"
+    },
+    "Red Fighter": {
+      "ad": "Üçok Baturu"
+    },
+    "Red Fire Mage": {
+      "ad": "Üçok Ateş Kamı"
+    },
+    "Red Ice Mage": {
+      "ad": "Üçok Ayaz Kamı"
+    },
+    "Red Knight": {
+      "ad": "Üçok Süvarisi"
+    },
+    "Red Mage": {
+      "ad": "Üçok Kamı"
+    },
+    "Red Marksman": {
+      "ad": "Üçok Nişancısı"
+    },
+    "Red Necromancer": {
+      "ad": "Üçok Kara Kamı"
+    },
+    "Red Priest": {
+      "ad": "Üçok Otacısı"
+    },
+    "Red Ranger": {
+      "ad": "Üçok İzcisi"
+    },
+    "Red Thief": {
+      "ad": "Üçok Akıncısı"
+    },
+    "Red Warrior": {
+      "ad": "Üçok Alpı"
+    },
+    "Quest NPC": {
+      "ad": "Olcayto Han",
+      "aciklama": "Oğuz obalarının başı. Adı kutlu anlamına gelir; boylarını hiçbir savaşta yalnız bırakmamıştır."
+    },
+    "Dialog NPC": {
+      "ad": "Bilge Tonyukuk"
+    },
+    "Change Name NPC": {
+      "ad": "Dede Korkut"
+    },
+    "Cutscene NPC": {
+      "ad": "Oğuz Kağan"
+    },
+    "Vendor NPC": {
+      "ad": "Tüccar Karaçor"
+    },
+    "Bank NPC": {
+      "ad": "Hazinedar Toktamış"
+    },
+    "Change Appearance NPC": {
+      "ad": "Ayna Kam"
+    },
+    "Change Faction Blue NPC": {
+      "ad": "Bozok Elçisi"
+    },
+    "Change Faction Red NPC": {
+      "ad": "Üçok Elçisi"
+    },
+    "Dance NPC": {
+      "ad": "Semahçı Gülbahar"
+    },
+    "Play Music NPC": {
+      "ad": "Kopuzcu Ozan"
+    },
+    "Spawn Characters NPC": {
+      "ad": "Er Meydanı Ağası",
+      "karakter": null
+    },
+    "Despawn Patrol NPC": {
+      "ad": "Kervancı"
+    },
+    "Loop Patrol NPC": {
+      "ad": "Nöbetçi Alp"
+    },
+    "Random Patrol NPC": {
+      "ad": "Gezgin Çoban"
+    },
+    "Save Position Patrol NPC": {
+      "ad": "Ulak"
+    },
+    "Enemy Minion": {
+      "ad": "Albastı"
+    },
+    "Enemy Boss": {
+      "ad": "Tepegöz"
+    },
+    "Dragon": {
+      "ad": "Evren"
+    },
+    "Archer Class Trainer": {
+      "ad": "Okçu Ustası"
+    },
+    "Fighter Class Trainer": {
+      "ad": "Batur Ustası"
+    },
+    "Mage Class Trainer": {
+      "ad": "Kam Ustası"
+    },
+    "Priest Class Trainer": {
+      "ad": "Otacı Ustası"
+    },
+    "Thief Class Trainer": {
+      "ad": "Akıncı Ustası"
+    },
+    "Warrior Class Trainer": {
+      "ad": "Alp Ustası"
+    },
+    "Alchemy Skill Trainer NPC": {
+      "ad": "Simyacı Usta"
+    },
+    "Blacksmithing Skill Trainer NPC": {
+      "ad": "Demirci Usta"
+    },
+    "Cooking Skill Trainer NPC": {
+      "ad": "Aşçı Usta"
+    },
+    "Fishing Skill Trainer": {
+      "ad": "Balıkçı Usta"
+    },
+    "Herbalism Skill Trainer": {
+      "ad": "Otacı Usta"
+    },
+    "Inscription Skill Trainer NPC": {
+      "ad": "Yazıcı Usta"
+    },
+    "Jewelry Skill Trainer NPC": {
+      "ad": "Kuyumcu Usta"
+    },
+    "Leatherworking Skill Trainer NPC": {
+      "ad": "Derici Usta"
+    },
+    "Logging Skill Trainer": {
+      "ad": "Oduncu Usta"
+    },
+    "Mining Skill Trainer": {
+      "ad": "Madenci Usta"
+    },
+    "Skinning Skill Trainer": {
+      "ad": "Postçu Usta"
+    },
+    "Tailoring Skill Trainer NPC": {
+      "ad": "Terzi Usta"
+    },
+    "Woodworking Skill Trainer NPC": {
+      "ad": "Marangoz Usta"
+    },
+    "Blood Knight Specialization Trainer": {
+      "ad": "Kan Süvarisi Ustası"
+    },
+    "Fire Specialization Trainer": {
+      "ad": "Ateş Kamı Ustası"
+    },
+    "Ice Specialization Trainer": {
+      "ad": "Ayaz Kamı Ustası"
+    },
+    "Knight Specialization Trainer": {
+      "ad": "Süvari Ustası"
+    },
+    "Marksman Specialization Trainer": {
+      "ad": "Nişancı Ustası"
+    },
+    "Necromancer Specialization Trainer": {
+      "ad": "Kara Kam Ustası"
+    },
+    "Ranger Specialization Trainer": {
+      "ad": "İzci Ustası"
+    },
+    "Alchemy Supplies Vendor NPC": {
+      "ad": "Simya Malzemecisi"
+    },
+    "Blacksmithing Supplies Vendor": {
+      "ad": "Demirci Malzemecisi"
+    },
+    "Cooking Supplies Vendor": {
+      "ad": "Aşçı Malzemecisi"
+    },
+    "Inscription Supplies Vendor": {
+      "ad": "Yazıcı Malzemecisi"
+    },
+    "Jewelry Supplies Vendor": {
+      "ad": "Kuyumcu Malzemecisi"
+    },
+    "Leatherworking Supplies Vendor": {
+      "ad": "Derici Malzemecisi"
+    },
+    "Tailoring Supplies Vendor": {
+      "ad": "Terzi Malzemecisi"
+    },
+    "Woodworking Supplies Vendor": {
+      "ad": "Marangoz Malzemecisi"
+    }
   },
-
   "SceneNode": {
-    "Features Demo Game": {"ad": "Ötüken Destanı"},
-    "Features Demo Zone": {"ad": "Ötüken Yaylası"},
-    "Features Demo Dungeon": {"ad": "Erlik'in Mağarası"},
-    "Features Demo Cutscene Zone": {"ad": "Ergenekon"}
+    "Features Demo Game": {
+      "ad": "Ötüken Destanı"
+    },
+    "Features Demo Zone": {
+      "ad": "Ötüken Yaylası"
+    },
+    "Features Demo Dungeon": {
+      "ad": "Erlik'in Mağarası"
+    },
+    "Features Demo Cutscene Zone": {
+      "ad": "Ergenekon"
+    }
   },
-
   "Item": {
-    "Medieval Dagger": {"ad": "Demir Kama"},
-    "Medieval Shield": {"ad": "Kurt Başlı Kalkan"}
+    "Medieval Dagger": {
+      "ad": "Demir Kama"
+    },
+    "Medieval Shield": {
+      "ad": "Kurt Başlı Kalkan"
+    }
   },
-
   "Ability": {
-    "Blizzard": {"ad": "Ayaz Ata'nın Nefesi"},
-    "Attack": {"ad": "Saldırı"},
-    "Heal Over Time": {"ad": "Umay'ın Şefkati"}
+    "Blizzard": {
+      "ad": "Ayaz Ata'nın Nefesi"
+    },
+    "Attack": {
+      "ad": "Saldırı"
+    },
+    "Heal Over Time": {
+      "ad": "Umay'ın Şefkati"
+    }
   },
-
   "Skill": {
-    "Logging": {"ad": "Odunculuk"},
-    "Fishing": {"ad": "Balıkçılık"},
-    "Mining": {"ad": "Madencilik"},
-    "Herbalism": {"ad": "Otacılık"}
+    "Logging": {
+      "ad": "Odunculuk"
+    },
+    "Fishing": {
+      "ad": "Balıkçılık"
+    },
+    "Mining": {
+      "ad": "Madencilik"
+    },
+    "Herbalism": {
+      "ad": "Otacılık"
+    }
   },
-
   "Quest": {
     "Dialog Introduction": {
       "ad": "Olcayto Han'ın Çağrısı",
@@ -107,52 +354,77 @@
     "Collection": {
       "ad": "Alp'in Donanımı",
       "aciklama": "Hiçbir alp sefere eli boş çıkmaz.\n\nTüccar Karaçor'dan bir Demir Kama ve bir Kurt Başlı Kalkan edin.",
-      "hedefler": ["Demir Kama edin", "Kurt Başlı Kalkan edin"]
+      "hedefler": [
+        "Demir Kama edin",
+        "Kurt Başlı Kalkan edin"
+      ]
     },
     "Finish Another Quest": {
       "ad": "Sefere Hazırlık",
       "aciklama": "Sefere çıkmadan önce donanımını tamamlamalısın. Alp'in Donanımı görevini bitir.",
-      "hedefler": ["Alp'in Donanımı görevini tamamla"]
+      "hedefler": [
+        "Alp'in Donanımı görevini tamamla"
+      ]
     },
     "Dialog Objective": {
       "ad": "Bilgeden Öğüt",
       "aciklama": "Bilge Tonyukuk yüz yıllık bir çınar gibidir. Yanına git ve söylediklerine kulak ver.",
-      "hedefler": ["Bilge Tonyukuk'u dinle"]
+      "hedefler": [
+        "Bilge Tonyukuk'u dinle"
+      ]
     },
     "Visit Zone": {
       "ad": "Karanlığın Kapısı",
       "aciklama": "Albastılar yeraltından bir mağaranın ağzından çıkıyor. Erlik'in Mağarası'nı bul ve içine gir.",
-      "hedefler": ["Erlik'in Mağarası'na gir"]
+      "hedefler": [
+        "Erlik'in Mağarası'na gir"
+      ]
     },
     "Kill Things": {
       "ad": "Tepegöz'ün Laneti",
       "aciklama": "Erlik'in Mağarası'nın derinliklerinde Tepegöz uyandı.\n\nÖnce onun kulu Albastı'yı, sonra Tepegöz'ün kendisini yen.",
-      "hedefler": ["Albastı'yı yen", "Tepegöz'ü yen"]
+      "hedefler": [
+        "Albastı'yı yen",
+        "Tepegöz'ü yen"
+      ]
     },
     "Use Ability": {
       "ad": "İlk Kan",
       "aciklama": "Bir alp adını savaş meydanında kazanır. Herhangi bir düşmana saldırarak ilk darbeni vur.",
-      "hedefler": ["Bir düşmana saldır"]
+      "hedefler": [
+        "Bir düşmana saldır"
+      ]
     },
     "Learn Ability": {
       "ad": "Ayaz Ata'nın Nefesi",
       "aciklama": "Kış ruhu Ayaz Ata, gücünü yalnızca layık gördüklerine verir. Onun dondurucu nefesini öğren.",
-      "hedefler": ["Ayaz Ata'nın Nefesi'ni öğren"]
+      "hedefler": [
+        "Ayaz Ata'nın Nefesi'ni öğren"
+      ]
     },
     "Status Effect": {
       "ad": "Umay'ın Şefkati",
       "aciklama": "Umay Ana, yaralı yiğitleri kanatlarının altına alır. Umay'ın Şefkati'ni kendi üzerinde taşı.",
-      "hedefler": ["Umay'ın Şefkati'ni kazan"]
+      "hedefler": [
+        "Umay'ın Şefkati'ni kazan"
+      ]
     },
     "Learn Trade Skill": {
       "ad": "Obanın Zanaatları",
       "aciklama": "Obada herkesin bir zanaatı vardır. Ustadan odunculuk, balıkçılık, madencilik ve otacılığı öğren.",
-      "hedefler": ["Odunculuğu öğren", "Balıkçılığı öğren", "Madenciliği öğren", "Otacılığı öğren"]
+      "hedefler": [
+        "Odunculuğu öğren",
+        "Balıkçılığı öğren",
+        "Madenciliği öğren",
+        "Otacılığı öğren"
+      ]
     },
     "Use Interactable": {
       "ad": "Er Meydanı",
       "aciklama": "Er Meydanı'nda yiğitler güçlerini sınar. Meydana git ve Er Meydanı Ağası'ndan rakip çağır.",
-      "hedefler": ["Er Meydanı'nda rakip çağır"]
+      "hedefler": [
+        "Er Meydanı'nda rakip çağır"
+      ]
     },
     "Choose Reward": {
       "ad": "Kamın Bohçası",
@@ -169,26 +441,59 @@
     "Repeatable 2 Step": {
       "ad": "Mağara Nöbeti",
       "aciklama": "Mağaranın ağzı her gün yeniden gözetlenmeli. Önce Erlik'in Mağarası'na gir, sonra karşına çıkan ilk düşmana saldır.",
-      "hedefler": ["Erlik'in Mağarası'na gir", "Bir düşmana saldır"]
+      "hedefler": [
+        "Erlik'in Mağarası'na gir",
+        "Bir düşmana saldır"
+      ]
     },
     "Repeatable 3 Step": {
       "ad": "Keşif Kolu",
       "aciklama": "Keşif koluna katıl. Silahını al, mağaraya in ve karşılaştığın ilk düşmana saldır.",
-      "hedefler": ["Bir kama edin", "Erlik'in Mağarası'na gir", "Bir düşmana saldır"]
+      "hedefler": [
+        "Bir kama edin",
+        "Erlik'in Mağarası'na gir",
+        "Bir düşmana saldır"
+      ]
     },
     "Repeatable 5 Step": {
       "ad": "Albastı Avı",
       "aciklama": "Albastılar her gece yeniden çoğalıyor. Mağaraya in, kamanı kuşan ve onları temizle.",
-      "hedefler": ["Erlik'in Mağarası'na gir", "Bir kama edin", "Bir Albastı yen", "İki Albastı yen", "Bir düşmana saldır"]
+      "hedefler": [
+        "Erlik'in Mağarası'na gir",
+        "Bir kama edin",
+        "Bir Albastı yen",
+        "İki Albastı yen",
+        "Bir düşmana saldır"
+      ]
     }
   },
-
   "Dialog": {
-    "Dialog Introduction": ["Hoş geldin yiğit. Oğuz'un obası seni bekliyordu.", "Erlik'in kulları yeraltından çıkıp yaylamıza saldırıyor. Bizimle birlikte savaşmaya hazır mısın?"],
-    "Standard Dialog": ["Bu sözleri sana yalnızca bir kez söyleyeceğim.", "Bir kez dinledin mi, bu söz bir daha söylenmez.", "Ama üzülme. Bu sözü dinleyen, başka bir sırrı öğrenmeye hak kazanır."],
-    "Prerequisite Dialog": ["Bu sırrı yalnızca ilk sözümü dinleyenlere açarım. Dilediğin kadar tekrar dinleyebilirsin.", "O sözleri hatırlıyor musun?"],
-    "Repeatable Dialog": ["Gel otur, sana eski zamanlardan bir hikâye anlatayım.", "Evet, bu hikâyeyi istediğin kadar dinleyebilirsin."],
-    "Speech Bubble Dialog": ["Yurt, onu koruyanındır.", "Erlik'in gücü karanlıkta büyür. Işığını kaybetme."],
-    "Voice Dialog": ["Sana nasıl yardım edebilirim?", "Bir şey mi almak istiyorsun?", "Hadi alışveriş yapalım.", "Mallarıma bir göz at."]
+    "Dialog Introduction": [
+      "Hoş geldin yiğit. Oğuz'un obası seni bekliyordu.",
+      "Erlik'in kulları yeraltından çıkıp yaylamıza saldırıyor. Bizimle birlikte savaşmaya hazır mısın?"
+    ],
+    "Standard Dialog": [
+      "Bu sözleri sana yalnızca bir kez söyleyeceğim.",
+      "Bir kez dinledin mi, bu söz bir daha söylenmez.",
+      "Ama üzülme. Bu sözü dinleyen, başka bir sırrı öğrenmeye hak kazanır."
+    ],
+    "Prerequisite Dialog": [
+      "Bu sırrı yalnızca ilk sözümü dinleyenlere açarım. Dilediğin kadar tekrar dinleyebilirsin.",
+      "O sözleri hatırlıyor musun?"
+    ],
+    "Repeatable Dialog": [
+      "Gel otur, sana eski zamanlardan bir hikâye anlatayım.",
+      "Evet, bu hikâyeyi istediğin kadar dinleyebilirsin."
+    ],
+    "Speech Bubble Dialog": [
+      "Yurt, onu koruyanındır.",
+      "Erlik'in gücü karanlıkta büyür. Işığını kaybetme."
+    ],
+    "Voice Dialog": [
+      "Sana nasıl yardım edebilirim?",
+      "Bir şey mi almak istiyorsun?",
+      "Hadi alışveriş yapalım.",
+      "Mallarıma bir göz at."
+    ]
   }
 }

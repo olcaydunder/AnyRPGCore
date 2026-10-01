@@ -71,6 +71,10 @@ def main():
                         t = set_nth(t, "description", 4, data)
                     else:
                         t = set_top(t, "displayName", data["ad"])
+                        # nameplates show the unit's characterName; "karakter": null keeps the original
+                        # (needed where a quest objective matches the character name)
+                        if folder == "UnitProfile" and data.get("karakter", data["ad"]) is not None and re.search(r"^  characterName:", t, re.M):
+                            t = set_top(t, "characterName", data.get("karakter", data["ad"]))
                         if "aciklama" in data:
                             t = set_top(t, "description", data["aciklama"])
                         if "hedefler" in data:

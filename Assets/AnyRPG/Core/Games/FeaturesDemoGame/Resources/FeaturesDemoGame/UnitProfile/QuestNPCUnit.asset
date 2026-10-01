@@ -153,7 +153,7 @@ MonoBehaviour:
   isPet: 0
   flightCapable: 0
   glideCapable: 0
-  characterName: Quest
+  characterName: "Olcayto Han"
   title: 
   factionName: 
   unitTypeName: 

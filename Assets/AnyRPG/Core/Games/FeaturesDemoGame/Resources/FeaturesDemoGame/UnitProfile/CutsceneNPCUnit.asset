@@ -153,7 +153,7 @@ MonoBehaviour:
   isPet: 0
   flightCapable: 0
   glideCapable: 0
-  characterName: Cutscene
+  characterName: "O\u011fuz Ka\u011fan"
   title: 
   factionName: 
   unitTypeName: 

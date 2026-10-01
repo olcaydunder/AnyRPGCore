@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AlchemySuppliesVendorNPCUnit
   m_EditorClassIdentifier: 
   resourceName: Alchemy Supplies Vendor NPC
-  displayName: 
+  displayName: "Simya Malzemecisi"
   icon: {fileID: 21300000, guid: 4ce9927e29c4e67439b2afb877749f1b, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 
@@ -153,7 +153,7 @@ MonoBehaviour:
   isPet: 0
   flightCapable: 0
   glideCapable: 0
-  characterName: Alchemy Supplies
+  characterName: "Simya Malzemecisi"
   title: 
   factionName: 
   unitTypeName: 

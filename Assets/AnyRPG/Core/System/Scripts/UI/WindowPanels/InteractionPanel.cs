@@ -150,7 +150,7 @@ namespace AnyRPG {
                                 /*
                                 if (quest.IsComplete && !quest.TurnedIn) {
                                     go.transform.SetParent(completeQuestArea.transform);
-                                } else if (!quest.IsComplete && questLog.HasQuest(quest.DisplayName) == false) {
+                                } else if (!quest.IsComplete && questLog.HasQuest(quest.ResourceName) == false) {
                                     go.transform.SetParent(availableQuestArea.transform);
                                 }
                                 */

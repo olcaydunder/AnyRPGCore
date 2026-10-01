@@ -9,6 +9,9 @@ namespace AnyRPG {
 
         public Dictionary<string, ResourceProfile> resourceDictionary = new Dictionary<string, ResourceProfile>();
 
+        // secondary index by display name, built on first use; lets lookups that pass a (translated) display name still succeed
+        private Dictionary<string, ResourceProfile> displayNameDictionary = null;
+
         public void Setup<TDataType>(SystemGameManager systemGameManager) where TDataType : ResourceProfile {
             //Debug.Log($"FactoryDataAccess.Setup<{typeof(TDataType).Name}>()");
 
@@ -51,9 +54,29 @@ namespace AnyRPG {
                 if (resourceDictionary.ContainsKey(keyName)) {
                     return (resourceDictionary[keyName] as TDataType);
                 }
+                if (displayNameDictionary == null) {
+                    BuildDisplayNameDictionary();
+                }
+                ResourceProfile displayNameMatch;
+                if (displayNameDictionary.TryGetValue(keyName, out displayNameMatch)) {
+                    return (displayNameMatch as TDataType);
+                }
             }
 
             return default(TDataType);
+        }
+
+        private void BuildDisplayNameDictionary() {
+            displayNameDictionary = new Dictionary<string, ResourceProfile>();
+            foreach (ResourceProfile resourceProfile in resourceDictionary.Values) {
+                if (resourceProfile == null || string.IsNullOrEmpty(resourceProfile.DisplayName)) {
+                    continue;
+                }
+                string displayKey = SystemDataUtility.PrepareStringForMatch(resourceProfile.DisplayName);
+                if (displayNameDictionary.ContainsKey(displayKey) == false) {
+                    displayNameDictionary.Add(displayKey, resourceProfile);
+                }
+            }
         }
 
         /// <summary>
@@ -74,6 +97,7 @@ namespace AnyRPG {
                 return;
             } else {
                 resourceDictionary.Add(SystemDataUtility.PrepareStringForMatch(resourceProfile.ResourceName), resourceProfile);
+                displayNameDictionary = null;
                 //Debug.Log($"FactoryDataAccess.AddResource({resourceProfile.ResourceName}) adding to dictionary");
             }
         }

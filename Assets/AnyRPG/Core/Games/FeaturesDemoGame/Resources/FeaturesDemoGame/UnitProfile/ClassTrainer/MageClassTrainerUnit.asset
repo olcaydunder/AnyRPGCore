@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MageClassTrainerUnit
   m_EditorClassIdentifier: 
   resourceName: Mage Class Trainer
-  displayName: 
+  displayName: "Kam Ustas\u0131"
   icon: {fileID: 21300000, guid: aceeb8db2cf7a164b9ae030c6de00591, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 
@@ -153,7 +153,7 @@ MonoBehaviour:
   isPet: 0
   flightCapable: 0
   glideCapable: 0
-  characterName: Mage Trainer
+  characterName: "Kam Ustas\u0131"
   title: 
   factionName: 
   unitTypeName: 

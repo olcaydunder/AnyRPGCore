@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MiningSkillTrainerUnit
   m_EditorClassIdentifier: 
   resourceName: Mining Skill Trainer
-  displayName: 
+  displayName: "Madenci Usta"
   icon: {fileID: 21300000, guid: a3c38ed81ce647f4daf0a292002dc1de, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 
@@ -153,7 +153,7 @@ MonoBehaviour:
   isPet: 0
   flightCapable: 0
   glideCapable: 0
-  characterName: Mining Trainer
+  characterName: "Madenci Usta"
   title: 
   factionName: 
   unitTypeName: 

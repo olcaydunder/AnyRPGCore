@@ -153,7 +153,7 @@ MonoBehaviour:
   isPet: 0
   flightCapable: 0
   glideCapable: 0
-  characterName: Dialog
+  characterName: "Bilge Tonyukuk"
   title: 
   factionName: 
   unitTypeName: 

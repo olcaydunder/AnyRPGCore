@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlacksmithingSuppliesVendorUnit
   m_EditorClassIdentifier: 
   resourceName: Blacksmithing Supplies Vendor
-  displayName: 
+  displayName: "Demirci Malzemecisi"
   icon: {fileID: 21300000, guid: 6e19024c02939bc41b1aa135f53055a2, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 
@@ -153,7 +153,7 @@ MonoBehaviour:
   isPet: 0
   flightCapable: 0
   glideCapable: 0
-  characterName: Blacksmithing Supplies
+  characterName: "Demirci Malzemecisi"
   title: 
   factionName: 
   unitTypeName: 

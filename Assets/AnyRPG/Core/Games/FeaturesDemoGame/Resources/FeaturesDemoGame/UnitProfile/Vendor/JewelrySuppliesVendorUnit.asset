@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: JewelrySuppliesVendorUnit
   m_EditorClassIdentifier: 
   resourceName: Jewelry Supplies Vendor
-  displayName: 
+  displayName: "Kuyumcu Malzemecisi"
   icon: {fileID: 21300000, guid: aca674fea32f9014db080ff9f9e78d95, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 
@@ -153,7 +153,7 @@ MonoBehaviour:
   isPet: 0
   flightCapable: 0
   glideCapable: 0
-  characterName: Jewelry Supplies
+  characterName: "Kuyumcu Malzemecisi"
   title: 
   factionName: 
   unitTypeName: 

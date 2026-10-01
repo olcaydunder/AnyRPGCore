@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FishingSkillTrainerUnit
   m_EditorClassIdentifier: 
   resourceName: Fishing Skill Trainer
-  displayName: 
+  displayName: "Bal\u0131k\u00e7\u0131 Usta"
   icon: {fileID: 21300000, guid: 7810db675cd8ad74d8b29c827da4f71a, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 
@@ -153,7 +153,7 @@ MonoBehaviour:
   isPet: 0
   flightCapable: 0
   glideCapable: 0
-  characterName: Fishing Trainer
+  characterName: "Bal\u0131k\u00e7\u0131 Usta"
   title: 
   factionName: 
   unitTypeName: 

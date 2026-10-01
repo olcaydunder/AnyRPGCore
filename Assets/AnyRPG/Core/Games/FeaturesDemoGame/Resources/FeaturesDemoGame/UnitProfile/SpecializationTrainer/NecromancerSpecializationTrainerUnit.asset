@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: NecromancerSpecializationTrainerUnit
   m_EditorClassIdentifier: 
   resourceName: Necromancer Specialization Trainer
-  displayName: 
+  displayName: "Kara Kam Ustas\u0131"
   icon: {fileID: 21300000, guid: 3fe8d957725f36c45892c3b66afed644, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 
@@ -153,7 +153,7 @@ MonoBehaviour:
   isPet: 0
   flightCapable: 0
   glideCapable: 0
-  characterName: Necromancer Specialization Trainer
+  characterName: "Kara Kam Ustas\u0131"
   title: 
   factionName: 
   unitTypeName: 

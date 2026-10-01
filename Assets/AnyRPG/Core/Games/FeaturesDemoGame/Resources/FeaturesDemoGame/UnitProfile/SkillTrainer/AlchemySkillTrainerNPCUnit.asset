@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AlchemySkillTrainerNPCUnit
   m_EditorClassIdentifier: 
   resourceName: Alchemy Skill Trainer NPC
-  displayName: 
+  displayName: "Simyac\u0131 Usta"
   icon: {fileID: 21300000, guid: 995e8a165572da84ca469d4e64b98c43, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 
@@ -153,7 +153,7 @@ MonoBehaviour:
   isPet: 0
   flightCapable: 0
   glideCapable: 0
-  characterName: Alchemy Trainer
+  characterName: "Simyac\u0131 Usta"
   title: 
   factionName: 
   unitTypeName: 

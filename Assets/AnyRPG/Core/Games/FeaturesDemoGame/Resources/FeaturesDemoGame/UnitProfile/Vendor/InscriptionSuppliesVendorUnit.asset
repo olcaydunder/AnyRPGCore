@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: InscriptionSuppliesVendorUnit
   m_EditorClassIdentifier: 
   resourceName: Inscription Supplies Vendor
-  displayName: 
+  displayName: "Yaz\u0131c\u0131 Malzemecisi"
   icon: {fileID: 21300000, guid: fff03fbc1edf8e44ba5a7f8bb9eff0dd, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 
@@ -153,7 +153,7 @@ MonoBehaviour:
   isPet: 0
   flightCapable: 0
   glideCapable: 0
-  characterName: Inscription Supplies
+  characterName: "Yaz\u0131c\u0131 Malzemecisi"
   title: 
   factionName: 
   unitTypeName: 

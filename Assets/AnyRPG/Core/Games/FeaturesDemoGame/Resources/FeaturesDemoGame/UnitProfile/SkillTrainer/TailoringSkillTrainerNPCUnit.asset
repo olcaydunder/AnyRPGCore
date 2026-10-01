@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TailoringSkillTrainerNPCUnit
   m_EditorClassIdentifier: 
   resourceName: Tailoring Skill Trainer NPC
-  displayName: 
+  displayName: "Terzi Usta"
   icon: {fileID: 21300000, guid: c3956bad0e509214aba19de0c29a41fb, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 
@@ -153,7 +153,7 @@ MonoBehaviour:
   isPet: 0
   flightCapable: 0
   glideCapable: 0
-  characterName: Tailoring Trainer
+  characterName: "Terzi Usta"
   title: 
   factionName: 
   unitTypeName: 

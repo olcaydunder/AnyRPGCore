@@ -153,7 +153,7 @@ MonoBehaviour:
   isPet: 0
   flightCapable: 0
   glideCapable: 0
-  characterName: Blue Ranger
+  characterName: "Bozok \u0130zcisi"
   title: 
   factionName: Blue
   unitTypeName: 

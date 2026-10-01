@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CookingSkillTrainerNPCUnit
   m_EditorClassIdentifier: 
   resourceName: Cooking Skill Trainer NPC
-  displayName: 
+  displayName: "A\u015f\u00e7\u0131 Usta"
   icon: {fileID: 21300000, guid: deb084bded23ac645ac5ff6ed47a9fae, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 
@@ -153,7 +153,7 @@ MonoBehaviour:
   isPet: 0
   flightCapable: 0
   glideCapable: 0
-  characterName: Cooking Trainer
+  characterName: "A\u015f\u00e7\u0131 Usta"
   title: 
   factionName: 
   unitTypeName: 

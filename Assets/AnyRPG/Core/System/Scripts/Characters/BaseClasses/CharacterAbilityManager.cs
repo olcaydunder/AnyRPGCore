@@ -1162,7 +1162,7 @@ namespace AnyRPG {
         public override bool HasAbility(AbilityProperties baseAbility) {
             //Debug.Log($"{gameObject.name}.CharacterAbilitymanager.HasAbility(" + abilityName + ")");
 
-            return HasAbility(baseAbility.DisplayName);
+            return HasAbility(baseAbility.ResourceName);
         }
 
         public void ActivateTargettingMode(AbilityProperties baseAbility, InteractableBase target) {
@@ -1235,7 +1235,9 @@ namespace AnyRPG {
                 return;
             }
 
-            if (abilityList.ContainsKey(abilityName)) {
+            // key by resource name like LearnAbility does; saves may contain a (translated) display name
+            string abilityKey = abilityProperties.ResourceName;
+            if (abilityList.ContainsKey(abilityKey)) {
                 // ability is already known, exit
                 return;
             }
@@ -1244,7 +1246,7 @@ namespace AnyRPG {
             }
             abilityProperties.ProcessLoadAbility(this);
 
-            abilityList[abilityName] = abilityProperties;
+            abilityList[abilityKey] = abilityProperties;
         }
 
         public void LearnAutoAttack(AbilityProperties baseAbilityProperties) {
@@ -1773,7 +1775,7 @@ namespace AnyRPG {
 
         public bool PerformCooldownCheck(AbilityProperties ability) {
             //Debug.Log($"{gameObject.name}.CharacterAbilityManager.PerformCooldownCheck({ability.DisplayName}) : global: " + MyRemainingGlobalCoolDown);
-            if (abilityCoolDownDictionary.ContainsKey(ability.DisplayName) ||
+            if (abilityCoolDownDictionary.ContainsKey(ability.ResourceName) ||
                 (RemainingGlobalCoolDown > 0f && ability.IgnoreGlobalCoolDown == false)) {
                 return false;
             }

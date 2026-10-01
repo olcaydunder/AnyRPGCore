@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ThiefClassTrainerUnit
   m_EditorClassIdentifier: 
   resourceName: Thief Class Trainer
-  displayName: 
+  displayName: "Ak\u0131nc\u0131 Ustas\u0131"
   icon: {fileID: 21300000, guid: ca11e665135265746b7f06103090df62, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 
@@ -145,7 +145,7 @@ MonoBehaviour:
   isPet: 0
   flightCapable: 0
   glideCapable: 0
-  characterName: Thief Trainer
+  characterName: "Ak\u0131nc\u0131 Ustas\u0131"
   title: 
   factionName: 
   unitTypeName: 

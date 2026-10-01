@@ -153,7 +153,7 @@ MonoBehaviour:
   isPet: 0
   flightCapable: 0
   glideCapable: 0
-  characterName: Play Music
+  characterName: "Kopuzcu Ozan"
   title: 
   factionName: 
   unitTypeName: 

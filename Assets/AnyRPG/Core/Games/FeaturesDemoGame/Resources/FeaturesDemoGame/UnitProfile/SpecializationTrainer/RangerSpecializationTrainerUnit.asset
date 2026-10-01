@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RangerSpecializationTrainerUnit
   m_EditorClassIdentifier: 
   resourceName: Ranger Specialization Trainer
-  displayName: 
+  displayName: "\u0130zci Ustas\u0131"
   icon: {fileID: 21300000, guid: 367c99f5e95c040418c828e1ebfeff64, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 
@@ -153,7 +153,7 @@ MonoBehaviour:
   isPet: 0
   flightCapable: 0
   glideCapable: 0
-  characterName: Ranger Specialization Trainer
+  characterName: "\u0130zci Ustas\u0131"
   title: 
   factionName: 
   unitTypeName: 

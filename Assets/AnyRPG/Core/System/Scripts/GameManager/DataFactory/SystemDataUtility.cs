@@ -8,7 +8,7 @@ namespace AnyRPG {
         /// <param name="oldString"></param>
         /// <returns></returns>
         public static string PrepareStringForMatch(string oldString) {
-            return oldString.ToLower().Replace(" ", string.Empty).Replace("'", string.Empty);
+            return oldString.ToLowerInvariant().Replace(" ", string.Empty).Replace("'", string.Empty);
         }
 
         /// <summary>

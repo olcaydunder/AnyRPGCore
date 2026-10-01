@@ -95,6 +95,23 @@ namespace AnyRPG {
     }
 
     /// <summary>
+    /// The game compares and parses many internal names and numbers as text. On a phone set to Turkish, the device
+    /// culture lowercases 'I' to 'ı' and writes decimals with a comma, which breaks those comparisons and number parsing.
+    /// The game logic runs with the invariant culture; only text shown to the player is Turkish.
+    /// </summary>
+    public static class CultureGuard {
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void Initialize() {
+            System.Globalization.CultureInfo invariant = System.Globalization.CultureInfo.InvariantCulture;
+            System.Globalization.CultureInfo.DefaultThreadCurrentCulture = invariant;
+            System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = invariant;
+            System.Threading.Thread.CurrentThread.CurrentCulture = invariant;
+            System.Threading.Thread.CurrentThread.CurrentUICulture = invariant;
+        }
+    }
+
+    /// <summary>
     /// Short vibrations for taps and game events. Can be turned off with the "haptics-enabled" PlayerPrefs key.
     /// </summary>
     public static class MobileFeedback {

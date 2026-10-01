@@ -28,6 +28,7 @@ namespace AnyRPG {
             // INVESTIGATE IF STRING MATCH CAN BE REPLACED WITH TYPE.GETTYPE DIRECT MATCH
             if (killedUnitController.GetType() == Type.GetType(targetName)
                 || SystemDataUtility.MatchResource(killedUnitController.BaseCharacter.CharacterName, targetName)
+                || (killedUnitController.UnitProfile != null && SystemDataUtility.MatchResource(killedUnitController.UnitProfile.ResourceName, targetName))
                 || SystemDataUtility.MatchResource(killedUnitController.BaseCharacter.Faction.ResourceName, targetName)) {
                 SetCurrentAmount(sourceUnitController, CurrentAmount(sourceUnitController) + 1);
                 if (CurrentAmount(sourceUnitController) <= Amount && questBase.PrintObjectiveCompletionMessages && CurrentAmount(sourceUnitController) != 0) {

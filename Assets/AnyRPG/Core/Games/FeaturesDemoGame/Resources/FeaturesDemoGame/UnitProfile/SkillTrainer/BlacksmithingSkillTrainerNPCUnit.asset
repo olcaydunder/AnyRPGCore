@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlacksmithingSkillTrainerNPCUnit
   m_EditorClassIdentifier: 
   resourceName: Blacksmithing Skill Trainer NPC
-  displayName: 
+  displayName: "Demirci Usta"
   icon: {fileID: 21300000, guid: 7ab5b60981d57084b92392ed58245281, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 
@@ -153,7 +153,7 @@ MonoBehaviour:
   isPet: 0
   flightCapable: 0
   glideCapable: 0
-  characterName: Blacksmithing Trainer
+  characterName: "Demirci Usta"
   title: 
   factionName: 
   unitTypeName: 

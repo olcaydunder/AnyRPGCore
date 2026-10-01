@@ -153,7 +153,7 @@ MonoBehaviour:
   isPet: 0
   flightCapable: 0
   glideCapable: 0
-  characterName: Random Patrol
+  characterName: "Gezgin \u00c7oban"
   title: 
   factionName: 
   unitTypeName: 

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: LeatherworkingSkillTrainerNPCUnit
   m_EditorClassIdentifier: 
   resourceName: Leatherworking Skill Trainer NPC
-  displayName: 
+  displayName: "Derici Usta"
   icon: {fileID: 21300000, guid: 531d2755ec573784ea3846d23fc6cf28, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 
@@ -153,7 +153,7 @@ MonoBehaviour:
   isPet: 0
   flightCapable: 0
   glideCapable: 0
-  characterName: Leatherworking Trainer
+  characterName: "Derici Usta"
   title: 
   factionName: 
   unitTypeName: 

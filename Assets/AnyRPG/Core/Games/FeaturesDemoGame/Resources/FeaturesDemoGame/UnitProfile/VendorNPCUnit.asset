@@ -153,7 +153,7 @@ MonoBehaviour:
   isPet: 0
   flightCapable: 0
   glideCapable: 0
-  characterName: Vendor
+  characterName: "T\u00fcccar Kara\u00e7or"
   title: 
   factionName: 
   unitTypeName: 

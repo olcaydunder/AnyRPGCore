@@ -33,7 +33,7 @@ namespace AnyRPG {
             description.text = Describable.DisplayName;
 
             //if (count > 1) {
-            stackSize.text = playerManagerClient.UnitController.CharacterInventoryManager.GetItemCount(Describable.DisplayName) + " / " + count.ToString();
+            stackSize.text = playerManagerClient.UnitController.CharacterInventoryManager.GetItemCount(Describable.ResourceName) + " / " + count.ToString();
             //} else {
             //stackSize.text = "";
             //}
