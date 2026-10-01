@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: -4893917323880431361, guid: a2eb551b4be881845814a2026ada1199,
         type: 3}
       propertyPath: windowTitle
-      value: Achievements
+      value: "Ba\u015far\u0131mlar"
       objectReference: {fileID: 0}
     - target: {fileID: -4893917323880431361, guid: a2eb551b4be881845814a2026ada1199,
         type: 3}

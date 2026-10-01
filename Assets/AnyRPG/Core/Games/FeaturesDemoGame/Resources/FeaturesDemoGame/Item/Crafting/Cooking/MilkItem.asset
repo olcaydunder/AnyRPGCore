@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: MilkItem
   m_EditorClassIdentifier: 
   resourceName: Milk
-  displayName: 
+  displayName: "S\u00fct"
   icon: {fileID: 21300000, guid: 1fc471270b11c544a88902129a6c5324, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: 
+  description: "Taze sa\u011f\u0131lm\u0131\u015f."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

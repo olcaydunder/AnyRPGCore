@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: GrayFlowerItem
   m_EditorClassIdentifier: 
   resourceName: Gray Flower
-  displayName: 
+  displayName: "Gri \u00c7i\u00e7ek"
   icon: {fileID: 21300000, guid: ede1313da36de32408e6f3f78bfa94db, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very gray
+  description: "Boya yap\u0131m\u0131nda kullan\u0131l\u0131r."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

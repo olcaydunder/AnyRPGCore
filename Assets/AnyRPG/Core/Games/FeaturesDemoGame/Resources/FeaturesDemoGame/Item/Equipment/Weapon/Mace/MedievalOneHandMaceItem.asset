@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MedievalOneHandMaceItem
   m_EditorClassIdentifier: 
   resourceName: Medieval One Hand Mace
-  displayName: 
+  displayName: "Usta \u0130\u015fi G\u00fcrz"
   icon: {fileID: 21300000, guid: 54af3d3b4395b1c458006f64bf252c8d, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 

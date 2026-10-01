@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BlueLeatherBracersItem
   m_EditorClassIdentifier: 
   resourceName: Blue Leather Bracers
-  displayName: 
+  displayName: "Mavi Deri Bileklik"
   icon: {fileID: 21300000, guid: 3584dece110f7314385ca31a3242ad72, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very blue
+  description: "Esnek deri giysi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

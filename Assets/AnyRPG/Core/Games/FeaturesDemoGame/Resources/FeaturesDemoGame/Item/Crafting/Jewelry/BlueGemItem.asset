@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BlueGemItem
   m_EditorClassIdentifier: 
   resourceName: Blue Gem
-  displayName: 
+  displayName: "Mavi M\u00fccevher"
   icon: {fileID: 21300000, guid: 25a9403286cfda344ad5c1a67c8193a1, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: A shiny polished blue gem
+  description: "Parlat\u0131lm\u0131\u015f mavi bir m\u00fccevher."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BrownLeatherBootsItem
   m_EditorClassIdentifier: 
   resourceName: Brown Leather Boots
-  displayName: 
+  displayName: "Kahverengi Deri \u00c7izme"
   icon: {fileID: 21300000, guid: f349da12502edd741a8a08112affec91, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very brown
+  description: "Esnek deri giysi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

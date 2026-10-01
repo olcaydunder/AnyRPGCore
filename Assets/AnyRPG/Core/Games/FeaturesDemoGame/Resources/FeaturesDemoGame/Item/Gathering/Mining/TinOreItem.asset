@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: TinOreItem
   m_EditorClassIdentifier: 
   resourceName: Tin Ore
-  displayName: 
+  displayName: "Kalay Cevheri"
   icon: {fileID: 21300000, guid: 7ca4f1df15dd41e4c8158008f487af91, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: It needs to be refined.
+  description: "Ar\u0131t\u0131lmas\u0131 gerekir."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: EpicMedievalOneHandSwordItem
   m_EditorClassIdentifier: 
   resourceName: Epic Medieval One Hand Sword
-  displayName: 
+  displayName: "Destans\u0131 K\u0131l\u0131\u00e7"
   icon: {fileID: 21300000, guid: f4b294e0ffa0a604eafb14f47689faee, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: sword
+  description: ""
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

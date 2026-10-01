@@ -197,7 +197,7 @@ namespace AnyRPG {
             }
 
             optionsAreaLabel.SetActive(true);
-            optionsAreaLabelText.text = groupName;
+            optionsAreaLabelText.text = TurkishText.Translate(groupName);
             if (optionGroups[groupName].DisplayAs == SwappableMeshOptionGroupType.List) {
                 PopulateOptionList(optionGroups[groupName]);
             } else {

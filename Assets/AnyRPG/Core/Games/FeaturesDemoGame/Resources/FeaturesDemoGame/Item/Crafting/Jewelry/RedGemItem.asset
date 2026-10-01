@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: RedGemItem
   m_EditorClassIdentifier: 
   resourceName: Red Gem
-  displayName: 
+  displayName: "K\u0131rm\u0131z\u0131 M\u00fccevher"
   icon: {fileID: 21300000, guid: daface1a2b206dc4bb3180f2fb1d2438, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: A shiny polished red gem
+  description: "Parlat\u0131lm\u0131\u015f k\u0131rm\u0131z\u0131 bir m\u00fccevher."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

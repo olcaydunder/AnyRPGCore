@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: ParchmentPaperItem
   m_EditorClassIdentifier: 
   resourceName: Parchment Paper
-  displayName: 
+  displayName: "Par\u015f\u00f6men"
   icon: {fileID: 21300000, guid: cedfc3ff7fa35fe498179ec85d46e768, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: Used to make scrolls
+  description: "Tomar yap\u0131m\u0131nda kullan\u0131l\u0131r."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: LeatherItem
   m_EditorClassIdentifier: 
   resourceName: Leather
-  displayName: 
+  displayName: "Tabaklanm\u0131\u015f Deri"
   icon: {fileID: 21300000, guid: 0ed881ac75fff614d8f394768cefd1ec, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: Used to make armor
+  description: "Z\u0131rh ve giysi yap\u0131m\u0131nda kullan\u0131l\u0131r."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

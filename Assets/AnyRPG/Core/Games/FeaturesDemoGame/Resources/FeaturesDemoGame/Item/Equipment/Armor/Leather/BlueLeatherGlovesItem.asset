@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BlueLeatherGlovesItem
   m_EditorClassIdentifier: 
   resourceName: Blue Leather Gloves
-  displayName: 
+  displayName: "Mavi Deri Eldiven"
   icon: {fileID: 21300000, guid: 44ed981a94da01f4d8be3873975f3905, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very blue
+  description: "Esnek deri giysi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

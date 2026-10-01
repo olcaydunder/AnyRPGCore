@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BrownClothSashItem
   m_EditorClassIdentifier: 
   resourceName: Brown Cloth Sash
-  displayName: 
+  displayName: "Kahverengi Ku\u015fak"
   icon: {fileID: 21300000, guid: 84a3724368f6d2b4db1d16ca14322e4d, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very brown
+  description: "Hafif bez giysi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

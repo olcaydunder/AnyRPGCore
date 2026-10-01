@@ -15,7 +15,7 @@ PrefabInstance:
     - target: {fileID: 1228410530521220367, guid: d51764ba77b9a8b44b13bf0d843fddb5,
         type: 3}
       propertyPath: windowTitle
-      value: Interactions
+      value: "Etkile\u015fimler"
       objectReference: {fileID: 0}
     - target: {fileID: 1228410530521220367, guid: d51764ba77b9a8b44b13bf0d843fddb5,
         type: 3}

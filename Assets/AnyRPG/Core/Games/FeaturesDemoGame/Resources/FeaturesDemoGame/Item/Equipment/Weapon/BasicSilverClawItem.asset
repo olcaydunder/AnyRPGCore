@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BasicSilverClawItem
   m_EditorClassIdentifier: 
   resourceName: Basic Silver Claw
-  displayName: 
+  displayName: "G\u00fcm\u00fc\u015f Pen\u00e7e"
   icon: {fileID: 21300000, guid: 5c6d97c27ba6fe54bba2162c622646cc, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: 
+  description: "G\u00fcm\u00fc\u015f d\u00f6vme bir silah."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

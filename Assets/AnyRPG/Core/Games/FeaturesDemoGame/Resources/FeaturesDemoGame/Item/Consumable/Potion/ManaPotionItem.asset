@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: ManaPotionItem
   m_EditorClassIdentifier: 
   resourceName: Mana Potion
-  displayName: 
+  displayName: "Mana \u0130ksiri"
   icon: {fileID: 21300000, guid: b6b03e9078f931e42b29350ef4a82837, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: drink me
+  description: "\u0130\u00e7 beni."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

@@ -278,6 +278,10 @@ namespace AnyRPG {
                 UnityEngine.SceneManagement.Scene scene = UnityEngine.SceneManagement.SceneManager.GetSceneAt(i);
                 builder.Append(' ').Append(scene.name).Append(scene.isLoaded ? "" : "(yükleniyor)");
             }
+            // which input devices the game sees; decides whether the on-screen controls are shown
+            builder.Append("\nGiriş: dokunmatik ").Append(UnityEngine.InputSystem.Touchscreen.current != null ? "var" : "yok")
+                .Append(" | fare ").Append(UnityEngine.InputSystem.Mouse.current != null ? "bağlı" : "yok")
+                .Append(" | ekran tuşları ").Append(MobileInput.TouchActive ? "açık" : "kapalı");
             try {
                 SystemGameManager gameManager = FindAnyObjectByType<SystemGameManager>();
                 if (gameManager == null) {
@@ -347,7 +351,7 @@ namespace AnyRPG {
             canvasObject.AddComponent<GraphicRaycaster>();
 
             // small button at the top center
-            GameObject badgeObject = CreateButton(canvasObject.transform, "Durum", new Vector2(0.5f, 1f), new Vector2(0f, -24f), new Vector2(140f, 40f),
+            GameObject badgeObject = CreateButton(canvasObject.transform, "Durum", new Vector2(0.5f, 1f), new Vector2(-360f, -24f), new Vector2(140f, 40f),
                 new Color(0.15f, 0.15f, 0.15f, 0.45f), TogglePanel, out badgeText);
             badgeImage = badgeObject.GetComponent<Image>();
 

@@ -435,7 +435,7 @@ PrefabInstance:
     - target: {fileID: 1228410530521220367, guid: d51764ba77b9a8b44b13bf0d843fddb5,
         type: 3}
       propertyPath: windowTitle
-      value: Quest Log
+      value: "G\u00f6revler"
       objectReference: {fileID: 0}
     - target: {fileID: 5515843363174345250, guid: d51764ba77b9a8b44b13bf0d843fddb5,
         type: 3}

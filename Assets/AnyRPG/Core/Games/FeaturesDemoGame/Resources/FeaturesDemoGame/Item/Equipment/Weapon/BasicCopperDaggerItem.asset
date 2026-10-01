@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BasicCopperDaggerItem
   m_EditorClassIdentifier: 
   resourceName: Basic Copper Dagger
-  displayName: 
+  displayName: "Bak\u0131r Han\u00e7er"
   icon: {fileID: 21300000, guid: c4758c048f02eb34fb9f3366134fe44b, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: 
+  description: "Bak\u0131r d\u00f6vme bir silah."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

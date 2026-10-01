@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: ElmLumberItem
   m_EditorClassIdentifier: 
   resourceName: Elm Lumber
-  displayName: 
+  displayName: "Karaa\u011fa\u00e7 Kereste"
   icon: {fileID: 21300000, guid: 31debd49c5ae0124c9d15912777009e4, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: Rough Elm tree lumber
+  description: "Kaba karaa\u011fa\u00e7 kerestesi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

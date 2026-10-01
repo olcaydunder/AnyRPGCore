@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: RedCrystalItem
   m_EditorClassIdentifier: 
   resourceName: Red Crystal
-  displayName: 
+  displayName: "K\u0131rm\u0131z\u0131 Kristal"
   icon: {fileID: 21300000, guid: d7a1a7b3e63412040b63216ba0fc8643, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: A raw, uncut yellow crystal
+  description: "Kesilmemi\u015f ham bir kristal."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

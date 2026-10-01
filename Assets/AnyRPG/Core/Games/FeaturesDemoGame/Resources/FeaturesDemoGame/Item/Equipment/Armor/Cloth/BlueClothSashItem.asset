@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BlueClothSashItem
   m_EditorClassIdentifier: 
   resourceName: Blue Cloth Sash
-  displayName: 
+  displayName: "Mavi Ku\u015fak"
   icon: {fileID: 21300000, guid: 8e24aea23d2b80c41a57bf270e6270a0, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very blue
+  description: "Hafif bez giysi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

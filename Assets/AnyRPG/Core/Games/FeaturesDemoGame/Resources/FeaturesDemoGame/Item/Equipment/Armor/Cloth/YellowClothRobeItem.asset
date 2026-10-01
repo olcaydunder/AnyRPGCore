@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: YellowClothRobeItem
   m_EditorClassIdentifier: 
   resourceName: Yellow Cloth Robe
-  displayName: 
+  displayName: "Sar\u0131 Kaftan"
   icon: {fileID: 21300000, guid: ea7773bd75e164341b5d98addf30feb7, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very yellow
+  description: "Hafif bez giysi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

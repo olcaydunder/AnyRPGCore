@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: EpicMedievalStaffItem
   m_EditorClassIdentifier: 
   resourceName: Epic Medieval Staff
-  displayName: 
+  displayName: "Destans\u0131 Asa"
   icon: {fileID: 21300000, guid: 5880c5fe193dcef4381b21afda182892, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: staff
+  description: ""
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

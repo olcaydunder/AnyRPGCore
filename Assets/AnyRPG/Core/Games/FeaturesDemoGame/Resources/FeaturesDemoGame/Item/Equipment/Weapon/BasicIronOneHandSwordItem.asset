@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BasicIronOneHandSwordItem
   m_EditorClassIdentifier: 
   resourceName: Basic Iron One Hand Sword
-  displayName: 
+  displayName: "Demir K\u0131l\u0131\u00e7"
   icon: {fileID: 21300000, guid: 2baa54cc2dbe28d4497da35819793080, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: Basic Sword
+  description: "Demir d\u00f6vme bir silah."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

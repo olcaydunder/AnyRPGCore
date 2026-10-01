@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: VioletLeatherHeadbandItem
   m_EditorClassIdentifier: 
   resourceName: Violet Leather Headband
-  displayName: 
+  displayName: "Mor Al\u0131nl\u0131k"
   icon: {fileID: 21300000, guid: 808d24884578c7d49ac8f23b453ca9da, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very violet
+  description: "Esnek deri giysi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

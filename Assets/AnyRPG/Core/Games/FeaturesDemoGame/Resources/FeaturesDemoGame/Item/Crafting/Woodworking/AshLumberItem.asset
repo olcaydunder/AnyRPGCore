@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: AshLumberItem
   m_EditorClassIdentifier: 
   resourceName: Ash Lumber
-  displayName: 
+  displayName: "Di\u015fbudak Kereste"
   icon: {fileID: 21300000, guid: 31debd49c5ae0124c9d15912777009e4, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: Rough Ash tree lumber
+  description: "Kaba di\u015fbudak kerestesi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

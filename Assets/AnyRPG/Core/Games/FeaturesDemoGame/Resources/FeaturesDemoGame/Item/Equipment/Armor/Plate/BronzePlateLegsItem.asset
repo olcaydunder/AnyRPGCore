@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BronzePlateLegsItem
   m_EditorClassIdentifier: 
   resourceName: Bronze Plate Legs
-  displayName: 
+  displayName: "Tun\u00e7 Dizlik"
   icon: {fileID: 21300000, guid: 2db47e33e864cab4a999ece38aade260, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very bronze
+  description: "A\u011f\u0131r maden z\u0131rh."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

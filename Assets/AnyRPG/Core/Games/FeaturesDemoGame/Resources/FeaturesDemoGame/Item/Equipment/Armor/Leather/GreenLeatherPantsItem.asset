@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: GreenLeatherPantsItem
   m_EditorClassIdentifier: 
   resourceName: Green Leather Pants
-  displayName: 
+  displayName: "Ye\u015fil Deri \u015ealvar"
   icon: {fileID: 21300000, guid: af4df097b41a8c14e933a6ff2fa853db, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very green
+  description: "Esnek deri giysi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

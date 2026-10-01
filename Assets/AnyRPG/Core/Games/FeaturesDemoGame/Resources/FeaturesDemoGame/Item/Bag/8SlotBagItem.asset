@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: 8SlotBagItem
   m_EditorClassIdentifier: 
   resourceName: 8 Slot Bag
-  displayName: 
+  displayName: "8 G\u00f6zl\u00fc Heybe"
   icon: {fileID: 21300000, guid: 59fd07405d034f24f8735878f5f3636e, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: not quite as big as a backpack
+  description: "K\u00fc\u00e7\u00fck bir yol heybesi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

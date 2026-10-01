@@ -508,7 +508,7 @@ namespace AnyRPG {
             DeactivateButtons();
 
             if (interactable != null) {
-                uIManager.questGiverWindow.SetWindowTitle(interactable.DisplayName + " (Quests)");
+                uIManager.questGiverWindow.SetWindowTitle(interactable.DisplayName + " (Görevler)");
             } else {
                 // interactable is null if this quest is started from an item in the inventory
                 // in that case it doesn't make sense to show a questGiver name

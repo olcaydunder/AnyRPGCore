@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: LegendaryClothMantleItem
   m_EditorClassIdentifier: 
   resourceName: Legendary Cloth Mantle
-  displayName: 
+  displayName: "Efsanevi Omuz Atk\u0131s\u0131"
   icon: {fileID: 21300000, guid: 9a7a47a40558ddd4781f43584b29bfc6, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very legendary
+  description: "Destanlarda an\u0131lan bir par\u00e7a."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

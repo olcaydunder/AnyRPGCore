@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: CyanCrystalItem
   m_EditorClassIdentifier: 
   resourceName: Cyan Crystal
-  displayName: 
+  displayName: "Turkuaz Kristal"
   icon: {fileID: 21300000, guid: ecd3af45b94f2174ab04712cf03a428a, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: A raw, uncut yellow crystal
+  description: "Kesilmemi\u015f ham bir kristal."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

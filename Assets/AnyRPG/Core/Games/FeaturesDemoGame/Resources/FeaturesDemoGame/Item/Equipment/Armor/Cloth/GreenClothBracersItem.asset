@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: GreenClothBracersItem
   m_EditorClassIdentifier: 
   resourceName: Green Cloth Bracers
-  displayName: 
+  displayName: "Ye\u015fil Bez Bileklik"
   icon: {fileID: 21300000, guid: 6e81d0a5e854c4945bf65a06eff1a57d, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very green
+  description: "Hafif bez giysi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

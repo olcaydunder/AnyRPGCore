@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: CyanDyeItem
   m_EditorClassIdentifier: 
   resourceName: Cyan Dye
-  displayName: 
+  displayName: "Turkuaz Boya"
   icon: {fileID: 21300000, guid: 00178b73c709fc940a497f620a19032b, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very cyan
+  description: "Terziler kuma\u015f boyamakta kullan\u0131r."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: LegendaryLeatherHeadbandItem
   m_EditorClassIdentifier: 
   resourceName: Legendary Leather Headband
-  displayName: 
+  displayName: "Efsanevi Al\u0131nl\u0131k"
   icon: {fileID: 21300000, guid: 71fe80ae3eb521e4eb91160585ae9d25, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very legendary
+  description: "Destanlarda an\u0131lan bir par\u00e7a."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

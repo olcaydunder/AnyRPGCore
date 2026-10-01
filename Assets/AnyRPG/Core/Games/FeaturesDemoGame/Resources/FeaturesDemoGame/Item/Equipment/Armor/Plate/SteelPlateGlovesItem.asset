@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: SteelPlateGlovesItem
   m_EditorClassIdentifier: 
   resourceName: Steel Plate Gloves
-  displayName: 
+  displayName: "\u00c7elik Z\u0131rhl\u0131 Eldiven"
   icon: {fileID: 21300000, guid: b815ea97dd3713e4593fbd2d0bb25150, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very silver
+  description: "A\u011f\u0131r maden z\u0131rh."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

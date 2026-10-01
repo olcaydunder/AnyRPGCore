@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: GreenClothMantleItem
   m_EditorClassIdentifier: 
   resourceName: Green Cloth Mantle
-  displayName: 
+  displayName: "Ye\u015fil Omuz Atk\u0131s\u0131"
   icon: {fileID: 21300000, guid: ae6cfd59bceeee84f8aedfd19697f4dc, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very green
+  description: "Hafif bez giysi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

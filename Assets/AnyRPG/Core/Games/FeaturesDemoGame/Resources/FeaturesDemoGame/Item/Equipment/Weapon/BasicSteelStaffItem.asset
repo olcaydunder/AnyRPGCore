@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BasicSteelStaffItem
   m_EditorClassIdentifier: 
   resourceName: Basic Steel Staff
-  displayName: 
+  displayName: "\u00c7elik Asa"
   icon: {fileID: 21300000, guid: 2dda21c5129357541b006ef701ae6e60, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: Basic Staff
+  description: "\u00c7elik d\u00f6vme bir silah."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

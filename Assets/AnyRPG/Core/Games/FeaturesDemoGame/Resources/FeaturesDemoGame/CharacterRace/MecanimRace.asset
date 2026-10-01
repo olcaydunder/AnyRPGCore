@@ -31,7 +31,9 @@ MonoBehaviour:
   southMaterial: {fileID: 0}
   eastMaterial: {fileID: 0}
   westMaterial: {fileID: 0}
-  equipmentNames: []
+  equipmentNames:
+  - Brown Cloth Robe
+  - Brown Cloth Shoes
   defaultHitEffects: []
   onHitEffects: []
   capabilities:

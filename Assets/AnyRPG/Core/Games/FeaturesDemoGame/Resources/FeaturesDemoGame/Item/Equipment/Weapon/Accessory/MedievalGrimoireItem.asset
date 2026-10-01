@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MedievalGrimoireItem
   m_EditorClassIdentifier: 
   resourceName: Medieval Grimoire
-  displayName: 
+  displayName: "Usta \u0130\u015fi Bitig"
   icon: {fileID: 21300000, guid: 8df888a5addba834ab8dfaa34d0f3344, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 

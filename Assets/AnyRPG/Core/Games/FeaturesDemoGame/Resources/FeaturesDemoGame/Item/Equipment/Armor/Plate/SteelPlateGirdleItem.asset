@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: SteelPlateGirdleItem
   m_EditorClassIdentifier: 
   resourceName: Steel Plate Girdle
-  displayName: 
+  displayName: "\u00c7elik Bel Z\u0131rh\u0131"
   icon: {fileID: 21300000, guid: 2f4181d5d7699464482097f806e9b0a6, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very silver
+  description: "A\u011f\u0131r maden z\u0131rh."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: YellowCrystalItem
   m_EditorClassIdentifier: 
   resourceName: Yellow Crystal
-  displayName: 
+  displayName: "Sar\u0131 Kristal"
   icon: {fileID: 21300000, guid: b08c970b29ecf404187f857a7705f4b4, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: A raw, uncut yellow crystal
+  description: "Kesilmemi\u015f ham bir kristal."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

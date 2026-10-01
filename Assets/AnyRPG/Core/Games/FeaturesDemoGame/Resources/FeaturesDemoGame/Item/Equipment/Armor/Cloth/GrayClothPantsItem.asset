@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: GrayClothPantsItem
   m_EditorClassIdentifier: 
   resourceName: Gray Cloth Pants
-  displayName: 
+  displayName: "Gri \u015ealvar"
   icon: {fileID: 21300000, guid: 7eb428d525f8cfb458e1615ac28899d9, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very gray
+  description: "Hafif bez giysi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

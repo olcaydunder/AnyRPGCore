@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: WhiteFlowerItem
   m_EditorClassIdentifier: 
   resourceName: White Flower
-  displayName: 
+  displayName: "Beyaz \u00c7i\u00e7ek"
   icon: {fileID: 21300000, guid: cea4c7abc51dd7148b6df9de76ad7587, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very white
+  description: "Boya yap\u0131m\u0131nda kullan\u0131l\u0131r."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

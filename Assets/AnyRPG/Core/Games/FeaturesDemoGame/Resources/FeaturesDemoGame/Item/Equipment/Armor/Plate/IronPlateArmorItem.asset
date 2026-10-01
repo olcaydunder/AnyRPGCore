@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: IronPlateArmorItem
   m_EditorClassIdentifier: 
   resourceName: Iron Plate Armor
-  displayName: 
+  displayName: "Demir Z\u0131rh"
   icon: {fileID: 21300000, guid: 131916ce48aabe0469421c80e6049ce1, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very iron
+  description: "A\u011f\u0131r maden z\u0131rh."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

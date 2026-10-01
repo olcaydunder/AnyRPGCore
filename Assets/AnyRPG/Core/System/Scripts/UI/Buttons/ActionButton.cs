@@ -93,7 +93,8 @@ namespace AnyRPG {
         public void UpdateKeybindText(string newText) {
             //Debug.Log($"{gameObject.name}.ActionButton.UpdateKeybindText({newText})");
 
-            keyBindText.text = newText;
+            // keyboard shortcuts mean nothing on a touchscreen; keep the buttons clean
+            keyBindText.text = MobileInput.TouchActive ? string.Empty : newText;
         }
 
         public void HideRangeIndicator() {

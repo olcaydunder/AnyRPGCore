@@ -43,7 +43,7 @@ namespace AnyRPG {
             if (castableItem.Ability == null) {
                 return null;
             }
-            return systemAbilityController.StartCoroutine(actionButton.MonitorAbility(castableItem.Ability.DisplayName));
+            return systemAbilityController.StartCoroutine(actionButton.MonitorAbility(castableItem.Ability.ResourceName));
         }
 
         public override string GetDescription() {

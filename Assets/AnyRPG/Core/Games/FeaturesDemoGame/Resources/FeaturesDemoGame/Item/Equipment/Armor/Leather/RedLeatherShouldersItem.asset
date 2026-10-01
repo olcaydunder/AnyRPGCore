@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: RedLeatherShouldersItem
   m_EditorClassIdentifier: 
   resourceName: Red Leather Shoulders
-  displayName: 
+  displayName: "K\u0131rm\u0131z\u0131 Deri Omuzluk"
   icon: {fileID: 21300000, guid: 07bfb4b3db0149643a3694a04706666f, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very red
+  description: "Esnek deri giysi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

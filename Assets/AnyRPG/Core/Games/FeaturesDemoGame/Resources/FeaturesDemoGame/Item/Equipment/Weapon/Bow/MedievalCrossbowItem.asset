@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MedievalCrossbowItem
   m_EditorClassIdentifier: 
   resourceName: Medieval Crossbow
-  displayName: 
+  displayName: "Usta \u0130\u015fi Arbalet"
   icon: {fileID: 21300000, guid: 342962de6cc952749af96bf8ef2c2f8f, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 

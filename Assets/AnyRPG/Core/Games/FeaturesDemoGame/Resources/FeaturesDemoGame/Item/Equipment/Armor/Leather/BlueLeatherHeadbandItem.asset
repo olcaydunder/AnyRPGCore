@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BlueLeatherHeadbandItem
   m_EditorClassIdentifier: 
   resourceName: Blue Leather Headband
-  displayName: 
+  displayName: "Mavi Al\u0131nl\u0131k"
   icon: {fileID: 21300000, guid: e0de42c4566384f42ab46161901a8b4e, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very blue
+  description: "Esnek deri giysi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

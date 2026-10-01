@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: LinenItem
   m_EditorClassIdentifier: 
   resourceName: Linen
-  displayName: 
+  displayName: "Keten Kuma\u015f"
   icon: {fileID: 21300000, guid: b38b999dbc8e8aa468bb9b87d7df5142, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: Used by tailors to make clothing.
+  description: "Terziler giysi yap\u0131m\u0131nda kullan\u0131r."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

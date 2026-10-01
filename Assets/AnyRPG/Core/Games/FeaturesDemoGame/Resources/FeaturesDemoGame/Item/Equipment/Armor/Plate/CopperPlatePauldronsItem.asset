@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: CopperPlatePauldronsItem
   m_EditorClassIdentifier: 
   resourceName: Copper Plate Pauldrons
-  displayName: 
+  displayName: "Bak\u0131r Omuz Z\u0131rh\u0131"
   icon: {fileID: 21300000, guid: 0b6253825f6e8ba4fa26b3c57caeff28, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very copper
+  description: "A\u011f\u0131r maden z\u0131rh."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

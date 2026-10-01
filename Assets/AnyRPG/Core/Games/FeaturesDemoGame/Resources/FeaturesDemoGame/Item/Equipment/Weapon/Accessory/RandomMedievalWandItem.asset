@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RandomMedievalWandItem
   m_EditorClassIdentifier: 
   resourceName: Random Medieval Wand
-  displayName: 
+  displayName: "Gizemli De\u011fnek"
   icon: {fileID: 21300000, guid: 63815217b7b477947bd45f5f37e1e9e7, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 

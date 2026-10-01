@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: EpicMedievalOneHandAxeItem
   m_EditorClassIdentifier: 
   resourceName: Epic Medieval One Hand Axe
-  displayName: 
+  displayName: "Destans\u0131 Balta"
   icon: {fileID: 21300000, guid: 7c2a5151a7d08ec4dbe708e976493319, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: axe
+  description: ""
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

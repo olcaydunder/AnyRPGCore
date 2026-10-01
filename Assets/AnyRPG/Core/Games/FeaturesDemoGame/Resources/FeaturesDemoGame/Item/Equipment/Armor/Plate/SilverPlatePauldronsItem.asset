@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: SilverPlatePauldronsItem
   m_EditorClassIdentifier: 
   resourceName: Silver Plate Pauldrons
-  displayName: 
+  displayName: "G\u00fcm\u00fc\u015f Omuz Z\u0131rh\u0131"
   icon: {fileID: 21300000, guid: dfcb55ad67a104e49a002bd90736af89, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very silver
+  description: "A\u011f\u0131r maden z\u0131rh."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

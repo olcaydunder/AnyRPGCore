@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: LegendaryLeatherBracersItem
   m_EditorClassIdentifier: 
   resourceName: Legendary Leather Bracers
-  displayName: 
+  displayName: "Efsanevi Deri Bileklik"
   icon: {fileID: 21300000, guid: a846a5bde7c6abc44848ef8f3cb1471a, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very legendary
+  description: "Destanlarda an\u0131lan bir par\u00e7a."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

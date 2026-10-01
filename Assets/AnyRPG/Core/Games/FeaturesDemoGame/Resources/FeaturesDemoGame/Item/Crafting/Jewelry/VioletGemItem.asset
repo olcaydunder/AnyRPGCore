@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: VioletGemItem
   m_EditorClassIdentifier: 
   resourceName: Violet Gem
-  displayName: 
+  displayName: "Mor M\u00fccevher"
   icon: {fileID: 21300000, guid: 13fb1f73f1733734992a69f7b8844a0a, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: A shiny polished violet gem
+  description: "Parlat\u0131lm\u0131\u015f mor bir m\u00fccevher."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

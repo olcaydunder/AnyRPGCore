@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: GoldPlateGlovesItem
   m_EditorClassIdentifier: 
   resourceName: Gold Plate Gloves
-  displayName: 
+  displayName: "Alt\u0131n Z\u0131rhl\u0131 Eldiven"
   icon: {fileID: 21300000, guid: 5a304d8e58602154da75b6d926bf534b, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very gold
+  description: "A\u011f\u0131r maden z\u0131rh."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

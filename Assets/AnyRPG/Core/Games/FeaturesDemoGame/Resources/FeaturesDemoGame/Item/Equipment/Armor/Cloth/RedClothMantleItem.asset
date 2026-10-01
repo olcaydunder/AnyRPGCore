@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: RedClothMantleItem
   m_EditorClassIdentifier: 
   resourceName: Red Cloth Mantle
-  displayName: 
+  displayName: "K\u0131rm\u0131z\u0131 Omuz Atk\u0131s\u0131"
   icon: {fileID: 21300000, guid: 07bfb4b3db0149643a3694a04706666f, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very red
+  description: "Hafif bez giysi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

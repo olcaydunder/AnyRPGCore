@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BlueCrystalItem
   m_EditorClassIdentifier: 
   resourceName: Blue Crystal
-  displayName: 
+  displayName: "Mavi Kristal"
   icon: {fileID: 21300000, guid: f53120302ba61544f8278f39e16df329, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: A raw, uncut blue stone
+  description: "Kesilmemi\u015f ham bir kristal."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

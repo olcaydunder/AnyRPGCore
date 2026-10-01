@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: IronPlateBracersItem
   m_EditorClassIdentifier: 
   resourceName: Iron Plate Bracers
-  displayName: 
+  displayName: "Demir Kolluk"
   icon: {fileID: 21300000, guid: fe9cccf4bf57bf94987b2b1fd574c56c, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very iron
+  description: "A\u011f\u0131r maden z\u0131rh."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

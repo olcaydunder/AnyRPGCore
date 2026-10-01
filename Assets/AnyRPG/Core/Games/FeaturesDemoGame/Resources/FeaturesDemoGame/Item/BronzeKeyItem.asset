@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BronzeKeyItem
   m_EditorClassIdentifier: Assembly-CSharp::AnyRPG.Item
   resourceName: Bronze Key
-  displayName: 
+  displayName: "Tun\u00e7 Anahtar"
   icon: {fileID: 21300000, guid: 1124d35e890c35c4eb2c5b3d05d0764d, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 

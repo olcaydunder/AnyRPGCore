@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BasicCopperSabreItem
   m_EditorClassIdentifier: 
   resourceName: Basic Copper Sabre
-  displayName: 
+  displayName: "Bak\u0131r Pala"
   icon: {fileID: 21300000, guid: a6a44269bc477954b8048b479730b772, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: Basic Sword
+  description: "Bak\u0131r d\u00f6vme bir silah."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

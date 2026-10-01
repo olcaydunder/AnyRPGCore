@@ -36,18 +36,18 @@ namespace AnyRPG {
             VirtualJoystick joystick = stickBase.AddComponent<VirtualJoystick>();
             joystick.Configure(stickKnob.GetComponent<RectTransform>(), 115f);
 
-            // action buttons, bottom right
+            // action buttons, bottom right: the big attack button sits under the thumb, the others around it
             Vector2 bottomRight = new Vector2(1f, 0f);
-            CreateActionButton("Saldır", "ACCEPT", bottomRight, new Vector2(-165f, 190f), 150f, 26);
-            CreateActionButton("Zıpla", "JUMP", bottomRight, new Vector2(-330f, 120f), 105f, 21);
-            CreateActionButton("Hedef", "NEXTTARGET", bottomRight, new Vector2(-315f, 290f), 105f, 21);
-            CreateActionButton("Koş/Yürü", "TOGGLERUN", bottomRight, new Vector2(-165f, 380f), 95f, 17);
+            CreateActionButton("Saldır", "ACCEPT", bottomRight, new Vector2(-150f, 150f), 150f, 26);
+            CreateActionButton("Zıpla", "JUMP", bottomRight, new Vector2(-320f, 95f), 100f, 20);
+            CreateActionButton("Hedef", "NEXTTARGET", bottomRight, new Vector2(-305f, 255f), 100f, 20);
+            CreateActionButton("Koş/Yürü", "TOGGLERUN", bottomRight, new Vector2(-125f, 320f), 90f, 16);
 
-            // menus, right edge below the mini map
-            Vector2 topRight = new Vector2(1f, 1f);
-            CreateActionButton("Harita", "MAINMAP", topRight, new Vector2(-60f, -290f), 88f, 18);
-            CreateActionButton("Çanta", "INVENTORY", topRight, new Vector2(-60f, -390f), 88f, 18);
-            CreateActionButton("Görevler", "QUESTLOG", topRight, new Vector2(-60f, -490f), 88f, 16);
+            // menus, a column on the left edge above the movement stick (the right side holds the mini map and quest tracker)
+            Vector2 leftMiddle = new Vector2(0f, 0.5f);
+            CreateActionButton("Harita", "MAINMAP", leftMiddle, new Vector2(62f, 200f), 84f, 17);
+            CreateActionButton("Çanta", "INVENTORY", leftMiddle, new Vector2(62f, 105f), 84f, 17);
+            CreateActionButton("Görevler", "QUESTLOG", leftMiddle, new Vector2(62f, 10f), 84f, 15);
         }
 
         private GameObject CreateCircle(Transform parent, string name, Vector2 anchor, Vector2 position, float size, Color fillColor, Color outlineColor) {

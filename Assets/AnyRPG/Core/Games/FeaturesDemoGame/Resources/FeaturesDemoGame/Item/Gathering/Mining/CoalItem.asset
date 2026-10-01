@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: CoalItem
   m_EditorClassIdentifier: 
   resourceName: Coal
-  displayName: 
+  displayName: "K\u00f6m\u00fcr"
   icon: {fileID: 21300000, guid: 9880527df6d24bf49b74aea7354ccf43, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very black
+  description: "Demirci oca\u011f\u0131n\u0131 besler."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

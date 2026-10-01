@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BrownLeatherBracersItem
   m_EditorClassIdentifier: 
   resourceName: Brown Leather Bracers
-  displayName: 
+  displayName: "Kahverengi Deri Bileklik"
   icon: {fileID: 21300000, guid: d66825e39e431cf4c8d4de6143b778d3, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very brown
+  description: "Esnek deri giysi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

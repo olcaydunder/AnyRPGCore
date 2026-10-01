@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: IronKeyItem
   m_EditorClassIdentifier: Assembly-CSharp::AnyRPG.Item
   resourceName: Iron Key
-  displayName: 
+  displayName: "Demir Anahtar"
   icon: {fileID: 21300000, guid: 0d06f5dcab9a0ae4fbe04447f8f3630b, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 

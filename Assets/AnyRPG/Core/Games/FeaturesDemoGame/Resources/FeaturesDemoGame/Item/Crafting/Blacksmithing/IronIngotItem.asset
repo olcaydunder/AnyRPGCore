@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: IronIngotItem
   m_EditorClassIdentifier: 
   resourceName: Iron Ingot
-  displayName: 
+  displayName: "Demir K\u00fcl\u00e7e"
   icon: {fileID: 21300000, guid: a20d7bcd35484f643988ab86b88e6c3a, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: An ingot of iron
+  description: "Bir demir k\u00fcl\u00e7esi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

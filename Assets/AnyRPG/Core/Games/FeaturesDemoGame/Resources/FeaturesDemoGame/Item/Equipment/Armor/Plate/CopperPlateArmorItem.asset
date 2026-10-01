@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: CopperPlateArmorItem
   m_EditorClassIdentifier: 
   resourceName: Copper Plate Armor
-  displayName: 
+  displayName: "Bak\u0131r Z\u0131rh"
   icon: {fileID: 21300000, guid: 0a8dcc6bcb44b4a4ab90f1e7f8bcf08b, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very copper
+  description: "A\u011f\u0131r maden z\u0131rh."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

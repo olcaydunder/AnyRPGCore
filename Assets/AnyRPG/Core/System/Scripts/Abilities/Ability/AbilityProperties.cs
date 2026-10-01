@@ -713,7 +713,7 @@ namespace AnyRPG {
                 //}
             }
             // actionbuttons can be disabled, but the systemability manager will not.  That's why the ability is monitored here
-            return systemAbilityController.StartCoroutine(actionButton.MonitorAbility(DisplayName));
+            return systemAbilityController.StartCoroutine(actionButton.MonitorAbility(ResourceName));
         }
 
         public TargetProps GetTargetOptions(IAbilityCaster abilityCaster) {

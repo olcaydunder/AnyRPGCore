@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: -4893917323880431361, guid: a2eb551b4be881845814a2026ada1199,
         type: 3}
       propertyPath: windowTitle
-      value: Skills
+      value: "Beceriler"
       objectReference: {fileID: 0}
     - target: {fileID: -4893917323880431361, guid: a2eb551b4be881845814a2026ada1199,
         type: 3}

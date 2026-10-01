@@ -974,7 +974,9 @@ namespace AnyRPG {
             bool leftPressed, leftReleased, rightPressed, rightReleased, middlePressed, middleReleased;
             float scrollDelta;
             bool usingTouch = false;
-            if (mouse != null) {
+            // on a phone a finger on the screen wins over a connected mouse
+            bool touchInProgress = MobileInput.TouchActive && (MobileInput.AnyTouchPressed || touchLeftHeld || touchRightHeld);
+            if (mouse != null && touchInProgress == false) {
                 mouseDeltaX = mouse.delta.x.ReadValue() * 0.05f;
                 mouseDeltaY = mouse.delta.y.ReadValue() * 0.05f;
                 mousePosition = mouse.position.ReadValue();

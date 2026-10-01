@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BasicBronzeMaceItem
   m_EditorClassIdentifier: 
   resourceName: Basic Bronze Mace
-  displayName: 
+  displayName: "Tun\u00e7 G\u00fcrz"
   icon: {fileID: 21300000, guid: 511e57bc840c22a4cac532c6f996100d, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: 
+  description: "Tun\u00e7 d\u00f6vme bir silah."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

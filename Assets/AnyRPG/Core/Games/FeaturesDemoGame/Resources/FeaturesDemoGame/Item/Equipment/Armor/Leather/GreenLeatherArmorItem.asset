@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: GreenLeatherArmorItem
   m_EditorClassIdentifier: 
   resourceName: Green Leather Armor
-  displayName: 
+  displayName: "Ye\u015fil Deri Z\u0131rh"
   icon: {fileID: 21300000, guid: 6aa3b728ea2d6434cb44bcd437e66f51, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very green
+  description: "Esnek deri giysi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

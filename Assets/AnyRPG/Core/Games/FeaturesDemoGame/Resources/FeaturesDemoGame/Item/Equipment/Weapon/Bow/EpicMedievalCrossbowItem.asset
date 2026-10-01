@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EpicMedievalCrossbowItem
   m_EditorClassIdentifier: 
   resourceName: Epic Medieval Crossbow
-  displayName: 
+  displayName: "Destans\u0131 Arbalet"
   icon: {fileID: 21300000, guid: 342962de6cc952749af96bf8ef2c2f8f, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 

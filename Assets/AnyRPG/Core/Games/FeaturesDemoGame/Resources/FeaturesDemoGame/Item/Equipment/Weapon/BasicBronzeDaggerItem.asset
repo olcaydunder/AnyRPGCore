@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BasicBronzeDaggerItem
   m_EditorClassIdentifier: 
   resourceName: Basic Bronze Dagger
-  displayName: 
+  displayName: "Tun\u00e7 Han\u00e7er"
   icon: {fileID: 21300000, guid: 4a5bcd1a4d415d544b610863ddb2c3b1, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: 
+  description: "Tun\u00e7 d\u00f6vme bir silah."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

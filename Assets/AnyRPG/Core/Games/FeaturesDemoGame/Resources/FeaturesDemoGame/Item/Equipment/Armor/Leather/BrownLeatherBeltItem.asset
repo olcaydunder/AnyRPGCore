@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BrownLeatherBeltItem
   m_EditorClassIdentifier: 
   resourceName: Brown Leather Belt
-  displayName: 
+  displayName: "Kahverengi Deri Kemer"
   icon: {fileID: 21300000, guid: 84a3724368f6d2b4db1d16ca14322e4d, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very brown
+  description: "Esnek deri giysi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

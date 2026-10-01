@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: CyanClothBracersItem
   m_EditorClassIdentifier: 
   resourceName: Cyan Cloth Bracers
-  displayName: 
+  displayName: "Turkuaz Bez Bileklik"
   icon: {fileID: 21300000, guid: 6ad7eaedc28117e44bdf26a1ea88922f, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very cyan
+  description: "Hafif bez giysi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

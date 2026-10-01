@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: YellowLeatherBeltItem
   m_EditorClassIdentifier: 
   resourceName: Yellow Leather Belt
-  displayName: 
+  displayName: "Sar\u0131 Deri Kemer"
   icon: {fileID: 21300000, guid: 8ca738cdd619a624b8a71140c24a9756, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very yellow
+  description: "Esnek deri giysi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

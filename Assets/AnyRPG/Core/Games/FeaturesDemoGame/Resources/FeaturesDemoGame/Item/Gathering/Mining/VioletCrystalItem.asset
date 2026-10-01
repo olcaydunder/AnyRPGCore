@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: VioletCrystalItem
   m_EditorClassIdentifier: 
   resourceName: Violet Crystal
-  displayName: 
+  displayName: "Mor Kristal"
   icon: {fileID: 21300000, guid: d991d765a70916f42af6b693ba408630, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: A raw, uncut purple crystal
+  description: "Kesilmemi\u015f ham bir kristal."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

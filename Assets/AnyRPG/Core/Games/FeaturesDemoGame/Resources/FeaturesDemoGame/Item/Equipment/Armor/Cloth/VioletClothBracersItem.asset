@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: VioletClothBracersItem
   m_EditorClassIdentifier: 
   resourceName: Violet Cloth Bracers
-  displayName: 
+  displayName: "Mor Bez Bileklik"
   icon: {fileID: 21300000, guid: aa7452ca164d77f4baec33d13d480039, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very violet
+  description: "Hafif bez giysi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

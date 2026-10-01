@@ -314,6 +314,1725 @@
     }
   },
   "Item": {
+    "10 Slot Bag": {
+      "ad": "10 Gözlü Heybe",
+      "aciklama": "Sırt çantası kadar olmasa da geniş bir heybe."
+    },
+    "12 Slot Bag": {
+      "ad": "12 Gözlü Heybe",
+      "aciklama": "Bolca eşya alan sağlam bir heybe."
+    },
+    "8 Slot Bag": {
+      "ad": "8 Gözlü Heybe",
+      "aciklama": "Küçük bir yol heybesi."
+    },
+    "Animal Hide": {
+      "ad": "Hayvan Postu",
+      "aciklama": "Tabaklanınca deri olur."
+    },
+    "Ash Log": {
+      "ad": "Dişbudak Kütüğü",
+      "aciklama": "İşlenmemiş dişbudak kütüğü."
+    },
+    "Ash Lumber": {
+      "ad": "Dişbudak Kereste",
+      "aciklama": "Kaba dişbudak kerestesi."
+    },
+    "Backpack": {
+      "ad": "Sırt Torbası",
+      "aciklama": "Büyük bir sırt torbası."
+    },
+    "Basic Axe": {
+      "ad": "Basit Balta",
+      "aciklama": "Sade, işini gören bir silah."
+    },
+    "Basic Bronze Axe": {
+      "ad": "Tunç Balta",
+      "aciklama": "Tunç dövme bir silah."
+    },
+    "Basic Bronze Claw": {
+      "ad": "Tunç Pençe",
+      "aciklama": "Tunç dövme bir silah."
+    },
+    "Basic Bronze Dagger": {
+      "ad": "Tunç Hançer",
+      "aciklama": "Tunç dövme bir silah."
+    },
+    "Basic Bronze Great Axe": {
+      "ad": "Tunç Büyük Balta",
+      "aciklama": "Tunç dövme bir silah."
+    },
+    "Basic Bronze Halberd": {
+      "ad": "Tunç Teber",
+      "aciklama": "Tunç dövme bir silah."
+    },
+    "Basic Bronze Mace": {
+      "ad": "Tunç Gürz",
+      "aciklama": "Tunç dövme bir silah."
+    },
+    "Basic Bronze One Hand Sword": {
+      "ad": "Tunç Kılıç",
+      "aciklama": "Tunç dövme bir silah."
+    },
+    "Basic Bronze Sabre": {
+      "ad": "Tunç Pala",
+      "aciklama": "Tunç dövme bir silah."
+    },
+    "Basic Bronze Spear": {
+      "ad": "Tunç Mızrak",
+      "aciklama": "Tunç dövme bir silah."
+    },
+    "Basic Bronze Staff": {
+      "ad": "Tunç Asa",
+      "aciklama": "Tunç dövme bir silah."
+    },
+    "Basic Bronze Two Hand Sword": {
+      "ad": "Tunç İki Elli Kılıç",
+      "aciklama": "Tunç dövme bir silah."
+    },
+    "Basic Bronze War Hammer": {
+      "ad": "Tunç Savaş Çekici",
+      "aciklama": "Tunç dövme bir silah."
+    },
+    "Basic Claw": {
+      "ad": "Basit Pençe",
+      "aciklama": "Sade, işini gören bir silah."
+    },
+    "Basic Club": {
+      "ad": "Basit Sopa",
+      "aciklama": "Sade, işini gören bir silah."
+    },
+    "Basic Copper Axe": {
+      "ad": "Bakır Balta",
+      "aciklama": "Bakır dövme bir silah."
+    },
+    "Basic Copper Claw": {
+      "ad": "Bakır Pençe",
+      "aciklama": "Bakır dövme bir silah."
+    },
+    "Basic Copper Dagger": {
+      "ad": "Bakır Hançer",
+      "aciklama": "Bakır dövme bir silah."
+    },
+    "Basic Copper Great Axe": {
+      "ad": "Bakır Büyük Balta",
+      "aciklama": "Bakır dövme bir silah."
+    },
+    "Basic Copper Halberd": {
+      "ad": "Bakır Teber",
+      "aciklama": "Bakır dövme bir silah."
+    },
+    "Basic Copper Mace": {
+      "ad": "Bakır Gürz",
+      "aciklama": "Bakır dövme bir silah."
+    },
+    "Basic Copper One Hand Sword": {
+      "ad": "Bakır Kılıç",
+      "aciklama": "Bakır dövme bir silah."
+    },
+    "Basic Copper Sabre": {
+      "ad": "Bakır Pala",
+      "aciklama": "Bakır dövme bir silah."
+    },
+    "Basic Copper Spear": {
+      "ad": "Bakır Mızrak",
+      "aciklama": "Bakır dövme bir silah."
+    },
+    "Basic Copper Staff": {
+      "ad": "Bakır Asa",
+      "aciklama": "Bakır dövme bir silah."
+    },
+    "Basic Copper Two Hand Sword": {
+      "ad": "Bakır İki Elli Kılıç",
+      "aciklama": "Bakır dövme bir silah."
+    },
+    "Basic Copper War Hammer": {
+      "ad": "Bakır Savaş Çekici",
+      "aciklama": "Bakır dövme bir silah."
+    },
+    "Basic Dagger": {
+      "ad": "Basit Hançer",
+      "aciklama": "Sade, işini gören bir silah."
+    },
+    "Basic Gold Axe": {
+      "ad": "Altın Balta",
+      "aciklama": "Altın dövme bir silah."
+    },
+    "Basic Gold Claw": {
+      "ad": "Altın Pençe",
+      "aciklama": "Altın dövme bir silah."
+    },
+    "Basic Gold Dagger": {
+      "ad": "Altın Hançer",
+      "aciklama": "Altın dövme bir silah."
+    },
+    "Basic Gold Great Axe": {
+      "ad": "Altın Büyük Balta",
+      "aciklama": "Altın dövme bir silah."
+    },
+    "Basic Gold Halberd": {
+      "ad": "Altın Teber",
+      "aciklama": "Altın dövme bir silah."
+    },
+    "Basic Gold Mace": {
+      "ad": "Altın Gürz",
+      "aciklama": "Altın dövme bir silah."
+    },
+    "Basic Gold One Hand Sword": {
+      "ad": "Altın Kılıç",
+      "aciklama": "Altın dövme bir silah."
+    },
+    "Basic Gold Sabre": {
+      "ad": "Altın Pala",
+      "aciklama": "Altın dövme bir silah."
+    },
+    "Basic Gold Spear": {
+      "ad": "Altın Mızrak",
+      "aciklama": "Altın dövme bir silah."
+    },
+    "Basic Gold Staff": {
+      "ad": "Altın Asa",
+      "aciklama": "Altın dövme bir silah."
+    },
+    "Basic Gold Two Hand Sword": {
+      "ad": "Altın İki Elli Kılıç",
+      "aciklama": "Altın dövme bir silah."
+    },
+    "Basic Gold War Hammer": {
+      "ad": "Altın Savaş Çekici",
+      "aciklama": "Altın dövme bir silah."
+    },
+    "Basic Great Axe": {
+      "ad": "Basit Büyük Balta",
+      "aciklama": "Sade, işini gören bir silah."
+    },
+    "Basic Halberd": {
+      "ad": "Basit Teber",
+      "aciklama": "Sade, işini gören bir silah."
+    },
+    "Basic Iron Axe": {
+      "ad": "Demir Balta",
+      "aciklama": "Demir dövme bir silah."
+    },
+    "Basic Iron Claw": {
+      "ad": "Demir Pençe",
+      "aciklama": "Demir dövme bir silah."
+    },
+    "Basic Iron Dagger": {
+      "ad": "Demir Hançer",
+      "aciklama": "Demir dövme bir silah."
+    },
+    "Basic Iron Great Axe": {
+      "ad": "Demir Büyük Balta",
+      "aciklama": "Demir dövme bir silah."
+    },
+    "Basic Iron Halberd": {
+      "ad": "Demir Teber",
+      "aciklama": "Demir dövme bir silah."
+    },
+    "Basic Iron Mace": {
+      "ad": "Demir Gürz",
+      "aciklama": "Demir dövme bir silah."
+    },
+    "Basic Iron One Hand Sword": {
+      "ad": "Demir Kılıç",
+      "aciklama": "Demir dövme bir silah."
+    },
+    "Basic Iron Sabre": {
+      "ad": "Demir Pala",
+      "aciklama": "Demir dövme bir silah."
+    },
+    "Basic Iron Spear": {
+      "ad": "Demir Mızrak",
+      "aciklama": "Demir dövme bir silah."
+    },
+    "Basic Iron Staff": {
+      "ad": "Demir Asa",
+      "aciklama": "Demir dövme bir silah."
+    },
+    "Basic Iron Two Hand Sword": {
+      "ad": "Demir İki Elli Kılıç",
+      "aciklama": "Demir dövme bir silah."
+    },
+    "Basic Iron War Hammer": {
+      "ad": "Demir Savaş Çekici",
+      "aciklama": "Demir dövme bir silah."
+    },
+    "Basic Mace": {
+      "ad": "Basit Gürz",
+      "aciklama": "Sade, işini gören bir silah."
+    },
+    "Basic One Hand Sword": {
+      "ad": "Basit Kılıç",
+      "aciklama": "Sade, işini gören bir silah."
+    },
+    "Basic Sabre": {
+      "ad": "Basit Pala",
+      "aciklama": "Sade, işini gören bir silah."
+    },
+    "Basic Silver Axe": {
+      "ad": "Gümüş Balta",
+      "aciklama": "Gümüş dövme bir silah."
+    },
+    "Basic Silver Claw": {
+      "ad": "Gümüş Pençe",
+      "aciklama": "Gümüş dövme bir silah."
+    },
+    "Basic Silver Dagger": {
+      "ad": "Gümüş Hançer",
+      "aciklama": "Gümüş dövme bir silah."
+    },
+    "Basic Silver Great Axe": {
+      "ad": "Gümüş Büyük Balta",
+      "aciklama": "Gümüş dövme bir silah."
+    },
+    "Basic Silver Halberd": {
+      "ad": "Gümüş Teber",
+      "aciklama": "Gümüş dövme bir silah."
+    },
+    "Basic Silver Mace": {
+      "ad": "Gümüş Gürz",
+      "aciklama": "Gümüş dövme bir silah."
+    },
+    "Basic Silver One Hand Sword": {
+      "ad": "Gümüş Kılıç",
+      "aciklama": "Gümüş dövme bir silah."
+    },
+    "Basic Silver Sabre": {
+      "ad": "Gümüş Pala",
+      "aciklama": "Gümüş dövme bir silah."
+    },
+    "Basic Silver Spear": {
+      "ad": "Gümüş Mızrak",
+      "aciklama": "Gümüş dövme bir silah."
+    },
+    "Basic Silver Staff": {
+      "ad": "Gümüş Asa",
+      "aciklama": "Gümüş dövme bir silah."
+    },
+    "Basic Silver Two Hand Sword": {
+      "ad": "Gümüş İki Elli Kılıç",
+      "aciklama": "Gümüş dövme bir silah."
+    },
+    "Basic Silver War Hammer": {
+      "ad": "Gümüş Savaş Çekici",
+      "aciklama": "Gümüş dövme bir silah."
+    },
+    "Basic Spear": {
+      "ad": "Basit Mızrak",
+      "aciklama": "Sade, işini gören bir silah."
+    },
+    "Basic Staff": {
+      "ad": "Basit Asa",
+      "aciklama": "Sade, işini gören bir silah."
+    },
+    "Basic Steel Axe": {
+      "ad": "Çelik Balta",
+      "aciklama": "Çelik dövme bir silah."
+    },
+    "Basic Steel Claw": {
+      "ad": "Çelik Pençe",
+      "aciklama": "Çelik dövme bir silah."
+    },
+    "Basic Steel Dagger": {
+      "ad": "Çelik Hançer",
+      "aciklama": "Çelik dövme bir silah."
+    },
+    "Basic Steel Great Axe": {
+      "ad": "Çelik Büyük Balta",
+      "aciklama": "Çelik dövme bir silah."
+    },
+    "Basic Steel Halberd": {
+      "ad": "Çelik Teber",
+      "aciklama": "Çelik dövme bir silah."
+    },
+    "Basic Steel Mace": {
+      "ad": "Çelik Gürz",
+      "aciklama": "Çelik dövme bir silah."
+    },
+    "Basic Steel One Hand Sword": {
+      "ad": "Çelik Kılıç",
+      "aciklama": "Çelik dövme bir silah."
+    },
+    "Basic Steel Sabre": {
+      "ad": "Çelik Pala",
+      "aciklama": "Çelik dövme bir silah."
+    },
+    "Basic Steel Spear": {
+      "ad": "Çelik Mızrak",
+      "aciklama": "Çelik dövme bir silah."
+    },
+    "Basic Steel Staff": {
+      "ad": "Çelik Asa",
+      "aciklama": "Çelik dövme bir silah."
+    },
+    "Basic Steel Two Hand Sword": {
+      "ad": "Çelik İki Elli Kılıç",
+      "aciklama": "Çelik dövme bir silah."
+    },
+    "Basic Steel War Hammer": {
+      "ad": "Çelik Savaş Çekici",
+      "aciklama": "Çelik dövme bir silah."
+    },
+    "Basic Two Hand Sword": {
+      "ad": "Basit İki Elli Kılıç",
+      "aciklama": "Sade, işini gören bir silah."
+    },
+    "Basic War Hammer": {
+      "ad": "Basit Savaş Çekici",
+      "aciklama": "Sade, işini gören bir silah."
+    },
+    "Blue Cloth Bracers": {
+      "ad": "Mavi Bez Bileklik",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Blue Cloth Gloves": {
+      "ad": "Mavi Bez Eldiven",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Blue Cloth Hood": {
+      "ad": "Mavi Başlık",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Blue Cloth Mantle": {
+      "ad": "Mavi Omuz Atkısı",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Blue Cloth Pants": {
+      "ad": "Mavi Şalvar",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Blue Cloth Robe": {
+      "ad": "Mavi Kaftan",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Blue Cloth Sash": {
+      "ad": "Mavi Kuşak",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Blue Cloth Shoes": {
+      "ad": "Mavi Çarık",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Blue Crystal": {
+      "ad": "Mavi Kristal",
+      "aciklama": "Kesilmemiş ham bir kristal."
+    },
+    "Blue Dye": {
+      "ad": "Mavi Boya",
+      "aciklama": "Terziler kumaş boyamakta kullanır."
+    },
+    "Blue Flower": {
+      "ad": "Mavi Çiçek",
+      "aciklama": "Boya yapımında kullanılır."
+    },
+    "Blue Gem": {
+      "ad": "Mavi Mücevher",
+      "aciklama": "Parlatılmış mavi bir mücevher."
+    },
+    "Blue Leather Armor": {
+      "ad": "Mavi Deri Zırh",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Blue Leather Belt": {
+      "ad": "Mavi Deri Kemer",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Blue Leather Boots": {
+      "ad": "Mavi Deri Çizme",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Blue Leather Bracers": {
+      "ad": "Mavi Deri Bileklik",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Blue Leather Gloves": {
+      "ad": "Mavi Deri Eldiven",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Blue Leather Headband": {
+      "ad": "Mavi Alınlık",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Blue Leather Pants": {
+      "ad": "Mavi Deri Şalvar",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Blue Leather Shoulders": {
+      "ad": "Mavi Deri Omuzluk",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Blue Necklace": {
+      "ad": "Mavi Kolye",
+      "aciklama": "Değerli taşlarla süslü bir kolye."
+    },
+    "Blue Plate Armor": {
+      "ad": "Mavi Zırh",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Blue Plate Boots": {
+      "ad": "Mavi Zırhlı Çizme",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Blue Plate Bracers": {
+      "ad": "Mavi Kolluk",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Blue Plate Girdle": {
+      "ad": "Mavi Bel Zırhı",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Blue Plate Gloves": {
+      "ad": "Mavi Zırhlı Eldiven",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Blue Plate Helm": {
+      "ad": "Mavi Tulga",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Blue Plate Legs": {
+      "ad": "Mavi Dizlik",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Blue Plate Pauldrons": {
+      "ad": "Mavi Omuz Zırhı",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Bread": {
+      "ad": "Ekmek",
+      "aciklama": "Taze pişmiş ekmek."
+    },
+    "Bronze Ingot": {
+      "ad": "Tunç Külçe",
+      "aciklama": "Bir tunç külçesi."
+    },
+    "Bronze Key": {
+      "ad": "Tunç Anahtar"
+    },
+    "Bronze Plate Armor": {
+      "ad": "Tunç Zırh",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Bronze Plate Boots": {
+      "ad": "Tunç Zırhlı Çizme",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Bronze Plate Bracers": {
+      "ad": "Tunç Kolluk",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Bronze Plate Girdle": {
+      "ad": "Tunç Bel Zırhı",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Bronze Plate Gloves": {
+      "ad": "Tunç Zırhlı Eldiven",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Bronze Plate Helm": {
+      "ad": "Tunç Tulga",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Bronze Plate Legs": {
+      "ad": "Tunç Dizlik",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Bronze Plate Pauldrons": {
+      "ad": "Tunç Omuz Zırhı",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Brown Cloth Bracers": {
+      "ad": "Kahverengi Bez Bileklik",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Brown Cloth Gloves": {
+      "ad": "Kahverengi Bez Eldiven",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Brown Cloth Hood": {
+      "ad": "Kahverengi Başlık",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Brown Cloth Mantle": {
+      "ad": "Kahverengi Omuz Atkısı",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Brown Cloth Pants": {
+      "ad": "Kahverengi Şalvar",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Brown Cloth Robe": {
+      "ad": "Kahverengi Kaftan",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Brown Cloth Sash": {
+      "ad": "Kahverengi Kuşak",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Brown Cloth Shoes": {
+      "ad": "Kahverengi Çarık",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Brown Dye": {
+      "ad": "Kahverengi Boya",
+      "aciklama": "Terziler kumaş boyamakta kullanır."
+    },
+    "Brown Flower": {
+      "ad": "Kahverengi Çiçek",
+      "aciklama": "Boya yapımında kullanılır."
+    },
+    "Brown Leather Armor": {
+      "ad": "Kahverengi Deri Zırh",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Brown Leather Belt": {
+      "ad": "Kahverengi Deri Kemer",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Brown Leather Boots": {
+      "ad": "Kahverengi Deri Çizme",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Brown Leather Bracers": {
+      "ad": "Kahverengi Deri Bileklik",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Brown Leather Gloves": {
+      "ad": "Kahverengi Deri Eldiven",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Brown Leather Headband": {
+      "ad": "Kahverengi Alınlık",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Brown Leather Pants": {
+      "ad": "Kahverengi Deri Şalvar",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Brown Leather Shoulders": {
+      "ad": "Kahverengi Deri Omuzluk",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Cheese": {
+      "ad": "Peynir",
+      "aciklama": "Kokusu ağır ama doyurucu."
+    },
+    "Coal": {
+      "ad": "Kömür",
+      "aciklama": "Demirci ocağını besler."
+    },
+    "Copper Ingot": {
+      "ad": "Bakır Külçe",
+      "aciklama": "Bir bakır külçesi."
+    },
+    "Copper Key": {
+      "ad": "Bakır Anahtar"
+    },
+    "Copper Ore": {
+      "ad": "Bakır Cevheri",
+      "aciklama": "Arıtılması gerekir."
+    },
+    "Copper Plate Armor": {
+      "ad": "Bakır Zırh",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Copper Plate Boots": {
+      "ad": "Bakır Zırhlı Çizme",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Copper Plate Bracers": {
+      "ad": "Bakır Kolluk",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Copper Plate Girdle": {
+      "ad": "Bakır Bel Zırhı",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Copper Plate Gloves": {
+      "ad": "Bakır Zırhlı Eldiven",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Copper Plate Helm": {
+      "ad": "Bakır Tulga",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Copper Plate Legs": {
+      "ad": "Bakır Dizlik",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Copper Plate Pauldrons": {
+      "ad": "Bakır Omuz Zırhı",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Cyan Cloth Bracers": {
+      "ad": "Turkuaz Bez Bileklik",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Cyan Cloth Gloves": {
+      "ad": "Turkuaz Bez Eldiven",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Cyan Cloth Hood": {
+      "ad": "Turkuaz Başlık",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Cyan Cloth Mantle": {
+      "ad": "Turkuaz Omuz Atkısı",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Cyan Cloth Pants": {
+      "ad": "Turkuaz Şalvar",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Cyan Cloth Robe": {
+      "ad": "Turkuaz Kaftan",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Cyan Cloth Sash": {
+      "ad": "Turkuaz Kuşak",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Cyan Cloth Shoes": {
+      "ad": "Turkuaz Çarık",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Cyan Crystal": {
+      "ad": "Turkuaz Kristal",
+      "aciklama": "Kesilmemiş ham bir kristal."
+    },
+    "Cyan Dye": {
+      "ad": "Turkuaz Boya",
+      "aciklama": "Terziler kumaş boyamakta kullanır."
+    },
+    "Cyan Flower": {
+      "ad": "Turkuaz Çiçek",
+      "aciklama": "Boya yapımında kullanılır."
+    },
+    "Cyan Gem": {
+      "ad": "Turkuaz Mücevher",
+      "aciklama": "Parlatılmış turkuaz bir mücevher."
+    },
+    "Cyan Leather Armor": {
+      "ad": "Turkuaz Deri Zırh",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Cyan Leather Belt": {
+      "ad": "Turkuaz Deri Kemer",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Cyan Leather Boots": {
+      "ad": "Turkuaz Deri Çizme",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Cyan Leather Bracers": {
+      "ad": "Turkuaz Deri Bileklik",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Cyan Leather Gloves": {
+      "ad": "Turkuaz Deri Eldiven",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Cyan Leather Headband": {
+      "ad": "Turkuaz Alınlık",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Cyan Leather Pants": {
+      "ad": "Turkuaz Deri Şalvar",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Cyan Leather Shoulders": {
+      "ad": "Turkuaz Deri Omuzluk",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Cyan Necklace": {
+      "ad": "Turkuaz Kolye",
+      "aciklama": "Değerli taşlarla süslü bir kolye."
+    },
+    "Elm Log": {
+      "ad": "Karaağaç Kütüğü",
+      "aciklama": "İşlenmemiş karaağaç kütüğü."
+    },
+    "Elm Lumber": {
+      "ad": "Karaağaç Kereste",
+      "aciklama": "Kaba karaağaç kerestesi."
+    },
+    "Epic Medieval Bow": {
+      "ad": "Destansı Yay"
+    },
+    "Epic Medieval Bow Recipe": {
+      "ad": "Destansı Yay Tarifi",
+      "aciklama": "Bu tarifi öğrenen ustalar bu eşyayı yapabilir."
+    },
+    "Epic Medieval Crossbow": {
+      "ad": "Destansı Arbalet"
+    },
+    "Epic Medieval Crossbow Recipe": {
+      "ad": "Destansı Arbalet Tarifi",
+      "aciklama": "Bu tarifi öğrenen ustalar bu eşyayı yapabilir."
+    },
+    "Epic Medieval Dagger": {
+      "ad": "Destansı Hançer"
+    },
+    "Epic Medieval Dagger Recipe": {
+      "ad": "Destansı Hançer Tarifi",
+      "aciklama": "Bu tarifi öğrenen ustalar bu eşyayı yapabilir."
+    },
+    "Epic Medieval Grimoire": {
+      "ad": "Destansı Bitig"
+    },
+    "Epic Medieval Grimoire Recipe": {
+      "ad": "Destansı Bitig Tarifi",
+      "aciklama": "Bu tarifi öğrenen ustalar bu eşyayı yapabilir."
+    },
+    "Epic Medieval One Hand Axe": {
+      "ad": "Destansı Balta",
+      "aciklama": ""
+    },
+    "Epic Medieval One Hand Axe Recipe": {
+      "ad": "Destansı Balta Tarifi",
+      "aciklama": "Bu tarifi öğrenen ustalar bu eşyayı yapabilir."
+    },
+    "Epic Medieval One Hand Mace": {
+      "ad": "Destansı Gürz"
+    },
+    "Epic Medieval One Hand Mace Recipe": {
+      "ad": "Destansı Gürz Tarifi",
+      "aciklama": "Bu tarifi öğrenen ustalar bu eşyayı yapabilir."
+    },
+    "Epic Medieval One Hand Sword": {
+      "ad": "Destansı Kılıç",
+      "aciklama": ""
+    },
+    "Epic Medieval One Hand Sword Recipe": {
+      "ad": "Destansı Kılıç Tarifi",
+      "aciklama": "Bu tarifi öğrenen ustalar bu eşyayı yapabilir."
+    },
+    "Epic Medieval Shield": {
+      "ad": "Destansı Kalkan",
+      "aciklama": ""
+    },
+    "Epic Medieval Shield Recipe": {
+      "ad": "Destansı Kalkan Tarifi",
+      "aciklama": "Bu tarifi öğrenen ustalar bu eşyayı yapabilir."
+    },
+    "Epic Medieval Staff": {
+      "ad": "Destansı Asa",
+      "aciklama": ""
+    },
+    "Epic Medieval Staff Recipe": {
+      "ad": "Destansı Asa Tarifi",
+      "aciklama": "Bu tarifi öğrenen ustalar bu eşyayı yapabilir."
+    },
+    "Epic Medieval Two Hand Axe": {
+      "ad": "Destansı İki Elli Balta",
+      "aciklama": ""
+    },
+    "Epic Medieval Two Hand Axe Recipe": {
+      "ad": "Destansı İki Elli Balta Tarifi",
+      "aciklama": "Bu tarifi öğrenen ustalar bu eşyayı yapabilir."
+    },
+    "Epic Medieval Two Hand Mace": {
+      "ad": "Destansı İki Elli Gürz"
+    },
+    "Epic Medieval Two Hand Mace Recipe": {
+      "ad": "Destansı İki Elli Gürz Tarifi",
+      "aciklama": "Bu tarifi öğrenen ustalar bu eşyayı yapabilir."
+    },
+    "Epic Medieval Two Hand Sword": {
+      "ad": "Destansı İki Elli Kılıç",
+      "aciklama": ""
+    },
+    "Epic Medieval Two Hand Sword Recipe": {
+      "ad": "Destansı İki Elli Kılıç Tarifi",
+      "aciklama": "Bu tarifi öğrenen ustalar bu eşyayı yapabilir."
+    },
+    "Epic Medieval Wand": {
+      "ad": "Destansı Değnek"
+    },
+    "Epic Medieval Wand Recipe": {
+      "ad": "Destansı Değnek Tarifi",
+      "aciklama": "Bu tarifi öğrenen ustalar bu eşyayı yapabilir."
+    },
+    "Flax": {
+      "ad": "Keten Otu",
+      "aciklama": "Keten kumaş yapımında kullanılır."
+    },
+    "Flour": {
+      "ad": "Un",
+      "aciklama": "Ekmek yapımında kullanılır."
+    },
+    "Gold Ingot": {
+      "ad": "Altın Külçe",
+      "aciklama": "Bir altın külçesi."
+    },
+    "Gold Key": {
+      "ad": "Altın Anahtar"
+    },
+    "Gold Ore": {
+      "ad": "Altın Cevheri",
+      "aciklama": "Arıtılması gerekir."
+    },
+    "Gold Plate Armor": {
+      "ad": "Altın Zırh",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Gold Plate Boots": {
+      "ad": "Altın Zırhlı Çizme",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Gold Plate Bracers": {
+      "ad": "Altın Kolluk",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Gold Plate Girdle": {
+      "ad": "Altın Bel Zırhı",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Gold Plate Gloves": {
+      "ad": "Altın Zırhlı Eldiven",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Gold Plate Helm": {
+      "ad": "Altın Tulga",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Gold Plate Legs": {
+      "ad": "Altın Dizlik",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Gold Plate Pauldrons": {
+      "ad": "Altın Omuz Zırhı",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Gray Cloth Bracers": {
+      "ad": "Gri Bez Bileklik",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Gray Cloth Gloves": {
+      "ad": "Gri Bez Eldiven",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Gray Cloth Hood": {
+      "ad": "Gri Başlık",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Gray Cloth Mantle": {
+      "ad": "Gri Omuz Atkısı",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Gray Cloth Pants": {
+      "ad": "Gri Şalvar",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Gray Cloth Robe": {
+      "ad": "Gri Kaftan",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Gray Cloth Sash": {
+      "ad": "Gri Kuşak",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Gray Cloth Shoes": {
+      "ad": "Gri Çarık",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Gray Dye": {
+      "ad": "Gri Boya",
+      "aciklama": "Terziler kumaş boyamakta kullanır."
+    },
+    "Gray Flower": {
+      "ad": "Gri Çiçek",
+      "aciklama": "Boya yapımında kullanılır."
+    },
+    "Gray Leather Armor": {
+      "ad": "Gri Deri Zırh",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Gray Leather Belt": {
+      "ad": "Gri Deri Kemer",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Gray Leather Boots": {
+      "ad": "Gri Deri Çizme",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Gray Leather Bracers": {
+      "ad": "Gri Deri Bileklik",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Gray Leather Gloves": {
+      "ad": "Gri Deri Eldiven",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Gray Leather Headband": {
+      "ad": "Gri Alınlık",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Gray Leather Pants": {
+      "ad": "Gri Deri Şalvar",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Gray Leather Shoulders": {
+      "ad": "Gri Deri Omuzluk",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Green Cloth Bracers": {
+      "ad": "Yeşil Bez Bileklik",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Green Cloth Gloves": {
+      "ad": "Yeşil Bez Eldiven",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Green Cloth Hood": {
+      "ad": "Yeşil Başlık",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Green Cloth Mantle": {
+      "ad": "Yeşil Omuz Atkısı",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Green Cloth Pants": {
+      "ad": "Yeşil Şalvar",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Green Cloth Robe": {
+      "ad": "Yeşil Kaftan",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Green Cloth Sash": {
+      "ad": "Yeşil Kuşak",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Green Cloth Shoes": {
+      "ad": "Yeşil Çarık",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Green Crystal": {
+      "ad": "Yeşil Kristal",
+      "aciklama": "Kesilmemiş ham bir kristal."
+    },
+    "Green Dye": {
+      "ad": "Yeşil Boya",
+      "aciklama": "Terziler kumaş boyamakta kullanır."
+    },
+    "Green Flower": {
+      "ad": "Yeşil Çiçek",
+      "aciklama": "Boya yapımında kullanılır."
+    },
+    "Green Gem": {
+      "ad": "Yeşil Mücevher",
+      "aciklama": "Parlatılmış yeşil bir mücevher."
+    },
+    "Green Leather Armor": {
+      "ad": "Yeşil Deri Zırh",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Green Leather Belt": {
+      "ad": "Yeşil Deri Kemer",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Green Leather Boots": {
+      "ad": "Yeşil Deri Çizme",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Green Leather Bracers": {
+      "ad": "Yeşil Deri Bileklik",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Green Leather Gloves": {
+      "ad": "Yeşil Deri Eldiven",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Green Leather Headband": {
+      "ad": "Yeşil Alınlık",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Green Leather Pants": {
+      "ad": "Yeşil Deri Şalvar",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Green Leather Shoulders": {
+      "ad": "Yeşil Deri Omuzluk",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Green Necklace": {
+      "ad": "Yeşil Kolye",
+      "aciklama": "Değerli taşlarla süslü bir kolye."
+    },
+    "Ham": {
+      "ad": "Pastırma",
+      "aciklama": "Kurutulmuş et."
+    },
+    "Health Potion": {
+      "ad": "Şifa İksiri",
+      "aciklama": "İç beni."
+    },
+    "Hemp": {
+      "ad": "Kenevir",
+      "aciklama": "Kâğıt ve ip yapımında kullanılır."
+    },
+    "Iron Ingot": {
+      "ad": "Demir Külçe",
+      "aciklama": "Bir demir külçesi."
+    },
+    "Iron Key": {
+      "ad": "Demir Anahtar"
+    },
+    "Iron Ore": {
+      "ad": "Demir Cevheri",
+      "aciklama": "Arıtılması gerekir."
+    },
+    "Iron Plate Armor": {
+      "ad": "Demir Zırh",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Iron Plate Boots": {
+      "ad": "Demir Zırhlı Çizme",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Iron Plate Bracers": {
+      "ad": "Demir Kolluk",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Iron Plate Girdle": {
+      "ad": "Demir Bel Zırhı",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Iron Plate Gloves": {
+      "ad": "Demir Zırhlı Eldiven",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Iron Plate Helm": {
+      "ad": "Demir Tulga",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Iron Plate Legs": {
+      "ad": "Demir Dizlik",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Iron Plate Pauldrons": {
+      "ad": "Demir Omuz Zırhı",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Leather": {
+      "ad": "Tabaklanmış Deri",
+      "aciklama": "Zırh ve giysi yapımında kullanılır."
+    },
+    "Legendary Cloth Bracers": {
+      "ad": "Efsanevi Bez Bileklik",
+      "aciklama": "Destanlarda anılan bir parça."
+    },
+    "Legendary Cloth Gloves": {
+      "ad": "Efsanevi Bez Eldiven",
+      "aciklama": "Destanlarda anılan bir parça."
+    },
+    "Legendary Cloth Hood": {
+      "ad": "Efsanevi Başlık",
+      "aciklama": "Destanlarda anılan bir parça."
+    },
+    "Legendary Cloth Mantle": {
+      "ad": "Efsanevi Omuz Atkısı",
+      "aciklama": "Destanlarda anılan bir parça."
+    },
+    "Legendary Cloth Pants": {
+      "ad": "Efsanevi Şalvar",
+      "aciklama": "Destanlarda anılan bir parça."
+    },
+    "Legendary Cloth Robe": {
+      "ad": "Efsanevi Kaftan",
+      "aciklama": "Destanlarda anılan bir parça."
+    },
+    "Legendary Cloth Sash": {
+      "ad": "Efsanevi Kuşak",
+      "aciklama": "Destanlarda anılan bir parça."
+    },
+    "Legendary Cloth Shoes": {
+      "ad": "Efsanevi Çarık",
+      "aciklama": "Destanlarda anılan bir parça."
+    },
+    "Legendary Leather Armor": {
+      "ad": "Efsanevi Deri Zırh",
+      "aciklama": "Destanlarda anılan bir parça."
+    },
+    "Legendary Leather Belt": {
+      "ad": "Efsanevi Deri Kemer",
+      "aciklama": "Destanlarda anılan bir parça."
+    },
+    "Legendary Leather Boots": {
+      "ad": "Efsanevi Deri Çizme",
+      "aciklama": "Destanlarda anılan bir parça."
+    },
+    "Legendary Leather Bracers": {
+      "ad": "Efsanevi Deri Bileklik",
+      "aciklama": "Destanlarda anılan bir parça."
+    },
+    "Legendary Leather Gloves": {
+      "ad": "Efsanevi Deri Eldiven",
+      "aciklama": "Destanlarda anılan bir parça."
+    },
+    "Legendary Leather Headband": {
+      "ad": "Efsanevi Alınlık",
+      "aciklama": "Destanlarda anılan bir parça."
+    },
+    "Legendary Leather Pants": {
+      "ad": "Efsanevi Deri Şalvar",
+      "aciklama": "Destanlarda anılan bir parça."
+    },
+    "Legendary Leather Shoulders": {
+      "ad": "Efsanevi Deri Omuzluk",
+      "aciklama": "Destanlarda anılan bir parça."
+    },
+    "Legendary Plate Armor": {
+      "ad": "Efsanevi Zırh",
+      "aciklama": "Destanlarda anılan bir parça."
+    },
+    "Legendary Plate Boots": {
+      "ad": "Efsanevi Zırhlı Çizme",
+      "aciklama": "Destanlarda anılan bir parça."
+    },
+    "Legendary Plate Bracers": {
+      "ad": "Efsanevi Kolluk",
+      "aciklama": "Destanlarda anılan bir parça."
+    },
+    "Legendary Plate Girdle": {
+      "ad": "Efsanevi Bel Zırhı",
+      "aciklama": "Destanlarda anılan bir parça."
+    },
+    "Legendary Plate Gloves": {
+      "ad": "Efsanevi Zırhlı Eldiven",
+      "aciklama": "Destanlarda anılan bir parça."
+    },
+    "Legendary Plate Helm": {
+      "ad": "Efsanevi Tulga",
+      "aciklama": "Destanlarda anılan bir parça."
+    },
+    "Legendary Plate Legs": {
+      "ad": "Efsanevi Dizlik",
+      "aciklama": "Destanlarda anılan bir parça."
+    },
+    "Legendary Plate Pauldrons": {
+      "ad": "Efsanevi Omuz Zırhı",
+      "aciklama": "Destanlarda anılan bir parça."
+    },
+    "Level 5 Green Necklace": {
+      "ad": "Yeşil Kolye (5. Seviye)",
+      "aciklama": "Değerli taşlarla süslü bir kolye."
+    },
+    "Linen": {
+      "ad": "Keten Kumaş",
+      "aciklama": "Terziler giysi yapımında kullanır."
+    },
+    "Logging Axe": {
+      "ad": "Oduncu Baltası"
+    },
+    "Mana Potion": {
+      "ad": "Mana İksiri",
+      "aciklama": "İç beni."
+    },
+    "Medieval Bow": {
+      "ad": "Usta İşi Yay"
+    },
+    "Medieval Crossbow": {
+      "ad": "Usta İşi Arbalet"
+    },
+    "Medieval Grimoire": {
+      "ad": "Usta İşi Bitig"
+    },
+    "Medieval One Hand Axe": {
+      "ad": "Usta İşi Balta",
+      "aciklama": ""
+    },
+    "Medieval One Hand Mace": {
+      "ad": "Usta İşi Gürz"
+    },
+    "Medieval One Hand Sword": {
+      "ad": "Usta İşi Kılıç",
+      "aciklama": ""
+    },
+    "Medieval Staff": {
+      "ad": "Usta İşi Asa",
+      "aciklama": ""
+    },
+    "Medieval Two Hand Axe": {
+      "ad": "Usta İşi İki Elli Balta",
+      "aciklama": ""
+    },
+    "Medieval Two Hand Mace": {
+      "ad": "Usta İşi İki Elli Gürz"
+    },
+    "Medieval Two Hand Sword": {
+      "ad": "Usta İşi İki Elli Kılıç",
+      "aciklama": ""
+    },
+    "Medieval Wand": {
+      "ad": "Usta İşi Değnek"
+    },
+    "Milk": {
+      "ad": "Süt",
+      "aciklama": "Taze sağılmış."
+    },
+    "Orange Dye": {
+      "ad": "Turuncu Boya",
+      "aciklama": "Terziler kumaş boyamakta kullanır."
+    },
+    "Orange Flower": {
+      "ad": "Turuncu Çiçek",
+      "aciklama": "Boya yapımında kullanılır."
+    },
+    "Parchment Paper": {
+      "ad": "Parşömen",
+      "aciklama": "Tomar yapımında kullanılır."
+    },
+    "Random Medieval Bow": {
+      "ad": "Gizemli Yay"
+    },
+    "Random Medieval Crossbow": {
+      "ad": "Gizemli Arbalet"
+    },
+    "Random Medieval Dagger": {
+      "ad": "Gizemli Hançer"
+    },
+    "Random Medieval Grimoire": {
+      "ad": "Gizemli Bitig"
+    },
+    "Random Medieval One Hand Axe": {
+      "ad": "Gizemli Balta",
+      "aciklama": ""
+    },
+    "Random Medieval One Hand Mace": {
+      "ad": "Gizemli Gürz"
+    },
+    "Random Medieval One Hand Sword": {
+      "ad": "Gizemli Kılıç",
+      "aciklama": ""
+    },
+    "Random Medieval Shield": {
+      "ad": "Gizemli Kalkan",
+      "aciklama": ""
+    },
+    "Random Medieval Staff": {
+      "ad": "Gizemli Asa",
+      "aciklama": ""
+    },
+    "Random Medieval Two Hand Axe": {
+      "ad": "Gizemli İki Elli Balta",
+      "aciklama": ""
+    },
+    "Random Medieval Two Hand Mace": {
+      "ad": "Gizemli İki Elli Gürz"
+    },
+    "Random Medieval Two Hand Sword": {
+      "ad": "Gizemli İki Elli Kılıç",
+      "aciklama": ""
+    },
+    "Random Medieval Wand": {
+      "ad": "Gizemli Değnek"
+    },
+    "Raw Fish": {
+      "ad": "Çiğ Balık",
+      "aciklama": "Balık kokuyor."
+    },
+    "Red Cloth Bracers": {
+      "ad": "Kırmızı Bez Bileklik",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Red Cloth Gloves": {
+      "ad": "Kırmızı Bez Eldiven",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Red Cloth Hood": {
+      "ad": "Kırmızı Başlık",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Red Cloth Mantle": {
+      "ad": "Kırmızı Omuz Atkısı",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Red Cloth Pants": {
+      "ad": "Kırmızı Şalvar",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Red Cloth Robe": {
+      "ad": "Kırmızı Kaftan",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Red Cloth Sash": {
+      "ad": "Kırmızı Kuşak",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Red Cloth Shoes": {
+      "ad": "Kırmızı Çarık",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Red Crystal": {
+      "ad": "Kırmızı Kristal",
+      "aciklama": "Kesilmemiş ham bir kristal."
+    },
+    "Red Dye": {
+      "ad": "Kırmızı Boya",
+      "aciklama": "Terziler kumaş boyamakta kullanır."
+    },
+    "Red Flower": {
+      "ad": "Kırmızı Çiçek",
+      "aciklama": "Boya yapımında kullanılır."
+    },
+    "Red Gem": {
+      "ad": "Kırmızı Mücevher",
+      "aciklama": "Parlatılmış kırmızı bir mücevher."
+    },
+    "Red Leather Armor": {
+      "ad": "Kırmızı Deri Zırh",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Red Leather Belt": {
+      "ad": "Kırmızı Deri Kemer",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Red Leather Boots": {
+      "ad": "Kırmızı Deri Çizme",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Red Leather Bracers": {
+      "ad": "Kırmızı Deri Bileklik",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Red Leather Gloves": {
+      "ad": "Kırmızı Deri Eldiven",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Red Leather Headband": {
+      "ad": "Kırmızı Alınlık",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Red Leather Pants": {
+      "ad": "Kırmızı Deri Şalvar",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Red Leather Shoulders": {
+      "ad": "Kırmızı Deri Omuzluk",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Red Necklace": {
+      "ad": "Kırmızı Kolye",
+      "aciklama": "Değerli taşlarla süslü bir kolye."
+    },
+    "Red Plate Armor": {
+      "ad": "Kırmızı Zırh",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Red Plate Boots": {
+      "ad": "Kırmızı Zırhlı Çizme",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Red Plate Bracers": {
+      "ad": "Kırmızı Kolluk",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Red Plate Girdle": {
+      "ad": "Kırmızı Bel Zırhı",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Red Plate Gloves": {
+      "ad": "Kırmızı Zırhlı Eldiven",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Red Plate Helm": {
+      "ad": "Kırmızı Tulga",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Red Plate Legs": {
+      "ad": "Kırmızı Dizlik",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Red Plate Pauldrons": {
+      "ad": "Kırmızı Omuz Zırhı",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Sausage": {
+      "ad": "Sucuk",
+      "aciklama": "İyice pişmiş."
+    },
+    "Scroll Of Agility": {
+      "ad": "Çeviklik Tomarı"
+    },
+    "Scroll Of Intellect": {
+      "ad": "Zekâ Tomarı"
+    },
+    "Scroll Of Stamina": {
+      "ad": "Dayanıklılık Tomarı"
+    },
+    "Scroll Of Strength": {
+      "ad": "Güç Tomarı"
+    },
+    "Silver Ingot": {
+      "ad": "Gümüş Külçe",
+      "aciklama": "Bir gümüş külçesi."
+    },
+    "Silver Ore": {
+      "ad": "Gümüş Cevheri",
+      "aciklama": "Arıtılması gerekir."
+    },
+    "Silver Plate Armor": {
+      "ad": "Gümüş Zırh",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Silver Plate Boots": {
+      "ad": "Gümüş Zırhlı Çizme",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Silver Plate Bracers": {
+      "ad": "Gümüş Kolluk",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Silver Plate Girdle": {
+      "ad": "Gümüş Bel Zırhı",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Silver Plate Gloves": {
+      "ad": "Gümüş Zırhlı Eldiven",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Silver Plate Helm": {
+      "ad": "Gümüş Tulga",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Silver Plate Legs": {
+      "ad": "Gümüş Dizlik",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Silver Plate Pauldrons": {
+      "ad": "Gümüş Omuz Zırhı",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Spruce Log": {
+      "ad": "Ladin Kütüğü",
+      "aciklama": "İşlenmemiş ladin kütüğü."
+    },
+    "Spruce Lumber": {
+      "ad": "Ladin Kereste",
+      "aciklama": "Kaba ladin kerestesi."
+    },
+    "Steel Ingot": {
+      "ad": "Çelik Külçe",
+      "aciklama": "Bir çelik külçesi."
+    },
+    "Steel Plate Armor": {
+      "ad": "Çelik Zırh",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Steel Plate Boots": {
+      "ad": "Çelik Zırhlı Çizme",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Steel Plate Bracers": {
+      "ad": "Çelik Kolluk",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Steel Plate Girdle": {
+      "ad": "Çelik Bel Zırhı",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Steel Plate Gloves": {
+      "ad": "Çelik Zırhlı Eldiven",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Steel Plate Helm": {
+      "ad": "Çelik Tulga",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Steel Plate Legs": {
+      "ad": "Çelik Dizlik",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Steel Plate Pauldrons": {
+      "ad": "Çelik Omuz Zırhı",
+      "aciklama": "Ağır maden zırh."
+    },
+    "Tin Ore": {
+      "ad": "Kalay Cevheri",
+      "aciklama": "Arıtılması gerekir."
+    },
+    "Vial Of Water": {
+      "ad": "Su Şişesi",
+      "aciklama": "Damıtılmış kaynak suyu."
+    },
+    "Violet Cloth Bracers": {
+      "ad": "Mor Bez Bileklik",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Violet Cloth Gloves": {
+      "ad": "Mor Bez Eldiven",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Violet Cloth Hood": {
+      "ad": "Mor Başlık",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Violet Cloth Mantle": {
+      "ad": "Mor Omuz Atkısı",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Violet Cloth Pants": {
+      "ad": "Mor Şalvar",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Violet Cloth Robe": {
+      "ad": "Mor Kaftan",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Violet Cloth Sash": {
+      "ad": "Mor Kuşak",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Violet Cloth Shoes": {
+      "ad": "Mor Çarık",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Violet Crystal": {
+      "ad": "Mor Kristal",
+      "aciklama": "Kesilmemiş ham bir kristal."
+    },
+    "Violet Dye": {
+      "ad": "Mor Boya",
+      "aciklama": "Terziler kumaş boyamakta kullanır."
+    },
+    "Violet Flower": {
+      "ad": "Mor Çiçek",
+      "aciklama": "Boya yapımında kullanılır."
+    },
+    "Violet Gem": {
+      "ad": "Mor Mücevher",
+      "aciklama": "Parlatılmış mor bir mücevher."
+    },
+    "Violet Leather Armor": {
+      "ad": "Mor Deri Zırh",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Violet Leather Belt": {
+      "ad": "Mor Deri Kemer",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Violet Leather Boots": {
+      "ad": "Mor Deri Çizme",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Violet Leather Bracers": {
+      "ad": "Mor Deri Bileklik",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Violet Leather Gloves": {
+      "ad": "Mor Deri Eldiven",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Violet Leather Headband": {
+      "ad": "Mor Alınlık",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Violet Leather Pants": {
+      "ad": "Mor Deri Şalvar",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Violet Leather Shoulders": {
+      "ad": "Mor Deri Omuzluk",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Violet Necklace": {
+      "ad": "Mor Kolye",
+      "aciklama": "Değerli taşlarla süslü bir kolye."
+    },
+    "White Dye": {
+      "ad": "Beyaz Boya",
+      "aciklama": "Terziler kumaş boyamakta kullanır."
+    },
+    "White Flower": {
+      "ad": "Beyaz Çiçek",
+      "aciklama": "Boya yapımında kullanılır."
+    },
+    "Yellow Cloth Bracers": {
+      "ad": "Sarı Bez Bileklik",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Yellow Cloth Gloves": {
+      "ad": "Sarı Bez Eldiven",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Yellow Cloth Hood": {
+      "ad": "Sarı Başlık",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Yellow Cloth Mantle": {
+      "ad": "Sarı Omuz Atkısı",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Yellow Cloth Pants": {
+      "ad": "Sarı Şalvar",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Yellow Cloth Robe": {
+      "ad": "Sarı Kaftan",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Yellow Cloth Sash": {
+      "ad": "Sarı Kuşak",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Yellow Cloth Shoes": {
+      "ad": "Sarı Çarık",
+      "aciklama": "Hafif bez giysi."
+    },
+    "Yellow Crystal": {
+      "ad": "Sarı Kristal",
+      "aciklama": "Kesilmemiş ham bir kristal."
+    },
+    "Yellow Dye": {
+      "ad": "Sarı Boya",
+      "aciklama": "Terziler kumaş boyamakta kullanır."
+    },
+    "Yellow Flower": {
+      "ad": "Sarı Çiçek",
+      "aciklama": "Boya yapımında kullanılır."
+    },
+    "Yellow Gem": {
+      "ad": "Sarı Mücevher",
+      "aciklama": "Parlatılmış sarı bir mücevher."
+    },
+    "Yellow Leather Armor": {
+      "ad": "Sarı Deri Zırh",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Yellow Leather Belt": {
+      "ad": "Sarı Deri Kemer",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Yellow Leather Boots": {
+      "ad": "Sarı Deri Çizme",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Yellow Leather Bracers": {
+      "ad": "Sarı Deri Bileklik",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Yellow Leather Gloves": {
+      "ad": "Sarı Deri Eldiven",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Yellow Leather Headband": {
+      "ad": "Sarı Alınlık",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Yellow Leather Pants": {
+      "ad": "Sarı Deri Şalvar",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Yellow Leather Shoulders": {
+      "ad": "Sarı Deri Omuzluk",
+      "aciklama": "Esnek deri giysi."
+    },
+    "Yellow Necklace": {
+      "ad": "Sarı Kolye",
+      "aciklama": "Değerli taşlarla süslü bir kolye."
+    },
     "Medieval Dagger": {
       "ad": "Demir Kama"
     },

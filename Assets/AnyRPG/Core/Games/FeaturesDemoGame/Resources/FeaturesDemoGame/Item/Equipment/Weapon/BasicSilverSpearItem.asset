@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BasicSilverSpearItem
   m_EditorClassIdentifier: 
   resourceName: Basic Silver Spear
-  displayName: 
+  displayName: "G\u00fcm\u00fc\u015f M\u0131zrak"
   icon: {fileID: 21300000, guid: a42d10ff660f6484492977861929c127, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: Basic Spear
+  description: "G\u00fcm\u00fc\u015f d\u00f6vme bir silah."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

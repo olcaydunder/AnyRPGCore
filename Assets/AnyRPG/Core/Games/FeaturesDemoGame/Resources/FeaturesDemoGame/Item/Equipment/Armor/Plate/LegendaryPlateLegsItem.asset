@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: LegendaryPlateLegsItem
   m_EditorClassIdentifier: 
   resourceName: Legendary Plate Legs
-  displayName: 
+  displayName: "Efsanevi Dizlik"
   icon: {fileID: 21300000, guid: fd549d479f4934e4db7b498ffe0e1015, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very legendary
+  description: "Destanlarda an\u0131lan bir par\u00e7a."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: CopperIngotItem
   m_EditorClassIdentifier: 
   resourceName: Copper Ingot
-  displayName: 
+  displayName: "Bak\u0131r K\u00fcl\u00e7e"
   icon: {fileID: 21300000, guid: b4a5addcb19407d4fbd78120411a0451, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: An ingot of copper
+  description: "Bir bak\u0131r k\u00fcl\u00e7esi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

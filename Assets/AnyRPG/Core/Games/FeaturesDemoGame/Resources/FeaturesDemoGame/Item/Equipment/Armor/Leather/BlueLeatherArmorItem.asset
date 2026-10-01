@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BlueLeatherArmorItem
   m_EditorClassIdentifier: 
   resourceName: Blue Leather Armor
-  displayName: 
+  displayName: "Mavi Deri Z\u0131rh"
   icon: {fileID: 21300000, guid: 9ede07e112d066f4d9ee2acc92451f16, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very blue
+  description: "Esnek deri giysi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BasicCopperStaffItem
   m_EditorClassIdentifier: 
   resourceName: Basic Copper Staff
-  displayName: 
+  displayName: "Bak\u0131r Asa"
   icon: {fileID: 21300000, guid: 004f3c2521d98414aaf60b2bea4e5143, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: Basic Staff
+  description: "Bak\u0131r d\u00f6vme bir silah."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

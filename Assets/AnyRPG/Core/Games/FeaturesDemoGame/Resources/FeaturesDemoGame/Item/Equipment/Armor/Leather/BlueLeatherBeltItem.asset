@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BlueLeatherBeltItem
   m_EditorClassIdentifier: 
   resourceName: Blue Leather Belt
-  displayName: 
+  displayName: "Mavi Deri Kemer"
   icon: {fileID: 21300000, guid: 8e24aea23d2b80c41a57bf270e6270a0, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very blue
+  description: "Esnek deri giysi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

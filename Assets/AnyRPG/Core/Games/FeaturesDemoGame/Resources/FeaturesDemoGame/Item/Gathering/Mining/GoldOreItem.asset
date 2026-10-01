@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: GoldOreItem
   m_EditorClassIdentifier: 
   resourceName: Gold Ore
-  displayName: 
+  displayName: "Alt\u0131n Cevheri"
   icon: {fileID: 21300000, guid: f1c2de81f6250b84385c67827db821ab, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: It needs to be refined.
+  description: "Ar\u0131t\u0131lmas\u0131 gerekir."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

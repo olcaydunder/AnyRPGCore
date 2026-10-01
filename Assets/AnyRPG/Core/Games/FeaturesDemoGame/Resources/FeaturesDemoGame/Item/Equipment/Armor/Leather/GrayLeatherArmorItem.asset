@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: GrayLeatherArmorItem
   m_EditorClassIdentifier: 
   resourceName: Gray Leather Armor
-  displayName: 
+  displayName: "Gri Deri Z\u0131rh"
   icon: {fileID: 21300000, guid: b3c9e35ebf50f5e4f828f89e6cdb1a90, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very gray
+  description: "Esnek deri giysi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

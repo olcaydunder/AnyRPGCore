@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EpicMedievalBowItem
   m_EditorClassIdentifier: 
   resourceName: Epic Medieval Bow
-  displayName: 
+  displayName: "Destans\u0131 Yay"
   icon: {fileID: 21300000, guid: 36cc874c97753f0458ce8dd1ef6df37e, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BasicSteelMaceItem
   m_EditorClassIdentifier: 
   resourceName: Basic Steel Mace
-  displayName: 
+  displayName: "\u00c7elik G\u00fcrz"
   icon: {fileID: 21300000, guid: 35b4178a2ab88d243a6f42e39c2a950b, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: 
+  description: "\u00c7elik d\u00f6vme bir silah."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BasicSteelTwoHandSwordItem
   m_EditorClassIdentifier: 
   resourceName: Basic Steel Two Hand Sword
-  displayName: 
+  displayName: "\u00c7elik \u0130ki Elli K\u0131l\u0131\u00e7"
   icon: {fileID: 21300000, guid: 695d5ad0d990e754b8d1d47a21355a33, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: a simple two hand sword
+  description: "\u00c7elik d\u00f6vme bir silah."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

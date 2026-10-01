@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: EpicMedievalShieldRecipeItem
   m_EditorClassIdentifier: 
   resourceName: Epic Medieval Shield Recipe
-  displayName: 
+  displayName: "Destans\u0131 Kalkan Tarifi"
   icon: {fileID: 21300000, guid: 66b1ec3cf546e7c4cbc5ba00e5493024, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: 
+  description: "Bu tarifi \u00f6\u011frenen ustalar bu e\u015fyay\u0131 yapabilir."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

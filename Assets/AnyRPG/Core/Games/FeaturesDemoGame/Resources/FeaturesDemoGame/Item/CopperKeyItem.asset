@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CopperKeyItem
   m_EditorClassIdentifier: Assembly-CSharp::AnyRPG.Item
   resourceName: Copper Key
-  displayName: 
+  displayName: "Bak\u0131r Anahtar"
   icon: {fileID: 21300000, guid: ed08ade12d136be4b80891887a0c4443, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 

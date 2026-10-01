@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: VioletLeatherBootsItem
   m_EditorClassIdentifier: 
   resourceName: Violet Leather Boots
-  displayName: 
+  displayName: "Mor Deri \u00c7izme"
   icon: {fileID: 21300000, guid: ca1710a2333c67f47a999d57fd875b21, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very violet
+  description: "Esnek deri giysi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

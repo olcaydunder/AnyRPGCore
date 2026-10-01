@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BasicCopperMaceItem
   m_EditorClassIdentifier: 
   resourceName: Basic Copper Mace
-  displayName: 
+  displayName: "Bak\u0131r G\u00fcrz"
   icon: {fileID: 21300000, guid: 6ecfbaeda1e983048a23065a06311ab3, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: 
+  description: "Bak\u0131r d\u00f6vme bir silah."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

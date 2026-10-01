@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BasicIronSpearItem
   m_EditorClassIdentifier: 
   resourceName: Basic Iron Spear
-  displayName: 
+  displayName: "Demir M\u0131zrak"
   icon: {fileID: 21300000, guid: a4d0ba7b39b1b784684c56e492dc8f1e, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: Basic Spear
+  description: "Demir d\u00f6vme bir silah."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

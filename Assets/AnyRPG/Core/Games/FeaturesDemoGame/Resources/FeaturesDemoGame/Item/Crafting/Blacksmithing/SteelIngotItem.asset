@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: SteelIngotItem
   m_EditorClassIdentifier: 
   resourceName: Steel Ingot
-  displayName: 
+  displayName: "\u00c7elik K\u00fcl\u00e7e"
   icon: {fileID: 21300000, guid: e3289651e46ff8342abde433834bbf0c, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: An ingot of steel
+  description: "Bir \u00e7elik k\u00fcl\u00e7esi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

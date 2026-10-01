@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BasicSteelDaggerItem
   m_EditorClassIdentifier: 
   resourceName: Basic Steel Dagger
-  displayName: 
+  displayName: "\u00c7elik Han\u00e7er"
   icon: {fileID: 21300000, guid: 594cb5c4baffbd74ab93b3c93c76cba2, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: 
+  description: "\u00c7elik d\u00f6vme bir silah."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

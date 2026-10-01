@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BasicGoldGreatAxeItem
   m_EditorClassIdentifier: 
   resourceName: Basic Gold Great Axe
-  displayName: 
+  displayName: "Alt\u0131n B\u00fcy\u00fck Balta"
   icon: {fileID: 21300000, guid: 55f378acf547f3d4b9770cc6a2275048, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: Basic great axe
+  description: "Alt\u0131n d\u00f6vme bir silah."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

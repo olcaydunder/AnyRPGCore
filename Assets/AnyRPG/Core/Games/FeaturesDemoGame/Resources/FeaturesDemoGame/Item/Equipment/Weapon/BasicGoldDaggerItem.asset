@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BasicGoldDaggerItem
   m_EditorClassIdentifier: 
   resourceName: Basic Gold Dagger
-  displayName: 
+  displayName: "Alt\u0131n Han\u00e7er"
   icon: {fileID: 21300000, guid: 02cf08bf4754b27418b2eb742844f11b, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: 
+  description: "Alt\u0131n d\u00f6vme bir silah."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

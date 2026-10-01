@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BasicCopperClawItem
   m_EditorClassIdentifier: 
   resourceName: Basic Copper Claw
-  displayName: 
+  displayName: "Bak\u0131r Pen\u00e7e"
   icon: {fileID: 21300000, guid: c4516e4d856e0254d91de4bd3fe39c2c, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: 
+  description: "Bak\u0131r d\u00f6vme bir silah."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

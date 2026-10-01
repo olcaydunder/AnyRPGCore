@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ScrollOfStaminaItem
   m_EditorClassIdentifier: 
   resourceName: Scroll Of Stamina
-  displayName: 
+  displayName: "Dayan\u0131kl\u0131l\u0131k Tomar\u0131"
   icon: {fileID: 21300000, guid: 4b2b9a0d854d0d14ba8da2ea08cabf9c, type: 3}
   iconBackgroundImage: {fileID: 0}
   description: 

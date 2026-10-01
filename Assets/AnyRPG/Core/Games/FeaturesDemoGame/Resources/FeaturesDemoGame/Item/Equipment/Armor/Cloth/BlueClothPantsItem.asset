@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BlueClothPantsItem
   m_EditorClassIdentifier: 
   resourceName: Blue Cloth Pants
-  displayName: 
+  displayName: "Mavi \u015ealvar"
   icon: {fileID: 21300000, guid: baa86081f78d9974196b9b57375aff52, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very blue
+  description: "Hafif bez giysi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

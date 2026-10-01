@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BasicStaffItem
   m_EditorClassIdentifier: 
   resourceName: Basic Staff
-  displayName: 
+  displayName: "Basit Asa"
   icon: {fileID: 21300000, guid: fc7242b17cfc2e7478aecc94bfbffbea, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: Basic Staff
+  description: "Sade, i\u015fini g\u00f6ren bir silah."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

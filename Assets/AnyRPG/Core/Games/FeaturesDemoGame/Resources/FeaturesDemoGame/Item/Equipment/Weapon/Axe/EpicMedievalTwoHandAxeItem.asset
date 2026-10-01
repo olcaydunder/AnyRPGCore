@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: EpicMedievalTwoHandAxeItem
   m_EditorClassIdentifier: 
   resourceName: Epic Medieval Two Hand Axe
-  displayName: 
+  displayName: "Destans\u0131 \u0130ki Elli Balta"
   icon: {fileID: 21300000, guid: 786890364b5ef344491c4c5c72b68ea1, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: two hand axe
+  description: ""
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

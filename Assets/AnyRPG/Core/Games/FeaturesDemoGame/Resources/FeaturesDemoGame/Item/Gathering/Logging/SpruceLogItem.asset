@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: SpruceLogItem
   m_EditorClassIdentifier: 
   resourceName: Spruce Log
-  displayName: 
+  displayName: "Ladin K\u00fct\u00fc\u011f\u00fc"
   icon: {fileID: 21300000, guid: 4c01e9f8772056f4bbe1314b213bcfe7, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: Raw Spruce tree log
+  description: "\u0130\u015flenmemi\u015f ladin k\u00fct\u00fc\u011f\u00fc."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

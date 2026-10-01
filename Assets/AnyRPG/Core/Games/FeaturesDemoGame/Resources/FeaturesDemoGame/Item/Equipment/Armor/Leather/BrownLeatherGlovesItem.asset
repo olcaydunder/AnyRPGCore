@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BrownLeatherGlovesItem
   m_EditorClassIdentifier: 
   resourceName: Brown Leather Gloves
-  displayName: 
+  displayName: "Kahverengi Deri Eldiven"
   icon: {fileID: 21300000, guid: 9b978437626bdd84299ba4424355b689, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very brown
+  description: "Esnek deri giysi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

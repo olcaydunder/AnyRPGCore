@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BlueFlowerItem
   m_EditorClassIdentifier: 
   resourceName: Blue Flower
-  displayName: 
+  displayName: "Mavi \u00c7i\u00e7ek"
   icon: {fileID: 21300000, guid: aaf9c4be47f12fc4ca8616e30cd0eb95, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very blue
+  description: "Boya yap\u0131m\u0131nda kullan\u0131l\u0131r."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

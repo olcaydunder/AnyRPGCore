@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BasicDaggerItem
   m_EditorClassIdentifier: 
   resourceName: Basic Dagger
-  displayName: 
+  displayName: "Basit Han\u00e7er"
   icon: {fileID: 21300000, guid: a2f64e5fec5821545825b52623e7d7cb, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: 
+  description: "Sade, i\u015fini g\u00f6ren bir silah."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

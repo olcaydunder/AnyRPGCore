@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: RedClothHoodItem
   m_EditorClassIdentifier: 
   resourceName: Red Cloth Hood
-  displayName: 
+  displayName: "K\u0131rm\u0131z\u0131 Ba\u015fl\u0131k"
   icon: {fileID: 21300000, guid: ae85199aeda16134f8635cc51a8e2210, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very red
+  description: "Hafif bez giysi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

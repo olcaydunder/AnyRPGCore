@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: CyanLeatherBracersItem
   m_EditorClassIdentifier: 
   resourceName: Cyan Leather Bracers
-  displayName: 
+  displayName: "Turkuaz Deri Bileklik"
   icon: {fileID: 21300000, guid: 6ad7eaedc28117e44bdf26a1ea88922f, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very cyan
+  description: "Esnek deri giysi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

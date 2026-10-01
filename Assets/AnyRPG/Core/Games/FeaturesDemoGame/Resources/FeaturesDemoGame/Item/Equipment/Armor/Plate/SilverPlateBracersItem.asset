@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: SilverPlateBracersItem
   m_EditorClassIdentifier: 
   resourceName: Silver Plate Bracers
-  displayName: 
+  displayName: "G\u00fcm\u00fc\u015f Kolluk"
   icon: {fileID: 21300000, guid: b3a1b44059b277a48b3fb0fe122c3577, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very silver
+  description: "A\u011f\u0131r maden z\u0131rh."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

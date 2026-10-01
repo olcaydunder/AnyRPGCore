@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Level5GreenNecklaceItem
   m_EditorClassIdentifier: 
   resourceName: Level 5 Green Necklace
-  displayName: 
+  displayName: "Ye\u015fil Kolye (5. Seviye)"
   icon: {fileID: 21300000, guid: 581b5589b129b5c41815bea70d35f224, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very green
+  description: "De\u011ferli ta\u015flarla s\u00fcsl\u00fc bir kolye."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

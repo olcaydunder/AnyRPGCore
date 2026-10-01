@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: LegendaryPlateArmorItem
   m_EditorClassIdentifier: 
   resourceName: Legendary Plate Armor
-  displayName: 
+  displayName: "Efsanevi Z\u0131rh"
   icon: {fileID: 21300000, guid: 9cfc09656796399449d5ef6ed7cb8edc, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very legendary
+  description: "Destanlarda an\u0131lan bir par\u00e7a."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

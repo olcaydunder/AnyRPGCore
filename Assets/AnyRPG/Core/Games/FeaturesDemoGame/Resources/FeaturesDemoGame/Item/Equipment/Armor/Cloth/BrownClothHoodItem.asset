@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BrownClothHoodItem
   m_EditorClassIdentifier: 
   resourceName: Brown Cloth Hood
-  displayName: 
+  displayName: "Kahverengi Ba\u015fl\u0131k"
   icon: {fileID: 21300000, guid: 9346f93a245f07047ab5881cb5eb63db, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very brown
+  description: "Hafif bez giysi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

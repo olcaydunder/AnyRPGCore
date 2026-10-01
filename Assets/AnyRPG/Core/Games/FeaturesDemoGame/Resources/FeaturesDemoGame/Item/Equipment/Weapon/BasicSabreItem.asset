@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BasicSabreItem
   m_EditorClassIdentifier: 
   resourceName: Basic Sabre
-  displayName: 
+  displayName: "Basit Pala"
   icon: {fileID: 21300000, guid: 71b5613b1a3e3294ab32aa060dfe2126, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: Basic Sword
+  description: "Sade, i\u015fini g\u00f6ren bir silah."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

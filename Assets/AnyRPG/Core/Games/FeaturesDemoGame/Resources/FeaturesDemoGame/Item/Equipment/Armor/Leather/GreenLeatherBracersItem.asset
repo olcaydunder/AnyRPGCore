@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: GreenLeatherBracersItem
   m_EditorClassIdentifier: 
   resourceName: Green Leather Bracers
-  displayName: 
+  displayName: "Ye\u015fil Deri Bileklik"
   icon: {fileID: 21300000, guid: 6e81d0a5e854c4945bf65a06eff1a57d, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very green
+  description: "Esnek deri giysi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

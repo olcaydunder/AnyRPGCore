@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: GreenClothSashItem
   m_EditorClassIdentifier: 
   resourceName: Green Cloth Sash
-  displayName: 
+  displayName: "Ye\u015fil Ku\u015fak"
   icon: {fileID: 21300000, guid: 281d1892a7cf4a54a96ae6f1fb2cf18e, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very green
+  description: "Hafif bez giysi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

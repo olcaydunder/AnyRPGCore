@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: VioletLeatherArmorItem
   m_EditorClassIdentifier: 
   resourceName: Violet Leather Armor
-  displayName: 
+  displayName: "Mor Deri Z\u0131rh"
   icon: {fileID: 21300000, guid: f49f95d0729c491478d4f8b2d802f751, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very violet
+  description: "Esnek deri giysi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

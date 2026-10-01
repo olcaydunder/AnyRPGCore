@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: RedPlateHelmItem
   m_EditorClassIdentifier: 
   resourceName: Red Plate Helm
-  displayName: 
+  displayName: "K\u0131rm\u0131z\u0131 Tulga"
   icon: {fileID: 21300000, guid: a9f97ea9d62d766448b2123a309bfe44, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very red
+  description: "A\u011f\u0131r maden z\u0131rh."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

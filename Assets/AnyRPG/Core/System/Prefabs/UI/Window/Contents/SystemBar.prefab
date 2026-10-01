@@ -118,8 +118,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  optionName: Reputations
-  description: View faction reputations
+  optionName: "\u0130tibar"
+  description: "Boylarla olan itibar\u0131n\u0131 g\u00f6r"
   menuImage: {fileID: 1078777200347288528}
 --- !u!114 &38448533803018548
 MonoBehaviour:
@@ -1178,8 +1178,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  optionName: Inventory
-  description: Open inventory
+  optionName: "\u00c7anta"
+  description: "\u00c7antan\u0131 a\u00e7"
   menuImage: {fileID: 5914509899253079244}
 --- !u!114 &6562849914350022274
 MonoBehaviour:
@@ -1329,8 +1329,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  optionName: Quest Log
-  description: View all quests currently in progress
+  optionName: "G\u00f6revler"
+  description: "S\u00fcrmekte olan t\u00fcm g\u00f6revleri g\u00f6r"
   menuImage: {fileID: 4430262182824822044}
 --- !u!114 &390200643345581371
 MonoBehaviour:
@@ -1752,8 +1752,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  optionName: Social
-  description: View social options
+  optionName: "Sosyal"
+  description: "Sosyal se\u00e7enekleri g\u00f6r"
   menuImage: {fileID: 5853029299619734772}
 --- !u!114 &5201237086558495839
 MonoBehaviour:
@@ -2873,8 +2873,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  optionName: Map
-  description: Open a top down view of the current area
+  optionName: "Harita"
+  description: "Bulundu\u011fun yerin ku\u015fbak\u0131\u015f\u0131 haritas\u0131n\u0131 a\u00e7"
   menuImage: {fileID: 779430742274597158}
 --- !u!114 &5689696006590320744
 MonoBehaviour:
@@ -3963,8 +3963,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  optionName: Character
-  description: View character preview, statistics, information, and gear
+  optionName: "Karakter"
+  description: "Karakterin g\u00f6r\u00fcn\u00fc\u015f\u00fc, de\u011ferleri ve te\u00e7hizat\u0131"
   menuImage: {fileID: 6177425628585117049}
 --- !u!114 &5603071373893095693
 MonoBehaviour:
@@ -4690,8 +4690,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  optionName: Pets
-  description: View collected pets
+  optionName: "Yolda\u015flar"
+  description: "Toplad\u0131\u011f\u0131n hayvan yolda\u015flar\u0131 g\u00f6r"
   menuImage: {fileID: 395630334890471432}
 --- !u!114 &2114601126034162451
 MonoBehaviour:
@@ -5154,8 +5154,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  optionName: Skills
-  description: View learned skills
+  optionName: "Beceriler"
+  description: "\u00d6\u011frendi\u011fin becerileri g\u00f6r"
   menuImage: {fileID: 3788690860185061654}
 --- !u!114 &9124581224181692338
 MonoBehaviour:
@@ -5455,8 +5455,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  optionName: Achievements
-  description: View achievements
+  optionName: "Ba\u015far\u0131mlar"
+  description: "Ba\u015far\u0131mlar\u0131n\u0131 g\u00f6r"
   menuImage: {fileID: 3248904035867852025}
 --- !u!114 &4710857246624559617
 MonoBehaviour:
@@ -6726,8 +6726,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  optionName: Abilities
-  description: View learned abilities
+  optionName: "Yetenekler"
+  description: "\u00d6\u011frendi\u011fin yetenekleri g\u00f6r"
   menuImage: {fileID: 5346955486954737644}
 --- !u!114 &9113021064661956064
 MonoBehaviour:
@@ -6877,8 +6877,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  optionName: Currencies
-  description: View collected currencies
+  optionName: "Para"
+  description: "Biriktirdi\u011fin paralar\u0131 g\u00f6r"
   menuImage: {fileID: 760900169351285421}
 --- !u!114 &933300908920298501
 MonoBehaviour:
@@ -7028,8 +7028,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  optionName: Main Menu
-  description: Open the Main Menu
+  optionName: "Ana Men\u00fc"
+  description: "Ana men\u00fcy\u00fc a\u00e7"
   menuImage: {fileID: 504432746756865167}
 --- !u!114 &4538772665089541586
 MonoBehaviour:

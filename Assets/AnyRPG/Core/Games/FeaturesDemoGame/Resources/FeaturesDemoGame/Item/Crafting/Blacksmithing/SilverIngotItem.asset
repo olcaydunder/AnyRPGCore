@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: SilverIngotItem
   m_EditorClassIdentifier: 
   resourceName: Silver Ingot
-  displayName: 
+  displayName: "G\u00fcm\u00fc\u015f K\u00fcl\u00e7e"
   icon: {fileID: 21300000, guid: 77a80f802238dca418a14e3a8d3db24c, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: An ingot of silver
+  description: "Bir g\u00fcm\u00fc\u015f k\u00fcl\u00e7esi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

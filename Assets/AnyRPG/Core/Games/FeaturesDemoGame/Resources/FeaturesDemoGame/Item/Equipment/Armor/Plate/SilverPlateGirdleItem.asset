@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: SilverPlateGirdleItem
   m_EditorClassIdentifier: 
   resourceName: Silver Plate Girdle
-  displayName: 
+  displayName: "G\u00fcm\u00fc\u015f Bel Z\u0131rh\u0131"
   icon: {fileID: 21300000, guid: fc2d864b10d609b44adeb2ac3942abd8, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very silver
+  description: "A\u011f\u0131r maden z\u0131rh."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BronzePlateGlovesItem
   m_EditorClassIdentifier: 
   resourceName: Bronze Plate Gloves
-  displayName: 
+  displayName: "Tun\u00e7 Z\u0131rhl\u0131 Eldiven"
   icon: {fileID: 21300000, guid: ee02e26ff492ee146a52ec36ab078937, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very bronze
+  description: "A\u011f\u0131r maden z\u0131rh."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

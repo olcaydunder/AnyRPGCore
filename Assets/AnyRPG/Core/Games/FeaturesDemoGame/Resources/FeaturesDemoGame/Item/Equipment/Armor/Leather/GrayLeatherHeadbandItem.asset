@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: GrayLeatherHeadbandItem
   m_EditorClassIdentifier: 
   resourceName: Gray Leather Headband
-  displayName: 
+  displayName: "Gri Al\u0131nl\u0131k"
   icon: {fileID: 21300000, guid: 7bf05bd755d763c4f8027d9b23ae934c, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very gray
+  description: "Esnek deri giysi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

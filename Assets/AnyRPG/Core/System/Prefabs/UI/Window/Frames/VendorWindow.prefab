@@ -730,7 +730,7 @@ PrefabInstance:
     - target: {fileID: -4893917323880431361, guid: a2eb551b4be881845814a2026ada1199,
         type: 3}
       propertyPath: windowTitle
-      value: Vendor
+      value: "Sat\u0131c\u0131"
       objectReference: {fileID: 0}
     - target: {fileID: 5515843363174345255, guid: a2eb551b4be881845814a2026ada1199,
         type: 3}

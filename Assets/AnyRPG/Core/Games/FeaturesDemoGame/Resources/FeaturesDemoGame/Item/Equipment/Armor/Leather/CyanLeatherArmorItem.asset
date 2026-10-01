@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: CyanLeatherArmorItem
   m_EditorClassIdentifier: 
   resourceName: Cyan Leather Armor
-  displayName: 
+  displayName: "Turkuaz Deri Z\u0131rh"
   icon: {fileID: 21300000, guid: 4feb1ab7bd8738749add6fc155fffd73, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very cyan
+  description: "Esnek deri giysi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

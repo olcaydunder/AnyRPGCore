@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BluePlateGirdleItem
   m_EditorClassIdentifier: 
   resourceName: Blue Plate Girdle
-  displayName: 
+  displayName: "Mavi Bel Z\u0131rh\u0131"
   icon: {fileID: 21300000, guid: 8e24aea23d2b80c41a57bf270e6270a0, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very blue
+  description: "A\u011f\u0131r maden z\u0131rh."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: SilverPlateHelmItem
   m_EditorClassIdentifier: 
   resourceName: Silver Plate Helm
-  displayName: 
+  displayName: "G\u00fcm\u00fc\u015f Tulga"
   icon: {fileID: 21300000, guid: 74b082eddd2f6c240aa6eeb234e0b146, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: very silver
+  description: "A\u011f\u0131r maden z\u0131rh."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

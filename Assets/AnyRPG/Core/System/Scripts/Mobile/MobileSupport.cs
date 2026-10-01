@@ -36,7 +36,25 @@ namespace AnyRPG {
 
         public static bool TouchActive {
             get {
-                return Mouse.current == null && Touchscreen.current != null;
+                return Touchscreen.current != null && (Application.isMobilePlatform || Mouse.current == null);
+            }
+        }
+
+        /// <summary>
+        /// true while at least one finger is on the screen
+        /// </summary>
+        public static bool AnyTouchPressed {
+            get {
+                Touchscreen touchscreen = Touchscreen.current;
+                if (touchscreen == null) {
+                    return false;
+                }
+                foreach (UnityEngine.InputSystem.Controls.TouchControl touch in touchscreen.touches) {
+                    if (touch.press.isPressed) {
+                        return true;
+                    }
+                }
+                return false;
             }
         }
 
@@ -261,6 +279,34 @@ namespace AnyRPG {
             GameObject bootstrapObject = new GameObject("MobileBootstrap");
             instance = bootstrapObject.AddComponent<MobileBootstrap>();
             DontDestroyOnLoad(bootstrapObject);
+        }
+
+        // bump when the phone layout defaults change, so they are applied once more on existing installs
+        private const int mobileUiDefaultsVersion = 1;
+
+        /// <summary>
+        /// The desktop layout shows seven action bars and a large chat log, which cover most of a phone screen and
+        /// the on-screen controls. On phones keep the main action bar and the system bar, and hide the rest.
+        /// Players can turn them back on in Ayarlar > Arayüz.
+        /// </summary>
+        private static void ApplyMobileUiDefaults() {
+            if (PlayerPrefs.GetInt("mobile-ui-defaults", 0) >= mobileUiDefaultsVersion) {
+                return;
+            }
+            PlayerPrefs.SetInt("UseActionBar1", 1);
+            for (int i = 2; i <= 7; i++) {
+                PlayerPrefs.SetInt("UseActionBar" + i, 0);
+            }
+            PlayerPrefs.SetInt("UseMessageLog", 0);
+            PlayerPrefs.SetInt("mobile-ui-defaults", mobileUiDefaultsVersion);
+            PlayerPrefs.Save();
+        }
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        private static void InitializeDefaults() {
+            if (Application.isMobilePlatform) {
+                ApplyMobileUiDefaults();
+            }
         }
 
         private void Awake() {

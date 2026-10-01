@@ -412,7 +412,7 @@ PrefabInstance:
     - target: {fileID: 4524232562945282340, guid: eadb51dc028873a4e8c5d765581ecd71,
         type: 3}
       propertyPath: m_text
-      value: Click Here To Drag Group Status Panel
+      value: "Grup panelini ta\u015f\u0131mak i\u00e7in buradan s\u00fcr\u00fckle"
       objectReference: {fileID: 0}
     - target: {fileID: 5057516640650655398, guid: eadb51dc028873a4e8c5d765581ecd71,
         type: 3}
