@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   showTooltip: 1
-  interactableName: Silver Ore
+  interactableName: "G\u00fcm\u00fc\u015f Damar\u0131"
   glowOnMouseOver: 1
   glowColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   interactionTooltipText: 

@@ -50,6 +50,9 @@ namespace AnyRPG {
         private readonly FrameTiming[] frameTimings = new FrameTiming[1];
         private float cpuFrameMs = 0f;
         private float gpuFrameMs = 0f;
+        // what the last finger landed on: tells whether a button tap reached the button or something covered it
+        private string lastTouchTarget = "-";
+        private readonly List<UnityEngine.EventSystems.RaycastResult> touchHits = new List<UnityEngine.EventSystems.RaycastResult>();
         private float nextStatusRefresh = 0f;
         private GameObject canvasObject = null;
         private Text badgeText = null;
@@ -293,6 +296,7 @@ namespace AnyRPG {
             builder.Append("\nGiriş: dokunmatik ").Append(UnityEngine.InputSystem.Touchscreen.current != null ? "var" : "yok")
                 .Append(" | fare ").Append(UnityEngine.InputSystem.Mouse.current != null ? "bağlı" : "yok")
                 .Append(" | ekran tuşları ").Append(MobileInput.TouchActive ? "açık" : "kapalı");
+            builder.Append("\nSon dokunuş: ").Append(instance != null ? instance.lastTouchTarget : "-");
             try {
                 SystemGameManager gameManager = FindAnyObjectByType<SystemGameManager>();
                 if (gameManager == null) {
@@ -316,6 +320,34 @@ namespace AnyRPG {
             return builder.ToString();
         }
 
+        private void RecordTouchTarget() {
+            UnityEngine.InputSystem.Touchscreen touchscreen = UnityEngine.InputSystem.Touchscreen.current;
+            UnityEngine.EventSystems.EventSystem eventSystem = UnityEngine.EventSystems.EventSystem.current;
+            if (touchscreen == null) {
+                return;
+            }
+            foreach (UnityEngine.InputSystem.Controls.TouchControl touch in touchscreen.touches) {
+                if (touch.press.wasPressedThisFrame == false) {
+                    continue;
+                }
+                Vector2 position = touch.position.ReadValue();
+                string target = "oyun dünyası";
+                if (eventSystem != null) {
+                    UnityEngine.EventSystems.PointerEventData pointer = new UnityEngine.EventSystems.PointerEventData(eventSystem);
+                    pointer.position = position;
+                    touchHits.Clear();
+                    eventSystem.RaycastAll(pointer, touchHits);
+                    if (touchHits.Count > 0 && touchHits[0].gameObject != null) {
+                        GameObject hit = touchHits[0].gameObject;
+                        Canvas hitCanvas = hit.GetComponentInParent<Canvas>();
+                        target = (hit.transform.parent != null ? hit.transform.parent.name + "/" : "") + hit.name
+                            + (hitCanvas != null ? " [" + hitCanvas.rootCanvas.name + " " + hitCanvas.rootCanvas.sortingOrder + "]" : "");
+                    }
+                }
+                lastTouchTarget = ((int)position.x) + "," + ((int)position.y) + " -> " + target;
+            }
+        }
+
         // ---- screen ----
 
         private void Update() {
@@ -327,6 +359,7 @@ namespace AnyRPG {
                 cpuFrameMs = Mathf.Lerp(cpuFrameMs, (float)frameTimings[0].cpuFrameTime, 0.05f);
                 gpuFrameMs = Mathf.Lerp(gpuFrameMs, (float)frameTimings[0].gpuFrameTime, 0.05f);
             }
+            RecordTouchTarget();
             if (canvasObject == null) {
                 CreateOverlay();
             }

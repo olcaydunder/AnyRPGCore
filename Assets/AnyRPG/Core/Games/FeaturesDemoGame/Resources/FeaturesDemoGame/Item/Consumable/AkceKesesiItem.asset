@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ebff41329095c14cadcee80675cf0db, type: 3}
+  m_Name: AkceKesesiItem
+  m_EditorClassIdentifier: 
+  resourceName: Akce Kesesi
+  displayName: "Ak\u00e7e Kesesi"
+  icon: {fileID: 21300000, guid: f6fbb6afc44bddf498b97c510742f5b1, type: 3}
+  iconBackgroundImage: {fileID: 0}
+  description: "\u0130\u00e7inde birka\u00e7 g\u00fcm\u00fc\u015f ak\u00e7e \u015f\u0131ng\u0131rd\u0131yor. Al\u0131nca para do\u011frudan cebine ge\u00e7er."
+  useRegionalDescription: 0
+  resourceDescriptionProfile: 
+  optionalOverride: 0
+  stackSize: 20
+  itemQuality: Common
+  randomItemQuality: 0
+  dynamicLevel: 0
+  freezeDropLevel: 0
+  levelCap: 0
+  itemLevel: 1
+  useLevel: 1
+  currencyName: 
+  dynamicCurrencyAmount: 1
+  pricePerLevel: 10
+  basePrice: 0
+  uniqueItem: 0
+  characterClassRequirementList: []
+  gainCurrencyName: Silver
+  gainCurrencyAmount: 3

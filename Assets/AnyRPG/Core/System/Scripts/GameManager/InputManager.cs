@@ -1170,8 +1170,11 @@ namespace AnyRPG {
             bool wasHeld = touchLeftHeld || touchRightHeld;
             // no jump when a finger is added or lifted (the reference point changes)
             Vector2 delta = (wasHeld && activeCount > 0 && activeCount == lastTouchCount) ? position - lastTouchPosition : Vector2.zero;
-            mouseDeltaX = delta.x * 0.05f;
-            mouseDeltaY = delta.y * 0.05f;
+            // the camera turns 10 degrees per unit of mouse delta; scale a finger drag by the screen width so a swipe across
+            // the whole screen turns the camera about 300 degrees on every phone, whatever its pixel density
+            float touchLookScale = 30f / Mathf.Max(1f, Screen.width);
+            mouseDeltaX = delta.x * touchLookScale;
+            mouseDeltaY = delta.y * touchLookScale;
             mousePosition = position;
             lastTouchPosition = position;
 

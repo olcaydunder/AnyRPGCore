@@ -11,16 +11,18 @@ namespace AnyRPG {
     /// </summary>
     public class MobileHud : MonoBehaviour {
 
+        public const string CanvasName = "MobileHudCanvas";
+        // above the HUD (0-1), below windows and menus (moved to 12 and up by MobileBootstrap.ScaleCanvases)
+        public const int SortingOrder = 5;
+
         private Font font = null;
 
         public static MobileHud Create() {
-            GameObject canvasObject = new GameObject("MobileHudCanvas");
+            GameObject canvasObject = new GameObject(CanvasName);
             DontDestroyOnLoad(canvasObject);
             Canvas canvas = canvasObject.AddComponent<Canvas>();
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-            // same layer as the other HUD parts (action bar, unit frames, mini map): windows (order 2) and menus (order 9)
-            // open on top of the controls instead of being covered by them
-            canvas.sortingOrder = 1;
+            canvas.sortingOrder = SortingOrder;
             canvasObject.AddComponent<GraphicRaycaster>();
             // the canvas scaler is added by MobileBootstrap.ScaleCanvases (in-game HUD size)
             MobileHud hud = canvasObject.AddComponent<MobileHud>();
@@ -47,9 +49,11 @@ namespace AnyRPG {
 
             // menus, a column on the left edge above the movement stick (the right side holds the mini map and quest tracker)
             Vector2 leftMiddle = new Vector2(0f, 0.5f);
-            CreateActionButton("Harita", "MAINMAP", leftMiddle, new Vector2(62f, 200f), 84f, 17);
-            CreateActionButton("Çanta", "INVENTORY", leftMiddle, new Vector2(62f, 105f), 84f, 17);
-            CreateActionButton("Görevler", "QUESTLOG", leftMiddle, new Vector2(62f, 10f), 84f, 15);
+            CreateActionButton("Harita", "MAINMAP", leftMiddle, new Vector2(60f, 210f), 78f, 16);
+            CreateActionButton("Karakter", "CHARACTERPANEL", leftMiddle, new Vector2(60f, 126f), 78f, 14);
+            CreateActionButton("Çanta", "INVENTORY", leftMiddle, new Vector2(60f, 42f), 78f, 16);
+            CreateActionButton("Görevler", "QUESTLOG", leftMiddle, new Vector2(60f, -42f), 78f, 14);
+            CreateActionButton("Rehber", () => GameGuide.Show(false), leftMiddle, new Vector2(60f, -126f), 70f, 15);
         }
 
         private GameObject CreateCircle(Transform parent, string name, Vector2 anchor, Vector2 position, float size, Color fillColor, Color outlineColor) {

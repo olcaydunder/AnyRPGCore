@@ -208,7 +208,9 @@ def file_id(name, salt):
 
 
 def spawn_doc(name, x, y, z, yaw, profile, extra_levels, respawn, used):
-    iid, tid = file_id(name, "i"), file_id(name, "t")
+    # a stripped object inside a prefab instance has the fileID (instance fileID XOR source fileID), as Unity computes it
+    iid = file_id(name, "i")
+    tid = (iid ^ int(SP_TRANSFORM)) & 0x7FFFFFFFFFFFFFFF
     for v in (iid, tid):
         if str(v) in used:
             raise ValueError(f"fileID çakışması: {name}")

@@ -2042,6 +2042,22 @@
     },
     "Medieval Shield": {
       "ad": "Kurt Başlı Kalkan"
+    },
+    "Akce Kesesi": {
+      "ad": "Akçe Kesesi",
+      "aciklama": "İçinde birkaç gümüş akçe şıngırdıyor. Alınca para doğrudan cebine geçer."
+    },
+    "Dolu Akce Kesesi": {
+      "ad": "Dolu Akçe Kesesi",
+      "aciklama": "Ağzına kadar gümüş akçeyle dolu bir kese. Alınca para doğrudan cebine geçer."
+    },
+    "Altin Kese": {
+      "ad": "Altın Kese",
+      "aciklama": "Bir yağmacının sakladığı altın. Alınca para doğrudan cebine geçer."
+    },
+    "Gain Currency": {
+      "ad": "Büyük Altın Kesesi",
+      "aciklama": "On altın değerinde bir hazine."
     }
   },
   "Ability": {

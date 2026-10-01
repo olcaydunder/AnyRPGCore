@@ -149,7 +149,9 @@ namespace AnyRPG {
             movementData.CameraWantedDirection = cameraManager.MainCameraController.WantedDirection;
             movementData.CameraLocalEulerAngleX = cameraManager.MainCamera.transform.localEulerAngles.x;
 
-            if (strafeModeActive == false
+            // On a touchscreen the movement stick always turns the hero toward the direction it is pushed (relative to the
+            // camera). The desktop default (strafe mode) made left/right on the stick side-step without ever turning.
+            if ((strafeModeActive == false || MobileInput.TouchActive)
                 && cameraManager.MainCameraController.FirstPersonView == false) {
                 //Debug.Log("PlayerController.CollectMoveInput() setting RotateModelMode to true because strafe mode is off and we are not in first person view");
                 movementData.RotateModelMode = true;

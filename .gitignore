@@ -116,3 +116,6 @@ Assets/Settings*
 # VS Code
 .vscode/
 *.slnx
+
+# python helper caches
+__pycache__/

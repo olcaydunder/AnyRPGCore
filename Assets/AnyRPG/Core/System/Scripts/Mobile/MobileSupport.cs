@@ -306,7 +306,7 @@ namespace AnyRPG {
         }
 
         // bump when the phone layout defaults change, so they are applied once more on existing installs
-        private const int mobileUiDefaultsVersion = 1;
+        private const int mobileUiDefaultsVersion = 2;
 
         /// <summary>
         /// The desktop layout shows seven action bars and a large chat log, which cover most of a phone screen and
@@ -322,6 +322,10 @@ namespace AnyRPG {
                 PlayerPrefs.SetInt("UseActionBar" + i, 0);
             }
             PlayerPrefs.SetInt("UseMessageLog", 0);
+            // single player: the empty group frame column sat on the left edge over the Çanta and Görevler buttons
+            PlayerPrefs.SetInt("UseGroupUnitFrames", 0);
+            // keep the HUD panels locked so a finger cannot drag them around by accident
+            PlayerPrefs.SetInt("LockUI", 1);
             PlayerPrefs.SetInt("mobile-ui-defaults", mobileUiDefaultsVersion);
             PlayerPrefs.Save();
         }
@@ -412,10 +416,13 @@ namespace AnyRPG {
         /// <summary>
         /// make every screen space canvas scale with the screen height so buttons and text are finger sized on phones
         /// </summary>
+        private const string ErrorOverlayCanvasName = "ErrorOverlayCanvas";
+
         private void ScaleCanvases() {
             Canvas[] canvases = FindObjectsByType<Canvas>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             foreach (Canvas canvas in canvases) {
-                if (canvas == null || canvas.isRootCanvas == false || canvas.renderMode == RenderMode.WorldSpace || canvas.name == "ErrorOverlayCanvas") {
+                if (canvas == null || canvas.isRootCanvas == false || canvas.renderMode == RenderMode.WorldSpace
+                    || canvas.name == ErrorOverlayCanvasName || canvas.name == GameGuide.CanvasName) {
                     continue;
                 }
                 int id = canvas.GetInstanceID();
@@ -423,6 +430,14 @@ namespace AnyRPG {
                     continue;
                 }
                 scaledCanvases.Add(id);
+
+                // Layering. The game's HUD canvases (action bar, unit frames, mini map...) use sorting order 0-1, windows 2,
+                // tooltips and menus 7-10. The on-screen controls must be above the HUD (an invisible HUD panel at the same
+                // order swallowed taps on Çanta and Görevler) and below every window. Move windows and menus up by 10 and
+                // put the controls at 5 (MobileHud.SortingOrder).
+                if (canvas.name != MobileHud.CanvasName && canvas.sortingOrder >= 2) {
+                    canvas.sortingOrder += 10;
+                }
 
                 CanvasScaler canvasScaler = canvas.GetComponent<CanvasScaler>();
                 // canvases that already scale with the screen hold full screen menus (main menu, settings, character creation)
@@ -486,13 +501,29 @@ namespace AnyRPG {
         }
 
         private void UpdateTouchButtons() {
-            bool show = MobileInput.TouchActive && PlayerInGame();
+            bool inGame = PlayerInGame();
+            bool show = MobileInput.TouchActive && inGame;
             if (show && mobileHud == null) {
                 mobileHud = MobileHud.Create();
             }
             if (mobileHud != null && mobileHud.gameObject.activeSelf != show) {
                 mobileHud.gameObject.SetActive(show);
             }
+            // the how-to-play guide: opens by itself the first time a character enters the world,
+            // and the main menu gets a "Nasıl Oynanır" button
+            if (inGame) {
+                GameGuide.ShowFirstTimeIfNeeded();
+            }
+            GameGuide.SetMenuLauncherVisible(inGame == false && MainMenuOpen());
+        }
+
+        private bool MainMenuOpen() {
+            SystemGameManager gameManager = GetSystemGameManager();
+            if (gameManager == null || SystemGameManager.IsShuttingDown || gameManager.UIManager == null) {
+                return false;
+            }
+            CloseableWindow mainMenuWindow = gameManager.UIManager.mainMenuWindow;
+            return mainMenuWindow != null && mainMenuWindow.IsOpen;
         }
     }
 }

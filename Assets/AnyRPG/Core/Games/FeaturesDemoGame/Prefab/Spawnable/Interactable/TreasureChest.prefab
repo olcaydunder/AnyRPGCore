@@ -73,7 +73,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   showTooltip: 1
-  interactableName: Treasure Chest
+  interactableName: "Hazine Sand\u0131\u011f\u0131"
   glowOnMouseOver: 1
   glowColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   interactionTooltipText: 
@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnyRPG.StorageContainerInteractable
   storageContainerProps:
-    interactionPanelTitle: Storage Chest
+    interactionPanelTitle: "Sand\u0131k"
     interactionPanelImage: {fileID: 0}
     namePlateImage: {fileID: 0}
     prerequisiteConditions: []
