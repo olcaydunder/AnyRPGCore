@@ -103,7 +103,7 @@ namespace AnyRPG {
             SaveMailMessage(playerCharacterId, mailMessageRequest, sourceUnitController.DisplayName);
 
             // notify source that mail was sent
-            sourceUnitController.UnitEventController.NotifyOnWriteMessageFeedMessage($"Your message to {mailMessageRequest.Recipient} was sent");
+            sourceUnitController.UnitEventController.NotifyOnWriteMessageFeedMessage($"{mailMessageRequest.Recipient} adlı kişiye mektubun gönderildi");
             networkManagerServer.AdvertiseMailSend(senderAccountId);
 
             return true;
@@ -136,7 +136,7 @@ namespace AnyRPG {
             // notify source and target that mail was sent
             UnitController targetUnitController = playerManagerServer.GetUnitControllerFromPlayerCharacterId(recipientPlayerCharacterId);
             if (targetUnitController != null) {
-                messageLogServer.WriteSystemMessage(targetUnitController, $"You have new mail from {mailMessage.Sender}.");
+                messageLogServer.WriteSystemMessage(targetUnitController, $"{mailMessage.Sender} sana mektup gönderdi.");
             }
             //SendMailMessages(recipientPlayerCharacterId);
         }

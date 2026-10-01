@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cd8632a7dd644c4fb9788820076220d, type: 3}
+  m_Name: PasliKemerTokasiItem
+  m_EditorClassIdentifier: 
+  resourceName: Pasli Kemer Tokasi
+  displayName: "Pasl\u0131 Kemer Tokas\u0131"
+  icon: {fileID: 21300000, guid: 4d8f9bca34650b14abc5246b86202a16, type: 3}
+  iconBackgroundImage: {fileID: 0}
+  description: "Bir ya\u011fmac\u0131n\u0131n kemerinden kopmu\u015f pasl\u0131 bir toka. De\u011fersiz; sat\u0131c\u0131ya ver."
+  useRegionalDescription: 0
+  resourceDescriptionProfile: 
+  optionalOverride: 0
+  stackSize: 20
+  itemQuality: Poor
+  randomItemQuality: 0
+  dynamicLevel: 0
+  freezeDropLevel: 0
+  levelCap: 0
+  itemLevel: 1
+  useLevel: 1
+  currencyName: Copper
+  dynamicCurrencyAmount: 0
+  pricePerLevel: 0
+  basePrice: 640
+  uniqueItem: 0
+  characterClassRequirementList: []
+  weight: 0.1
+  itemPickupPrefabProfileName: 

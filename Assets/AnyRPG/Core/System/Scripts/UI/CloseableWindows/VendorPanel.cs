@@ -48,11 +48,59 @@ namespace AnyRPG {
                 vendorButton.Configure(systemGameManager);
             }
 
+            CreateSellJunkButton();
+
             /*
             foreach (CurrencyAmountController currencyAmountController in currencyAmountControllers) {
                 currencyAmountController.Configure(systemGameManager);
             }
             */
+        }
+
+        /// <summary>
+        /// "Değersizleri Sat" in the bottom left corner: sells every gray (junk) item in the bags with one tap.
+        /// Built in code so the window prefab does not have to change.
+        /// </summary>
+        private void CreateSellJunkButton() {
+            if (transform.Find("DegersizleriSat") != null) {
+                return;
+            }
+            GameObject buttonObject = new GameObject("DegersizleriSat", typeof(RectTransform));
+            buttonObject.transform.SetParent(transform, false);
+            RectTransform buttonRect = buttonObject.GetComponent<RectTransform>();
+            buttonRect.anchorMin = Vector2.zero;
+            buttonRect.anchorMax = Vector2.zero;
+            buttonRect.pivot = Vector2.zero;
+            buttonRect.anchoredPosition = new Vector2(10f, 9f);
+            buttonRect.sizeDelta = new Vector2(196f, 52f);
+            UnityEngine.UI.Image buttonImage = buttonObject.AddComponent<UnityEngine.UI.Image>();
+            buttonImage.color = new Color(0.55f, 0.4f, 0.18f, 1f);
+            UnityEngine.UI.Outline outline = buttonObject.AddComponent<UnityEngine.UI.Outline>();
+            outline.effectColor = new Color(0.91f, 0.77f, 0.48f, 0.7f);
+            outline.effectDistance = new Vector2(1f, -1f);
+            UnityEngine.UI.Button button = buttonObject.AddComponent<UnityEngine.UI.Button>();
+            button.targetGraphic = buttonImage;
+            button.onClick.AddListener(SellJunk);
+
+            GameObject labelObject = new GameObject("Yazi", typeof(RectTransform));
+            labelObject.transform.SetParent(buttonObject.transform, false);
+            RectTransform labelRect = labelObject.GetComponent<RectTransform>();
+            labelRect.anchorMin = Vector2.zero;
+            labelRect.anchorMax = Vector2.one;
+            labelRect.offsetMin = Vector2.zero;
+            labelRect.offsetMax = Vector2.zero;
+            UnityEngine.UI.Text label = labelObject.AddComponent<UnityEngine.UI.Text>();
+            label.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            label.text = "Değersizleri Sat";
+            label.fontSize = 22;
+            label.alignment = TextAnchor.MiddleCenter;
+            label.color = new Color(0.96f, 0.92f, 0.84f, 1f);
+            label.raycastTarget = false;
+        }
+
+        public void SellJunk() {
+            MobileFeedback.Tap();
+            vendorManagerClient.RequestSellJunkToVendor();
         }
 
         public override void SetGameManagerReferences() {

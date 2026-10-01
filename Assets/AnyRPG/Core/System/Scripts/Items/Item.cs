@@ -116,7 +116,7 @@ namespace AnyRPG {
         public bool DynamicCurrencyAmount { get => dynamicCurrencyAmount; set => dynamicCurrencyAmount = value; }
         public int PricePerLevel { get => pricePerLevel; set => pricePerLevel = value; }
         public bool UniqueItem { get => uniqueItem; }
-        public Currency Currency { get => currency; set => currency = value; }
+        public Currency Currency { get => GetCurrency(); set => currency = value; }
         public ItemQuality ItemQuality { get => itemQualityRef; set => itemQualityRef = value; }
         public int BasePrice { get => basePrice; set => basePrice = value; }
         public PrefabProfile ItemPickupPrefabProfile { get => itemPickupPrefabProfile; set => itemPickupPrefabProfile = value; }
@@ -235,6 +235,33 @@ namespace AnyRPG {
             return false;
         }
 
+        // Most of the demo content (gear, ores, herbs, wood, bags...) was made without a currency, so vendors gave it away
+        // for free and refused to buy it back, which left money with nothing to do. Such items now cost and sell for the
+        // default money (copper), with their price scaled up by this factor so the numbers fit the kill and loot income.
+        // Money purses and quest start items stay free.
+        private const float unpricedPriceMultiplier = 20f;
+
+        private bool UsesDefaultCurrency() {
+            return currency == null
+                && string.IsNullOrEmpty(currencyName)
+                && (this is CurrencyItem) == false
+                && (this is QuestStartItem) == false
+                && systemConfigurationManager != null
+                && systemConfigurationManager.DefaultCurrencyGroup != null
+                && systemConfigurationManager.DefaultCurrencyGroup.BaseCurrency != null;
+        }
+
+        private Currency GetCurrency() {
+            if (UsesDefaultCurrency()) {
+                return systemConfigurationManager.DefaultCurrencyGroup.BaseCurrency;
+            }
+            return currency;
+        }
+
+        private float PriceScale() {
+            return UsesDefaultCurrency() ? unpricedPriceMultiplier : 1f;
+        }
+
         public int BuyPrice(UnitController sourceUnitController) {
             return BuyPrice(sourceUnitController, itemQualityRef);
         }
@@ -242,10 +269,10 @@ namespace AnyRPG {
         public int BuyPrice(UnitController sourceUnitController, ItemQuality usedItemQuality) {
             if (dynamicCurrencyAmount) {
                 //Debug.Log(DisplayName + ".Item.BuyPrice(" + (usedItemQuality == null ? "null" : usedItemQuality.DisplayName) + "): return: " + (int)(((pricePerLevel * GetItemLevel(playerManager.UnitController.CharacterStats.Level)) + basePrice) * (usedItemQuality == null ? 1 : usedItemQuality.BuyPriceMultiplier)));
-                return (int)(((pricePerLevel * GetItemLevel(sourceUnitController.CharacterStats.Level)) + basePrice) * (usedItemQuality == null ? 1 : usedItemQuality.BuyPriceMultiplier));
+                return (int)(((pricePerLevel * GetItemLevel(sourceUnitController.CharacterStats.Level)) + basePrice) * PriceScale() * (usedItemQuality == null ? 1 : usedItemQuality.BuyPriceMultiplier));
             }
             //Debug.Log(DisplayName + ".Item.BuyPrice(" + (usedItemQuality == null ? "null" : usedItemQuality.DisplayName) + "): return: " + (int)(basePrice * (usedItemQuality == null ? 1 : usedItemQuality.BuyPriceMultiplier)));
-            return (int)(basePrice * (usedItemQuality == null ? 1 : usedItemQuality.BuyPriceMultiplier));
+            return (int)(basePrice * PriceScale() * (usedItemQuality == null ? 1 : usedItemQuality.BuyPriceMultiplier));
         }
 
         public int GetItemLevel(int characterLevel) {
@@ -333,7 +360,9 @@ namespace AnyRPG {
             //Debug.Log($"{ResourceName}.Item.GetSellPrice()");
 
             // make a copy of the currency to work with so we don't change the original value later
-            Currency usedCurrency = currency;
+            // (items without a currency of their own use the default money, see UsesDefaultCurrency)
+            Currency usedCurrency = GetCurrency();
+            float unpricedMultiplier = PriceScale();
 
             if (usedCurrency == null) {
                 // there was no sell currency so this item cannot be sold
@@ -360,7 +389,7 @@ namespace AnyRPG {
                 usedCurrency = currencyGroup.BaseCurrency;
             }
 
-            sellPrice = (int)Mathf.Clamp(sellPrice * (instantiatedItem.ItemQuality == null ? 1f : instantiatedItem.ItemQuality.SellPriceMultiplier) * systemConfigurationManager.VendorPriceMultiplier, 1f, Mathf.Infinity);
+            sellPrice = (int)Mathf.Clamp(sellPrice * unpricedMultiplier * (instantiatedItem.ItemQuality == null ? 1f : instantiatedItem.ItemQuality.SellPriceMultiplier) * systemConfigurationManager.VendorPriceMultiplier, 1f, Mathf.Infinity);
 
             return new KeyValuePair<Currency, int>(usedCurrency, sellPrice);
         }

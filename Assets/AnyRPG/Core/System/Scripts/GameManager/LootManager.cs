@@ -153,6 +153,25 @@ namespace AnyRPG {
             }
         }
 
+        /// <summary>
+        /// open the loot window for the local player. With automatic looting on (the mobile default) everything goes
+        /// straight into the bags and the window only opens if something is left behind, for example when the bags are full.
+        /// </summary>
+        public void OpenLootWindow() {
+            UnitController playerUnitController = playerManagerClient.UnitController;
+            if (Ganimet.AutoLoot
+                && systemGameManager.GameMode == GameMode.Local
+                && playerUnitController != null
+                && availableDroppedLoot.ContainsKey(0)
+                && availableDroppedLoot[0].Count > 0) {
+                TakeAllLootInternal(0, playerUnitController);
+                if (availableDroppedLoot[0].Count == 0) {
+                    return;
+                }
+            }
+            systemGameManager.UIManager.lootWindow.OpenWindow();
+        }
+
         public void TakeAllLoot(UnitController sourceUnitController) {
             //Debug.Log($"LootManager.TakeAllLoot({sourceUnitController.gameObject.name})");
 
@@ -178,7 +197,7 @@ namespace AnyRPG {
                 if (sourceUnitController.CharacterInventoryManager.EmptySlotCount() == 0) {
                     //Debug.Log("No space left in inventory");
                 }
-                sourceUnitController.WriteMessageFeedMessage("Inventory is full!");
+                sourceUnitController.WriteMessageFeedMessage("Çanta dolu! Kalan ganimet pencerede bekliyor.");
             }
         }
 

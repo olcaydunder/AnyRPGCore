@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace AnyRPG {
     public class VendorManagerClient : InteractableOptionManager {
 
@@ -55,6 +57,49 @@ namespace AnyRPG {
 
         public void RequestSellItemToVendor() {
             RequestSellItemToVendor(instantiatedItem);
+        }
+
+        /// <summary>
+        /// "Değersizleri Sat": sell every junk (gray) item in the bags in one go and write a single summary message
+        /// </summary>
+        public int RequestSellJunkToVendor() {
+            UnitController unitController = playerManagerClient.UnitController;
+            if (vendorComponent == null || unitController == null) {
+                return 0;
+            }
+            List<InstantiatedItem> junkItems = Ganimet.FindJunk(unitController);
+            if (junkItems.Count == 0) {
+                unitController.WriteMessageFeedMessage("Çantanda değersiz (gri) eşya yok");
+                return 0;
+            }
+            if (systemGameManager.GameMode != GameMode.Local) {
+                foreach (InstantiatedItem junkItem in junkItems) {
+                    RequestSellItemToVendor(junkItem);
+                }
+                return junkItems.Count;
+            }
+            int soldCount = 0;
+            Dictionary<Currency, int> earned = new Dictionary<Currency, int>();
+            foreach (InstantiatedItem junkItem in junkItems) {
+                KeyValuePair<Currency, int> sellPrice = junkItem.Item.GetSellPrice(junkItem, unitController);
+                if (vendorComponent.SellItemToVendor(unitController, componentIndex, junkItem, false) == false) {
+                    continue;
+                }
+                soldCount++;
+                if (sellPrice.Key != null) {
+                    earned.TryGetValue(sellPrice.Key, out int amount);
+                    earned[sellPrice.Key] = amount + sellPrice.Value;
+                }
+            }
+            if (soldCount > 0) {
+                List<string> priceStrings = new List<string>();
+                foreach (KeyValuePair<Currency, int> earning in earned) {
+                    priceStrings.Add(systemGameManager.CurrencyConverter.GetCombinedPriceString(earning.Key, earning.Value));
+                }
+                unitController.WriteMessageFeedMessage($"{soldCount} değersiz eşya satıldı: +{string.Join(", ", priceStrings)}");
+                MobileFeedback.Success();
+            }
+            return soldCount;
         }
     }
 

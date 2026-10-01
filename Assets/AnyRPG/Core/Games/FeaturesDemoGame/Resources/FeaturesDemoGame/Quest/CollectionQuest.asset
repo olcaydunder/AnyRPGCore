@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: "Alp'in Donan\u0131m\u0131"
   icon: {fileID: 0}
   iconBackgroundImage: {fileID: 0}
-  description: "Hi\u00e7bir alp sefere eli bo\u015f \u00e7\u0131kmaz.\n\nT\u00fcccar Kara\u00e7or'dan bir Demir Kama ve bir Kurt Ba\u015fl\u0131 Kalkan edin."
+  description: "Hi\u00e7bir alp sefere eli bo\u015f \u00e7\u0131kmaz.\n\nT\u00fcccar Kara\u00e7or'dan bir Demir Kama ve bir Kurt Ba\u015fl\u0131 Kalkan sat\u0131n al. Paran yetmezse \u00f6nce k\u00f6y\u00fcn g\u00fcneyindeki Kara Yek'leri avla; her biri g\u00fcm\u00fc\u015f ak\u00e7e b\u0131rak\u0131r. G\u00fcnl\u00fck Arma\u011fan'\u0131n ilk g\u00fcn\u00fc de sana 5 g\u00fcm\u00fc\u015f verir."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

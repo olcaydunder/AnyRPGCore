@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cd8632a7dd644c4fb9788820076220d, type: 3}
+  m_Name: CatlakBoncukItem
+  m_EditorClassIdentifier: 
+  resourceName: Catlak Boncuk
+  displayName: "\u00c7atlak Boncuk"
+  icon: {fileID: 21300000, guid: 6cb2b8271ce0c5d4f89d22b73efb6b36, type: 3}
+  iconBackgroundImage: {fileID: 0}
+  description: "Rengi solmu\u015f, ortas\u0131ndan \u00e7atlam\u0131\u015f bir boncuk. De\u011fersiz; sat\u0131c\u0131ya ver."
+  useRegionalDescription: 0
+  resourceDescriptionProfile: 
+  optionalOverride: 0
+  stackSize: 20
+  itemQuality: Poor
+  randomItemQuality: 0
+  dynamicLevel: 0
+  freezeDropLevel: 0
+  levelCap: 0
+  itemLevel: 1
+  useLevel: 1
+  currencyName: Copper
+  dynamicCurrencyAmount: 0
+  pricePerLevel: 0
+  basePrice: 400
+  uniqueItem: 0
+  characterClassRequirementList: []
+  weight: 0.1
+  itemPickupPrefabProfileName: 

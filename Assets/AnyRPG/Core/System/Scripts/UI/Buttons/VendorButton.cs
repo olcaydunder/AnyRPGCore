@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -96,7 +97,17 @@ namespace AnyRPG {
                     quantity.text = string.Empty;
                 }
                 descriptionText.text = vendorItem.Item.Description;
-                if (vendorItem.BuyPrice(playerManagerClient.UnitController) > 0
+                // an item sold to the vendor costs what the vendor paid, even when the item has no currency of its own
+                KeyValuePair<Currency, int> buyBackPrice = new KeyValuePair<Currency, int>(null, 0);
+                if (buyBackButton) {
+                    buyBackPrice = vendorItem.Item.GetSellPrice(vendorItem.InstantiatedItem, playerManagerClient.UnitController);
+                }
+                if (buyBackButton && buyBackPrice.Key != null && buyBackPrice.Value > 0) {
+                    price.gameObject.SetActive(false);
+                    if (currencyBarController != null) {
+                        currencyBarController.UpdateCurrencyAmount(buyBackPrice.Key, buyBackPrice.Value, "Geri Alma Fiyatı:");
+                    }
+                } else if (vendorItem.BuyPrice(playerManagerClient.UnitController) > 0
                     && vendorItem.Item.Currency != null
                     && vendorItem.Item.Currency.ResourceName != null
                     && vendorItem.Item.Currency.ResourceName != string.Empty) {
@@ -106,12 +117,12 @@ namespace AnyRPG {
                         if (buyBackButton == false) {
                             currencyBarController.UpdateCurrencyAmount(vendorItem.Item.Currency, vendorItem.BuyPrice(playerManagerClient.UnitController));
                         } else {
-                            currencyBarController.UpdateCurrencyAmount(vendorItem.Item.GetSellPrice(vendorItem.InstantiatedItem, playerManagerClient.UnitController).Key, vendorItem.Item.GetSellPrice(vendorItem.InstantiatedItem, playerManagerClient.UnitController).Value, "Buy Back Price:");
+                            currencyBarController.UpdateCurrencyAmount(vendorItem.Item.GetSellPrice(vendorItem.InstantiatedItem, playerManagerClient.UnitController).Key, vendorItem.Item.GetSellPrice(vendorItem.InstantiatedItem, playerManagerClient.UnitController).Value, "Geri Alma Fiyatı:");
                         }
                     }
                 } else {
                     price.gameObject.SetActive(true);
-                    price.text = "Price: FREE";
+                    price.text = "Fiyat: Ücretsiz";
                     if (currencyBarController != null) {
                         currencyBarController.ClearCurrencyAmounts();
                     }

@@ -103,9 +103,11 @@ namespace AnyRPG {
             }
         }
 
-        public bool SellItemToVendor(UnitController sourceUnitController, int componentIndex, InstantiatedItem instantiatedItem) {
+        public bool SellItemToVendor(UnitController sourceUnitController, int componentIndex, InstantiatedItem instantiatedItem, bool writeMessage = true) {
             if (instantiatedItem.Item.BuyPrice(sourceUnitController) <= 0 || instantiatedItem.Item.GetSellPrice(instantiatedItem, sourceUnitController).Key == null) {
-                sourceUnitController.WriteMessageFeedMessage($"The vendor does not want to buy the {instantiatedItem.DisplayName}");
+                if (writeMessage) {
+                    sourceUnitController.WriteMessageFeedMessage($"Satıcı {instantiatedItem.DisplayName} almak istemiyor");
+                }
                 return false;
             }
             KeyValuePair<Currency, int> sellAmount = instantiatedItem.Item.GetSellPrice(instantiatedItem, sourceUnitController);
@@ -115,7 +117,9 @@ namespace AnyRPG {
             instantiatedItem.Slot.RemoveItem(instantiatedItem);
 
             string priceString = currencyConverter.GetCombinedPriceString(sellAmount.Key, sellAmount.Value);
-            sourceUnitController.WriteMessageFeedMessage($"Sold {instantiatedItem.DisplayName} for {priceString}");
+            if (writeMessage) {
+                sourceUnitController.WriteMessageFeedMessage($"{instantiatedItem.DisplayName} satıldı: +{priceString}");
+            }
 
             return true;
         }
@@ -128,7 +132,12 @@ namespace AnyRPG {
                 return false;
             }
 
-            if (vendorItem.Item.GetSellPrice(vendorItem.InstantiatedItem, sourceUnitController).Value <= sourceUnitController.CharacterCurrencyManager.GetBaseCurrencyValue(vendorItem.Item.Currency)) {
+            // buying back costs what the vendor paid; items without a currency of their own are sold for the default money
+            KeyValuePair<Currency, int> buyBackPrice = vendorItem.Item.GetSellPrice(vendorItem.InstantiatedItem, sourceUnitController);
+            if (buyBackPrice.Key == null) {
+                return true;
+            }
+            if (buyBackPrice.Value <= sourceUnitController.CharacterCurrencyManager.GetBaseCurrencyValue(buyBackPrice.Key)) {
                 return true;
             }
             return false;
@@ -138,9 +147,9 @@ namespace AnyRPG {
         public void BuyItemFromVendor(UnitController sourceUnitController, int componentIndex, VendorItem vendorItem, int collectionIndex, int itemIndex) {
             //Debug.Log($"VendorComponent.BuyItemFromVendor({sourceUnitController.gameObject.name}, {componentIndex}, {vendorItem.Item.resourceName}, {collectionIndex}, {itemIndex})");
 
-            if (vendorItem.BuyPrice(sourceUnitController) == 0
-                                        || vendorItem.Item.Currency == null
-                                        || CanAfford(sourceUnitController, vendorItem, collectionIndex == 0)) {
+            bool buyBack = (collectionIndex == 0);
+            if ((buyBack == false && (vendorItem.BuyPrice(sourceUnitController) == 0 || vendorItem.Item.Currency == null))
+                                        || CanAfford(sourceUnitController, vendorItem, buyBack)) {
                 InstantiatedItem tmpInstantiatedItem = null;
                 if (collectionIndex == 0) {
                     // if this is a buyback, the item has already been instantiated so it is safe to reference it directly
@@ -172,23 +181,25 @@ namespace AnyRPG {
             //Debug.Log($"VendorComponent.SellItemToPlayer({sourceUnitController.gameObject.name}, {componentIndex}, {vendorItem.Item.ResourceName}, {collectionIndex}, {itemIndex})");
 
             string priceString = string.Empty;
-            if (vendorItem.BuyPrice(sourceUnitController) == 0 || vendorItem.Item.Currency == null) {
-                priceString = "FREE";
-            } else {
-                KeyValuePair<Currency, int> usedSellPrice = new KeyValuePair<Currency, int>();
-                if (collectionIndex != 0) {
-                    usedSellPrice = new KeyValuePair<Currency, int>(vendorItem.Item.Currency, vendorItem.BuyPrice(sourceUnitController));
-                    priceString = vendorItem.BuyPrice(sourceUnitController) + " " + vendorItem.Item.Currency.DisplayName;
-                } else {
-                    // buyback collection
-                    usedSellPrice = vendorItem.Item.GetSellPrice(vendorItem.InstantiatedItem, sourceUnitController);
-                    priceString = currencyConverter.GetCombinedPriceString(usedSellPrice);
+            if (collectionIndex == 0) {
+                // buyback: pay back what the vendor paid for it
+                KeyValuePair<Currency, int> buyBackPrice = vendorItem.Item.GetSellPrice(vendorItem.InstantiatedItem, sourceUnitController);
+                if (buyBackPrice.Key != null && buyBackPrice.Value > 0) {
+                    priceString = currencyConverter.GetCombinedPriceString(buyBackPrice);
+                    sourceUnitController.CharacterCurrencyManager.SpendCurrency(buyBackPrice.Key, buyBackPrice.Value);
                 }
+            } else if (vendorItem.BuyPrice(sourceUnitController) != 0 && vendorItem.Item.Currency != null) {
+                KeyValuePair<Currency, int> usedSellPrice = new KeyValuePair<Currency, int>(vendorItem.Item.Currency, vendorItem.BuyPrice(sourceUnitController));
+                priceString = currencyConverter.GetCombinedPriceString(usedSellPrice);
                 sourceUnitController.CharacterCurrencyManager.SpendCurrency(usedSellPrice.Key, usedSellPrice.Value);
             }
             ProcessQuantityNotification(vendorItem, (vendorItem.Unlimited ? vendorItem.Quantity : vendorItem.Quantity - 1), componentIndex, collectionIndex, itemIndex);
 
-            sourceUnitController.WriteMessageFeedMessage($"Purchased {vendorItem.Item.DisplayName} for {priceString}");
+            if (priceString == string.Empty) {
+                sourceUnitController.WriteMessageFeedMessage($"{vendorItem.Item.DisplayName} alındı");
+            } else {
+                sourceUnitController.WriteMessageFeedMessage($"{vendorItem.Item.DisplayName} satın alındı: -{priceString}");
+            }
         }
 
         public void ProcessQuantityNotification(VendorItem vendorItem, int newQuantity, int componentIndex, int collectionIndex, int itemIndex) {

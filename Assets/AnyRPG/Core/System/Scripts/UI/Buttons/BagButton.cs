@@ -209,7 +209,7 @@ namespace AnyRPG {
 
         public void ProcessShowTooltip(TooltipController tooltipController) {
             if (bagNode?.InstantiatedBag != null) {
-                tooltipController.UpdateCurrencyAmount(bagNode.InstantiatedBag, "Sell Price: ");
+                tooltipController.UpdateCurrencyAmount(bagNode.InstantiatedBag, "Satış Fiyatı: ");
             }
         }
 

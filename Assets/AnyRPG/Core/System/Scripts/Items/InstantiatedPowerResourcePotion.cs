@@ -22,7 +22,7 @@ namespace AnyRPG {
             }
             if (fullcount >= powerResourcePotion.HealEffect.ResourceAmounts.Count) {
                 //messageFeedManager.WriteMessage("Your " + powerResource.DisplayName + " is already full!");
-                sourceUnitController.WriteMessageFeedMessage("Already full!");
+                sourceUnitController.WriteMessageFeedMessage("Zaten dolu!");
                 return false;
             }
             bool returnValue = base.Use(sourceUnitController);

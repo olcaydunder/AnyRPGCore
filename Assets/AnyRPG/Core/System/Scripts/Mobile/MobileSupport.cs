@@ -422,7 +422,7 @@ namespace AnyRPG {
             Canvas[] canvases = FindObjectsByType<Canvas>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             foreach (Canvas canvas in canvases) {
                 if (canvas == null || canvas.isRootCanvas == false || canvas.renderMode == RenderMode.WorldSpace
-                    || canvas.name == ErrorOverlayCanvasName || canvas.name == GameGuide.CanvasName) {
+                    || canvas.name == ErrorOverlayCanvasName || canvas.name == GameGuide.CanvasName || canvas.name == GunlukArmagan.CanvasName) {
                     continue;
                 }
                 int id = canvas.GetInstanceID();
@@ -515,6 +515,8 @@ namespace AnyRPG {
                 GameGuide.ShowFirstTimeIfNeeded();
             }
             GameGuide.SetMenuLauncherVisible(inGame == false && MainMenuOpen());
+            // the daily gift: opens a few seconds after entering the world, after the guide is closed
+            GunlukArmagan.Tick(GetSystemGameManager(), inGame);
         }
 
         private bool MainMenuOpen() {

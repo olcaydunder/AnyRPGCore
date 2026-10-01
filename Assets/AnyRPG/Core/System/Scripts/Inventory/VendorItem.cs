@@ -90,7 +90,7 @@ namespace AnyRPG {
 
         public void ProcessShowTooltip(TooltipController tooltipController) {
             if (instantiatedItem != null) {
-                tooltipController.UpdateCurrencyAmount(instantiatedItem, "Sell Price: ");
+                tooltipController.UpdateCurrencyAmount(instantiatedItem, "Satış Fiyatı: ");
             }
         }
 

@@ -160,7 +160,7 @@ namespace AnyRPG {
             }
             /*
             if (performUniqueCheck == true && instantiatedItem.Item.UniqueItem == true && GetItemCount(instantiatedItem.Item.ResourceName) > 0) {
-                unitController.UnitEventController.NotifyOnWriteMessageFeedMessage($"{instantiatedItem.DisplayName} is unique.  You can only carry one at a time.");
+                unitController.UnitEventController.NotifyOnWriteMessageFeedMessage($"{instantiatedItem.DisplayName} eşsizdir, aynı anda yalnızca bir tane taşıyabilirsin.");
                 return false;
             }
             */

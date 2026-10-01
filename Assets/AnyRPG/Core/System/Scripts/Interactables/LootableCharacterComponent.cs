@@ -518,7 +518,7 @@ namespace AnyRPG {
 
             base.ClientInteraction(sourceUnitController, componentIndex, choiceIndex);
             uIManager.interactionWindow.CloseWindow();
-            uIManager.lootWindow.OpenWindow();
+            lootManager.OpenLootWindow();
         }
 
         public void MonitorLootTable() {

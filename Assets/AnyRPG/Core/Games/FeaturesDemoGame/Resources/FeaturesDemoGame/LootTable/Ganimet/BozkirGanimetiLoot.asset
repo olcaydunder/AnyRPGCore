@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d27b95b419c1844fa9682cc3b78657b, type: 3}
+  m_Name: BozkirGanimetiLoot
+  m_EditorClassIdentifier: 
+  resourceName: Bozkir Ganimeti
+  displayName: 
+  icon: {fileID: 0}
+  iconBackgroundImage: {fileID: 0}
+  description: 
+  useRegionalDescription: 0
+  resourceDescriptionProfile: 
+  optionalOverride: 0
+  ignoreGlobalDropLimit: 1
+  dropLimit: 0
+  lootGroups:
+  - guaranteedDrop: 1
+    groupChance: 50
+    dropLimit: 1
+    uniqueLimit: 0
+    ignoreGlobalDropLimit: 1
+    loot:
+    - itemName: Kirik Ok Ucu
+      dropChance: 40
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 0
+      prerequisiteConditions: []
+    - itemName: Pasli Kemer Tokasi
+      dropChance: 30
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 0
+      prerequisiteConditions: []
+    - itemName: Catlak Boncuk
+      dropChance: 30
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 0
+      prerequisiteConditions: []
+  - guaranteedDrop: 0
+    groupChance: 100
+    dropLimit: 0
+    uniqueLimit: 0
+    ignoreGlobalDropLimit: 1
+    loot:
+    - itemName: Kurt Disi
+      dropChance: 10
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 0
+      prerequisiteConditions: []
+    - itemName: Kurt Pencesi
+      dropChance: 4
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 0
+      prerequisiteConditions: []
+    - itemName: Kartal Tuyu
+      dropChance: 3
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 0
+      prerequisiteConditions: []
+  - guaranteedDrop: 1
+    groupChance: 5
+    dropLimit: 1
+    uniqueLimit: 0
+    ignoreGlobalDropLimit: 1
+    loot:
+    - itemName: Gok Tasi Parcasi
+      dropChance: 45
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 0
+      prerequisiteConditions: []
+    - itemName: Eski Altin Sikke
+      dropChance: 45
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 0
+      prerequisiteConditions: []
+    - itemName: Altin Tamga Yuzugu
+      dropChance: 10
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 0
+      prerequisiteConditions: []
+  - guaranteedDrop: 0
+    groupChance: 1
+    dropLimit: 0
+    uniqueLimit: 0
+    ignoreGlobalDropLimit: 1
+    loot:
+    - itemName: Ergenekon Demiri
+      dropChance: 29
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 0
+      prerequisiteConditions: []

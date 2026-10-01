@@ -487,7 +487,7 @@ namespace AnyRPG {
                 return false;
             }
             if (performUniqueCheck == true && instantiatedItem.Item.UniqueItem == true && GetItemCount(instantiatedItem.Item.ResourceName) > 0) {
-                unitController.UnitEventController.NotifyOnWriteMessageFeedMessage($"{instantiatedItem.DisplayName} is unique.  You can only carry one at a time.");
+                unitController.UnitEventController.NotifyOnWriteMessageFeedMessage($"{instantiatedItem.DisplayName} eşsizdir, aynı anda yalnızca bir tane taşıyabilirsin.");
                 return false;
             }
             if (instantiatedItem.Item.MaximumStackSize > 0) {
@@ -582,7 +582,7 @@ namespace AnyRPG {
             }
             if (EmptySlotCount(addToBank) == 0) {
                 //Debug.Log($"{unitController.gameObject.name}.CharacterInventoryManager.PlaceInEmpty({instantiatedItem.ResourceName}, {addToBank}): no empty slots");
-                unitController.UnitEventController.NotifyOnWriteMessageFeedMessage($"{(addToBank == false ? "Inventory" : "Bank")} is full!");
+                unitController.UnitEventController.NotifyOnWriteMessageFeedMessage($"{(addToBank == false ? "Çanta" : "Banka")} dolu!");
             }
             return false;
         }
@@ -903,7 +903,7 @@ namespace AnyRPG {
                 }
             }
             //unitController.UnitEventController.NotifyOnDeleteItem(instantiatedItem);
-            messageLogServer.WriteSystemMessage(unitController, $"Destroyed {instantiatedItem.DisplayName}");
+            messageLogServer.WriteSystemMessage(unitController, $"{instantiatedItem.DisplayName} yok edildi");
         }
 
         public void RequestDropItemOnGround(InventorySlot inventorySlot) {
@@ -1291,7 +1291,7 @@ namespace AnyRPG {
                     inventorySlot.RemoveItem(instantiatedBag);
                     unitController.UnitEventController.NotifyOnAddBag(instantiatedBag, bagNode);
                 } else {
-                    unitController.UnitEventController.NotifyOnWriteMessageFeedMessage("There are no free bag slots!");
+                    unitController.UnitEventController.NotifyOnWriteMessageFeedMessage("Boş heybe yuvası yok!");
                 }
             } else {
                 (bool success, BagNode bagNode) = AddInventoryBag(instantiatedBag);
@@ -1299,7 +1299,7 @@ namespace AnyRPG {
                     inventorySlot.RemoveItem(instantiatedBag);
                     unitController.UnitEventController.NotifyOnAddBag(instantiatedBag, bagNode);
                 } else {
-                    unitController.UnitEventController.NotifyOnWriteMessageFeedMessage("There are no free bag slots!");
+                    unitController.UnitEventController.NotifyOnWriteMessageFeedMessage("Boş heybe yuvası yok!");
                 }
             }
         }
@@ -1377,7 +1377,7 @@ namespace AnyRPG {
         public void SplitStack(InventorySlot inventorySlot, int stackSize) {
             // check to ensure we have an empty slot to split into
             if (EmptySlotCount(false) == 0) {
-                unitController.UnitEventController.NotifyOnWriteMessageFeedMessage("No empty slots to split into!");
+                unitController.UnitEventController.NotifyOnWriteMessageFeedMessage("Bölmek için boş yer yok!");
                 return;
             }
             // remove the items from the old slot, then place them into the new empty slot
@@ -1421,7 +1421,7 @@ namespace AnyRPG {
                 // get the first empty slot in the inventory and move all items to it
                 InventorySlot emptySlot = inventorySlots.FirstOrDefault(s => s.IsEmpty);
                 if (emptySlot == null) {
-                    unitController.UnitEventController.NotifyOnWriteMessageFeedMessage("Inventory is full");
+                    unitController.UnitEventController.NotifyOnWriteMessageFeedMessage("Çanta dolu");
                     return;
                 }
                 // this function name may look funny, but it will actually swap the empty stack in the inventory with the full stack in the storage container, effectively moving the stack to the inventory
@@ -1431,7 +1431,7 @@ namespace AnyRPG {
             InstantiatedItem instantiatedItem = storageContainerComponent.InventorySlots[fromSlotIndex].InstantiatedItem;
             (int toSlotIndex, bool canSpaceInStack) = CanPlaceInStackOrEmpty(instantiatedItem, false);
             if (canSpaceInStack == false || toSlotIndex == -1) {
-                unitController.UnitEventController.NotifyOnWriteMessageFeedMessage("Inventory is full");
+                unitController.UnitEventController.NotifyOnWriteMessageFeedMessage("Çanta dolu");
                 return;
             }
             storageContainerComponent.InventorySlots[fromSlotIndex].RemoveItem(instantiatedItem);
@@ -1469,7 +1469,7 @@ namespace AnyRPG {
                 // get the first empty slot in the container and move all items to it
                 InventorySlot emptySlot = storageContainerComponent.InventorySlots.FirstOrDefault(s => s.IsEmpty);
                 if (emptySlot == null) {
-                    unitController.UnitEventController.NotifyOnWriteMessageFeedMessage("Storage container is full");
+                    unitController.UnitEventController.NotifyOnWriteMessageFeedMessage("Sandık dolu");
                     return;
                 }
                 // this function name may look funny, but it will actually swap the empty stack in the container with the full stack in the inventory, effectively moving the stack to the container
@@ -1480,7 +1480,7 @@ namespace AnyRPG {
             InstantiatedItem instantiatedItem = inventorySlot.InstantiatedItem;
             (int toSlotIndex, bool canSpaceInStack) = storageContainerComponent.CanPlaceInStackOrEmpty(instantiatedItem);
             if (canSpaceInStack == false || toSlotIndex == -1) {
-                unitController.UnitEventController.NotifyOnWriteMessageFeedMessage("Storage container is full");
+                unitController.UnitEventController.NotifyOnWriteMessageFeedMessage("Sandık dolu");
                 return;
             }
             if (instantiatedItem == null) {

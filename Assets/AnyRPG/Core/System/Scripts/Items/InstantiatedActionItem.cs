@@ -34,7 +34,7 @@ namespace AnyRPG {
                 return false;
             }
             if (sourceUnitController.AbilityManager.IsOnCoolDown(ResourceName)) {
-                sourceUnitController.WriteMessageFeedMessage("Item is on cooldown");
+                sourceUnitController.WriteMessageFeedMessage("Bu eşya henüz yeniden kullanılamaz");
                 return false;
             }
 

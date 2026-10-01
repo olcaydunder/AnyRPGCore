@@ -153,7 +153,7 @@ namespace AnyRPG {
 
             //CreateWindowEventSubscriptions();
             //uIManager.lootWindow.CloseableWindowContents.OnCloseWindow += ClearTakeLootHandler;
-            uIManager.lootWindow.OpenWindow();
+            lootManager.OpenLootWindow();
         }
 
         public void ClearLootTables() {

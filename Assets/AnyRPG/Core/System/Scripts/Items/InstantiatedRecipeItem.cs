@@ -14,7 +14,7 @@ namespace AnyRPG {
         public override bool Use(UnitController sourceUnitController) {
             //Debug.Log(MyDisplayName + ".RecipeItem.Use()");
             if (sourceUnitController.CharacterRecipeManager.RecipeList.ContainsValue(recipeItem.Recipe)) {
-                sourceUnitController.WriteMessageFeedMessage("You already know this recipe!");
+                sourceUnitController.WriteMessageFeedMessage("Bu tarifi zaten biliyorsun!");
                 return false;
             }
             //Debug.Log(MyDisplayName + ".RecipeItem.Use(): Player does not have the recipe: " + recipe.MyDisplayName);
@@ -24,7 +24,7 @@ namespace AnyRPG {
             }
             // check that the character is high enough level
             if (sourceUnitController.CharacterStats.Level < recipeItem.Recipe.RequiredLevel) {
-                sourceUnitController.WriteMessageFeedMessage($"You must be at least level {recipeItem.Recipe.RequiredLevel} to learn this recipe");
+                sourceUnitController.WriteMessageFeedMessage($"Bu tarifi öğrenmek için en az {recipeItem.Recipe.RequiredLevel}. seviye olmalısın");
                 return false;
             }
             // check if the character has the right skill
@@ -34,7 +34,7 @@ namespace AnyRPG {
             }
             // check if the character has the required skill level
             if (recipeItem.Recipe.Skill != null && sourceUnitController.CharacterSkillManager.GetSkillLevel(recipeItem.Recipe.Skill) < recipeItem.Recipe.RequiredSkillLevel) {
-                sourceUnitController.WriteMessageFeedMessage($"Your skill level is not high enough");
+                sourceUnitController.WriteMessageFeedMessage("Zanaat seviyen yeterince yüksek değil");
                 return false;
             }
 

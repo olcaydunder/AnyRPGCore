@@ -90,6 +90,9 @@ DUSMANLAR = {
         ganimet=["Potions", "Gold Plate Armor", "Epic Medieval Weapons", "Epic Medieval Weapon Recipes", "Necklaces"]),
 }
 
+ORTAK_GANIMET = ["Bozkir Ganimeti"]
+ULU_DAYANIKLILIK = {"Solo Dungeon Boss", "2 Man"}
+
 # kamp: (ad, merkez x, merkez z, [(düşman, adet)], ek seviye)   -- düz arazide çember üzerine dizilir
 # nokta listesi: (ad, [(düşman, x, z)], ek seviye)                -- dağlarda tek tek seçilmiş düzlükler
 ZONE = dict(
@@ -190,8 +193,10 @@ def write_profiles():
             t = sub(r"^  voiceProfile: .*$", f"  voiceProfile: {d['ses']}", t)
         # ölünce üstünden ganimet alınabilsin
         t = sub(r"^  inlineInteractableOptions: \[\]$", "  inlineInteractableOptions:\n  - rid: 0", t)
+        # her düşmana bozkır ganimeti (ganimet.py), boss'lara ayrıca ulu ganimet
+        tablolar = d["ganimet"] + ORTAK_GANIMET + (["Ulu Ganimet"] if d.get("dayaniklilik") in ULU_DAYANIKLILIK else [])
         lb = re.sub(r"(        lootTableNames:\n)(?:        - .*\n)+",
-                    lambda m: m.group(1) + "".join(f"        - {name}\n" for name in d["ganimet"]), loot_block)
+                    lambda m: m.group(1) + "".join(f"        - {name}\n" for name in tablolar), loot_block)
         assert t.endswith("      type: {class: , ns: , asm: }\n"), key
         t = t + lb
         (OUT / (file_name + ".asset")).write_text(t, encoding="utf-8")

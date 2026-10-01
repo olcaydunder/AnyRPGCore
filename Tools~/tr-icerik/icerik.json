@@ -2058,6 +2058,46 @@
     "Gain Currency": {
       "ad": "Büyük Altın Kesesi",
       "aciklama": "On altın değerinde bir hazine."
+    },
+    "Kirik Ok Ucu": {
+      "ad": "Kırık Ok Ucu",
+      "aciklama": "Bir çatışmadan kalma, ucu körelmiş bir temren. Değersiz; satıcılar birkaç bakır verir."
+    },
+    "Pasli Kemer Tokasi": {
+      "ad": "Paslı Kemer Tokası",
+      "aciklama": "Bir yağmacının kemerinden kopmuş paslı bir toka. Değersiz; satıcıya ver."
+    },
+    "Catlak Boncuk": {
+      "ad": "Çatlak Boncuk",
+      "aciklama": "Rengi solmuş, ortasından çatlamış bir boncuk. Değersiz; satıcıya ver."
+    },
+    "Kurt Disi": {
+      "ad": "Kurt Dişi",
+      "aciklama": "Sivri bir kurt dişi. Obalarda uğur getirsin diye boyna asılır; tüccarlar iyi para verir."
+    },
+    "Kurt Pencesi": {
+      "ad": "Kurt Pençesi",
+      "aciklama": "Bozkır kurdunun keskin pençesi. Avcılar arasında yiğitlik nişanıdır."
+    },
+    "Kartal Tuyu": {
+      "ad": "Kartal Tüyü",
+      "aciklama": "Gökte süzülen bir kartalın tüyü. Kamlar ayinlerinde kullanır, iyi fiyata alırlar."
+    },
+    "Gok Tasi Parcasi": {
+      "ad": "Gök Taşı Parçası",
+      "aciklama": "Tengri'nin gökten attığı demirli taş. Demirciler altın değerinde sayar."
+    },
+    "Eski Altin Sikke": {
+      "ad": "Eski Altın Sikke",
+      "aciklama": "Üzerindeki tamga silinmiş, eski bir hanlıktan kalma altın sikke."
+    },
+    "Altin Tamga Yuzugu": {
+      "ad": "Altın Tamga Yüzüğü",
+      "aciklama": "Bir boy beyinin tamgasını taşıyan mühür yüzüğü. Tüccarlar avuç dolusu gümüş verir."
+    },
+    "Ergenekon Demiri": {
+      "ad": "Ergenekon Demiri",
+      "aciklama": "Demir dağı eriten kutlu ocaktan kalma demir. Destanlarda anılır, paha biçilmez."
     }
   },
   "Ability": {
@@ -2359,7 +2399,7 @@
     },
     "Collection": {
       "ad": "Alp'in Donanımı",
-      "aciklama": "Hiçbir alp sefere eli boş çıkmaz.\n\nTüccar Karaçor'dan bir Demir Kama ve bir Kurt Başlı Kalkan edin.",
+      "aciklama": "Hiçbir alp sefere eli boş çıkmaz.\n\nTüccar Karaçor'dan bir Demir Kama ve bir Kurt Başlı Kalkan satın al. Paran yetmezse önce köyün güneyindeki Kara Yek'leri avla; her biri gümüş akçe bırakır. Günlük Armağan'ın ilk günü de sana 5 gümüş verir.",
       "hedefler": [
         "Demir Kama edin",
         "Kurt Başlı Kalkan edin"

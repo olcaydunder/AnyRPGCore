@@ -285,6 +285,7 @@ namespace AnyRPG {
                 H + "Bilmen gerekenler" + HE + "\n" +
                 "• Oyun internetsiz, tek kişilik oynanır.\n" +
                 "• Oyun kendiliğinden kaydedilir: 3 dakikada bir ve uygulamadan çıktığında.\n" +
+                "• Her gün oyuna girdiğinde <b>Günlük Armağan</b> seni bekler; 7 gün üst üste gelirsen en büyüğünü alırsın.\n" +
                 "• Bu rehberi istediğin zaman sol kenardaki <b>Rehber</b> düğmesiyle yeniden açabilirsin.\n" +
                 "• Soldaki bölümlere dokunarak konular arasında gezin; uzun metinleri parmağınla yukarı kaydır."),
 
@@ -341,17 +342,24 @@ namespace AnyRPG {
                 "• 100 bakır = 1 gümüş, 100 gümüş = 1 altın. Paranı çanta penceresinin altında görürsün.\n\n" +
                 H + "Para nereden kazanılır" + HE + "\n" +
                 "1. <b>Düşman öldür.</b> Her düşmanın üstünden para çıkar: seviyesi kadar gümüş, güçlü düşmanlardan daha fazlası. " +
-                "Ölen düşmanın üstü parlıyorsa ona dokun, ganimet penceresi açılır; <b>Hepsini Al</b>'a bas.\n" +
+                "Ölen düşmanın üstü parlıyorsa ona dokun: ganimet <b>kendiliğinden çantana girer</b>, ekranda yeşil, mavi, mor yazıyla \"+ Kurt Dişi\" gibi görünür. " +
+                "Çantan doluysa ganimet penceresi açılır; yer açıp <b>Hepsini Al</b>'a bas.\n" +
                 "2. <b>Hazine sandıklarını aç.</b> Düşman kamplarının ortasında ve dağ doruklarında sandıklar var. " +
                 "İçlerinden <b>Akçe Kesesi</b>, <b>Dolu Akçe Kesesi</b>, hatta <b>Altın Kese</b> çıkar. Kese alınınca para doğrudan cebine geçer. " +
                 "Boşalttığın sandık birkaç dakika sonra yeniden dolar.\n" +
                 "3. <b>Görev yap.</b> Görevler bitince altın, tecrübe ve eşya ödülü verir. Tekrarlanabilir görevleri (Obaya Yardım, Mağara Nöbeti, Albastı Avı) istediğin kadar yapabilirsin.\n" +
-                "4. <b>Eşya sat.</b> İşine yaramayan silah, zırh, kolye, cevher, ot ve kereste satılır. " +
+                "4. <b>Ganimet ve eşya sat.</b> Düşmanlardan düşen kurt dişi, kartal tüyü, gök taşı, eski altın sikke gibi ganimetler yalnızca satmak içindir. " +
+                "İşine yaramayan silah, zırh, kolye, cevher, ot ve kereste de satılır. " +
                 "Köydeki <b>Tüccar Karaçor</b>'a ya da bir malzemeciye dokun; satıcı penceresi açıkken çantadaki eşyaya uzun bas → <b>Sat</b>. " +
-                "Değerli (renkli) eşyalar daha pahalıya gider.\n" +
-                "5. <b>Zanaatla uğraş.</b> Maden kaz, ot topla, ağaç kes, balık tut. Topladıklarını sat ya da onlardan daha değerli eşyalar yap.\n\n" +
+                "Satıcı penceresinin sol altındaki <b>Değersizleri Sat</b> düğmesi gri eşyaların hepsini tek dokunuşla satar. " +
+                "Değerli (renkli) eşyalar çok daha pahalıya gider. Yanlışlıkla sattığını satıcının ilk sayfasından geri alabilirsin.\n" +
+                "5. <b>Zanaatla uğraş.</b> Maden kaz, ot topla, ağaç kes, balık tut. Topladıklarını sat ya da onlardan daha değerli eşyalar yap.\n" +
+                "6. <b>Günlük Armağan.</b> Her gün oyuna girince gümüş, iksir, heybe ya da altın kazanırsın. 7. gün: 1 altın ve bir Gök Taşı Parçası. " +
+                "Bir gün kaçırırsan seri 1. günden yeniden başlar.\n\n" +
                 H + "Para ne işe yarar" + HE + "\n" +
-                "• Satıcılardan iksir, yiyecek, silah, zırh ve daha büyük <b>heybeler</b> (daha çok eşya taşırsın) alırsın.\n" +
+                "• Satıcılardan iksir, yiyecek, silah, zırh ve daha büyük <b>heybeler</b> (daha çok eşya taşırsın) alırsın. " +
+                "Fiyatlar seviyene göre artar: 1. seviyede bir silah 2 gümüş, bir şifa iksiri 1 gümüş eder; renkli eşyalar çok daha pahalıdır.\n" +
+                "• Bir eşyanın satış değeri, bilgi kutusunun altında <b>Satış Fiyatı</b> olarak yazar.\n" +
                 "• Zanaat malzemeleri ve tarifler alırsın.\n" +
                 "• Ustalardan yeni yetenek ve zanaat öğrenirsin."),
 
@@ -362,6 +370,14 @@ namespace AnyRPG {
                 "• <b>Büyük Hazine Sandığı:</b> Ateş Dağı ve Buz Dağı'nda, mağarada ve haritanın uzak köşelerinde. Altın kese, destansı silahlar, değerli zırhlar.\n" +
                 "• <b>Ekmek ve Peynir:</b> kampların yanında ve yol kenarlarında; dokunup alırsın.\n" +
                 "• <b>Toplama:</b> çiçekler ve otlar, maden damarları ve kristaller, ağaçlar, göldeki balıklar. Bunları toplamak için önce zanaatı öğrenmelisin (Zanaatlar bölümüne bak).\n\n" +
+                H + "Bozkır ganimeti" + HE + "\n" +
+                "Her düşmandan, silah ve zırhın yanında satmak için ganimet de düşebilir:\n" +
+                "• <color=#9A9A9A>Gri</color> (sık): Kırık Ok Ucu, Paslı Kemer Tokası, Çatlak Boncuk. Birkaç bakır eder.\n" +
+                "• Beyaz ve <color=#4CE04C>yeşil</color>: Kurt Dişi, Kurt Pençesi, Kartal Tüyü. 1-4 gümüş.\n" +
+                "• <color=#5A8CFF>Mavi</color> ve <color=#E040E0>mor</color> (seyrek): Gök Taşı Parçası, Eski Altın Sikke, Altın Tamga Yüzüğü. 15-60 gümüş.\n" +
+                "• <color=#FF8000>Turuncu</color> (çok nadir): <b>Ergenekon Demiri</b>. 3 altın!\n" +
+                "• Ulu Evren, Yelbegen ve Tepegöz her yenilişte mavi, mor ya da turuncu bir hazine ve bir kese bırakır.\n" +
+                "Nadir bir ganimet aldığında telefon titrer.\n\n" +
                 H + "Çantayı kullanmak" + HE + "\n" +
                 "• <b>Çanta</b> düğmesine bas. Eşyanın üstüne parmağını basılı tutarsan bir menü açılır: <b>Kullan</b>, <b>Kuşan</b>, <b>Sat</b>, <b>At</b>, <b>Yok Et</b>.\n" +
                 "• Bir eşyaya kısa dokunursan onu tutarsın; başka bir kutuya dokunursan oraya bırakırsın.\n" +
@@ -377,7 +393,7 @@ namespace AnyRPG {
                 "• Görev ödülleri: tecrübe, altın ve eşya. Bazı görevlerde ödülü sen seçersin.\n\n" +
                 H + "Ana görevler" + HE + "\n" +
                 "• <b>Olcayto Han'ın Çağrısı</b>: her şeyin başladığı yer.\n" +
-                "• <b>Alp'in Donanımı</b> ve <b>Sefere Hazırlık</b>: Tüccar Karaçor'dan donanım edin.\n" +
+                "• <b>Alp'in Donanımı</b> ve <b>Sefere Hazırlık</b>: Tüccar Karaçor'dan hançer ve kalkan satın al (birkaç gümüş tutar; paran yoksa önce birkaç Kara Yek avla).\n" +
                 "• <b>Bilgeden Öğüt</b>: Bilge Tonyukuk'u dinle.\n" +
                 "• <b>Karanlığın Kapısı</b> ve <b>Tepegöz'ün Laneti</b>: Erlik'in Mağarası'na gir, Albastıları ve Tepegöz'ü yen.\n" +
                 "• <b>İlk Kan</b>, <b>Ayaz Ata'nın Nefesi</b>, <b>Umay'ın Şefkati</b>: savaş ve yetenek görevleri.\n" +

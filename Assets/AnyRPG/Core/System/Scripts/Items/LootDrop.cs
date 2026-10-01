@@ -54,9 +54,18 @@ namespace AnyRPG {
 
         public virtual void TakeLoot(UnitController sourceUnitController) {
 
+            // build the "+ item" message first: money purses are used up as soon as they are looted
+            string pickupMessage = Ganimet.PickupMessage(InstantiatedItem);
+            InstantiatedItem lootedItem = InstantiatedItem;
             if (ProcessTakeLoot(sourceUnitController)) {
                 AfterLoot(sourceUnitController);
                 lootManager.TakeLoot(sourceUnitController, this);
+                if (pickupMessage != string.Empty) {
+                    sourceUnitController.WriteMessageFeedMessage(pickupMessage);
+                }
+                if (systemGameManager.PlayerManagerClient.UnitController == sourceUnitController) {
+                    Ganimet.OnLooted(lootedItem);
+                }
             }
         }
 
