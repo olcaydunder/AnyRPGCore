@@ -13,11 +13,10 @@ MonoBehaviour:
   m_Name: ReviveEnemyAbility
   m_EditorClassIdentifier: 
   resourceName: Revive Enemy
-  displayName: 
+  displayName: "\u00d6l\u00fc Kald\u0131r"
   icon: {fileID: 21300000, guid: d19ebdb652186e545ad72b977d82c426, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: Fill your dead target with dark energy, reanimating it's body and
-    binding it's soul to your will
+  description: "\u00d6lm\u00fc\u015f d\u00fc\u015fman\u0131n bedenini kara g\u00fc\u00e7le aya\u011fa kald\u0131r\u0131r."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

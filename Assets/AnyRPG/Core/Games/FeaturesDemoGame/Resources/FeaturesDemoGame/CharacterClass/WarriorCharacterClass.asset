@@ -16,11 +16,11 @@ MonoBehaviour:
   displayName: "Alp"
   icon: {fileID: 21300000, guid: d27a2139b4dd9d24ca4eac37a5ffd7c4, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: "Destanlara ad\u0131 ge\u00e7en, a\u011f\u0131r silahlarla sava\u015fan kahraman."
+  description: "Destanlara ad\u0131 ge\u00e7en a\u011f\u0131r z\u0131rhl\u0131 yi\u011fit. \u0130ki elli baltas\u0131yla \u00f6n safta sava\u015f\u0131r, yere vurup d\u00fc\u015fmanlar\u0131 sarsar, ald\u0131\u011f\u0131 hasar\u0131 geri yans\u0131t\u0131r.\n\nBa\u015flang\u0131\u00e7: iki elli balta, bak\u0131r plaka z\u0131rh tak\u0131m\u0131."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0
-  newGameOption: 0
+  newGameOption: 1
   equipmentNames:
   - Medieval Two Hand Axe
   - Copper Plate Armor

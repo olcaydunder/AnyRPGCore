@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: FreeReviveAbility
   m_EditorClassIdentifier: 
   resourceName: Free Revive
-  displayName: 
+  displayName: "\u00d6l\u00fcms\u00fczl\u00fck T\u0131ls\u0131m\u0131"
   icon: {fileID: 21300000, guid: 0212e29d413747a409ebb820641f0ef1, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: When killed, you can revive on the spot!
+  description: "\u00d6l\u00fcnce oldu\u011fun yerde dirilirsin."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

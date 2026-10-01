@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: GlideAbility
   m_EditorClassIdentifier: 
   resourceName: Glide
-  displayName: 
+  displayName: "S\u00fcz\u00fclme"
   icon: {fileID: 21300000, guid: ce2dc46bfc722ba4c9fa4b9b831a85de, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: Glide slowly to the ground
+  description: "Yere yava\u015f\u00e7a s\u00fcz\u00fclerek inersin."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: RingOfFireAbility
   m_EditorClassIdentifier: 
   resourceName: Ring Of Fire
-  displayName: 
+  displayName: "Ate\u015f \u00c7emberi"
   icon: {fileID: 21300000, guid: 65adface515819341aad0e7d5d96e45a, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: a ring of fire on the ground
+  description: "Yerde yanan bir ate\u015f \u00e7emberi a\u00e7ar."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

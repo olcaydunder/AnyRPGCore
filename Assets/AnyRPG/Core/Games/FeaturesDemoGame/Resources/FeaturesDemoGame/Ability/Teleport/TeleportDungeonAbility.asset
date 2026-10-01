@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: TeleportDungeonAbility
   m_EditorClassIdentifier: 
   resourceName: Teleport Dungeon
-  displayName: 
+  displayName: "Ma\u011faraya I\u015f\u0131nlan"
   icon: {fileID: 21300000, guid: 9da90319901fc0448b435999269058c9, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: Teleport to the Dungeon
+  description: "Seni Erlik'in Ma\u011faras\u0131'na \u0131\u015f\u0131nlar."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

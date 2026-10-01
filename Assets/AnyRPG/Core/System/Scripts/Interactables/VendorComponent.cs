@@ -164,7 +164,7 @@ namespace AnyRPG {
                     }
                 }
             } else {
-                sourceUnitController.WriteMessageFeedMessage($"You cannot afford {vendorItem.Item.DisplayName}");
+                sourceUnitController.WriteMessageFeedMessage($"{vendorItem.Item.DisplayName} için paran yetmiyor");
             }
         }
 

@@ -29,7 +29,7 @@ namespace AnyRPG {
             }
             // check if the character has the right skill
             if (recipeItem.Recipe.Skill != null && sourceUnitController.CharacterSkillManager.HasSkill(recipeItem.Recipe.Skill) == false) {
-                sourceUnitController.WriteMessageFeedMessage($"You do not know the skill {recipeItem.Recipe.Skill.DisplayName}");
+                sourceUnitController.WriteMessageFeedMessage($"{recipeItem.Recipe.Skill.DisplayName} zanaatını bilmiyorsun");
                 return false;
             }
             // check if the character has the required skill level
@@ -41,10 +41,10 @@ namespace AnyRPG {
             // learn recipe if the character has the right ability
             if (sourceUnitController.CharacterAbilityManager.AbilityList.ContainsValue(recipeItem.Recipe.CraftAbility)) {
                 sourceUnitController.CharacterRecipeManager.LearnRecipe(recipeItem.Recipe);
-                sourceUnitController.WriteMessageFeedMessage($"You learned the recipe {recipeItem.Recipe.DisplayName}");
+                sourceUnitController.WriteMessageFeedMessage($"{recipeItem.Recipe.DisplayName} tarifini öğrendin");
                 Remove();
             } else {
-                sourceUnitController.WriteMessageFeedMessage($"To learn this recipe, you must know {recipeItem.Recipe.CraftAbility.DisplayName}!");
+                sourceUnitController.WriteMessageFeedMessage($"Bu tarifi öğrenmek için {recipeItem.Recipe.CraftAbility.DisplayName} bilmelisin!");
             }
             return returnValue;
 

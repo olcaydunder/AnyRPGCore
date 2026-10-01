@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: "Ayaz Ata'n\u0131n Nefesi"
   icon: {fileID: 21300000, guid: 402c20b859995ac49ac6ff0a243926ff, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: a blizzard
+  description: "Ayaz Ata'n\u0131n dondurucu nefesi; geni\u015f bir alana buz f\u0131rt\u0131nas\u0131 ya\u011fd\u0131r\u0131r."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

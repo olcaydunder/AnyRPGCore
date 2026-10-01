@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: SneakAttackAbility
   m_EditorClassIdentifier: 
   resourceName: Sneak Attack
-  displayName: 
+  displayName: "Pusu"
   icon: {fileID: 21300000, guid: 70df9027276b6114880cbf6aa6189939, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: Attack while stealthed, causing extra damage
+  description: "Gizlenmi\u015fken sald\u0131r\u0131r, fazladan hasar verir."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

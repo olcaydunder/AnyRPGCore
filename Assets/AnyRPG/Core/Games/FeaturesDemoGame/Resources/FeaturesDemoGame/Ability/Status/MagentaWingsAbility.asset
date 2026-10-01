@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: MagentaWingsAbility
   m_EditorClassIdentifier: 
   resourceName: Magenta Wings
-  displayName: 
+  displayName: "Erguvan Kanatlar"
   icon: {fileID: 21300000, guid: 684e0da9bd5e2cb4e9e20daa23c4a8a1, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: Take flight
+  description: "Kanatlan\u0131p u\u00e7ars\u0131n."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: RedWingsAbility
   m_EditorClassIdentifier: 
   resourceName: Red Wings
-  displayName: 
+  displayName: "K\u0131z\u0131l Kanatlar"
   icon: {fileID: 21300000, guid: 8db8e4a826e7866499640d01465e077e, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: Take flight
+  description: "Kanatlan\u0131p u\u00e7ars\u0131n."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

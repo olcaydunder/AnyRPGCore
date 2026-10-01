@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: YellowWingsAbility
   m_EditorClassIdentifier: 
   resourceName: Yellow Wings
-  displayName: 
+  displayName: "Sar\u0131 Kanatlar"
   icon: {fileID: 21300000, guid: f7be2c64494d37a4a8eaacf1f123a769, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: Take flight
+  description: "Kanatlan\u0131p u\u00e7ars\u0131n."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

@@ -38,7 +38,7 @@ namespace AnyRPG {
                     sourceUnitController.WriteMessageFeedMessage(string.Format("{0}: {1}/{2}", questObjective.DisplayName, Mathf.Clamp(CurrentAmount(sourceUnitController), 0, Amount), Amount));
                 }
                 if (completeBefore == false && IsComplete(sourceUnitController) && questBase.PrintObjectiveCompletionMessages && printMessages == true) {
-                    sourceUnitController.WriteMessageFeedMessage(string.Format("Complete {1}: Objective Complete", CurrentAmount(sourceUnitController), questObjective.DisplayName));
+                    sourceUnitController.WriteMessageFeedMessage(string.Format("{1}: tamamlandı", CurrentAmount(sourceUnitController), questObjective.DisplayName));
                 }
                 questBase.CheckCompletion(sourceUnitController, true, printMessages);
             }

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: CurePoisonAbility
   m_EditorClassIdentifier: 
   resourceName: Cure Poison
-  displayName: 
+  displayName: "Zehir Temizle"
   icon: {fileID: 21300000, guid: ecbfc6b4547a7524abd14ace3835e081, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: Cure poison
+  description: "Hedefin kan\u0131ndaki zehri temizler."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: LifeExchangeAbility
   m_EditorClassIdentifier: 
   resourceName: Life Exchange
-  displayName: 
+  displayName: "Can Takas\u0131"
   icon: {fileID: 21300000, guid: e83ca1c9f4870be418b87114e4b3811c, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: Exchange Health for Mana
+  description: "Can\u0131ndan verip mana kazan\u0131rs\u0131n."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

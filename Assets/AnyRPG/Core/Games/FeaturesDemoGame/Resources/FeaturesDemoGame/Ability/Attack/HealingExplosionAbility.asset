@@ -13,11 +13,10 @@ MonoBehaviour:
   m_Name: HealingExplosionAbility
   m_EditorClassIdentifier: 
   resourceName: Healing Explosion
-  displayName: 
+  displayName: "G\u00fcn I\u015f\u0131\u011f\u0131 Patlamas\u0131"
   icon: {fileID: 21300000, guid: 9ae46dcf36d18794f836e16b83d0c30e, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: A powerful blast of light eminates from the caster, causing damage
-    to all nearby enemies and healing all nearby allies for the damage done
+  description: "Kamdan parlak bir \u0131\u015f\u0131k patlamas\u0131 yay\u0131l\u0131r, d\u00fc\u015fmanlar\u0131 yakar."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

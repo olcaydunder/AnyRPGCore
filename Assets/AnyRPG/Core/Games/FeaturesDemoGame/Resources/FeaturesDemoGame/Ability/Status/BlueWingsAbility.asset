@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BlueWingsAbility
   m_EditorClassIdentifier: 
   resourceName: Blue Wings
-  displayName: 
+  displayName: "Mavi Kanatlar"
   icon: {fileID: 21300000, guid: 729afacae857ad941969a74935ca1d97, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: Take flight
+  description: "Kanatlan\u0131p u\u00e7ars\u0131n."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

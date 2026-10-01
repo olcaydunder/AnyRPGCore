@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: KnockBackAbility
   m_EditorClassIdentifier: 
   resourceName: Knock Back
-  displayName: 
+  displayName: "Savuru\u015f"
   icon: {fileID: 21300000, guid: 2ae92cf8b6d31c54aaae92af54e8b030, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: Hit opponent and knock them back
+  description: "D\u00fc\u015fmana vurup onu geriye savurur."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

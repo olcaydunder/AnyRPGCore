@@ -13,11 +13,10 @@ MonoBehaviour:
   m_Name: ReviveAllyAbility
   m_EditorClassIdentifier: 
   resourceName: Revive Ally
-  displayName: 
+  displayName: "Dirilt"
   icon: {fileID: 21300000, guid: 3db45d2f7dcfeab4388a6f4af1a1a210, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: A well of trapped sunlight springs forth from underground, reviving
-    its target.
+  description: "Yerin alt\u0131ndan f\u0131\u015fk\u0131ran g\u00fcn \u0131\u015f\u0131\u011f\u0131 d\u00fc\u015fm\u00fc\u015f dostunu diriltir."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

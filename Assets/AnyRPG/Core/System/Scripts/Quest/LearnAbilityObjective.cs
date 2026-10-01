@@ -28,10 +28,10 @@ namespace AnyRPG {
             }
             SetCurrentAmount(sourceUnitController, CurrentAmount(sourceUnitController) + 1);
             if (CurrentAmount(sourceUnitController) <= Amount && questBase.PrintObjectiveCompletionMessages && CurrentAmount(sourceUnitController) != 0) {
-                sourceUnitController.WriteMessageFeedMessage(string.Format("Learn {0}: {1}/{2}", DisplayName, Mathf.Clamp(CurrentAmount(sourceUnitController), 0, Amount), Amount));
+                sourceUnitController.WriteMessageFeedMessage(string.Format("{0}: {1}/{2}", DisplayName, Mathf.Clamp(CurrentAmount(sourceUnitController), 0, Amount), Amount));
             }
             if (completeBefore == false && IsComplete(sourceUnitController) && questBase.PrintObjectiveCompletionMessages) {
-                sourceUnitController.WriteMessageFeedMessage(string.Format("Learn {1}: Objective Complete", CurrentAmount(sourceUnitController), DisplayName));
+                sourceUnitController.WriteMessageFeedMessage(string.Format("{1}: tamamlandı", CurrentAmount(sourceUnitController), DisplayName));
             }
             questBase.CheckCompletion(sourceUnitController);
         }
@@ -47,10 +47,10 @@ namespace AnyRPG {
                 SetCurrentAmount(sourceUnitController, CurrentAmount(sourceUnitController)+1);
                 questBase.CheckCompletion(sourceUnitController, true, printMessages);
                 if (CurrentAmount(sourceUnitController) <= Amount && questBase.PrintObjectiveCompletionMessages && printMessages == true) {
-                    sourceUnitController.WriteMessageFeedMessage(string.Format("Learn {0}: {1}/{2}", baseAbility.DisplayName, CurrentAmount(sourceUnitController), Amount));
+                    sourceUnitController.WriteMessageFeedMessage(string.Format("{0}: {1}/{2}", baseAbility.DisplayName, CurrentAmount(sourceUnitController), Amount));
                 }
                 if (completeBefore == false && IsComplete(sourceUnitController) && questBase.PrintObjectiveCompletionMessages && printMessages == true) {
-                    sourceUnitController.WriteMessageFeedMessage(string.Format("Learn {1}: Objective Complete", CurrentAmount(sourceUnitController), baseAbility.DisplayName));
+                    sourceUnitController.WriteMessageFeedMessage(string.Format("{1}: tamamlandı", CurrentAmount(sourceUnitController), baseAbility.DisplayName));
                 }
             }
         }
@@ -73,7 +73,7 @@ namespace AnyRPG {
         }
 
         public override string GetUnformattedStatus(UnitController sourceUnitController) {
-            return "Learn " + DisplayName + ": " + Mathf.Clamp(CurrentAmount(sourceUnitController), 0, Amount) + "/" + Amount;
+            return DisplayName + ": " + Mathf.Clamp(CurrentAmount(sourceUnitController), 0, Amount) + "/" + Amount;
         }
 
         public override void SetupScriptableObjects(SystemGameManager systemGameManager, QuestBase quest) {

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: VioletWingsAbility
   m_EditorClassIdentifier: 
   resourceName: Violet Wings
-  displayName: 
+  displayName: "Mor Kanatlar"
   icon: {fileID: 21300000, guid: cc3c3a9e234e650408139b7aa703c794, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: Take flight
+  description: "Kanatlan\u0131p u\u00e7ars\u0131n."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

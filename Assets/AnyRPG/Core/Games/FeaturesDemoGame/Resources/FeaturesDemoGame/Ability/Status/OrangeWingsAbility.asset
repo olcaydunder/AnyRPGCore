@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: OrangeWingsAbility
   m_EditorClassIdentifier: 
   resourceName: Orange Wings
-  displayName: 
+  displayName: "Turuncu Kanatlar"
   icon: {fileID: 21300000, guid: ceaae012e92990049940bdcf765f4ab9, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: Take flight
+  description: "Kanatlan\u0131p u\u00e7ars\u0131n."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: BloodShieldAbility
   m_EditorClassIdentifier: 
   resourceName: Blood Shield
-  displayName: 
+  displayName: "Kan Kalkan\u0131"
   icon: {fileID: 21300000, guid: f4849498cdd93e545ae792de10406789, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: A shield that drains life from attackers
+  description: "Sald\u0131ranlar\u0131n can\u0131n\u0131 emen bir kalkan."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

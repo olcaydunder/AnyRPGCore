@@ -609,7 +609,7 @@ namespace AnyRPG {
         }
 
         private void HandleEncumberedChange(bool encumbered) {
-            messageFeedManager.WriteMessage(encumbered ? "You are encumbered" : "You are no longer encumbered");
+            messageFeedManager.WriteMessage(encumbered ? "Yükün çok ağır, yavaşladın" : "Yükün hafifledi");
         }
 
         private void HandleStatChanged() {
@@ -928,7 +928,7 @@ namespace AnyRPG {
 
         public void HandleAbilityActionCheckFail(AbilityProperties baseAbility) {
             if (PlayerUnitSpawned == true && messageLogClient != null) {
-                messageLogClient.WriteCombatMessage($"Cannot use {(baseAbility.DisplayName == null ? "null" : baseAbility.DisplayName)}. Waiting for another ability to finish.");
+                messageLogClient.WriteCombatMessage($"{(baseAbility.DisplayName == null ? "null" : baseAbility.DisplayName)} kullanılamadı: önceki hareket bitmedi.");
             }
         }
 
@@ -952,13 +952,13 @@ namespace AnyRPG {
             //Debug.Log("PlayerManager.HandleDropCombat()");
 
             if (messageLogClient != null) {
-                messageLogClient.WriteCombatMessage("Left combat");
+                messageLogClient.WriteCombatMessage("Savaştan çıktın");
             }
         }
 
         public void HandleEnterCombat(InteractableBase interactable) {
             if (messageLogClient != null) {
-                messageLogClient.WriteCombatMessage($"Entered combat with {interactable.DisplayName}");
+                messageLogClient.WriteCombatMessage($"{interactable.DisplayName} ile savaşa girdin");
             }
         }
 
@@ -970,24 +970,30 @@ namespace AnyRPG {
 
         public void HandleTargetInAbilityRangeFail(AbilityProperties baseAbility, InteractableBase target) {
             if (baseAbility != null && messageLogClient != null) {
-                messageLogClient.WriteCombatMessage($"{target.name} is out of range of {(baseAbility.DisplayName == null ? "null" : baseAbility.DisplayName)}");
+                messageLogClient.WriteCombatMessage($"{target.DisplayName}, {(baseAbility.DisplayName == null ? "null" : baseAbility.DisplayName)} için çok uzakta");
+                // the combat log is hidden on phones; tell the player on screen as well
+                messageFeedManager.WriteMessage("Hedef menzil dışında, yaklaş");
             }
         }
 
         public void HandleCombatCheckFail(AbilityProperties ability) {
-            messageLogClient.WriteCombatMessage($"The ability {ability.DisplayName} can only be cast while out of combat");
+            messageLogClient.WriteCombatMessage($"{ability.DisplayName} yalnızca savaş dışında kullanılabilir");
+            messageFeedManager.WriteMessage($"{ability.DisplayName} yalnızca savaş dışında kullanılabilir");
         }
 
         public void HandleStealthCheckFail(AbilityProperties ability) {
-            messageLogClient.WriteCombatMessage($"The ability {ability.DisplayName} can only be cast while while stealthed");
+            messageLogClient.WriteCombatMessage($"{ability.DisplayName} yalnızca gizlenmişken kullanılabilir");
+            messageFeedManager.WriteMessage($"{ability.DisplayName} yalnızca gizlenmişken kullanılabilir");
         }
 
         public void HandlePowerResourceCheckFail(AbilityProperties ability, IAbilityCaster abilityCaster) {
-            messageLogClient.WriteCombatMessage($"Not enough {ability.PowerResource.DisplayName} to perform {ability.DisplayName} at a cost of {ability.GetResourceCost(abilityCaster)}");
+            messageLogClient.WriteCombatMessage($"{ability.DisplayName} için yeterli {ability.PowerResource.DisplayName} yok (gereken {ability.GetResourceCost(abilityCaster)})");
+            messageFeedManager.WriteMessage($"Yeterli {ability.PowerResource.DisplayName} yok");
         }
 
         public void HandleLearnedCheckFail(AbilityProperties ability) {
-            messageLogClient.WriteCombatMessage($"You have not learned the ability {ability.DisplayName} yet");
+            messageLogClient.WriteCombatMessage($"{ability.DisplayName} henüz öğrenilmedi");
+            messageFeedManager.WriteMessage($"{ability.DisplayName} henüz öğrenilmedi");
         }
 
         private void HandleAddEquipment(EquipmentSlotProfile profile, InstantiatedEquipment equipment) {

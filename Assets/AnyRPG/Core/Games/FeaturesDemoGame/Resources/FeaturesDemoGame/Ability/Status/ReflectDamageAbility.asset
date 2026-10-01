@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: ReflectDamageAbility
   m_EditorClassIdentifier: 
   resourceName: Reflect Damage
-  displayName: 
+  displayName: "Hasar Yans\u0131tma"
   icon: {fileID: 21300000, guid: a5d65c172e80eee40899030885212af7, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: Reflect all damage
+  description: "Ald\u0131\u011f\u0131n b\u00fct\u00fcn hasar\u0131 sald\u0131rana geri yans\u0131t\u0131rs\u0131n."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

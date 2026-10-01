@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: WoodWorkingAbility
   m_EditorClassIdentifier: 
   resourceName: WoodWorking
-  displayName: 
+  displayName: "Marangozluk"
   icon: {fileID: 21300000, guid: da81743c6de954f4ea05fc6c452a3f44, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: Create Weapons and Furniture
+  description: "Keresteden silah ve e\u015fya yap."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

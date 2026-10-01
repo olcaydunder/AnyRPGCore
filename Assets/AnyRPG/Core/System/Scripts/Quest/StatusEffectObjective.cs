@@ -26,10 +26,10 @@ namespace AnyRPG {
 			bool completeBefore = IsComplete(sourceUnitController);
             SetCurrentAmount(sourceUnitController, CurrentAmount(sourceUnitController) + 1);
             if (CurrentAmount(sourceUnitController) <= Amount && questBase.PrintObjectiveCompletionMessages) {
-                sourceUnitController.WriteMessageFeedMessage(string.Format("Apply {0}: {1}/{2}", statusEffect.DisplayName, CurrentAmount(sourceUnitController), Amount));
+                sourceUnitController.WriteMessageFeedMessage(string.Format("{0}: {1}/{2}", statusEffect.DisplayName, CurrentAmount(sourceUnitController), Amount));
             }
             if (completeBefore == false && IsComplete(sourceUnitController) && questBase.PrintObjectiveCompletionMessages) {
-                sourceUnitController.WriteMessageFeedMessage(string.Format("Apply {0}: Objective Complete", statusEffect.DisplayName));
+                sourceUnitController.WriteMessageFeedMessage(string.Format("{0}: tamamlandı", statusEffect.DisplayName));
             }
             questBase.CheckCompletion(sourceUnitController);
         }
@@ -44,10 +44,10 @@ namespace AnyRPG {
             if (sourceUnitController.CharacterStats.GetStatusEffectNode(statusEffect) != null) {
                 SetCurrentAmount(sourceUnitController, CurrentAmount(sourceUnitController) + 1);
                 if (CurrentAmount(sourceUnitController) <= Amount && questBase.PrintObjectiveCompletionMessages && printMessages == true) {
-                    sourceUnitController.WriteMessageFeedMessage(string.Format("Apply {0}: {1}/{2}", statusEffect.DisplayName, CurrentAmount(sourceUnitController), Amount));
+                    sourceUnitController.WriteMessageFeedMessage(string.Format("{0}: {1}/{2}", statusEffect.DisplayName, CurrentAmount(sourceUnitController), Amount));
                 }
                 if (completeBefore == false && IsComplete(sourceUnitController) && questBase.PrintObjectiveCompletionMessages && printMessages == true) {
-                    sourceUnitController.WriteMessageFeedMessage(string.Format("Apply {0}: Objective Complete", statusEffect.DisplayName));
+                    sourceUnitController.WriteMessageFeedMessage(string.Format("{0}: tamamlandı", statusEffect.DisplayName));
                 }
                 questBase.CheckCompletion(sourceUnitController, true, printMessages);
             }

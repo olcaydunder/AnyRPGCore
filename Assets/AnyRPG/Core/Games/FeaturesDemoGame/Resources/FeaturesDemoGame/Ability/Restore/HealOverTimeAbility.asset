@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: "Umay'\u0131n \u015eefkati"
   icon: {fileID: 21300000, guid: 1d6f1363575a54945810c2f5f13e1462, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: heal over time
+  description: "Umay Ana'n\u0131n \u015fefkati; can\u0131 zamanla doldurur."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: FishingAbility
   m_EditorClassIdentifier: 
   resourceName: Fishing
-  displayName: 
+  displayName: "Bal\u0131k\u00e7\u0131l\u0131k"
   icon: {fileID: 21300000, guid: f2003424f8bc7ae41a617e80d5f46dec, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: Fishing
+  description: "G\u00f6llerden ve derelerden bal\u0131k tut."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

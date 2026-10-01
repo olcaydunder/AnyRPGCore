@@ -3,11 +3,11 @@
   "Faction": {
     "Blue": {
       "ad": "Bozoklar",
-      "aciklama": "Oğuz Kağan'ın büyük oğulları Gün Han, Ay Han ve Yıldız Han'ın soyundan gelen boylar. Obanın sağ kolunu korurlar."
+      "aciklama": "Oğuz Kağan'ın büyük oğulları Gün Han, Ay Han ve Yıldız Han'ın soyundan gelen boylar. Obanın sağ kolunu korurlar.\n\nBoy armağanı: Mavi Kanatlar ile göğe yükselebilirsin. Üçoklarla aranız soğuktur."
     },
     "Red": {
       "ad": "Üçoklar",
-      "aciklama": "Oğuz Kağan'ın küçük oğulları Gök Han, Dağ Han ve Deniz Han'ın soyundan gelen boylar. Obanın sol kolunu korurlar."
+      "aciklama": "Oğuz Kağan'ın küçük oğulları Gök Han, Dağ Han ve Deniz Han'ın soyundan gelen boylar. Obanın sol kolunu korurlar.\n\nBoy armağanı: Kızıl Kanatlar ile göğe yükselebilirsin. Bozoklarla aranız soğuktur."
     },
     "Enemy": {
       "ad": "Erlik'in Ordusu",
@@ -29,27 +29,27 @@
   "CharacterClass": {
     "Archer": {
       "ad": "Okçu",
-      "aciklama": "Atının üstünden bile hedefini şaşırmayan usta okçu."
+      "aciklama": "Atının üstünden bile hedefini şaşırmayan usta okçu. Uzaktan ok yağdırır, düşmanı topuğundan vurup yavaşlatır.\n\nBaşlangıç: yay, deri zırh takımı."
     },
     "Fighter": {
       "ad": "Batur",
-      "aciklama": "Kılıcı ve kalkanıyla ön safta dövüşen yiğit."
+      "aciklama": "Silahsız da korkulan yiğit. Pençeleriyle art arda yumruk indirir, yakın dövüşte durdurulamaz.\n\nBaşlangıç: iki pençe, deri zırh takımı."
     },
     "Mage": {
       "ad": "Kam",
-      "aciklama": "Gök ile yer arasında yolculuk eden, ruhlarla konuşan şaman."
+      "aciklama": "Gök ile yer arasında yolculuk eden şaman. Kasırga çağırır, canını manaya çevirir; ileride Ateş ya da Ayaz yolunu seçer.\n\nBaşlangıç: asa, bez kaftan takımı."
     },
     "Priest": {
       "ad": "Otacı",
-      "aciklama": "Şifalı otları ve duaları ile yaraları saran şifacı."
+      "aciklama": "Şifalı otları ve dualarıyla yaraları saran şifacı. Dostlarını iyileştirir, zehri temizler, düşmüşleri diriltir.\n\nBaşlangıç: asa, bez kaftan takımı."
     },
     "Thief": {
       "ad": "Akıncı",
-      "aciklama": "Gölgelerden hızla çıkıp düşmanı gafil avlayan akıncı."
+      "aciklama": "Gölgelerden çıkıp düşmanı gafil avlayan akıncı. Gizlenir, zehirli hançerleriyle arkadan vurur, tekmesiyle sersemletir.\n\nBaşlangıç: iki hançer, deri zırh takımı."
     },
     "Warrior": {
       "ad": "Alp",
-      "aciklama": "Destanlara adı geçen, ağır silahlarla savaşan kahraman."
+      "aciklama": "Destanlara adı geçen ağır zırhlı yiğit. İki elli baltasıyla ön safta savaşır, yere vurup düşmanları sarsar, aldığı hasarı geri yansıtır.\n\nBaşlangıç: iki elli balta, bakır plaka zırh takımı."
     }
   },
   "UnitProfile": {
@@ -2046,13 +2046,280 @@
   },
   "Ability": {
     "Blizzard": {
-      "ad": "Ayaz Ata'nın Nefesi"
+      "ad": "Ayaz Ata'nın Nefesi",
+      "aciklama": "Ayaz Ata'nın dondurucu nefesi; geniş bir alana buz fırtınası yağdırır."
     },
     "Attack": {
-      "ad": "Saldırı"
+      "ad": "Saldırı",
+      "aciklama": "Elindeki silahla temel saldırı."
     },
     "Heal Over Time": {
-      "ad": "Umay'ın Şefkati"
+      "ad": "Umay'ın Şefkati",
+      "aciklama": "Umay Ana'nın şefkati; canı zamanla doldurur."
+    },
+    "Arrow AOE": {
+      "ad": "Ok Yağmuru",
+      "aciklama": "Çevredeki tüm düşmanlara ok yağdırır."
+    },
+    "Berserker Strikes": {
+      "ad": "Gözü Dönmüş Darbeler",
+      "aciklama": "Düşmana art arda üç kez vurur."
+    },
+    "Ground Slam": {
+      "ad": "Yer Sarsıntısı",
+      "aciklama": "Silahını yere vurup çevresindekileri sarsar."
+    },
+    "Knock Back": {
+      "ad": "Savuruş",
+      "aciklama": "Düşmana vurup onu geriye savurur."
+    },
+    "Laser Explosion": {
+      "ad": "Gök Gürültüsü",
+      "aciklama": "Çevresine yıldırım gibi çarpan bir patlama saçar."
+    },
+    "Penetrating Shot": {
+      "ad": "Zırh Delen",
+      "aciklama": "Zırhı hiçe sayan güçlü bir atış."
+    },
+    "Piercing Shot": {
+      "ad": "Derin Yara",
+      "aciklama": "Derin bir yara açar, düşmanın tüm değerlerini düşürür."
+    },
+    "Punch Combo": {
+      "ad": "Yumruk Yağmuru",
+      "aciklama": "Hedefe art arda üç yumruk indirir."
+    },
+    "Shield Slam": {
+      "ad": "Kalkan Darbesi",
+      "aciklama": "Kalkanıyla vurup hedefi 3 saniye sersemletir."
+    },
+    "Slowing Shot": {
+      "ad": "Topuk Oku",
+      "aciklama": "Düşmanın dizine ok atıp onu yavaşlatır."
+    },
+    "Stun Kick": {
+      "ad": "Sersemleten Tekme",
+      "aciklama": "Düşmanı öyle tekmeler ki 3 saniye sersemler."
+    },
+    "Threatening Strike": {
+      "ad": "Meydan Okuma",
+      "aciklama": "Düşmanın bütün öfkesini üstüne çeken bir vuruş."
+    },
+    "Back Stab": {
+      "ad": "Sırttan Vuruş",
+      "aciklama": "Arkadan saldırıp ağır hasar verir."
+    },
+    "Double Attack": {
+      "ad": "Çifte Vuruş",
+      "aciklama": "Art arda iki kez vurur."
+    },
+    "Sneak Attack": {
+      "ad": "Pusu",
+      "aciklama": "Gizlenmişken saldırır, fazladan hasar verir."
+    },
+    "Dragon Breath": {
+      "ad": "Ejder Soluğu",
+      "aciklama": "Düşmanı alevlere boğar."
+    },
+    "Fire Projectile": {
+      "ad": "Ateş Topu",
+      "aciklama": "Hedefe bir ateş topu fırlatır."
+    },
+    "Healing Explosion": {
+      "ad": "Gün Işığı Patlaması",
+      "aciklama": "Kamdan parlak bir ışık patlaması yayılır, düşmanları yakar."
+    },
+    "Ice Projectile": {
+      "ad": "Buz Oku",
+      "aciklama": "Hedefe bir buz oku fırlatır."
+    },
+    "Ice Shards": {
+      "ad": "Buz Kıymıkları",
+      "aciklama": "Buz kıymıkları düşmanları olduğu yerde dondurur."
+    },
+    "Life Drain": {
+      "ad": "Can Emme",
+      "aciklama": "Hedefin canını emip kendine aktarır."
+    },
+    "Meteor Shower": {
+      "ad": "Göktaşı Yağmuru",
+      "aciklama": "Gökten ateşli taşlar yağdırır."
+    },
+    "Ring Of Fire": {
+      "ad": "Ateş Çemberi",
+      "aciklama": "Yerde yanan bir ateş çemberi açar."
+    },
+    "Tornado": {
+      "ad": "Kasırga",
+      "aciklama": "Bir kasırga hedefi havaya kaldırır."
+    },
+    "Dragon Mount": {
+      "ad": "Ejder Binek",
+      "aciklama": "Üstüne binip gezmek için bir ejderha çağırır."
+    },
+    "Capture Beast": {
+      "ad": "Hayvan Evcilleştir",
+      "aciklama": "Yaratıkların dilinden anlarsın; birini evcilleştirip yoldaş edin."
+    },
+    "Alchemy": {
+      "ad": "Simya",
+      "aciklama": "Otları karıştırıp güç veren ve canı tazeleyen iksirler yap."
+    },
+    "Blacksmithing": {
+      "ad": "Demircilik",
+      "aciklama": "Örsün başında silah ve zırh döv."
+    },
+    "Cooking": {
+      "ad": "Aşçılık",
+      "aciklama": "Yol azığı ve doyurucu yemekler pişir."
+    },
+    "Inscription": {
+      "ad": "Yazıcılık",
+      "aciklama": "Parşömenlere tılsımlı tomarlar yaz."
+    },
+    "Jewelry": {
+      "ad": "Kuyumculuk",
+      "aciklama": "Değerli taşları işleyip takı yap."
+    },
+    "Leatherworking": {
+      "ad": "Dericilik",
+      "aciklama": "Postlardan deri zırh dik."
+    },
+    "Tailoring": {
+      "ad": "Terzilik",
+      "aciklama": "Kumaştan giysi ve kaftan dik."
+    },
+    "WoodWorking": {
+      "ad": "Marangozluk",
+      "aciklama": "Keresteden silah ve eşya yap."
+    },
+    "Fishing": {
+      "ad": "Balıkçılık",
+      "aciklama": "Göllerden ve derelerden balık tut."
+    },
+    "Herbalism": {
+      "ad": "Otacılık",
+      "aciklama": "Şifalı otları ve çiçekleri topla."
+    },
+    "Logging": {
+      "ad": "Odunculuk",
+      "aciklama": "Ağaç kesip kereste için kütük topla."
+    },
+    "Mining": {
+      "ad": "Madencilik",
+      "aciklama": "Kayalardan cevher ve kristal çıkar."
+    },
+    "Cure Poison": {
+      "ad": "Zehir Temizle",
+      "aciklama": "Hedefin kanındaki zehri temizler."
+    },
+    "Heal": {
+      "ad": "Şifa",
+      "aciklama": "Hedefi anında iyileştirir."
+    },
+    "Healing Channel": {
+      "ad": "Şifa Akışı",
+      "aciklama": "Hedefin canını yavaş yavaş doldurur."
+    },
+    "Healing Circle": {
+      "ad": "Şifa Çemberi",
+      "aciklama": "Yerde iyileştiren bir ışık çemberi açar."
+    },
+    "Healing Projectile": {
+      "ad": "Şifa Işığı",
+      "aciklama": "Dost birliklere iyileştiren bir ışık gönderir."
+    },
+    "Life Exchange": {
+      "ad": "Can Takası",
+      "aciklama": "Canından verip mana kazanırsın."
+    },
+    "Restore Mana": {
+      "ad": "Mana Toplama",
+      "aciklama": "Manayı zamanla doldurur."
+    },
+    "Revive Ally": {
+      "ad": "Dirilt",
+      "aciklama": "Yerin altından fışkıran gün ışığı düşmüş dostunu diriltir."
+    },
+    "Revive Enemy": {
+      "ad": "Ölü Kaldır",
+      "aciklama": "Ölmüş düşmanın bedenini kara güçle ayağa kaldırır."
+    },
+    "Blood Shield": {
+      "ad": "Kan Kalkanı",
+      "aciklama": "Saldıranların canını emen bir kalkan."
+    },
+    "Blue Wings": {
+      "ad": "Mavi Kanatlar",
+      "aciklama": "Kanatlanıp uçarsın."
+    },
+    "Charm Pet": {
+      "ad": "Hayvan Büyüle",
+      "aciklama": "Bir yaratığı büyüleyip yoldaşın yaparsın."
+    },
+    "Cyan Wings": {
+      "ad": "Turkuaz Kanatlar",
+      "aciklama": "Kanatlanıp uçarsın."
+    },
+    "Free Revive": {
+      "ad": "Ölümsüzlük Tılsımı",
+      "aciklama": "Ölünce olduğun yerde dirilirsin."
+    },
+    "Glide": {
+      "ad": "Süzülme",
+      "aciklama": "Yere yavaşça süzülerek inersin."
+    },
+    "Green Wings": {
+      "ad": "Yeşil Kanatlar",
+      "aciklama": "Kanatlanıp uçarsın."
+    },
+    "Magenta Wings": {
+      "ad": "Erguvan Kanatlar",
+      "aciklama": "Kanatlanıp uçarsın."
+    },
+    "Orange Wings": {
+      "ad": "Turuncu Kanatlar",
+      "aciklama": "Kanatlanıp uçarsın."
+    },
+    "Red Wings": {
+      "ad": "Kızıl Kanatlar",
+      "aciklama": "Kanatlanıp uçarsın."
+    },
+    "Violet Wings": {
+      "ad": "Mor Kanatlar",
+      "aciklama": "Kanatlanıp uçarsın."
+    },
+    "White Wings": {
+      "ad": "Ak Kanatlar",
+      "aciklama": "Kanatlanıp uçarsın."
+    },
+    "Yellow Wings": {
+      "ad": "Sarı Kanatlar",
+      "aciklama": "Kanatlanıp uçarsın."
+    },
+    "Poison Weapons": {
+      "ad": "Zehirli Silahlar",
+      "aciklama": "Silahlarını zehre bularsın; vurduğun düşman zehirlenir."
+    },
+    "Reflect Damage": {
+      "ad": "Hasar Yansıtma",
+      "aciklama": "Aldığın bütün hasarı saldırana geri yansıtırsın."
+    },
+    "Shield Wall": {
+      "ad": "Kalkan Duvarı",
+      "aciklama": "Aldığın bütün hasarı yarıya indirir."
+    },
+    "Stealth": {
+      "ad": "Gizlenme",
+      "aciklama": "Gölgelere karışıp görünmez olursun."
+    },
+    "Teleport Dungeon": {
+      "ad": "Mağaraya Işınlan",
+      "aciklama": "Seni Erlik'in Mağarası'na ışınlar."
+    },
+    "Taunt": {
+      "ad": "Kışkırtma",
+      "aciklama": "Düşmanı kışkırtıp sana saldırmasını sağlar."
     }
   },
   "Skill": {

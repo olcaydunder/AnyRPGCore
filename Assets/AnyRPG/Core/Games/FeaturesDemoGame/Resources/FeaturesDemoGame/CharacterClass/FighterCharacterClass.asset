@@ -16,11 +16,11 @@ MonoBehaviour:
   displayName: "Batur"
   icon: {fileID: 21300000, guid: 653bc5e3dee54474ebb38d07ce7fc1eb, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: "K\u0131l\u0131c\u0131 ve kalkan\u0131yla \u00f6n safta d\u00f6v\u00fc\u015fen yi\u011fit."
+  description: "Silahs\u0131z da korkulan yi\u011fit. Pen\u00e7eleriyle art arda yumruk indirir, yak\u0131n d\u00f6v\u00fc\u015fte durdurulamaz.\n\nBa\u015flang\u0131\u00e7: iki pen\u00e7e, deri z\u0131rh tak\u0131m\u0131."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0
-  newGameOption: 0
+  newGameOption: 1
   equipmentNames:
   - Basic Claw
   - Basic Claw

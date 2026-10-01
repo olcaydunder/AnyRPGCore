@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: HealAbility
   m_EditorClassIdentifier: 
   resourceName: Heal
-  displayName: 
+  displayName: "\u015eifa"
   icon: {fileID: 21300000, guid: 2751a814b29fb8448b7f59856c5042f9, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: heal instantly
+  description: "Hedefi an\u0131nda iyile\u015ftirir."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

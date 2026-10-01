@@ -196,7 +196,7 @@ namespace AnyRPG {
         protected override void ProcessMarkComplete(UnitController sourceUnitController, bool printMessages) {
             base.ProcessMarkComplete(sourceUnitController, printMessages);
             if (printMessages == true) {
-                sourceUnitController.WriteMessageFeedMessage(string.Format("{0} Complete!", DisplayName));
+                sourceUnitController.WriteMessageFeedMessage(string.Format("{0} tamamlandı!", DisplayName));
             }
         }
 
@@ -240,7 +240,7 @@ namespace AnyRPG {
             //Debug.Log($"{ResourceName}.Quest.ProcessAcceptQuest({sourceUnitController.gameObject.name})");
 
             base.ProcessAcceptQuest(sourceUnitController);
-            sourceUnitController.WriteMessageFeedMessage($"Quest Accepted: {DisplayName}");
+            sourceUnitController.WriteMessageFeedMessage($"Yeni görev: {DisplayName}");
         }
 
         public override int GetObjectiveCurrentAmount(UnitController sourceUnitController, string objectiveTypeName, string objectiveName) {
@@ -316,7 +316,7 @@ namespace AnyRPG {
                 sourceUnitController.CharacterCurrencyManager.AddCurrency(currencyNode.currency, currencyNode.Amount);
                 List<CurrencyNode> tmpCurrencyNode = new List<CurrencyNode>();
                 tmpCurrencyNode.Add(currencyNode);
-                messageLogServer.WriteSystemMessage(sourceUnitController, $"Gained {currencyConverter.RecalculateValues(tmpCurrencyNode, false).Value.Replace("\n", ", ")}");
+                messageLogServer.WriteSystemMessage(sourceUnitController, $"Kazandın: {currencyConverter.RecalculateValues(tmpCurrencyNode, false).Value.Replace("\n", ", ")}");
             }
 
             // item rewards first in case not enough space in inventory

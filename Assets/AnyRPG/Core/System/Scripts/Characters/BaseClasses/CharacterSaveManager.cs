@@ -985,7 +985,7 @@ namespace AnyRPG {
                     && statusEffectNode.StatusEffect.SaveEffect == true
                     && statusEffectNode.AbilityEffectContext.AbilityCaster == (unitController as IAbilityCaster)) {
                     StatusEffectSaveData statusEffectSaveData = new StatusEffectSaveData();
-                    statusEffectSaveData.StatusEffectName = statusEffectNode.StatusEffect.DisplayName;
+                    statusEffectSaveData.StatusEffectName = statusEffectNode.StatusEffect.ResourceName;
                     statusEffectSaveData.RemainingSeconds = (int)statusEffectNode.GetRemainingDuration();
                     saveData.StatusEffectSaveData.Add(statusEffectSaveData);
                 }

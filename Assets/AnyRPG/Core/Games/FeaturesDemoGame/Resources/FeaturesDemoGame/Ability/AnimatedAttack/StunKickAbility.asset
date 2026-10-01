@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: StunKickAbility
   m_EditorClassIdentifier: 
   resourceName: Stun Kick
-  displayName: 
+  displayName: "Sersemleten Tekme"
   icon: {fileID: 21300000, guid: 5288199675fcb7d49a5adabbf2ec2457, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: Kick your enemy so hard they are stunned for 3 seconds
+  description: "D\u00fc\u015fman\u0131 \u00f6yle tekmeler ki 3 saniye sersemler."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

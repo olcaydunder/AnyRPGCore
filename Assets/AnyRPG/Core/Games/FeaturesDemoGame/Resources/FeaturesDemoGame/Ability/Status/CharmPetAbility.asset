@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: CharmPetAbility
   m_EditorClassIdentifier: 
   resourceName: Charm Pet
-  displayName: 
+  displayName: "Hayvan B\u00fcy\u00fcle"
   icon: {fileID: 21300000, guid: dc6125c4735894c41a7260c58c63cd1a, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: Use your knowledge of creatures to tame a beast.
+  description: "Bir yarat\u0131\u011f\u0131 b\u00fcy\u00fcleyip yolda\u015f\u0131n yapars\u0131n."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

@@ -25,10 +25,10 @@ namespace AnyRPG {
             bool completeBefore = IsComplete(sourceUnitController);
             SetCurrentAmount(sourceUnitController, CurrentAmount(sourceUnitController) + 1);
             if (CurrentAmount(sourceUnitController) <= Amount && questBase.PrintObjectiveCompletionMessages) {
-                sourceUnitController.WriteMessageFeedMessage(string.Format("Use {0}: {1}/{2}", baseAbility.DisplayName, CurrentAmount(sourceUnitController), Amount));
+                sourceUnitController.WriteMessageFeedMessage(string.Format("{0}: {1}/{2}", baseAbility.DisplayName, CurrentAmount(sourceUnitController), Amount));
             }
             if (completeBefore == false && IsComplete(sourceUnitController) && questBase.PrintObjectiveCompletionMessages) {
-                sourceUnitController.WriteMessageFeedMessage(string.Format("Use {0}: Objective Complete", baseAbility.DisplayName));
+                sourceUnitController.WriteMessageFeedMessage(string.Format("{0}: tamamlandı", baseAbility.DisplayName));
             }
             questBase.CheckCompletion(sourceUnitController);
         }
@@ -50,7 +50,7 @@ namespace AnyRPG {
         }
 
         public override string GetUnformattedStatus(UnitController sourceUnitController) {
-            return "Use " + DisplayName + ": " + Mathf.Clamp(CurrentAmount(sourceUnitController), 0, Amount) + "/" + Amount;
+            return DisplayName + ": " + Mathf.Clamp(CurrentAmount(sourceUnitController), 0, Amount) + "/" + Amount;
         }
 
         public override void SetupScriptableObjects(SystemGameManager systemGameManager, QuestBase quest) {

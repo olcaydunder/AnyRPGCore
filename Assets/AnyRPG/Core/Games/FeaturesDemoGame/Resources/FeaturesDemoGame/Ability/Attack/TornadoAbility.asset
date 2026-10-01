@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: TornadoAbility
   m_EditorClassIdentifier: 
   resourceName: Tornado
-  displayName: 
+  displayName: "Kas\u0131rga"
   icon: {fileID: 21300000, guid: be7e5e1785cf12d4b9a22ea811b6064b, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: A tornado levitates the target
+  description: "Bir kas\u0131rga hedefi havaya kald\u0131r\u0131r."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

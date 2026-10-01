@@ -32,10 +32,10 @@ namespace AnyRPG {
                 || SystemDataUtility.MatchResource(killedUnitController.BaseCharacter.Faction.ResourceName, targetName)) {
                 SetCurrentAmount(sourceUnitController, CurrentAmount(sourceUnitController) + 1);
                 if (CurrentAmount(sourceUnitController) <= Amount && questBase.PrintObjectiveCompletionMessages && CurrentAmount(sourceUnitController) != 0) {
-                    sourceUnitController.WriteMessageFeedMessage(string.Format("Kill {0}: {1}/{2}", DisplayName, Mathf.Clamp(CurrentAmount(sourceUnitController), 0, Amount), Amount));
+                    sourceUnitController.WriteMessageFeedMessage(string.Format("{0}: {1}/{2}", DisplayName, Mathf.Clamp(CurrentAmount(sourceUnitController), 0, Amount), Amount));
                 }
                 if (completeBefore == false && IsComplete(sourceUnitController) && questBase.PrintObjectiveCompletionMessages) {
-                    sourceUnitController.WriteMessageFeedMessage(string.Format("Kill {0}: Objective Complete", CurrentAmount(sourceUnitController), DisplayName));
+                    sourceUnitController.WriteMessageFeedMessage(string.Format("{1}: tamamlandı", CurrentAmount(sourceUnitController), DisplayName));
                 }
                 questBase.CheckCompletion(sourceUnitController);
             }

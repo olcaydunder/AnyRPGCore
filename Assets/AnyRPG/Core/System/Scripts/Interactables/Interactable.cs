@@ -35,7 +35,7 @@ namespace AnyRPG {
                     return false;
                 }
                 if (sourceUnitController.CharacterInventoryManager.HasItem(keyName) == false) {
-                    sourceUnitController.UnitEventController.NotifyOnWriteMessageFeedMessage($"You do not have the correct key to interact with {DisplayName}");
+                    sourceUnitController.UnitEventController.NotifyOnWriteMessageFeedMessage($"{DisplayName} için doğru anahtarın yok");
                     return false;
                 }
                 if (removeKeyOnInteract == true) {

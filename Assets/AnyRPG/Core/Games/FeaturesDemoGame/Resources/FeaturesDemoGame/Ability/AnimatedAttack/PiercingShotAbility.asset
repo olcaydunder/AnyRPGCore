@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: PiercingShotAbility
   m_EditorClassIdentifier: 
   resourceName: Piercing Shot
-  displayName: 
+  displayName: "Derin Yara"
   icon: {fileID: 21300000, guid: 8da1cad54df0ad34e98da24421fe78de, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: A deep piercing wound that reduces all stats
+  description: "Derin bir yara a\u00e7ar, d\u00fc\u015fman\u0131n t\u00fcm de\u011ferlerini d\u00fc\u015f\u00fcr\u00fcr."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

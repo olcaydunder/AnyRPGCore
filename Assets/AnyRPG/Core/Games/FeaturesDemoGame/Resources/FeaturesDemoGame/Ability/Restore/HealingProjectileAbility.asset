@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: HealingProjectileAbility
   m_EditorClassIdentifier: 
   resourceName: Healing Projectile
-  displayName: 
+  displayName: "\u015eifa I\u015f\u0131\u011f\u0131"
   icon: {fileID: 21300000, guid: 4187758087faed14c9a3baa3d72d2ced, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: heal friendly units
+  description: "Dost birliklere iyile\u015ftiren bir \u0131\u015f\u0131k g\u00f6nderir."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

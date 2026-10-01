@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: MeteorShowerAbility
   m_EditorClassIdentifier: 
   resourceName: Meteor Shower
-  displayName: 
+  displayName: "G\u00f6kta\u015f\u0131 Ya\u011fmuru"
   icon: {fileID: 21300000, guid: 6cf6caa8cb0fea9428179bf08e0255ee, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: a meteor shower
+  description: "G\u00f6kten ate\u015fli ta\u015flar ya\u011fd\u0131r\u0131r."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

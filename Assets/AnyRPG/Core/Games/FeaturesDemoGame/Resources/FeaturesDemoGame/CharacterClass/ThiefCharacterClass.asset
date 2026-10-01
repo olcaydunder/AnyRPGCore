@@ -16,11 +16,11 @@ MonoBehaviour:
   displayName: "Ak\u0131nc\u0131"
   icon: {fileID: 21300000, guid: 263cbe8a4d2bfd3428641051879e3f9a, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: "G\u00f6lgelerden h\u0131zla \u00e7\u0131k\u0131p d\u00fc\u015fman\u0131 gafil avlayan ak\u0131nc\u0131."
+  description: "G\u00f6lgelerden \u00e7\u0131k\u0131p d\u00fc\u015fman\u0131 gafil avlayan ak\u0131nc\u0131. Gizlenir, zehirli han\u00e7erleriyle arkadan vurur, tekmesiyle sersemletir.\n\nBa\u015flang\u0131\u00e7: iki han\u00e7er, deri z\u0131rh tak\u0131m\u0131."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0
-  newGameOption: 0
+  newGameOption: 1
   equipmentNames:
   - Medieval Dagger
   - Medieval Dagger

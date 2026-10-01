@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: RestoreManaAbility
   m_EditorClassIdentifier: 
   resourceName: Restore Mana
-  displayName: 
+  displayName: "Mana Toplama"
   icon: {fileID: 21300000, guid: da9695f095eb12143a601785777f06b5, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: Restore mana over time
+  description: "Manay\u0131 zamanla doldurur."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

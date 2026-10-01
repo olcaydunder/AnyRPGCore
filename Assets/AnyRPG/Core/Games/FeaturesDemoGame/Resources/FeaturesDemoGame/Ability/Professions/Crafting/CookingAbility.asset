@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: CookingAbility
   m_EditorClassIdentifier: 
   resourceName: Cooking
-  displayName: 
+  displayName: "A\u015f\u00e7\u0131l\u0131k"
   icon: {fileID: 21300000, guid: 55a7d91dd3f9c4641814d49c55b5ebce, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: Cooking
+  description: "Yol az\u0131\u011f\u0131 ve doyurucu yemekler pi\u015fir."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: HealingCircleAbility
   m_EditorClassIdentifier: 
   resourceName: Healing Circle
-  displayName: 
+  displayName: "\u015eifa \u00c7emberi"
   icon: {fileID: 21300000, guid: 4ce58f4219c97f046a192f209cf44b45, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: a healing circle on the ground
+  description: "Yerde iyile\u015ftiren bir \u0131\u015f\u0131k \u00e7emberi a\u00e7ar."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

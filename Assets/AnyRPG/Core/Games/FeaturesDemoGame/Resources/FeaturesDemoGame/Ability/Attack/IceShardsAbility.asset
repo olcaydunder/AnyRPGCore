@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: IceShardsAbility
   m_EditorClassIdentifier: 
   resourceName: Ice Shards
-  displayName: 
+  displayName: "Buz K\u0131ym\u0131klar\u0131"
   icon: {fileID: 21300000, guid: 1b719a97d6ea9f94a8de871c79b5a9e9, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: Shards of ice freeze enemies in place
+  description: "Buz k\u0131ym\u0131klar\u0131 d\u00fc\u015fmanlar\u0131 oldu\u011fu yerde dondurur."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

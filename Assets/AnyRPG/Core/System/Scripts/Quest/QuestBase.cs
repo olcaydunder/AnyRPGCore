@@ -233,7 +233,7 @@ namespace AnyRPG {
         public virtual string GetObjectiveDescription(UnitController sourceUnitController) {
 
             Color titleColor = GetTitleColor();
-            return string.Format("<size=30><b><color=#{0}>{1}</color></b></size>\n\n<size=18>{2}</size>\n\n<b><size=24>Objectives:</size></b>\n\n<size=18>{3}</size>", ColorUtility.ToHtmlStringRGB(titleColor), DisplayName, Description, GetUnformattedObjectiveList(sourceUnitController));
+            return string.Format("<size=30><b><color=#{0}>{1}</color></b></size>\n\n<size=18>{2}</size>\n\n<b><size=24>Hedefler:</size></b>\n\n<size=18>{3}</size>", ColorUtility.ToHtmlStringRGB(titleColor), DisplayName, Description, GetUnformattedObjectiveList(sourceUnitController));
 
         }
 
