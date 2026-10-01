@@ -110,6 +110,23 @@ namespace AnyRPG {
             virtualPresses.Clear();
             return consumedPresses;
         }
+
+        // the on-screen attack button: attack the current enemy target, or the nearest enemy (PlayerController.HandleMobileAttack)
+        private static float attackRequestTime = -10f;
+
+        public static void RequestAttack() {
+            attackRequestTime = Time.unscaledTime;
+        }
+
+        /// <summary>
+        /// true once after the attack button was pressed; a press older than half a second (for example made while
+        /// the player could not act) is dropped instead of firing later by surprise
+        /// </summary>
+        public static bool ConsumeAttackRequest() {
+            bool requested = Time.unscaledTime - attackRequestTime < 0.5f;
+            attackRequestTime = -10f;
+            return requested;
+        }
     }
 
     /// <summary>

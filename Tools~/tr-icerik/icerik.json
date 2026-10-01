@@ -297,6 +297,10 @@
     },
     "Woodworking Supplies Vendor": {
       "ad": "Marangoz Malzemecisi"
+    },
+    "Kara Yek": {
+      "ad": "Kara Yek",
+      "aciklama": "Erlik'in kara ruhlarından biri. Obanın güneyindeki çayırlarda dolaşır, yalnız yolcuya saldırır."
     }
   },
   "SceneNode": {

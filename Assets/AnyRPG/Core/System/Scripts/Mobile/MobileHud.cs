@@ -40,7 +40,7 @@ namespace AnyRPG {
 
             // action buttons, bottom right: the big attack button sits under the thumb, the others around it
             Vector2 bottomRight = new Vector2(1f, 0f);
-            CreateActionButton("Saldır", "ACCEPT", bottomRight, new Vector2(-150f, 150f), 150f, 26);
+            CreateActionButton("Saldır", MobileInput.RequestAttack, bottomRight, new Vector2(-150f, 150f), 150f, 26);
             CreateActionButton("Zıpla", "JUMP", bottomRight, new Vector2(-320f, 95f), 100f, 20);
             CreateActionButton("Hedef", "NEXTTARGET", bottomRight, new Vector2(-305f, 255f), 100f, 20);
             CreateActionButton("Koş/Yürü", "TOGGLERUN", bottomRight, new Vector2(-125f, 320f), 90f, 16);
@@ -71,6 +71,10 @@ namespace AnyRPG {
         }
 
         private void CreateActionButton(string label, string actionName, Vector2 anchor, Vector2 position, float size, int fontSize) {
+            CreateActionButton(label, () => MobileInput.PressVirtualKey(actionName), anchor, position, size, fontSize);
+        }
+
+        private void CreateActionButton(string label, System.Action onPress, Vector2 anchor, Vector2 position, float size, int fontSize) {
             GameObject buttonObject = CreateCircle(transform, label + "Button", anchor, position, size, new Color(0.1f, 0.08f, 0.06f, 0.55f), new Color(0.85f, 0.7f, 0.4f, 0.85f));
             Image image = buttonObject.GetComponent<Image>();
             Button button = buttonObject.AddComponent<Button>();
@@ -79,7 +83,7 @@ namespace AnyRPG {
             colors.pressedColor = new Color(1f, 0.85f, 0.5f, 1f);
             button.colors = colors;
             button.onClick.AddListener(() => {
-                MobileInput.PressVirtualKey(actionName);
+                onPress();
                 MobileFeedback.Tap();
             });
 

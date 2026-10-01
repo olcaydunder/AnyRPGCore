@@ -924,13 +924,28 @@ namespace AnyRPG {
             }
         }
 
+        // actions pressed by on-screen buttons in the previous frame
+        private readonly List<InputActionNode> virtualPressedNodes = new List<InputActionNode>();
+
         /// <summary>
         /// apply presses queued by on-screen touch buttons (see MobileInput.PressVirtualKey)
         /// </summary>
         private void RegisterVirtualKeyPresses() {
+            // A real key goes down and comes back up, and the key up unlocks the action for the next press
+            // (InputActionNode.keyLocked). The on-screen buttons only send the press, so send the release one frame later;
+            // without it every action worked once only (jump once, run/walk toggled once, map opened once).
+            foreach (InputActionNode releasedNode in virtualPressedNodes) {
+                releasedNode.RegisterKeyUp();
+            }
+            virtualPressedNodes.Clear();
+
             foreach (string actionName in MobileInput.ConsumeVirtualPresses()) {
-                if (inputActionNodes.ContainsKey(actionName)) {
-                    inputActionNodes[actionName].RegisterKeyPress();
+                InputActionNode inputActionNode;
+                if (inputActionNodes.TryGetValue(actionName, out inputActionNode)) {
+                    // unlock first in case a key on a connected keyboard still holds the lock
+                    inputActionNode.UnRegisterKeyPress(true);
+                    inputActionNode.RegisterKeyPress();
+                    virtualPressedNodes.Add(inputActionNode);
                 }
             }
         }

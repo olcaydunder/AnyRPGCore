@@ -290,6 +290,8 @@ namespace AnyRPG {
 
             HandleRightMouseClick();
 
+            HandleMobileAttack();
+
             ProcessGamepadButtonClicks();
 
             RegisterAbilityButtonPresses();
@@ -305,7 +307,7 @@ namespace AnyRPG {
 
         private void ToggleStrafe() {
             strafeModeActive = !strafeModeActive;
-            messageFeedManager.WriteMessage($"Strafe Mode: {(strafeModeActive ? "On" : "Off")}");
+            messageFeedManager.WriteMessage($"Yan adım modu: {(strafeModeActive ? "açık" : "kapalı")}");
         }
 
         private void CheckToggleMouseLook() {
@@ -316,7 +318,7 @@ namespace AnyRPG {
 
         private void ToggleMouseLook() {
             mouseLookActive = !mouseLookActive;
-            messageFeedManager.WriteMessage($"Mouse Look: {(mouseLookActive ? "On" : "Off")}");
+            messageFeedManager.WriteMessage($"Fareyle bakış: {(mouseLookActive ? "açık" : "kapalı")}");
         }
 
         private Vector3 NormalizedVelocity(Vector3 inputVelocity) {
@@ -339,7 +341,7 @@ namespace AnyRPG {
                     eventParamProperties.simpleParams.BoolParam = false;
                 }
                 SystemEventManager.TriggerEvent("OnToggleRun", eventParamProperties);
-                messageFeedManager.WriteMessage("Walk: " + playerManagerClient.ActiveUnitController.Walking.ToString());
+                messageFeedManager.WriteMessage(playerManagerClient.ActiveUnitController.Walking ? "Yürüyorsun" : "Koşuyorsun");
                 ToggleRunHandler(playerManagerClient.ActiveUnitController.Walking);
             }
         }
@@ -713,6 +715,51 @@ namespace AnyRPG {
                 //Debug.Log("Tab Target Registered");
                 GetNextTabTarget(playerManagerClient.UnitController.Target, false, false);
             }
+        }
+
+        /// <summary>
+        /// on-screen attack button: keep hitting the current enemy target, otherwise pick the nearest living enemy
+        /// in any direction, then run to it and attack (same as tapping the enemy)
+        /// </summary>
+        private void HandleMobileAttack() {
+            if (MobileInput.ConsumeAttackRequest() == false) {
+                return;
+            }
+            InteractableBase target = playerManagerClient.UnitController.Target;
+            if (target == null || ValidEnemyTarget(target) == false) {
+                target = FindNearestEnemy();
+            }
+            if (target == null) {
+                messageFeedManager.WriteMessage("Yakında düşman yok");
+                return;
+            }
+            RightMouseInteraction(target);
+        }
+
+        private InteractableBase FindNearestEnemy() {
+            int mask = (1 << LayerMask.NameToLayer("CharacterUnit")) | (1 << LayerMask.NameToLayer("Player"));
+            Collider[] hitColliders = new Collider[100];
+            Vector3 position = playerManagerClient.ActiveUnitController.transform.position;
+            int hitCount = playerManagerClient.UnitController.PhysicsScene.OverlapSphere(position, systemConfigurationManager.TabTargetMaxDistance, hitColliders, mask, QueryTriggerInteraction.UseGlobal);
+            InteractableBase nearest = null;
+            float nearestDistance = float.MaxValue;
+            for (int i = 0; i < hitCount; i++) {
+                Collider hitCollider = hitColliders[i];
+                if (hitCollider == null || hitCollider.gameObject == playerManagerClient.UnitController.gameObject) {
+                    continue;
+                }
+                InteractableBase interactable = hitCollider.gameObject.GetComponent<InteractableBase>();
+                if (interactable == null || interactable.CharacterTarget == null || interactable.IsMouseOverBlocked()
+                    || ValidEnemyTarget(interactable.CharacterTarget) == false) {
+                    continue;
+                }
+                float distance = Vector3.Distance(position, interactable.transform.position);
+                if (distance < nearestDistance) {
+                    nearest = interactable.CharacterTarget;
+                    nearestDistance = distance;
+                }
+            }
+            return nearest;
         }
 
         private bool ValidEnemyTarget(InteractableBase interactable) {
