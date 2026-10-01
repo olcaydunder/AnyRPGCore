@@ -216,6 +216,7 @@ namespace AnyRPG {
         private readonly HashSet<int> scaledCanvases = new HashSet<int>();
         private readonly Vector3[] windowCorners = new Vector3[4];
         private float nextCanvasScan = 0f;
+        private float nextWindowFit = 0f;
         private float nextAutoSave = 0f;
 
         private SystemGameManager systemGameManager = null;
@@ -253,7 +254,10 @@ namespace AnyRPG {
                 UpdateTouchButtons();
                 ScaleCanvases();
             }
-            FitWindowsOnScreen();
+            if (Time.unscaledTime >= nextWindowFit) {
+                nextWindowFit = Time.unscaledTime + 0.2f;
+                FitWindowsOnScreen();
+            }
             if (Time.unscaledTime >= nextAutoSave) {
                 nextAutoSave = Time.unscaledTime + autoSaveInterval;
                 AutoSave();

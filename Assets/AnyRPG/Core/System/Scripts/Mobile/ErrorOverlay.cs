@@ -24,12 +24,17 @@ namespace AnyRPG {
         private static ErrorOverlay instance = null;
         private static readonly object entriesLock = new object();
         private static readonly List<ErrorEntry> entries = new List<ErrorEntry>();
+        private static readonly List<string> warnings = new List<string>();
+        private const int maxWarnings = 15;
         private static int version = 0;
 
         private int shownVersion = -1;
+        private float fps = 0f;
+        private float nextStatusRefresh = 0f;
         private GameObject canvasObject = null;
         private GameObject badgeObject = null;
         private Text badgeText = null;
+        private Image badgeImage = null;
         private GameObject panelObject = null;
         private Text panelText = null;
         private Font font = null;
@@ -46,6 +51,17 @@ namespace AnyRPG {
         }
 
         private static void HandleLog(string message, string stackTrace, LogType logType) {
+            if (logType == LogType.Warning) {
+                lock (entriesLock) {
+                    if (warnings.Contains(message) == false) {
+                        warnings.Add(message);
+                        if (warnings.Count > maxWarnings) {
+                            warnings.RemoveAt(0);
+                        }
+                    }
+                }
+                return;
+            }
             if (logType != LogType.Error && logType != LogType.Exception && logType != LogType.Assert) {
                 return;
             }
@@ -88,7 +104,11 @@ namespace AnyRPG {
 
         private static string BuildReport(bool includeStack) {
             StringBuilder builder = new StringBuilder();
+            builder.Append(BuildStatus()).Append('\n');
             lock (entriesLock) {
+                if (entries.Count == 0) {
+                    builder.Append("Hata yok.\n");
+                }
                 for (int i = entries.Count - 1; i >= 0; i--) {
                     ErrorEntry entry = entries[i];
                     builder.Append(entry.count > 1 ? "(" + entry.count + "x) " : "").Append(entry.message).Append('\n');
@@ -96,26 +116,72 @@ namespace AnyRPG {
                         builder.Append(entry.stack);
                     }
                 }
+                if (warnings.Count > 0) {
+                    builder.Append("\nUyarılar:\n");
+                    for (int i = warnings.Count - 1; i >= 0; i--) {
+                        builder.Append("- ").Append(warnings[i]).Append('\n');
+                    }
+                }
+            }
+            return builder.ToString();
+        }
+
+        /// <summary>
+        /// a one line summary of the game state, so a screenshot shows where things stopped
+        /// </summary>
+        private static string BuildStatus() {
+            StringBuilder builder = new StringBuilder();
+            builder.Append("Sürüm ").Append(Application.version)
+                .Append(" | ").Append(SystemInfo.deviceModel)
+                .Append(" | ").Append(SystemInfo.graphicsDeviceType)
+                .Append(" | ").Append(Screen.width).Append('x').Append(Screen.height)
+                .Append(" | FPS ").Append(instance != null ? instance.fps.ToString("0") : "?").Append('\n');
+            builder.Append("Sahneler:");
+            for (int i = 0; i < UnityEngine.SceneManagement.SceneManager.sceneCount; i++) {
+                builder.Append(' ').Append(UnityEngine.SceneManagement.SceneManager.GetSceneAt(i).name);
+            }
+            try {
+                SystemGameManager gameManager = FindAnyObjectByType<SystemGameManager>();
+                if (gameManager == null) {
+                    builder.Append(" | Oyun yöneticisi yok");
+                } else {
+                    PlayerManagerClient playerManagerClient = gameManager.PlayerManagerClient;
+                    builder.Append(" | Oyuncu: ").Append(playerManagerClient != null && playerManagerClient.PlayerUnitSpawned ? "var" : "yok");
+                    CharacterCreatorManager creator = gameManager.CharacterCreatorManager;
+                    builder.Append(" | Önizleme: ").Append(creator != null && creator.UnitController != null ? "var" : "yok");
+                    CameraManager cameraManager = gameManager.CameraManager;
+                    if (cameraManager != null && cameraManager.CharacterPreviewCamera != null) {
+                        builder.Append(" | Önizleme kamerası: ").Append(cameraManager.CharacterPreviewCamera.enabled ? "açık" : "kapalı");
+                    }
+                }
+            } catch (System.Exception exception) {
+                builder.Append(" | Durum okunamadı: ").Append(exception.Message);
             }
             return builder.ToString();
         }
 
         private void Update() {
+            if (Time.unscaledDeltaTime > 0f) {
+                fps = Mathf.Lerp(fps, 1f / Time.unscaledDeltaTime, 0.05f);
+            }
+            if (canvasObject == null) {
+                CreateOverlay();
+            }
             int currentVersion;
             int entryCount;
             lock (entriesLock) {
                 currentVersion = version;
                 entryCount = entries.Count;
             }
-            if (currentVersion == shownVersion || entryCount == 0) {
+            // refresh the open panel twice a second so the status line stays current
+            bool refreshPanel = panelObject.activeSelf && Time.unscaledTime >= nextStatusRefresh;
+            if (currentVersion == shownVersion && refreshPanel == false) {
                 return;
             }
+            nextStatusRefresh = Time.unscaledTime + 0.5f;
             shownVersion = currentVersion;
-            if (canvasObject == null) {
-                CreateOverlay();
-            }
-            badgeObject.SetActive(true);
-            badgeText.text = "Hata (" + entryCount + ")";
+            badgeText.text = entryCount > 0 ? "Hata (" + entryCount + ")" : "Durum";
+            badgeImage.color = entryCount > 0 ? new Color(0.7f, 0.05f, 0.05f, 0.85f) : new Color(0.15f, 0.15f, 0.15f, 0.45f);
             if (panelObject.activeSelf) {
                 panelText.text = BuildReport(false);
             }
@@ -139,7 +205,7 @@ namespace AnyRPG {
             // small red button in the top left corner
             badgeObject = CreateButton(canvasObject.transform, "Hata", new Vector2(0f, 1f), new Vector2(90f, -30f), new Vector2(150f, 44f),
                 new Color(0.7f, 0.05f, 0.05f, 0.85f), TogglePanel, out badgeText);
-            badgeObject.SetActive(false);
+            badgeImage = badgeObject.GetComponent<Image>();
 
             // the list of errors
             panelObject = new GameObject("ErrorPanel");

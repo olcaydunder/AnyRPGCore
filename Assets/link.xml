@@ -1,0 +1,5 @@
+<!-- Keep all game code in IL2CPP builds. AnyRPG finds some types and fields by name at runtime
+     (for example ObjectMessageController and quest objectives), which code stripping could remove. -->
+<linker>
+  <assembly fullname="Assembly-CSharp" preserve="all"/>
+</linker>
