@@ -333,6 +333,8 @@ namespace AnyRPG {
                 H + "Düşmanların gücü" + HE + "\n" +
                 "• Düşmanların seviyesi senin seviyene göre ayarlanır. Köyün çevresindekiler seninle aynı seviyededir; dağlarda ve haritanın köşelerinde 1-3 seviye daha güçlüdürler.\n" +
                 "• Abası, Kan Süvarisi, Buz Bekçisi ve Yağmacı Başı sıradan düşmanlardan sağlamdır.\n" +
+                "• <b>Cinler ve Körmösler</b>: Erlik'in yeraltından salıverdiği yaratıklar. Cüce <b>Çalı Cinleri</b> en kolaylarıdır, sürüyle gezerler. " +
+                "Boynuzlu, gürzlü <b>Körmösler</b> daha güçlüdür; <b>Ayaz Körmösü</b> en irileridir.\n" +
                 "• Dağ doruklarındaki <b>Ulu Evren</b> (ejderha) ve <b>Yelbegen</b> (yedi başlı dev) en zorlu düşmanlardır. İyi donanım ve iksir olmadan gitme!\n" +
                 "• Öldürdüğün düşmanların yerine 90 saniye sonra yenileri gelir; Ulu Evren ve Yelbegen 10 dakikada döner."),
 
@@ -444,13 +446,15 @@ namespace AnyRPG {
                 "Haritada yukarısı kuzeydir. Köy haritanın ortasındadır.\n\n" +
                 "• <b>Köy</b> (orta): güvenli. Olcayto Han, ustalar, tüccarlar, banka (Hazinedar Toktamış) ve zanaat tezgâhları.\n" +
                 "• <b>Güney çayırı</b> (başladığın yerin hemen güneyi): Kara Yek kampları. Çok kolay; ilk durağın.\n" +
+                "• <b>Cin çayırları</b> (köyün güneydoğusu ve güneybatısı, biraz uzakta): Çalı Cini sürüleri. Kolay.\n" +
+                "• <b>Ağulu Bataklık</b> (güneydoğuda, uzakta): Ağulu Körmösler ve Çalı Cinleri. Orta.\n" +
                 "• <b>Yağmacı Obası</b> (güneyde, uzakça): Yağmacı Okçular ve Yağmacı Başı. Kolay-orta.\n" +
                 "• <b>Doğu ve güneydoğu koruları</b>: Şulmuslar ve bir Kara Otacı. Orta.\n" +
                 "• <b>Kuzeydoğu ormanı</b>: Yağmacılar ve Kara Yekler. Orta.\n" +
                 "• <b>Güneybatı çayırı</b>: Kara Yekler. Kolay.\n" +
-                "• <b>Ateş Dağı</b> (köyün kuzeyindeki lavlı dağ): Kara Kamlar, Abasılar, Kan Süvarileri. Doruğunda <b>Ulu Evren</b>. Zor.\n" +
-                "• <b>Buz Dağı</b> (batıdaki karlı dağ): Kırağı Cadıları ve Buz Bekçileri. Doruğunda <b>Yelbegen</b>. Zor.\n" +
-                "• <b>Erlik'in Mağarası</b> (köyün kuzey duvarının dışındaki taş kapı): Albastılar, Şulmuslar, Kara Kamlar ve en dipte <b>Tepegöz</b>. Zindan.\n" +
+                "• <b>Ateş Dağı</b> (köyün kuzeyindeki lavlı dağ): Kara Kamlar, Abasılar, Kan Süvarileri, Körmösler ve Kızıl Cinler. Doruğunda <b>Ulu Evren</b>. Zor.\n" +
+                "• <b>Buz Dağı</b> (batıdaki karlı dağ): Kırağı Cadıları, Buz Bekçileri, Buz Cinleri ve Ayaz Körmösleri. Doruğunda <b>Yelbegen</b>. Zor.\n" +
+                "• <b>Erlik'in Mağarası</b> (köyün kuzey duvarının dışındaki taş kapı): Albastılar, Şulmuslar, Kara Kamlar, Körmösler ve en dipte <b>Tepegöz</b>. Zindan.\n" +
                 "• <b>Er Meydanı</b> (köyün doğu ucu): Er Meydanı Ağası'ndan rakip çağırıp dövüşebilirsin.\n" +
                 "• <b>Dört uzak köşe</b>: haritanın köşelerinde güçlü kamplar ve büyük hazine sandıkları.\n\n" +
                 "Önerilen sıra: Güney çayırı → Yağmacı Obası ve korular → mağara → Ateş Dağı ve Buz Dağı → doruklar."),

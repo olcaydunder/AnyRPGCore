@@ -119,3 +119,8 @@ Assets/Settings*
 
 # python helper caches
 __pycache__/
+
+# Quaternius canavar modelleri: lisans gereği açık hâlleri depoya girmez.
+# Şifreli hâli Tools~/varliklar/bestiary.tar.enc, derlemede VARLIK_ANAHTARI ile açılır (Tools~/dunya/canavarlar.py).
+/Assets/Otuken/Modeller/Bestiary/*.fbx
+/Assets/Otuken/Modeller/Bestiary/Textures/*.png

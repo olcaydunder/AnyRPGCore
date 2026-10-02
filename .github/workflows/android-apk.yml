@@ -7,6 +7,7 @@
 #   UNITY_LICENSE   Unity Hub'ın oluşturduğu Unity_lic.ulf dosyasının tam içeriği (<?xml ... ile başlar)
 #   UNITY_EMAIL     Unity hesabının e-postası
 #   UNITY_PASSWORD  Unity hesabının şifresi (hesapta iki adımlı doğrulama kapalı olmalı)
+#   VARLIK_ANAHTARI lisanslı modellerin (Tools~/varliklar/*.tar.enc) şifre anahtarı
 #
 # Çıktı:
 #   - "son-apk" adlı ön sürümde OtukenDestani.apk (telefondan doğrudan indirilir, her derlemede yenilenir)
@@ -77,6 +78,24 @@ jobs:
 
       - name: Kodu indir
         uses: actions/checkout@v7
+
+      - name: Lisanslı modelleri aç
+        # Quaternius modelleri lisans gereği depoda şifreli durur (Tools~/dunya/canavarlar.py)
+        env:
+          VARLIK_ANAHTARI: ${{ secrets.VARLIK_ANAHTARI }}
+        run: |
+          shopt -s nullglob
+          for arsiv in Tools~/varliklar/*.tar.enc; do
+            if [ -z "$VARLIK_ANAHTARI" ]; then
+              echo "::error title=Model anahtarı eksik::$arsiv şifreli. VARLIK_ANAHTARI gizli bilgisini ekle: Settings > Secrets and variables > Actions > New repository secret."
+              exit 1
+            fi
+            if ! openssl enc -d -aes-256-cbc -pbkdf2 -iter 200000 -in "$arsiv" -pass env:VARLIK_ANAHTARI | tar -xz; then
+              echo "::error title=Model anahtarı yanlış::$arsiv açılamadı. VARLIK_ANAHTARI değerini kontrol et."
+              exit 1
+            fi
+            echo "Açıldı: $arsiv"
+          done
 
       - name: Unity önbelleği (Library)
         if: ${{ !inputs.temiz_derleme }}

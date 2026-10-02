@@ -21,6 +21,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 from navmesh import NavMesh  # noqa: E402
+from canavarlar import model_references  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
 GAME = ROOT / "Assets/AnyRPG/Core/Games/FeaturesDemoGame"
@@ -36,6 +37,8 @@ MODEL = {
     "kadin_orta": ("51ca60a801a611b48ab9c6fa7b1d37d1", 6954704190252621995),
     "kadin_agir": ("c6ec7af6705e52949a16b9e2d25d6c63", 6954704190252621995),
 }
+# Quaternius canavarları (canavarlar.py): renk çeşidi prefab'ı -> (guid, kök GameObject fileID)
+MODEL.update({f"canavar:{ad}": ref for ad, ref in model_references().items()})
 
 DUSMANLAR = {
     "Sulmus": dict(
@@ -83,6 +86,37 @@ DUSMANLAR = {
         dayaniklilik="2 Man",
         aciklama="Yedi başlı dev. Buz Dağı'nın doruğunda yolunu kaybedenleri bekler; yere vurduğunda dağ titrer.",
         ganimet=["Potions", "Blue Plate Armor", "Epic Medieval Weapons", "Necklaces", "Bags"]),
+    # ---- Quaternius canavarları: insan iskeletli, kendi silahları modelin parçası; sınıf eşyası giymezler
+    "Kormos": dict(
+        ad="Körmös", sablon="BlueFighterUnit", model="canavar:KormosKizil", ses="Male Guard", saldirganlik=16,
+        canavar=dict(),
+        aciklama="Erlik Han'ın yeraltındaki kölesi. Zincirli gürzüyle saldırır; gözleri karanlıkta kor gibi yanar.",
+        ganimet=["Potions", "Scrolls", "Necklaces"]),
+    "Agulu Kormos": dict(
+        ad="Ağulu Körmös", sablon="BlueFighterUnit", model="canavar:KormosYesil", ses="Male Guard", saldirganlik=16,
+        canavar=dict(),
+        aciklama="Bataklıklarda dolaşan körmös. Gürzünü ağuya bulamıştır; vuruşu acıtır.",
+        ganimet=["Potions", "Bags"]),
+    "Ayaz Kormosu": dict(
+        ad="Ayaz Körmösü", sablon="BlueFighterUnit", model="canavar:KormosMavi", ses="Male Pikeman", saldirganlik=18,
+        dayaniklilik="Solo Dungeon Minion", canavar=dict(olcek=1.1),
+        aciklama="Buz Dağı'nın ayazında katılaşmış körmös. Sıradan körmöslerden iri ve dayanıklıdır.",
+        ganimet=["Potions", "Scrolls", "Random Medieval Weapons"]),
+    "Cali Cini": dict(
+        ad="Çalı Cini", sablon="BlueFighterUnit", model="canavar:CinYesil", ses="Female High", saldirganlik=12,
+        canavar=dict(kucuk=True),
+        aciklama="Çalıların arasında yaşayan cüce cin. Tek başına zayıftır ama hep sürüyle gezer.",
+        ganimet=["Potions"]),
+    "Kizil Cin": dict(
+        ad="Kızıl Cin", sablon="BlueFighterUnit", model="canavar:CinKizil", ses="Female High", saldirganlik=16,
+        canavar=dict(kucuk=True),
+        aciklama="Ateş Dağı'nın sıcak kayalıklarında kaynaşan kızıl cinler. Sopalarını közde sertleştirirler.",
+        ganimet=["Potions", "Bags"]),
+    "Buz Cini": dict(
+        ad="Buz Cini", sablon="BlueFighterUnit", model="canavar:CinMavi", ses="Female High", saldirganlik=16,
+        canavar=dict(kucuk=True),
+        aciklama="Karların altında yuva yapan mavi cin. Yolcuların azığını çalar, peşine düşeni dövmeye kalkar.",
+        ganimet=["Potions", "Scrolls"]),
     "Ulu Evren": dict(
         ad="Ulu Evren", sablon="DragonUnit", model=None, ses=None, saldirganlik=25,
         dayaniklilik="Solo Dungeon Boss",
@@ -109,6 +143,14 @@ ZONE = dict(
         ("UzakGuneydogu", 330, -300, [("Yagmaci Okcu", 2), ("Yagmaci Basi", 1)], 2),
         ("UzakKuzeydogu", 330, 330, [("Kara Kam", 2), ("Abasi", 1)], 2),
         ("UzakKuzeybati", -330, 330, [("Kara Yek", 2), ("Kara Otaci", 1)], 2),
+        # Quaternius canavarları
+        ("CaliCiniCayiriDogu", 140, -150, [("Cali Cini", 3)], 0),
+        ("CaliCiniCayiriBati", -80, -130, [("Cali Cini", 3)], 0),
+        ("AguluKormosBatakligi", 260, -210, [("Agulu Kormos", 2), ("Cali Cini", 1)], 1),
+        ("AtesDagiKormosIni", -95, 150, [("Kormos", 2), ("Kizil Cin", 1)], 2),
+        ("AtesDagiKizilCinler", 100, 175, [("Kizil Cin", 2), ("Kormos", 1)], 2),
+        ("BuzDagiCinleri", -190, -40, [("Buz Cini", 2), ("Ayaz Kormosu", 1)], 2),
+        ("BuzDagiAyazKormosleri", -175, 70, [("Ayaz Kormosu", 2), ("Buz Cini", 1)], 3),
     ],
     noktalar=[
         # Ateş Dağı (köyün kuzeyi)
@@ -137,6 +179,7 @@ DUNGEON = dict(
         ("MagaraGiris", [("Abasi", 80, 52), ("Sulmus", 92, 52)], 1),
         ("MagaraOrta", [("Kara Kam", 86, 10), ("Kara Otaci", 86, -15)], 1),
         ("MagaraSagOda", [("Sulmus", 110, 45), ("Sulmus", 110, -15)], 1),
+        ("MagaraKormosleri", [("Kormos", 70, 0), ("Kormos", 100, 20), ("Kormos", 60, 40)], 1),
     ],
 )
 
@@ -191,6 +234,27 @@ def write_profiles():
                     f"    modelPrefab: {{fileID: {fid}, guid: {guid},\n      type: 3}}", t)
         if d["ses"]:
             t = sub(r"^  voiceProfile: .*$", f"  voiceProfile: {d['ses']}", t)
+        if "canavar" in d:
+            c = d["canavar"]
+            # sınıf eşyası (zırh parçaları, pençe) bu modellere uymaz: giydirme
+            t = sub(r"^  useProviderEquipment: 1$", "  useProviderEquipment: 0", t)
+            # Unreal mankeni kemik adları
+            t, n = re.subn(r"^(      unitFrameTarget: )head$", lambda m: m.group(1) + "Head", t, flags=re.M)
+            assert n == 2, key
+            t = sub(r"^    floatTransform: Spine1$", "    floatTransform: spine_02", t)
+            if c.get("olcek"):
+                s = c["olcek"]
+                t = sub(r"^    scale: \{x: 1, y: 1, z: 1\}$", f"    scale: {{x: {s}, y: {s}, z: {s}}}", t)
+            if c.get("kucuk"):
+                # boyu bir metre kadar: ad levhası ve portre kamerası aşağıda
+                t = sub(r"^      overrideNameplatePosition: 0$", "      overrideNameplatePosition: 1", t)
+                t = sub(r"^      namePlatePosition: \{x: 0, y: 0, z: 0\}$", "      namePlatePosition: {x: 0, y: 1.4, z: 0}", t)
+                t, n = re.subn(r"^(      unitPreviewCameraLookOffset: )\{x: 0, y: 1, z: 0\}$",
+                               lambda m: m.group(1) + "{x: 0, y: 0.55, z: 0}", t, flags=re.M)
+                assert n == 2, key
+                t, n = re.subn(r"^(      unitPreviewCameraPositionOffset: )\{x: 0, y: 1, z: 2.5\}$",
+                               lambda m: m.group(1) + "{x: 0, y: 0.6, z: 1.6}", t, flags=re.M)
+                assert n == 2, key
         # ölünce üstünden ganimet alınabilsin
         t = sub(r"^  inlineInteractableOptions: \[\]$", "  inlineInteractableOptions:\n  - rid: 0", t)
         # her düşmana bozkır ganimeti (ganimet.py), boss'lara ayrıca ulu ganimet
