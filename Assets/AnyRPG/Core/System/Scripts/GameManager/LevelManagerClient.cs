@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
@@ -279,9 +280,10 @@ namespace AnyRPG {
                 audioManager.StopAmbient();
             }
             */
-            if (activeSceneNode.BackgroundMusicAudio != null) {
+            List<AudioClip> backgroundMusic = activeSceneNode.BackgroundMusicClips;
+            if (backgroundMusic.Count > 0) {
                 //Debug.Log("Levelmanager.PlayLevelSounds(): PLAYING MUSIC");
-                audioManager.PlayMusic(activeSceneNode.BackgroundMusicAudio);
+                audioManager.PlayMusicList(backgroundMusic);
             } else {
                 //Debug.Log("Levelmanager.PlayLevelSounds(): STOPPING MUSIC");
                 audioManager.StopMusic();

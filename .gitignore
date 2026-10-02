@@ -124,3 +124,7 @@ __pycache__/
 # Şifreli hâli Tools~/varliklar/bestiary.tar.enc, derlemede VARLIK_ANAHTARI ile açılır (Tools~/dunya/canavarlar.py).
 /Assets/Otuken/Modeller/Bestiary/*.fbx
 /Assets/Otuken/Modeller/Bestiary/Textures/*.png
+
+# Pixabay müzikleri: lisans gereği dosyaların kendisi depoya girmez.
+# Şifreli hâli Tools~/varliklar/muzik.tar.enc, derlemede VARLIK_ANAHTARI ile açılır (Tools~/dunya/muzikler.py).
+/Assets/Otuken/Muzik/*.ogg

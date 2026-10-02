@@ -52,6 +52,11 @@ namespace AnyRPG {
         private AudioSource secondaryAmbientAudioSource = null;
         private Coroutine fadeCoroutine = null;
 
+        // sahne müziği birden çok parçaysa: karışık sırayla, biri bitince öteki çalar
+        private List<AudioClip> musicPlaylist = new List<AudioClip>();
+        private int musicPlaylistIndex = 0;
+        private float musicPlaylistClipStart = 0f;
+
         public string MasterVolume { get => masterVolume; }
         public string MusicVolume { get => musicVolume; }
         public string EffectsVolume { get => effectsVolume; }
@@ -266,6 +271,8 @@ namespace AnyRPG {
 
         public void PlayMusic(AudioClip audioClip) {
             //Debug.Log("AudioManager.PlayMusic()");
+            // tek parça (boss, müzik kutusu, karakter oluşturma): sürekli tekrarlanır, sahne listesi durur
+            musicPlaylist.Clear();
             if (musicAudioSource.clip == audioClip && musicPaused == true) {
                 UnPauseMusic();
                 return;
@@ -274,6 +281,82 @@ namespace AnyRPG {
             musicAudioSource.clip = audioClip;
             musicAudioSource.loop = true;
             musicAudioSource.Play();
+        }
+
+        /// <summary>
+        /// Bir müzik listesini çalar. Tek parçaysa PlayMusic gibi tekrarlar; birden çoksa parçaları karışık sırayla
+        /// art arda çalar. Aynı liste zaten çalıyorsa baştan başlatmaz.
+        /// </summary>
+        public void PlayMusicList(List<AudioClip> clips) {
+            List<AudioClip> validClips = new List<AudioClip>();
+            if (clips != null) {
+                foreach (AudioClip clip in clips) {
+                    if (clip != null && validClips.Contains(clip) == false) {
+                        validClips.Add(clip);
+                    }
+                }
+            }
+            if (validClips.Count == 0) {
+                StopMusic();
+                return;
+            }
+            if (validClips.Count == 1) {
+                PlayMusic(validClips[0]);
+                return;
+            }
+            if (musicPlaylist.Count == validClips.Count
+                && validClips.TrueForAll(clip => musicPlaylist.Contains(clip))
+                && musicPlaylist.Contains(musicAudioSource.clip)) {
+                if (musicPaused == true) {
+                    UnPauseMusic();
+                } else if (musicAudioSource.isPlaying == false) {
+                    PlayPlaylistClip();
+                }
+                return;
+            }
+            musicPlaylist = validClips;
+            ShufflePlaylist(null);
+            musicPlaylistIndex = 0;
+            PlayPlaylistClip();
+        }
+
+        private void ShufflePlaylist(AudioClip lastPlayed) {
+            for (int i = musicPlaylist.Count - 1; i > 0; i--) {
+                int j = Random.Range(0, i + 1);
+                AudioClip temp = musicPlaylist[i];
+                musicPlaylist[i] = musicPlaylist[j];
+                musicPlaylist[j] = temp;
+            }
+            // yeni turun ilk parçası, az önce biten parça olmasın
+            if (lastPlayed != null && musicPlaylist.Count > 1 && musicPlaylist[0] == lastPlayed) {
+                musicPlaylist[0] = musicPlaylist[musicPlaylist.Count - 1];
+                musicPlaylist[musicPlaylist.Count - 1] = lastPlayed;
+            }
+        }
+
+        private void PlayPlaylistClip() {
+            musicPaused = false;
+            musicAudioSource.clip = musicPlaylist[musicPlaylistIndex];
+            musicAudioSource.loop = false;
+            musicAudioSource.Play();
+            musicPlaylistClipStart = Time.unscaledTime;
+        }
+
+        private void Update() {
+            if (musicPlaylist.Count < 2 || musicPaused == true || musicAudioSource == null) {
+                return;
+            }
+            // akışla yüklenen parça çalmaya başlarken bir an "çalmıyor" görünebilir: ilk saniyeyi bekle
+            if (musicAudioSource.isPlaying == true || Time.unscaledTime - musicPlaylistClipStart < 1f) {
+                return;
+            }
+            AudioClip finished = musicAudioSource.clip;
+            musicPlaylistIndex++;
+            if (musicPlaylistIndex >= musicPlaylist.Count) {
+                ShufflePlaylist(finished);
+                musicPlaylistIndex = 0;
+            }
+            PlayPlaylistClip();
         }
 
         public void PlayEffect(AudioClip audioClip) {
@@ -329,6 +412,7 @@ namespace AnyRPG {
         }
 
         public void StopMusic() {
+            musicPlaylist.Clear();
             musicAudioSource.Stop();
             musicPaused = false;
         }

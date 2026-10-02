@@ -231,6 +231,25 @@ namespace AnyRPG {
             }
         }
 
+        /// <summary>
+        /// sahnenin bütün müzik parçaları: profilde birden çok parça varsa sırayla çalınır (AudioManager.PlayMusicList)
+        /// </summary>
+        public List<AudioClip> BackgroundMusicClips {
+            get {
+                List<AudioClip> clips = new List<AudioClip>();
+                if (backgroundMusicAudio != null) {
+                    clips.Add(backgroundMusicAudio);
+                } else if (backgroundMusicProfileReference != null && backgroundMusicProfileReference.AudioClips != null) {
+                    foreach (AudioClip audioClip in backgroundMusicProfileReference.AudioClips) {
+                        if (audioClip != null) {
+                            clips.Add(audioClip);
+                        }
+                    }
+                }
+                return clips;
+            }
+        }
+
         public List<EnvironmentStateProfile> EnvironmentStates { get => environmentStates; set => environmentStates = value; }
         public Cutscene AutoPlayCutscene { get => autoPlayCutscene; set => autoPlayCutscene = value; }
 
