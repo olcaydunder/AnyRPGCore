@@ -513,9 +513,9 @@ namespace AnyRPG {
 
         public void LoadGame() {
             //Debug.Log("SaveManager.LoadGame()");
+            loadGameManager.LoadCharacterList();
             if (PlayerPrefs.HasKey("LastOfflinePlayerCharacterId")) {
                 //Debug.Log("SaveManager.LoadGame(): Last Save Data: " + PlayerPrefs.GetString("LastSaveDataFileName"));
-                loadGameManager.LoadCharacterList();
                 foreach (SinglePlayerSaveData singlePlayerSaveData in loadGameManager.CharacterList) {
                     if (singlePlayerSaveData.CharacterSaveData.CharacterId == PlayerPrefs.GetInt("LastOfflinePlayerCharacterId")) {
                         //Debug.Log("SaveManager.LoadGame(): Last Save Data: " + PlayerPrefs.GetString("LastSaveDataFileName") + " was found.  Loading Game...");
@@ -524,7 +524,94 @@ namespace AnyRPG {
                     }
                 }
             }
+
+            // Nothing to continue. Starting straight away would create a character from the bare defaults, which has no
+            // unit profile in this game (the hero is chosen by race and gender), so it could not be spawned.
+            // Let the player pick a saved character, or create one, instead.
+            if (systemConfigurationManager.UseNewGameWindow == true) {
+                uIManager.playMenuWindow.CloseWindow();
+                if (loadGameManager.CharacterList.Count > 0) {
+                    uIManager.loadGameWindow.OpenWindow();
+                } else {
+                    uIManager.newGameWindow.OpenWindow();
+                }
+                return;
+            }
             newGameManager.NewLocalGame();
+        }
+
+        /// <summary>
+        /// A character without a valid unit profile cannot be spawned (the game stopped with a NullReferenceException in
+        /// CharacterManager.SpawnCharacterPrefab). Fill in a playable profile, and the race, class and faction if they are
+        /// missing, so such a save still loads.
+        /// </summary>
+        private void RepairCharacterSaveData(CharacterSaveData characterSaveData) {
+            if (characterSaveData == null) {
+                return;
+            }
+            CharacterRace characterRace = null;
+            if (string.IsNullOrEmpty(characterSaveData.CharacterRace) == false) {
+                characterRace = systemDataFactory.GetResource<CharacterRace>(characterSaveData.CharacterRace);
+            }
+            if (string.IsNullOrEmpty(characterSaveData.UnitProfileName) == true
+                || systemDataFactory.GetResource<UnitProfile>(characterSaveData.UnitProfileName) == null) {
+                UnitProfile unitProfile = FindPlayableUnitProfile(ref characterRace);
+                if (unitProfile == null) {
+                    Debug.LogWarning($"SaveManager.RepairCharacterSaveData(): no playable unit profile found for {characterSaveData.CharacterName}");
+                    return;
+                }
+                Debug.Log($"SaveManager.RepairCharacterSaveData(): {characterSaveData.CharacterName} had no valid unit profile ({characterSaveData.UnitProfileName}), using {unitProfile.ResourceName}");
+                characterSaveData.UnitProfileName = unitProfile.ResourceName;
+            }
+            if (string.IsNullOrEmpty(characterSaveData.CharacterRace) == true && characterRace != null) {
+                characterSaveData.CharacterRace = characterRace.ResourceName;
+            }
+            if (string.IsNullOrEmpty(characterSaveData.CharacterClass) == true) {
+                foreach (CharacterClass characterClass in systemDataFactory.GetResourceList<CharacterClass>()) {
+                    if (characterClass.NewGameOption == true) {
+                        characterSaveData.CharacterClass = characterClass.ResourceName;
+                        break;
+                    }
+                }
+            }
+            if (string.IsNullOrEmpty(characterSaveData.CharacterFaction) == true && systemConfigurationManager.NewGameFaction == true) {
+                foreach (Faction faction in systemDataFactory.GetResourceList<Faction>()) {
+                    if (faction.NewGameOption == true) {
+                        characterSaveData.CharacterFaction = faction.ResourceName;
+                        break;
+                    }
+                }
+            }
+        }
+
+        private UnitProfile FindPlayableUnitProfile(ref CharacterRace characterRace) {
+            if (characterRace != null) {
+                if (characterRace.MaleUnitProfile != null) {
+                    return characterRace.MaleUnitProfile;
+                }
+                if (characterRace.FemaleUnitProfile != null) {
+                    return characterRace.FemaleUnitProfile;
+                }
+            }
+            if (systemConfigurationManager.DefaultPlayerUnitProfile != null) {
+                return systemConfigurationManager.DefaultPlayerUnitProfile;
+            }
+            foreach (CharacterRace newGameRace in systemDataFactory.GetResourceList<CharacterRace>()) {
+                if (newGameRace.NewGameOption == false) {
+                    continue;
+                }
+                UnitProfile raceProfile = (newGameRace.MaleUnitProfile != null ? newGameRace.MaleUnitProfile : newGameRace.FemaleUnitProfile);
+                if (raceProfile != null) {
+                    characterRace = newGameRace;
+                    return raceProfile;
+                }
+            }
+            foreach (UnitProfile unitProfile in systemConfigurationManager.DefaultUnitProfileList) {
+                if (unitProfile != null) {
+                    return unitProfile;
+                }
+            }
+            return null;
         }
 
         public CapabilityConsumerSnapshot GetCapabilityConsumerSnapshot(CharacterSaveData saveData) {
@@ -597,6 +684,8 @@ namespace AnyRPG {
             //Debug.Log($"Savemanager.LoadGame({playerCharacterSaveData.SaveData.unitProfileName})");
 
             uIManager.loadGameWindow.CloseWindow();
+
+            RepairCharacterSaveData(singlePlayerSaveData.CharacterSaveData);
 
             ClearSharedData();
             systemItemManager.LoadItemInstanceListSaveData(singlePlayerSaveData.ItemInstanceListSaveData);
