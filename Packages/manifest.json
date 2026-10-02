@@ -1,5 +1,8 @@
 {
   "dependencies": {
+    "com.tayx.graphy": "https://github.com/Tayx94/graphy.git#v4.0.0",
+    "com.yasirkula.ingamedebugconsole": "https://github.com/yasirkula/UnityIngameDebugConsole.git#v1.9.0",
+    "com.yasirkula.nativeshare": "https://github.com/yasirkula/UnityNativeShare.git#v1.5.5",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.addressables": "2.11.1",
     "com.unity.ai.navigation": "2.0.12",

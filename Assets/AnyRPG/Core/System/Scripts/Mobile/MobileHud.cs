@@ -53,7 +53,8 @@ namespace AnyRPG {
             CreateActionButton("Karakter", "CHARACTERPANEL", leftMiddle, new Vector2(60f, 126f), 78f, 14);
             CreateActionButton("Çanta", "INVENTORY", leftMiddle, new Vector2(60f, 42f), 78f, 16);
             CreateActionButton("Görevler", "QUESTLOG", leftMiddle, new Vector2(60f, -42f), 78f, 14);
-            CreateActionButton("Rehber", () => GameGuide.Show(false), leftMiddle, new Vector2(60f, -126f), 70f, 15);
+            // Seçenekler penceresi; "Nasıl Oynanır" rehberi de oradan açılır
+            CreateActionButton("Menü", SeceneklerPenceresi.Show, leftMiddle, new Vector2(60f, -126f), 70f, 17);
         }
 
         private GameObject CreateCircle(Transform parent, string name, Vector2 anchor, Vector2 position, float size, Color fillColor, Color outlineColor) {

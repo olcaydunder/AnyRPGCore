@@ -1512,7 +1512,7 @@ namespace AnyRPG {
                 if (CombatTextManager.CombatTextCanvas.gameObject.activeSelf) {
                     CombatTextManager.CombatTextCanvas.gameObject.SetActive(false);
                 }
-            } else if (PlayerPrefs.GetInt("UseFloatingCastBar") == 1) {
+            } else if (PlayerPrefs.GetInt("UseFloatingCombatText") == 1) {
                 if (!CombatTextManager.CombatTextCanvas.gameObject.activeSelf) {
                     CombatTextManager.CombatTextCanvas.gameObject.SetActive(true);
                 }

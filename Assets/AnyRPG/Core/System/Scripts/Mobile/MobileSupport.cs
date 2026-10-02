@@ -343,6 +343,8 @@ namespace AnyRPG {
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
             SceneManager.sceneLoaded += HandleSceneLoaded;
             nextAutoSave = Time.unscaledTime + autoSaveInterval;
+            // oyuncunun Seçenekler penceresindeki ayarları (FPS sınırı, çözünürlük, gölge...)
+            OyunAyarlari.Uygula();
         }
 
         private void OnDestroy() {
@@ -351,6 +353,7 @@ namespace AnyRPG {
 
         private void HandleSceneLoaded(Scene scene, LoadSceneMode loadSceneMode) {
             nextCanvasScan = 0f;
+            OyunAyarlari.SahneYuklendi();
         }
 
         private void Update() {
@@ -422,7 +425,9 @@ namespace AnyRPG {
             Canvas[] canvases = FindObjectsByType<Canvas>(FindObjectsInactive.Include, FindObjectsSortMode.None);
             foreach (Canvas canvas in canvases) {
                 if (canvas == null || canvas.isRootCanvas == false || canvas.renderMode == RenderMode.WorldSpace
-                    || canvas.name == ErrorOverlayCanvasName || canvas.name == GameGuide.CanvasName || canvas.name == GunlukArmagan.CanvasName) {
+                    || canvas.name == ErrorOverlayCanvasName || canvas.name == GameGuide.CanvasName || canvas.name == GunlukArmagan.CanvasName
+                    || canvas.name == SeceneklerPenceresi.CanvasName || canvas.transform.root.name == "[Graphy]"
+                    || canvas.transform.root.name == "IngameDebugConsole") {
                     continue;
                 }
                 int id = canvas.GetInstanceID();
@@ -517,6 +522,11 @@ namespace AnyRPG {
             GameGuide.SetMenuLauncherVisible(inGame == false && MainMenuOpen());
             // the daily gift: opens a few seconds after entering the world, after the guide is closed
             GunlukArmagan.Tick(GetSystemGameManager(), inGame);
+            try {
+                OyunAyarlari.Tick(GetSystemGameManager());
+            } catch (System.Exception exception) {
+                Debug.LogWarning($"MobileBootstrap: OyunAyarlari.Tick(): {exception.Message}");
+            }
         }
 
         private bool MainMenuOpen() {

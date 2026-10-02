@@ -407,7 +407,8 @@ namespace AnyRPG {
             }
 
             // 2. Distance Check
-            float distLimit = 40f;
+            // oyuncunun seçtiği isim mesafesi (Seçenekler > Görüntü), varsayılan 40
+            float distLimit = OyunAyarlari.IsimMesafesi;
             Vector3 sourcePos = (uIManager.CutSceneBarController.CurrentCutscene != null)
                 ? cameraManager.CurrentCutsceneCameraController.transform.position
                 : playerManagerClient.ActiveUnitController.transform.position;

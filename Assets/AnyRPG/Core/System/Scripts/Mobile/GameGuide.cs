@@ -6,7 +6,7 @@ namespace AnyRPG {
 
     /// <summary>
     /// "Nasıl Oynanır" rehberi: kontroller, savaş, para, ganimet, görevler, zanaatlar, bölgeler ve gereksinimler.
-    /// İlk kez oyuna girince kendiliğinden açılır; oyunda "Rehber" düğmesiyle, ana menüde "Nasıl Oynanır" düğmesiyle yeniden açılır.
+    /// İlk kez oyuna girince kendiliğinden açılır; oyunda Menü > "Nasıl Oynanır", ana menüde "Nasıl Oynanır" düğmesiyle yeniden açılır.
     /// Kodla kurulur, hiçbir prefab ya da resim dosyası gerektirmez.
     /// </summary>
     public class GameGuide : MonoBehaviour {
@@ -286,7 +286,7 @@ namespace AnyRPG {
                 "• Oyun internetsiz, tek kişilik oynanır.\n" +
                 "• Oyun kendiliğinden kaydedilir: 3 dakikada bir ve uygulamadan çıktığında.\n" +
                 "• Her gün oyuna girdiğinde <b>Günlük Armağan</b> seni bekler; 7 gün üst üste gelirsen en büyüğünü alırsın.\n" +
-                "• Bu rehberi istediğin zaman sol kenardaki <b>Rehber</b> düğmesiyle yeniden açabilirsin.\n" +
+                "• Bu rehberi istediğin zaman sol kenardaki <b>Menü</b> düğmesinden <b>Nasıl Oynanır</b> ile yeniden açabilirsin.\n" +
                 "• Soldaki bölümlere dokunarak konular arasında gezin; uzun metinleri parmağınla yukarı kaydır."),
 
             new Section("Kontroller",
@@ -311,10 +311,14 @@ namespace AnyRPG {
                 "• <b>Karakter</b>: giydiğin donanım ve değerlerin.\n" +
                 "• <b>Çanta</b>: eşyaların ve paran.\n" +
                 "• <b>Görevler</b>: aldığın görevler ve kalan hedefleri.\n" +
-                "• <b>Rehber</b>: bu rehber.\n" +
+                "• <b>Menü</b>: seçenekler (grafik, akıcılık, ses, oyun), bu rehber ve ekran görüntüsü paylaşma.\n" +
                 "• Alttaki sıra <b>yetenek çubuğu</b>dur: yeteneklerine dokunarak kullanırsın.\n" +
                 "• Pencereleri sağ üst köşelerindeki <b>X</b> ile kapatırsın.\n" +
-                "• Üstteki <b>Durum</b> düğmesi teşhis raporudur. Bir sorun yaşarsan açıp <b>Kopyala</b>'ya bas ve yapımcıya gönder."),
+                "• Üstteki <b>Durum</b> düğmesi teşhis raporudur. Bir sorun yaşarsan açıp <b>Kopyala</b>'ya bas ve yapımcıya gönder.\n\n" +
+                H + "Oyun takılıyorsa" + HE + "\n" +
+                "• <b>Menü > Görüntü</b>: Çözünürlüğü Düşük, Gölgeleri Kapalı yap; Görüş mesafesini ve İsim mesafesini kısalt.\n" +
+                "• <b>Akıcılık</b> bölümünde FPS göstergesini açarsan kare hızını sol üstte görürsün.\n" +
+                "• FPS sınırını 30 yaparsan telefon daha az ısınır ve pil daha uzun gider."),
 
             new Section("Savaş",
                 H + "Nasıl savaşılır" + HE + "\n" +
