@@ -30,7 +30,7 @@ MonoBehaviour:
   nightAmbientSoundsProfile: 
   nightAmbientSoundsAudio: {fileID: 8300000, guid: 9f9cc9a72a4f7c94f8ec9fc435ad4c77,
     type: 3}
-  backgroundMusicProfile: 
+  backgroundMusicProfile: Erlik Magarasi
   backgroundMusicAudio: {fileID: 0}
   movementLoopProfileName: 
   movementHitProfileName: 

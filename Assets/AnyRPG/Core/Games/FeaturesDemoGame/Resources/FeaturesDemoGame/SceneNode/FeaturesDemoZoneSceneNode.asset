@@ -30,7 +30,7 @@ MonoBehaviour:
   nightAmbientSoundsProfile: 
   nightAmbientSoundsAudio: {fileID: 8300000, guid: 43aa19e6d251fa244a69ad2b85ad8e2c,
     type: 3}
-  backgroundMusicProfile: 
+  backgroundMusicProfile: Otuken Yaylasi
   backgroundMusicAudio: {fileID: 0}
   movementLoopProfileName: 
   movementHitProfileName: 

@@ -19,6 +19,6 @@ MonoBehaviour:
   description: 
   useRegionalDescription: 0
   resourceDescriptionProfile: 
-  artistName: 
+  artistName: "MeditativeTiger"
   audioClips:
-  - {fileID: 8300000, guid: 62019ecd1ac14c648a9ed60c81290795, type: 3}
+  - {fileID: 8300000, guid: 3d962124c8a75e8a881bad36e6d6dd20, type: 3}

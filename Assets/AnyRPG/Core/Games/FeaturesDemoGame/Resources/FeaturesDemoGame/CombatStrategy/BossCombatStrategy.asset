@@ -23,14 +23,14 @@ MonoBehaviour:
   phaseNodes:
   - maxHealthPercent: 100
     minHealthPercent: 0
-    phaseMusicProfileName: New Game
+    phaseMusicProfileName: Boss Savasi
     maintainBuffNames: []
     attackAbilityNames:
     - Laser Explosion
     - Attack
   - maxHealthPercent: 50
     minHealthPercent: 0
-    phaseMusicProfileName: Main Menu
+    phaseMusicProfileName: Boss Ofkesi
     maintainBuffNames: []
     attackAbilityNames:
     - Knock Back

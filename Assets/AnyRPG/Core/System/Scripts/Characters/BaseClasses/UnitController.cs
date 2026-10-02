@@ -1958,13 +1958,11 @@ namespace AnyRPG {
                     //Debug.Log($"{gameObject.name}.AIController.ResetCombat(): attempting to turn off fight music");
                     SceneNode sceneNode = sceneUtilityService.GetSceneNodeBySceneName(gameObject.scene.name);
                     if (sceneNode != null) {
-                        AudioClip musicClip = sceneNode.BackgroundMusicAudio;
-                        if (musicClip != null) {
+                        List<AudioClip> musicClips = sceneNode.BackgroundMusicClips;
+                        if (musicClips.Count > 0) {
                             //Debug.Log(aiController.gameObject.name + "ReturnState.Enter(): music profile was set");
-                            if (audioManager.MusicAudioSource.clip != musicClip) {
-                                //Debug.Log(aiController.gameObject.name + "ReturnState.Enter(): playing default music");
-                                audioManager.PlayMusic(musicClip);
-                            }
+                            // boss savaşı bitince sahnenin müzik listesine dön (liste zaten çalıyorsa baştan başlamaz)
+                            audioManager.PlayMusicList(musicClips);
                         } else {
                             // There was no music, turn it off instead
                             audioManager.StopMusic();

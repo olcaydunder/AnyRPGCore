@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acbdbda413a9e75489c46764c8bc894e, type: 3}
+  m_Name: MuzikCredits
+  m_EditorClassIdentifier: 
+  resourceName: Muzik
+  displayName: "M\u00fczik"
+  icon: {fileID: 0}
+  iconBackgroundImage: {fileID: 0}
+  description: 
+  useRegionalDescription: 0
+  resourceDescriptionProfile: 
+  optionalOverride: 0
+  categoryName: "M\u00fczik"
+  creditsNodes:
+  - creditName: "Unity Winds"
+    creditAttribution: "NverAvetyanMusic (Pixabay) - Ana men\u00fc"
+    email: 
+    userUrl: https://pixabay.com/music/main-title-unity-winds-ethnic-trailer-377495/
+    downloadUrl: 
+  - creditName: "Anatolian Folk - Baglama With Rhodes"
+    creditAttribution: "MeditativeTiger (Pixabay) - Karakter olu\u015fturma"
+    email: 
+    userUrl: https://pixabay.com/music/folk-intro-anatolian-folk-music-turkish-baglama-with-rhodes-363329/
+    downloadUrl: 
+  - creditName: "Ember Yildiz"
+    creditAttribution: "NverAvetyanMusic (Pixabay) - \u00d6t\u00fcken Yaylas\u0131"
+    email: 
+    userUrl: https://pixabay.com/music/folk-ember-yildiz-turkish-folk-412841/
+    downloadUrl: 
+  - creditName: "Nutag"
+    creditAttribution: "inhaleexhalestudio (Pixabay) - \u00d6t\u00fcken Yaylas\u0131"
+    email: 
+    userUrl: https://pixabay.com/music/orchestral-nutag-603134/
+    downloadUrl: 
+  - creditName: "SERVER - Ancient Rituals"
+    creditAttribution: "Rockot (Pixabay) - Erlik'in Ma\u011faras\u0131"
+    email: 
+    userUrl: https://pixabay.com/music/ambient-server-ancient-cinematic-rituals-603263/
+    downloadUrl: 
+  - creditName: "Ethnic Cinematic Trailer"
+    creditAttribution: "NverAvetyanMusic (Pixabay) - Boss sava\u015f\u0131"
+    email: 
+    userUrl: https://pixabay.com/music/main-title-ethnic-cinematic-trailer-royalty-free-music-202317/
+    downloadUrl: 
+  - creditName: "Steppe Thunder"
+    creditAttribution: "baranova_n (Pixabay) - Boss \u00f6fkesi"
+    email: 
+    userUrl: https://pixabay.com/music/world-steppe-thunder-604344/
+    downloadUrl: 

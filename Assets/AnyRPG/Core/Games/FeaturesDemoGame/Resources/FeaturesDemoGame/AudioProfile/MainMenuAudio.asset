@@ -19,6 +19,6 @@ MonoBehaviour:
   description: 
   useRegionalDescription: 0
   resourceDescriptionProfile: 
-  artistName: 
+  artistName: "NverAvetyanMusic"
   audioClips:
-  - {fileID: 8300000, guid: b1a68f82cf789ab4ca88664d864547b4, type: 3}
+  - {fileID: 8300000, guid: 4f26b2db50395f658009ee995142d530, type: 3}

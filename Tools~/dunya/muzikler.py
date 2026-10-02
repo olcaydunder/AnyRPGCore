@@ -105,13 +105,21 @@ def pixabay_bilgisi(path):
 
 
 def donustur(kaynak, hedef):
-    """sessizliği kırp, ses yüksekliğini eşitle, OGG Vorbis'e çevir"""
+    """sessizliği kırp, ses yüksekliğini eşitle (iki geçişli loudnorm: önce ölç, sonra doğrusal uygula, parçanın
+    kendi dinamiği bozulmasın), OGG Vorbis'e çevir"""
     hedef.parent.mkdir(parents=True, exist_ok=True)
-    filtre = ("silenceremove=start_periods=1:start_threshold=-55dB:start_silence=0.05,"
-              "areverse,silenceremove=start_periods=1:start_threshold=-55dB:start_silence=0.3,areverse,"
-              "loudnorm=I=-18:TP=-1.5:LRA=11")
+    kirp = ("silenceremove=start_periods=1:start_threshold=-55dB:start_silence=0.05,"
+            "areverse,silenceremove=start_periods=1:start_threshold=-55dB:start_silence=0.3,areverse")
+    hedef_ayar = "I=-18:TP=-1.5:LRA=11"
+    olcum = subprocess.run(["ffmpeg", "-hide_banner", "-nostats", "-i", str(kaynak), "-vn",
+                            "-af", f"{kirp},loudnorm={hedef_ayar}:print_format=json", "-f", "null", "-"],
+                           capture_output=True, text=True, check=True).stderr
+    m = json.loads(olcum[olcum.rindex("{"):olcum.rindex("}") + 1])
+    ikinci = (f"loudnorm={hedef_ayar}:measured_I={m['input_i']}:measured_TP={m['input_tp']}"
+              f":measured_LRA={m['input_lra']}:measured_thresh={m['input_thresh']}"
+              f":offset={m['target_offset']}:linear=true")
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", str(kaynak), "-vn", "-map_metadata", "-1",
-                    "-af", filtre, "-ar", "44100", "-ac", "2", "-c:a", "libvorbis", "-q:a", "4",
+                    "-af", f"{kirp},{ikinci}", "-ar", "44100", "-ac", "2", "-c:a", "libvorbis", "-q:a", "4",
                     "-fflags", "+bitexact", "-flags:a", "+bitexact", str(hedef)], check=True)
     sure = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0",
                                  str(hedef)], capture_output=True, text=True, check=True).stdout.strip())

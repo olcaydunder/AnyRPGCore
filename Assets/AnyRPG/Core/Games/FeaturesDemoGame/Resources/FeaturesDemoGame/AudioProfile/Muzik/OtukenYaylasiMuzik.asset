@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd73ebc5463ba94cb6ff99164c9641a, type: 3}
+  m_Name: OtukenYaylasiMuzik
+  m_EditorClassIdentifier: 
+  resourceName: Otuken Yaylasi
+  displayName: 
+  icon: {fileID: 0}
+  iconBackgroundImage: {fileID: 0}
+  description: 
+  useRegionalDescription: 0
+  resourceDescriptionProfile: 
+  artistName: "NverAvetyanMusic, inhaleexhalestudio"
+  audioClips:
+  - {fileID: 8300000, guid: f0f5781e241052e59652dad9c4fceb80, type: 3}
+  - {fileID: 8300000, guid: 95266def938a5d50adf15c660618458e, type: 3}
