@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e31818c35d6ab14fbf88410e7e18453, type: 3}
-  m_Name: KormosUnit
+  m_Name: KemikAlpUnit
   m_EditorClassIdentifier: 
-  resourceName: Kormos
-  displayName: "K\u00f6rm\u00f6s"
+  resourceName: Kemik Alp
+  displayName: "Kemik Alp"
   icon: {fileID: 21300000, guid: c7a81cc530c9336489e7f6dbe5c8ecda, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: "Erlik Han'\u0131n yeralt\u0131ndaki k\u00f6lesi. Zincirli g\u00fcrz\u00fcyle sald\u0131r\u0131r; g\u00f6zleri karanl\u0131kta kor gibi yanar."
+  description: "Ad\u0131 bir zamanlar destanlarda ge\u00e7en bir alp\u0131n kemikleri. Boynuzlu mi\u011fferi, iri kalkan\u0131 ve baltas\u0131yla \u00f6l\u00fc erleri y\u00f6netir."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0
@@ -28,12 +28,12 @@ MonoBehaviour:
     unitPrefab: {fileID: 2692339740015506113, guid: ba09f14eb0109ba459f4520b82c3fadc,
       type: 3}
     networkUnitPrefab: {fileID: 0}
-    modelPrefab: {fileID: 842583505502242980, guid: 59424318894a5b8291a02b6b84ae64dd,
+    modelPrefab: {fileID: 1067866187938572503, guid: 92a89a10132e56dc91ccf5ffaaf18aea,
       type: 3}
     networkModelPrefab: {fileID: 0}
     modelProvider:
       rid: -2
-    animationProfileName: Kormos
+    animationProfileName: Kemik Alp
     useInlineAnimationProps: 0
     animationProps:
       useRootMotion: 0
@@ -126,7 +126,7 @@ MonoBehaviour:
       overrideNameplatePosition: 0
       namePlatePosition: {x: 0, y: 0, z: 0}
       useSnapShot: 1
-      unitFrameTarget: Head
+      unitFrameTarget: head
       unitFrameCameraLookOffset: {x: 0, y: 0, z: 0}
       unitFrameCameraPositionOffset: {x: 0, y: 0, z: 0.66}
       unitPreviewTarget: 
@@ -134,7 +134,7 @@ MonoBehaviour:
       unitPreviewCameraPositionOffset: {x: 0, y: 1, z: 2.5}
     unitFrameProps:
       useSnapShot: 1
-      unitFrameTarget: Head
+      unitFrameTarget: head
       unitFrameCameraLookOffset: {x: 0, y: 0, z: 0}
       unitFrameCameraPositionOffset: {x: 0, y: 0, z: 0.66}
     unitPreviewProps:
@@ -144,26 +144,26 @@ MonoBehaviour:
     position: {x: 0, y: 0, z: 0}
     rotationIsGlobal: 0
     rotation: {x: 0, y: 0, z: 0}
-    scale: {x: 1, y: 1, z: 1}
+    scale: {x: 0.95, y: 0.95, z: 0.95}
     targetBone: 
     attachmentProfileName: Humanoid
     floatHeight: 1.4
     addFloatHeightToTransform: 0
-    floatTransform: spine_02
+    floatTransform: chest
   isPet: 0
   flightCapable: 0
   glideCapable: 0
-  characterName: "K\u00f6rm\u00f6s"
+  characterName: "Kemik Alp"
   title: 
   factionName: Enemy
   unitTypeName: 
   characterRaceName: 
-  characterClassName: Fighter
+  characterClassName: 
   classSpecializationName: 
   spawnDead: 0
   preventAutoDespawn: 0
-  defaultToughness: 
-  voiceProfile: Male Guard
+  defaultToughness: Solo Dungeon Minion
+  voiceProfile: Male Knight
   useInlineVoiceProps: 0
   voiceProps:
     aggro: []
@@ -189,7 +189,7 @@ MonoBehaviour:
   useProviderEquipment: 0
   equipmentNameList: []
   isAggressive: 1
-  aggroRadius: 16
+  aggroRadius: 18
   automaticCombatStrategy: 0
   combatStrategyName: 
   defaultHitEffects: []
@@ -222,7 +222,7 @@ MonoBehaviour:
   saveOnLevelUnload: 0
   saveOnGameSave: 0
   overwriteUnitUUID: 0
-  m_UUID: 40f48eae-650d-557b-b1a4-25d6bdf425a8
+  m_UUID: 4b427771-83fa-50d4-a029-d0ab997df074
   references:
     version: 2
     RefIds:
@@ -238,6 +238,6 @@ MonoBehaviour:
         automaticCurrency: 1
         lootTableNames:
         - Potions
-        - Scrolls
+        - Basic Iron Weapons
         - Necklaces
         - Bozkir Ganimeti

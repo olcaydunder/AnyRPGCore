@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e31818c35d6ab14fbf88410e7e18453, type: 3}
-  m_Name: KormosUnit
+  m_Name: KemikAkinciUnit
   m_EditorClassIdentifier: 
-  resourceName: Kormos
-  displayName: "K\u00f6rm\u00f6s"
+  resourceName: Kemik Akinci
+  displayName: "Kemik Ak\u0131nc\u0131"
   icon: {fileID: 21300000, guid: c7a81cc530c9336489e7f6dbe5c8ecda, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: "Erlik Han'\u0131n yeralt\u0131ndaki k\u00f6lesi. Zincirli g\u00fcrz\u00fcyle sald\u0131r\u0131r; g\u00f6zleri karanl\u0131kta kor gibi yanar."
+  description: "K\u0131z\u0131l kukuletal\u0131 \u00f6l\u00fc ak\u0131nc\u0131. \u0130ki k\u0131l\u0131c\u0131yla h\u0131zl\u0131 ve art arda vurur."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0
@@ -28,12 +28,12 @@ MonoBehaviour:
     unitPrefab: {fileID: 2692339740015506113, guid: ba09f14eb0109ba459f4520b82c3fadc,
       type: 3}
     networkUnitPrefab: {fileID: 0}
-    modelPrefab: {fileID: 842583505502242980, guid: 59424318894a5b8291a02b6b84ae64dd,
+    modelPrefab: {fileID: 330209907273386068, guid: b8c833d3af725f67bd867245c36d659f,
       type: 3}
     networkModelPrefab: {fileID: 0}
     modelProvider:
       rid: -2
-    animationProfileName: Kormos
+    animationProfileName: Kemik Akinci
     useInlineAnimationProps: 0
     animationProps:
       useRootMotion: 0
@@ -126,7 +126,7 @@ MonoBehaviour:
       overrideNameplatePosition: 0
       namePlatePosition: {x: 0, y: 0, z: 0}
       useSnapShot: 1
-      unitFrameTarget: Head
+      unitFrameTarget: head
       unitFrameCameraLookOffset: {x: 0, y: 0, z: 0}
       unitFrameCameraPositionOffset: {x: 0, y: 0, z: 0.66}
       unitPreviewTarget: 
@@ -134,7 +134,7 @@ MonoBehaviour:
       unitPreviewCameraPositionOffset: {x: 0, y: 1, z: 2.5}
     unitFrameProps:
       useSnapShot: 1
-      unitFrameTarget: Head
+      unitFrameTarget: head
       unitFrameCameraLookOffset: {x: 0, y: 0, z: 0}
       unitFrameCameraPositionOffset: {x: 0, y: 0, z: 0.66}
     unitPreviewProps:
@@ -144,26 +144,26 @@ MonoBehaviour:
     position: {x: 0, y: 0, z: 0}
     rotationIsGlobal: 0
     rotation: {x: 0, y: 0, z: 0}
-    scale: {x: 1, y: 1, z: 1}
+    scale: {x: 0.85, y: 0.85, z: 0.85}
     targetBone: 
     attachmentProfileName: Humanoid
     floatHeight: 1.4
     addFloatHeightToTransform: 0
-    floatTransform: spine_02
+    floatTransform: chest
   isPet: 0
   flightCapable: 0
   glideCapable: 0
-  characterName: "K\u00f6rm\u00f6s"
+  characterName: "Kemik Ak\u0131nc\u0131"
   title: 
   factionName: Enemy
   unitTypeName: 
   characterRaceName: 
-  characterClassName: Fighter
+  characterClassName: 
   classSpecializationName: 
   spawnDead: 0
   preventAutoDespawn: 0
   defaultToughness: 
-  voiceProfile: Male Guard
+  voiceProfile: Male Pikeman
   useInlineVoiceProps: 0
   voiceProps:
     aggro: []
@@ -189,7 +189,7 @@ MonoBehaviour:
   useProviderEquipment: 0
   equipmentNameList: []
   isAggressive: 1
-  aggroRadius: 16
+  aggroRadius: 18
   automaticCombatStrategy: 0
   combatStrategyName: 
   defaultHitEffects: []
@@ -222,7 +222,7 @@ MonoBehaviour:
   saveOnLevelUnload: 0
   saveOnGameSave: 0
   overwriteUnitUUID: 0
-  m_UUID: 40f48eae-650d-557b-b1a4-25d6bdf425a8
+  m_UUID: e45e6001-7ee8-5b3b-96ed-3dacff0d571a
   references:
     version: 2
     RefIds:
@@ -238,6 +238,6 @@ MonoBehaviour:
         automaticCurrency: 1
         lootTableNames:
         - Potions
-        - Scrolls
-        - Necklaces
+        - Random Medieval Weapons
+        - Bags
         - Bozkir Ganimeti

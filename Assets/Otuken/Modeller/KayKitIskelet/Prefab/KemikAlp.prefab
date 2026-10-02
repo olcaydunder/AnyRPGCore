@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &148824887005779334
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 919132149155446097, guid: 235e0b0e754455ab8648edd78300b3c6, type: 3}
+      propertyPath: m_Name
+      value: KemikAlp
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 235e0b0e754455ab8648edd78300b3c6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 735684058056201500}
+  m_SourcePrefab: {fileID: 100100000, guid: 235e0b0e754455ab8648edd78300b3c6, type: 3}
+--- !u!1 &1067866187938572503 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 235e0b0e754455ab8648edd78300b3c6, type: 3}
+  m_PrefabInstance: {fileID: 148824887005779334}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &735684058056201500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1067866187938572503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2618a81c2884addb311f9fd5b26a14e, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  silahlar:
+  - silah: {fileID: 919132149155446097, guid: 771faed13a4d5c05851f46e5456349de, type: 3}
+    kemik: handslot.r
+  - silah: {fileID: 919132149155446097, guid: 3632d8bdaf735bed8d8cddf28710f017, type: 3}
+    kemik: handslot.l

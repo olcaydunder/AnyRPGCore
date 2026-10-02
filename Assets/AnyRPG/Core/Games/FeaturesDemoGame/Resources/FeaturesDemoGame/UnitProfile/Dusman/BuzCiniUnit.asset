@@ -33,7 +33,7 @@ MonoBehaviour:
     networkModelPrefab: {fileID: 0}
     modelProvider:
       rid: -2
-    animationProfileName: 
+    animationProfileName: Cin
     useInlineAnimationProps: 0
     animationProps:
       useRootMotion: 0

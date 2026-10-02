@@ -33,7 +33,7 @@ MonoBehaviour:
     networkModelPrefab: {fileID: 0}
     modelProvider:
       rid: -2
-    animationProfileName: 
+    animationProfileName: Kormos
     useInlineAnimationProps: 0
     animationProps:
       useRootMotion: 0

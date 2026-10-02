@@ -22,6 +22,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 from navmesh import NavMesh  # noqa: E402
 from canavarlar import model_references  # noqa: E402
+import iskeletler  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
 GAME = ROOT / "Assets/AnyRPG/Core/Games/FeaturesDemoGame"
@@ -39,6 +40,8 @@ MODEL = {
 }
 # Quaternius canavarları (canavarlar.py): renk çeşidi prefab'ı -> (guid, kök GameObject fileID)
 MODEL.update({f"canavar:{ad}": ref for ad, ref in model_references().items()})
+# KayKit iskeletleri (iskeletler.py): tür prefab'ı (silahları takılı) -> (guid, kök GameObject fileID)
+MODEL.update({f"iskelet:{ad}": ref for ad, ref in iskeletler.model_references().items()})
 
 DUSMANLAR = {
     "Sulmus": dict(
@@ -89,34 +92,59 @@ DUSMANLAR = {
     # ---- Quaternius canavarları: insan iskeletli, kendi silahları modelin parçası; sınıf eşyası giymezler
     "Kormos": dict(
         ad="Körmös", sablon="BlueFighterUnit", model="canavar:KormosKizil", ses="Male Guard", saldirganlik=16,
-        canavar=dict(),
+        canavar=dict(animasyon="Kormos"),
         aciklama="Erlik Han'ın yeraltındaki kölesi. Zincirli gürzüyle saldırır; gözleri karanlıkta kor gibi yanar.",
         ganimet=["Potions", "Scrolls", "Necklaces"]),
     "Agulu Kormos": dict(
         ad="Ağulu Körmös", sablon="BlueFighterUnit", model="canavar:KormosYesil", ses="Male Guard", saldirganlik=16,
-        canavar=dict(),
+        canavar=dict(animasyon="Kormos"),
         aciklama="Bataklıklarda dolaşan körmös. Gürzünü ağuya bulamıştır; vuruşu acıtır.",
         ganimet=["Potions", "Bags"]),
     "Ayaz Kormosu": dict(
         ad="Ayaz Körmösü", sablon="BlueFighterUnit", model="canavar:KormosMavi", ses="Male Pikeman", saldirganlik=18,
-        dayaniklilik="Solo Dungeon Minion", canavar=dict(olcek=1.1),
+        dayaniklilik="Solo Dungeon Minion", canavar=dict(olcek=1.1, animasyon="Kormos"),
         aciklama="Buz Dağı'nın ayazında katılaşmış körmös. Sıradan körmöslerden iri ve dayanıklıdır.",
         ganimet=["Potions", "Scrolls", "Random Medieval Weapons"]),
     "Cali Cini": dict(
         ad="Çalı Cini", sablon="BlueFighterUnit", model="canavar:CinYesil", ses="Female High", saldirganlik=12,
-        canavar=dict(kucuk=True),
+        canavar=dict(kucuk=True, animasyon="Cin"),
         aciklama="Çalıların arasında yaşayan cüce cin. Tek başına zayıftır ama hep sürüyle gezer.",
         ganimet=["Potions"]),
     "Kizil Cin": dict(
         ad="Kızıl Cin", sablon="BlueFighterUnit", model="canavar:CinKizil", ses="Female High", saldirganlik=16,
-        canavar=dict(kucuk=True),
+        canavar=dict(kucuk=True, animasyon="Cin"),
         aciklama="Ateş Dağı'nın sıcak kayalıklarında kaynaşan kızıl cinler. Sopalarını közde sertleştirirler.",
         ganimet=["Potions", "Bags"]),
     "Buz Cini": dict(
         ad="Buz Cini", sablon="BlueFighterUnit", model="canavar:CinMavi", ses="Female High", saldirganlik=16,
-        canavar=dict(kucuk=True),
+        canavar=dict(kucuk=True, animasyon="Cin"),
         aciklama="Karların altında yuva yapan mavi cin. Yolcuların azığını çalar, peşine düşeni dövmeye kalkar.",
         ganimet=["Potions", "Scrolls"]),
+    # ---- KayKit iskeletleri: kendi (Generic) animasyonları ve ayrı silah modelleri var; sınıfsızdırlar
+    #      (sınıf yetenekleri insan animasyonu oynatır, iskelette oynamaz), yalnız silahlarıyla vururlar
+    "Kemik Er": dict(
+        ad="Kemik Er", sablon="BlueFighterUnit", model="iskelet:KemikEr", ses="Male Guard", saldirganlik=16,
+        iskelet=dict(olcek=0.85),
+        aciklama="Erlik Han'ın eski kurganlardan kaldırdığı ölü er. Paslı kılıcı ve küçük kalkanıyla yolu keser; "
+                 "yere serilince kemikleri dağılır ama bir gün yine dirilir.",
+        ganimet=["Potions", "Basic Copper Weapons"]),
+    "Kemik Alp": dict(
+        ad="Kemik Alp", sablon="BlueFighterUnit", model="iskelet:KemikAlp", ses="Male Knight", saldirganlik=18,
+        dayaniklilik="Solo Dungeon Minion", iskelet=dict(olcek=0.95),
+        aciklama="Adı bir zamanlar destanlarda geçen bir alpın kemikleri. Boynuzlu miğferi, iri kalkanı ve "
+                 "baltasıyla ölü erleri yönetir.",
+        ganimet=["Potions", "Basic Iron Weapons", "Necklaces"]),
+    "Kemik Akinci": dict(
+        ad="Kemik Akıncı", sablon="BlueFighterUnit", model="iskelet:KemikAkinci", ses="Male Pikeman", saldirganlik=18,
+        iskelet=dict(olcek=0.85),
+        aciklama="Kızıl kukuletalı ölü akıncı. İki kılıcıyla hızlı ve art arda vurur.",
+        ganimet=["Potions", "Random Medieval Weapons", "Bags"]),
+    "Kemik Kam": dict(
+        ad="Kemik Kam", sablon="BlueFighterUnit", model="iskelet:KemikKam", ses="Male Guard", saldirganlik=16,
+        iskelet=dict(olcek=0.85),
+        aciklama="Erlik'e kul olmuş ölü kam. Kafatası başlıklı asasıyla vurur; kurganlardaki ölüleri onun "
+                 "kaldırdığı söylenir.",
+        ganimet=["Potions", "Scrolls", "Necklaces"]),
     "Ulu Evren": dict(
         ad="Ulu Evren", sablon="DragonUnit", model=None, ses=None, saldirganlik=25,
         dayaniklilik="Solo Dungeon Boss",
@@ -151,6 +179,9 @@ ZONE = dict(
         ("AtesDagiKizilCinler", 100, 175, [("Kizil Cin", 2), ("Kormos", 1)], 2),
         ("BuzDagiCinleri", -190, -40, [("Buz Cini", 2), ("Ayaz Kormosu", 1)], 2),
         ("BuzDagiAyazKormosleri", -175, 70, [("Ayaz Kormosu", 2), ("Buz Cini", 1)], 3),
+        # KayKit iskeletleri: eski kurganlar
+        ("KemikKurganiKuzey", 150, 300, [("Kemik Er", 2), ("Kemik Akinci", 1), ("Kemik Kam", 1)], 2),
+        ("KemikKurganiGuney", -150, -260, [("Kemik Er", 2), ("Kemik Alp", 1)], 1),
     ],
     noktalar=[
         # Ateş Dağı (köyün kuzeyi)
@@ -180,6 +211,9 @@ DUNGEON = dict(
         ("MagaraOrta", [("Kara Kam", 86, 10), ("Kara Otaci", 86, -15)], 1),
         ("MagaraSagOda", [("Sulmus", 110, 45), ("Sulmus", 110, -15)], 1),
         ("MagaraKormosleri", [("Kormos", 70, 0), ("Kormos", 100, 20), ("Kormos", 60, 40)], 1),
+        ("MagaraKemikSalonu", [("Kemik Er", 8, 35), ("Kemik Er", 8, -15), ("Kemik Kam", 0, 10),
+                               ("Kemik Alp", 12, 10)], 1),
+        ("MagaraDoguKemikleri", [("Kemik Akinci", 150, 15), ("Kemik Akinci", 165, 20)], 1),
     ],
 )
 
@@ -242,6 +276,9 @@ def write_profiles():
             t, n = re.subn(r"^(      unitFrameTarget: )head$", lambda m: m.group(1) + "Head", t, flags=re.M)
             assert n == 2, key
             t = sub(r"^    floatTransform: Spine1$", "    floatTransform: spine_02", t)
+            if c.get("animasyon"):
+                # Universal Animation Library profilleri (animasyonlar.py)
+                t = sub(r"^    animationProfileName: $", f"    animationProfileName: {c['animasyon']}", t)
             if c.get("olcek"):
                 s = c["olcek"]
                 t = sub(r"^    scale: \{x: 1, y: 1, z: 1\}$", f"    scale: {{x: {s}, y: {s}, z: {s}}}", t)
@@ -255,6 +292,16 @@ def write_profiles():
                 t, n = re.subn(r"^(      unitPreviewCameraPositionOffset: )\{x: 0, y: 1, z: 2.5\}$",
                                lambda m: m.group(1) + "{x: 0, y: 0.6, z: 1.6}", t, flags=re.M)
                 assert n == 2, key
+        if "iskelet" in d:
+            c = d["iskelet"]
+            t = sub(r"^  useProviderEquipment: 1$", "  useProviderEquipment: 0", t)
+            # sınıf yok: Fighter'ın "Punch Combo" yeteneği insan animasyonu oynatır, Generic iskelette oynamaz
+            t = sub(r"^  characterClassName: .*$", "  characterClassName: ", t)
+            t = sub(r"^    floatTransform: Spine1$", "    floatTransform: chest", t)
+            profil = iskeletler.animation_profiles()[d["model"].split(":", 1)[1]]
+            t = sub(r"^    animationProfileName: $", f"    animationProfileName: {profil}", t)
+            s = c["olcek"]
+            t = sub(r"^    scale: \{x: 1, y: 1, z: 1\}$", f"    scale: {{x: {s}, y: {s}, z: {s}}}", t)
         # ölünce üstünden ganimet alınabilsin
         t = sub(r"^  inlineInteractableOptions: \[\]$", "  inlineInteractableOptions:\n  - rid: 0", t)
         # her düşmana bozkır ganimeti (ganimet.py), boss'lara ayrıca ulu ganimet
