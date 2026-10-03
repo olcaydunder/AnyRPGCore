@@ -115,6 +115,11 @@ namespace Otuken.EditorAraclari {
                         Yaz($"!! HATA {yol}: {e}");
                     }
                 }
+                try {
+                    ArayuzCek();
+                } catch (Exception e) {
+                    Yaz($"!! HATA arayüz önizlemesi: {e}");
+                }
             } finally {
                 ShaderUtil.allowAsyncCompilation = eskiAsenkron;
                 AssetDatabase.SaveAssets();
@@ -466,6 +471,102 @@ namespace Otuken.EditorAraclari {
                 Vector3 k = merkez + new Vector3(Mathf.Cos(aci), 0f, Mathf.Sin(aci)) * r2 * 0.9f + Vector3.up * (r2 * 0.55f + 20f);
                 Cek($"{ad}_egik{i + 1}", k, merkez, 55f, false, 0f, 960, 540);
             }
+        }
+
+        /// <summary>
+        /// Telefon arayüzünün önizlemesi (tani/arayuz_*.jpg): dokunmatik düğmeler ve Işınlan penceresi,
+        /// 20:9 bir telefon ekranında oyundaki ölçekle. Pencereler kodla kurulduğu için burada da aynı kodla kurulur.
+        /// </summary>
+        private static void ArayuzCek() {
+            ArayuzCiz("arayuz_hud", false);
+            ArayuzCiz("arayuz_isinlan", true);
+        }
+
+        private static void ArayuzCiz(string dosya, bool pencere) {
+            const int en = 1600, boy = 720;
+            List<GameObject> silinecek = new List<GameObject>();
+            RenderTexture rt = null;
+            Texture2D doku = null;
+            try {
+                GameObject kameraNesnesi = new GameObject("ArayuzKamerasi");
+                silinecek.Add(kameraNesnesi);
+                Camera kamera = kameraNesnesi.AddComponent<Camera>();
+                kamera.transform.position = new Vector3(0f, -5000f, 0f);
+                kamera.clearFlags = CameraClearFlags.SolidColor;
+                kamera.backgroundColor = new Color(0.33f, 0.42f, 0.3f, 1f);
+                kamera.nearClipPlane = 0.1f;
+                kamera.farClipPlane = 10f;
+                rt = new RenderTexture(en, boy, 24, RenderTextureFormat.ARGB32, RenderTextureReadWrite.sRGB);
+                rt.Create();
+                kamera.targetTexture = rt;
+
+                // oyundaki gibi: HUD 800 yüksekliğe göre (MobileBootstrap.ScaleCanvases), pencere kendi ölçeğiyle
+                Component hud = Tuval("HUD", kamera, 2f, 5, silinecek).AddComponent<AnyRPG.MobileHud>();
+                YontemCagir(hud, "Build");
+                if (pencere) {
+                    Component isinlanma = Tuval("Isinlanma", kamera, 1f, 31, silinecek).AddComponent<AnyRPG.IsinlanmaPenceresi>();
+                    YontemCagir(isinlanma, "Build");
+                    YontemCagir(isinlanma, "Open");
+                    YontemCagir(isinlanma, "Select", 9);
+                }
+                Canvas.ForceUpdateCanvases();
+
+                RenderPipeline.StandardRequest istek = new RenderPipeline.StandardRequest();
+                istek.destination = rt;
+                if (RenderPipeline.SupportsRenderRequest(kamera, istek)) {
+                    RenderPipeline.SubmitRenderRequest(kamera, istek);
+                } else {
+                    kamera.Render();
+                }
+                RenderTexture onceki = RenderTexture.active;
+                RenderTexture.active = rt;
+                doku = new Texture2D(en, boy, TextureFormat.RGB24, false);
+                doku.ReadPixels(new Rect(0, 0, en, boy), 0, 0);
+                doku.Apply();
+                RenderTexture.active = onceki;
+                File.WriteAllBytes(Path.Combine(taniKlasoru, dosya + ".jpg"), doku.EncodeToJPG(85));
+                Yaz($"arayüz önizlemesi: {dosya}.jpg");
+            } finally {
+                foreach (GameObject go in silinecek) {
+                    if (go != null) {
+                        Object.DestroyImmediate(go);
+                    }
+                }
+                if (rt != null) {
+                    rt.Release();
+                    Object.DestroyImmediate(rt);
+                }
+                if (doku != null) {
+                    Object.DestroyImmediate(doku);
+                }
+            }
+        }
+
+        private static GameObject Tuval(string ad, Camera kamera, float uzaklik, int sira, List<GameObject> silinecek) {
+            GameObject go = new GameObject(ad, typeof(RectTransform));
+            silinecek.Add(go);
+            Canvas tuval = go.AddComponent<Canvas>();
+            tuval.renderMode = RenderMode.ScreenSpaceCamera;
+            tuval.worldCamera = kamera;
+            tuval.planeDistance = uzaklik;
+            tuval.sortingOrder = sira;
+            UnityEngine.UI.CanvasScaler olcek = go.AddComponent<UnityEngine.UI.CanvasScaler>();
+            olcek.uiScaleMode = UnityEngine.UI.CanvasScaler.ScaleMode.ScaleWithScreenSize;
+            olcek.referenceResolution = new Vector2(1422f, 800f);
+            olcek.screenMatchMode = UnityEngine.UI.CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
+            olcek.matchWidthOrHeight = 1f;
+            // ölçek OnEnable'da hesaplanır: ayarlardan sonra yeniden etkinleştir
+            olcek.enabled = false;
+            olcek.enabled = true;
+            return go;
+        }
+
+        private static void YontemCagir(object nesne, string ad, params object[] degerler) {
+            MethodInfo yontem = nesne.GetType().GetMethod(ad, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            if (yontem == null) {
+                throw new Exception($"{nesne.GetType().Name}.{ad} bulunamadı");
+            }
+            yontem.Invoke(nesne, degerler);
         }
 
         private static void Cek(string dosya, Vector3 konum, Vector3 hedef, float fov, bool dik, float dikBoyut, int en, int boy) {

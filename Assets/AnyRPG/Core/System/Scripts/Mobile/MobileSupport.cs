@@ -426,7 +426,8 @@ namespace AnyRPG {
             foreach (Canvas canvas in canvases) {
                 if (canvas == null || canvas.isRootCanvas == false || canvas.renderMode == RenderMode.WorldSpace
                     || canvas.name == ErrorOverlayCanvasName || canvas.name == GameGuide.CanvasName || canvas.name == GunlukArmagan.CanvasName
-                    || canvas.name == SeceneklerPenceresi.CanvasName || canvas.transform.root.name == "[Graphy]"
+                    || canvas.name == SeceneklerPenceresi.CanvasName || canvas.name == IsinlanmaPenceresi.CanvasName
+                    || canvas.transform.root.name == "[Graphy]"
                     || canvas.transform.root.name == "IngameDebugConsole") {
                     continue;
                 }

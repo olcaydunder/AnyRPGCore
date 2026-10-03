@@ -91,7 +91,7 @@ namespace AnyRPG {
                 inGameSince = Time.unscaledTime;
                 return;
             }
-            if (Time.unscaledTime - inGameSince < DelayAfterSpawn || GameGuide.IsOpen || IsOpen) {
+            if (Time.unscaledTime - inGameSince < DelayAfterSpawn || GameGuide.IsOpen || IsinlanmaPenceresi.IsOpen || IsOpen) {
                 return;
             }
             UnitController unitController = systemGameManager.PlayerManagerClient.UnitController;

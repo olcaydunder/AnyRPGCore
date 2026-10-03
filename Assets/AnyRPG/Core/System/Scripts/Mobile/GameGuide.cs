@@ -308,6 +308,7 @@ namespace AnyRPG {
                 "• <b>Saldır</b>: seçili düşmana saldırır. Seçili düşman yoksa en yakın düşmanı bulur, yanına koşar ve vurur.\n" +
                 "• <b>Hedef</b>: önündeki düşmanlar arasında sırayla hedef değiştirir.\n" +
                 "• <b>Harita</b>: bölgenin haritası. Mavi nokta sensin, sarı işaretler görev verenler.\n" +
+                "• <b>Işınlan</b> (Harita'nın yanında): 15 haritanın listesi. Birini seç, <b>Işınlan</b>'a dokun; oraya geçersin.\n" +
                 "• <b>Karakter</b>: giydiğin donanım ve değerlerin.\n" +
                 "• <b>Çanta</b>: eşyaların ve paran.\n" +
                 "• <b>Görevler</b>: aldığın görevler ve kalan hedefleri.\n" +
@@ -473,6 +474,9 @@ namespace AnyRPG {
                 "<b>Geçit Taşı</b>. Harfleri gök turkuazı ışıkla parlar. Ötüken Yaylası'nda köyün güney kapısına giden yolun doğusundadır.\n" +
                 "• Taşa dokun: gidebileceğin bütün haritaların listesi açılır. Birine dokununca oraya geçersin.\n" +
                 "• Her haritadan her haritaya gidebilirsin; eve dönmek için listeden <b>Ötüken Yaylası</b>'nı seç.\n" +
+                "• Taşa yürümeden de gidebilirsin: sol kenarda Harita'nın yanındaki <b>Işınlan</b> düğmesine dokun, haritayı seç, " +
+                "<b>Işınlan</b>'a bas. Haritanın girişinde, Geçit Taşı'nın yanında belirirsin. Bulunduğun haritayı seçersen " +
+                "girişine dönersin (bir yere sıkışırsan işe yarar). Savaşın ortasında ve ölüyken ışınlanamazsın.\n" +
                 "• Ordubalık ve çevresindeki haritalar birbirine yollarla da bağlıdır: yolun sonunda üstünde yer adı yazan " +
                 "geçitten yürüyerek komşu haritaya geçersin.\n\n" +
                 H + "Haritalar (kolaydan zora)" + HE + "\n" +
