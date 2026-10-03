@@ -122,6 +122,9 @@ jobs:
         with:
           targetPlatform: Android
           buildName: ${{ env.APK_ADI }}
+          # önce haritaları hazırlar (yürüme ağı, tanı raporu, ekran görüntüleri), sonra standart GameCI derlemesi
+          # (Assets/Otuken/Editor/HaritaHazirlik.cs, Assets/Editor/UnityBuilderAction)
+          buildMethod: Otuken.EditorAraclari.Derleme.Derle
           androidExportType: androidPackage
           versioning: Custom
           version: ${{ steps.hazirlik.outputs.surum }}
@@ -131,6 +134,33 @@ jobs:
           androidKeystorePass: android
           androidKeyaliasName: androiddebugkey
           androidKeyaliasPass: android
+
+      - name: Tanı raporunu yükle (yürüme ağı, ekran görüntüleri)
+        # derleme başarısız olsa bile: "tani" ön sürümünde tani.zip (rapor.txt, *.jpg, navmesh/)
+        if: ${{ always() }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ ! -d tani ]; then
+            echo "tani klasörü yok"
+            exit 0
+          fi
+          zip -qr tani.zip tani
+          ls -la tani.zip
+          gh release delete tani --yes --cleanup-tag || true
+          gh release create tani tani.zip \
+            --prerelease \
+            --target "$GITHUB_SHA" \
+            --title "Tanı raporu (otomatik, oyuncular için değil)" \
+            --notes "Derleme $GITHUB_RUN_NUMBER, commit ${GITHUB_SHA::8}: yeni haritaların yürüme ağı, gölgelendirici denetimi ve ekran görüntüleri."
+          if [ -f tani/rapor.txt ]; then
+            {
+              echo "## Tanı raporu"
+              echo '```'
+              head -c 60000 tani/rapor.txt
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
 
       - name: APK'yı bul
         id: apk

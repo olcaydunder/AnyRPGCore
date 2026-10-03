@@ -1,0 +1,3 @@
+Kök Taş modeli ve dokuları bu proje için koddan üretildi (Tools~/dunya/koktas.py).
+Göktürk harfleri Noto Sans Old Turkic yazı tipiyle çizildi (SIL Open Font License 1.1).
+Yazı: Kül Tigin yazıtı, doğu yüzü, 1. satırın başı.

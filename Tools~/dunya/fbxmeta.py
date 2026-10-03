@@ -80,8 +80,9 @@ def texture_meta(path, guid, size, srgb=True):
     write_text(Path(str(path) + ".meta"), text)
 
 
-def urp_material(path, name, guid, base_guid, smoothness=0.2, emission=None):
-    """Tek dokulu URP/Lit malzemesi. emission: (r, g, b) verilirse ışır."""
+def urp_material(path, name, guid, base_guid, smoothness=0.2, emission=None, emission_map=None):
+    """Tek dokulu URP/Lit malzemesi. emission: (r, g, b) verilirse ışır; emission_map verilirse yalnız
+    o dokunun açık yerleri ışır."""
     text = TEMPLATE_MATERIAL.read_text(encoding="utf-8")
     text = text.replace("  m_Name: Necklace\n", f"  m_Name: {name}\n")
     keywords = "  - _EMISSION\n" if emission else ""
@@ -100,6 +101,8 @@ def urp_material(path, name, guid, base_guid, smoothness=0.2, emission=None):
     texture("_BaseMap", base_guid)
     texture("_MainTex", base_guid)
     texture("_BumpMap", None)
+    if emission_map:
+        texture("_EmissionMap", emission_map)
     texture("_MetallicGlossMap", None)
     text, n = re.subn(r"^    - _Smoothness: .*$", f"    - _Smoothness: {smoothness}", text, count=1, flags=re.M)
     assert n == 1

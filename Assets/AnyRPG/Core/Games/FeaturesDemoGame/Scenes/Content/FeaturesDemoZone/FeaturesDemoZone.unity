@@ -93467,6 +93467,518 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1662971667}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &407566026603060367
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 876284797904245517}
+  - component: {fileID: 137314728999843590}
+  - component: {fileID: 618322544426380122}
+  - component: {fileID: 902412519227024342}
+  - component: {fileID: 822676032409816521}
+  - component: {fileID: 585007736626479615}
+  - component: {fileID: 1090011142691964007}
+  - component: {fileID: 783655555031256808}
+  - component: {fileID: 1075523630168439631}
+  - component: {fileID: 212910864644482536}
+  - component: {fileID: 801873248092701426}
+  - component: {fileID: 757446341474530405}
+  - component: {fileID: 1127066686848099342}
+  - component: {fileID: 39587751499391918}
+  - component: {fileID: 5687949240791695}
+  m_Layer: 25
+  m_Name: GecitTasi
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &876284797904245517
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407566026603060367}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0.891, z: 0, w: 0.454}
+  m_LocalPosition: {x: 20.5, y: 0.06, z: -29}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 586946282082106885}
+  - {fileID: 481737720492074219}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &137314728999843590
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407566026603060367}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.8, y: 3.8, z: 2.8}
+  m_Center: {x: 0, y: 1.9, z: 0}
+--- !u!114 &618322544426380122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407566026603060367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df07de734135f834b9ba0098ec4ed914, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showTooltip: 1
+  interactableName: "Ge\u00e7it Ta\u015f\u0131"
+  glowOnMouseOver: 1
+  glowColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  interactionTooltipText: 
+  notInteractable: 0
+  interactWithAny: 0
+  interactOnExit: 0
+  isTrigger: 0
+  suppressInteractionWindow: 0
+  overrideInteractionColliderSize: 0
+  interactionMaxRange: 4
+  interactionPoints: []
+  componentController: {fileID: 0}
+  persistentObjectComponent:
+    persistObjectPosition: 0
+    saveOnLevelUnload: 0
+    saveOnGameSave: 0
+  persistInteractableData: 0
+  hasNameplate: 1
+  namePlateProps:
+    displayName: "Ge\u00e7it Ta\u015f\u0131"
+    overrideNameplatePosition: 1
+    nameplatePosition: {x: 0, y: 4.1, z: 0}
+  locked: 0
+  keyName: 
+  removeKeyOnInteract: 0
+  unlockOnInteract: 0
+--- !u!114 &902412519227024342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407566026603060367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e647edc4e4c6515da1ad0f84f34d4e50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  yukaridan: 4
+  asagi: 40
+--- !u!114 &822676032409816521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407566026603060367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfdd7a718358eb84dbd417f51a47a2c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadSceneProps:
+    interactionPanelTitle: "Erlik'in Ma\u011faras\u0131"
+    interactionPanelImage: {fileID: 0}
+    namePlateImage: {fileID: 0}
+    hideOnMiniMap: 0
+    prerequisiteConditions: []
+    locationTag: 
+    overrideSpawnLocation: 0
+    spawnLocation: {x: 0, y: 0, z: 0}
+    overrideSpawnDirection: 0
+    spawnForwardDirection: {x: 0, y: 0, z: 0}
+    sceneName: FeaturesDemoDungeon
+--- !u!114 &585007736626479615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407566026603060367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfdd7a718358eb84dbd417f51a47a2c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadSceneProps:
+    interactionPanelTitle: "Umay Tarlalar\u0131"
+    interactionPanelImage: {fileID: 0}
+    namePlateImage: {fileID: 0}
+    hideOnMiniMap: 0
+    prerequisiteConditions: []
+    locationTag: 
+    overrideSpawnLocation: 0
+    spawnLocation: {x: 0, y: 0, z: 0}
+    overrideSpawnDirection: 0
+    spawnForwardDirection: {x: 0, y: 0, z: 0}
+    sceneName: UmayTarlalari
+--- !u!114 &1090011142691964007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407566026603060367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfdd7a718358eb84dbd417f51a47a2c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadSceneProps:
+    interactionPanelTitle: "B\u00f6r\u00fc Tepesi"
+    interactionPanelImage: {fileID: 0}
+    namePlateImage: {fileID: 0}
+    hideOnMiniMap: 0
+    prerequisiteConditions: []
+    locationTag: 
+    overrideSpawnLocation: 0
+    spawnLocation: {x: 0, y: 0, z: 0}
+    overrideSpawnDirection: 0
+    spawnForwardDirection: {x: 0, y: 0, z: 0}
+    sceneName: BoruTepesi
+--- !u!114 &783655555031256808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407566026603060367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfdd7a718358eb84dbd417f51a47a2c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadSceneProps:
+    interactionPanelTitle: "Ak Deniz K\u0131y\u0131s\u0131"
+    interactionPanelImage: {fileID: 0}
+    namePlateImage: {fileID: 0}
+    hideOnMiniMap: 0
+    prerequisiteConditions: []
+    locationTag: 
+    overrideSpawnLocation: 0
+    spawnLocation: {x: 0, y: 0, z: 0}
+    overrideSpawnDirection: 0
+    spawnForwardDirection: {x: 0, y: 0, z: 0}
+    sceneName: AkDenizKiyisi
+--- !u!114 &1075523630168439631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407566026603060367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfdd7a718358eb84dbd417f51a47a2c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadSceneProps:
+    interactionPanelTitle: "Ordubal\u0131k \u00c7ar\u015f\u0131s\u0131"
+    interactionPanelImage: {fileID: 0}
+    namePlateImage: {fileID: 0}
+    hideOnMiniMap: 0
+    prerequisiteConditions: []
+    locationTag: 
+    overrideSpawnLocation: 0
+    spawnLocation: {x: 0, y: 0, z: 0}
+    overrideSpawnDirection: 0
+    spawnForwardDirection: {x: 0, y: 0, z: 0}
+    sceneName: OrdubalikCarsisi
+--- !u!114 &212910864644482536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407566026603060367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfdd7a718358eb84dbd417f51a47a2c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadSceneProps:
+    interactionPanelTitle: "Ordubal\u0131k Kenti"
+    interactionPanelImage: {fileID: 0}
+    namePlateImage: {fileID: 0}
+    hideOnMiniMap: 0
+    prerequisiteConditions: []
+    locationTag: 
+    overrideSpawnLocation: 0
+    spawnLocation: {x: 0, y: 0, z: 0}
+    overrideSpawnDirection: 0
+    spawnForwardDirection: {x: 0, y: 0, z: 0}
+    sceneName: OrdubalikKenti
+--- !u!114 &801873248092701426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407566026603060367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfdd7a718358eb84dbd417f51a47a2c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadSceneProps:
+    interactionPanelTitle: "Ulukay\u0131n Orman\u0131"
+    interactionPanelImage: {fileID: 0}
+    namePlateImage: {fileID: 0}
+    hideOnMiniMap: 0
+    prerequisiteConditions: []
+    locationTag: 
+    overrideSpawnLocation: 0
+    spawnLocation: {x: 0, y: 0, z: 0}
+    overrideSpawnDirection: 0
+    spawnForwardDirection: {x: 0, y: 0, z: 0}
+    sceneName: UlukayinOrmani
+--- !u!114 &757446341474530405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407566026603060367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfdd7a718358eb84dbd417f51a47a2c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadSceneProps:
+    interactionPanelTitle: "Ka\u011fan Ordas\u0131"
+    interactionPanelImage: {fileID: 0}
+    namePlateImage: {fileID: 0}
+    hideOnMiniMap: 0
+    prerequisiteConditions: []
+    locationTag: 
+    overrideSpawnLocation: 0
+    spawnLocation: {x: 0, y: 0, z: 0}
+    overrideSpawnDirection: 0
+    spawnForwardDirection: {x: 0, y: 0, z: 0}
+    sceneName: KaganOrdasi
+--- !u!114 &1127066686848099342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407566026603060367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfdd7a718358eb84dbd417f51a47a2c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadSceneProps:
+    interactionPanelTitle: "Kaf Da\u011f\u0131 Yolu"
+    interactionPanelImage: {fileID: 0}
+    namePlateImage: {fileID: 0}
+    hideOnMiniMap: 0
+    prerequisiteConditions: []
+    locationTag: 
+    overrideSpawnLocation: 0
+    spawnLocation: {x: 0, y: 0, z: 0}
+    overrideSpawnDirection: 0
+    spawnForwardDirection: {x: 0, y: 0, z: 0}
+    sceneName: KafDagiYolu
+--- !u!114 &39587751499391918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407566026603060367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfdd7a718358eb84dbd417f51a47a2c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadSceneProps:
+    interactionPanelTitle: "Ergenekon Ma\u011faras\u0131"
+    interactionPanelImage: {fileID: 0}
+    namePlateImage: {fileID: 0}
+    hideOnMiniMap: 0
+    prerequisiteConditions: []
+    locationTag: 
+    overrideSpawnLocation: 0
+    spawnLocation: {x: 0, y: 0, z: 0}
+    overrideSpawnDirection: 0
+    spawnForwardDirection: {x: 0, y: 0, z: 0}
+    sceneName: ErgenekonMagarasi
+--- !u!114 &5687949240791695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407566026603060367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfdd7a718358eb84dbd417f51a47a2c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadSceneProps:
+    interactionPanelTitle: "Ay Dede Koyu"
+    interactionPanelImage: {fileID: 0}
+    namePlateImage: {fileID: 0}
+    hideOnMiniMap: 0
+    prerequisiteConditions: []
+    locationTag: 
+    overrideSpawnLocation: 0
+    spawnLocation: {x: 0, y: 0, z: 0}
+    overrideSpawnDirection: 0
+    spawnForwardDirection: {x: 0, y: 0, z: 0}
+    sceneName: AyDedeKoyu
+--- !u!1001 &1130396865829804526
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 876284797904245517}
+    m_Modifications:
+    - target: {fileID: 919132149155446097, guid: 9aa76dc886d553ea93f7a882af9383d1, type: 3}
+      propertyPath: m_Name
+      value: GecitTasi_Model
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9aa76dc886d553ea93f7a882af9383d1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9aa76dc886d553ea93f7a882af9383d1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9aa76dc886d553ea93f7a882af9383d1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9aa76dc886d553ea93f7a882af9383d1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9aa76dc886d553ea93f7a882af9383d1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9aa76dc886d553ea93f7a882af9383d1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9aa76dc886d553ea93f7a882af9383d1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9aa76dc886d553ea93f7a882af9383d1, type: 3}
+--- !u!4 &586946282082106885 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9aa76dc886d553ea93f7a882af9383d1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1130396865829804526}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &982949614032747962
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 481737720492074219}
+  - component: {fileID: 280911088704866625}
+  - component: {fileID: 664868599492114566}
+  m_Layer: 0
+  m_Name: Engel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &481737720492074219
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 982949614032747962}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 876284797904245517}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &280911088704866625
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 982949614032747962}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 2.9, z: 0.4}
+  m_Center: {x: 0, y: 1.95, z: 0}
+--- !u!65 &664868599492114566
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 982949614032747962}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2, y: 0.6, z: 1.5}
+  m_Center: {x: 0, y: 0.3, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -93645,3 +94157,4 @@ SceneRoots:
   - {fileID: 2775317983058599462}
   - {fileID: 2775317982972506835}
   - {fileID: 2775317983616838123}
+  - {fileID: 876284797904245517}

@@ -1,0 +1,7 @@
+Bu klasör GameCI unity-builder'ın (https://github.com/game-ci/unity-builder, MIT lisansı, LICENSE.txt)
+standart derleme betiğidir; değiştirilmeden alınmıştır (sürüm v4).
+
+Neden burada: GitHub Actions derlemesi artık Otuken.EditorAraclari.Derleme.Derle yöntemiyle başlıyor
+(Assets/Otuken/Editor/HaritaHazirlik.cs). O yöntem önce yeni haritaların yürüme ağını (NavMesh) pişirir,
+tanı raporu ve ekran görüntüleri çıkarır, sonra bu klasördeki standart GameCI derlemesini çağırır.
+Özel derleme yöntemi verildiğinde GameCI bu betiği projeye kendisi kopyalamadığı için depoda duruyor.

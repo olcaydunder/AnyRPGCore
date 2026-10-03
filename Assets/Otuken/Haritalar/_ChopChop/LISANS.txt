@@ -1,0 +1,9 @@
+Bu klasördeki çevre sanatı (modeller, dokular, malzemeler, gölgelendiriciler, prefab'lar) Unity
+Technologies'in "Chop Chop" oyunundan (Unity Open Project #1) alınmıştır:
+    https://github.com/UnityTechnologies/open-project-1  (commit 608eac9)
+Lisans: Apache License 2.0 (https://www.apache.org/licenses/LICENSE-2.0)
+
+Değişiklikler (Tools~/dunya/haritalar.py): oyun betikleri, sesler ve ara sahneler çıkarıldı; prefab'lardan
+Chop Chop bileşenleri silindi; katmanlar ve ışık ayarları AnyRPG'ye uyarlandı; büyük dokular 1024 piksele
+küçültüldü; Shaders/CustomHLSL/CustomLighting.hlsl URP 17 için yeniden yazıldı. Sahneler
+Assets/Otuken/Haritalar/<Harita> altındadır ve aynı lisansla dağıtılır.
