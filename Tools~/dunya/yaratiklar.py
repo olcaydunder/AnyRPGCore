@@ -146,11 +146,11 @@ DUSMANLAR = {
                  "kaldırdığı söylenir.",
         ganimet=["Potions", "Scrolls", "Necklaces"]),
     # ---- KayKit haritalarının bossları (zindanlar.py); "Canavar Boss" stratejisi yalnız düz saldırı ve müzik
-    "Tepegoz": dict(
-        ad="Tepegöz", sablon="BlueFighterUnit", model="canavar:KormosKizil", ses="Male Hero", saldirganlik=18,
+    "Kara Koncolos": dict(
+        ad="Kara Koncolos", sablon="BlueFighterUnit", model="canavar:KormosKizil", ses="Male Hero", saldirganlik=18,
         dayaniklilik="Solo Dungeon Boss", savas="Canavar Boss", canavar=dict(olcek=2.3, animasyon="Kormos"),
-        aciklama="Dede Korkut'un tek gözlü devi. Oğuz'un yiğitlerini yiyerek büyüdü; derisine kılıç işlemez "
-                 "derler ama Basat'ın bilgisi başkadır.",
+        aciklama="Yılın en uzun gecelerinde ininden çıkıp obaları basan kara dev. Yediği yiğitlerin kemiklerini "
+                 "ininin dört bir yanına saçar; ateşten ve demirden korkar derler.",
         ganimet=["Potions", "Random Medieval Weapons", "Necklaces", "Bags"]),
     "Kemik Kagan": dict(
         ad="Kemik Kağan", sablon="BlueFighterUnit", model="iskelet:KemikAlp", ses="Male Knight", saldirganlik=20,
@@ -458,7 +458,7 @@ def place(scene, profiles_known):
             report.append(f"  YER YOK: {name} ({x:.1f}, {z:.1f})")
             return
         px, py, pz = spot
-        boss = profile in ("Ulu Evren", "Yelbegen", "Tepegoz", "Kemik Kagan", "Tamu Bekcisi")
+        boss = profile in ("Ulu Evren", "Yelbegen", "Kara Koncolos", "Kemik Kagan", "Tamu Bekcisi")
         doc, tid = spawn_doc(name, px, py, pz, rnd_yaw(name), profile, levels, 600 if boss else 90, used)
         docs.append(doc)
         roots.append(tid)

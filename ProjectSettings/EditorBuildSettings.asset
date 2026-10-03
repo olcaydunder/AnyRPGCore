@@ -51,8 +51,8 @@ EditorBuildSettings:
     path: Assets/Otuken/Haritalar/AyDedeKoyu/AyDedeKoyu.unity
     guid: 0ca499fca5bc560fb288a29dca60ba9c
   - enabled: 1
-    path: Assets/Otuken/Haritalar/TepegozIni/TepegozIni.unity
-    guid: 032bdfa1812052b2be5fcd2bc4aa3357
+    path: Assets/Otuken/Haritalar/KoncolosIni/KoncolosIni.unity
+    guid: c1fd59c1d3ee5a89a6715b965dfe1e7e
   - enabled: 1
     path: Assets/Otuken/Haritalar/KurganMezarligi/KurganMezarligi.unity
     guid: 93bc6a3578c05fd9aacffd2c0040f2f5

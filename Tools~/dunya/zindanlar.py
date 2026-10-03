@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """KayKit (Kay Lousberg, CC0) parçalarıyla üç harita kurar:
 
-  Tepegöz İni       Dede Korkut'un tek gözlü devinin kemiklerle dolu mağara zindanı (Dungeon Remastered)
+  Koncolos İni      Kara Koncolos'un kemiklerle dolu mağara zindanı (Dungeon Remastered)
   Kurgan Mezarlığı  gece, ölülerin kalktığı eski kurganlar ve mezar taşları (Halloween Bits)
   Tamu Zindanı      Erlik Han'ın yeraltı zindanı: dikenli zeminler, ızgaralar, kızıl sancaklar
 
@@ -104,13 +104,13 @@ def parca_guid(klasor, ad):
 #                 A kemerli kapı (kuzey çitine)
 
 HARITALAR = {
-    "TepegozIni": dict(
-        ad="Tepegöz İni", tur="zindan", zemin=("floor_dirt_large", "floor_dirt_large_rocky"),
+    "KoncolosIni": dict(
+        ad="Koncolos İni", tur="zindan", zemin=("floor_dirt_large", "floor_dirt_large_rocky"),
         duvar=("wall", "wall", "wall_cracked", "wall_broken"), muzik="Erlik Magarasi", ayak="Footstep Hits Gravel Fast",
-        aciklama="Dede Korkut'un anlattığı tek gözlü Tepegöz'ün ini. Yerler yediği yiğitlerin kemikleriyle dolu; "
-                 "Basat'tan beri kimse gözüne mil çekmeye cesaret edemedi.",
+        aciklama="Kara Koncolos'un ini. Yılın en uzun gecelerinde obaları basan dev, yediği yiğitlerin "
+                 "kemiklerini mağaranın dört bir yanına saçmış.",
         dusmanlar=["Kormos", "Agulu Kormos", "Kizil Cin", "Cali Cini"], guclu=["Kormos", "Agulu Kormos"],
-        boss="Tepegoz", ek_seviye=2,
+        boss="Kara Koncolos", ek_seviye=2,
         harita="""
 ##############
 ######kr.B.k##

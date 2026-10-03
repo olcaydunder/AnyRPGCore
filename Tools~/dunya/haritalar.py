@@ -38,6 +38,9 @@ import uyaml  # noqa: E402
 import unitysahne  # noqa: E402
 from unitysahne import TRS, Sahne, degisiklikler, yerel_trs  # noqa: E402
 import koktas  # noqa: E402
+import harita_icerik  # noqa: E402
+import hazineler  # noqa: E402
+import yaratiklar  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
 HEDEF = ROOT / "Assets/Otuken/Haritalar"
@@ -50,6 +53,8 @@ NS = uuid.UUID("8f3c2b1a-6d5e-4f70-9a8b-7c6d5e4f3a21")
 MASK = 0x7FFFFFFFFFFFFFFF
 OLCEK = 1.35          # Chop Chop domuzu 1.3 m, AnyRPG insanları 1.8 m
 DOKU_SINIRI = 1024
+# derlemede pişen yürüme ağlarının yerel kopyası (tani.zip/navmesh): giriş, geçit taşı ve kamp yerleri için
+YURUME_AGLARI = ROOT / "Tools~/varliklar/yurume_aglari"
 
 # ---------------------------------------------------------------- haritalar
 
@@ -109,11 +114,11 @@ BILINMEYEN_KONUM = "Forest"   # Forest_Entrance (oyundan çıkarılmış ara bö
 
 # var olan haritalar ve KayKit parçalarıyla kurulanlar (zindanlar.py)
 ESKI = [("FeaturesDemoZone", "Ötüken Yaylası"), ("FeaturesDemoDungeon", "Erlik'in Mağarası")]
-KAYKIT = [("TepegozIni", "Tepegöz İni"), ("KurganMezarligi", "Kurgan Mezarlığı"), ("TamuZindani", "Tamu Zindanı")]
+KAYKIT = [("KoncolosIni", "Koncolos İni"), ("KurganMezarligi", "Kurgan Mezarlığı"), ("TamuZindani", "Tamu Zindanı")]
 
 # Geçit Taşı'ndaki sıra: zorluğa göre
 YOLCULUK_SIRASI = ["FeaturesDemoZone", "UmayTarlalari", "BoruTepesi", "AkDenizKiyisi", "OrdubalikCarsisi",
-                   "OrdubalikKenti", "UlukayinOrmani", "TepegozIni", "KaganOrdasi", "KafDagiYolu",
+                   "OrdubalikKenti", "UlukayinOrmani", "KoncolosIni", "KaganOrdasi", "KafDagiYolu",
                    "ErgenekonMagarasi", "KurganMezarligi", "AyDedeKoyu", "FeaturesDemoDungeon", "TamuZindani"]
 
 GOK = {
@@ -336,6 +341,8 @@ class Harita:
         self.girisler = []   # (ad, dünya TRS, yol guid)
         self.cikislar = []   # (ad, dünya TRS, yol guid, hedef kaynak sahne)
         self.varsayilan = None
+        ag = YURUME_AGLARI / f"{self.dosya}.asset"
+        self.ag = harita_icerik.YurumeAgi(ag) if ag.exists() else None
 
 
 def gecis_bilgisi(s, kaynak):
@@ -693,7 +700,7 @@ def zemin_belge(fid, go):
     return mb_bas(fid, go, ZEMIN_BETIK) + "  yukaridan: 4\n  asagi: 40\n"
 
 
-def yazi_belgeleri(k, ad, metin, p, rot, boyut=22, renk=(1.0, 0.86, 0.45)):
+def yazi_belgeleri(k, ad, metin, p, rot, boyut=22, renk=(1.0, 0.97, 0.88)):
     """dünyada duran tek satır TextMeshPro yazısı"""
     go, tr, mr, tmp = (kimlik(f"{ad}:{x}", k) for x in ("go", "tr", "mr", "tmp"))
     r, g, b = renk
@@ -805,7 +812,8 @@ def gecit_tasi(k, ad, p, yaw, secenekler):
         belgeler += loadscene_belge(fid, go, baslik, sahne)
     belgeler += model_metin
     # yürünemeyen gövde: dikili taş ve kaplumbağa
-    belgeler += go_belge(ego, "Engel", [etr, ekutu, ekutu2])
+    # TransparentFX katmanı: yürüme ağına girmez (taşın yeri değişse de ağ bozulmaz), çarpışma yine engeller
+    belgeler += go_belge(ego, "Engel", [etr, ekutu, ekutu2], katman=1)
     belgeler += tr_belge(etr, ego, (0, 0, 0), ust=tr)
     belgeler += kutu_belge(ekutu, ego, (1.0, 2.9, 0.4), (0, 1.95, 0), tetik=False)
     belgeler += kutu_belge(ekutu2, ego, (2.0, 0.6, 1.5), (0, 0.3, 0), tetik=False)
@@ -869,25 +877,36 @@ def harita_yaz(h, s, haritalar, kaynak):
         giris = next(g for g in h.girisler if g[0] == h.giris)
     gp = dunya_p(giris[1])
     gyaw = unitysahne.q_yaw(giris[1].q)
+    nm = None
+    if h.ag is not None:
+        # Chop Chop girişleri bazen kayanın içinde ya da suyun üstünde (domuz ara sahneyle girer):
+        # yürüme ağının en yakın büyük parçasındaki düz bir yere taşı
+        (x, y, z), nm = h.ag.oturt(gp)
+        gp = (x, y + 0.05, z)
     h.varsayilan = (gp, gyaw)
     metin, _, _ = prefab_ornegi(k, "DefaultSpawnLocation", SPAWN[0], SPAWN[1], SPAWN[2], gp, unitysahne.yaw_q(gyaw))
     ek.append(metin)
     metin, _, _ = prefab_ornegi(k, "SceneConfig", SCENECONFIG[0], SCENECONFIG[1], SCENECONFIG[2], (0, 0, 0))
     ek.append(metin)
 
-    # 3. yürüme ağı yüzeyi (derlemede HaritaHazirlik pişirir)
+    # 3. yürüme ağı yüzeyi: her derlemede HaritaHazirlik pişirir
+    nav_ref = "{fileID: 0}"
     ngo, ntr, nmb = (kimlik(f"Navigation:{x}", k) for x in ("go", "tr", "mb"))
     ek.append(go_belge(ngo, "Navigation", [ntr, nmb]) + tr_belge(ntr, ngo, (0, 0, 0)) + mb_bas(nmb, ngo, NAVMESH_BETIK) + (
         "  m_SerializedVersion: 0\n  m_AgentTypeID: 0\n  m_CollectObjects: 0\n  m_Size: {x: 10, y: 10, z: 10}\n"
         "  m_Center: {x: 0, y: 2, z: 0}\n  m_LayerMask:\n    serializedVersion: 2\n    m_Bits: 1\n"
         "  m_UseGeometry: 1\n  m_DefaultArea: 0\n  m_GenerateLinks: 0\n  m_IgnoreNavMeshAgent: 1\n"
         "  m_IgnoreNavMeshObstacle: 1\n  m_OverrideTileSize: 0\n  m_TileSize: 256\n  m_OverrideVoxelSize: 0\n"
-        "  m_VoxelSize: 0.16666667\n  m_MinRegionArea: 2\n  m_NavMeshData: {fileID: 0}\n  m_BuildHeightMesh: 0\n"))
+        f"  m_VoxelSize: 0.16666667\n  m_MinRegionArea: 2\n  m_NavMeshData: {nav_ref}\n  m_BuildHeightMesh: 0\n"))
 
-    # 4. geçit taşı: girişin önünde, sağa doğru
+    # 4. geçit taşı: girişin önünde, sağa doğru (yürüme ağı varsa üzerinde düz bir yer)
     ileri = unitysahne.qrot(unitysahne.yaw_q(gyaw), (0, 0, 1))
     sag = (ileri[2], 0, -ileri[0])
     tp = (gp[0] + ileri[0] * 5 + sag[0] * 4, gp[1], gp[2] + ileri[2] * 5 + sag[2] * 4)
+    if nm is not None:
+        yer = harita_icerik.tas_yeri(nm, (gp[0], gp[2]), (ileri[0], ileri[2]), gp[1])
+        if yer:
+            tp = yer
     tas_yaw = math.degrees(math.atan2(gp[0] - tp[0], gp[2] - tp[2]))
     metin, _ = gecit_tasi(k, "GecitTasi", tp, tas_yaw, secenekler_icin(h.dosya))
     ek.append(metin)
@@ -899,6 +918,8 @@ def harita_yaz(h, s, haritalar, kaynak):
         hh = haritalar[hedef]
         varis = next((g for g in hh.girisler if g[2] == yol), None)
         vp = dunya_p(varis[1]) if varis else None
+        if vp is not None and hh.ag is not None:
+            vp = hh.ag.oturt(vp)[0]
         vileri = varis[1].ileri() if varis else None
         p = dunya_p(trs)
         s_ = tuple(abs(v) * OLCEK for v in trs.s)
@@ -918,7 +939,29 @@ def harita_yaz(h, s, haritalar, kaynak):
             ek.append(metin)
         h.kapilar.append((kad, p, dusme))
 
-    # 6. birleştir
+    # 6. düşman kampları ve sandıklar (yürüme ağının yerel kopyası varsa)
+    h.rapor = "yürüme ağı yok: düşman yerleştirilmedi"
+    if nm is not None and h.dosya in harita_icerik.KADRO:
+        yasak = [(gp[0], gp[2], 24), (tp[0], tp[2], 12)] + [(p[0], p[2], 12) for _, p, dusme in h.kapilar if not dusme]
+        # tasarlanmış oyun alanı: Chop Chop giriş ve çıkışlarının çevresi (uzaktaki manzara adaları değil)
+        isaret = [dunya_p(g[1]) for g in h.girisler] + [p for _, p, dusme in h.kapilar if not dusme] + [gp]
+        mx = sum(p[0] for p in isaret) / len(isaret)
+        mz = sum(p[2] for p in isaret) / len(isaret)
+        yaricap = max(90.0, max(math.hypot(p[0] - mx, p[2] - mz) for p in isaret) + 55.0)
+        kamplar, sandiklar, h.rapor, ek_seviye = harita_icerik.kamplari_sec(
+            h.dosya, nm, (gp[0], gp[2]), yasak, (mx, mz, yaricap))
+        for i, (merkez, uyeler) in enumerate(kamplar):
+            for j, (profil, x, y, z) in enumerate(uyeler):
+                yaw = math.degrees(math.atan2(merkez[0] - x, merkez[2] - z)) + 180
+                doc, tid = yaratiklar.spawn_doc(f"TR_{h.dosya}_{i + 1}_{j + 1}", x, y + 0.05, z, yaw, profil,
+                                                ek_seviye + (1 if i >= len(kamplar) - 2 else 0), 120, k)
+                ek.append(doc)
+        bilgi = hazineler.prefab_info()
+        for i, (prefab, (x, y, z)) in enumerate(sandiklar):
+            doc, tid = hazineler.instance_doc(f"TRL_{h.dosya}_{i + 1}", prefab, x, y, z, (i * 97) % 360, bilgi, k)
+            ek.append(doc)
+
+    # 7. birleştir
     on = s.on
     metin = s.metin()
     metin = metin.rstrip("\n") + "\n" + "".join(ek)
@@ -1059,7 +1102,7 @@ def main():
         h = haritalar[ad]
         harita_yaz(h, sahneler[ad], haritalar, kaynak)
         scene_node(h)
-        print(f"  {h.ad}: giriş {tuple(round(v, 1) for v in h.varsayilan[0])}, {len(h.kapilar)} kapı")
+        print(f"  {h.ad}: giriş {tuple(round(v, 1) for v in h.varsayilan[0])}, {len(h.kapilar)} kapı; {h.rapor}")
     sirali = [haritalar[a] for a in SIRA]
     derleme_listesi(sirali)
 
@@ -1075,8 +1118,8 @@ def main():
 
 # (sahne yolu, sahne adı, konum, yön, bakış noktası) -- yürüme ağında düz ve boş yerler
 ESKI_TASLAR = [
-    # Ötüken Yaylası: köy kapısına giden yolun doğusu, giriş noktasının sağ önü
-    (ZONE, "FeaturesDemoZone", (20.5, 0.06, -29.0), -126.0, (13.9, 2.2, -36.5)),
+    # Ötüken Yaylası: köy kapısına giden yolun doğu kenarı, giriş noktasının sağ önü (ağaçların önünde)
+    (ZONE, "FeaturesDemoZone", (17.2, 0.06, -27.5), -152.4, (12.5, 2.2, -36.5)),
     # Erlik'in Mağarası: giriş koridorunun açıldığı salonun batısı
     (DUNGEON, "FeaturesDemoDungeon", (78.0, 0.3, 63.0), 63.4, (86.0, 2.4, 70.0)),
 ]

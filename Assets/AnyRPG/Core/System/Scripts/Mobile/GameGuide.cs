@@ -5,7 +5,7 @@ using UnityEngine.UI;
 namespace AnyRPG {
 
     /// <summary>
-    /// "Nasıl Oynanır" rehberi: kontroller, savaş, para, ganimet, görevler, zanaatlar, bölgeler ve gereksinimler.
+    /// "Nasıl Oynanır" rehberi: kontroller, savaş, para, ganimet, görevler, zanaatlar, bölgeler, geçit taşları ve gereksinimler.
     /// İlk kez oyuna girince kendiliğinden açılır; oyunda Menü > "Nasıl Oynanır", ana menüde "Nasıl Oynanır" düğmesiyle yeniden açılır.
     /// Kodla kurulur, hiçbir prefab ya da resim dosyası gerektirmez.
     /// </summary>
@@ -464,7 +464,35 @@ namespace AnyRPG {
                 "• <b>Erlik'in Mağarası</b> (köyün kuzey duvarının dışındaki taş kapı): Albastılar, Şulmuslar, Kara Kamlar, Körmösler, kemik erler ve en dipte <b>Tepegöz</b>. Zindan.\n" +
                 "• <b>Er Meydanı</b> (köyün doğu ucu): Er Meydanı Ağası'ndan rakip çağırıp dövüşebilirsin.\n" +
                 "• <b>Dört uzak köşe</b>: haritanın köşelerinde güçlü kamplar ve büyük hazine sandıkları.\n\n" +
-                "Önerilen sıra: Güney çayırı → Yağmacı Obası ve korular → mağara → Ateş Dağı ve Buz Dağı → doruklar."),
+                "Önerilen sıra: Güney çayırı → Yağmacı Obası ve korular → mağara → Ateş Dağı ve Buz Dağı → doruklar.\n\n" +
+                "Ötüken Yaylası'ndan başka diyarlara <b>Geçit Taşı</b> ile gidilir: bir sonraki bölüme bak."),
+
+            new Section("Geçit Taşları",
+                H + "Kök Taş: diyarlar arası yol" + HE + "\n" +
+                "Her haritada, girdiğin yerin hemen yanında Göktürk harfleriyle yazılmış, kaplumbağa kaideli bir dikili taş durur: " +
+                "<b>Geçit Taşı</b>. Harfleri gök turkuazı ışıkla parlar. Ötüken Yaylası'nda köyün güney kapısına giden yolun doğusundadır.\n" +
+                "• Taşa dokun: gidebileceğin bütün haritaların listesi açılır. Birine dokununca oraya geçersin.\n" +
+                "• Her haritadan her haritaya gidebilirsin; eve dönmek için listeden <b>Ötüken Yaylası</b>'nı seç.\n" +
+                "• Ordubalık ve çevresindeki haritalar birbirine yollarla da bağlıdır: yolun sonunda üstünde yer adı yazan " +
+                "geçitten yürüyerek komşu haritaya geçersin.\n\n" +
+                H + "Haritalar (kolaydan zora)" + HE + "\n" +
+                "1. <b>Ötüken Yaylası</b>: köy ve çevresi. Başlangıç.\n" +
+                "2. <b>Umay Tarlaları</b>: ekinler, limon bahçeleri. Çalı Cinleri, yağmacılar.\n" +
+                "3. <b>Börü Tepesi</b>: meşaleli patikalar, denize inen yamaç.\n" +
+                "4. <b>Ak Deniz Kıyısı</b>: bambu korulukları, kumsal. Yağmacılar ve Şulmuslar.\n" +
+                "5. <b>Ordubalık Çarşısı</b>: başkentin şenlikli çarşısı.\n" +
+                "6. <b>Ordubalık Kenti</b>: değirmenler, taş köprüler.\n" +
+                "7. <b>Ulukayın Ormanı</b>: şelalenin ardındaki gölgeli orman.\n" +
+                "8. <b>Koncolos İni</b>: kemiklerle dolu mağara; dipte <b>Kara Koncolos</b>.\n" +
+                "9. <b>Kağan Ordası</b>: kentin tepesi; Erlik'in en güçlü yandaşları.\n" +
+                "10. <b>Kaf Dağı Yolu</b>: sarp kayalıklar, Kızıl Cinler.\n" +
+                "11. <b>Ergenekon Mağarası</b>: atalarımızın demir dağı.\n" +
+                "12. <b>Kurgan Mezarlığı</b>: gece; kemik erler ve <b>Kemik Kağan</b>.\n" +
+                "13. <b>Ay Dede Koyu</b>: ay ışığında ölülerin indiği koy.\n" +
+                "14. <b>Erlik'in Mağarası</b>: lavlı zindan; dipte <b>Tepegöz</b>.\n" +
+                "15. <b>Tamu Zindanı</b>: Erlik Han'ın yeraltı zindanı; kapıda <b>Tamu Bekçisi</b>.\n\n" +
+                "Düşmanlar senin seviyene göre güçlenir; zor haritalarda birkaç seviye üstüne çıkarlar. " +
+                "Kampların ortasındaki sandıklar ve bosslar en iyi ganimeti verir."),
 
             new Section("Gereksinimler",
                 H + "Cihaz" + HE + "\n" +

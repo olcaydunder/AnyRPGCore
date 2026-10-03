@@ -347,9 +347,23 @@ namespace Otuken.EditorAraclari {
             }
             float boyut = Mathf.Max(s.extents.x, s.extents.z) * 1.08f + 5f;
             Vector3 merkez = s.center;
-            Vector3 konum = new Vector3(merkez.x, s.max.y + 300f, merkez.z);
-            Cek($"{ad}_kusbakisi", konum, konum + Vector3.down, 60f, true, boyut, 1024, 1024);
-            Yaz($"kuşbakışı: merkez ({merkez.x:0.0}, {merkez.z:0.0}), yarı boyut {boyut:0.0} m (görüntü 1024x1024, kuzey yukarı)");
+            // dik kamera bazı gölgelendiricilerde boş çıkıyor: yukarıdan, sissiz, perspektif çekim (60 derece)
+            float yukseklik = boyut / Mathf.Tan(30f * Mathf.Deg2Rad);
+            Vector3 konum = new Vector3(merkez.x, s.max.y + yukseklik, merkez.z);
+            bool sis = RenderSettings.fog;
+            RenderSettings.fog = false;
+            Cek($"{ad}_kusbakisi", konum, konum + Vector3.down, 60f, false, 0f, 1024, 1024);
+            GameObject giris = GameObject.FindGameObjectsWithTag("DefaultSpawnLocation").FirstOrDefault();
+            if (giris != null) {
+                // girişin çevresi (130 m): kampların, kapıların ve geçit taşının yerleşimini görmek için
+                Vector3 g = giris.transform.position;
+                float yakin = 130f / Mathf.Tan(30f * Mathf.Deg2Rad);
+                Vector3 k2 = new Vector3(g.x, g.y + yakin, g.z);
+                Cek($"{ad}_yakin", k2, k2 + Vector3.down, 60f, false, 0f, 1024, 1024);
+                Yaz($"yakın kuşbakışı: merkez ({g.x:0.0}, {g.z:0.0}), yükseklik {g.y:0.0} + {yakin:0.0} m, yarı görüş 130 m");
+            }
+            RenderSettings.fog = sis;
+            Yaz($"kuşbakışı: merkez ({merkez.x:0.0}, {merkez.z:0.0}), yükseklik {s.max.y:0.0} + {yukseklik:0.0} m, yarı görüş {boyut:0.0} m (kuzey yukarı)");
 
             // dört köşeden eğik bakış
             float r2 = Mathf.Max(s.extents.x, s.extents.z);
