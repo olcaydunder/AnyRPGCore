@@ -22,11 +22,26 @@ namespace Otuken.EditorAraclari {
     /// </summary>
     public static class Derleme {
 
+        /// <summary>workflow'daki "yalnız arayüz önizlemesi" seçeneği: haritalar işlenmez, APK derlenmez (hızlı deneme)</summary>
+        public static bool SadeceArayuz {
+            get { return Environment.GetCommandLineArgs().Contains("-sadeceArayuz"); }
+        }
+
         public static void Derle() {
             try {
                 HaritaHazirlik.Calistir();
             } catch (Exception e) {
                 Debug.LogError("HaritaHazirlik başarısız oldu, derlemeye devam ediliyor: " + e);
+            }
+            if (SadeceArayuz) {
+                // GameCI derleme klasörünü bekler
+                string[] argumanlar = Environment.GetCommandLineArgs();
+                int i = Array.IndexOf(argumanlar, "-customBuildPath");
+                if (i >= 0 && i + 1 < argumanlar.Length) {
+                    Directory.CreateDirectory(Path.GetDirectoryName(argumanlar[i + 1]));
+                }
+                Debug.Log("[HaritaHazirlik] yalnız arayüz önizlemesi istendi, APK derlenmedi");
+                return;
             }
 
             Type builder = Type.GetType("UnityBuilderAction.Builder, UnityBuilderAction");
@@ -103,6 +118,11 @@ namespace Otuken.EditorAraclari {
                 if (!sahneler.Contains(s.yol) && File.Exists(s.yol)) {
                     sahneler.Add(s.yol);
                 }
+            }
+
+            if (Derleme.SadeceArayuz) {
+                sahneler.Clear();
+                Yaz("yalnız arayüz önizlemesi: haritalar işlenmedi");
             }
 
             bool eskiAsenkron = ShaderUtil.allowAsyncCompilation;
@@ -478,8 +498,234 @@ namespace Otuken.EditorAraclari {
         /// 20:9 bir telefon ekranında oyundaki ölçekle. Pencereler kodla kurulduğu için burada da aynı kodla kurulur.
         /// </summary>
         private static void ArayuzCek() {
-            ArayuzCiz("arayuz_hud", false);
             ArayuzCiz("arayuz_isinlan", true);
+            try {
+                OyunArayuzu();
+            } catch (Exception e) {
+                Yaz($"!! HATA oyun arayüzü önizlemesi: {e}");
+            }
+        }
+
+        // ---------------------------------------------------------------- oyunun gerçek göstergeleriyle önizleme
+
+        private const string OyunYoneticisi = "Assets/AnyRPG/Core/Games/FeaturesDemoGame/Prefab/GameManager/FeaturesDemoGameManager.prefab";
+
+        // telefon ve tablet ekran oranları (görüntü 720 piksel yükseklikte çizilir; arayüz yüksekliğe göre ölçeklendiği için aynıdır)
+        private static readonly (string ad, int en, int boy)[] Ekranlar = {
+            ("20x9", 1600, 720), ("19.5x9", 1560, 720), ("16x9", 1280, 720), ("4x3", 960, 720)
+        };
+
+        /// <summary>
+        /// Oyun yöneticisinin arayüzünü (can çubuğu, hedef çerçevesi, mini harita, görev listesi, deneyim çubuğu,
+        /// yetenek ve sistem çubuğu) oyundaki gibi açar, telefondaki ölçeklemeyi uygular, dokunmatik düğmeleri ekler
+        /// ve birkaç ekran oranında çizer (tani/arayuz_oyun_*.jpg). Düğmelerin yerleşimden önceki ve sonraki
+        /// çakışmaları rapora yazılır.
+        /// </summary>
+        private static void OyunArayuzu() {
+            GameObject kaynak = AssetDatabase.LoadAssetAtPath<GameObject>(OyunYoneticisi);
+            if (kaynak == null) {
+                Yaz("!! arayüz: oyun yöneticisi bulunamadı " + OyunYoneticisi);
+                return;
+            }
+            Scene sahne = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+            GameObject oyun = (GameObject)PrefabUtility.InstantiatePrefab(kaynak, sahne);
+            AnyRPG.UIManager ui = oyun.GetComponentInChildren<AnyRPG.UIManager>(true);
+            if (ui == null) {
+                Yaz("!! arayüz: UIManager yok");
+                return;
+            }
+
+            // bütün pencereler kapalı; oyuna girince açılan göstergeler açık (UIManager.InitializePlayerUI)
+            foreach (AnyRPG.CloseableWindow w in oyun.GetComponentsInChildren<AnyRPG.CloseableWindow>(true)) {
+                w.gameObject.SetActive(false);
+            }
+            List<Component> acik = new List<Component>();
+            foreach (AnyRPG.CloseableWindow w in new AnyRPG.CloseableWindow[] { ui.PlayerUnitFrameWindow, ui.FocusUnitFrameWindow,
+                ui.StatusEffectWindow, ui.MiniMapWindow, ui.QuestTrackerWindow, ui.XPBarWindow, ui.FloatingCastBarWindow }) {
+                if (w == null) {
+                    continue;
+                }
+                IcerikKur(w);
+                w.gameObject.SetActive(true);
+                acik.Add(w);
+            }
+            AnyRPG.ActionBarManager cubuklar = ui.ActionBarManager;
+            if (cubuklar != null) {
+                // telefonda yalnız 1. yetenek çubuğu (MobileBootstrap.ApplyMobileUiDefaults); sistem çubuğu açık
+                for (int i = 0; i < cubuklar.ActionBarControllers.Count; i++) {
+                    if (cubuklar.ActionBarControllers[i] != null) {
+                        cubuklar.ActionBarControllers[i].gameObject.SetActive(i == 0);
+                        if (i == 0) {
+                            acik.Add(cubuklar.ActionBarControllers[i]);
+                        }
+                    }
+                }
+                if (cubuklar.SystemBarController != null) {
+                    cubuklar.SystemBarController.gameObject.SetActive(true);
+                    acik.Add(cubuklar.SystemBarController);
+                }
+            }
+
+            // göstergeleri taşıyan kök tuvaller açık, ötekiler (menüler, yükleme ekranı...) kapalı
+            HashSet<Canvas> gerekli = new HashSet<Canvas>();
+            foreach (Component c in acik) {
+                Canvas k = KokTuval(c.transform);
+                if (k != null) {
+                    gerekli.Add(k);
+                }
+                for (Transform t = c.transform; t != null; t = t.parent) {
+                    t.gameObject.SetActive(true);
+                }
+            }
+            foreach (Canvas tuval in oyun.GetComponentsInChildren<Canvas>(true)) {
+                if (KokTuval(tuval.transform) == tuval && gerekli.Contains(tuval) == false) {
+                    tuval.gameObject.SetActive(false);
+                }
+            }
+
+            List<GameObject> silinecek = new List<GameObject>() { oyun };
+            RenderTexture rt = null;
+            try {
+                GameObject kameraNesnesi = new GameObject("ArayuzKamerasi");
+                silinecek.Add(kameraNesnesi);
+                Camera kamera = kameraNesnesi.AddComponent<Camera>();
+                kamera.transform.position = new Vector3(0f, -5000f, 0f);
+                kamera.clearFlags = CameraClearFlags.SolidColor;
+                kamera.backgroundColor = new Color(0.33f, 0.42f, 0.3f, 1f);
+                kamera.nearClipPlane = 0.1f;
+                kamera.farClipPlane = 20f;
+
+                Component hud = Tuval("MobileHudCanvas", kamera, 1f, AnyRPG.MobileHud.SortingOrder, silinecek).AddComponent<AnyRPG.MobileHud>();
+                YontemCagir(hud, "Build");
+                AnyRPG.MobileHud mobilHud = (AnyRPG.MobileHud)hud;
+
+                // telefondaki ölçekleme ve katman düzeni (MobileBootstrap.ScaleCanvases)
+                GameObject onyukleyici = new GameObject("MobileBootstrapOnizleme");
+                silinecek.Add(onyukleyici);
+                Component bootstrap = onyukleyici.AddComponent<AnyRPG.MobileBootstrap>();
+                YontemCagir(bootstrap, "ScaleCanvases");
+                foreach (Canvas tuval in gerekli) {
+                    tuval.renderMode = RenderMode.ScreenSpaceCamera;
+                    tuval.worldCamera = kamera;
+                    tuval.planeDistance = 2f;
+                }
+
+                Yaz("--- oyun arayüzü (telefon ölçeğinde, 800 birim yükseklik)");
+                foreach (var e in Ekranlar) {
+                    if (rt != null) {
+                        kamera.targetTexture = null;
+                        rt.Release();
+                        Object.DestroyImmediate(rt);
+                    }
+                    rt = new RenderTexture(e.en, e.boy, 24, RenderTextureFormat.ARGB32, RenderTextureReadWrite.sRGB);
+                    rt.Create();
+                    kamera.targetTexture = rt;
+                    OlcekleriYenile();
+                    Canvas.ForceUpdateCanvases();
+
+                    Rect ekran = new Rect(0f, 0f, e.en, e.boy);
+                    mobilHud.EveDon();
+                    Canvas.ForceUpdateCanvases();
+                    int once;
+                    string onceRapor = AnyRPG.ArayuzDenetimi.YerlesimRaporu(mobilHud, ekran, ekran, out once);
+                    mobilHud.YerlesimiUygula();
+                    Canvas.ForceUpdateCanvases();
+                    int sonra;
+                    string sonraRapor = AnyRPG.ArayuzDenetimi.YerlesimRaporu(mobilHud, ekran, ekran, out sonra);
+                    Yaz($"[{e.ad}] çakışma: yerleşimden önce {once}, sonra {sonra}");
+                    foreach (string satir in sonraRapor.Split('\n')) {
+                        if (satir.Length > 0) {
+                            Yaz("    " + satir);
+                        }
+                    }
+                    if (e.ad == "20x9") {
+                        Yaz("    (yerleşimden önce)");
+                        foreach (string satir in onceRapor.Split('\n')) {
+                            if (satir.StartsWith("- ")) {
+                                Yaz("    " + satir);
+                            }
+                        }
+                    }
+                    KameraCiz(kamera, rt, "arayuz_oyun_" + e.ad.Replace('.', '_'));
+                }
+            } finally {
+                foreach (GameObject go in silinecek) {
+                    if (go != null) {
+                        Object.DestroyImmediate(go);
+                    }
+                }
+                if (rt != null) {
+                    rt.Release();
+                    Object.DestroyImmediate(rt);
+                }
+            }
+        }
+
+        private static Canvas KokTuval(Transform t) {
+            Canvas kok = null;
+            for (Transform p = t; p != null; p = p.parent) {
+                Canvas c = p.GetComponent<Canvas>();
+                if (c != null) {
+                    kok = c;
+                }
+            }
+            return kok;
+        }
+
+        /// <summary>pencerenin içeriği oyunda nesne havuzundan gelir; burada prefabından kurulur</summary>
+        private static void IcerikKur(AnyRPG.CloseableWindow pencere) {
+            Type t = typeof(AnyRPG.CloseableWindow);
+            BindingFlags b = BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public;
+            FieldInfo prefabAlani = t.GetField("contentPrefab", b);
+            FieldInfo ustAlani = t.GetField("contentParent", b);
+            FieldInfo icerikAlani = t.GetField("contentGameObject", b);
+            if (prefabAlani == null || ustAlani == null || icerikAlani == null) {
+                return;
+            }
+            GameObject prefab = prefabAlani.GetValue(pencere) as GameObject;
+            GameObject ust = ustAlani.GetValue(pencere) as GameObject;
+            GameObject icerik = icerikAlani.GetValue(pencere) as GameObject;
+            if (icerik != null) {
+                icerik.SetActive(true);
+                return;
+            }
+            if (prefab == null || ust == null) {
+                return;
+            }
+            icerik = (GameObject)PrefabUtility.InstantiatePrefab(prefab, ust.transform);
+            icerik.SetActive(true);
+            icerikAlani.SetValue(pencere, icerik);
+        }
+
+        private static void OlcekleriYenile() {
+            foreach (UnityEngine.UI.CanvasScaler olcek in Object.FindObjectsByType<UnityEngine.UI.CanvasScaler>(FindObjectsSortMode.None)) {
+                olcek.enabled = false;
+                olcek.enabled = true;
+            }
+        }
+
+        private static void KameraCiz(Camera kamera, RenderTexture rt, string dosya) {
+            Texture2D doku = null;
+            try {
+                RenderPipeline.StandardRequest istek = new RenderPipeline.StandardRequest();
+                istek.destination = rt;
+                if (RenderPipeline.SupportsRenderRequest(kamera, istek)) {
+                    RenderPipeline.SubmitRenderRequest(kamera, istek);
+                } else {
+                    kamera.Render();
+                }
+                RenderTexture onceki = RenderTexture.active;
+                RenderTexture.active = rt;
+                doku = new Texture2D(rt.width, rt.height, TextureFormat.RGB24, false);
+                doku.ReadPixels(new Rect(0, 0, rt.width, rt.height), 0, 0);
+                doku.Apply();
+                RenderTexture.active = onceki;
+                File.WriteAllBytes(Path.Combine(taniKlasoru, dosya + ".jpg"), doku.EncodeToJPG(85));
+            } finally {
+                if (doku != null) {
+                    Object.DestroyImmediate(doku);
+                }
+            }
         }
 
         private static void ArayuzCiz(string dosya, bool pencere) {

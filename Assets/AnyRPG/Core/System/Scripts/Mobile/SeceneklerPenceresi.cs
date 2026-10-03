@@ -122,11 +122,14 @@ namespace AnyRPG {
             BuildOyun(CreateSection(viewport.transform, "Oyun"));
 
             // alt düğmeler
-            CreateButton(panel.transform, "Nasıl Oynanır", new Vector2(0.5f, 0f), new Vector2(-340f, 46f), new Vector2(260f, 64f), 24,
+            // dört düğme 4:3 tablette de sığsın diye toplam 920 birim
+            CreateButton(panel.transform, "Nasıl Oynanır", new Vector2(0.5f, 0f), new Vector2(-350f, 46f), new Vector2(220f, 64f), 23,
                 tabColor, () => { Close(); GameGuide.Show(false); MobileFeedback.Tap(); });
-            CreateButton(panel.transform, "Ekran Görüntüsü Paylaş", new Vector2(0.5f, 0f), new Vector2(-30f, 46f), new Vector2(330f, 64f), 24,
+            CreateButton(panel.transform, "Sorun Bildir", new Vector2(0.5f, 0f), new Vector2(-114f, 46f), new Vector2(220f, 64f), 23,
+                new Color(0.12f, 0.45f, 0.5f, 1f), () => { MobileFeedback.Tap(); Close(); HataBildirici.SorunBildir(); });
+            CreateButton(panel.transform, "Görüntü Paylaş", new Vector2(0.5f, 0f), new Vector2(122f, 46f), new Vector2(220f, 64f), 23,
                 tabColor, () => { MobileFeedback.Tap(); StartCoroutine(ShareScreenshot()); });
-            CreateButton(panel.transform, "Kapat", new Vector2(0.5f, 0f), new Vector2(270f, 46f), new Vector2(220f, 64f), 26,
+            CreateButton(panel.transform, "Kapat", new Vector2(0.5f, 0f), new Vector2(348f, 46f), new Vector2(200f, 64f), 25,
                 tabSelectedColor, () => { Close(); MobileFeedback.Tap(); });
 
             panelRoot.SetActive(false);
@@ -194,7 +197,7 @@ namespace AnyRPG {
                 new[] { "Hareketli", "Durdur" }, () => OyunAyarlari.EkranDisiAnimasyonuDurdur ? 1 : 0, v => OyunAyarlari.EkranDisiAnimasyonuDurdur = v == 1);
             s.Choice("FPS göstergesi", "Sol üstte kare hızı grafiği ve bellek kullanımı.",
                 new[] { "Kapalı", "Açık" }, () => OyunAyarlari.FpsGostergesi ? 1 : 0, v => OyunAyarlari.FpsGostergesi = v == 1);
-            s.Choice("Hata konsolu", "Test için: köşede hata sayacı çıkar, dokununca oyun günlüğü açılır.",
+            s.Choice("Hata konsolu", "Test için: üstte Durum düğmesi ve hata sayacı çıkar, dokununca oyun günlüğü açılır.",
                 new[] { "Kapalı", "Açık" }, () => OyunAyarlari.HataKonsolu ? 1 : 0, v => OyunAyarlari.HataKonsolu = v == 1);
             s.Finish();
         }
@@ -234,6 +237,8 @@ namespace AnyRPG {
                 new[] { "Kapalı", "Açık" }, () => Ganimet.AutoLoot ? 1 : 0, v => Ganimet.AutoLoot = v == 1);
             s.Choice("Titreşim", "Düğmelere ve vuruşlara kısa titreşim.",
                 new[] { "Kapalı", "Açık" }, () => MobileFeedback.Enabled ? 1 : 0, v => MobileFeedback.Enabled = v == 1);
+            s.Choice("Hata raporları", "Hata, çökme ve donmalar geliştiriciye kendiliğinden gönderilir. Kişisel bilgi gönderilmez.",
+                new[] { "Kapalı", "Açık" }, () => HataBildirici.Acik ? 1 : 0, v => HataBildirici.Acik = v == 1);
             s.Finish();
         }
 

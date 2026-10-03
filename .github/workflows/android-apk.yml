@@ -8,6 +8,7 @@
 #   UNITY_EMAIL     Unity hesabının e-postası
 #   UNITY_PASSWORD  Unity hesabının şifresi (hesapta iki adımlı doğrulama kapalı olmalı)
 #   VARLIK_ANAHTARI lisanslı modellerin (Tools~/varliklar/*.tar.enc) şifre anahtarı
+#   (isteğe bağlı) HATA_KANALI  hata bildirim kanalı; yoksa VARLIK_ANAHTARI'ndan türetilir ("Hata raporları" iş akışı)
 #
 # Çıktı:
 #   - "son-apk" adlı ön sürümde OtukenDestani.apk (telefondan doğrudan indirilir, her derlemede yenilenir)
@@ -27,9 +28,14 @@ on:
         description: 'Önbelleği kullanmadan sıfırdan derle (garip bir hata olursa işaretle)'
         type: boolean
         default: false
+      sadece_arayuz:
+        description: 'Yalnız arayüz önizlemesi (haritalar işlenmez, APK derlenmez; hızlı deneme)'
+        type: boolean
+        default: false
 
 permissions:
   contents: write
+  issues: write
 
 concurrency:
   group: android-apk
@@ -106,6 +112,24 @@ jobs:
           restore-keys: |
             Library-Android-
 
+      - name: Hata bildirim kanalını oyuna yaz
+        # depoya girmez (.gitignore). Kanal adı VARLIK_ANAHTARI'ndan türetilir ("Hata raporları" iş akışıyla aynı);
+        # HATA_KANALI gizli bilgisi varsa o kullanılır
+        env:
+          HATA_KANALI: ${{ secrets.HATA_KANALI }}
+          VARLIK_ANAHTARI: ${{ secrets.VARLIK_ANAHTARI }}
+        run: |
+          if [ -z "$HATA_KANALI" ] && [ -n "$VARLIK_ANAHTARI" ]; then
+            HATA_KANALI="otuken-$(printf '%s' "${VARLIK_ANAHTARI}:hata-kanali" | sha256sum | cut -c1-24)"
+          fi
+          if [ -n "$HATA_KANALI" ]; then
+            echo "::add-mask::$HATA_KANALI"
+            printf '%s' "$HATA_KANALI" > Assets/Otuken/Resources/HataKanali.txt
+            echo "Hata bildirimi açık."
+          else
+            echo "::warning title=Hata bildirimi kapalı::Kanal yok; oyun hataları göndermeyecek."
+          fi
+
       - name: Sürüm numarası ve imza anahtarı
         id: hazirlik
         run: |
@@ -125,6 +149,7 @@ jobs:
           # önce haritaları hazırlar (yürüme ağı, tanı raporu, ekran görüntüleri), sonra standart GameCI derlemesi
           # (Assets/Otuken/Editor/HaritaHazirlik.cs, Assets/Editor/UnityBuilderAction)
           buildMethod: Otuken.EditorAraclari.Derleme.Derle
+          customParameters: ${{ inputs.sadece_arayuz && '-sadeceArayuz' || '' }}
           androidExportType: androidPackage
           versioning: Custom
           version: ${{ steps.hazirlik.outputs.surum }}
@@ -162,7 +187,38 @@ jobs:
             } >> "$GITHUB_STEP_SUMMARY"
           fi
 
+      - name: Derleme tanısındaki uyarıları kayda yaz
+        # tani/rapor.txt'deki "!!" satırları "derleme-tanisi" etiketli tek bir kayıtta tutulur; uyarı kalmayınca kapanır
+        if: ${{ always() && !inputs.sadece_arayuz }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          [ -f tani/rapor.txt ] || exit 0
+          gh label create derleme-tanisi --color c5def5 --description "Derleme sırasında bulunan uyarılar" --force >/dev/null || true
+          uyarilar=$(grep '^!!' tani/rapor.txt | head -n 80 || true)
+          numara=$(gh issue list --label derleme-tanisi --state all --limit 1 --json number --jq '.[0].number' 2>/dev/null || true)
+          if [ -n "$uyarilar" ]; then
+            {
+              echo "Derleme $GITHUB_RUN_NUMBER (commit ${GITHUB_SHA::8}) tanı raporundaki uyarılar:"
+              echo ''
+              echo '```text'
+              echo "$uyarilar"
+              echo '```'
+              echo ''
+              echo "Tam rapor: https://github.com/${GITHUB_REPOSITORY}/releases/download/tani/tani.zip"
+            } > uyarilar.md
+            if [ -n "$numara" ]; then
+              gh issue edit "$numara" --body-file uyarilar.md
+              gh issue reopen "$numara" >/dev/null 2>&1 || true
+            else
+              gh issue create --title "Derleme tanısı: uyarılar" --label derleme-tanisi --body-file uyarilar.md
+            fi
+          elif [ -n "$numara" ]; then
+            gh issue close "$numara" --comment "Derleme $GITHUB_RUN_NUMBER: tanı raporunda uyarı kalmadı." >/dev/null 2>&1 || true
+          fi
+
       - name: APK'yı bul
+        if: ${{ !inputs.sadece_arayuz }}
         id: apk
         run: |
           apk=$(find build/Android -maxdepth 2 -name '*.apk' | head -n 1)
@@ -176,6 +232,7 @@ jobs:
           echo "APK: $apk ($((boyut / 1048576)) MB)"
 
       - name: APK'yı çalıştırma sayfasına ekle (5 gün)
+        if: ${{ !inputs.sadece_arayuz }}
         uses: actions/upload-artifact@v7
         with:
           name: ${{ env.APK_ADI }}-${{ steps.hazirlik.outputs.surum }}
@@ -184,7 +241,7 @@ jobs:
           compression-level: 0
 
       - name: Telefondan indirme bağlantısını yenile
-        if: ${{ steps.apk.outputs.boyut_mb < 2000 }}
+        if: ${{ !inputs.sadece_arayuz && steps.apk.outputs.boyut_mb < 2000 }}
         env:
           GH_TOKEN: ${{ github.token }}
           APK_YOLU: ${{ steps.apk.outputs.yol }}
@@ -205,3 +262,28 @@ jobs:
             echo ""
             echo "Boyut: ${{ steps.apk.outputs.boyut_mb }} MB"
           } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Derleme hatasını kayda yaz
+        # başarısız derleme "derleme-hatasi" etiketli kayıt açar; sonraki başarılı derleme kapatır
+        if: ${{ always() && !inputs.sadece_arayuz && !cancelled() }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SONUC: ${{ job.status }}
+        run: |
+          gh label create derleme-hatasi --color b60205 --description "APK derlemesi başarısız" --force >/dev/null || true
+          numara=$(gh issue list --label derleme-hatasi --state open --limit 1 --json number --jq '.[0].number' 2>/dev/null || true)
+          baglanti="https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          if [ "$SONUC" = "success" ]; then
+            if [ -n "$numara" ]; then
+              gh issue close "$numara" --comment "Derleme $GITHUB_RUN_NUMBER başarılı: $baglanti"
+            fi
+            exit 0
+          fi
+          govde="Derleme $GITHUB_RUN_NUMBER (commit ${GITHUB_SHA::8}) başarısız oldu: $baglanti
+
+          Tanı raporu: https://github.com/${GITHUB_REPOSITORY}/releases/download/tani/tani.zip"
+          if [ -n "$numara" ]; then
+            gh issue comment "$numara" --body "$govde"
+          else
+            gh issue create --title "Derleme başarısız" --label derleme-hatasi --body "$govde"
+          fi

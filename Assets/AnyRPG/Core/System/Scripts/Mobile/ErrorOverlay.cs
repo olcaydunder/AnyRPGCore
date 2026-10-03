@@ -80,6 +80,30 @@ namespace AnyRPG {
             DontDestroyOnLoad(overlayObject);
         }
 
+        // ---- hata bildirimi (HataBildirici) için ----
+
+        /// <summary>önceki oturum arka plana geçmeden kapandı mı (çökme ya da zorla kapatma)</summary>
+        public static bool PreviousSessionEndedUnexpectedly { get { return previousSessionEndedUnexpectedly; } }
+
+        /// <summary>önceki oturumun kayıt dosyası (hatalar ve son satırlar)</summary>
+        public static string PreviousSessionReport { get { return previousSessionReport; } }
+
+        /// <summary>oyunun durumu: sürüm, cihaz, kare hızı, sahneler, oyuncu (ana iş parçacığında çağrılmalı)</summary>
+        public static string StatusSummary() {
+            return BuildStatus();
+        }
+
+        /// <summary>son kayıt satırları, yeniden eskiye</summary>
+        public static string RecentLogLines(int count) {
+            StringBuilder builder = new StringBuilder();
+            lock (entriesLock) {
+                for (int i = logLines.Count - 1, n = 0; i >= 0 && n < count; i--, n++) {
+                    builder.Append(logLines[i]).Append('\n');
+                }
+            }
+            return builder.ToString();
+        }
+
         // ---- collecting ----
 
         private static void HandleLog(string message, string stackTrace, LogType logType) {
@@ -362,6 +386,12 @@ namespace AnyRPG {
             RecordTouchTarget();
             if (canvasObject == null) {
                 CreateOverlay();
+            }
+            // hatalar artık kendiliğinden geliştiriciye gider (HataBildirici); "Durum" düğmesi yalnız test için,
+            // Seçenekler > Akıcılık > Hata konsolu açıkken görünür (göstergelerin üstüne binmesin)
+            bool badgeVisible = OyunAyarlari.HataKonsolu || panelObject.activeSelf;
+            if (badgeImage.gameObject.activeSelf != badgeVisible) {
+                badgeImage.gameObject.SetActive(badgeVisible);
             }
             int currentVersion;
             int errorCount;

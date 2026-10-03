@@ -312,7 +312,9 @@ namespace AnyRPG {
                 "• <b>Karakter</b>: giydiğin donanım ve değerlerin.\n" +
                 "• <b>Çanta</b>: eşyaların ve paran.\n" +
                 "• <b>Görevler</b>: aldığın görevler ve kalan hedefleri.\n" +
-                "• <b>Menü</b>: seçenekler (grafik, akıcılık, ses, oyun), bu rehber ve ekran görüntüsü paylaşma.\n" +
+                "• <b>Menü</b>: seçenekler (grafik, akıcılık, ses, oyun), bu rehber, ekran görüntüsü paylaşma ve <b>Sorun Bildir</b> " +
+                "(bir sorun görürsen kısaca yaz; ekran görüntüsüyle geliştiriciye gider). Hatalar ve çökmeler zaten kendiliğinden bildirilir.\n" +
+                "• Ekrandaki düğmeler hiçbir göstergenin üstüne binmez: telefonun ekranına göre kendiliğinden boş yere kayarlar.\n" +
                 "• Alttaki sıra <b>yetenek çubuğu</b>dur: yeteneklerine dokunarak kullanırsın.\n" +
                 "• Pencereleri sağ üst köşelerindeki <b>X</b> ile kapatırsın.\n" +
                 "• Üstteki <b>Durum</b> düğmesi teşhis raporudur. Bir sorun yaşarsan açıp <b>Kopyala</b>'ya bas ve yapımcıya gönder.\n\n" +

@@ -128,3 +128,7 @@ __pycache__/
 # Pixabay müzikleri: lisans gereği dosyaların kendisi depoya girmez.
 # Şifreli hâli Tools~/varliklar/muzik.tar.enc, derlemede VARLIK_ANAHTARI ile açılır (Tools~/dunya/muzikler.py).
 /Assets/Otuken/Muzik/*.ogg
+
+# hata bildirim kanalı derlemede gizli bilgiden yazılır (HATA_KANALI)
+/Assets/Otuken/Resources/HataKanali.txt
+/Assets/Otuken/Resources/HataKanali.txt.meta

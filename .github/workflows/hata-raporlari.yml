@@ -1,0 +1,88 @@
+# Ötüken Destanı - hata raporlarını toplar.
+#
+# Oyun hataları, çökmeleri, donmaları, yavaşlıkları, arayüz çakışmalarını ve oyuncunun "Sorun Bildir" notlarını
+# kendiliğinden gizli bir ntfy.sh kanalına gönderir (Assets/AnyRPG/Core/System/Scripts/Mobile/HataBildirici.cs).
+# Bu iş akışı 15 dakikada bir kanalı okur ve "hata-kayitlari" dalındaki hata panosunu günceller:
+#   https://github.com/<sahip>/<depo>/blob/hata-kayitlari/README.md
+# Her farklı hata tek satırdır, tekrarları, cihazları ve sürümleri sayılır; ekran görüntüleri kaydın içindedir.
+# Depoda Issues açıksa her sorun ayrıca bir issue olarak açılır (GitHub sahibine bildirim gönderir).
+#
+# Kanal adı VARLIK_ANAHTARI gizli bilgisinden türetilir (APK derlemesi de aynı yolla oyuna yazar);
+# istenirse HATA_KANALI gizli bilgisiyle değiştirilebilir.
+# Elle çalıştırırken "deneme" seçilirse önce kanala bir deneme raporu gönderilir (sistemi sınamak için).
+
+name: Hata raporları
+
+on:
+  schedule:
+    - cron: '7,22,37,52 * * * *'
+  workflow_dispatch:
+    inputs:
+      deneme:
+        description: 'Önce kanala bir deneme raporu gönder'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: hata-raporlari
+  cancel-in-progress: false
+
+jobs:
+  topla:
+    name: Raporları topla
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Betiği indir
+        uses: actions/checkout@v7
+        with:
+          sparse-checkout: |
+            Tools~/hata
+          sparse-checkout-cone-mode: false
+
+      - name: Hata panosu dalını indir
+        uses: actions/checkout@v7
+        with:
+          ref: hata-kayitlari
+          path: kayit-dali
+
+      - name: Raporları panoya işle
+        env:
+          HATA_KANALI: ${{ secrets.HATA_KANALI }}
+          VARLIK_ANAHTARI: ${{ secrets.VARLIK_ANAHTARI }}
+          GH_TOKEN: ${{ github.token }}
+          DEPO: ${{ github.repository }}
+          KAYIT_KLASORU: kayit-dali
+          DENEME: ${{ inputs.deneme && '1' || '0' }}
+        run: |
+          if [ -z "$HATA_KANALI" ]; then
+            if [ -z "$VARLIK_ANAHTARI" ]; then
+              echo "::error title=Kanal yok::HATA_KANALI ya da VARLIK_ANAHTARI gizli bilgisi gerekli."
+              exit 1
+            fi
+            HATA_KANALI="otuken-$(printf '%s' "${VARLIK_ANAHTARI}:hata-kanali" | sha256sum | cut -c1-24)"
+          fi
+          echo "::add-mask::$HATA_KANALI"
+          export HATA_KANALI
+          python3 'Tools~/hata/topla.py'
+
+      - name: Panoyu kaydet
+        working-directory: kayit-dali
+        run: |
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Yeni rapor yok."
+            exit 0
+          fi
+          git -c user.name="hata-raporlari[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+            commit -q -m "Hata panosu: $(date -u +'%d.%m.%Y %H:%M') UTC"
+          git push -q origin HEAD:hata-kayitlari
+          {
+            echo "## Hata panosu güncellendi"
+            echo ""
+            echo "https://github.com/${GITHUB_REPOSITORY}/blob/hata-kayitlari/README.md"
+          } >> "$GITHUB_STEP_SUMMARY"
