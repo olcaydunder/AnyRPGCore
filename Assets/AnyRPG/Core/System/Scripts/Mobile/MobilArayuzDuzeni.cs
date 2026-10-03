@@ -97,8 +97,13 @@ namespace AnyRPG {
 
             // sistem çubuğu: tuvalin üst ortasına, durum etkileri çubuğunun altına
             if (sistem != null) {
-                Canvas tuval = sistem.GetComponentInParent<Canvas>();
-                Transform kok = tuval != null ? tuval.rootCanvas.transform : null;
+                // en üstteki tuval (çubuğun kendi iç tuvali olabilir; rootCanvas henüz hesaplanmamış olabilir)
+                Transform kok = null;
+                for (Transform t = sistem.parent; t != null; t = t.parent) {
+                    if (t.GetComponent<Canvas>() != null) {
+                        kok = t;
+                    }
+                }
                 if (kok != null) {
                     sistem.SetParent(kok, false);
                     sistem.anchorMin = new Vector2(0.5f, 1f);
