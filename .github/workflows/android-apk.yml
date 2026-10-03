@@ -32,6 +32,10 @@ on:
         description: 'Yalnız arayüz önizlemesi (haritalar işlenmez, APK derlenmez; hızlı deneme)'
         type: boolean
         default: false
+      oyun_testi:
+        description: 'Otomatik oyun testi (bot) çalışsın (hızlı denemede de)'
+        type: boolean
+        default: true
 
 permissions:
   contents: write
@@ -209,35 +213,54 @@ jobs:
       - name: Oyun testi (bot 15 haritayı gezer)
         # editörde oyun modunda: yeni oyun, 15 haritaya ışınlanma, otomatik av; hatalar tani/oyun_testi.* dosyalarına
         # (Assets/Otuken/Editor/OyunTesti.cs). APK zaten yayımlandı; bu adım tutmazsa derleme bozulmaz.
-        if: ${{ !inputs.sadece_arayuz && steps.apk.outcome == 'success' }}
+        # Lisans GameCI gibi etkinleştirilir (kişisel lisans dosyasındaki seri numarası + hesap) ve sonunda geri verilir.
+        if: ${{ inputs.oyun_testi && (inputs.sadece_arayuz || steps.apk.outcome == 'success') }}
         continue-on-error: true
-        timeout-minutes: 45
+        timeout-minutes: 50
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         run: |
-          docker images --format '{{.Size}} {{.Repository}}:{{.Tag}}' || true
+          mkdir -p tani
+          set +e
+          UNITY_SERIAL=$(python3 - <<'PY'
+          import base64, os, re
+          m = re.search(r'<DeveloperData Value="([^"]*)"', os.environ.get("UNITY_LICENSE", ""))
+          print(base64.b64decode(m.group(1)).decode("latin-1")[4:] if m else "")
+          PY
+          )
+          echo "::add-mask::$UNITY_SERIAL"
+          export UNITY_SERIAL
+          docker images --format '{{.Size}} {{.Repository}}:{{.Tag}}'
           # GameCI derleme imajını BuildKit ile kurar (temel unityci/editor listede görünmeyebilir): en büyük imaj Unity'dir
-          imaj=$(docker images --format '{{.Size}} {{.Repository}}:{{.Tag}}' | sort -h | tail -n 1 | awk '{print $2}' || true)
+          imaj=$(docker images --format '{{.Size}} {{.Repository}}:{{.Tag}}' | sort -h | tail -n 1 | awk '{print $2}')
           case "$imaj" in
             *unity*|*editor*|*builder*) ;;
             *) imaj="unityci/editor:ubuntu-6000.3.10f1-android-3"
                docker pull "$imaj" || { echo "::warning title=Oyun testi::Unity imajı yok"; exit 0; } ;;
           esac
           echo "imaj: $imaj"
-          mkdir -p tani
-          docker run --rm --entrypoint bash -v "$GITHUB_WORKSPACE":/github/workspace -w /github/workspace -e UNITY_LICENSE "$imaj" -c '
-            printf "%s" "$UNITY_LICENSE" | tr -d "\r" > /tmp/lisans.ulf
-            mkdir -p /root/.local/share/unity3d/Unity
-            cp /tmp/lisans.ulf /root/.local/share/unity3d/Unity/Unity_lic.ulf
-            unity-editor -logFile /tmp/lisans.log -quit -manualLicenseFile /tmp/lisans.ulf || true
-            grep -i "licens" /tmp/lisans.log | tail -n 5 || true
+          docker run --rm --entrypoint bash -v "$GITHUB_WORKSPACE":/github/workspace -w /github/workspace \
+            -e UNITY_SERIAL -e UNITY_EMAIL -e UNITY_PASSWORD "$imaj" -c '
+            unity-editor -logFile /github/workspace/tani/oyun_testi_lisans.log -quit -nographics \
+              -serial "$UNITY_SERIAL" -username "$UNITY_EMAIL" -password "$UNITY_PASSWORD"
+            echo "lisans etkinleştirme çıkış kodu: $?"
             unity-editor -logFile /github/workspace/tani/oyun_testi_unity.log -projectPath /github/workspace \
-              -buildTarget Android -executeMethod Otuken.EditorAraclari.OyunTesti.Baslat || true
-          '
+              -buildTarget Android -executeMethod Otuken.EditorAraclari.OyunTesti.Baslat
+            echo "oyun testi çıkış kodu: $?"
+            unity-editor -logFile /github/workspace/tani/oyun_testi_lisans_iade.log -quit -nographics \
+              -returnlicense -username "$UNITY_EMAIL" -password "$UNITY_PASSWORD"
+            echo "lisans iade çıkış kodu: $?"
+          ' 2>&1 | tail -n 40
+          # lisans günlüklerinde yalnız sonuç satırları kalsın
+          for f in tani/oyun_testi_lisans.log tani/oyun_testi_lisans_iade.log; do
+            [ -f "$f" ] && grep -i "licens\|activat\|error" "$f" | tail -n 30 > "$f.kisa" && mv "$f.kisa" "$f"
+          done
           if [ -f tani/oyun_testi_unity.log ]; then
             tail -n 4000 tani/oyun_testi_unity.log > tani/oyun_testi_unity_son.log
             rm -f tani/oyun_testi_unity.log
-            grep "\[OyunTesti\]" tani/oyun_testi_unity_son.log | tail -n 60 || true
+            grep "\[OyunTesti\]" tani/oyun_testi_unity_son.log | tail -n 60
           fi
           if [ -f tani/oyun_testi.txt ]; then
             {
@@ -249,6 +272,7 @@ jobs:
           else
             echo "::warning title=Oyun testi::rapor çıkmadı (tani/oyun_testi_unity_son.log)"
           fi
+          exit 0
 
       - name: Tanı raporunu yükle (yürüme ağı, ekran görüntüleri)
         # derleme başarısız olsa bile: "tani" ön sürümünde tani.zip (rapor.txt, *.jpg, navmesh/)
