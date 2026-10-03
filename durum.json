@@ -4,5 +4,15 @@
   "ZA4f7jqHrQMP"
  ],
  "kayitlar": {},
- "kimlikler": {}
+ "kimlikler": {},
+ "derleme": {
+  "sonuc": "basarili",
+  "numara": "17",
+  "commit": "5bee08c7",
+  "baglanti": "https://github.com/olcaydunder/AnyRPGCore/actions/runs/37147726287",
+  "zaman": 1791056850,
+  "uyarilar": [
+   "!! zemine oturtulamayan nesne: 1"
+  ]
+ }
 }
