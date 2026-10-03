@@ -34,7 +34,8 @@ namespace AnyRPG {
 
         // anlık çıkan, yeri sabit olmayan göstergeler: düğmeler bunlara göre kaydırılmaz
         private static readonly string[] gecici = {
-            "MessageFeed", "CombatText", "MouseOver", "ToolTip", "Tooltip", "NamePlate", "Nameplate", "Loading", "Cutscene"
+            "MessageFeed", "CombatText", "MouseOver", "ToolTip", "Tooltip", "NamePlate", "Nameplate", "Loading", "Cutscene",
+            "CastBar", "HintBar"
         };
 
         private static readonly List<Graphic> grafikler = new List<Graphic>();

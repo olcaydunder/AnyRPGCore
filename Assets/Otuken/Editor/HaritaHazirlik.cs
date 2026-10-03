@@ -512,7 +512,7 @@ namespace Otuken.EditorAraclari {
 
         // telefon ve tablet ekran oranları (görüntü 720 piksel yükseklikte çizilir; arayüz yüksekliğe göre ölçeklendiği için aynıdır)
         private static readonly (string ad, int en, int boy)[] Ekranlar = {
-            ("20x9", 1600, 720), ("19.5x9", 1560, 720), ("16x9", 1280, 720), ("4x3", 960, 720)
+            ("20x9", 1600, 720), ("19.5x9", 1560, 720), ("16x9", 1280, 720), ("16x10", 1152, 720), ("4x3", 960, 720)
         };
 
         /// <summary>
@@ -595,9 +595,22 @@ namespace Otuken.EditorAraclari {
                 kamera.nearClipPlane = 0.1f;
                 kamera.farClipPlane = 20f;
 
-                Component hud = Tuval("MobileHudCanvas", kamera, 1f, AnyRPG.MobileHud.SortingOrder, silinecek).AddComponent<AnyRPG.MobileHud>();
-                YontemCagir(hud, "Build");
-                AnyRPG.MobileHud mobilHud = (AnyRPG.MobileHud)hud;
+                // oyundaki gibi ölçekleyicisiz kurulur; ölçeği MobileBootstrap.ScaleCanvases verir (800 birim yükseklik)
+                GameObject hudNesnesi = new GameObject(AnyRPG.MobileHud.CanvasName, typeof(RectTransform));
+                silinecek.Add(hudNesnesi);
+                Canvas hudTuvali = hudNesnesi.AddComponent<Canvas>();
+                hudTuvali.renderMode = RenderMode.ScreenSpaceOverlay;
+                hudTuvali.sortingOrder = AnyRPG.MobileHud.SortingOrder;
+                AnyRPG.MobileHud mobilHud = hudNesnesi.AddComponent<AnyRPG.MobileHud>();
+                YontemCagir(mobilHud, "Build");
+                gerekli.Add(hudTuvali);
+
+                // oyun yalnız oyun kolu kullanılırken gösterdiği tuş ipuçlarını (HideControllerHints) gizler
+                foreach (Transform t in oyun.GetComponentsInChildren<Transform>(true)) {
+                    if (t.name.IndexOf("HintBar", StringComparison.OrdinalIgnoreCase) >= 0) {
+                        t.gameObject.SetActive(false);
+                    }
+                }
 
                 // telefondaki ölçekleme ve katman düzeni (MobileBootstrap.ScaleCanvases)
                 GameObject onyukleyici = new GameObject("MobileBootstrapOnizleme");
@@ -607,7 +620,7 @@ namespace Otuken.EditorAraclari {
                 foreach (Canvas tuval in gerekli) {
                     tuval.renderMode = RenderMode.ScreenSpaceCamera;
                     tuval.worldCamera = kamera;
-                    tuval.planeDistance = 2f;
+                    tuval.planeDistance = tuval == hudTuvali ? 1f : 2f;
                 }
 
                 Yaz("--- oyun arayüzü (telefon ölçeğinde, 800 birim yükseklik)");

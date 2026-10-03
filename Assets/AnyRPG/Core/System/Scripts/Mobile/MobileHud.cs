@@ -79,7 +79,8 @@ namespace AnyRPG {
             CreateActionButton("Saldır", MobileInput.RequestAttack, bottomRight, new Vector2(-150f, 150f), 150f, 26);
             KontrolEkle("Hareket", stickBase, 230f);
             CreateActionButton("Zıpla", "JUMP", bottomRight, new Vector2(-320f, 95f), 100f, 20);
-            CreateActionButton("Hedef", "NEXTTARGET", bottomRight, new Vector2(-305f, 255f), 100f, 20);
+            // görev listesinin altında kalsın (16:9 ekranda liste 280 birimden yukarıda)
+            CreateActionButton("Hedef", "NEXTTARGET", bottomRight, new Vector2(-295f, 220f), 100f, 20);
             CreateActionButton("Koş/Yürü", "TOGGLERUN", bottomRight, new Vector2(-125f, 320f), 90f, 16);
 
             // menus, a column on the left edge above the movement stick (the right side holds the mini map and quest tracker)
