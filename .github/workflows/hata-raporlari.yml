@@ -16,6 +16,10 @@ name: Hata raporları
 on:
   schedule:
     - cron: '7,22,37,52 * * * *'
+  # zamanlayıcı gecikirse diye her APK derlemesinden sonra da
+  workflow_run:
+    workflows: ["Android APK (ücretsiz)"]
+    types: [completed]
   workflow_dispatch:
     inputs:
       deneme:
