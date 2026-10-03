@@ -1,6 +1,6 @@
 # İstisna: NullReferenceException: Object reference not set to an instance of an object.
 
-Durum: 🔴 açık
+Durum: ✅ düzeltildi (0.1.19)
 
 | Tekrar | Cihaz | Sürümler | İlk görülme | Son görülme |
 |---|---|---|---|---|

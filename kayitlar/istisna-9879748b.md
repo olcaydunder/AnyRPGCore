@@ -1,6 +1,6 @@
 # İstisna: UnityException: Failed to create texture because of invalid parameters.
 
-Durum: 🔴 açık
+Durum: ✅ düzeltildi (0.1.19)
 
 | Tekrar | Cihaz | Sürümler | İlk görülme | Son görülme |
 |---|---|---|---|---|
