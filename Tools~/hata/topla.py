@@ -256,7 +256,9 @@ def rapor_isle(m, durum, issue):
     if tur == "arayuz" and not yeni:
         k["notlar"] = (k["notlar"] + [f"{zaman_yaz(zaman)} · {surum} · {cihaz} — {m.get('title', '')}\n\n"
                                       + kod(bolumler.get("ayrinti"))])[-10:]
-    if k.get("duzeltildi") and surum_sayisi(surum) >= surum_sayisi(k["duzeltildi"]):
+    # arayüz raporu sorun değil, bilgidir: çakışma yoksa "yeniden görüldü" sayılmaz
+    bilgi = tur == "arayuz" and "çakışma yok" in (bolumler.get("mesaj") or "")
+    if k.get("duzeltildi") and not bilgi and surum_sayisi(surum) >= surum_sayisi(k["duzeltildi"]):
         k["yeniden"] = True
         k["notlar"] = (k["notlar"] + [f"{zaman_yaz(zaman)}: {k['duzeltildi']} sürümünde düzeltildi denmişti ama "
                                       f"{surum} sürümünde yeniden görüldü ({cihaz})."])[-10:]
