@@ -41,11 +41,27 @@ namespace AnyRPG {
         private static readonly List<Graphic> grafikler = new List<Graphic>();
         private static readonly Vector3[] koseler = new Vector3[4];
 
+        // her saniye yüzlerce parça taranır: grup adı ve "geçici mi" sonucu parça başına bir kez hesaplanır
+        // (Transform.name her okunuşta yeni yazı üretir; çöp toplayıcıyı yormasın)
+        private struct GrupBilgisi {
+            public string grup;
+            public bool gecici;
+        }
+        private static readonly Dictionary<int, GrupBilgisi> grupOnbellegi = new Dictionary<int, GrupBilgisi>();
+
         /// <summary>
         /// görünen oyun göstergelerinin parçaları (pencere katmanının altındaki ekran tuvalleri)
         /// </summary>
         public static void GostergeParcalari(List<Parca> liste) {
+            GostergeParcalari(liste, true);
+        }
+
+        /// <param name="yollar">parçaların tuvaldeki yolu da yazılsın mı (yalnız raporlar için; her saniyelik denetimde gerekmez)</param>
+        public static void GostergeParcalari(List<Parca> liste, bool yollar) {
             liste.Clear();
+            if (grupOnbellegi.Count > 5000) {
+                grupOnbellegi.Clear();
+            }
             Rect ekran = new Rect(0f, 0f, Screen.width, Screen.height);
             foreach (Canvas tuval in Object.FindObjectsByType<Canvas>(FindObjectsSortMode.None)) {
                 if (tuval == null || tuval.isRootCanvas == false || tuval.enabled == false || tuval.gameObject.activeInHierarchy == false
@@ -54,12 +70,12 @@ namespace AnyRPG {
                     continue;
                 }
                 Rect tuvalEkrani = TuvalEkrani(tuval, ekran);
-                TuvalParcalari(tuval, tuvalEkrani, liste);
+                TuvalParcalari(tuval, tuvalEkrani, liste, yollar);
             }
         }
 
         /// <summary>bir tuvalin görünen parçaları</summary>
-        public static void TuvalParcalari(Canvas tuval, Rect ekran, List<Parca> liste) {
+        public static void TuvalParcalari(Canvas tuval, Rect ekran, List<Parca> liste, bool yollar) {
             grafikler.Clear();
             tuval.GetComponentsInChildren(false, grafikler);
             float enBuyukAlan = ekran.width * ekran.height * 0.3f;
@@ -75,11 +91,17 @@ namespace AnyRPG {
                 if (r.Overlaps(ekran) == false) {
                     continue;
                 }
-                string grup = GrupAdi(grafik.transform, tuval.transform);
-                if (GeciciMi(grup)) {
+                GrupBilgisi bilgi;
+                int kimlik = grafik.GetInstanceID();
+                if (grupOnbellegi.TryGetValue(kimlik, out bilgi) == false) {
+                    string ad = GrupAdi(grafik.transform, tuval.transform);
+                    bilgi = new GrupBilgisi() { grup = ad, gecici = GeciciMi(ad) };
+                    grupOnbellegi[kimlik] = bilgi;
+                }
+                if (bilgi.gecici) {
                     continue;
                 }
-                liste.Add(new Parca() { grup = grup, yol = Yol(grafik.transform, tuval.transform), ekran = r });
+                liste.Add(new Parca() { grup = bilgi.grup, yol = yollar ? Yol(grafik.transform, tuval.transform) : null, ekran = r });
             }
         }
 

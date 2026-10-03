@@ -47,7 +47,9 @@ namespace AnyRPG {
         private readonly List<Vector3> yerlesenler = new List<Vector3>();
         private static Vector2[] adaylar = null;
         private float sonrakiDenetim = 0f;
-        private string sonImza = null;
+        private int sonImza = 0;
+        private bool imzaVar = false;
+        private readonly Dictionary<string, Rect> grupAlanlari = new Dictionary<string, Rect>();
         private SystemGameManager oyunYoneticisi = null;
 
         public static MobileHud Create() {
@@ -104,7 +106,7 @@ namespace AnyRPG {
         private void OnEnable() {
             // gösterilir gösterilmez yerleşime bak
             sonrakiDenetim = 0f;
-            sonImza = null;
+            imzaVar = false;
         }
 
         private void OnDestroy() {
@@ -136,7 +138,7 @@ namespace AnyRPG {
                 k.rt.anchoredPosition = k.ev;
                 k.kaydirildi = false;
             }
-            sonImza = null;
+            imzaVar = false;
         }
 
         /// <summary>yerinden kaydırılan düğmeler (hata bildirimindeki arayüz raporu için)</summary>
@@ -163,15 +165,16 @@ namespace AnyRPG {
             if (canvas == null) {
                 canvas = GetComponent<Canvas>();
             }
-            ArayuzDenetimi.GostergeParcalari(engeller);
+            ArayuzDenetimi.GostergeParcalari(engeller, false);
             AyrilmisYerler(engeller);
 
             Rect ekran = ArayuzDenetimi.TuvalEkrani(canvas, new Rect(0f, 0f, Screen.width, Screen.height));
-            string imza = Imza(ekran);
-            if (zorla == false && imza == sonImza) {
+            int imza = Imza(ekran);
+            if (zorla == false && imzaVar && imza == sonImza) {
                 return;
             }
             sonImza = imza;
+            imzaVar = true;
             Yerlestir(ekran);
         }
 
@@ -208,23 +211,35 @@ namespace AnyRPG {
             liste.Add(new ArayuzDenetimi.Parca() { grup = ad, yol = pencere.name, ekran = r });
         }
 
-        private string Imza(Rect ekran) {
-            // göstergelerin kapladığı alanlar 8 piksele yuvarlanır: yazı değişince küçük kıpırtılar yerleşimi bozmasın
-            Dictionary<string, Rect> gruplar = new Dictionary<string, Rect>();
+        private int Imza(Rect ekran) {
+            // göstergelerin kapladığı alanlar 8 piksele yuvarlanır: yazı değişince küçük kıpırtılar yerleşimi bozmasın.
+            // Her saniye çalıştığı için yazı üretmeden, sayı olarak hesaplanır
+            grupAlanlari.Clear();
             foreach (ArayuzDenetimi.Parca p in engeller) {
                 Rect r;
-                gruplar[p.grup] = gruplar.TryGetValue(p.grup, out r) ? Rect.MinMaxRect(Mathf.Min(r.xMin, p.ekran.xMin), Mathf.Min(r.yMin, p.ekran.yMin),
-                    Mathf.Max(r.xMax, p.ekran.xMax), Mathf.Max(r.yMax, p.ekran.yMax)) : p.ekran;
+                grupAlanlari[p.grup] = grupAlanlari.TryGetValue(p.grup, out r) ? Rect.MinMaxRect(Mathf.Min(r.xMin, p.ekran.xMin),
+                    Mathf.Min(r.yMin, p.ekran.yMin), Mathf.Max(r.xMax, p.ekran.xMax), Mathf.Max(r.yMax, p.ekran.yMax)) : p.ekran;
             }
-            List<string> satirlar = new List<string>();
-            foreach (KeyValuePair<string, Rect> g in gruplar) {
+            int toplam = 0;
+            foreach (KeyValuePair<string, Rect> g in grupAlanlari) {
                 Rect r = g.Value;
-                satirlar.Add(g.Key + ":" + Mathf.RoundToInt(r.xMin / 8f) + "," + Mathf.RoundToInt(r.yMin / 8f) + "," + Mathf.RoundToInt(r.xMax / 8f) + "," + Mathf.RoundToInt(r.yMax / 8f));
+                int h = g.Key.GetHashCode();
+                h = h * 31 + Mathf.RoundToInt(r.xMin / 8f);
+                h = h * 31 + Mathf.RoundToInt(r.yMin / 8f);
+                h = h * 31 + Mathf.RoundToInt(r.xMax / 8f);
+                h = h * 31 + Mathf.RoundToInt(r.yMax / 8f);
+                // sıradan bağımsız
+                toplam += h * 0x2545F491;
             }
-            satirlar.Sort(System.StringComparer.Ordinal);
             Rect guvenli = Screen.safeArea;
+            int imza = toplam;
+            imza = imza * 31 + Mathf.RoundToInt(ekran.width);
+            imza = imza * 31 + Mathf.RoundToInt(ekran.height);
+            imza = imza * 31 + Mathf.RoundToInt(guvenli.xMin) * 7 + Mathf.RoundToInt(guvenli.yMin) * 13
+                + Mathf.RoundToInt(guvenli.xMax) * 17 + Mathf.RoundToInt(guvenli.yMax) * 19;
             // ölçek de imzada: tuval ölçekleyicisi sonradan eklenince (MobileBootstrap.ScaleCanvases) yeniden yerleşsin
-            return ekran.ToString() + guvenli.ToString() + canvas.scaleFactor.ToString("0.000") + string.Join("|", satirlar);
+            imza = imza * 31 + Mathf.RoundToInt(canvas.scaleFactor * 1000f);
+            return imza;
         }
 
         private static Vector2[] Adaylar() {
