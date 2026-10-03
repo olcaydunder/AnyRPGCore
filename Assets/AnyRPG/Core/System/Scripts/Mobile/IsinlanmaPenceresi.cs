@@ -193,6 +193,8 @@ namespace AnyRPG {
             GameObject tagObject = CreateRect(card.transform, "Etiket", new Vector2(1f, 0.48f), new Vector2(1f, 1f), new Vector2(-108f, 0f), new Vector2(-10f, -4f));
             Text tagText = CreateText(tagObject, string.Empty, 16, TextAnchor.LowerRight, DifficultyColor(index));
             tagText.fontStyle = FontStyle.Bold;
+            // tek satırda kalsın, gerekirse sola taşsın
+            tagText.horizontalOverflow = HorizontalWrapMode.Overflow;
 
             GameObject descriptionObject = CreateRect(card.transform, "Aciklama", new Vector2(0f, 0f), new Vector2(1f, 0.48f), new Vector2(18f, 4f), new Vector2(-10f, -2f));
             Text descriptionText = CreateText(descriptionObject, harita.aciklama, 17, TextAnchor.UpperLeft, hintColor);
@@ -264,7 +266,7 @@ namespace AnyRPG {
             for (int i = 0; i < cardImages.Count; i++) {
                 cardImages[i].color = i == selected ? cardSelectedColor : cardColor;
                 bool here = i == current;
-                cardTags[i].text = here ? "BURADASIN" : DifficultyName(i);
+                cardTags[i].text = here ? "Buradasın" : DifficultyName(i);
                 cardTags[i].color = here ? gold : DifficultyColor(i);
                 cardOutlines[i].effectColor = here || i == selected ? gold : new Color(gold.r, gold.g, gold.b, 0.45f);
                 cardOutlines[i].effectDistance = here || i == selected ? new Vector2(2f, -2f) : new Vector2(1f, -1f);
