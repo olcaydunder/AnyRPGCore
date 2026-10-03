@@ -145,6 +145,25 @@ DUSMANLAR = {
         aciklama="Erlik'e kul olmuş ölü kam. Kafatası başlıklı asasıyla vurur; kurganlardaki ölüleri onun "
                  "kaldırdığı söylenir.",
         ganimet=["Potions", "Scrolls", "Necklaces"]),
+    # ---- KayKit haritalarının bossları (zindanlar.py); "Canavar Boss" stratejisi yalnız düz saldırı ve müzik
+    "Tepegoz": dict(
+        ad="Tepegöz", sablon="BlueFighterUnit", model="canavar:KormosKizil", ses="Male Hero", saldirganlik=18,
+        dayaniklilik="Solo Dungeon Boss", savas="Canavar Boss", canavar=dict(olcek=2.3, animasyon="Kormos"),
+        aciklama="Dede Korkut'un tek gözlü devi. Oğuz'un yiğitlerini yiyerek büyüdü; derisine kılıç işlemez "
+                 "derler ama Basat'ın bilgisi başkadır.",
+        ganimet=["Potions", "Random Medieval Weapons", "Necklaces", "Bags"]),
+    "Kemik Kagan": dict(
+        ad="Kemik Kağan", sablon="BlueFighterUnit", model="iskelet:KemikAlp", ses="Male Knight", saldirganlik=20,
+        dayaniklilik="Solo Dungeon Boss", savas="Canavar Boss", iskelet=dict(olcek=1.4),
+        aciklama="Kurganın en büyüğünde yatan eski kağan. Erlik'in kamları onu tahtından kaldırdı; "
+                 "kemik erleri hâlâ buyruğunu bekler.",
+        ganimet=["Potions", "Basic Silver Weapons", "Necklaces", "Bags"]),
+    "Tamu Bekcisi": dict(
+        ad="Tamu Bekçisi", sablon="BlueBossUnit", model="erkek_agir", ses="Male Knight", saldirganlik=22,
+        dayaniklilik="Solo Dungeon Boss", olcek=1.25,
+        aciklama="Erlik Han'ın zindanının kapısını tutan dev zindancı. Tamu'ya düşen ruhların hiçbiri "
+                 "onun önünden geçemedi.",
+        ganimet=["Potions", "Gold Plate Armor", "Epic Medieval Weapons", "Necklaces"]),
     "Ulu Evren": dict(
         ad="Ulu Evren", sablon="DragonUnit", model=None, ses=None, saldirganlik=25,
         dayaniklilik="Solo Dungeon Boss",
@@ -226,6 +245,20 @@ PREFIX = "TR_"
 q = lambda s: json.dumps(s, ensure_ascii=True)
 
 
+def canavar_boss_stratejisi():
+    """Sınıfsız canavar bosslar için: yalnız düz saldırı; can yarıya inince öfke müziği"""
+    klasor = PROFILES.parent / "CombatStrategy"
+    t = (klasor / "BossCombatStrategy.asset").read_text(encoding="utf-8")
+    t = t.replace("  m_Name: BossCombatStrategy\n", "  m_Name: CanavarBossCombatStrategy\n")
+    t = t.replace("  resourceName: Boss\n", "  resourceName: Canavar Boss\n")
+    t = re.sub(r"    attackAbilityNames:\n(?:    - .*\n)+", "    attackAbilityNames:\n    - Attack\n", t)
+    yol = klasor / "CanavarBossCombatStrategy.asset"
+    yol.write_text(t, encoding="utf-8")
+    (klasor / "CanavarBossCombatStrategy.asset.meta").write_text(
+        f"fileFormatVersion: 2\nguid: {stable_guid('strateji:Canavar Boss')}\nNativeFormatImporter:\n"
+        "  externalObjects: {}\n  mainObjectFileID: 11400000\n  userData: \n  assetBundleName: \n  assetBundleVariant: \n")
+
+
 def stable_guid(name):
     return uuid.uuid5(NS, "profil:" + name).hex
 
@@ -301,6 +334,11 @@ def write_profiles():
             profil = iskeletler.animation_profiles()[d["model"].split(":", 1)[1]]
             t = sub(r"^    animationProfileName: $", f"    animationProfileName: {profil}", t)
             s = c["olcek"]
+            t = sub(r"^    scale: \{x: 1, y: 1, z: 1\}$", f"    scale: {{x: {s}, y: {s}, z: {s}}}", t)
+        if d.get("savas"):
+            t = sub(r"^  combatStrategyName: .*$", f"  combatStrategyName: {d['savas']}", t)
+        if d.get("olcek"):
+            s = d["olcek"]
             t = sub(r"^    scale: \{x: 1, y: 1, z: 1\}$", f"    scale: {{x: {s}, y: {s}, z: {s}}}", t)
         # ölünce üstünden ganimet alınabilsin
         t = sub(r"^  inlineInteractableOptions: \[\]$", "  inlineInteractableOptions:\n  - rid: 0", t)
@@ -420,7 +458,7 @@ def place(scene, profiles_known):
             report.append(f"  YER YOK: {name} ({x:.1f}, {z:.1f})")
             return
         px, py, pz = spot
-        boss = profile in ("Ulu Evren", "Yelbegen")
+        boss = profile in ("Ulu Evren", "Yelbegen", "Tepegoz", "Kemik Kagan", "Tamu Bekcisi")
         doc, tid = spawn_doc(name, px, py, pz, rnd_yaw(name), profile, levels, 600 if boss else 90, used)
         docs.append(doc)
         roots.append(tid)
@@ -449,6 +487,7 @@ def place(scene, profiles_known):
 
 def main():
     write_profiles()
+    canavar_boss_stratejisi()
     known = set(DUSMANLAR) | {"Kara Yek", "Enemy Minion", "Enemy Boss"}
     problems = place(ZONE, known) + place(DUNGEON, known)
     sys.exit(1 if problems else 0)

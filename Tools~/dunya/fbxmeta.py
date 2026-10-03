@@ -141,9 +141,9 @@ def clip_yaml(name, take, internal_id, last_frame, loop=False, bake=False, hit=N
         f"      additiveReferencePoseFrame: 0\n")
 
 
-def fbx_meta(path, guid, *, remaps=None, animation_type=0, clips=(), bake_axis=False, materials=True):
+def fbx_meta(path, guid, *, remaps=None, animation_type=0, clips=(), bake_axis=False, materials=True, colliders=False):
     """animation_type: 0 yok (durağan nesne), 2 Generic, 3 Humanoid. clips: clip_yaml çıktıları.
-    remaps: {FBX malzeme adı: malzeme guid}"""
+    remaps: {FBX malzeme adı: malzeme guid}. colliders: her örgüye MeshCollider eklenir."""
     text = TEMPLATE_FBX_META.read_text(encoding="utf-8")
 
     def cut(start, end, replacement):
@@ -187,6 +187,7 @@ def fbx_meta(path, guid, *, remaps=None, animation_type=0, clips=(), bake_axis=F
     setting("autoGenerateAvatarMappingIfUnspecified", 1 if animation_type == 3 else 0)
     setting("optimizeGameObjects", 0)
     setting("materialImportMode", 2 if materials else 0)
+    setting("addColliders", 1 if colliders else 0)
     write_text(Path(str(path) + ".meta"), text)
     return guid
 

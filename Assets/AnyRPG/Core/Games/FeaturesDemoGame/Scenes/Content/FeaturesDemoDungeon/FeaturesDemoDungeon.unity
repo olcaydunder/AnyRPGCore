@@ -38150,6 +38150,9 @@ GameObject:
   - component: {fileID: 1127066686848099342}
   - component: {fileID: 39587751499391918}
   - component: {fileID: 5687949240791695}
+  - component: {fileID: 512548939448310843}
+  - component: {fileID: 992378990770583039}
+  - component: {fileID: 322448946427369365}
   m_Layer: 25
   m_Name: GecitTasi
   m_TagString: Untagged
@@ -38430,6 +38433,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadSceneProps:
+    interactionPanelTitle: "Tepeg\u00f6z \u0130ni"
+    interactionPanelImage: {fileID: 0}
+    namePlateImage: {fileID: 0}
+    hideOnMiniMap: 0
+    prerequisiteConditions: []
+    locationTag: 
+    overrideSpawnLocation: 0
+    spawnLocation: {x: 0, y: 0, z: 0}
+    overrideSpawnDirection: 0
+    spawnForwardDirection: {x: 0, y: 0, z: 0}
+    sceneName: TepegozIni
+--- !u!114 &1127066686848099342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407566026603060367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfdd7a718358eb84dbd417f51a47a2c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadSceneProps:
     interactionPanelTitle: "Ka\u011fan Ordas\u0131"
     interactionPanelImage: {fileID: 0}
     namePlateImage: {fileID: 0}
@@ -38441,7 +38468,7 @@ MonoBehaviour:
     overrideSpawnDirection: 0
     spawnForwardDirection: {x: 0, y: 0, z: 0}
     sceneName: KaganOrdasi
---- !u!114 &1127066686848099342
+--- !u!114 &39587751499391918
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -38465,7 +38492,7 @@ MonoBehaviour:
     overrideSpawnDirection: 0
     spawnForwardDirection: {x: 0, y: 0, z: 0}
     sceneName: KafDagiYolu
---- !u!114 &39587751499391918
+--- !u!114 &5687949240791695
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -38489,7 +38516,31 @@ MonoBehaviour:
     overrideSpawnDirection: 0
     spawnForwardDirection: {x: 0, y: 0, z: 0}
     sceneName: ErgenekonMagarasi
---- !u!114 &5687949240791695
+--- !u!114 &512548939448310843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407566026603060367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfdd7a718358eb84dbd417f51a47a2c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadSceneProps:
+    interactionPanelTitle: "Kurgan Mezarl\u0131\u011f\u0131"
+    interactionPanelImage: {fileID: 0}
+    namePlateImage: {fileID: 0}
+    hideOnMiniMap: 0
+    prerequisiteConditions: []
+    locationTag: 
+    overrideSpawnLocation: 0
+    spawnLocation: {x: 0, y: 0, z: 0}
+    overrideSpawnDirection: 0
+    spawnForwardDirection: {x: 0, y: 0, z: 0}
+    sceneName: KurganMezarligi
+--- !u!114 &992378990770583039
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -38513,6 +38564,30 @@ MonoBehaviour:
     overrideSpawnDirection: 0
     spawnForwardDirection: {x: 0, y: 0, z: 0}
     sceneName: AyDedeKoyu
+--- !u!114 &322448946427369365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407566026603060367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfdd7a718358eb84dbd417f51a47a2c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadSceneProps:
+    interactionPanelTitle: "Tamu Zindan\u0131"
+    interactionPanelImage: {fileID: 0}
+    namePlateImage: {fileID: 0}
+    hideOnMiniMap: 0
+    prerequisiteConditions: []
+    locationTag: 
+    overrideSpawnLocation: 0
+    spawnLocation: {x: 0, y: 0, z: 0}
+    overrideSpawnDirection: 0
+    spawnForwardDirection: {x: 0, y: 0, z: 0}
+    sceneName: TamuZindani
 --- !u!1001 &1130396865829804526
 PrefabInstance:
   m_ObjectHideFlags: 0

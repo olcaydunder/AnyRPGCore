@@ -107,8 +107,14 @@ KONUMLAR = {"Beach": "Beach", "Field_Hill": "Field_Hill", "Field_Farms": "Field_
             "Mountain_Path": "Mountain_Path", "Mountain_Cave": "Mountain_Cave"}
 BILINMEYEN_KONUM = "Forest"   # Forest_Entrance (oyundan çıkarılmış ara bölge)
 
-# var olan haritalar (Geçit Taşı'nda listelenir)
+# var olan haritalar ve KayKit parçalarıyla kurulanlar (zindanlar.py)
 ESKI = [("FeaturesDemoZone", "Ötüken Yaylası"), ("FeaturesDemoDungeon", "Erlik'in Mağarası")]
+KAYKIT = [("TepegozIni", "Tepegöz İni"), ("KurganMezarligi", "Kurgan Mezarlığı"), ("TamuZindani", "Tamu Zindanı")]
+
+# Geçit Taşı'ndaki sıra: zorluğa göre
+YOLCULUK_SIRASI = ["FeaturesDemoZone", "UmayTarlalari", "BoruTepesi", "AkDenizKiyisi", "OrdubalikCarsisi",
+                   "OrdubalikKenti", "UlukayinOrmani", "TepegozIni", "KaganOrdasi", "KafDagiYolu",
+                   "ErgenekonMagarasi", "KurganMezarligi", "AyDedeKoyu", "FeaturesDemoDungeon", "TamuZindani"]
 
 GOK = {
     # gökyüzü malzemesi (Chop Chop'un boyalı gökleri) ve üç renkli ortam ışığı (gök, ufuk, yer)
@@ -806,10 +812,17 @@ def gecit_tasi(k, ad, p, yaw, secenekler):
     return belgeler, tr
 
 
+def tum_haritalar():
+    """sahne dosyası -> görünen ad (Geçit Taşı'nın gösterdiği bütün haritalar)"""
+    adlar = dict(ESKI + KAYKIT)
+    adlar.update({h["dosya"]: h["ad"] for h in HARITALAR.values()})
+    return adlar
+
+
 def secenekler_icin(haric):
-    sec = [(ad, sahne) for sahne, ad in ESKI if sahne != haric]
-    sec += [(HARITALAR[k]["ad"], HARITALAR[k]["dosya"]) for k in SIRA if HARITALAR[k]["dosya"] != haric]
-    return sec
+    adlar = tum_haritalar()
+    assert set(adlar) == set(YOLCULUK_SIRASI), set(adlar) ^ set(YOLCULUK_SIRASI)
+    return [(adlar[s], s) for s in YOLCULUK_SIRASI if s != haric]
 
 
 # ---------------------------------------------------------------- harita sahnesi
@@ -960,8 +973,11 @@ def derleme_listesi(haritalar):
     yol = ROOT / "ProjectSettings/EditorBuildSettings.asset"
     t = yol.read_text(encoding="utf-8")
     t = re.sub(r"  - enabled: 1\n    path: Assets/Otuken/Haritalar/.*\n    guid: \w+\n", "", t)
-    ekler = "".join(f"  - enabled: 1\n    path: {h.sahne_yolu.relative_to(ROOT).as_posix()}\n"
-                    f"    guid: {sahne_guid(h.dosya)}\n" for h in haritalar)
+    yollar = [(h.sahne_yolu.relative_to(ROOT).as_posix(), sahne_guid(h.dosya)) for h in haritalar]
+    # zindanlar.py'nin kurduğu KayKit haritaları da listede kalsın
+    yollar += [(f"Assets/Otuken/Haritalar/{d}/{d}.unity", sahne_guid(d)) for d, _ in KAYKIT
+               if (HEDEF / d / f"{d}.unity").exists()]
+    ekler = "".join(f"  - enabled: 1\n    path: {y}\n    guid: {g}\n" for y, g in yollar)
     i = t.index("  m_configObjects:")
     t = t[:i] + ekler + t[i:]
     yaz(yol, t)
@@ -983,6 +999,11 @@ def tani_ayari(haritalar, eski_cekimler):
                                  hedef=[p[0], p[1] + 1, p[2]], fov=55))
         sahneler.append(dict(yol=h.sahne_yolu.relative_to(ROOT).as_posix(), kusbakisi=True, cekimler=cekimler))
     sahneler += eski_cekimler
+    # zindanlar.py'nin çekimleri korunur
+    eski_yol = ROOT / "Tools~/dunya/tani.json"
+    if eski_yol.exists():
+        kaykit = {f"Assets/Otuken/Haritalar/{d}/{d}.unity" for d, _ in KAYKIT}
+        sahneler += [s for s in json.loads(eski_yol.read_text(encoding="utf-8"))["sahneler"] if s["yol"] in kaykit]
     def yuvarla(o):
         if isinstance(o, float):
             return round(o, 2)
