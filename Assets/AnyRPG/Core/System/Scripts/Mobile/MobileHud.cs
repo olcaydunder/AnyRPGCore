@@ -22,7 +22,8 @@ namespace AnyRPG {
         // göstergeler değişince yeniden bakılır
         private const float DenetimAraligi = 1f;
         private const float EngelPayi = 6f;
-        private const float DugmeAraligi = 8f;
+        // sol sütundaki düğmeler arasında 6 birim boşluk var; bu paydan büyük olursa sütun boşuna kayar
+        private const float DugmeAraligi = 4f;
         private const float KenarPayi = 4f;
         private const float AramaYaricapi = 330f;
         private const float AramaAdimi = 10f;
