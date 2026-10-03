@@ -50,7 +50,7 @@ jobs:
           ref: hata-kayitlari
           path: kayit-dali
 
-      - name: Raporları panoya işle
+      - name: Raporları panoya işle ve kaydet
         env:
           HATA_KANALI: ${{ secrets.HATA_KANALI }}
           VARLIK_ANAHTARI: ${{ secrets.VARLIK_ANAHTARI }}
@@ -68,21 +68,24 @@ jobs:
           fi
           echo "::add-mask::$HATA_KANALI"
           export HATA_KANALI
-          python3 'Tools~/hata/topla.py'
-
-      - name: Panoyu kaydet
-        working-directory: kayit-dali
-        run: |
-          git add -A
-          if git diff --cached --quiet; then
-            echo "Yeni rapor yok."
-            exit 0
-          fi
-          git -c user.name="hata-raporlari[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
-            commit -q -m "Hata panosu: $(date -u +'%d.%m.%Y %H:%M') UTC"
-          git push -q origin HEAD:hata-kayitlari
-          {
-            echo "## Hata panosu güncellendi"
-            echo ""
-            echo "https://github.com/${GITHUB_REPOSITORY}/blob/hata-kayitlari/README.md"
-          } >> "$GITHUB_STEP_SUMMARY"
+          # APK derlemesi de panoya yazar: itme tutmazsa son hâli alıp yeniden işle
+          for deneme in 1 2 3; do
+            python3 'Tools~/hata/topla.py'
+            export DENEME=0
+            git -C kayit-dali add -A
+            if git -C kayit-dali diff --cached --quiet; then
+              echo "Yeni rapor yok."
+              exit 0
+            fi
+            git -C kayit-dali -c user.name="hata-raporlari[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+              commit -q -m "Hata panosu: $(date -u +'%d.%m.%Y %H:%M') UTC"
+            if git -C kayit-dali push -q origin HEAD:hata-kayitlari; then
+              echo "## Hata panosu güncellendi" >> "$GITHUB_STEP_SUMMARY"
+              echo "https://github.com/${GITHUB_REPOSITORY}/blob/hata-kayitlari/README.md" >> "$GITHUB_STEP_SUMMARY"
+              exit 0
+            fi
+            sleep 5
+            git -C kayit-dali fetch -q origin hata-kayitlari
+            git -C kayit-dali reset -q --hard origin/hata-kayitlari
+          done
+          exit 1

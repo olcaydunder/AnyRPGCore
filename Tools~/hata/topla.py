@@ -15,6 +15,7 @@ Depoda Issues açıksa her sorun ayrıca bir kayıt (issue) olarak açılır; Gi
 Ortam: HATA_KANALI (ntfy kanalı), GH_TOKEN, DEPO (sahip/depo), KAYIT_KLASORU (dalın açıldığı klasör).
 İsteğe bağlı: DENEME=1 önce kanala bir deneme raporu gönderir (sistemi uçtan uca sınamak için).
 Elle: topla.py duzeltildi <anahtar> <sürüm>   bir sorunu düzeltildi diye işaretler.
+APK iş akışı: topla.py derleme <basarili|basarisiz> <numara> <commit> <bağlantı> [rapor.txt]  son derlemeyi yazar.
 Yalnız Python'un standart kitaplığını kullanır.
 """
 import datetime
@@ -359,6 +360,16 @@ def pano(durum):
                 f"Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "
                 f"\"Sorun Bildir\" notları. Son güncelleme: {zaman_yaz(time.time())}.", "",
                 f"**{len(acik)}** açık sorun · **{len(kapali)}** düzeltilen · toplam **{toplam}** rapor", ""]
+    d = durum.get("derleme")
+    if d:
+        isaret = "✅ başarılı" if d["sonuc"] == "basarili" else "❌ başarısız"
+        parcalar += ["## Son APK derlemesi", "",
+                     f"Derleme [{d['numara']}]({d['baglanti']}) · {isaret} · commit `{d['commit']}` · {zaman_yaz(d['zaman'])}", ""]
+        if d.get("uyarilar"):
+            parcalar += [f"Tanı raporunda {len(d['uyarilar'])} uyarı "
+                         f"([tam rapor](https://github.com/{depo}/releases/download/tani/tani.zip)):", "", kod("\n".join(d["uyarilar"])), ""]
+        else:
+            parcalar += ["Tanı raporunda uyarı yok.", ""]
     baslik = "| Durum | Sorun | Tür | Tekrar | Cihaz | Sürüm | Son görülme |\n|---|---|---|---|---|---|---|"
     parcalar += ["## Açık sorunlar", ""]
     if acik:
@@ -400,7 +411,24 @@ def durum_yaz(durum):
     yaz(yol("README.md"), pano(durum))
 
 
+def derleme_yaz(argumanlar):
+    """APK iş akışından: topla.py derleme <başarılı|başarısız> <numara> <commit> <bağlantı> [rapor.txt]"""
+    sonuc, numara, commit, baglanti = argumanlar[:4]
+    uyarilar = []
+    if len(argumanlar) > 4 and os.path.exists(argumanlar[4]):
+        with open(argumanlar[4], encoding="utf-8", errors="replace") as f:
+            uyarilar = [satir.rstrip()[:300] for satir in f if satir.startswith("!!")][:60]
+    durum = durum_oku()
+    durum["derleme"] = {"sonuc": sonuc, "numara": numara, "commit": commit[:8], "baglanti": baglanti,
+                        "zaman": int(time.time()), "uyarilar": uyarilar}
+    durum_yaz(durum)
+    gunluk("derleme durumu yazıldı:", sonuc, numara, len(uyarilar), "uyarı")
+    return 0
+
+
 def main():
+    if len(sys.argv) >= 6 and sys.argv[1] == "derleme":
+        return derleme_yaz(sys.argv[2:])
     if len(sys.argv) >= 4 and sys.argv[1] == "duzeltildi":
         durum = durum_oku()
         k = durum["kayitlar"].get(sys.argv[2])

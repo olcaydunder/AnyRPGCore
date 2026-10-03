@@ -187,36 +187,6 @@ jobs:
             } >> "$GITHUB_STEP_SUMMARY"
           fi
 
-      - name: Derleme tanısındaki uyarıları kayda yaz
-        # tani/rapor.txt'deki "!!" satırları "derleme-tanisi" etiketli tek bir kayıtta tutulur; uyarı kalmayınca kapanır
-        if: ${{ always() && !inputs.sadece_arayuz }}
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          [ -f tani/rapor.txt ] || exit 0
-          gh label create derleme-tanisi --color c5def5 --description "Derleme sırasında bulunan uyarılar" --force >/dev/null || true
-          uyarilar=$(grep '^!!' tani/rapor.txt | head -n 80 || true)
-          numara=$(gh issue list --label derleme-tanisi --state all --limit 1 --json number --jq '.[0].number' 2>/dev/null || true)
-          if [ -n "$uyarilar" ]; then
-            {
-              echo "Derleme $GITHUB_RUN_NUMBER (commit ${GITHUB_SHA::8}) tanı raporundaki uyarılar:"
-              echo ''
-              echo '```text'
-              echo "$uyarilar"
-              echo '```'
-              echo ''
-              echo "Tam rapor: https://github.com/${GITHUB_REPOSITORY}/releases/download/tani/tani.zip"
-            } > uyarilar.md
-            if [ -n "$numara" ]; then
-              gh issue edit "$numara" --body-file uyarilar.md
-              gh issue reopen "$numara" >/dev/null 2>&1 || true
-            else
-              gh issue create --title "Derleme tanısı: uyarılar" --label derleme-tanisi --body-file uyarilar.md
-            fi
-          elif [ -n "$numara" ]; then
-            gh issue close "$numara" --comment "Derleme $GITHUB_RUN_NUMBER: tanı raporunda uyarı kalmadı." >/dev/null 2>&1 || true
-          fi
-
       - name: APK'yı bul
         if: ${{ !inputs.sadece_arayuz }}
         id: apk
@@ -263,27 +233,38 @@ jobs:
             echo "Boyut: ${{ steps.apk.outputs.boyut_mb }} MB"
           } >> "$GITHUB_STEP_SUMMARY"
 
-      - name: Derleme hatasını kayda yaz
-        # başarısız derleme "derleme-hatasi" etiketli kayıt açar; sonraki başarılı derleme kapatır
+      # ---- hata panosu (hata-kayitlari dalı): son derlemenin sonucu ve tanı uyarıları
+      # (APK adımlarından sonra ve hata verse bile derlemeyi bozmaz)
+      - name: Hata panosu dalını indir
         if: ${{ always() && !inputs.sadece_arayuz && !cancelled() }}
-        env:
-          GH_TOKEN: ${{ github.token }}
-          SONUC: ${{ job.status }}
-        run: |
-          gh label create derleme-hatasi --color b60205 --description "APK derlemesi başarısız" --force >/dev/null || true
-          numara=$(gh issue list --label derleme-hatasi --state open --limit 1 --json number --jq '.[0].number' 2>/dev/null || true)
-          baglanti="https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
-          if [ "$SONUC" = "success" ]; then
-            if [ -n "$numara" ]; then
-              gh issue close "$numara" --comment "Derleme $GITHUB_RUN_NUMBER başarılı: $baglanti"
-            fi
-            exit 0
-          fi
-          govde="Derleme $GITHUB_RUN_NUMBER (commit ${GITHUB_SHA::8}) başarısız oldu: $baglanti
+        continue-on-error: true
+        uses: actions/checkout@v7
+        with:
+          ref: hata-kayitlari
+          path: kayit-dali
 
-          Tanı raporu: https://github.com/${GITHUB_REPOSITORY}/releases/download/tani/tani.zip"
-          if [ -n "$numara" ]; then
-            gh issue comment "$numara" --body "$govde"
-          else
-            gh issue create --title "Derleme başarısız" --label derleme-hatasi --body "$govde"
-          fi
+      - name: Derleme sonucunu hata panosuna yaz
+        if: ${{ always() && !inputs.sadece_arayuz && !cancelled() }}
+        continue-on-error: true
+        env:
+          SONUC: ${{ job.status }}
+          DEPO: ${{ github.repository }}
+          KAYIT_KLASORU: kayit-dali
+        run: |
+          [ -d kayit-dali ] || exit 0
+          sonuc=basarisiz
+          [ "$SONUC" = "success" ] && sonuc=basarili
+          baglanti="https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          # "Hata raporları" iş akışı aynı anda yazmış olabilir: olmazsa son hâli alıp yeniden yaz
+          for deneme in 1 2 3; do
+            python3 'Tools~/hata/topla.py' derleme "$sonuc" "$GITHUB_RUN_NUMBER" "$GITHUB_SHA" "$baglanti" tani/rapor.txt
+            git -C kayit-dali add -A
+            git -C kayit-dali diff --cached --quiet && exit 0
+            git -C kayit-dali -c user.name="hata-raporlari[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+              commit -q -m "Hata panosu: derleme $GITHUB_RUN_NUMBER ($sonuc)"
+            git -C kayit-dali push -q origin HEAD:hata-kayitlari && exit 0
+            sleep 5
+            git -C kayit-dali fetch -q origin hata-kayitlari
+            git -C kayit-dali reset -q --hard origin/hata-kayitlari
+          done
+          exit 1
