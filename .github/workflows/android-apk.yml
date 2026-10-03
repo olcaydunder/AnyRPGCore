@@ -215,14 +215,17 @@ jobs:
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
         run: |
-          imaj=$(docker images --format '{{.Repository}}:{{.Tag}}' | grep '^unityci/editor' | head -n 1)
-          if [ -z "$imaj" ]; then
-            echo "::warning title=Oyun testi::Unity imajı bulunamadı"
-            exit 0
-          fi
+          docker images --format '{{.Size}} {{.Repository}}:{{.Tag}}' || true
+          # GameCI derleme imajını BuildKit ile kurar (temel unityci/editor listede görünmeyebilir): en büyük imaj Unity'dir
+          imaj=$(docker images --format '{{.Size}} {{.Repository}}:{{.Tag}}' | sort -h | tail -n 1 | awk '{print $2}' || true)
+          case "$imaj" in
+            *unity*|*editor*|*builder*) ;;
+            *) imaj="unityci/editor:ubuntu-6000.3.10f1-android-3"
+               docker pull "$imaj" || { echo "::warning title=Oyun testi::Unity imajı yok"; exit 0; } ;;
+          esac
           echo "imaj: $imaj"
           mkdir -p tani
-          docker run --rm -v "$GITHUB_WORKSPACE":/github/workspace -w /github/workspace -e UNITY_LICENSE "$imaj" bash -c '
+          docker run --rm --entrypoint bash -v "$GITHUB_WORKSPACE":/github/workspace -w /github/workspace -e UNITY_LICENSE "$imaj" -c '
             printf "%s" "$UNITY_LICENSE" | tr -d "\r" > /tmp/lisans.ulf
             mkdir -p /root/.local/share/unity3d/Unity
             cp /tmp/lisans.ulf /root/.local/share/unity3d/Unity/Unity_lic.ulf

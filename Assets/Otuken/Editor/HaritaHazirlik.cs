@@ -529,6 +529,8 @@ namespace Otuken.EditorAraclari {
             }
             Scene sahne = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
             GameObject oyun = (GameObject)PrefabUtility.InstantiatePrefab(kaynak, sahne);
+            // oyundaki gibi serbestçe düzenlenebilsin (sistem çubuğunun yeri değişir)
+            PrefabUtility.UnpackPrefabInstance(oyun, PrefabUnpackMode.Completely, InteractionMode.AutomatedAction);
             AnyRPG.UIManager ui = oyun.GetComponentInChildren<AnyRPG.UIManager>(true);
             if (ui == null) {
                 Yaz("!! arayüz: UIManager yok");

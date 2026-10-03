@@ -92,11 +92,20 @@ namespace AnyRPG {
         /// <summary>
         /// write to a temporary file and swap it in, so the previous save survives if the app is killed mid-write
         /// </summary>
+        // backup of the previous save, next to the save (not matched by "*.json")
+        private const string BackupSuffix = ".yedek";
+
         private static void WriteFileSafely(string fullPath, string contents) {
             string tempPath = fullPath + ".tmp";
             try {
                 File.WriteAllText(tempPath, contents);
                 if (File.Exists(fullPath)) {
+                    // Ötüken: the previous save is kept as a backup; a damaged save is restored from it when loading
+                    try {
+                        File.Copy(fullPath, fullPath + BackupSuffix, true);
+                    } catch (System.Exception backupException) {
+                        Debug.LogWarning($"SaveManager.WriteFileSafely({fullPath}): backup failed: {backupException.Message}");
+                    }
                     File.Delete(fullPath);
                 }
                 File.Move(tempPath, fullPath);
@@ -155,7 +164,10 @@ namespace AnyRPG {
             foreach (FileInfo fileInfo in GetSaveFileList()) {
                 //Debug.Log("GetSaveDataList(): fileInfo.Name: " + fileInfo.Name);
                 SinglePlayerSaveData singlePlayerSaveData = LoadPlayerCharacterSaveDataFromFile($"{baseSaveFolderName}/{fileInfo.Name}");
-                saveDataList.Add(singlePlayerSaveData);
+                // a save that cannot be read even from its backup is left out instead of breaking the whole list
+                if (singlePlayerSaveData != null) {
+                    saveDataList.Add(singlePlayerSaveData);
+                }
             }
             return saveDataList;
         }
@@ -163,8 +175,41 @@ namespace AnyRPG {
         public SinglePlayerSaveData LoadPlayerCharacterSaveDataFromFile(string fileName) {
             //Debug.Log($"SaveManager.LoadSaveDataFromFile({fileName})");
 
-            string fileContents = File.ReadAllText(fileName);
-            return LoadPlayerCharacterSaveDataFromString(fileContents);
+            SinglePlayerSaveData saveData = TryLoadPlayerCharacterSaveData(fileName);
+            if (saveData != null) {
+                return saveData;
+            }
+            // Ötüken: damaged save (empty or cut off file): restore the previous save from its backup
+            string backupPath = fileName + BackupSuffix;
+            saveData = File.Exists(backupPath) ? TryLoadPlayerCharacterSaveData(backupPath) : null;
+            if (saveData != null) {
+                Debug.LogWarning($"SaveManager: {fileName} could not be read, the previous save was restored from its backup");
+                try {
+                    File.Copy(backupPath, fileName, true);
+                } catch (System.Exception exception) {
+                    Debug.LogWarning($"SaveManager: restoring {fileName} failed: {exception.Message}");
+                }
+                return saveData;
+            }
+            Debug.LogError($"SaveManager: save file {fileName} is damaged and has no usable backup");
+            return null;
+        }
+
+        private SinglePlayerSaveData TryLoadPlayerCharacterSaveData(string fileName) {
+            try {
+                string fileContents = File.ReadAllText(fileName);
+                if (string.IsNullOrWhiteSpace(fileContents)) {
+                    return null;
+                }
+                SinglePlayerSaveData saveData = JsonUtility.FromJson<SinglePlayerSaveData>(fileContents);
+                if (saveData == null || saveData.CharacterSaveData == null) {
+                    return null;
+                }
+                return LoadPlayerCharacterSaveDataFromString(fileContents);
+            } catch (System.Exception exception) {
+                Debug.LogWarning($"SaveManager: reading {fileName} failed: {exception.Message}");
+                return null;
+            }
         }
 
         public SinglePlayerSaveData LoadPlayerCharacterSaveDataFromString(string fileContents) {
@@ -937,6 +982,9 @@ namespace AnyRPG {
 
             string saveFileName = $"{baseSaveFolderName}/{characterSaveData.CharacterId}.json";
             File.Delete($"{saveFileName}");
+            if (File.Exists(saveFileName + BackupSuffix)) {
+                File.Delete(saveFileName + BackupSuffix);
+            }
         }
 
         public void CopyGame(CharacterSaveData characterSaveData) {
@@ -946,6 +994,9 @@ namespace AnyRPG {
 
             File.Copy(sourceFileName, newSaveFileName);
             SinglePlayerSaveData tmpSaveData = LoadPlayerCharacterSaveDataFromFile(newSaveFileName);
+            if (tmpSaveData == null) {
+                return;
+            }
             tmpSaveData.CharacterSaveData.CharacterId = newCharacterId;
             SaveDataFileAsync(tmpSaveData);
         }

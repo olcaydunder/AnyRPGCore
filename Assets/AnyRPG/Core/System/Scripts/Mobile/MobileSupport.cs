@@ -347,6 +347,8 @@ namespace AnyRPG {
             nextAutoSave = Time.unscaledTime + autoSaveInterval;
             // oyuncunun Seçenekler penceresindeki ayarları (FPS sınırı, çözünürlük, gölge...)
             OyunAyarlari.Uygula();
+            // oyun açıkken hatırlatma bildirimi gelmesin
+            Bildirimler.OnPlanaGecti();
         }
 
         private void OnDestroy() {
@@ -378,7 +380,15 @@ namespace AnyRPG {
             if (paused) {
                 AutoSave();
                 PlayerPrefs.Save();
+                // ertesi akşam için "günlük armağan" hatırlatması
+                Bildirimler.ArkaPlan();
+            } else {
+                Bildirimler.OnPlanaGecti();
             }
+        }
+
+        private void OnApplicationQuit() {
+            Bildirimler.ArkaPlan();
         }
 
         private void OnApplicationFocus(bool hasFocus) {
@@ -537,6 +547,7 @@ namespace AnyRPG {
             } catch (System.Exception exception) {
                 Debug.LogWarning($"MobileBootstrap: MobilArayuzDuzeni.Tick(): {exception.Message}");
             }
+            Bildirimler.Tick(inGame);
             if (inGame == false && MainMenuOpen()) {
                 // ana menüye dönünce otomatik av kapanır (harita değişirken açık kalır)
                 OtomatikAv.Kapat();

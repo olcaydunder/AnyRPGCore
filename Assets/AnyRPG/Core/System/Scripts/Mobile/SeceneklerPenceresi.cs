@@ -245,6 +245,8 @@ namespace AnyRPG {
                 new[] { "Küçük", "Normal", "Büyük" }, () => MobilArayuzDuzeni.DugmeBoyutuSecimi, v => MobilArayuzDuzeni.DugmeBoyutuSecimi = v);
             s.Choice("Düğme saydamlığı", "Düğmelerin arkasındaki dünya daha çok görünsün mü?",
                 new[] { "%50", "%75", "%100" }, () => MobilArayuzDuzeni.SaydamlikSecimi, v => MobilArayuzDuzeni.SaydamlikSecimi = v);
+            s.Choice("Bildirimler", "Günlük armağan hazır olunca ve uzun süre girmeyince telefona hatırlatma gelsin mi?",
+                new[] { "Kapalı", "Açık" }, () => Bildirimler.Acik ? 1 : 0, v => Bildirimler.Acik = v == 1);
             s.Choice("Hata raporları", "Hata, çökme ve donmalar geliştiriciye kendiliğinden gönderilir. Kişisel bilgi gönderilmez.",
                 new[] { "Kapalı", "Açık" }, () => HataBildirici.Acik ? 1 : 0, v => HataBildirici.Acik = v == 1);
             s.Finish();
