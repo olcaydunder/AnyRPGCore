@@ -9,8 +9,10 @@ her derlemenin tani.zip'inden güncellenir):
 Aynı yürüme ağı ve aynı ayarla hep aynı sonucu verir (rastgelelik haritanın adıyla tohumlanır).
 """
 import collections
+import json
 import math
 import random
+from pathlib import Path
 
 import navmesh as N
 from navmesh import NavMesh
@@ -165,11 +167,23 @@ class YurumeAgi:
         return self.merkez[i], nm
 
 
+def ulasilan_noktalar(dosya):
+    """derleme raporundaki (tani/ulasilabilir) girişten yürüyerek ulaşılan noktalar, yoksa None"""
+    yol = Path(__file__).resolve().parents[1] / "varliklar/ulasilabilir" / f"{dosya}.json"
+    if not yol.exists():
+        return None
+    return [tuple(p) for p in json.loads(yol.read_text(encoding="utf-8"))["noktalar"]]
+
+
 def kamplari_sec(dosya, nm, giris, yasaklar, bolge, gy=0.0):
     """nm: girişin bileşeni (NavMesh); giris: (x, z); yasaklar: [(x, z, yarıçap)];
     bolge: (x, z, yarıçap) haritanın tasarlanmış oyun alanı -> kamplar, sandıklar, rapor, ek seviye"""
     rng = random.Random("kamp:" + dosya)
     noktalar, alan = adaylar(nm, rng)
+    ulasilan = ulasilan_noktalar(dosya)
+    if ulasilan:
+        # Unity'nin doğruladığı noktalar: girişten tam yolu olanlar (3 m ızgara)
+        noktalar, alan = ulasilan, len(ulasilan) * 9.0
     liste, ek, kamp_sayisi = KADRO[dosya]
     bx, bz, br = bolge
     uygun = []

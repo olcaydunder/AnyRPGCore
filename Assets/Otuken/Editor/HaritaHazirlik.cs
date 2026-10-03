@@ -150,6 +150,8 @@ namespace Otuken.EditorAraclari {
                     Yaz($"!! zemine oturtulamayan nesne: {oturmayan}");
                 }
                 NavMeshPisir(sahne, yol);
+                List<Vector3> ulasilan = UlasilabilirNoktalar(ad);
+                UlasilmayaniTasi(ulasilan);
                 EditorSceneManager.MarkSceneDirty(sahne);
                 EditorSceneManager.SaveScene(sahne);
                 YurumeAgiRaporu(ad);
@@ -210,6 +212,98 @@ namespace Otuken.EditorAraclari {
                 Directory.CreateDirectory(hedefKlasor);
                 File.Copy(Path.GetFullPath(varlik), Path.Combine(hedefKlasor, Path.GetFileName(varlik)), true);
                 File.Copy(Path.GetFullPath(varlik) + ".meta", Path.Combine(hedefKlasor, Path.GetFileName(varlik) + ".meta"), true);
+            }
+        }
+
+        /// <summary>
+        /// Girişten yürüyerek ulaşılan noktalar: girişin çevresinde 3 m aralıklı ızgara, her nokta yürüme ağına
+        /// oturtulup girişten tam yol var mı diye bakılır. tani/ulasilabilir/{ad}.json'a yazılır
+        /// (Tools~/dunya/harita_icerik.py kamp yerlerini bunlardan seçer).
+        /// </summary>
+        private static List<Vector3> UlasilabilirNoktalar(string ad) {
+            List<Vector3> noktalar = new List<Vector3>();
+            GameObject giris = GameObject.FindGameObjectsWithTag("DefaultSpawnLocation").FirstOrDefault();
+            if (giris == null || !NavMesh.SamplePosition(giris.transform.position, out NavMeshHit g, 4f, NavMesh.AllAreas)) {
+                return noktalar;
+            }
+            const float yaricap = 170f, adim = 3f;
+            NavMeshPath yolBilgisi = new NavMeshPath();
+            StringBuilder json = new StringBuilder("{\"giris\": [");
+            json.Append(FormattableString.Invariant($"{g.position.x:0.##}, {g.position.y:0.##}, {g.position.z:0.##}], \"noktalar\": ["));
+            for (float x = -yaricap; x <= yaricap; x += adim) {
+                for (float z = -yaricap; z <= yaricap; z += adim) {
+                    if (x * x + z * z > yaricap * yaricap) {
+                        continue;
+                    }
+                    Vector3 q = g.position + new Vector3(x, 0f, z);
+                    if (!NavMesh.SamplePosition(q, out NavMeshHit h, 12f, NavMesh.AllAreas)) {
+                        continue;
+                    }
+                    if (Mathf.Abs(h.position.x - q.x) > adim * 0.6f || Mathf.Abs(h.position.z - q.z) > adim * 0.6f) {
+                        continue;
+                    }
+                    if (!NavMesh.CalculatePath(g.position, h.position, NavMesh.AllAreas, yolBilgisi)
+                        || yolBilgisi.status != NavMeshPathStatus.PathComplete) {
+                        continue;
+                    }
+                    if (noktalar.Count > 0) {
+                        json.Append(", ");
+                    }
+                    noktalar.Add(h.position);
+                    json.Append(FormattableString.Invariant($"[{h.position.x:0.##}, {h.position.y:0.##}, {h.position.z:0.##}]"));
+                }
+            }
+            json.Append("]}");
+            string klasor = Path.Combine(taniKlasoru, "ulasilabilir");
+            Directory.CreateDirectory(klasor);
+            File.WriteAllText(Path.Combine(klasor, ad + ".json"), json.ToString());
+            Yaz($"ulaşılabilir nokta: {noktalar.Count} (girişin {yaricap:0} m çevresi, {adim:0} m aralık)");
+            return noktalar;
+        }
+
+        /// <summary>Girişten yolu olmayan düşman ve sandık noktalarını en yakın ulaşılabilir noktaya taşır.</summary>
+        private static void UlasilmayaniTasi(List<Vector3> ulasilan) {
+            GameObject giris = GameObject.FindGameObjectsWithTag("DefaultSpawnLocation").FirstOrDefault();
+            if (giris == null || ulasilan.Count == 0
+                || !NavMesh.SamplePosition(giris.transform.position, out NavMeshHit g, 4f, NavMesh.AllAreas)) {
+                return;
+            }
+            NavMeshPath yolBilgisi = new NavMeshPath();
+            List<Vector3> kullanilan = new List<Vector3>();
+            List<Transform> hedefler = Object.FindObjectsByType<Transform>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)
+                .Where(t => t.parent == null && (t.name.StartsWith("TR_") || t.name.StartsWith("TRL_")))
+                .OrderBy(t => t.name).ToList();
+            int tasinan = 0;
+            foreach (Transform t in hedefler) {
+                bool yolVar = NavMesh.SamplePosition(t.position, out NavMeshHit h, 3f, NavMesh.AllAreas)
+                              && NavMesh.CalculatePath(g.position, h.position, NavMesh.AllAreas, yolBilgisi)
+                              && yolBilgisi.status == NavMeshPathStatus.PathComplete;
+                if (yolVar) {
+                    kullanilan.Add(h.position);
+                    continue;
+                }
+                Vector3 eski = t.position;
+                float enIyi = float.MaxValue;
+                Vector3 secilen = Vector3.zero;
+                foreach (Vector3 p in ulasilan) {
+                    if (Vector3.Distance(p, g.position) < 18f || kullanilan.Any(u => Vector3.Distance(u, p) < 2.5f)) {
+                        continue;
+                    }
+                    float d = Vector3.Distance(p, eski);
+                    if (d < enIyi) {
+                        enIyi = d;
+                        secilen = p;
+                    }
+                }
+                if (enIyi < float.MaxValue) {
+                    t.position = secilen + Vector3.up * 0.05f;
+                    kullanilan.Add(secilen);
+                    tasinan++;
+                    Yaz($"  taşındı: {t.name} {eski} -> {t.position} ({enIyi:0} m)");
+                }
+            }
+            if (tasinan > 0) {
+                Yaz($"ulaşılamayan {tasinan} nokta taşındı");
             }
         }
 
