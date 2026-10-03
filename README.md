@@ -1,17 +1,17 @@
 # Ötüken Destanı · Hata panosu
 
-Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 04.10.2026 00:07.
+Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 04.10.2026 01:02.
 
 **4** açık sorun · **0** düzeltilen · toplam **9** rapor
 
 ## Son APK derlemesi
 
-Derleme [17](https://github.com/olcaydunder/AnyRPGCore/actions/runs/37147726287) · ✅ başarılı · commit `5bee08c7` · 03.10.2026 22:47
+Derleme [19](https://github.com/olcaydunder/AnyRPGCore/actions/runs/37156150258) · ✅ başarılı · commit `f650a518` · 04.10.2026 01:02
 
 Tanı raporunda 1 uyarı ([tam rapor](https://github.com/olcaydunder/AnyRPGCore/releases/download/tani/tani.zip)):
 
 ```text
-!! zemine oturtulamayan nesne: 1
+!! zemine oturtulamayan nesne: 1 (GecitTasi (101.1, 16.0, 30.6))
 ```
 
 ## Açık sorunlar

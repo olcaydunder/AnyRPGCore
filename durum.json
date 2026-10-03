@@ -123,12 +123,13 @@
  },
  "derleme": {
   "sonuc": "basarili",
-  "numara": "17",
-  "commit": "5bee08c7",
-  "baglanti": "https://github.com/olcaydunder/AnyRPGCore/actions/runs/37147726287",
-  "zaman": 1791056850,
+  "numara": "19",
+  "commit": "f650a518",
+  "baglanti": "https://github.com/olcaydunder/AnyRPGCore/actions/runs/37156150258",
+  "zaman": 1791064924,
   "uyarilar": [
-   "!! zemine oturtulamayan nesne: 1"
-  ]
+   "!! zemine oturtulamayan nesne: 1 (GecitTasi (101.1, 16.0, 30.6))"
+  ],
+  "bot": null
  }
 }
