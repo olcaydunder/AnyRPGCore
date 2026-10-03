@@ -109,6 +109,25 @@ class YurumeAgi:
             self._nm[c] = nm
         return self._nm[c]
 
+    def birlesik(self, en_az_alan=300.0):
+        """en_az_alan'dan büyük bütün bileşenler tek NavMesh gibi (bileşen hesabı Unity'ninkinden parçalı
+        olabiliyor: Unity'nin derleme raporu ulaşılabilirliği ayrıca denetler)"""
+        anahtar = ("birlesik", en_az_alan)
+        if anahtar not in self._nm:
+            nm = object.__new__(NavMesh)
+            nm.polys = self.polys
+            nm.main = [i for i in range(len(self.polys)) if self.alan[self.comp[i]] >= en_az_alan]
+            nm.grid = collections.defaultdict(list)
+            for i in nm.main:
+                xs = [v[0] for v in self.polys[i]]
+                zs = [v[2] for v in self.polys[i]]
+                for gx in range(int(math.floor(min(xs) / 10)), int(math.floor(max(xs) / 10)) + 1):
+                    for gz in range(int(math.floor(min(zs) / 10)), int(math.floor(max(zs) / 10)) + 1):
+                        nm.grid[(gx, gz)].append(i)
+            nm.alan = sum(self.alan[c] for c in self.alan if self.alan[c] >= en_az_alan)
+            self._nm[anahtar] = nm
+        return self._nm[anahtar]
+
     def oturt(self, p, en_az_alan=2500.0):
         """p'ye en yakın, yeterince büyük bileşende düz bir nokta: ((x, y, z), NavMesh)"""
         en_buyuk = max(self.alan.values())
@@ -146,7 +165,7 @@ class YurumeAgi:
         return self.merkez[i], nm
 
 
-def kamplari_sec(dosya, nm, giris, yasaklar, bolge):
+def kamplari_sec(dosya, nm, giris, yasaklar, bolge, gy=0.0):
     """nm: girişin bileşeni (NavMesh); giris: (x, z); yasaklar: [(x, z, yarıçap)];
     bolge: (x, z, yarıçap) haritanın tasarlanmış oyun alanı -> kamplar, sandıklar, rapor, ek seviye"""
     rng = random.Random("kamp:" + dosya)
@@ -156,6 +175,9 @@ def kamplari_sec(dosya, nm, giris, yasaklar, bolge):
     uygun = []
     for x, y, z in noktalar:
         if math.hypot(x - bx, z - bz) > br:
+            continue
+        # girişle aynı kat: uçurumun dibindeki ya da tepedeki ayrı bölgeler değil
+        if abs(y - gy) > 16:
             continue
         if any(math.hypot(x - a, z - b) < r for a, b, r in yasaklar):
             continue

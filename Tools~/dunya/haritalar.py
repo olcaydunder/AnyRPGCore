@@ -97,7 +97,7 @@ HARITALAR = {
         aciklama="Dünyanın ucundaki Kaf Dağı'na tırmanan sarp yol. Kızıl cinler kayalıklarda pusu kurar."),
     "Mountain_Cave": dict(
         dosya="ErgenekonMagarasi", ad="Ergenekon Mağarası", gok="aksam", zemin="kaya", muzik="Erlik Magarasi",
-        giris="LocationEntrance",
+        giris="LocationEntrance", giris_sabit=(134.9, 31.3, 137.0),
         aciklama="Atalarımızın demir dağı eritip çıktığı Ergenekon. Derinliklerde hâlâ körükler ve kor var."),
     "Beach_Night": dict(
         dosya="AyDedeKoyu", ad="Ay Dede Koyu", gok="gece", zemin="kumsal", muzik="Erlik Magarasi",
@@ -880,9 +880,13 @@ def harita_yaz(h, s, haritalar, kaynak):
     nm = None
     if h.ag is not None:
         # Chop Chop girişleri bazen kayanın içinde ya da suyun üstünde (domuz ara sahneyle girer):
-        # yürüme ağının en yakın büyük parçasındaki düz bir yere taşı
-        (x, y, z), nm = h.ag.oturt(gp)
-        gp = (x, y + 0.05, z)
+        # yürüme ağının en yakın büyük parçasındaki düz bir yere taşı (ya da derleme raporunda denenmiş sabit yer)
+        if getattr(h, "giris_sabit", None):
+            gp = h.giris_sabit
+        else:
+            (x, y, z), _ = h.ag.oturt(gp)
+            gp = (x, y + 0.05, z)
+        nm = h.ag.birlesik()
     h.varsayilan = (gp, gyaw)
     metin, _, _ = prefab_ornegi(k, "DefaultSpawnLocation", SPAWN[0], SPAWN[1], SPAWN[2], gp, unitysahne.yaw_q(gyaw))
     ek.append(metin)
@@ -949,7 +953,7 @@ def harita_yaz(h, s, haritalar, kaynak):
         mz = sum(p[2] for p in isaret) / len(isaret)
         yaricap = max(90.0, max(math.hypot(p[0] - mx, p[2] - mz) for p in isaret) + 55.0)
         kamplar, sandiklar, h.rapor, ek_seviye = harita_icerik.kamplari_sec(
-            h.dosya, nm, (gp[0], gp[2]), yasak, (mx, mz, yaricap))
+            h.dosya, nm, (gp[0], gp[2]), yasak, (mx, mz, yaricap), gp[1])
         for i, (merkez, uyeler) in enumerate(kamplar):
             for j, (profil, x, y, z) in enumerate(uyeler):
                 yaw = math.degrees(math.atan2(merkez[0] - x, merkez[2] - z)) + 180

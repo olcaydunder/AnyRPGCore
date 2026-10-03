@@ -117,7 +117,7 @@ HARITALAR = {
 ######..,k..r#
 ######.k..,..#
 ##.e.##..E.c.#
-##k..r.,..k..#
+##k..k.,..k..#
 ##,.e##.e..k.#
 ##..,#########
 ####.#########
@@ -126,8 +126,8 @@ HARITALAR = {
 #..,..e.#..c.#
 #.c.....#E...#
 ####,########
-####..G..####
 ####...S.####
+####..G..####
 #############
 """),
     "KurganMezarligi": dict(
@@ -177,8 +177,8 @@ HARITALAR = {
 ###.###...###.###
 #..e...g.g...e..#
 #.k..P.....P..x.#
-#.....f.G.f.....#
-#######.S.#######
+#.....f.S.f.....#
+#######.G.#######
 #################
 """),
 }
@@ -343,7 +343,7 @@ def zindan_kur(dosya, h, rng):
             tp = (cx + dx * (HUCRE / 2 - 0.5), 1.9, cz + dz * (HUCRE / 2 - 0.5))
             tyaw = math.degrees(math.atan2(ic[0], ic[1]))
             s.model(esyalar, kl, "torch_mounted", tp, tyaw)
-            s.isik(isiklar, (tp[0] + ic[0] * 0.6, 2.9, tp[2] + ic[1] * 0.6))
+            s.isik(isiklar, (tp[0] + ic[0] * 0.6, 2.9, tp[2] + ic[1] * 0.6), siddet=3.0, menzil=11)
             meşale += 1
         elif (r + c) % 6 == 2 and rng.random() < 0.5:
             ic = (-dx, -dz)
@@ -490,12 +490,12 @@ def harita_kur(dosya, h, bilgi, mevcut):
     rng = random.Random(dosya)
     if h["tur"] == "mezar":
         s, g, noktalar = mezar_kur(dosya, h, rng)
-        gok, ortam, sis = "Night", ((0.20, 0.25, 0.42), (0.11, 0.13, 0.22), (0.04, 0.05, 0.07)), ((0.07, 0.10, 0.17), 0.02)
-        gunes = dict(renk=(0.62, 0.72, 1.0), siddet=0.55, egim=48, yaw=-35)
+        gok, ortam, sis = "Night", ((0.30, 0.36, 0.55), (0.18, 0.21, 0.32), (0.07, 0.08, 0.10)), ((0.08, 0.11, 0.18), 0.012)
+        gunes = dict(renk=(0.66, 0.76, 1.0), siddet=0.8, egim=48, yaw=-35)
     else:
         s, g, noktalar = zindan_kur(dosya, h, rng)
-        gok, ortam, sis = "Night", ((0.16, 0.15, 0.20), (0.10, 0.09, 0.11), (0.04, 0.035, 0.035)), ((0.03, 0.025, 0.03), 0.025)
-        gunes = dict(renk=(0.55, 0.55, 0.75), siddet=0.35, egim=60, yaw=20)
+        gok, ortam, sis = "Night", ((0.42, 0.40, 0.50), (0.30, 0.28, 0.32), (0.14, 0.12, 0.11)), ((0.05, 0.045, 0.06), 0.012)
+        gunes = dict(renk=(0.70, 0.70, 0.90), siddet=0.75, egim=62, yaw=20)
     R = len(g)
 
     # ay ışığı (gölgeli yönlü ışık)
