@@ -377,8 +377,8 @@ def instance_doc(name, prefab, x, y, z, yaw, info, used):
     mods = "".join([
         mod(root_tr, "m_LocalPosition.x", round(x, 3)), mod(root_tr, "m_LocalPosition.y", round(y, 3)),
         mod(root_tr, "m_LocalPosition.z", round(z, 3)),
-        mod(root_tr, "m_LocalRotation.w", round(math.cos(r / 2), 5)), mod(root_tr, "m_LocalRotation.x", 0),
-        mod(root_tr, "m_LocalRotation.y", round(math.sin(r / 2), 5)), mod(root_tr, "m_LocalRotation.z", 0),
+        mod(root_tr, "m_LocalRotation.w", round(math.cos(r / 2), 7)), mod(root_tr, "m_LocalRotation.x", 0),
+        mod(root_tr, "m_LocalRotation.y", round(math.sin(r / 2), 7)), mod(root_tr, "m_LocalRotation.z", 0),
         mod(root_tr, "m_LocalEulerAnglesHint.y", round(yaw, 1)),
         mod(root_go, "m_Name", name),
     ])

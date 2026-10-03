@@ -182,8 +182,20 @@ def v3(v):
     return f"{{x: {f(v[0])}, y: {f(v[1])}, z: {f(v[2])}}}"
 
 
+def qn(v):
+    """birim dörtlü (Unity 4 basamağa yuvarlanmış dörtlüde "Quaternion To Matrix conversion failed" hatası verir)"""
+    x, y, z, w = (float(a) for a in v)
+    u = math.sqrt(x * x + y * y + z * z + w * w) or 1.0
+    return (x / u, y / u, z / u, w / u)
+
+
+def fq(v):
+    return f"{v:.7f}".rstrip("0").rstrip(".") if abs(v) > 1e-9 else "0"
+
+
 def q4(v):
-    return f"{{x: {f(v[0])}, y: {f(v[1])}, z: {f(v[2])}, w: {f(v[3])}}}"
+    v = qn(v)
+    return f"{{x: {fq(v[0])}, y: {fq(v[1])}, z: {fq(v[2])}, w: {fq(v[3])}}}"
 
 
 def yaz(yol, metin):
@@ -770,8 +782,9 @@ def prefab_ornegi(k, ad, prefab_guid, kok_tr, kok_go, p, rot=(0, 0, 0, 1), s=Non
     mods = [mod(kok_go, "m_Name", ad)]
     for i, e in enumerate("xyz"):
         mods.append(mod(kok_tr, f"m_LocalPosition.{e}", f(p[i])))
+    rot = qn(rot)
     for i, e in enumerate("xyzw"):
-        mods.append(mod(kok_tr, f"m_LocalRotation.{e}", f(rot[i])))
+        mods.append(mod(kok_tr, f"m_LocalRotation.{e}", fq(rot[i])))
     if s:
         for i, e in enumerate("xyz"):
             mods.append(mod(kok_tr, f"m_LocalScale.{e}", f(s[i])))
