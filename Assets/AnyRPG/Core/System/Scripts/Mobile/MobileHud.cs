@@ -95,7 +95,8 @@ namespace AnyRPG {
             CreateActionButton("Çanta", "INVENTORY", leftMiddle, new Vector2(60f, 42f), 78f, 16);
             CreateActionButton("Görevler", "QUESTLOG", leftMiddle, new Vector2(60f, -42f), 78f, 14);
             // Seçenekler penceresi; "Nasıl Oynanır" rehberi de oradan açılır
-            CreateActionButton("Menü", SeceneklerPenceresi.Show, leftMiddle, new Vector2(60f, -126f), 70f, 17);
+            // hareket çubuğuna değmesin diye sütundan 4 birim içeride
+            CreateActionButton("Menü", SeceneklerPenceresi.Show, leftMiddle, new Vector2(56f, -126f), 70f, 17);
         }
 
         private void KontrolEkle(string ad, GameObject nesne, float boyut) {
