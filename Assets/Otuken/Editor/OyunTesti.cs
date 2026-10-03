@@ -128,6 +128,10 @@ namespace Otuken.EditorAraclari {
             if (mesaj != null && mesaj.StartsWith("[OyunTesti]", StringComparison.Ordinal)) {
                 return;
             }
+            // editörün kendi iç hataları (arama dizini vb.) oyunun hatası değildir
+            if (yigin != null && (yigin.StartsWith("UnityEditor.", StringComparison.Ordinal) || yigin.Contains("UnityEditor.Search."))) {
+                return;
+            }
             string ilkSatir = IlkSatir(mesaj);
             string ilkCerceve = IlkSatir(yigin);
             string anahtar = ilkSatir + "|" + ilkCerceve;

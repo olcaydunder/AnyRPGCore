@@ -362,7 +362,8 @@ namespace AnyRPG {
         }
 
         private IEnumerator LoadSceneNextFrame(PlayerManagerServer playerManagerServer, string sceneName, UnitController player) {
-            yield return new WaitForEndOfFrame();
+            // bir kare bekle (WaitForEndOfFrame ekransız çalışan otomatik testte hiç gelmiyor)
+            yield return null;
             if (player != null) {
                 playerManagerServer.LoadScene(sceneName, player);
             }
