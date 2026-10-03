@@ -3,31 +3,6 @@
  "islenen": [
   "ZA4f7jqHrQMP"
  ],
- "kayitlar": {
-  "hata-00000000": {
-   "tur": "hata",
-   "baslik": "Hata: Deneme raporu (sistem sınaması)",
-   "adet": 1,
-   "cihazlar": [
-    "GitHub Actions"
-   ],
-   "surumler": [
-    "deneme"
-   ],
-   "ilk": 1791052282,
-   "son": 1791052282,
-   "ilk_rapor": "**Hata** · sürüm **deneme** · GitHub Actions · ubuntu · ekran - · -\n\n### Mesaj\n```text\nDeneme raporu (03.10.2026 21:31): hata bildirim sistemi çalışıyor.\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: hata\nsurum: deneme\ncihaz: GitHub Actions\nsistem: ubuntu\nekran: -\nsahne: -\noyuncu: -\nsure: 0 sn\n```\n\n</details>\n\n\n",
-   "gorulmeler": [
-    "03.10.2026 21:31 · deneme · GitHub Actions · - · - · -"
-   ],
-   "ekler": [],
-   "duzeltildi": null,
-   "yeniden": false,
-   "issue": null,
-   "notlar": []
-  }
- },
- "kimlikler": {
-  "deneme1791052282": "hata-00000000"
- }
+ "kayitlar": {},
+ "kimlikler": {}
 }
