@@ -334,6 +334,8 @@ namespace AnyRPG {
         private static void InitializeDefaults() {
             if (Application.isMobilePlatform) {
                 ApplyMobileUiDefaults();
+                // ilk açılışta cihaza göre grafik kalitesi
+                OyunAyarlari.IlkAcilisAyari();
             }
         }
 
@@ -528,6 +530,16 @@ namespace AnyRPG {
                 OyunAyarlari.Tick(GetSystemGameManager());
             } catch (System.Exception exception) {
                 Debug.LogWarning($"MobileBootstrap: OyunAyarlari.Tick(): {exception.Message}");
+            }
+            try {
+                // büyük yetenek çubuğu, sistem çubuğu üstte (Seçenekler > Oyun > Yetenek çubuğu)
+                MobilArayuzDuzeni.Tick(GetSystemGameManager());
+            } catch (System.Exception exception) {
+                Debug.LogWarning($"MobileBootstrap: MobilArayuzDuzeni.Tick(): {exception.Message}");
+            }
+            if (inGame == false && MainMenuOpen()) {
+                // ana menüye dönünce otomatik av kapanır (harita değişirken açık kalır)
+                OtomatikAv.Kapat();
             }
         }
 

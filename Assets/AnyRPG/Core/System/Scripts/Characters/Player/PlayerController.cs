@@ -294,6 +294,10 @@ namespace AnyRPG {
 
             HandleMobileAttack();
 
+            // Ötüken: otomatik av ve otomatik iksir (Mobile/OtomatikAv.cs)
+            HandleAutoHunt();
+            HandleAutoPotion();
+
             ProcessGamepadButtonClicks();
 
             RegisterAbilityButtonPresses();
@@ -739,6 +743,11 @@ namespace AnyRPG {
         }
 
         private InteractableBase FindNearestEnemy() {
+            return FindNearestEnemy(null);
+        }
+
+        /// <param name="excluded">units to skip until the given time (auto hunt: unreachable targets)</param>
+        private InteractableBase FindNearestEnemy(Dictionary<int, float> excluded) {
             int mask = (1 << LayerMask.NameToLayer("CharacterUnit")) | (1 << LayerMask.NameToLayer("Player"));
             Collider[] hitColliders = new Collider[100];
             Vector3 position = playerManagerClient.ActiveUnitController.transform.position;
@@ -755,6 +764,10 @@ namespace AnyRPG {
                     || ValidEnemyTarget(interactable.CharacterTarget) == false) {
                     continue;
                 }
+                float excludedUntil;
+                if (excluded != null && excluded.TryGetValue(interactable.CharacterTarget.GetInstanceID(), out excludedUntil) && excludedUntil > Time.time) {
+                    continue;
+                }
                 float distance = Vector3.Distance(position, interactable.transform.position);
                 if (distance < nearestDistance) {
                     nearest = interactable.CharacterTarget;
@@ -762,6 +775,187 @@ namespace AnyRPG {
                 }
             }
             return nearest;
+        }
+
+        // ---- Ötüken: otomatik av (Metin2 tarzı) ----
+
+        private float autoHuntNextCheck = 0f;
+        private float autoHuntPausedUntil = 0f;
+        private bool autoHuntWasOn = false;
+        private InteractableBase autoHuntTarget = null;
+        private float autoHuntTargetTime = 0f;
+        private readonly Dictionary<int, float> autoHuntExcluded = new Dictionary<int, float>();
+        private readonly Dictionary<int, int> autoHuntLootTries = new Dictionary<int, int>();
+        private readonly Collider[] autoHuntColliders = new Collider[64];
+        private float autoPotionNextCheck = 0f;
+        private bool autoPotionWarned = false;
+
+        /// <summary>
+        /// While "Oto Av" is on: keep fighting the current enemy; when it dies, pick up the loot of nearby corpses
+        /// (auto loot puts it straight in the bag), then run to the next nearest enemy. A target that cannot be reached
+        /// within 10 seconds is skipped for 30 seconds. Touching the movement stick pauses the hunt for a moment.
+        /// </summary>
+        private void HandleAutoHunt() {
+            bool on = OtomatikAv.Acik;
+            if (on != autoHuntWasOn) {
+                autoHuntWasOn = on;
+                messageFeedManager.WriteMessage(on ? "Otomatik av açık" : "Otomatik av kapalı");
+                autoHuntTarget = null;
+                autoHuntExcluded.Clear();
+                autoHuntLootTries.Clear();
+            }
+            if (on == false) {
+                return;
+            }
+            if (MobileInput.JoystickHeld) {
+                autoHuntPausedUntil = Time.time + 1.5f;
+                return;
+            }
+            if (Time.time < autoHuntPausedUntil || Time.time < autoHuntNextCheck) {
+                return;
+            }
+            autoHuntNextCheck = Time.time + 0.5f;
+
+            UnitController player = playerManagerClient.UnitController;
+            if (player == null || player.CharacterCombat == null) {
+                return;
+            }
+            InteractableBase target = player.Target;
+            if (target != null && ValidEnemyTarget(target)) {
+                if (target != autoHuntTarget) {
+                    autoHuntTarget = target;
+                    autoHuntTargetTime = Time.time;
+                }
+                if (player.CharacterCombat.GetInCombat()) {
+                    // fighting: it is reachable
+                    autoHuntTargetTime = Time.time;
+                    if (player.CharacterCombat.AutoAttackActive == false) {
+                        RightMouseInteraction(target);
+                    }
+                    return;
+                }
+                if (Time.time - autoHuntTargetTime < 10f) {
+                    if (player.UnitMotor == null || player.UnitMotor.AttackTarget != target) {
+                        RightMouseInteraction(target);
+                    }
+                    return;
+                }
+                // not reached in 10 seconds: probably behind a wall or on a cliff
+                autoHuntExcluded[target.GetInstanceID()] = Time.time + 30f;
+                player.ClearTarget();
+                autoHuntTarget = null;
+            }
+
+            InteractableBase corpse = FindNearbyLoot(player);
+            if (corpse != null) {
+                RightMouseInteraction(corpse);
+                return;
+            }
+
+            InteractableBase next = FindNearestEnemy(autoHuntExcluded);
+            if (next == null) {
+                return;
+            }
+            autoHuntTarget = next;
+            autoHuntTargetTime = Time.time;
+            RightMouseInteraction(next);
+        }
+
+        /// <summary>the nearest dead unit within 20 meters that still has loot (each corpse is tried at most twice)</summary>
+        private InteractableBase FindNearbyLoot(UnitController player) {
+            int mask = 1 << LayerMask.NameToLayer("CharacterUnit");
+            int hitCount = player.PhysicsScene.OverlapSphere(player.transform.position, 20f, autoHuntColliders, mask, QueryTriggerInteraction.UseGlobal);
+            InteractableBase nearest = null;
+            float nearestDistance = float.MaxValue;
+            for (int i = 0; i < hitCount; i++) {
+                Collider hitCollider = autoHuntColliders[i];
+                if (hitCollider == null || hitCollider.gameObject == player.gameObject) {
+                    continue;
+                }
+                InteractableBase interactable = hitCollider.gameObject.GetComponent<InteractableBase>();
+                if (interactable != null && interactable.CharacterTarget != null) {
+                    interactable = interactable.CharacterTarget;
+                }
+                UnitController unit = interactable != null ? interactable.GetComponent<UnitController>() : null;
+                if (unit == null || unit.CharacterStats == null || unit.CharacterStats.IsAlive) {
+                    continue;
+                }
+                int tries;
+                autoHuntLootTries.TryGetValue(interactable.GetInstanceID(), out tries);
+                if (tries >= 2 || interactable.GetCurrentInteractables(player).Count == 0) {
+                    continue;
+                }
+                float distance = Vector3.Distance(player.transform.position, interactable.transform.position);
+                if (distance < nearestDistance) {
+                    nearest = interactable;
+                    nearestDistance = distance;
+                }
+            }
+            if (nearest != null) {
+                int tries;
+                autoHuntLootTries.TryGetValue(nearest.GetInstanceID(), out tries);
+                autoHuntLootTries[nearest.GetInstanceID()] = tries + 1;
+            }
+            return nearest;
+        }
+
+        /// <summary>
+        /// drink a health potion from the bags when health falls below the chosen share (Seçenekler > Oyun > Otomatik iksir)
+        /// </summary>
+        private void HandleAutoPotion() {
+            if (Time.time < autoPotionNextCheck) {
+                return;
+            }
+            autoPotionNextCheck = Time.time + 0.5f;
+            float threshold = OtomatikAv.IksirEsigi;
+            UnitController player = playerManagerClient.UnitController;
+            if (threshold <= 0f || player == null || player.CharacterStats == null || player.CharacterInventoryManager == null) {
+                return;
+            }
+            PowerResource health = null;
+            foreach (PowerResource powerResource in player.CharacterStats.PowerResourceList) {
+                if (powerResource != null && powerResource.IsHealth) {
+                    health = powerResource;
+                    break;
+                }
+            }
+            if (health == null) {
+                return;
+            }
+            float max = player.CharacterStats.GetPowerResourceMaxAmount(health);
+            if (max <= 0f || player.CharacterStats.GetPowerResourceAmount(health) / max > threshold) {
+                return;
+            }
+            bool anyPotion = false;
+            foreach (InventorySlot slot in player.CharacterInventoryManager.InventorySlots) {
+                if (slot == null || slot.IsEmpty || slot.InstantiatedItem == null) {
+                    continue;
+                }
+                PowerResourcePotion potion = slot.InstantiatedItem.Item as PowerResourcePotion;
+                if (potion == null || potion.HealEffect == null || RestoresHealth(potion) == false) {
+                    continue;
+                }
+                anyPotion = true;
+                if (player.CharacterAbilityManager.IsOnCoolDown(potion.ResourceName)) {
+                    continue;
+                }
+                autoPotionWarned = false;
+                slot.InstantiatedItem.ActionButtonUse(player);
+                return;
+            }
+            if (anyPotion == false && autoPotionWarned == false) {
+                autoPotionWarned = true;
+                messageFeedManager.WriteMessage("Canın azaldı ama çantanda can iksiri yok");
+            }
+        }
+
+        private static bool RestoresHealth(PowerResourcePotion potion) {
+            foreach (ResourceAmountNode node in potion.HealEffect.ResourceAmounts) {
+                if (node != null && node.PowerResource != null && node.PowerResource.IsHealth) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private bool ValidEnemyTarget(InteractableBase interactable) {

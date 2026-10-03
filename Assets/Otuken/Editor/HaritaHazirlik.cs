@@ -172,7 +172,7 @@ namespace Otuken.EditorAraclari {
                 // geçit taşı ve tabelalar zemine otursun, yürüme ağı onlara göre pişsin
                 int oturmayan = AnyRPG.ZemineOturt.HepsiniOturt();
                 if (oturmayan > 0) {
-                    Yaz($"!! zemine oturtulamayan nesne: {oturmayan}");
+                    Yaz($"!! zemine oturtulamayan nesne: {oturmayan} ({string.Join(", ", AnyRPG.ZemineOturt.Oturmayanlar)})");
                 }
                 NavMeshPisir(sahne, yol);
                 List<Vector3> ulasilan = UlasilabilirNoktalar(ad);
@@ -610,6 +610,12 @@ namespace Otuken.EditorAraclari {
                     if (t.name.IndexOf("HintBar", StringComparison.OrdinalIgnoreCase) >= 0) {
                         t.gameObject.SetActive(false);
                     }
+                }
+
+                // telefon düzeni: büyük yetenek çubuğu, sistem çubuğu üstte (MobilArayuzDuzeni, varsayılan "Büyük")
+                AnyRPG.SystemGameManager oyunYoneticisi = oyun.GetComponentInChildren<AnyRPG.SystemGameManager>(true);
+                if (oyunYoneticisi != null) {
+                    AnyRPG.MobilArayuzDuzeni.Tick(oyunYoneticisi);
                 }
 
                 // telefondaki ölçekleme ve katman düzeni (MobileBootstrap.ScaleCanvases)

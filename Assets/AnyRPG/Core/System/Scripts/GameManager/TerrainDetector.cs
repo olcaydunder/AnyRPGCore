@@ -2,8 +2,16 @@ using UnityEngine;
 
 namespace AnyRPG {
 
+    /// <summary>
+    /// Finds which terrain texture (grass, sand, stone...) is under a position, for footstep sounds.
+    /// Maps built from meshes have no Unity Terrain; then index 0 is returned, so the scene's first footstep sound plays.
+    /// (Ötüken: before this, every footstep on such maps threw a NullReferenceException.)
+    /// </summary>
     public class TerrainDetector {
+        private Terrain terrain;
         private TerrainData terrainData;
+        private Vector3 terrainPosition;
+        private Vector3 terrainSize;
         private int alphamapWidth;
         private int alphamapHeight;
         private float[,,] splatmapData;
@@ -11,21 +19,25 @@ namespace AnyRPG {
 
         public void LoadSceneSettings() {
             //Debug.Log("TerrainDetector.LoadSceneSettings()");
-            if (Terrain.activeTerrain == null) {
+            terrain = Terrain.activeTerrain;
+            if (terrain == null || terrain.terrainData == null) {
                 ClearSceneSettings();
                 return;
             }
             //mainMapCameraController.targetTerrain = Terrain.activeTerrain;
-            terrainData = Terrain.activeTerrain.terrainData;
+            terrainData = terrain.terrainData;
+            terrainPosition = terrain.transform.position;
+            terrainSize = terrainData.size;
             alphamapWidth = terrainData.alphamapWidth;
             alphamapHeight = terrainData.alphamapHeight;
 
             splatmapData = terrainData.GetAlphamaps(0, 0, alphamapWidth, alphamapHeight);
-            numTextures = splatmapData.Length / (alphamapWidth * alphamapHeight);
+            numTextures = alphamapWidth * alphamapHeight > 0 ? splatmapData.Length / (alphamapWidth * alphamapHeight) : 0;
             //Debug.Log($"TerrainDetector.LoadSceneSettings(); numTextures: {numTextures}");
         }
 
         public void ClearSceneSettings() {
+            terrain = null;
             terrainData = null;
             alphamapWidth = 0;
             alphamapHeight = 0;
@@ -34,28 +46,21 @@ namespace AnyRPG {
             numTextures = 0;
         }
 
-        private Vector3 ConvertToSplatMapCoordinate(Vector3 worldPosition) {
-            //Debug.Log($"TerrainDetector.ConvertToSplatMapCoordinate({worldPosition})");
-            Vector3 splatPosition = new Vector3();
-            Terrain ter = Terrain.activeTerrain;
-            Vector3 terPosition = ter.transform.position;
-            splatPosition.x = ((worldPosition.x - terPosition.x) / ter.terrainData.size.x) * ter.terrainData.alphamapWidth;
-            splatPosition.z = ((worldPosition.z - terPosition.z) / ter.terrainData.size.z) * ter.terrainData.alphamapHeight;
-
-            //Debug.Log($"TerrainDetector.ConvertToSplatMapCoordinate({worldPosition}); return {splatPosition}");
-            return splatPosition;
-        }
-
         public int GetActiveTerrainTextureIdx(Vector3 position) {
             //Debug.Log($"TerrainDetector.GetActiveTerrainTextureIdx({position})");
-            Vector3 terrainCord = ConvertToSplatMapCoordinate(position);
+            // no terrain (mesh map), or the terrain was unloaded with its scene
+            if (terrain == null || terrainData == null || numTextures == 0 || terrainSize.x <= 0f || terrainSize.z <= 0f) {
+                return 0;
+            }
+            int x = Mathf.Clamp((int)((position.x - terrainPosition.x) / terrainSize.x * alphamapWidth), 0, alphamapWidth - 1);
+            int z = Mathf.Clamp((int)((position.z - terrainPosition.z) / terrainSize.z * alphamapHeight), 0, alphamapHeight - 1);
             int activeTerrainIndex = 0;
             float largestOpacity = 0f;
 
             for (int i = 0; i < numTextures; i++) {
-                if (largestOpacity < splatmapData[(int)terrainCord.z, (int)terrainCord.x, i]) {
+                if (largestOpacity < splatmapData[z, x, i]) {
                     activeTerrainIndex = i;
-                    largestOpacity = splatmapData[(int)terrainCord.z, (int)terrainCord.x, i];
+                    largestOpacity = splatmapData[z, x, i];
                 }
             }
 

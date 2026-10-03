@@ -306,6 +306,8 @@ namespace AnyRPG {
                 "• <b>Parmağını basılı tut (uzun bas)</b>: bilgisayardaki sağ tık gibidir. Çantadaki eşyalarda Kullan / Kuşan / Sat menüsünü açar.\n\n" +
                 H + "Ekrandaki düğmeler" + HE + "\n" +
                 "• <b>Saldır</b>: seçili düşmana saldırır. Seçili düşman yoksa en yakın düşmanı bulur, yanına koşar ve vurur.\n" +
+                "• <b>Oto Av</b>: açınca (düğme altın rengi olur) karakter yakındaki düşmanları kendisi bulur, saldırır ve ölenlerin " +
+                "ganimetini toplar. Hareket çubuğuna dokununca kısa bir süre durur, sen yönetirsin. Yeniden dokununca kapanır.\n" +
                 "• <b>Hedef</b>: önündeki düşmanlar arasında sırayla hedef değiştirir.\n" +
                 "• <b>Harita</b>: bölgenin haritası. Mavi nokta sensin, sarı işaretler görev verenler.\n" +
                 "• <b>Işınlan</b> (Harita'nın yanında): 15 haritanın listesi. Birini seç, <b>Işınlan</b>'a dokun; oraya geçersin.\n" +
@@ -315,6 +317,8 @@ namespace AnyRPG {
                 "• <b>Menü</b>: seçenekler (grafik, akıcılık, ses, oyun), bu rehber, ekran görüntüsü paylaşma ve <b>Sorun Bildir</b> " +
                 "(bir sorun görürsen kısaca yaz; ekran görüntüsüyle geliştiriciye gider). Hatalar ve çökmeler zaten kendiliğinden bildirilir.\n" +
                 "• Ekrandaki düğmeler hiçbir göstergenin üstüne binmez: telefonun ekranına göre kendiliğinden boş yere kayarlar.\n" +
+                "• <b>Menü > Oyun</b>: otomatik iksir (can %30 ya da %50'nin altına inince Şifa İksiri içilir), büyük yetenek çubuğu, " +
+                "ekran düğmelerinin boyutu ve saydamlığı.\n" +
                 "• Alttaki sıra <b>yetenek çubuğu</b>dur: yeteneklerine dokunarak kullanırsın.\n" +
                 "• Pencereleri sağ üst köşelerindeki <b>X</b> ile kapatırsın.\n" +
                 "• Üstteki <b>Durum</b> düğmesi teşhis raporudur. Bir sorun yaşarsan açıp <b>Kopyala</b>'ya bas ve yapımcıya gönder.\n\n" +

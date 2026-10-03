@@ -49,13 +49,18 @@ namespace AnyRPG {
             return bulundu;
         }
 
+        /// <summary>son HepsiniOturt çağrısında oturtulamayanlar (ad ve konum, derleme tanısı için)</summary>
+        public static readonly System.Collections.Generic.List<string> Oturmayanlar = new System.Collections.Generic.List<string>();
+
         /// <summary>Yüklü sahnelerdeki bütün ZemineOturt nesnelerini oturtur; oturtulamayan sayısını döndürür.</summary>
         public static int HepsiniOturt() {
             Physics.SyncTransforms();
             int basarisiz = 0;
+            Oturmayanlar.Clear();
             foreach (ZemineOturt z in FindObjectsByType<ZemineOturt>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)) {
                 if (!z.Oturt()) {
                     basarisiz++;
+                    Oturmayanlar.Add(z.name + " " + z.transform.position.ToString("F1"));
                 }
             }
             Physics.SyncTransforms();

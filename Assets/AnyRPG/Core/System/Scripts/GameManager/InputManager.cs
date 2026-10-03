@@ -1211,7 +1211,9 @@ namespace AnyRPG {
                         touchTwoFingerMode = touchPinchTravel > touchDragTravel ? 1 : 2;
                     }
                     if (touchTwoFingerMode == 1) {
-                        scrollDelta = pinchChange * 0.02f;
+                        // ekran yüksekliğine göre: yüksek çözünürlüklü telefonda yakınlaştırma aşırı hızlı olmasın
+                        // (1080 piksel yükseklikte eski hız)
+                        scrollDelta = pinchChange * 21.6f / Mathf.Max(480f, Screen.height);
                         mouseDeltaX = 0f;
                         mouseDeltaY = 0f;
                     } else if (touchTwoFingerMode == 0) {

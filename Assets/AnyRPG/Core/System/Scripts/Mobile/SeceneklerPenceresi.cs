@@ -237,6 +237,14 @@ namespace AnyRPG {
                 new[] { "Kapalı", "Açık" }, () => Ganimet.AutoLoot ? 1 : 0, v => Ganimet.AutoLoot = v == 1);
             s.Choice("Titreşim", "Düğmelere ve vuruşlara kısa titreşim.",
                 new[] { "Kapalı", "Açık" }, () => MobileFeedback.Enabled ? 1 : 0, v => MobileFeedback.Enabled = v == 1);
+            s.Choice("Otomatik iksir", "Can bu oranın altına inince çantadaki can iksiri kendiliğinden içilir.",
+                new[] { "Kapalı", "%30", "%50" }, () => OtomatikAv.IksirSecimi, v => OtomatikAv.IksirSecimi = v);
+            s.Choice("Yetenek çubuğu", "Büyük: yetenek kutuları parmakla kolay seçilir, menü simgeleri ekranın üstüne geçer.",
+                new[] { "Normal", "Büyük" }, () => MobilArayuzDuzeni.CubukSecimi, v => MobilArayuzDuzeni.CubukSecimi = v);
+            s.Choice("Ekran düğmeleri", "Saldır, Zıpla, Harita gibi yuvarlak düğmelerin boyutu.",
+                new[] { "Küçük", "Normal", "Büyük" }, () => MobilArayuzDuzeni.DugmeBoyutuSecimi, v => MobilArayuzDuzeni.DugmeBoyutuSecimi = v);
+            s.Choice("Düğme saydamlığı", "Düğmelerin arkasındaki dünya daha çok görünsün mü?",
+                new[] { "%50", "%75", "%100" }, () => MobilArayuzDuzeni.SaydamlikSecimi, v => MobilArayuzDuzeni.SaydamlikSecimi = v);
             s.Choice("Hata raporları", "Hata, çökme ve donmalar geliştiriciye kendiliğinden gönderilir. Kişisel bilgi gönderilmez.",
                 new[] { "Kapalı", "Açık" }, () => HataBildirici.Acik ? 1 : 0, v => HataBildirici.Acik = v == 1);
             s.Finish();

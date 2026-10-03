@@ -229,7 +229,9 @@ namespace AnyRPG {
             // added code at end to check if over nameplate and allow scrolling
             if (focusJustRegained == false
                 && inputManager.mouseScrolled
-                && (!EventSystem.current.IsPointerOverGameObject() || nameplateManager.MouseOverNameplate())) {
+                // dokunmatikte arayüze değen parmaklar InputManager.ReadTouchAsMouse'da zaten ayıklanır; hareket çubuğundaki
+                // başparmak "imleç arayüzde" sayılıp iki parmakla yakınlaştırmayı engellemesin
+                && (MobileInput.TouchActive || !EventSystem.current.IsPointerOverGameObject() || nameplateManager.MouseOverNameplate())) {
                 currentZoomDistance += (inputManager.mouseScrollDeltaY * zoomSpeed * -1);
                 //currentZoomDistance += (Input.mouseScrollDelta.y * zoomSpeed * -1);
                 currentZoomDistance = Mathf.Clamp(currentZoomDistance, minZoom, maxZoom);

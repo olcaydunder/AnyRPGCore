@@ -32,7 +32,10 @@ namespace AnyRPG {
             public string ad;
             public RectTransform rt;
             public Vector2 ev;
+            // güvenli alana göre kaydırılmış ev
+            public Vector2 hedef;
             public float yaricap;
+            public float tabanYaricap;
             public bool kaydirildi;
         }
 
@@ -51,6 +54,8 @@ namespace AnyRPG {
         private bool imzaVar = false;
         private readonly Dictionary<string, Rect> grupAlanlari = new Dictionary<string, Rect>();
         private SystemGameManager oyunYoneticisi = null;
+        private float uygulananOlcek = 1f;
+        private CanvasGroup saydamlik = null;
 
         public static MobileHud Create() {
             GameObject canvasObject = new GameObject(CanvasName);
@@ -84,7 +89,11 @@ namespace AnyRPG {
             CreateActionButton("Zıpla", "JUMP", bottomRight, new Vector2(-320f, 95f), 100f, 20);
             // görev listesinin altında kalsın (16:9 ekranda liste 280 birimden yukarıda)
             CreateActionButton("Hedef", "NEXTTARGET", bottomRight, new Vector2(-295f, 220f), 100f, 20);
-            CreateActionButton("Koş/Yürü", "TOGGLERUN", bottomRight, new Vector2(-125f, 320f), 90f, 16);
+            CreateActionButton("Koş/Yürü", "TOGGLERUN", bottomRight, new Vector2(-60f, 330f), 90f, 16);
+            // Metin2 tarzı otomatik av: açıkken altın renkli (OtomatikAv, PlayerController.HandleAutoHunt)
+            otoAvDugmesi = CreateActionButton("Oto Av", OtomatikAv.Degistir, bottomRight, new Vector2(-165f, 325f), 90f, 17).GetComponent<Image>();
+            OtomatikAv.Degisti += OtoAvGuncelle;
+            OtoAvGuncelle();
 
             // menus, a column on the left edge above the movement stick (the right side holds the mini map and quest tracker)
             Vector2 leftMiddle = new Vector2(0f, 0.5f);
@@ -101,7 +110,7 @@ namespace AnyRPG {
 
         private void KontrolEkle(string ad, GameObject nesne, float boyut) {
             RectTransform rt = nesne.GetComponent<RectTransform>();
-            kontroller.Add(new Kontrol() { ad = ad, rt = rt, ev = rt.anchoredPosition, yaricap = boyut * 0.5f });
+            kontroller.Add(new Kontrol() { ad = ad, rt = rt, ev = rt.anchoredPosition, hedef = rt.anchoredPosition, yaricap = boyut * 0.5f, tabanYaricap = boyut * 0.5f });
         }
 
         private void OnEnable() {
@@ -111,6 +120,7 @@ namespace AnyRPG {
         }
 
         private void OnDestroy() {
+            OtomatikAv.Degisti -= OtoAvGuncelle;
             if (Ornek == this) {
                 Ornek = null;
             }
@@ -147,7 +157,7 @@ namespace AnyRPG {
             StringBuilder sb = new StringBuilder();
             foreach (Kontrol k in kontroller) {
                 if (k.kaydirildi) {
-                    Vector2 fark = k.rt.anchoredPosition - k.ev;
+                    Vector2 fark = k.rt.anchoredPosition - k.hedef;
                     sb.Append(k.ad).Append(" kaydırıldı (").Append(Mathf.RoundToInt(fark.x)).Append(", ").Append(Mathf.RoundToInt(fark.y)).Append(")\n");
                 }
             }
@@ -166,6 +176,23 @@ namespace AnyRPG {
             if (canvas == null) {
                 canvas = GetComponent<Canvas>();
             }
+            // Seçenekler > Oyun: ekran düğmelerinin boyutu ve saydamlığı (MobilArayuzDuzeni)
+            float olcek = MobilArayuzDuzeni.DugmeOlcegi;
+            if (Mathf.Abs(olcek - uygulananOlcek) > 0.001f) {
+                uygulananOlcek = olcek;
+                foreach (Kontrol k in kontroller) {
+                    k.rt.localScale = new Vector3(olcek, olcek, 1f);
+                    k.yaricap = k.tabanYaricap * olcek;
+                }
+                imzaVar = false;
+            }
+            if (saydamlik == null) {
+                saydamlik = GetComponent<CanvasGroup>();
+                if (saydamlik == null) {
+                    saydamlik = gameObject.AddComponent<CanvasGroup>();
+                }
+            }
+            saydamlik.alpha = MobilArayuzDuzeni.DugmeSaydamligi;
             ArayuzDenetimi.GostergeParcalari(engeller, false);
             AyrilmisYerler(engeller);
 
@@ -283,6 +310,18 @@ namespace AnyRPG {
             yerlesenler.Clear();
             foreach (Kontrol k in kontroller) {
                 Vector2 ev = Vector2.Scale(k.rt.anchorMin, boyut) + k.ev;
+                // çentik / yuvarlak köşe: kenara bağlı düğmeler topluca güvenli alanın içine kayar (düzen bozulmasın)
+                if (k.rt.anchorMin.x < 0.01f) {
+                    ev.x += guvenli.xMin;
+                } else if (k.rt.anchorMin.x > 0.99f) {
+                    ev.x -= boyut.x - guvenli.xMax;
+                }
+                if (k.rt.anchorMin.y < 0.01f) {
+                    ev.y += guvenli.yMin;
+                } else if (k.rt.anchorMin.y > 0.99f) {
+                    ev.y -= boyut.y - guvenli.yMax;
+                }
+                k.hedef = ev - Vector2.Scale(k.rt.anchorMin, boyut);
                 float r = k.yaricap;
                 float erim = AramaYaricapi + r + EngelPayi;
                 yakinEngeller.Clear();
@@ -350,11 +389,11 @@ namespace AnyRPG {
             return circleObject;
         }
 
-        private void CreateActionButton(string label, string actionName, Vector2 anchor, Vector2 position, float size, int fontSize) {
-            CreateActionButton(label, () => MobileInput.PressVirtualKey(actionName), anchor, position, size, fontSize);
+        private GameObject CreateActionButton(string label, string actionName, Vector2 anchor, Vector2 position, float size, int fontSize) {
+            return CreateActionButton(label, () => MobileInput.PressVirtualKey(actionName), anchor, position, size, fontSize);
         }
 
-        private void CreateActionButton(string label, System.Action onPress, Vector2 anchor, Vector2 position, float size, int fontSize) {
+        private GameObject CreateActionButton(string label, System.Action onPress, Vector2 anchor, Vector2 position, float size, int fontSize) {
             GameObject buttonObject = CreateCircle(transform, label + "Button", anchor, position, size, new Color(0.1f, 0.08f, 0.06f, 0.55f), new Color(0.85f, 0.7f, 0.4f, 0.85f));
             KontrolEkle(label, buttonObject, size);
             Image image = buttonObject.GetComponent<Image>();
@@ -382,6 +421,17 @@ namespace AnyRPG {
             text.alignment = TextAnchor.MiddleCenter;
             text.color = new Color(0.97f, 0.92f, 0.82f, 1f);
             text.raycastTarget = false;
+            return buttonObject;
+        }
+
+        private static readonly Color dugmeRengi = new Color(0.1f, 0.08f, 0.06f, 0.55f);
+        private static readonly Color otoAvAcikRengi = new Color(0.78f, 0.56f, 0.16f, 0.9f);
+        private Image otoAvDugmesi = null;
+
+        private void OtoAvGuncelle() {
+            if (otoAvDugmesi != null) {
+                otoAvDugmesi.color = OtomatikAv.Acik ? otoAvAcikRengi : dugmeRengi;
+            }
         }
     }
 

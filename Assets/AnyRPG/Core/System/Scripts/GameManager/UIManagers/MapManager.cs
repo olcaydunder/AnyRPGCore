@@ -55,7 +55,7 @@ namespace AnyRPG {
             //mapTexture = new Texture2D((int)levelManager.SceneBounds.size.x, (int)levelManager.SceneBounds.size.z);
             string textureFilePath = mapTextureFolder + GetScreenshotFilename();
             if (System.IO.File.Exists(textureFilePath)) {
-                mapTexture = new Texture2D((int)cameraSize, (int)cameraSize);
+                mapTexture = new Texture2D(Mathf.Clamp((int)cameraSize, 16, 4096), Mathf.Clamp((int)cameraSize, 16, 4096));
                 sceneTextureFound = true;
                 byte[] fileData = System.IO.File.ReadAllBytes(textureFilePath);
                 mapTexture.LoadImage(fileData);
@@ -94,8 +94,12 @@ namespace AnyRPG {
 
             //RenderMapFromCamera();
             //renderTexture = new RenderTexture((int)levelManager.SceneBounds.size.x, (int)levelManager.SceneBounds.size.z, 16, RenderTextureFormat.ARGB32);
-            mapTexture = new Texture2D((int)cameraSize * systemConfigurationManager.UIConfiguration.AutoPixelsPerMeter, (int)cameraSize * systemConfigurationManager.UIConfiguration.AutoPixelsPerMeter);
-            renderTexture = new RenderTexture((int)cameraSize * systemConfigurationManager.UIConfiguration.AutoPixelsPerMeter, (int)cameraSize * systemConfigurationManager.UIConfiguration.AutoPixelsPerMeter, 24, RenderTextureFormat.ARGB32);
+            // Ötüken: the texture size follows the scene size; a scene with far away objects asked for 46070 pixels and
+            // crashed ("Texture has out of range width"). Keep it within the device limit and a sane memory budget.
+            int mapTextureSize = Mathf.Clamp((int)cameraSize * systemConfigurationManager.UIConfiguration.AutoPixelsPerMeter, 16,
+                Mathf.Min(SystemInfo.maxTextureSize, 4096));
+            mapTexture = new Texture2D(mapTextureSize, mapTextureSize);
+            renderTexture = new RenderTexture(mapTextureSize, mapTextureSize, 24, RenderTextureFormat.ARGB32);
             renderTexture.Create();
             cameraManager.MainMapCamera.targetTexture = renderTexture;
             // the overhead map needs no post processing (outline, color grading); skipping it avoids render graph errors on mobile

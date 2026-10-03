@@ -289,40 +289,75 @@ namespace AnyRPG {
             if (selected < 0 || selected >= haritalar.Length || Time.unscaledTime < busyUntil) {
                 return;
             }
-            SystemGameManager gameManager = GameManager;
+            string error = Teleport(haritalar[selected].sahne);
+            if (error != null) {
+                SetStatus(error, errorColor);
+                return;
+            }
+            busyUntil = Time.unscaledTime + 3f;
+            Close();
+        }
+
+        /// <summary>haritaların sahne adları, kolaydan zora (otomatik oyun testi de bu sırayla gezer)</summary>
+        public static string[] SahneAdlari {
+            get {
+                string[] adlar = new string[haritalar.Length];
+                for (int i = 0; i < haritalar.Length; i++) {
+                    adlar[i] = haritalar[i].sahne;
+                }
+                return adlar;
+            }
+        }
+
+        /// <summary>haritanın oyunda görünen adı</summary>
+        public static string GorunenAd(string sahne) {
+            foreach (Harita h in haritalar) {
+                if (h.sahne == sahne) {
+                    return h.ad;
+                }
+            }
+            return sahne;
+        }
+
+        /// <summary>
+        /// oyuncuyu haritanın giriş noktasına ışınlar (Işınlan penceresi ve otomatik oyun testi);
+        /// olmazsa nedenini döndürür, olursa null
+        /// </summary>
+        public static string Teleport(string sceneName) {
+            return Teleport(sceneName, false);
+        }
+
+        /// <param name="force">otomatik oyun testi için: savaşta da ışınla</param>
+        public static string Teleport(string sceneName, bool force) {
+            Ensure();
+            SystemGameManager gameManager = instance.GameManager;
             PlayerManagerClient playerManagerClient = gameManager != null ? gameManager.PlayerManagerClient : null;
             PlayerManagerServer playerManagerServer = gameManager != null ? gameManager.PlayerManagerServer : null;
             UnitController player = playerManagerClient != null && playerManagerClient.PlayerUnitSpawned ? playerManagerClient.UnitController : null;
             if (player == null || playerManagerServer == null || SystemGameManager.IsShuttingDown) {
-                SetStatus("Işınlanmak için önce oyuna girmelisin.", errorColor);
-                return;
+                return "Işınlanmak için önce oyuna girmelisin.";
             }
             if (player.CharacterStats != null && player.CharacterStats.IsAlive == false) {
-                SetStatus("Ölüyken ışınlanamazsın. Önce yeniden doğ.", errorColor);
-                return;
+                return "Ölüyken ışınlanamazsın. Önce yeniden doğ.";
             }
-            if (player.CharacterCombat != null && player.CharacterCombat.GetInCombat()) {
-                SetStatus("Savaşın ortasında ışınlanamazsın. Düşmanlardan uzaklaş ya da savaşı bitir.", errorColor);
-                return;
+            if (force == false && player.CharacterCombat != null && player.CharacterCombat.GetInCombat()) {
+                return "Savaşın ortasında ışınlanamazsın. Düşmanlardan uzaklaş ya da savaşı bitir.";
             }
-
-            string sceneName = haritalar[selected].sahne;
-            busyUntil = Time.unscaledTime + 3f;
-            Close();
-
             try {
                 if (player.gameObject.scene.name == sceneName) {
                     // aynı harita: oyuncu haritanın giriş noktasında yeniden belirir
                     TeleportEffectProperties teleportProperties = new TeleportEffectProperties();
                     teleportProperties.levelName = sceneName;
                     playerManagerServer.Teleport(player, teleportProperties);
-                    return;
+                    return null;
                 }
                 // Geçit Taşı ile aynı yol (LoadSceneComponent): varsayılan giriş noktasında doğma isteği, sonra sahne yükleme
                 playerManagerServer.AddSpawnRequest(player, new SpawnPlayerRequest());
-                StartCoroutine(LoadSceneNextFrame(playerManagerServer, sceneName, player));
+                instance.StartCoroutine(instance.LoadSceneNextFrame(playerManagerServer, sceneName, player));
+                return null;
             } catch (System.Exception exception) {
                 Debug.LogWarning($"IsinlanmaPenceresi.Teleport({sceneName}): {exception.Message}");
+                return "Işınlanılamadı: " + exception.Message;
             }
         }
 

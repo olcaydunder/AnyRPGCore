@@ -19,6 +19,7 @@ APK iş akışı: topla.py derleme <basarili|basarisiz> <numara> <commit> <bağl
 Yalnız Python'un standart kitaplığını kullanır.
 """
 import datetime
+import hashlib
 import json
 import os
 import re
@@ -370,6 +371,16 @@ def pano(durum):
                          f"([tam rapor](https://github.com/{depo}/releases/download/tani/tani.zip)):", "", kod("\n".join(d["uyarilar"])), ""]
         else:
             parcalar += ["Tanı raporunda uyarı yok.", ""]
+        bot = d.get("bot")
+        if bot:
+            parcalar += ["### Otomatik oyun testi", "",
+                         f"Bot yeni oyun başlatıp haritaları gezdi: **{bot['durum']}**, {bot['toplamHata']} hata/istisna.", "",
+                         "| | Harita | Sonuç | Yükleme | Hata | Not |", "|---|---|---|---|---|---|"]
+            for h in bot["haritalar"]:
+                isaret = "✅" if h.get("sonuc") == "tamam" and not h.get("hata") else ("⚠️" if h.get("sonuc") == "tamam" else "❌")
+                parcalar.append(f"| {isaret} | {tablo_hucresi(h.get('ad') or h.get('sahne'))} | {tablo_hucresi(h.get('sonuc'))} | "
+                                f"{int(h.get('yuklemeSuresi') or 0)} sn | {h.get('hata') or 0} | {tablo_hucresi(h.get('not') or '')} |")
+            parcalar.append("")
     baslik = "| Durum | Sorun | Tür | Tekrar | Cihaz | Sürüm | Son görülme |\n|---|---|---|---|---|---|---|"
     parcalar += ["## Açık sorunlar", ""]
     if acik:
@@ -421,9 +432,52 @@ def derleme_yaz(argumanlar):
     durum = durum_oku()
     durum["derleme"] = {"sonuc": sonuc, "numara": numara, "commit": commit[:8], "baglanti": baglanti,
                         "zaman": int(time.time()), "uyarilar": uyarilar}
+    bot_isle(durum, numara, os.path.join(os.path.dirname(argumanlar[4]) if len(argumanlar) > 4 else "tani", "oyun_testi.json"))
     durum_yaz(durum)
     gunluk("derleme durumu yazıldı:", sonuc, numara, len(uyarilar), "uyarı")
     return 0
+
+
+def bot_isle(durum, numara, yol_):
+    """otomatik oyun testinin (OyunTesti.cs) sonucu: harita tablosu panoya, bulduğu hatalar kayıtlara"""
+    if not os.path.exists(yol_):
+        durum["derleme"]["bot"] = None
+        return
+    try:
+        with open(yol_, encoding="utf-8") as f:
+            b = json.load(f)
+    except (OSError, ValueError) as e:
+        gunluk("oyun testi okunamadı", e)
+        return
+    durum["derleme"]["bot"] = {"durum": b.get("durum", "?"), "toplamHata": b.get("toplamHata", 0),
+                               "haritalar": [{k: h.get(k) for k in ("sahne", "ad", "sonuc", "yuklemeSuresi", "hata", "not")}
+                                             for h in b.get("haritalar", [])]}
+    zaman = int(time.time())
+    surum = f"0.1.{numara}"
+    for h in b.get("hatalar", []):
+        mesaj = (h.get("mesaj") or "").strip()
+        ilk = mesaj.split("\n")[0][:200]
+        yigin = h.get("yigin") or ""
+        imza = hashlib.sha1((h.get("tur", "") + "|" + ilk + "|" + yigin.split("\n")[0]).encode("utf-8")).hexdigest()[:8]
+        anahtar = dosya_adi("bot-" + imza)
+        k = durum["kayitlar"].get(anahtar)
+        if k is None:
+            alanlar = {"tur": h.get("tur", "hata"), "surum": surum, "cihaz": "Otomatik oyun testi (CI)", "sistem": "Unity editör",
+                       "ekran": "-", "sahne": h.get("sahne", "?")}
+            k = {"tur": h.get("tur", "hata"), "baslik": ("Oyun testi: " + ilk)[:200], "adet": 0, "cihazlar": [], "surumler": [],
+                 "ilk": zaman, "son": zaman, "ilk_rapor": ilk_rapor(alanlar, {"mesaj": mesaj, "yigin": yigin}),
+                 "gorulmeler": [], "ekler": [], "duzeltildi": None, "yeniden": False, "issue": None, "notlar": []}
+            durum["kayitlar"][anahtar] = k
+        k["adet"] += int(h.get("adet", 1))
+        k["son"] = zaman
+        if surum not in k["surumler"]:
+            k["surumler"].append(surum)
+        if "Otomatik oyun testi (CI)" not in k["cihazlar"]:
+            k["cihazlar"].append("Otomatik oyun testi (CI)")
+        k["gorulmeler"] = (k["gorulmeler"] + [f"{zaman_yaz(zaman)} · derleme {numara} · {h.get('adet', 1)} kez · {h.get('sahne', '?')}"])[-60:]
+        if k.get("duzeltildi") and surum_sayisi(surum) >= surum_sayisi(k["duzeltildi"]):
+            k["yeniden"] = True
+            k["duzeltildi"] = None
 
 
 def main():

@@ -160,33 +160,6 @@ jobs:
           androidKeyaliasName: androiddebugkey
           androidKeyaliasPass: android
 
-      - name: Tanı raporunu yükle (yürüme ağı, ekran görüntüleri)
-        # derleme başarısız olsa bile: "tani" ön sürümünde tani.zip (rapor.txt, *.jpg, navmesh/)
-        if: ${{ always() }}
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          if [ ! -d tani ]; then
-            echo "tani klasörü yok"
-            exit 0
-          fi
-          zip -qr tani.zip tani
-          ls -la tani.zip
-          gh release delete tani --yes --cleanup-tag || true
-          gh release create tani tani.zip \
-            --prerelease \
-            --target "$GITHUB_SHA" \
-            --title "Tanı raporu (otomatik, oyuncular için değil)" \
-            --notes "Derleme $GITHUB_RUN_NUMBER, commit ${GITHUB_SHA::8}: yeni haritaların yürüme ağı, gölgelendirici denetimi ve ekran görüntüleri."
-          if [ -f tani/rapor.txt ]; then
-            {
-              echo "## Tanı raporu"
-              echo '```'
-              head -c 60000 tani/rapor.txt
-              echo '```'
-            } >> "$GITHUB_STEP_SUMMARY"
-          fi
-
       - name: APK'yı bul
         if: ${{ !inputs.sadece_arayuz }}
         id: apk
@@ -232,6 +205,75 @@ jobs:
             echo ""
             echo "Boyut: ${{ steps.apk.outputs.boyut_mb }} MB"
           } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Oyun testi (bot 15 haritayı gezer)
+        # editörde oyun modunda: yeni oyun, 15 haritaya ışınlanma, otomatik av; hatalar tani/oyun_testi.* dosyalarına
+        # (Assets/Otuken/Editor/OyunTesti.cs). APK zaten yayımlandı; bu adım tutmazsa derleme bozulmaz.
+        if: ${{ !inputs.sadece_arayuz && steps.apk.outcome == 'success' }}
+        continue-on-error: true
+        timeout-minutes: 45
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        run: |
+          imaj=$(docker images --format '{{.Repository}}:{{.Tag}}' | grep '^unityci/editor' | head -n 1)
+          if [ -z "$imaj" ]; then
+            echo "::warning title=Oyun testi::Unity imajı bulunamadı"
+            exit 0
+          fi
+          echo "imaj: $imaj"
+          mkdir -p tani
+          docker run --rm -v "$GITHUB_WORKSPACE":/github/workspace -w /github/workspace -e UNITY_LICENSE "$imaj" bash -c '
+            printf "%s" "$UNITY_LICENSE" | tr -d "\r" > /tmp/lisans.ulf
+            mkdir -p /root/.local/share/unity3d/Unity
+            cp /tmp/lisans.ulf /root/.local/share/unity3d/Unity/Unity_lic.ulf
+            unity-editor -logFile /tmp/lisans.log -quit -manualLicenseFile /tmp/lisans.ulf || true
+            grep -i "licens" /tmp/lisans.log | tail -n 5 || true
+            unity-editor -logFile /github/workspace/tani/oyun_testi_unity.log -projectPath /github/workspace \
+              -buildTarget Android -executeMethod Otuken.EditorAraclari.OyunTesti.Baslat || true
+          '
+          if [ -f tani/oyun_testi_unity.log ]; then
+            tail -n 4000 tani/oyun_testi_unity.log > tani/oyun_testi_unity_son.log
+            rm -f tani/oyun_testi_unity.log
+            grep "\[OyunTesti\]" tani/oyun_testi_unity_son.log | tail -n 60 || true
+          fi
+          if [ -f tani/oyun_testi.txt ]; then
+            {
+              echo "## Otomatik oyun testi"
+              echo '```'
+              head -c 30000 tani/oyun_testi.txt
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "::warning title=Oyun testi::rapor çıkmadı (tani/oyun_testi_unity_son.log)"
+          fi
+
+      - name: Tanı raporunu yükle (yürüme ağı, ekran görüntüleri)
+        # derleme başarısız olsa bile: "tani" ön sürümünde tani.zip (rapor.txt, *.jpg, navmesh/)
+        if: ${{ always() }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ ! -d tani ]; then
+            echo "tani klasörü yok"
+            exit 0
+          fi
+          zip -qr tani.zip tani
+          ls -la tani.zip
+          gh release delete tani --yes --cleanup-tag || true
+          gh release create tani tani.zip \
+            --prerelease \
+            --target "$GITHUB_SHA" \
+            --title "Tanı raporu (otomatik, oyuncular için değil)" \
+            --notes "Derleme $GITHUB_RUN_NUMBER, commit ${GITHUB_SHA::8}: yeni haritaların yürüme ağı, gölgelendirici denetimi ve ekran görüntüleri."
+          if [ -f tani/rapor.txt ]; then
+            {
+              echo "## Tanı raporu"
+              echo '```'
+              head -c 60000 tani/rapor.txt
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
+
 
       # ---- hata panosu (hata-kayitlari dalı): son derlemenin sonucu ve tanı uyarıları
       # (APK adımlarından sonra ve hata verse bile derlemeyi bozmaz)

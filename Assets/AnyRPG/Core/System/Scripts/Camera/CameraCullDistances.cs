@@ -26,7 +26,10 @@ namespace AnyRPG{
 
 
 			cam.layerCullDistances = distances;
-			cam.layerCullSpherical = true;
+			// Ötüken: layerCullSpherical only works with the built-in renderer; with URP it only logs a warning
+			if (UnityEngine.Rendering.GraphicsSettings.currentRenderPipeline == null) {
+				cam.layerCullSpherical = true;
+			}
 		}
 
 		bool Contains(int x, int[] y){

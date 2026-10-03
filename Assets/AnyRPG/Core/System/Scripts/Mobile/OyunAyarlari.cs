@@ -101,6 +101,52 @@ namespace AnyRPG {
             Uygula();
         }
 
+        // ---------------------------------------------------------------- ilk açılış: cihaza göre grafik
+
+        private const string OtomatikGrafikKey = "ayar-otomatik-grafik";
+
+        /// <summary>
+        /// Oyun ilk kez açılınca (oyuncu henüz kalite seçmediyse) cihazın belleğine ve ekran kartına göre kalite,
+        /// kare hızı sınırı ve çözünürlük seçer: güçlü telefonda Yüksek/60, orta telefonda Orta/60, zayıf telefonda
+        /// Düşük/30. Oyuncu sonra Seçenekler'den değiştirebilir. MobileBootstrap sahne yüklenmeden çağırır.
+        /// </summary>
+        public static void IlkAcilisAyari() {
+            if (PlayerPrefs.GetInt(OtomatikGrafikKey, 0) == 1) {
+                return;
+            }
+            PlayerPrefs.SetInt(OtomatikGrafikKey, 1);
+            if (PlayerPrefs.HasKey(KaliteKey)) {
+                // eski kurulum: oyuncunun seçimi kalır
+                PlayerPrefs.Save();
+                return;
+            }
+            int seviye = CihazSeviyesi();
+            PlayerPrefs.SetInt(KaliteKey, KaliteSeviyeleri[seviye]);
+            QualitySettings.SetQualityLevel(KaliteSeviyeleri[seviye], true);
+            PlayerPrefs.SetInt(FpsKey, seviye == 0 ? 0 : 1);
+            if (seviye == 0) {
+                PlayerPrefs.SetInt(CozunurlukKey, 2);
+            }
+            PlayerPrefs.Save();
+            Debug.Log($"OyunAyarlari: ilk açılış grafik seviyesi {seviye} (bellek {SystemInfo.systemMemorySize} MB, {SystemInfo.graphicsDeviceName})");
+        }
+
+        /// <summary>0: zayıf, 1: orta, 2: güçlü cihaz</summary>
+        public static int CihazSeviyesi() {
+            int bellek = SystemInfo.systemMemorySize;
+            int seviye = bellek >= 7000 ? 2 : (bellek >= 3500 ? 1 : 0);
+            string ekranKarti = SystemInfo.graphicsDeviceName ?? string.Empty;
+            // eski kuşak ekran kartları bir basamak aşağı
+            if (ekranKarti.Contains("Adreno (TM) 5") || ekranKarti.Contains("Adreno (TM) 4") || ekranKarti.Contains("Mali-T")
+                || ekranKarti.Contains("Mali-G5") || ekranKarti.Contains("Mali-G6") || ekranKarti.Contains("PowerVR")) {
+                seviye = Mathf.Max(0, seviye - 1);
+            }
+            if (SystemInfo.processorCount <= 4) {
+                seviye = Mathf.Max(0, seviye - 1);
+            }
+            return seviye;
+        }
+
         // ---------------------------------------------------------------- uygulama
 
         /// <summary>
@@ -188,7 +234,7 @@ namespace AnyRPG {
                 uzakliklar[i] = i == AlwaysVisibleLayer ? 0f : mesafe;
             }
             kamera.layerCullDistances = uzakliklar;
-            kamera.layerCullSpherical = true;
+            // layerCullSpherical yalnız yerleşik çizicide çalışır; URP'de her atamada uyarı yazıyordu (hata panosu)
             UniversalAdditionalCameraData kameraVerisi = kamera.GetUniversalAdditionalCameraData();
             if (kameraVerisi != null) {
                 kameraVerisi.renderShadows = golgeMesafeleri[Golge] != 0f;

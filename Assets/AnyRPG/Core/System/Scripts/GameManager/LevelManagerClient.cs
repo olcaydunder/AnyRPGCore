@@ -116,7 +116,37 @@ namespace AnyRPG {
                 }
             }
 
-            return sceneBounds;
+            return LimitToWalkableArea(sceneBounds);
+        }
+
+        /// <summary>
+        /// Ötüken: maps made from art packs contain far away scenery (sea planes, distant mountains, sky cards) that made the
+        /// scene bounds kilometers wide, so the map and mini map showed a tiny dot of the playable area and the map texture
+        /// could not be created. When the scene has a walk mesh, the map covers the walkable area plus a margin instead.
+        /// </summary>
+        private static Bounds LimitToWalkableArea(Bounds sceneBounds) {
+            NavMeshTriangulation triangulation = NavMesh.CalculateTriangulation();
+            Vector3[] vertices = triangulation.vertices;
+            if (vertices == null || vertices.Length < 3) {
+                return sceneBounds;
+            }
+            Bounds walkable = new Bounds(vertices[0], Vector3.zero);
+            for (int i = 1; i < vertices.Length; i++) {
+                walkable.Encapsulate(vertices[i]);
+            }
+            const float margin = 30f;
+            float minX = Mathf.Max(sceneBounds.min.x, walkable.min.x - margin);
+            float maxX = Mathf.Min(sceneBounds.max.x, walkable.max.x + margin);
+            float minZ = Mathf.Max(sceneBounds.min.z, walkable.min.z - margin);
+            float maxZ = Mathf.Min(sceneBounds.max.z, walkable.max.z + margin);
+            if (maxX - minX < 10f || maxZ - minZ < 10f) {
+                return sceneBounds;
+            }
+            Vector3 min = new Vector3(minX, sceneBounds.min.y, minZ);
+            Vector3 max = new Vector3(maxX, sceneBounds.max.y, maxZ);
+            Bounds limited = new Bounds();
+            limited.SetMinMax(min, max);
+            return limited;
         }
 
         public SceneNode GetActiveSceneNode() {
