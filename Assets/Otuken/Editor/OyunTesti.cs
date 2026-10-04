@@ -127,7 +127,10 @@ namespace Otuken.EditorAraclari {
         // ---------------------------------------------------------------- hatalar
 
         private static void KayitGeldi(string mesaj, string yigin, LogType tur) {
-            if (tur != LogType.Error && tur != LogType.Exception && tur != LogType.Assert) {
+            // telefon katmanının (MobileBootstrap ve pencereleri) yakaladığı istisnalar uyarı olarak yazılır: onlar da sayılır
+            bool mobilUyarisi = tur == LogType.Warning && mesaj != null && (mesaj.StartsWith("MobileBootstrap", StringComparison.Ordinal)
+                || mesaj.StartsWith("GorevOku", StringComparison.Ordinal) || mesaj.StartsWith("MobileHud", StringComparison.Ordinal));
+            if (tur != LogType.Error && tur != LogType.Exception && tur != LogType.Assert && mobilUyarisi == false) {
                 return;
             }
             if (mesaj != null && mesaj.StartsWith("[OyunTesti]", StringComparison.Ordinal)) {
@@ -155,7 +158,7 @@ namespace Otuken.EditorAraclari {
                     return;
                 }
                 kayit = new HataKaydi() {
-                    tur = tur == LogType.Exception ? "istisna" : "hata", mesaj = Kes(mesaj, 600), yigin = Kes(yigin, 1500), sahne = aktifSahne, adet = 1
+                    tur = tur == LogType.Exception ? "istisna" : (mobilUyarisi ? "uyarı" : "hata"), mesaj = Kes(mesaj, 600), yigin = Kes(yigin, 1500), sahne = aktifSahne, adet = 1
                 };
                 hataSozlugu[anahtar] = kayit;
                 rapor.hatalar.Add(kayit);
@@ -203,6 +206,13 @@ namespace Otuken.EditorAraclari {
             AnyRPG.SystemGameManager oyun = Object.FindAnyObjectByType<AnyRPG.SystemGameManager>();
             switch (adim) {
                 case Adim.OyunModu:
+                    // telefondaki katman (MobileBootstrap: günlük görevler, görev oku, ayarlar, armağan...) editörde
+                    // kendiliğinden kurulmaz; test telefondaki gibi çalışsın diye kurulur
+                    if (Object.FindAnyObjectByType<AnyRPG.MobileBootstrap>() == null) {
+                        GameObject mobil = new GameObject("MobileBootstrap (oyun testi)");
+                        mobil.AddComponent<AnyRPG.MobileBootstrap>();
+                        Object.DontDestroyOnLoad(mobil);
+                    }
                     Gec(Adim.Acilis);
                     break;
 
