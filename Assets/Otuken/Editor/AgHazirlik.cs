@@ -60,7 +60,7 @@ namespace Otuken.EditorAraclari {
             Debug.Log(Calistir());
         }
 
-        /// <summary>hazırlığı yapar, raporunu döndürür (tani/ag.txt'ye de yazar)</summary>
+        /// <summary>hazırlığı yapar, raporunu döndürür (tani/ag_[hedef].txt'ye de yazar)</summary>
         public static string Calistir() {
             rapor = new StringBuilder();
             Yaz("--- çevrimiçi oyun hazırlığı (AnyMMO + FishNet)");
@@ -88,7 +88,7 @@ namespace Otuken.EditorAraclari {
             string metin = rapor.ToString();
             try {
                 Directory.CreateDirectory(Path.GetFullPath("tani"));
-                File.WriteAllText(Path.Combine(Path.GetFullPath("tani"), "ag.txt"), metin);
+                File.WriteAllText(Path.Combine(Path.GetFullPath("tani"), "ag_" + EditorUserBuildSettings.activeBuildTarget + ".txt"), metin);
             } catch (Exception) {
             }
             return metin;

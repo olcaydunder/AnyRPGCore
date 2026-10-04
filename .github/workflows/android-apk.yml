@@ -330,7 +330,7 @@ jobs:
           cat "$klasor/derleme.txt" 2>/dev/null || true
           sudo chown -R "$(id -u):$(id -g)" "$klasor" || true
           chmod +x "$ikili"
-          "$ikili" -batchmode -nographics -sunucu -port 7770 -logFile "$PWD/tani/sunucu_deneme.log" &
+          "$ikili" -batchmode -nographics --serverport 7770 --servermode MMO -logFile "$PWD/tani/sunucu_deneme.log" &
           pid=$!
           basladi=0
           for i in $(seq 1 120); do

@@ -29,7 +29,7 @@ namespace AnyRPG {
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void Kur() {
-            if (Etkin == false || Application.isEditor || Sunucu.Etkin) {
+            if (Etkin == false || Application.isEditor) {
                 return;
             }
             Application.targetFrameRate = 30;

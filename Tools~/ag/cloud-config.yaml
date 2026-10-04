@@ -73,7 +73,7 @@ write_files:
       User=otuken
       Environment=HOME=/var/lib/otuken
       WorkingDirectory=/opt/otuken/oyun
-      ExecStart=/bin/sh -c 'exec /opt/otuken/oyun/*.x86_64 -batchmode -nographics -sunucu -port 7770 -logFile -'
+      ExecStart=/bin/sh -c 'exec /opt/otuken/oyun/*.x86_64 -batchmode -nographics --serverport 7770 --servermode MMO -logFile -'
       Restart=always
       RestartSec=10
       LimitNOFILE=65536

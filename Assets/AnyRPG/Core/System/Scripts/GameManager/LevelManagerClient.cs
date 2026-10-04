@@ -284,7 +284,8 @@ namespace AnyRPG {
             OnLevelLoad();
 
             // check for server mode and start server if we're in batch mode and on the main menu, which is where the server should start in that case.
-            if (IsMainMenu(newScene.name) == true && Application.isBatchMode) {
+            // Ötüken: editördeki oyun testi ve çevrimiçi denemenin istemci botları da batch mode'da çalışır; onlar sunucu olmaz
+            if (IsMainMenu(newScene.name) == true && Application.isBatchMode && Sunucu.BatchSunucuOlsun) {
                 networkManagerServer.SetServerMode(systemGameManager.CommandLineServerMode);
                 networkManagerServer.StartServer(systemGameManager.CommandLineServerPort);
             }

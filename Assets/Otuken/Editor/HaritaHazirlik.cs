@@ -68,6 +68,29 @@ namespace Otuken.EditorAraclari {
         /// sunucu (AnyRPG.Sunucu), "-istemciBotu Ad" ile otomatik denemenin istemcisi olur (AnyRPG.AgBotu).
         /// </summary>
         public static void SunucuDerle() {
+            StringBuilder kayit = new StringBuilder();
+            Application.LogCallback dinleyici = (mesaj, yigin, tur) => {
+                if ((tur == LogType.Error || tur == LogType.Exception) && kayit.Length < 200000) {
+                    kayit.AppendLine("[" + tur + "] " + mesaj);
+                    if (string.IsNullOrEmpty(yigin) == false) {
+                        kayit.AppendLine("    " + yigin.Split('\n')[0]);
+                    }
+                }
+            };
+            Application.logMessageReceived += dinleyici;
+            try {
+                SunucuDerleIc(kayit);
+            } finally {
+                Application.logMessageReceived -= dinleyici;
+                try {
+                    Directory.CreateDirectory(Path.GetFullPath("tani"));
+                    File.WriteAllText(Path.Combine(Path.GetFullPath("tani"), "sunucu_derleme.txt"), kayit.ToString());
+                } catch (Exception) {
+                }
+            }
+        }
+
+        private static void SunucuDerleIc(StringBuilder kayit) {
             try {
                 AgHazirlik.Calistir();
             } catch (Exception e) {
@@ -93,6 +116,14 @@ namespace Otuken.EditorAraclari {
                 };
                 UnityEditor.Build.Reporting.BuildReport sonuc = BuildPipeline.BuildPlayer(secenek);
                 Debug.Log($"[Sunucu derlemesi] {alt}: {sonuc.summary.result}, {sonuc.summary.totalErrors} hata, {sonuc.summary.totalSize / (1024 * 1024)} MB");
+                kayit.AppendLine($"== {alt}: {sonuc.summary.result}, {sonuc.summary.totalErrors} hata, {sonuc.summary.totalSize / (1024 * 1024)} MB, {sonuc.summary.totalTime}, {yol}");
+                foreach (UnityEditor.Build.Reporting.BuildStep adim in sonuc.steps) {
+                    foreach (UnityEditor.Build.Reporting.BuildStepMessage m in adim.messages) {
+                        if (m.type == LogType.Error || m.type == LogType.Exception) {
+                            kayit.AppendLine("  [" + adim.name + "] " + m.content);
+                        }
+                    }
+                }
                 if (sonuc.summary.result == UnityEditor.Build.Reporting.BuildResult.Succeeded) {
                     File.WriteAllText(Path.Combine(Path.GetDirectoryName(Path.GetFullPath(yol)), "derleme.txt"),
                         $"tur={alt}\nsurum={AgHazirlik.IstemciSurumu}\n");
