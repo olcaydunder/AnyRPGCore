@@ -439,7 +439,7 @@ namespace AnyRPG {
                 if (canvas == null || canvas.isRootCanvas == false || canvas.renderMode == RenderMode.WorldSpace
                     || canvas.name == ErrorOverlayCanvasName || canvas.name == GameGuide.CanvasName || canvas.name == GunlukArmagan.CanvasName
                     || canvas.name == SeceneklerPenceresi.CanvasName || canvas.name == IsinlanmaPenceresi.CanvasName
-                    || canvas.name == HataBildirici.CanvasName
+                    || canvas.name == HataBildirici.CanvasName || canvas.name == GunlukGorevler.CanvasName || canvas.name == GorevOku.CanvasName
                     || canvas.transform.root.name == "[Graphy]"
                     || canvas.transform.root.name == "IngameDebugConsole") {
                     continue;
@@ -536,6 +536,24 @@ namespace AnyRPG {
             GameGuide.SetMenuLauncherVisible(inGame == false && MainMenuOpen());
             // the daily gift: opens a few seconds after entering the world, after the guide is closed
             GunlukArmagan.Tick(GetSystemGameManager(), inGame);
+            try {
+                // günlük görevler: oyuncunun öldürmelerini dinler, bugün girilen haritaları sayar
+                GunlukGorevler.Tick(GetSystemGameManager(), inGame);
+            } catch (System.Exception exception) {
+                Debug.LogWarning($"MobileBootstrap: GunlukGorevler.Tick(): {exception.Message}");
+            }
+            try {
+                // ejderha bineği: 5. seviyede öğrenilir, HUD'daki Binek düğmesi
+                Binek.Tick(GetSystemGameManager(), inGame);
+            } catch (System.Exception exception) {
+                Debug.LogWarning($"MobileBootstrap: Binek.Tick(): {exception.Message}");
+            }
+            try {
+                // ekranda sıradaki görev hedefini gösteren ok
+                GorevOku.Tick(GetSystemGameManager(), inGame);
+            } catch (System.Exception exception) {
+                Debug.LogWarning($"MobileBootstrap: GorevOku.Tick(): {exception.Message}");
+            }
             try {
                 OyunAyarlari.Tick(GetSystemGameManager());
             } catch (System.Exception exception) {

@@ -65,6 +65,22 @@ namespace AnyRPG {
             if (IsPrecious(instantiatedItem)) {
                 MobileFeedback.Success();
             }
+            GunlukGorevler.Bildir(GunlukGorevTuru.Ganimet);
+        }
+
+        /// <summary>
+        /// hazine sandığı mı (Hazine Sandığı, Büyük Hazine Sandığı; ekmek, peynir gibi yerden alınanlar değil)
+        /// </summary>
+        public static bool IsTreasureChest(LootableNodeProps props) {
+            if (props == null || props.LootTables == null) {
+                return false;
+            }
+            foreach (LootTable lootTable in props.LootTables) {
+                if (lootTable != null && lootTable.ResourceName != null && lootTable.ResourceName.Contains("Sandig")) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         /// <summary>

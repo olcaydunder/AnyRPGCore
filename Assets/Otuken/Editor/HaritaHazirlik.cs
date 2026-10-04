@@ -511,7 +511,12 @@ namespace Otuken.EditorAraclari {
         /// 20:9 bir telefon ekranında oyundaki ölçekle. Pencereler kodla kurulduğu için burada da aynı kodla kurulur.
         /// </summary>
         private static void ArayuzCek() {
-            ArayuzCiz("arayuz_isinlan", true);
+            ArayuzCiz("arayuz_isinlan", "isinlan");
+            try {
+                ArayuzCiz("arayuz_gunluk", "gunluk");
+            } catch (Exception e) {
+                Yaz($"!! HATA günlük görevler önizlemesi: {e}");
+            }
             try {
                 OyunArayuzu();
             } catch (Exception e) {
@@ -762,7 +767,7 @@ namespace Otuken.EditorAraclari {
             }
         }
 
-        private static void ArayuzCiz(string dosya, bool pencere) {
+        private static void ArayuzCiz(string dosya, string pencere) {
             const int en = 1600, boy = 720;
             List<GameObject> silinecek = new List<GameObject>();
             RenderTexture rt = null;
@@ -783,11 +788,16 @@ namespace Otuken.EditorAraclari {
                 // oyundaki gibi: HUD 800 yüksekliğe göre (MobileBootstrap.ScaleCanvases), pencere kendi ölçeğiyle
                 Component hud = Tuval("HUD", kamera, 2f, 5, silinecek).AddComponent<AnyRPG.MobileHud>();
                 YontemCagir(hud, "Build");
-                if (pencere) {
+                Component gunluk = null;
+                if (pencere == "isinlan") {
                     Component isinlanma = Tuval("Isinlanma", kamera, 1f, 31, silinecek).AddComponent<AnyRPG.IsinlanmaPenceresi>();
                     YontemCagir(isinlanma, "Build");
                     YontemCagir(isinlanma, "Open");
                     YontemCagir(isinlanma, "Select", 9);
+                } else if (pencere == "gunluk") {
+                    gunluk = Tuval("GunlukGorevler", kamera, 1f, 31, silinecek).AddComponent<AnyRPG.GunlukGorevler>();
+                    YontemCagir(gunluk, "Build");
+                    YontemCagir(gunluk, "Onizleme");
                 }
                 Canvas.ForceUpdateCanvases();
 
@@ -806,6 +816,9 @@ namespace Otuken.EditorAraclari {
                 RenderTexture.active = onceki;
                 File.WriteAllBytes(Path.Combine(taniKlasoru, dosya + ".jpg"), doku.EncodeToJPG(85));
                 Yaz($"arayüz önizlemesi: {dosya}.jpg");
+                if (gunluk != null) {
+                    YontemCagir(gunluk, "OnizlemeBitti");
+                }
             } finally {
                 foreach (GameObject go in silinecek) {
                     if (go != null) {

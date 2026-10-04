@@ -312,6 +312,12 @@ namespace AnyRPG {
                 "• <b>Harita</b>: bölgenin haritası. Mavi nokta sensin, sarı işaretler görev verenler.\n" +
                 "• <b>Işınlan</b> (Harita'nın yanında): 15 haritanın listesi. Birini seç, <b>Işınlan</b>'a dokun; oraya geçersin.\n" +
                 "• <b>Karakter</b>: giydiğin donanım ve değerlerin.\n" +
+                "• <b>Günlük</b> (Karakter'in yanında): her gün yenilenen 3 görev (düşman yen, ganimet topla, sandık boşalt, diyar gez). " +
+                "Biten görevin ödülünü al; üçü de bitince büyük ödül. Ödül bekleyince düğmede altın nokta yanar.\n" +
+                "• <b>Binek</b>: 5. seviyede ejderha Evren seni seçer. Dokununca binersin (iki kat hızlı), yeniden dokununca inersin. " +
+                "Zindanlarda ve savaşta binilmez.\n" +
+                "• <b>Görev oku</b>: ekranda sarı ok sıradaki görev hedefini (teslim edilecek kişi, avlanacak düşman, yeni görev veren) " +
+                "ve uzaklığını gösterir. Menü > Oyun'dan kapatılabilir.\n" +
                 "• <b>Çanta</b>: eşyaların ve paran.\n" +
                 "• <b>Görevler</b>: aldığın görevler ve kalan hedefleri.\n" +
                 "• <b>Menü</b>: seçenekler (grafik, akıcılık, ses, oyun), bu rehber, ekran görüntüsü paylaşma ve <b>Sorun Bildir</b> " +

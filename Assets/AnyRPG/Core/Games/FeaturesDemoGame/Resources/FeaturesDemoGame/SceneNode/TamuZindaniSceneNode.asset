@@ -33,7 +33,7 @@ MonoBehaviour:
   movementHitProfileName: 
   footStepProfiles:
   - Footstep Hits Stone
-  allowMount: 1
+  allowMount: 0
   suppressCharacterSpawn: 0
   suppressMainCamera: 0
   isCutScene: 0

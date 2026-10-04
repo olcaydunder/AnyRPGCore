@@ -571,6 +571,8 @@ def scene_node(kayit, ayak, magara):
     if magara:
         for alan in ("dayAmbientSoundsAudio", "nightAmbientSoundsAudio"):
             t = re.sub(rf"^  {alan}: \{{[^}}]*\}}", f"  {alan}: {{fileID: 8300000, guid: {hr.MAGARA_SESI}, type: 3}}", t, flags=re.M)
+        # kapalı zindanda ejderha bineği (Binek.cs) çağrılamaz
+        t = re.sub(r"^  allowMount: 1", "  allowMount: 0", t, flags=re.M)
     yol.write_text(t, encoding="utf-8")
 
 

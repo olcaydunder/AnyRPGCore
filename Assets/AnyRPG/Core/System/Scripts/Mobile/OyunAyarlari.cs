@@ -13,7 +13,8 @@ namespace AnyRPG {
     /// yeni doğan canavarlar böylece sahne değişse de ayarlara uyar.
     ///
     /// Akıcılığı etkileyenler: grafik kalitesi, çözünürlük, gölge, görüş mesafesi, bitki yoğunluğu, isim mesafesi,
-    /// FPS sınırı ve ekran dışındaki canavarların animasyonunu durdurma.
+    /// FPS sınırı ve ekran dışındaki canavarların animasyonunu durdurma. Ayrıca küçük nesneler (taş, çalı, çit, eşya)
+    /// ekranda çok küçük kalınca hiç çizilmez (KucukNesneler); eşik görüş mesafesine göre değişir.
     /// </summary>
     public static class OyunAyarlari {
 
@@ -40,6 +41,12 @@ namespace AnyRPG {
         private static readonly float[] isimMesafeleri = { 20f, 30f, 40f, 60f };
 
         private const int AlwaysVisibleLayer = 31;
+
+        // küçük nesneler: ekran yüksekliğine oranla bu boydan küçük kalınca çizilmez (Görüş: Yakın, Orta, Uzak)
+        private static readonly float[] kucukNesneEsikleri = { 0.035f, 0.022f, 0.012f };
+        // en büyük boyutu bundan küçük olanlar "küçük nesne" sayılır (metre)
+        private const float KucukNesneBoyutu = 6f;
+        private const int KucukNesneParti = 300;
 
         // ilk görülen değerler ("Otomatik" seçilince geri dönmek için)
         private static readonly Dictionary<UniversalRenderPipelineAsset, Vector2> urpVarsayilan = new Dictionary<UniversalRenderPipelineAsset, Vector2>();
@@ -183,11 +190,82 @@ namespace AnyRPG {
             if (tickSayaci % 3 == 0) {
                 UygulaAnimatorler(systemGameManager);
             }
+            KucukNesneler();
         }
 
         public static void SahneYuklendi() {
             sonKamera = null;
             sonAraziAyari = -1;
+            kucukNesneKuyrugu = null;
+            kucukNesneGruplari.Clear();
+            KucukNesneSayisi = 0;
+        }
+
+        // ---------------------------------------------------------------- küçük nesneleri uzakta çizme
+
+        private static Queue<MeshRenderer> kucukNesneKuyrugu = null;
+        private static readonly List<LODGroup> kucukNesneGruplari = new List<LODGroup>();
+        private static int kucukNesneSahnesi = -1;
+        private static int uygulananGorus = -1;
+
+        /// <summary>bu sahnede uzakta gizlenen küçük nesne sayısı (oyun testi raporu)</summary>
+        public static int KucukNesneSayisi { get; private set; }
+
+        /// <summary>
+        /// Sahne yüklenince her küçük MeshRenderer'a tek kademeli bir LODGroup eklenir: nesne ekranda eşikten küçük
+        /// kalınca Unity onu hiç çizmez (çizim çağrısı ve üçgen kazancı; en çok ağaç, çalı ve taşla dolu haritalarda).
+        /// Karakterler, etkileşimli nesneler (sandık, kapı, NPC) ve zaten LOD'u olanlar dokunulmaz.
+        /// Her saniye en çok 300 nesne işlenir, sahne açılışında takılma olmasın.
+        /// </summary>
+        private static void KucukNesneler() {
+            UnityEngine.SceneManagement.Scene sahne = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
+            if (sahne.handle != kucukNesneSahnesi) {
+                kucukNesneSahnesi = sahne.handle;
+                kucukNesneGruplari.Clear();
+                KucukNesneSayisi = 0;
+                kucukNesneKuyrugu = new Queue<MeshRenderer>(Object.FindObjectsByType<MeshRenderer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None));
+            }
+            float esik = kucukNesneEsikleri[Mathf.Clamp(Gorus, 0, kucukNesneEsikleri.Length - 1)];
+            if (uygulananGorus != Gorus) {
+                // görüş ayarı değişti: eklenmiş grupların eşiğini güncelle
+                uygulananGorus = Gorus;
+                foreach (LODGroup grup in kucukNesneGruplari) {
+                    if (grup != null) {
+                        LOD[] kademeler = grup.GetLODs();
+                        if (kademeler.Length == 1) {
+                            kademeler[0].screenRelativeTransitionHeight = esik;
+                            grup.SetLODs(kademeler);
+                        }
+                    }
+                }
+            }
+            if (kucukNesneKuyrugu == null) {
+                return;
+            }
+            int islenen = 0;
+            while (kucukNesneKuyrugu.Count > 0 && islenen < KucukNesneParti) {
+                MeshRenderer cizici = kucukNesneKuyrugu.Dequeue();
+                islenen++;
+                if (cizici == null || cizici.enabled == false || cizici.gameObject.scene.handle != kucukNesneSahnesi
+                    || cizici.gameObject.layer == AlwaysVisibleLayer) {
+                    continue;
+                }
+                if (cizici.bounds.size.magnitude > KucukNesneBoyutu) {
+                    continue;
+                }
+                if (cizici.GetComponentInParent<LODGroup>() != null || cizici.GetComponentInParent<InteractableBase>() != null
+                    || cizici.GetComponentInParent<Animator>() != null) {
+                    continue;
+                }
+                LODGroup yeni = cizici.gameObject.AddComponent<LODGroup>();
+                yeni.SetLODs(new LOD[] { new LOD(esik, new Renderer[] { cizici }) });
+                yeni.RecalculateBounds();
+                kucukNesneGruplari.Add(yeni);
+                KucukNesneSayisi++;
+            }
+            if (kucukNesneKuyrugu.Count == 0) {
+                kucukNesneKuyrugu = null;
+            }
         }
 
         private static Camera KameraBul(SystemGameManager systemGameManager = null) {

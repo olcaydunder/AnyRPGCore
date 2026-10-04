@@ -173,6 +173,11 @@ namespace AnyRPG {
                 // since this method is only called on take loot, we can consider everything picked up if there is no loot left
                 pickupCount++;
 
+                // Ötüken: boşaltılan hazine sandığı günlük görevlerde sayılır
+                if (this is ItemPickupComponent && Ganimet.IsTreasureChest(Props)) {
+                    GunlukGorevler.Bildir(GunlukGorevTuru.Sandik);
+                }
+
                 lootDropped = false;
                 //if (lootTable.MyDroppedItems.Count == 0) {
                 // TODO : monitor is this next line needed if the interactable will handle a generic status update?

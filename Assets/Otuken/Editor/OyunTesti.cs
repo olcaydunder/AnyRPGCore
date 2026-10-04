@@ -45,6 +45,8 @@ namespace Otuken.EditorAraclari {
             public int hata;
             public string not;
             public string bilgi;
+            public string okHedefi;
+            public int uzaktaGizlenen;
             public string goruntu;
         }
 
@@ -65,9 +67,11 @@ namespace Otuken.EditorAraclari {
             public int toplamHata;
             public List<HaritaSonucu> haritalar = new List<HaritaSonucu>();
             public List<HataKaydi> hatalar = new List<HataKaydi>();
+            public string binekTesti;
+            public string gunlukGorevler;
         }
 
-        private enum Adim { OyunModu, Acilis, YeniOyun, Dogus, Bekle, Dirilis, Bitti }
+        private enum Adim { OyunModu, Acilis, YeniOyun, Dogus, Bekle, Dirilis, BinekTesti, Bitti }
 
         private static readonly object kilit = new object();
         private static Rapor rapor;
@@ -255,9 +259,24 @@ namespace Otuken.EditorAraclari {
                         break;
                     }
                     HaritaDenetle(oyun);
+                    sonuc.okHedefi = AnyRPG.GorevOku.SonHedef;
+                    sonuc.uzaktaGizlenen = AnyRPG.OyunAyarlari.KucukNesneSayisi;
                     sonuc.goruntu = GoruntuAl(oyun, "bot_" + sonuc.sahne);
                     HaritaBitir(sonuc.not == null ? "tamam" : "sorunlu");
+                    if (sira == 0 && rapor.binekTesti == null) {
+                        // ilk haritada (binmeye izin var) ejderha bineği denenir, sonra yolculuk sürer
+                        binekAsama = 0;
+                        binekZamani = EditorApplication.timeSinceStartup;
+                        Gec(Adim.BinekTesti);
+                        break;
+                    }
                     SonrakiHarita(oyun);
+                    break;
+
+                case Adim.BinekTesti:
+                    if (BinekTesti(oyun)) {
+                        SonrakiHarita(oyun);
+                    }
                     break;
 
                 case Adim.Dirilis:
@@ -269,6 +288,78 @@ namespace Otuken.EditorAraclari {
                         Isinla(oyun);
                     }
                     break;
+            }
+        }
+
+        private static int binekAsama = 0;
+        private static double binekZamani = 0;
+        private static Vector3 binekYeri;
+        private static float binekYolu = 0f;
+
+        /// <summary>
+        /// Binek denemesi: yetenek öğretilir, HUD'daki Binek düğmesinin yaptığı çağrıyla binilir, hareket çubuğuyla
+        /// 2,5 saniye ileri gidilir, düğmeyle inilir. Bitince true döner; sonuç rapor.binekTesti'ne yazılır.
+        /// </summary>
+        private static bool BinekTesti(AnyRPG.SystemGameManager oyun) {
+            AnyRPG.UnitController oyuncu = oyun != null && oyun.PlayerManagerClient != null ? oyun.PlayerManagerClient.UnitController : null;
+            if (oyuncu == null) {
+                rapor.binekTesti = "oyuncu yok";
+                return true;
+            }
+            double gecen = EditorApplication.timeSinceStartup - binekZamani;
+            switch (binekAsama) {
+                case 0:
+                    // otomatik avdan kalan savaş bitsin (savaşta binilmez)
+                    if (oyuncu.CharacterCombat != null && oyuncu.CharacterCombat.GetInCombat() && gecen < 15) {
+                        return false;
+                    }
+                    AnyRPG.Ability yetenek = oyun.SystemDataFactory.GetResource<AnyRPG.Ability>(AnyRPG.Binek.YetenekAdi);
+                    if (yetenek == null) {
+                        rapor.binekTesti = "binek yeteneği bulunamadı";
+                        return true;
+                    }
+                    oyuncu.CharacterAbilityManager.LearnAbility(yetenek.AbilityProperties);
+                    AnyRPG.Binek.Tick(oyun, true);
+                    if (AnyRPG.Binek.Var == false) {
+                        rapor.binekTesti = "binek öğrenilemedi";
+                        return true;
+                    }
+                    AnyRPG.Binek.Degistir();
+                    binekAsama = 1;
+                    binekZamani = EditorApplication.timeSinceStartup;
+                    return false;
+                case 1:
+                    if (oyuncu.IsMounted) {
+                        binekYeri = oyuncu.transform.position;
+                        AnyRPG.MobileInput.SetJoystick(Vector2.up, true);
+                        binekAsama = 2;
+                        binekZamani = EditorApplication.timeSinceStartup;
+                    } else if (gecen > 8) {
+                        rapor.binekTesti = "binilemedi (8 sn)";
+                        return true;
+                    }
+                    return false;
+                case 2:
+                    if (gecen < 2.5) {
+                        return false;
+                    }
+                    AnyRPG.MobileInput.SetJoystick(Vector2.zero, false);
+                    binekYolu = Vector3.Distance(binekYeri, oyuncu.transform.position);
+                    AnyRPG.Binek.Degistir();
+                    binekAsama = 3;
+                    binekZamani = EditorApplication.timeSinceStartup;
+                    return false;
+                default:
+                    if (oyuncu.IsMounted == false) {
+                        rapor.binekTesti = "binildi, 2,5 sn'de " + binekYolu.ToString("0") + " m gidildi, inildi";
+                        return true;
+                    }
+                    if (gecen > 4) {
+                        rapor.binekTesti = "binildi (" + binekYolu.ToString("0") + " m) ama inilemedi";
+                        oyuncu.CancelMountEffects();
+                        return true;
+                    }
+                    return false;
             }
         }
 
@@ -492,6 +583,10 @@ namespace Otuken.EditorAraclari {
                 }
                 rapor.durum = durum;
                 rapor.bitis = DateTime.UtcNow.ToString("o");
+                rapor.gunlukGorevler = AnyRPG.GunlukGorevler.Ozet();
+                if (rapor.binekTesti == null) {
+                    rapor.binekTesti = "yapılmadı";
+                }
                 string klasor = Path.GetFullPath("tani");
                 Directory.CreateDirectory(klasor);
                 lock (kilit) {
@@ -510,12 +605,20 @@ namespace Otuken.EditorAraclari {
             StringBuilder sb = new StringBuilder();
             sb.Append("Otomatik oyun testi: ").Append(rapor.durum).Append('\n');
             sb.Append("Haritalar: ").Append(rapor.haritalar.Count).Append(", hata/istisna: ").Append(rapor.toplamHata)
-                .Append(" (").Append(rapor.hatalar.Count).Append(" farklı)\n\n");
+                .Append(" (").Append(rapor.hatalar.Count).Append(" farklı)\n");
+            sb.Append("Binek denemesi: ").Append(rapor.binekTesti).Append('\n');
+            sb.Append("Günlük görevler: ").Append(rapor.gunlukGorevler).Append("\n\n");
             foreach (HaritaSonucu h in rapor.haritalar) {
                 sb.Append(h.sonuc == "tamam" ? "  ok  " : "  !!  ").Append(h.ad).Append(" (").Append(h.sahne).Append("): ").Append(h.sonuc)
                     .Append(", yükleme ").Append(h.yuklemeSuresi.ToString("0")).Append(" sn, ").Append(h.hata).Append(" hata");
                 if (string.IsNullOrEmpty(h.not) == false) {
                     sb.Append(" — ").Append(h.not);
+                }
+                if (h.uzaktaGizlenen > 0) {
+                    sb.Append(" [uzakta gizlenen küçük nesne: ").Append(h.uzaktaGizlenen).Append(']');
+                }
+                if (string.IsNullOrEmpty(h.okHedefi) == false) {
+                    sb.Append(" [ok: ").Append(h.okHedefi).Append(']');
                 }
                 if (string.IsNullOrEmpty(h.bilgi) == false) {
                     sb.Append(" (").Append(h.bilgi).Append(')');

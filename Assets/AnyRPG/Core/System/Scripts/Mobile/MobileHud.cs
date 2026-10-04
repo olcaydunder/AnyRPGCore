@@ -101,6 +101,14 @@ namespace AnyRPG {
             // Harita'nın yanında: istenen haritayı seçip oraya ışınlanma penceresi
             CreateActionButton("Işınlan", IsinlanmaPenceresi.Show, leftMiddle, new Vector2(146f, 210f), 78f, 15);
             CreateActionButton("Karakter", "CHARACTERPANEL", leftMiddle, new Vector2(60f, 126f), 78f, 14);
+            // ikinci sütun: günlük görevler (ödül bekleyince altın nokta) ve binek (5. seviyede gelir)
+            GameObject gunluk = CreateActionButton("Günlük", GunlukGorevler.Goster, leftMiddle, new Vector2(146f, 126f), 78f, 15);
+            gunlukRozeti = CreateCircle(gunluk.transform, "OdulRozeti", new Vector2(1f, 1f), new Vector2(-12f, -12f), 22f,
+                new Color(1f, 0.78f, 0.25f, 1f), new Color(0.35f, 0.2f, 0.05f, 1f));
+            gunlukRozeti.GetComponent<Image>().raycastTarget = false;
+            gunlukRozeti.SetActive(false);
+            binekDugmesi = CreateActionButton("Binek", Binek.Degistir, leftMiddle, new Vector2(146f, 42f), 78f, 16);
+            binekDugmesi.SetActive(false);
             CreateActionButton("Çanta", "INVENTORY", leftMiddle, new Vector2(60f, 42f), 78f, 16);
             CreateActionButton("Görevler", "QUESTLOG", leftMiddle, new Vector2(60f, -42f), 78f, 14);
             // Seçenekler penceresi; "Nasıl Oynanır" rehberi de oradan açılır
@@ -132,6 +140,7 @@ namespace AnyRPG {
             }
             sonrakiDenetim = Time.unscaledTime + DenetimAraligi;
             try {
+                DurumlariGuncelle();
                 Denetle(false);
             } catch (System.Exception exception) {
                 Debug.LogWarning("MobileHud yerleşim denetimi: " + exception.Message);
@@ -267,6 +276,10 @@ namespace AnyRPG {
                 + Mathf.RoundToInt(guvenli.xMax) * 17 + Mathf.RoundToInt(guvenli.yMax) * 19;
             // ölçek de imzada: tuval ölçekleyicisi sonradan eklenince (MobileBootstrap.ScaleCanvases) yeniden yerleşsin
             imza = imza * 31 + Mathf.RoundToInt(canvas.scaleFactor * 1000f);
+            // bir düğme görünür olunca (binek öğrenildi) yeniden yerleşsin
+            foreach (Kontrol k in kontroller) {
+                imza = imza * 3 + (k.rt.gameObject.activeSelf ? 1 : 0);
+            }
             return imza;
         }
 
@@ -309,6 +322,10 @@ namespace AnyRPG {
             Vector2[] liste = Adaylar();
             yerlesenler.Clear();
             foreach (Kontrol k in kontroller) {
+                if (k.rt.gameObject.activeSelf == false) {
+                    // gizli düğme (henüz öğrenilmemiş binek) yer tutmaz
+                    continue;
+                }
                 Vector2 ev = Vector2.Scale(k.rt.anchorMin, boyut) + k.ev;
                 // çentik / yuvarlak köşe: kenara bağlı düğmeler topluca güvenli alanın içine kayar (düzen bozulmasın)
                 if (k.rt.anchorMin.x < 0.01f) {
@@ -427,6 +444,29 @@ namespace AnyRPG {
         private static readonly Color dugmeRengi = new Color(0.1f, 0.08f, 0.06f, 0.55f);
         private static readonly Color otoAvAcikRengi = new Color(0.78f, 0.56f, 0.16f, 0.9f);
         private Image otoAvDugmesi = null;
+
+        private GameObject gunlukRozeti = null;
+        private GameObject binekDugmesi = null;
+        private Image binekResmi = null;
+
+        /// <summary>günlük görev rozeti, binek düğmesinin görünürlüğü ve rengi (saniyede bir)</summary>
+        private void DurumlariGuncelle() {
+            if (gunlukRozeti != null) {
+                bool odul = GunlukGorevler.OdulVar;
+                if (gunlukRozeti.activeSelf != odul) {
+                    gunlukRozeti.SetActive(odul);
+                }
+            }
+            if (binekDugmesi != null) {
+                if (binekDugmesi.activeSelf != Binek.Var) {
+                    binekDugmesi.SetActive(Binek.Var);
+                }
+                if (binekResmi == null) {
+                    binekResmi = binekDugmesi.GetComponent<Image>();
+                }
+                binekResmi.color = Binek.Binili ? otoAvAcikRengi : dugmeRengi;
+            }
+        }
 
         private void OtoAvGuncelle() {
             if (otoAvDugmesi != null) {

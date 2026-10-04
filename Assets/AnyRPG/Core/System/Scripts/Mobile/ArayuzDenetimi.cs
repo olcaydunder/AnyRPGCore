@@ -29,7 +29,7 @@ namespace AnyRPG {
         /// <summary>bizim kodla kurduğumuz tuvaller: dokunmatik düğmeler ve tam ekran pencereler engel sayılmaz</summary>
         private static readonly HashSet<string> haricTuvaller = new HashSet<string>() {
             MobileHud.CanvasName, SeceneklerPenceresi.CanvasName, IsinlanmaPenceresi.CanvasName, GameGuide.CanvasName,
-            GunlukArmagan.CanvasName, HataBildirici.CanvasName, "ErrorOverlayCanvas"
+            GunlukArmagan.CanvasName, HataBildirici.CanvasName, "ErrorOverlayCanvas", GunlukGorevler.CanvasName, GorevOku.CanvasName
         };
 
         // anlık çıkan, yeri sabit olmayan göstergeler: düğmeler bunlara göre kaydırılmaz

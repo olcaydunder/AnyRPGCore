@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: DragonMountAbility
   m_EditorClassIdentifier: 
   resourceName: Dragon Mount
-  displayName: "Ejder Binek"
+  displayName: "Evren"
   icon: {fileID: 21300000, guid: ccab25b46d3775445a1820d216903970, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: "\u00dcst\u00fcne binip gezmek i\u00e7in bir ejderha \u00e7a\u011f\u0131r\u0131r."
+  description: "T\u00fcrk efsanelerinin ejderhas\u0131 Evren'i \u00e7a\u011f\u0131r\u0131r; s\u0131rt\u0131nda iki kat h\u0131zl\u0131 yol al\u0131rs\u0131n. Ba\u015fka bir yetenek kullan\u0131nca inersin."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0

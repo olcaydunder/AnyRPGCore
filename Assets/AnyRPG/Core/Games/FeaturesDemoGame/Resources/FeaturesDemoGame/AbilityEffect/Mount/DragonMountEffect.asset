@@ -70,7 +70,7 @@ MonoBehaviour:
     statAmount: 20
     statMultiplier: 1
     secondaryStatBuffsTypes: 00000000
-    secondaryStatAmount: 20
+    secondaryStatAmount: 7
     secondaryStatMultiplier: 1
     outgoingDamageMultiplier: 1
     incomingDamageMultiplier: 1
