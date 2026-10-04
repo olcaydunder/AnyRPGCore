@@ -44,6 +44,36 @@ namespace AnyRPG {
         private string raporYolu = null;
         private float baslangic = 0f;
 
+        // telefonda hata penceresi açacak kayıtlar (Error/Exception); sanal ekranın (xvfb) kendi uyarıları sayılmaz
+        private int hataSayisi = 0;
+        private readonly List<string> hatalar = new List<string>();
+
+        private void OnEnable() {
+            Application.logMessageReceived += KayitGeldi;
+        }
+
+        private void OnDisable() {
+            Application.logMessageReceived -= KayitGeldi;
+        }
+
+        private void KayitGeldi(string mesaj, string yigin, LogType tur) {
+            if (tur != LogType.Error && tur != LogType.Exception && tur != LogType.Assert) {
+                return;
+            }
+            if (mesaj == null || mesaj.StartsWith("Screen position out of view frustum")) {
+                return;
+            }
+            hataSayisi++;
+            string kisa = mesaj.Length > 160 ? mesaj.Substring(0, 160) : mesaj;
+            if (hatalar.Count < 3 && hatalar.Contains(kisa) == false) {
+                hatalar.Add(kisa);
+            }
+        }
+
+        private string HataOzeti() {
+            return hataSayisi == 0 ? "hata yok" : hataSayisi + " HATA (" + string.Join(" | ", hatalar) + ")";
+        }
+
         private void Not(string satir) {
             string s = "[" + (Time.realtimeSinceStartup - baslangic).ToString("0") + " sn] " + satir;
             rapor.AppendLine(s);
@@ -239,7 +269,7 @@ namespace AnyRPG {
         }
 
         private void Bitir(string sonuc) {
-            Not(sonuc);
+            Not(sonuc + ", " + HataOzeti());
             StartCoroutine(Kapat());
         }
 

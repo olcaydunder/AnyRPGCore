@@ -389,6 +389,10 @@ jobs:
             echo "klasör: $klasor, başladı: $basladi, UDP 7770: $dinliyor"
             for b in Bot1 Bot2; do echo ""; echo "$b: $(grep 'SONUÇ' tani/ag_botu_$b.txt 2>/dev/null | tail -n 1)"; done
           } >> "$GITHUB_STEP_SUMMARY"
+          for b in Bot1 Bot2; do
+            s=$(grep 'SONUÇ' "tani/ag_botu_$b.txt" 2>/dev/null | tail -n 1)
+            echo "::notice title=Çevrimiçi $b::${s:-rapor yok}"
+          done
           if [ "$basladi" != "1" ]; then
             echo "::warning title=Sunucu::denemede açılmadı (tani/sunucu_deneme_son.log); yayımlanmadı"; exit 0
           fi

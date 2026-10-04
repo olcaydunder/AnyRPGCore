@@ -22,7 +22,8 @@ namespace AnyRPG {
 
         private void LateUpdate() {
             if (systemGameManager == null) {
-                Debug.LogError("InputManager not found in scene.  Is the GameManager in the scene?");
+                // Ötüken: çevrimiçi oyunda sahneyi FishNet yükler; sahnedeki kamera, yükleme bitip yapılandırılmadan önce
+                // bir iki kare çalışır. Bu olağan bir durumdur, hata değildir (eskiden telefonda hata penceresi açıyordu).
                 return;
             }
 
