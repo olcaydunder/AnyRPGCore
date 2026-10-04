@@ -195,13 +195,27 @@ jobs:
           SURUM: ${{ steps.hazirlik.outputs.surum }}
         run: |
           cp "$APK_YOLU" "${APK_ADI}.apk"
-          gh release delete "$SURUM_ETIKETI" --yes --cleanup-tag || true
-          gh release create "$SURUM_ETIKETI" "${APK_ADI}.apk" \
-            --prerelease \
-            --target "$GITHUB_SHA" \
-            --title "Ötüken Destanı - son test sürümü ($SURUM)" \
-            --notes "Test sürümü $SURUM, $(date -u +'%d.%m.%Y %H:%M') UTC. Commit: ${GITHUB_SHA::8}. Telefona indirip kurun; eski test sürümünün üstüne kurulur."
+          baslik="Ötüken Destanı - son test sürümü ($SURUM)"
+          notlar="Test sürümü $SURUM, $(date -u +'%d.%m.%Y %H:%M') UTC. Commit: ${GITHUB_SHA::8}. Telefona indirip kurun; eski test sürümünün üstüne kurulur."
+          # sürüm silinip yeniden kurulmaz (bir derlemede taslak kalıp bağlantı kırılmıştı): dosya değiştirilir, yayımda tutulur
+          if gh release view "$SURUM_ETIKETI" >/dev/null 2>&1; then
+            gh release upload "$SURUM_ETIKETI" "${APK_ADI}.apk" --clobber
+            gh release edit "$SURUM_ETIKETI" --title "$baslik" --notes "$notlar" --prerelease --draft=false
+          else
+            gh release create "$SURUM_ETIKETI" "${APK_ADI}.apk" --prerelease --target "$GITHUB_SHA" --title "$baslik" --notes "$notlar"
+          fi
           link="https://github.com/${GITHUB_REPOSITORY}/releases/download/${SURUM_ETIKETI}/${APK_ADI}.apk"
+          # telefondan indirme bağlantısı gerçekten açık mı (taslakta kalırsa 404 verir)
+          for i in 1 2 3 4 5 6; do
+            kod=$(curl -s -o /dev/null -w '%{http_code}' -L -r 0-0 "$link" || true)
+            if [ "$kod" = "200" ] || [ "$kod" = "206" ]; then echo "indirme bağlantısı açık ($kod)"; break; fi
+            echo "indirme bağlantısı $kod, sürüm yayımlanıyor ($i)"
+            gh release edit "$SURUM_ETIKETI" --draft=false --prerelease || true
+            sleep 10
+          done
+          if [ "$kod" != "200" ] && [ "$kod" != "206" ]; then
+            echo "::warning title=APK bağlantısı::$link açılmıyor ($kod)"
+          fi
           {
             echo "## Ötüken Destanı $SURUM hazır"
             echo ""
@@ -286,12 +300,13 @@ jobs:
           fi
           zip -qr tani.zip tani
           ls -la tani.zip
-          gh release delete tani --yes --cleanup-tag || true
-          gh release create tani tani.zip \
-            --prerelease \
-            --target "$GITHUB_SHA" \
-            --title "Tanı raporu (otomatik, oyuncular için değil)" \
-            --notes "Derleme $GITHUB_RUN_NUMBER, commit ${GITHUB_SHA::8}: yeni haritaların yürüme ağı, gölgelendirici denetimi ve ekran görüntüleri."
+          tnotlar="Derleme $GITHUB_RUN_NUMBER, commit ${GITHUB_SHA::8}: yeni haritaların yürüme ağı, gölgelendirici denetimi ve ekran görüntüleri."
+          if gh release view tani >/dev/null 2>&1; then
+            gh release upload tani tani.zip --clobber
+            gh release edit tani --notes "$tnotlar" --prerelease --draft=false || true
+          else
+            gh release create tani tani.zip --prerelease --target "$GITHUB_SHA" --title "Tanı raporu (otomatik, oyuncular için değil)" --notes "$tnotlar"
+          fi
           if [ -f tani/rapor.txt ]; then
             {
               echo "## Tanı raporu"

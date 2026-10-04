@@ -69,6 +69,7 @@ namespace AnyRPG {
             set {
                 int level = KaliteSeviyeleri[Mathf.Clamp(value, 0, KaliteSeviyeleri.Length - 1)];
                 PlayerPrefs.SetInt(KaliteKey, level);
+                PlayerPrefs.SetInt(ElleKey, 1);
                 QualitySettings.SetQualityLevel(level, true);
                 // yeni kalitenin URP ayarlarına çözünürlük ve gölge seçimini yeniden uygula
                 Degisti();
@@ -98,7 +99,71 @@ namespace AnyRPG {
 
         private static void Yaz(string key, int value) {
             PlayerPrefs.SetInt(key, value);
+            // oyuncu kendisi seçti: akıcılık bekçisi artık ayarlara dokunmaz
+            PlayerPrefs.SetInt(ElleKey, 1);
             Degisti();
+        }
+
+        // ---------------------------------------------------------------- akıcılık bekçisi
+
+        private const string ElleKey = "ayar-elle-degisti";
+        private const float OlcumSuresi = 20f;
+        private static readonly string[] kaliteAdlari = { "Düşük", "Orta", "Yüksek" };
+        private static float olcumBaslangic = -1f;
+        private static int olcumKaresi = 0;
+        private static float olcumBekleme = 0f;
+        private static int dusurme = 0;
+
+        /// <summary>
+        /// Otomatik grafik ayarı: ilk açılıştaki cihaz tahmini (IlkAcilisAyari) yanılırsa (ör. belleği çok ama ekran
+        /// kartı orta telefonlar) oyunda 20 saniyelik ortalama kare hızı hedefin üçte ikisinin altında kalınca kalite bir
+        /// basamak, en düşükte de çözünürlük indirilir; oyuncuya yazılır. Oyuncu Seçenekler'den bir ayar değiştirdiyse
+        /// hiç karışmaz. Oturum başına en çok iki kez indirir; harita yüklenirken ölçmez.
+        /// </summary>
+        private static void AkicilikBekcisi(SystemGameManager systemGameManager) {
+            if (Application.isEditor || dusurme >= 2 || PlayerPrefs.GetInt(ElleKey, 0) == 1) {
+                return;
+            }
+            UnitController oyuncu = systemGameManager != null && systemGameManager.PlayerManagerClient != null
+                && systemGameManager.PlayerManagerClient.PlayerUnitSpawned ? systemGameManager.PlayerManagerClient.UnitController : null;
+            if (oyuncu == null || Time.unscaledTime < olcumBekleme) {
+                olcumBaslangic = -1f;
+                return;
+            }
+            if (olcumBaslangic < 0f) {
+                olcumBaslangic = Time.unscaledTime;
+                olcumKaresi = Time.frameCount;
+                return;
+            }
+            float gecen = Time.unscaledTime - olcumBaslangic;
+            if (gecen < OlcumSuresi) {
+                return;
+            }
+            float fps = (Time.frameCount - olcumKaresi) / gecen;
+            olcumBaslangic = -1f;
+            float hedef = fpsSinirlari[Fps];
+            if (fps >= hedef * 0.66f) {
+                return;
+            }
+            string mesaj;
+            int kalite = Kalite;
+            if (kalite > 0) {
+                int yeni = kalite - 1;
+                PlayerPrefs.SetInt(KaliteKey, KaliteSeviyeleri[yeni]);
+                QualitySettings.SetQualityLevel(KaliteSeviyeleri[yeni], true);
+                mesaj = $"Akıcılık için grafik kalitesi {kaliteAdlari[yeni]} yapıldı ({fps:0} FPS ölçüldü).";
+            } else if (Cozunurluk == 0 || Cozunurluk > 2) {
+                PlayerPrefs.SetInt(CozunurlukKey, 2);
+                mesaj = $"Akıcılık için çözünürlük Orta yapıldı ({fps:0} FPS ölçüldü).";
+            } else {
+                dusurme = 2;
+                return;
+            }
+            dusurme++;
+            Degisti();
+            olcumBekleme = Time.unscaledTime + 5f;
+            Debug.Log("OyunAyarlari: " + mesaj);
+            oyuncu.WriteMessageFeedMessage("<color=#FFD54A>" + mesaj + " Menü > Grafik'ten değiştirebilirsin.</color>");
         }
 
         private static void Degisti() {
@@ -191,9 +256,13 @@ namespace AnyRPG {
                 UygulaAnimatorler(systemGameManager);
             }
             KucukNesneler();
+            AkicilikBekcisi(systemGameManager);
         }
 
         public static void SahneYuklendi() {
+            // yükleme takılması ölçülmesin
+            olcumBaslangic = -1f;
+            olcumBekleme = Time.unscaledTime + 8f;
             sonKamera = null;
             sonAraziAyari = -1;
             kucukNesneKuyrugu = null;

@@ -46,6 +46,9 @@ namespace AnyRPG {
         private struct GrupBilgisi {
             public string grup;
             public bool gecici;
+            // grafiği kırpan üst maskeler (Mask, RectMask2D): mini haritanın büyük resmi gibi maskenin dışına taşan
+            // parçalar yalnız göründükleri kadar sayılsın
+            public RectTransform[] maskeler;
         }
         private static readonly Dictionary<int, GrupBilgisi> grupOnbellegi = new Dictionary<int, GrupBilgisi>();
 
@@ -83,7 +86,24 @@ namespace AnyRPG {
                 if (Gorunur(grafik) == false) {
                     continue;
                 }
+                GrupBilgisi bilgi;
+                int kimlik = grafik.GetInstanceID();
+                if (grupOnbellegi.TryGetValue(kimlik, out bilgi) == false) {
+                    string ad = GrupAdi(grafik.transform, tuval.transform);
+                    bilgi = new GrupBilgisi() { grup = ad, gecici = GeciciMi(ad), maskeler = Maskeler(grafik.transform, tuval.transform) };
+                    grupOnbellegi[kimlik] = bilgi;
+                }
+                if (bilgi.gecici) {
+                    continue;
+                }
                 Rect r = GrafikEkrani(grafik, tuval);
+                foreach (RectTransform maske in bilgi.maskeler) {
+                    if (maske == null) {
+                        continue;
+                    }
+                    Rect m = Dikdortgen(maske, tuval);
+                    r = Rect.MinMaxRect(Mathf.Max(r.xMin, m.xMin), Mathf.Max(r.yMin, m.yMin), Mathf.Min(r.xMax, m.xMax), Mathf.Min(r.yMax, m.yMax));
+                }
                 if (r.width < 3f || r.height < 3f || r.width * r.height > enBuyukAlan) {
                     continue;
                 }
@@ -91,18 +111,28 @@ namespace AnyRPG {
                 if (r.Overlaps(ekran) == false) {
                     continue;
                 }
-                GrupBilgisi bilgi;
-                int kimlik = grafik.GetInstanceID();
-                if (grupOnbellegi.TryGetValue(kimlik, out bilgi) == false) {
-                    string ad = GrupAdi(grafik.transform, tuval.transform);
-                    bilgi = new GrupBilgisi() { grup = ad, gecici = GeciciMi(ad) };
-                    grupOnbellegi[kimlik] = bilgi;
-                }
-                if (bilgi.gecici) {
-                    continue;
-                }
                 liste.Add(new Parca() { grup = bilgi.grup, yol = yollar ? Yol(grafik.transform, tuval.transform) : null, ekran = r });
             }
+        }
+
+        private static readonly List<RectTransform> maskeAdaylari = new List<RectTransform>();
+
+        private static RectTransform[] Maskeler(Transform grafik, Transform tuval) {
+            maskeAdaylari.Clear();
+            for (Transform t = grafik.parent; t != null; t = t.parent) {
+                Mask m = t.GetComponent<Mask>();
+                RectMask2D m2 = t.GetComponent<RectMask2D>();
+                if ((m != null && m.enabled) || (m2 != null && m2.enabled)) {
+                    RectTransform rt = t as RectTransform;
+                    if (rt != null) {
+                        maskeAdaylari.Add(rt);
+                    }
+                }
+                if (t == tuval) {
+                    break;
+                }
+            }
+            return maskeAdaylari.ToArray();
         }
 
         private static bool Gorunur(Graphic grafik) {
