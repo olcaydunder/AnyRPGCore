@@ -1,8 +1,8 @@
 # Ötüken Destanı · Hata panosu
 
-Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 05.10.2026 01:55.
+Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 05.10.2026 01:56.
 
-**5** açık sorun · **5** düzeltilen · toplam **30** rapor
+**5** açık sorun · **5** düzeltilen · toplam **32** rapor
 
 ## Son APK derlemesi
 
@@ -46,7 +46,7 @@ Bot yeni oyun başlatıp haritaları gezdi: **tamamlandı**, 0 hata/istisna.
 |---|---|---|---|---|---|---|
 | 🔁 yeniden görüldü | [Arayüz yerleşimi, 3120x1335 ekran](kayitlar/arayuz-3120x1335.md) | Arayüz | 4 | 1 | 0.1.25, 0.1.36, 0.1.43 | 05.10.2026 00:08 |
 | 🔴 açık | [İstisna: NullReferenceException: Object reference not set to an instance of an object.](kayitlar/istisna-44cafcb8.md) | İstisna | 1 | 1 | 0.1.36 | 04.10.2026 19:08 |
-| 🔴 açık | [Hata: Screen position out of view frustum (screen pos inf, -inf) (Camera rect 0 0 640 480)](kayitlar/hata-60de498e.md) | Hata | 6 | 1 | 0.1.43, 0.1.44 | 05.10.2026 00:52 |
+| 🔴 açık | [Hata: Screen position out of view frustum (screen pos inf, -inf) (Camera rect 0 0 640 480)](kayitlar/hata-60de498e.md) | Hata | 8 | 1 | 0.1.43, 0.1.44, 0.1.45 | 05.10.2026 01:52 |
 | 🔴 açık | [Hata: InputManager not found in scene.  Is the GameManager in the scene?](kayitlar/hata-8f05154f.md) | Hata | 8 | 2 | 0.1.43 | 05.10.2026 00:12 |
 | 🔴 açık | [Bellek: Bellek yetmedi, sistem oyunu kapattı](kayitlar/bellek-d3941b2d.md) | Bellek | 1 | 1 | 0.1.36 | 04.10.2026 19:07 |
 
