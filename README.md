@@ -1,12 +1,12 @@
 # Ötüken Destanı · Hata panosu
 
-Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 04.10.2026 18:20.
+Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 04.10.2026 20:04.
 
 **0** açık sorun · **6** düzeltilen · toplam **12** rapor
 
 ## Son APK derlemesi
 
-Derleme [36](https://github.com/olcaydunder/AnyRPGCore/actions/runs/37211211681) · ✅ başarılı · commit `79de59cd` · 04.10.2026 18:20
+Derleme [37](https://github.com/olcaydunder/AnyRPGCore/actions/runs/37216330598) · ✅ başarılı · commit `2b4d3546` · 04.10.2026 20:04
 
 Tanı raporunda uyarı yok.
 
@@ -14,31 +14,29 @@ Tanı raporunda uyarı yok.
 
 Bot yeni oyun başlatıp haritaları gezdi: **tamamlandı**, 0 hata/istisna.
 
-- Binek denemesi: binildi, 2,5 sn'de 13 m gidildi, inildi
-- Günlük görevler (botun bir günü): 12 düşman yen 3/12, 1 hazine sandığını boşalt 0/1, 2 farklı diyara ayak bas 2/2 (tamam)
-- İlk haritada av: 3 düşman yenildi, seviye 3 → 3, tecrübe 0 → 315
-- Dünya haritası: 15/15 diyar görüntülü; harita üzerinden ışınlanma: oldu
-- Demirci: Kahverengi Deri Zırh → Kahverengi Deri Zırh +3 (eşyadaki her temel değer +1); ilk deneme: Başarılı! Kahverengi Deri Zırh +1; Güç Puanı 68 → 70; kayıttaki ad: Kahverengi Deri Zırh +3; seviye 3, ödül 2 (3: 20 Gümüş Akçe); çantaya +9 konunca: Kuşan ile giyildi: Kahverengi Deri Zırh +9, Güç Puanı 212
-- Gelişim: Güç Puanı 212, seviye ödülü 2 (son: 3: 20 Gümüş Akçe), daha iyi eşya önerisi 1, oto av becerisi 11 kez
-- Çanta: sıralama: 11 eşya → 11, 5 yuva, tür sırası doğru, boşluk yok (ilk: Kahverengi Deri Zırh +3, Şifa İksiri ×5, Şifa İksiri ×3, Kahverengi Deri Zırh); toplu satış: 2 gri kopya eklendi, 2 öneri (2 değersiz), 2 satıldı +74 Bakır Akçe, kalan gri 0, demirci eşyası korundu
+- Binek denemesi: yapılmadı
+- Günlük görevler (botun bir günü): günlük görev yok
+- Dünya haritası: 15/15 diyar görüntülü; harita üzerinden ışınlanma: olmadı (Işınlanmak için önce oyuna girmelisin.)
+- Demirci: yapılmadı
+- Gelişim: Güç Puanı 0, seviye ödülü 0, daha iyi eşya önerisi 0, oto av becerisi 0 kez
 
 | | Harita | Sonuç | Yükleme | Hata | Not |
 |---|---|---|---|---|---|
-| ✅ | Ötüken Yaylası | tamam | 3 sn | 0 | ok: Yeni görev: Olcayto Han |
-| ✅ | Umay Tarlaları | tamam | 2 sn | 0 | ok: Hazine sandığı (günlük görev) |
-| ✅ | Börü Tepesi | tamam | 1 sn | 0 | ok: Hazine sandığı (günlük görev) |
-| ✅ | Ak Deniz Kıyısı | tamam | 0 sn | 0 | ok: Hazine sandığı (günlük görev) |
-| ❌ | Ordubalık Çarşısı | sorunlu | 1 sn | 0 | yürüyerek ulaşılamayan: Kapi_KafDagiYolu_1 (123, 12, 35); ok: Hazine sandığı (günlük görev) |
-| ✅ | Ordubalık Kenti | tamam | 0 sn | 0 | ok: Hazine sandığı (günlük görev) |
-| ✅ | Ulukayın Ormanı | tamam | 0 sn | 0 | ok: Hazine sandığı (günlük görev) |
-| ✅ | Koncolos İni | tamam | 0 sn | 0 | ok: Hazine sandığı (günlük görev) |
-| ✅ | Kağan Ordası | tamam | 1 sn | 0 | ok: Hazine sandığı (günlük görev) |
-| ❌ | Kaf Dağı Yolu | sorunlu | 0 sn | 0 | yürüyerek ulaşılamayan: Kapi_OrdubalikCarsisi_1 (135, 13, 42); ok: Hazine sandığı (günlük görev) |
-| ✅ | Ergenekon Mağarası | tamam | 0 sn | 0 | ok: Hazine sandığı (günlük görev) |
-| ✅ | Kurgan Mezarlığı | tamam | 0 sn | 0 | ok: Hazine sandığı (günlük görev) |
-| ✅ | Ay Dede Koyu | tamam | 1 sn | 0 | ok: Hazine sandığı (günlük görev) |
-| ✅ | Erlik'in Mağarası | tamam | 1 sn | 0 | ok: Hazine sandığı (günlük görev) |
-| ✅ | Tamu Zindanı | tamam | 0 sn | 0 | ok: Hazine sandığı (günlük görev) |
+| ❌ | Ötüken Yaylası | yüklenmedi ya da oyuncu doğmadı (180 sn) | 0 sn | 0 |  |
+| ❌ | Umay Tarlaları | ışınlanılamadı | 0 sn | 0 | Işınlanmak için önce oyuna girmelisin. |
+| ❌ | Börü Tepesi | ışınlanılamadı | 0 sn | 0 | Işınlanmak için önce oyuna girmelisin. |
+| ❌ | Ak Deniz Kıyısı | ışınlanılamadı | 0 sn | 0 | Işınlanmak için önce oyuna girmelisin. |
+| ❌ | Ordubalık Çarşısı | ışınlanılamadı | 0 sn | 0 | Işınlanmak için önce oyuna girmelisin. |
+| ❌ | Ordubalık Kenti | ışınlanılamadı | 0 sn | 0 | Işınlanmak için önce oyuna girmelisin. |
+| ❌ | Ulukayın Ormanı | ışınlanılamadı | 0 sn | 0 | Işınlanmak için önce oyuna girmelisin. |
+| ❌ | Koncolos İni | ışınlanılamadı | 0 sn | 0 | Işınlanmak için önce oyuna girmelisin. |
+| ❌ | Kağan Ordası | ışınlanılamadı | 0 sn | 0 | Işınlanmak için önce oyuna girmelisin. |
+| ❌ | Kaf Dağı Yolu | ışınlanılamadı | 0 sn | 0 | Işınlanmak için önce oyuna girmelisin. |
+| ❌ | Ergenekon Mağarası | ışınlanılamadı | 0 sn | 0 | Işınlanmak için önce oyuna girmelisin. |
+| ❌ | Kurgan Mezarlığı | ışınlanılamadı | 0 sn | 0 | Işınlanmak için önce oyuna girmelisin. |
+| ❌ | Ay Dede Koyu | ışınlanılamadı | 0 sn | 0 | Işınlanmak için önce oyuna girmelisin. |
+| ❌ | Erlik'in Mağarası | ışınlanılamadı | 0 sn | 0 | Işınlanmak için önce oyuna girmelisin. |
+| ❌ | Tamu Zindanı | ışınlanılamadı | 0 sn | 0 | Işınlanmak için önce oyuna girmelisin. |
 
 ## Açık sorunlar
 

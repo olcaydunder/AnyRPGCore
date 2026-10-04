@@ -185,171 +185,171 @@
  },
  "derleme": {
   "sonuc": "basarili",
-  "numara": "36",
-  "commit": "79de59cd",
-  "baglanti": "https://github.com/olcaydunder/AnyRPGCore/actions/runs/37211211681",
-  "zaman": 1791127231,
+  "numara": "37",
+  "commit": "2b4d3546",
+  "baglanti": "https://github.com/olcaydunder/AnyRPGCore/actions/runs/37216330598",
+  "zaman": 1791133498,
   "uyarilar": [],
   "bot": {
    "durum": "tamamlandı",
    "toplamHata": 0,
-   "binek": "binildi, 2,5 sn'de 13 m gidildi, inildi",
-   "gunluk": "12 düşman yen 3/12, 1 hazine sandığını boşalt 0/1, 2 farklı diyara ayak bas 2/2 (tamam)",
-   "av": "3 düşman yenildi, seviye 3 → 3, tecrübe 0 → 315",
-   "dunya": "15/15 diyar görüntülü; harita üzerinden ışınlanma: oldu",
-   "demirci": "Kahverengi Deri Zırh → Kahverengi Deri Zırh +3 (eşyadaki her temel değer +1); ilk deneme: Başarılı! Kahverengi Deri Zırh +1; Güç Puanı 68 → 70; kayıttaki ad: Kahverengi Deri Zırh +3; seviye 3, ödül 2 (3: 20 Gümüş Akçe); çantaya +9 konunca: Kuşan ile giyildi: Kahverengi Deri Zırh +9, Güç Puanı 212",
-   "gelisim": "Güç Puanı 212, seviye ödülü 2 (son: 3: 20 Gümüş Akçe), daha iyi eşya önerisi 1, oto av becerisi 11 kez",
-   "canta": "sıralama: 11 eşya → 11, 5 yuva, tür sırası doğru, boşluk yok (ilk: Kahverengi Deri Zırh +3, Şifa İksiri ×5, Şifa İksiri ×3, Kahverengi Deri Zırh); toplu satış: 2 gri kopya eklendi, 2 öneri (2 değersiz), 2 satıldı +74 Bakır Akçe, kalan gri 0, demirci eşyası korundu",
+   "binek": "yapılmadı",
+   "gunluk": "günlük görev yok",
+   "av": "",
+   "dunya": "15/15 diyar görüntülü; harita üzerinden ışınlanma: olmadı (Işınlanmak için önce oyuna girmelisin.)",
+   "demirci": "yapılmadı",
+   "gelisim": "Güç Puanı 0, seviye ödülü 0, daha iyi eşya önerisi 0, oto av becerisi 0 kez",
+   "canta": "",
    "haritalar": [
     {
      "sahne": "FeaturesDemoZone",
      "ad": "Ötüken Yaylası",
-     "sonuc": "tamam",
-     "yuklemeSuresi": 3.8956973552703857,
+     "sonuc": "yüklenmedi ya da oyuncu doğmadı (180 sn)",
+     "yuklemeSuresi": 0.0,
      "hata": 0,
      "not": "",
      "bilgi": "",
-     "okHedefi": "Yeni görev: Olcayto Han"
+     "okHedefi": ""
     },
     {
      "sahne": "UmayTarlalari",
      "ad": "Umay Tarlaları",
-     "sonuc": "tamam",
-     "yuklemeSuresi": 2.2389440536499023,
+     "sonuc": "ışınlanılamadı",
+     "yuklemeSuresi": 0.0,
      "hata": 0,
-     "not": "",
+     "not": "Işınlanmak için önce oyuna girmelisin.",
      "bilgi": "",
-     "okHedefi": "Hazine sandığı (günlük görev)"
+     "okHedefi": ""
     },
     {
      "sahne": "BoruTepesi",
      "ad": "Börü Tepesi",
-     "sonuc": "tamam",
-     "yuklemeSuresi": 1.0088834762573242,
+     "sonuc": "ışınlanılamadı",
+     "yuklemeSuresi": 0.0,
      "hata": 0,
-     "not": "",
+     "not": "Işınlanmak için önce oyuna girmelisin.",
      "bilgi": "",
-     "okHedefi": "Hazine sandığı (günlük görev)"
+     "okHedefi": ""
     },
     {
      "sahne": "AkDenizKiyisi",
      "ad": "Ak Deniz Kıyısı",
-     "sonuc": "tamam",
-     "yuklemeSuresi": 0.8966785669326782,
+     "sonuc": "ışınlanılamadı",
+     "yuklemeSuresi": 0.0,
      "hata": 0,
-     "not": "",
+     "not": "Işınlanmak için önce oyuna girmelisin.",
      "bilgi": "",
-     "okHedefi": "Hazine sandığı (günlük görev)"
+     "okHedefi": ""
     },
     {
      "sahne": "OrdubalikCarsisi",
      "ad": "Ordubalık Çarşısı",
-     "sonuc": "sorunlu",
-     "yuklemeSuresi": 1.3672505617141724,
+     "sonuc": "ışınlanılamadı",
+     "yuklemeSuresi": 0.0,
      "hata": 0,
-     "not": "yürüyerek ulaşılamayan: Kapi_KafDagiYolu_1 (123, 12, 35)",
+     "not": "Işınlanmak için önce oyuna girmelisin.",
      "bilgi": "",
-     "okHedefi": "Hazine sandığı (günlük görev)"
+     "okHedefi": ""
     },
     {
      "sahne": "OrdubalikKenti",
      "ad": "Ordubalık Kenti",
-     "sonuc": "tamam",
-     "yuklemeSuresi": 0.8076690435409546,
+     "sonuc": "ışınlanılamadı",
+     "yuklemeSuresi": 0.0,
      "hata": 0,
-     "not": "",
+     "not": "Işınlanmak için önce oyuna girmelisin.",
      "bilgi": "",
-     "okHedefi": "Hazine sandığı (günlük görev)"
+     "okHedefi": ""
     },
     {
      "sahne": "UlukayinOrmani",
      "ad": "Ulukayın Ormanı",
-     "sonuc": "tamam",
-     "yuklemeSuresi": 0.7703025341033936,
+     "sonuc": "ışınlanılamadı",
+     "yuklemeSuresi": 0.0,
      "hata": 0,
-     "not": "",
+     "not": "Işınlanmak için önce oyuna girmelisin.",
      "bilgi": "",
-     "okHedefi": "Hazine sandığı (günlük görev)"
+     "okHedefi": ""
     },
     {
      "sahne": "KoncolosIni",
      "ad": "Koncolos İni",
-     "sonuc": "tamam",
-     "yuklemeSuresi": 0.7528085112571716,
+     "sonuc": "ışınlanılamadı",
+     "yuklemeSuresi": 0.0,
      "hata": 0,
-     "not": "",
+     "not": "Işınlanmak için önce oyuna girmelisin.",
      "bilgi": "",
-     "okHedefi": "Hazine sandığı (günlük görev)"
+     "okHedefi": ""
     },
     {
      "sahne": "KaganOrdasi",
      "ad": "Kağan Ordası",
-     "sonuc": "tamam",
-     "yuklemeSuresi": 1.3835690021514893,
+     "sonuc": "ışınlanılamadı",
+     "yuklemeSuresi": 0.0,
      "hata": 0,
-     "not": "",
+     "not": "Işınlanmak için önce oyuna girmelisin.",
      "bilgi": "",
-     "okHedefi": "Hazine sandığı (günlük görev)"
+     "okHedefi": ""
     },
     {
      "sahne": "KafDagiYolu",
      "ad": "Kaf Dağı Yolu",
-     "sonuc": "sorunlu",
-     "yuklemeSuresi": 0.7823129296302795,
+     "sonuc": "ışınlanılamadı",
+     "yuklemeSuresi": 0.0,
      "hata": 0,
-     "not": "yürüyerek ulaşılamayan: Kapi_OrdubalikCarsisi_1 (135, 13, 42)",
+     "not": "Işınlanmak için önce oyuna girmelisin.",
      "bilgi": "",
-     "okHedefi": "Hazine sandığı (günlük görev)"
+     "okHedefi": ""
     },
     {
      "sahne": "ErgenekonMagarasi",
      "ad": "Ergenekon Mağarası",
-     "sonuc": "tamam",
-     "yuklemeSuresi": 0.7390670776367188,
+     "sonuc": "ışınlanılamadı",
+     "yuklemeSuresi": 0.0,
      "hata": 0,
-     "not": "",
+     "not": "Işınlanmak için önce oyuna girmelisin.",
      "bilgi": "",
-     "okHedefi": "Hazine sandığı (günlük görev)"
+     "okHedefi": ""
     },
     {
      "sahne": "KurganMezarligi",
      "ad": "Kurgan Mezarlığı",
-     "sonuc": "tamam",
-     "yuklemeSuresi": 0.7879557013511658,
+     "sonuc": "ışınlanılamadı",
+     "yuklemeSuresi": 0.0,
      "hata": 0,
-     "not": "",
+     "not": "Işınlanmak için önce oyuna girmelisin.",
      "bilgi": "",
-     "okHedefi": "Hazine sandığı (günlük görev)"
+     "okHedefi": ""
     },
     {
      "sahne": "AyDedeKoyu",
      "ad": "Ay Dede Koyu",
-     "sonuc": "tamam",
-     "yuklemeSuresi": 1.3385474681854248,
+     "sonuc": "ışınlanılamadı",
+     "yuklemeSuresi": 0.0,
      "hata": 0,
-     "not": "",
+     "not": "Işınlanmak için önce oyuna girmelisin.",
      "bilgi": "",
-     "okHedefi": "Hazine sandığı (günlük görev)"
+     "okHedefi": ""
     },
     {
      "sahne": "FeaturesDemoDungeon",
      "ad": "Erlik'in Mağarası",
-     "sonuc": "tamam",
-     "yuklemeSuresi": 1.3179534673690796,
+     "sonuc": "ışınlanılamadı",
+     "yuklemeSuresi": 0.0,
      "hata": 0,
-     "not": "",
+     "not": "Işınlanmak için önce oyuna girmelisin.",
      "bilgi": "",
-     "okHedefi": "Hazine sandığı (günlük görev)"
+     "okHedefi": ""
     },
     {
      "sahne": "TamuZindani",
      "ad": "Tamu Zindanı",
-     "sonuc": "tamam",
-     "yuklemeSuresi": 0.7900596261024475,
+     "sonuc": "ışınlanılamadı",
+     "yuklemeSuresi": 0.0,
      "hata": 0,
-     "not": "",
+     "not": "Işınlanmak için önce oyuna girmelisin.",
      "bilgi": "",
-     "okHedefi": "Hazine sandığı (günlük görev)"
+     "okHedefi": ""
     }
    ]
   }
