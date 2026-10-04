@@ -1,8 +1,8 @@
 # Ötüken Destanı · Hata panosu
 
-Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 04.10.2026 15:46.
+Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 04.10.2026 15:53.
 
-**1** açık sorun · **5** düzeltilen · toplam **12** rapor
+**0** açık sorun · **6** düzeltilen · toplam **12** rapor
 
 ## Son APK derlemesi
 
@@ -39,14 +39,13 @@ Bot yeni oyun başlatıp haritaları gezdi: **tamamlandı**, 0 hata/istisna.
 
 ## Açık sorunlar
 
-| Durum | Sorun | Tür | Tekrar | Cihaz | Sürüm | Son görülme |
-|---|---|---|---|---|---|---|
-| 🔴 açık | [Arayüz yerleşimi, 2664x1073 ekran](kayitlar/arayuz-2664x1073.md) | Arayüz | 1 | 1 | 0.1.27 | 04.10.2026 14:15 |
+Açık sorun yok.
 
 ## Düzeltilenler
 
 | Durum | Sorun | Tür | Tekrar | Cihaz | Sürüm | Son görülme |
 |---|---|---|---|---|---|---|
+| ✅ düzeltildi (0.1.32) | [Arayüz yerleşimi, 2664x1073 ekran](kayitlar/arayuz-2664x1073.md) | Arayüz | 1 | 1 | 0.1.27 | 04.10.2026 14:15 |
 | ✅ düzeltildi (0.1.27) | [Oyuncu bildirimi: merhaba](kayitlar/oyuncu-b9efbe7a2a.md) | Oyuncu bildirimi | 1 | 1 | 0.1.25 | 04.10.2026 11:42 |
 | ✅ düzeltildi (0.1.19) | [Arayüz yerleşimi, 3120x1335 ekran](kayitlar/arayuz-3120x1335.md) | Arayüz | 2 | 1 | 0.1.17, 0.1.25 | 04.10.2026 11:41 |
 | ✅ düzeltildi (0.1.19) | [İstisna: NullReferenceException: Object reference not set to an instance of an object.](kayitlar/istisna-d581f62b.md) | İstisna | 4 | 1 | 0.1.17 | 03.10.2026 23:44 |
