@@ -43,6 +43,13 @@ namespace AnyRPG {
         public void OpenInteractionWindow(InteractableBase targetInteractable) {
             //Debug.Log($"InteractionManager.OpenInteractionWindow");
 
+            // Ötüken: Geçit Taşı'nın 14 seçenekli listesi yerine dünya haritası açılır (oradan ışınlanılır)
+            if (DunyaHaritasi.GecitTasiMi(targetInteractable)) {
+                uIManager.interactionWindow.CloseWindow();
+                DunyaHaritasi.Goster(true);
+                return;
+            }
+
             BeginInteraction(targetInteractable);
             uIManager.craftingWindow.CloseWindow();
             uIManager.interactionWindow.OpenWindow();

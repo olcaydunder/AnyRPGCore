@@ -97,9 +97,10 @@ namespace AnyRPG {
 
             // menus, a column on the left edge above the movement stick (the right side holds the mini map and quest tracker)
             Vector2 leftMiddle = new Vector2(0f, 0.5f);
-            CreateActionButton("Harita", "MAINMAP", leftMiddle, new Vector2(60f, 210f), 78f, 16);
-            // Harita'nın yanında: istenen haritayı seçip oraya ışınlanma penceresi
-            CreateActionButton("Işınlan", IsinlanmaPenceresi.Show, leftMiddle, new Vector2(146f, 210f), 78f, 15);
+            // Harita: 15 diyarın yakınlaştırılabilir dünya haritası (bölgenin ayrıntılı haritası onun içinden açılır)
+            CreateActionButton("Harita", DunyaHaritasi.Goster, leftMiddle, new Vector2(60f, 210f), 78f, 16);
+            // Harita'nın yanında: aynı haritada diyar seçip ışınlanma (liste görünümü de oradan)
+            CreateActionButton("Işınlan", DunyaHaritasi.Goster, leftMiddle, new Vector2(146f, 210f), 78f, 15);
             CreateActionButton("Karakter", "CHARACTERPANEL", leftMiddle, new Vector2(60f, 126f), 78f, 14);
             // ikinci sütun: günlük görevler (ödül bekleyince altın nokta) ve binek (5. seviyede gelir)
             GameObject gunluk = CreateActionButton("Günlük", GunlukGorevler.Goster, leftMiddle, new Vector2(146f, 126f), 78f, 15);

@@ -132,3 +132,6 @@ __pycache__/
 # hata bildirim kanalı derlemede gizli bilgiden yazılır (HATA_KANALI)
 /Assets/Otuken/Resources/HataKanali.txt
 /Assets/Otuken/Resources/HataKanali.txt.meta
+# dünya haritası görüntüleri her derlemede yeniden çekilir (HaritaHazirlik.DunyaHaritasiCek)
+/Assets/Otuken/Resources/DunyaHaritasi/
+/Assets/Otuken/Resources/DunyaHaritasi.meta

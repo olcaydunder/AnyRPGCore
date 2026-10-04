@@ -319,6 +319,27 @@ namespace AnyRPG {
             return sahne;
         }
 
+        /// <summary>haritanın kısa tanıtımı (dünya haritasındaki bilgi şeridi)</summary>
+        public static string Aciklama(string sahne) {
+            foreach (Harita h in haritalar) {
+                if (h.sahne == sahne) {
+                    return h.aciklama;
+                }
+            }
+            return string.Empty;
+        }
+
+        /// <summary>haritanın zorluğu: Kolay, Orta, Zor, Çok zor (yolculuk sırasına göre)</summary>
+        public static string ZorlukAdi(string sahne) {
+            int i = System.Array.IndexOf(SahneAdlari, sahne);
+            return i >= 0 ? DifficultyName(i) : string.Empty;
+        }
+
+        public static Color ZorlukRengi(string sahne) {
+            int i = System.Array.IndexOf(SahneAdlari, sahne);
+            return i >= 0 ? DifficultyColor(i) : Color.white;
+        }
+
         /// <summary>
         /// oyuncuyu haritanın giriş noktasına ışınlar (Işınlan penceresi ve otomatik oyun testi);
         /// olmazsa nedenini döndürür, olursa null

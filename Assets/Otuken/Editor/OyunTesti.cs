@@ -69,6 +69,8 @@ namespace Otuken.EditorAraclari {
             public List<HataKaydi> hatalar = new List<HataKaydi>();
             public string binekTesti;
             public string gunlukGorevler;
+            public string dunyaHaritasi;
+            public string ilkHaritaAvi;
         }
 
         private enum Adim { OyunModu, Acilis, YeniOyun, Dogus, Bekle, Dirilis, BinekTesti, Bitti }
@@ -245,6 +247,7 @@ namespace Otuken.EditorAraclari {
                         sonuc.yuklemeSuresi = (float)AdimSuresi;
                         dogusZamani = EditorApplication.timeSinceStartup;
                         dogusYeri = oyuncular.UnitController.transform.position;
+                        OldurmeleriSay(oyuncular.UnitController);
                         avAcildi = false;
                         Debug.Log("[OyunTesti] " + sonuc.sahne + " yüklendi (" + sonuc.yuklemeSuresi.ToString("0") + " sn)");
                         Gec(Adim.Bekle);
@@ -262,13 +265,26 @@ namespace Otuken.EditorAraclari {
                             AnyRPG.OtomatikAv.Degistir();
                         }
                     }
-                    if (AdimSuresi > 2 + AvSuresi && AnyRPG.OtomatikAv.Acik) {
+                    // ilk haritada uzun av: öldürme, ganimet, tecrübe ve günlük görev sayaçları da denensin
+                    double av = sira == 0 ? IlkAvSuresi : AvSuresi;
+                    double kalma = sira == 0 ? IlkAvSuresi + 4 : HaritadaKalma;
+                    if (sira == 0 && avAcildi && ilkTecrube < 0 && oyun != null && oyun.PlayerManagerClient.UnitController != null) {
+                        ilkTecrube = oyun.PlayerManagerClient.UnitController.CharacterStats.CurrentXP;
+                        ilkSeviye = oyun.PlayerManagerClient.UnitController.CharacterStats.Level;
+                        ilkOldurme = oldurmeSayisi;
+                    }
+                    if (AdimSuresi > 2 + av && AnyRPG.OtomatikAv.Acik) {
                         AnyRPG.OtomatikAv.Kapat();
                     }
-                    if (AdimSuresi < HaritadaKalma) {
+                    if (AdimSuresi < kalma) {
                         break;
                     }
                     HaritaDenetle(oyun);
+                    if (sira == 0 && rapor.ilkHaritaAvi == null && oyun.PlayerManagerClient.UnitController != null) {
+                        AnyRPG.CharacterStats st = oyun.PlayerManagerClient.UnitController.CharacterStats;
+                        rapor.ilkHaritaAvi = (oldurmeSayisi - Mathf.Max(0, ilkOldurme)) + " düşman yenildi, seviye " + ilkSeviye + " → " + st.Level
+                            + ", tecrübe " + Mathf.Max(0, ilkTecrube) + " → " + st.CurrentXP;
+                    }
                     sonuc.okHedefi = AnyRPG.GorevOku.SonHedef;
                     sonuc.uzaktaGizlenen = AnyRPG.OyunAyarlari.KucukNesneSayisi;
                     sonuc.goruntu = GoruntuAl(oyun, "bot_" + sonuc.sahne);
@@ -409,10 +425,45 @@ namespace Otuken.EditorAraclari {
             Isinla(oyun);
         }
 
+        private const double IlkAvSuresi = 36;
+        private static int oldurmeSayisi = 0;
+        private static int ilkOldurme = -1;
+        private static int ilkTecrube = -1;
+        private static int ilkSeviye = 0;
+        private static AnyRPG.UnitController sayilan = null;
+
+        private static void OldurmeleriSay(AnyRPG.UnitController oyuncu) {
+            if (oyuncu == sayilan || oyuncu == null) {
+                return;
+            }
+            if (sayilan != null && sayilan.UnitEventController != null) {
+                sayilan.UnitEventController.OnKillEvent -= OldurmeOldu;
+            }
+            sayilan = oyuncu;
+            sayilan.UnitEventController.OnKillEvent += OldurmeOldu;
+        }
+
+        private static void OldurmeOldu(AnyRPG.UnitController olduren, AnyRPG.UnitController olen, float pay) {
+            if (pay > 0f) {
+                oldurmeSayisi++;
+            }
+        }
+
         private static void Isinla(AnyRPG.SystemGameManager oyun) {
             string sahne = sahneler[sira];
             HaritaBasla(sahne);
-            string engel = AnyRPG.IsinlanmaPenceresi.Teleport(sahne, true);
+            string engel;
+            if (sira == sahneler.Length - 1) {
+                // son yolculuk dünya haritası üzerinden: pencere kurulur, diyar seçilir, Işınlan'a basılır
+                engel = AnyRPG.DunyaHaritasi.TestIcinIsinla(sahne);
+                rapor.dunyaHaritasi = AnyRPG.DunyaHaritasi.ResimliBolgeSayisi + "/" + sahneler.Length + " diyar görüntülü; harita üzerinden ışınlanma: "
+                    + (engel == null ? "oldu" : "olmadı (" + engel + ")");
+                if (engel != null) {
+                    engel = AnyRPG.IsinlanmaPenceresi.Teleport(sahne, true);
+                }
+            } else {
+                engel = AnyRPG.IsinlanmaPenceresi.Teleport(sahne, true);
+            }
             if (engel != null) {
                 sonuc.not = engel;
                 HaritaBitir("ışınlanılamadı");
@@ -617,7 +668,9 @@ namespace Otuken.EditorAraclari {
             sb.Append("Haritalar: ").Append(rapor.haritalar.Count).Append(", hata/istisna: ").Append(rapor.toplamHata)
                 .Append(" (").Append(rapor.hatalar.Count).Append(" farklı)\n");
             sb.Append("Binek denemesi: ").Append(rapor.binekTesti).Append('\n');
-            sb.Append("Günlük görevler: ").Append(rapor.gunlukGorevler).Append("\n\n");
+            sb.Append("Günlük görevler: ").Append(rapor.gunlukGorevler).Append('\n');
+            sb.Append("İlk haritada av: ").Append(rapor.ilkHaritaAvi).Append('\n');
+            sb.Append("Dünya haritası: ").Append(rapor.dunyaHaritasi).Append("\n\n");
             foreach (HaritaSonucu h in rapor.haritalar) {
                 sb.Append(h.sonuc == "tamam" ? "  ok  " : "  !!  ").Append(h.ad).Append(" (").Append(h.sahne).Append("): ").Append(h.sonuc)
                     .Append(", yükleme ").Append(h.yuklemeSuresi.ToString("0")).Append(" sn, ").Append(h.hata).Append(" hata");

@@ -309,15 +309,20 @@ namespace AnyRPG {
                 "• <b>Oto Av</b>: açınca (düğme altın rengi olur) karakter yakındaki düşmanları kendisi bulur, saldırır ve ölenlerin " +
                 "ganimetini toplar. Hareket çubuğuna dokununca kısa bir süre durur, sen yönetirsin. Yeniden dokununca kapanır.\n" +
                 "• <b>Hedef</b>: önündeki düşmanlar arasında sırayla hedef değiştirir.\n" +
-                "• <b>Harita</b>: bölgenin haritası. Mavi nokta sensin, sarı işaretler görev verenler.\n" +
-                "• <b>Işınlan</b> (Harita'nın yanında): 15 haritanın listesi. Birini seç, <b>Işınlan</b>'a dokun; oraya geçersin.\n" +
+                "• <b>Harita</b>: <b>Dünya Haritası</b>; 15 diyar tek haritada. İki parmakla kıstırarak yakınlaş, sürükleyerek gez. " +
+                "Yakınlaşınca mavi elmas Geçit Taşı'nı, altın noktalar komşu diyarlara kapıları, mavi ok seni gösterir. " +
+                "Bir diyara dokun, <b>Işınlan</b>'a bas. Bulunduğun bölgenin ayrıntılı haritası için <b>Bölge Haritası</b>.\n" +
+                "• <b>Işınlan</b> (Harita'nın yanında): aynı dünya haritası; sıralı liste için <b>Liste</b>.\n" +
                 "• <b>Karakter</b>: giydiğin donanım ve değerlerin.\n" +
                 "• <b>Günlük</b> (Karakter'in yanında): her gün yenilenen 3 görev (düşman yen, ganimet topla, sandık boşalt, diyar gez). " +
                 "Biten görevin ödülünü al; üçü de bitince büyük ödül. Ödül bekleyince düğmede altın nokta yanar.\n" +
                 "• <b>Binek</b>: 5. seviyede ejderha Evren seni seçer. Dokununca binersin (iki kat hızlı), yeniden dokununca inersin. " +
                 "Zindanlarda ve savaşta binilmez.\n" +
                 "• <b>Görev oku</b>: ekranda sarı ok sıradaki görev hedefini (teslim edilecek kişi, avlanacak düşman, yeni görev veren) " +
-                "ve uzaklığını gösterir. Menü > Oyun'dan kapatılabilir.\n" +
+                "ve uzaklığını gösterir. Okun yanındaki yazıya (<b>[Git]</b>) dokunursan karakterin oraya kendiliğinden yürür; " +
+                "varınca konuşur, toplar ya da saldırır. Menü > Oyun'dan kapatılabilir.\n" +
+                "• <b>Sen yokken</b>: oyuna yarım saatten uzun ara verip dönersen yiğitlerin topladığı Gümüş Akçe ve tecrübe seni bekler " +
+                "(en çok 10 saat sayılır).\n" +
                 "• <b>Çanta</b>: eşyaların ve paran.\n" +
                 "• <b>Görevler</b>: aldığın görevler ve kalan hedefleri.\n" +
                 "• <b>Menü</b>: seçenekler (grafik, akıcılık, ses, oyun), bu rehber, ekran görüntüsü paylaşma ve <b>Sorun Bildir</b> " +
@@ -484,8 +489,8 @@ namespace AnyRPG {
                 H + "Kök Taş: diyarlar arası yol" + HE + "\n" +
                 "Her haritada, girdiğin yerin hemen yanında Göktürk harfleriyle yazılmış, kaplumbağa kaideli bir dikili taş durur: " +
                 "<b>Geçit Taşı</b>. Harfleri gök turkuazı ışıkla parlar. Ötüken Yaylası'nda köyün güney kapısına giden yolun doğusundadır.\n" +
-                "• Taşa dokun: gidebileceğin bütün haritaların listesi açılır. Birine dokununca oraya geçersin.\n" +
-                "• Her haritadan her haritaya gidebilirsin; eve dönmek için listeden <b>Ötüken Yaylası</b>'nı seç.\n" +
+                "• Taşa dokun: <b>Dünya Haritası</b> açılır. Gitmek istediğin diyara dokun, <b>Işınlan</b>'a bas.\n" +
+                "• Her haritadan her haritaya gidebilirsin; eve dönmek için <b>Ötüken Yaylası</b>'nı seç.\n" +
                 "• Taşa yürümeden de gidebilirsin: sol kenarda Harita'nın yanındaki <b>Işınlan</b> düğmesine dokun, haritayı seç, " +
                 "<b>Işınlan</b>'a bas. Haritanın girişinde, Geçit Taşı'nın yanında belirirsin. Bulunduğun haritayı seçersen " +
                 "girişine dönersin (bir yere sıkışırsan işe yarar). Savaşın ortasında ve ölüyken ışınlanamazsın.\n" +

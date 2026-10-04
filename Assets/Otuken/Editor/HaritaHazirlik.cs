@@ -136,6 +136,11 @@ namespace Otuken.EditorAraclari {
                     }
                 }
                 try {
+                    DunyaHaritasiIceAktar();
+                } catch (Exception e) {
+                    Yaz($"!! HATA dünya haritası görüntüleri içe aktarılamadı: {e}");
+                }
+                try {
                     ArayuzCek();
                 } catch (Exception e) {
                     Yaz($"!! HATA arayüz önizlemesi: {e}");
@@ -186,6 +191,11 @@ namespace Otuken.EditorAraclari {
             DynamicGI.UpdateEnvironment();
             if (ayar == null || ayar.kusbakisi) {
                 KusbakisiCek(ad);
+            }
+            try {
+                DunyaHaritasiCek(ad, sahne);
+            } catch (Exception e) {
+                Yaz($"!! HATA dünya haritası görüntüsü {ad}: {e}");
             }
             GameObject giris = GameObject.FindGameObjectsWithTag("DefaultSpawnLocation").FirstOrDefault(g => g.scene == sahne);
             if (giris != null) {
@@ -506,6 +516,222 @@ namespace Otuken.EditorAraclari {
             }
         }
 
+        // ---------------------------------------------------------------- dünya haritası
+
+        public const string DunyaKlasoru = "Assets/Otuken/Resources/DunyaHaritasi";
+        private const int DunyaGoruntuBoyu = 768;
+        private const float DunyaFov = 30f;
+
+        [Serializable]
+        private class DunyaKapi {
+            public string hedef = "";
+            public float u;
+            public float v;
+        }
+
+        /// <summary>AnyRPG.DunyaHaritasi.BolgeVerisi ile aynı alanlar</summary>
+        [Serializable]
+        private class DunyaVerisi {
+            public string sahne = "";
+            public float[] kamera = new float[0];
+            public float fov = DunyaFov;
+            public float[] tas = new float[0];
+            public float[] giris = new float[0];
+            public List<DunyaKapi> kapilar = new List<DunyaKapi>();
+        }
+
+        /// <summary>
+        /// Dünya haritası (oyundaki AnyRPG.DunyaHaritasi) için diyarın oyun alanının yukarıdan görüntüsü:
+        /// girişten yürünerek ulaşılan yerler, Geçit Taşı ve kapılar kare bir çerçeveye alınır, kuzey yukarı,
+        /// 30 derecelik dik kamerayla çekilir. Karanlık (gece, zindan) diyarlar ortam ışığı açılarak yeniden çekilir.
+        /// İşaretlerin görüntüdeki yeri (0-1) ve kameranın yeri {ad}_veri.json'a yazılır.
+        /// </summary>
+        private static void DunyaHaritasiCek(string ad, Scene sahne) {
+            GameObject giris = GameObject.FindGameObjectsWithTag("DefaultSpawnLocation").FirstOrDefault(g => g.scene == sahne);
+            if (giris == null) {
+                Yaz("dünya haritası: giriş noktası yok, görüntü çekilmedi");
+                return;
+            }
+            Vector3 gp = giris.transform.position;
+            List<Vector3> alan = new List<Vector3>() { gp };
+            if (NavMesh.SamplePosition(gp, out NavMeshHit gh, 4f, NavMesh.AllAreas)) {
+                NavMeshPath yolBilgisi = new NavMeshPath();
+                const float yaricap = 170f, adim = 6f;
+                for (float x = -yaricap; x <= yaricap; x += adim) {
+                    for (float z = -yaricap; z <= yaricap; z += adim) {
+                        if (x * x + z * z > yaricap * yaricap) {
+                            continue;
+                        }
+                        Vector3 q = gh.position + new Vector3(x, 0f, z);
+                        if (!NavMesh.SamplePosition(q, out NavMeshHit h, 10f, NavMesh.AllAreas)
+                            || Mathf.Abs(h.position.x - q.x) > adim * 0.6f || Mathf.Abs(h.position.z - q.z) > adim * 0.6f) {
+                            continue;
+                        }
+                        if (NavMesh.CalculatePath(gh.position, h.position, NavMesh.AllAreas, yolBilgisi)
+                            && yolBilgisi.status == NavMeshPathStatus.PathComplete) {
+                            alan.Add(h.position);
+                        }
+                    }
+                }
+            }
+            Transform tas = null;
+            List<Transform> kapilar = new List<Transform>();
+            foreach (GameObject kok in sahne.GetRootGameObjects()) {
+                if (kok.name == "GecitTasi") {
+                    tas = kok.transform;
+                } else if (kok.name.StartsWith("Kapi_") && kok.transform.lossyScale.x <= 12f && kok.transform.lossyScale.z <= 12f) {
+                    kapilar.Add(kok.transform);
+                }
+            }
+            if (tas != null) {
+                alan.Add(tas.position);
+            }
+            foreach (Transform k in kapilar) {
+                alan.Add(k.position);
+            }
+            Bounds s = new Bounds(alan[0], Vector3.zero);
+            foreach (Vector3 p in alan) {
+                s.Encapsulate(p);
+            }
+            float yari = Mathf.Clamp(Mathf.Max(s.extents.x, s.extents.z) + 20f, 45f, 190f);
+            float yukseklik = yari / Mathf.Tan(DunyaFov * 0.5f * Mathf.Deg2Rad);
+            Vector3 kamera = new Vector3(s.center.x, s.center.y + yukseklik, s.center.z);
+
+            DunyaVerisi veri = new DunyaVerisi() { sahne = ad, kamera = new[] { kamera.x, kamera.y, kamera.z }, fov = DunyaFov };
+            veri.giris = DunyaUv(kamera, gp);
+            if (tas != null) {
+                veri.tas = DunyaUv(kamera, tas.position);
+            }
+            foreach (Transform k in kapilar) {
+                string hedef = k.name.Substring("Kapi_".Length);
+                int alt = hedef.LastIndexOf('_');
+                if (alt > 0) {
+                    hedef = hedef.Substring(0, alt);
+                }
+                float[] uv = DunyaUv(kamera, k.position);
+                // aynı diyara giden yan yana kapılar tek işaret
+                if (veri.kapilar.Any(d => d.hedef == hedef && Mathf.Abs(d.u - uv[0]) < 0.04f && Mathf.Abs(d.v - uv[1]) < 0.04f)) {
+                    continue;
+                }
+                veri.kapilar.Add(new DunyaKapi() { hedef = hedef, u = uv[0], v = uv[1] });
+            }
+
+            byte[] jpg = UstenCek(kamera, out float parlaklik);
+            bool karanlik = parlaklik < 0.16f;
+            if (karanlik) {
+                AmbientMode eskiMod = RenderSettings.ambientMode;
+                Color eskiIsik = RenderSettings.ambientLight;
+                float eskiYogunluk = RenderSettings.ambientIntensity;
+                try {
+                    RenderSettings.ambientMode = AmbientMode.Flat;
+                    RenderSettings.ambientLight = new Color(0.6f, 0.6f, 0.66f, 1f);
+                    RenderSettings.ambientIntensity = 1.3f;
+                    jpg = UstenCek(kamera, out float yeniParlaklik);
+                    Yaz($"dünya haritası: karanlık ({parlaklik:0.00}), ortam ışığıyla yeniden çekildi ({yeniParlaklik:0.00})");
+                } finally {
+                    RenderSettings.ambientMode = eskiMod;
+                    RenderSettings.ambientLight = eskiIsik;
+                    RenderSettings.ambientIntensity = eskiYogunluk;
+                }
+            }
+            if (jpg == null) {
+                return;
+            }
+            Directory.CreateDirectory(Path.GetFullPath(DunyaKlasoru));
+            File.WriteAllBytes(Path.GetFullPath(DunyaKlasoru + "/" + ad + ".jpg"), jpg);
+            File.WriteAllText(Path.GetFullPath(DunyaKlasoru + "/" + ad + "_veri.json"), JsonUtility.ToJson(veri, true));
+            File.WriteAllBytes(Path.Combine(taniKlasoru, "dunya_" + ad + ".jpg"), jpg);
+            Yaz($"dünya haritası: {ad}.jpg, yarı görüş {yari:0} m, geçit taşı {(tas != null ? "var" : "YOK")}, {veri.kapilar.Count} kapı");
+        }
+
+        private static float[] DunyaUv(Vector3 kamera, Vector3 p) {
+            float derinlik = Mathf.Max(1f, kamera.y - p.y);
+            float yari = derinlik * Mathf.Tan(DunyaFov * 0.5f * Mathf.Deg2Rad);
+            return new[] { 0.5f + (p.x - kamera.x) / (2f * yari), 0.5f + (p.z - kamera.z) / (2f * yari) };
+        }
+
+        /// <summary>yukarıdan, sissiz, kuzey yukarı çekim; JPG ve ortalama parlaklık</summary>
+        private static byte[] UstenCek(Vector3 konum, out float parlaklik) {
+            parlaklik = 0f;
+            GameObject go = new GameObject("DunyaKamerasi");
+            go.hideFlags = HideFlags.HideAndDontSave;
+            RenderTexture rt = null;
+            Texture2D doku = null;
+            bool sis = RenderSettings.fog;
+            RenderSettings.fog = false;
+            try {
+                Camera kamera = go.AddComponent<Camera>();
+                kamera.transform.position = konum;
+                kamera.transform.rotation = Quaternion.LookRotation(Vector3.down, Vector3.forward);
+                kamera.fieldOfView = DunyaFov;
+                kamera.nearClipPlane = 1f;
+                kamera.farClipPlane = 5000f;
+                kamera.clearFlags = CameraClearFlags.SolidColor;
+                kamera.backgroundColor = new Color(0.16f, 0.26f, 0.32f, 1f);
+                int boy = DunyaGoruntuBoyu;
+                rt = new RenderTexture(boy, boy, 24, RenderTextureFormat.ARGB32, RenderTextureReadWrite.sRGB);
+                rt.Create();
+                RenderPipeline.StandardRequest istek = new RenderPipeline.StandardRequest();
+                istek.destination = rt;
+                if (RenderPipeline.SupportsRenderRequest(kamera, istek)) {
+                    RenderPipeline.SubmitRenderRequest(kamera, istek);
+                } else {
+                    kamera.targetTexture = rt;
+                    kamera.Render();
+                    kamera.targetTexture = null;
+                }
+                RenderTexture onceki = RenderTexture.active;
+                RenderTexture.active = rt;
+                doku = new Texture2D(boy, boy, TextureFormat.RGB24, false);
+                doku.ReadPixels(new Rect(0, 0, boy, boy), 0, 0);
+                doku.Apply();
+                RenderTexture.active = onceki;
+                Color32[] pikseller = doku.GetPixels32();
+                double toplam = 0;
+                for (int i = 0; i < pikseller.Length; i += 7) {
+                    toplam += (0.2126 * pikseller[i].r + 0.7152 * pikseller[i].g + 0.0722 * pikseller[i].b) / 255.0;
+                }
+                parlaklik = (float)(toplam / Mathf.Max(1, pikseller.Length / 7));
+                return doku.EncodeToJPG(80);
+            } catch (Exception e) {
+                Yaz($"!! dünya haritası görüntüsü alınamadı: {e.Message}");
+                return null;
+            } finally {
+                RenderSettings.fog = sis;
+                if (rt != null) {
+                    rt.Release();
+                    Object.DestroyImmediate(rt);
+                }
+                if (doku != null) {
+                    Object.DestroyImmediate(doku);
+                }
+                Object.DestroyImmediate(go);
+            }
+        }
+
+        /// <summary>çekilen görüntüleri derlemeye girsin diye içe aktarır (Resources)</summary>
+        private static void DunyaHaritasiIceAktar() {
+            if (!Directory.Exists(Path.GetFullPath(DunyaKlasoru))) {
+                return;
+            }
+            AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
+            int adet = 0;
+            foreach (string dosya in Directory.GetFiles(Path.GetFullPath(DunyaKlasoru), "*.jpg")) {
+                string yol = DunyaKlasoru + "/" + Path.GetFileName(dosya);
+                TextureImporter ithal = AssetImporter.GetAtPath(yol) as TextureImporter;
+                if (ithal == null) {
+                    continue;
+                }
+                ithal.textureType = TextureImporterType.Default;
+                ithal.wrapMode = TextureWrapMode.Clamp;
+                ithal.maxTextureSize = 1024;
+                ithal.mipmapEnabled = true;
+                ithal.SaveAndReimport();
+                adet++;
+            }
+            Yaz($"dünya haritası: {adet} diyar görüntüsü derlemeye eklendi ({DunyaKlasoru})");
+        }
+
         /// <summary>
         /// Telefon arayüzünün önizlemesi (tani/arayuz_*.jpg): dokunmatik düğmeler ve Işınlan penceresi,
         /// 20:9 bir telefon ekranında oyundaki ölçekle. Pencereler kodla kurulduğu için burada da aynı kodla kurulur.
@@ -516,6 +742,11 @@ namespace Otuken.EditorAraclari {
                 ArayuzCiz("arayuz_gunluk", "gunluk");
             } catch (Exception e) {
                 Yaz($"!! HATA günlük görevler önizlemesi: {e}");
+            }
+            try {
+                ArayuzCiz("arayuz_dunya", "dunya");
+            } catch (Exception e) {
+                Yaz($"!! HATA dünya haritası önizlemesi: {e}");
             }
             try {
                 OyunArayuzu();
@@ -794,6 +1025,10 @@ namespace Otuken.EditorAraclari {
                     YontemCagir(isinlanma, "Build");
                     YontemCagir(isinlanma, "Open");
                     YontemCagir(isinlanma, "Select", 9);
+                } else if (pencere == "dunya") {
+                    Component dunya = Tuval("DunyaHaritasi", kamera, 1f, 31, silinecek).AddComponent<AnyRPG.DunyaHaritasi>();
+                    YontemCagir(dunya, "Build");
+                    YontemCagir(dunya, "Onizleme");
                 } else if (pencere == "gunluk") {
                     gunluk = Tuval("GunlukGorevler", kamera, 1f, 31, silinecek).AddComponent<AnyRPG.GunlukGorevler>();
                     YontemCagir(gunluk, "Build");

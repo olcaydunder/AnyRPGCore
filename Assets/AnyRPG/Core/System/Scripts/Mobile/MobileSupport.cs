@@ -382,13 +382,18 @@ namespace AnyRPG {
                 PlayerPrefs.Save();
                 // ertesi akşam için "günlük armağan" hatırlatması
                 Bildirimler.ArkaPlan();
+                CevrimdisiKazanc.ArkaPlan();
+                PlayerPrefs.Save();
             } else {
                 Bildirimler.OnPlanaGecti();
+                CevrimdisiKazanc.OnPlanaGecti();
             }
         }
 
         private void OnApplicationQuit() {
             Bildirimler.ArkaPlan();
+            CevrimdisiKazanc.ArkaPlan();
+            PlayerPrefs.Save();
         }
 
         private void OnApplicationFocus(bool hasFocus) {
@@ -440,6 +445,7 @@ namespace AnyRPG {
                     || canvas.name == ErrorOverlayCanvasName || canvas.name == GameGuide.CanvasName || canvas.name == GunlukArmagan.CanvasName
                     || canvas.name == SeceneklerPenceresi.CanvasName || canvas.name == IsinlanmaPenceresi.CanvasName
                     || canvas.name == HataBildirici.CanvasName || canvas.name == GunlukGorevler.CanvasName || canvas.name == GorevOku.CanvasName
+                    || canvas.name == DunyaHaritasi.CanvasName || canvas.name == CevrimdisiKazanc.CanvasName
                     || canvas.transform.root.name == "[Graphy]"
                     || canvas.transform.root.name == "IngameDebugConsole") {
                     continue;
@@ -553,6 +559,12 @@ namespace AnyRPG {
                 GorevOku.Tick(GetSystemGameManager(), inGame);
             } catch (System.Exception exception) {
                 Debug.LogWarning($"MobileBootstrap: GorevOku.Tick(): {exception.Message}");
+            }
+            try {
+                // ara verip dönene "sen yokken" kazancı
+                CevrimdisiKazanc.Tick(GetSystemGameManager(), inGame);
+            } catch (System.Exception exception) {
+                Debug.LogWarning($"MobileBootstrap: CevrimdisiKazanc.Tick(): {exception.Message}");
             }
             try {
                 OyunAyarlari.Tick(GetSystemGameManager());

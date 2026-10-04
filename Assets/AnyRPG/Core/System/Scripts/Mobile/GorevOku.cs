@@ -49,6 +49,7 @@ namespace AnyRPG {
         private Text yazi = null;
         private RectTransform yaziRt = null;
         private Transform hedef = null;
+        private InteractableBase hedefEtkilesim = null;
         private string hedefAdi = string.Empty;
         private float sonrakiSecim = 0f;
         private bool gorunur = false;
@@ -83,6 +84,8 @@ namespace AnyRPG {
             olcekleyici.referenceResolution = new Vector2(1422f, 800f);
             olcekleyici.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
             olcekleyici.matchWidthOrHeight = 1f;
+            // yazıya dokununca otomatik yol (Git)
+            canvasObject.AddComponent<GraphicRaycaster>();
             instance = canvasObject.AddComponent<GorevOku>();
             instance.Build();
         }
@@ -103,13 +106,26 @@ namespace AnyRPG {
             cizgi.effectColor = new Color(0.25f, 0.15f, 0.02f, 0.9f);
             cizgi.effectDistance = new Vector2(2f, -2f);
 
+            // yazı: yarı saydam şerit, dokununca karakter hedefe kendiliğinden gider (mobil MMO'lardaki otomatik yol)
             GameObject yaziNesnesi = new GameObject("Yazi");
             yaziNesnesi.transform.SetParent(transform, false);
             yaziRt = yaziNesnesi.AddComponent<RectTransform>();
             yaziRt.anchorMin = yaziRt.anchorMax = new Vector2(0.5f, 0.5f);
             yaziRt.pivot = new Vector2(0.5f, 0.5f);
-            yaziRt.sizeDelta = new Vector2(360f, 56f);
-            yazi = yaziNesnesi.AddComponent<Text>();
+            yaziRt.sizeDelta = new Vector2(380f, 52f);
+            Image serit = yaziNesnesi.AddComponent<Image>();
+            serit.color = new Color(0.05f, 0.04f, 0.02f, 0.45f);
+            Button git = yaziNesnesi.AddComponent<Button>();
+            git.targetGraphic = serit;
+            git.onClick.AddListener(Git);
+            GameObject metinNesnesi = new GameObject("Metin");
+            metinNesnesi.transform.SetParent(yaziNesnesi.transform, false);
+            RectTransform metinRt = metinNesnesi.AddComponent<RectTransform>();
+            metinRt.anchorMin = Vector2.zero;
+            metinRt.anchorMax = Vector2.one;
+            metinRt.offsetMin = new Vector2(6f, 0f);
+            metinRt.offsetMax = new Vector2(-6f, 0f);
+            yazi = metinNesnesi.AddComponent<Text>();
             yazi.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             yazi.fontSize = 19;
             yazi.alignment = TextAnchor.MiddleCenter;
@@ -117,7 +133,7 @@ namespace AnyRPG {
             yazi.raycastTarget = false;
             yazi.horizontalOverflow = HorizontalWrapMode.Wrap;
             yazi.verticalOverflow = VerticalWrapMode.Overflow;
-            Outline yaziCizgisi = yaziNesnesi.AddComponent<Outline>();
+            Outline yaziCizgisi = metinNesnesi.AddComponent<Outline>();
             yaziCizgisi.effectColor = new Color(0f, 0f, 0f, 0.85f);
             yaziCizgisi.effectDistance = new Vector2(1.5f, -1.5f);
             Gizle();
@@ -189,7 +205,7 @@ namespace AnyRPG {
             bool icinde = arkada == false && yerel.x > -xEn && yerel.x < xEn && yerel.y > yAlt && yerel.y < yUst;
 
             string uzaklik = mesafe < 1000f ? Mathf.RoundToInt(mesafe) + " m" : (mesafe / 1000f).ToString("0.0") + " km";
-            yazi.text = hedefAdi + " · " + uzaklik;
+            yazi.text = hedefAdi + " · " + uzaklik + "  <color=#FFD54A><b>[Git]</b></color>";
 
             if (icinde) {
                 // hedefin üstünde aşağı bakan işaret, hafif sallanır
@@ -224,6 +240,23 @@ namespace AnyRPG {
                 yaziRt.gameObject.SetActive(true);
                 gorunur = true;
             }
+        }
+
+        /// <summary>
+        /// Otomatik yol: karakter hedefe kendiliğinden yürür; varınca konuşur, toplar ya da saldırır
+        /// (oyunun "uzaktaki şeye dokun" davranışı, PlayerController.RightMouseInteraction).
+        /// </summary>
+        private void Git() {
+            MobileFeedback.Tap();
+            PlayerController kontrol = oyun != null && oyun.PlayerManagerClient != null ? oyun.PlayerManagerClient.PlayerController : null;
+            UnitController oyuncu = oyun != null && oyun.PlayerManagerClient != null ? oyun.PlayerManagerClient.UnitController : null;
+            if (kontrol == null || oyuncu == null || hedefEtkilesim == null || hedefEtkilesim.gameObject.activeInHierarchy == false) {
+                return;
+            }
+            OtomatikAv.Kapat();
+            InteractableBase gidilecek = hedefEtkilesim.CharacterTarget != null ? hedefEtkilesim.CharacterTarget : hedefEtkilesim;
+            kontrol.RightMouseInteraction(gidilecek);
+            oyuncu.WriteMessageFeedMessage("Hedefe gidiliyor: " + hedefAdi);
         }
 
         // ---------------------------------------------------------------- hedef seçimi
@@ -310,11 +343,13 @@ namespace AnyRPG {
                 Sec(sandik, "Hazine sandığı (günlük görev)");
             } else {
                 hedef = null;
+                hedefEtkilesim = null;
                 hedefAdi = string.Empty;
             }
         }
 
         private void Sec(InteractableBase aday, string ad) {
+            hedefEtkilesim = aday;
             hedef = aday.transform;
             hedefAdi = ad;
             SonHedef = ad;
@@ -367,7 +402,7 @@ namespace AnyRPG {
         private static Sprite ucgen = null;
 
         /// <summary>yukarı bakan dolu üçgen (resim dosyası gerektirmez)</summary>
-        private static Sprite Ucgen() {
+        internal static Sprite Ucgen() {
             if (ucgen != null) {
                 return ucgen;
             }
