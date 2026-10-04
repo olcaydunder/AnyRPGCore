@@ -150,8 +150,41 @@ namespace AnyRPG {
 
         /// <param name="gecitTasindan">Geçit Taşı'na dokunularak açıldı</param>
         public static void Goster(bool gecitTasindan) {
+            Goster(gecitTasindan, null);
+        }
+
+        /// <summary>
+        /// çevrimiçi oyunda ışınlanma Geçit Taşı'nın kapı seçeneğiyle (LoadSceneComponent) sunucuya istenir: dokunulan taş saklanır
+        /// </summary>
+        private static InteractableBase sonGecitTasi = null;
+
+        public static void Goster(bool gecitTasindan, InteractableBase gecitTasi) {
             Ensure();
+            sonGecitTasi = gecitTasindan ? gecitTasi : null;
             instance.Ac(SceneManager.GetActiveScene().name, gecitTasindan);
+        }
+
+        /// <summary>çevrimiçi: dokunulan Geçit Taşı'nın hedef diyara giden kapı seçeneğini sunucuya ister; olmazsa nedeni</summary>
+        private string CevrimiciIsinla(string sahne) {
+            SystemGameManager oyun = OyunYoneticisi;
+            UnitController oyuncu = oyun != null && oyun.PlayerManagerClient != null ? oyun.PlayerManagerClient.UnitController : null;
+            if (oyuncu == null) {
+                return "Işınlanmak için önce oyuna girmelisin.";
+            }
+            if (sonGecitTasi == null) {
+                return "Çevrimiçi oyunda ışınlanmak için bir Geçit Taşı'na dokun.";
+            }
+            if (oyuncu.CharacterCombat != null && oyuncu.CharacterCombat.GetInCombat()) {
+                return "Savaşın ortasında ışınlanamazsın. Düşmanlardan uzaklaş ya da savaşı bitir.";
+            }
+            foreach (KeyValuePair<int, InteractableOptionComponent> secenek in sonGecitTasi.Interactables) {
+                LoadSceneComponent kapi = secenek.Value as LoadSceneComponent;
+                if (kapi != null && kapi.LoadSceneProps != null && kapi.LoadSceneProps.SceneName == sahne) {
+                    oyun.InteractionManagerClient.InteractWithOption(oyuncu, sonGecitTasi, kapi, secenek.Key, 0);
+                    return null;
+                }
+            }
+            return sahne == mevcut ? "Zaten buradasın." : "Bu Geçit Taşı oraya kapı açmıyor.";
         }
 
         /// <summary>etkileşilen nesne bir Geçit Taşı mı (InteractionManagerClient seçenek listesi yerine bu haritayı açar)</summary>
@@ -566,7 +599,7 @@ namespace AnyRPG {
             if (string.IsNullOrEmpty(secili) || Time.unscaledTime < mesgulKadar) {
                 return "meşgul";
             }
-            string hata = IsinlanmaPenceresi.Teleport(secili);
+            string hata = Cevrimici.Acik ? CevrimiciIsinla(secili) : IsinlanmaPenceresi.Teleport(secili);
             if (hata != null) {
                 durumYazisi.text = hata;
                 bilgiAciklama.text = string.Empty;

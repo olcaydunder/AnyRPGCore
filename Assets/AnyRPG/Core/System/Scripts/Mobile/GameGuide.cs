@@ -342,6 +342,14 @@ namespace AnyRPG {
                 "• Alttaki sıra <b>yetenek çubuğu</b>dur: yeteneklerine dokunarak kullanırsın.\n" +
                 "• Pencereleri sağ üst köşelerindeki <b>X</b> ile kapatırsın.\n" +
                 "• Üstteki <b>Durum</b> düğmesi teşhis raporudur. Bir sorun yaşarsan açıp <b>Kopyala</b>'ya bas ve yapımcıya gönder.\n\n" +
+                H + "Çevrimiçi oyun" + HE + "\n" +
+                "• Ana menüde <b>Çevrim İçi Oyna</b>: kullanıcı adı ve şifre yaz, <b>Giriş</b>'e bas. İlk girişte hesabın kendiliğinden açılır; " +
+                "şifreni unutma. Sonra karakterini oluşturup oyuna gir.\n" +
+                "• Aynı diyardaki öteki oyuncuları görürsün, birlikte savaşırsın. Düşmanları ve ganimeti sunucu yönetir.\n" +
+                "• <b>Sohbet</b> düğmesi (yalnız çevrimiçi): yaz ve gönder; aynı diyardakiler görür.\n" +
+                "• Diyarlar arası: kapılardan geçersin ya da bir <b>Geçit Taşı</b>'na dokunup haritadan seçersin.\n" +
+                "• Şimdilik çevrimiçi oyunda kapalı (yakında): günlük armağan ve görevler, demirci, toplu satış, çanta sıralama, " +
+                "seviye ödülleri, sen yokken kazancı ve binek. Tek oyunculu oyunun ve kayıtların ayrıdır, etkilenmez.\n\n" +
                 H + "Oyun takılıyorsa" + HE + "\n" +
                 "• <b>Menü > Görüntü</b>: Çözünürlüğü Düşük, Gölgeleri Kapalı yap; Görüş mesafesini ve İsim mesafesini kısalt.\n" +
                 "• <b>Akıcılık</b> bölümünde FPS göstergesini açarsan kare hızını sol üstte görürsün.\n" +

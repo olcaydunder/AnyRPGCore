@@ -46,7 +46,7 @@ namespace AnyRPG {
             // Ötüken: Geçit Taşı'nın 14 seçenekli listesi yerine dünya haritası açılır (oradan ışınlanılır)
             if (DunyaHaritasi.GecitTasiMi(targetInteractable)) {
                 uIManager.interactionWindow.CloseWindow();
-                DunyaHaritasi.Goster(true);
+                DunyaHaritasi.Goster(true, targetInteractable);
                 return;
             }
 

@@ -112,6 +112,9 @@ namespace AnyRPG {
             gunlukRozeti.SetActive(false);
             binekDugmesi = CreateActionButton("Binek", Binek.Degistir, leftMiddle, new Vector2(146f, 42f), 78f, 16);
             binekDugmesi.SetActive(false);
+            // çevrimiçi oyunda sohbet (AnyRPG'nin mesaj penceresi ve yazma kutusu); tek oyunculu oyunda gizli
+            sohbetDugmesi = CreateActionButton("Sohbet", Sohbet, leftMiddle, new Vector2(232f, 126f), 78f, 15);
+            sohbetDugmesi.SetActive(false);
             CreateActionButton("Çanta", "INVENTORY", leftMiddle, new Vector2(60f, 42f), 78f, 16);
             CreateActionButton("Görevler", "QUESTLOG", leftMiddle, new Vector2(60f, -42f), 78f, 14);
             // Seçenekler penceresi; "Nasıl Oynanır" rehberi de oradan açılır
@@ -450,10 +453,28 @@ namespace AnyRPG {
 
         private GameObject gunlukRozeti = null;
         private GameObject binekDugmesi = null;
+        private GameObject sohbetDugmesi = null;
+
+        private void Sohbet() {
+            SystemGameManager oyun = FindAnyObjectByType<SystemGameManager>();
+            if (oyun == null || oyun.UIManager == null || oyun.UIManager.MessageLogWindow == null) {
+                return;
+            }
+            MobileFeedback.Tap();
+            oyun.UIManager.MessageLogWindow.OpenWindow();
+            MessageLogPanel panel = FindAnyObjectByType<MessageLogPanel>();
+            if (panel != null) {
+                panel.ShowGeneralLog();
+                panel.HandleBeginChatCommand(string.Empty);
+            }
+        }
         private Image binekResmi = null;
 
         /// <summary>günlük görev rozeti, binek düğmesinin görünürlüğü ve rengi (saniyede bir)</summary>
         private void DurumlariGuncelle() {
+            if (sohbetDugmesi != null && sohbetDugmesi.activeSelf != Cevrimici.Acik) {
+                sohbetDugmesi.SetActive(Cevrimici.Acik);
+            }
             if (gunlukRozeti != null) {
                 bool odul = GunlukGorevler.OdulVar;
                 if (gunlukRozeti.activeSelf != odul) {
