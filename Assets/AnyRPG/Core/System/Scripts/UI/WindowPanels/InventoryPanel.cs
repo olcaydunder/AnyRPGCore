@@ -34,7 +34,7 @@ namespace AnyRPG {
             bagBarController.SetBagPanel(this);
             currencyBarController.Configure(systemGameManager);
             // Ötüken: para satırının altında "Sırala" ve "Toplu Sat" (Canta)
-            Canta.CantaDugmeleriniEkle(transform);
+            Canta.CantaDugmeleriniEkle(transform, currencyBarController != null ? currencyBarController.transform : null);
         }
 
         public override void SetGameManagerReferences() {

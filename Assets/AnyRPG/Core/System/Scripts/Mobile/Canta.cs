@@ -51,6 +51,24 @@ namespace AnyRPG {
             }
         }
 
+        /// <summary>"1 Gümüş Akçe 24 Bakır Akçe" (sıfır olan birimler yazılmaz)</summary>
+        public static string FiyatYazisi(Currency para, int miktar) {
+            SystemGameManager o = Oyun;
+            if (para == null) {
+                return string.Empty;
+            }
+            if (o == null || o.CurrencyConverter == null) {
+                return miktar + " " + para.DisplayName;
+            }
+            List<string> parcalar = new List<string>();
+            foreach (KeyValuePair<Currency, int> k in o.CurrencyConverter.RedistributeCurrency(para, miktar)) {
+                if (k.Value > 0 && k.Key != null) {
+                    parcalar.Add(k.Value + " " + k.Key.DisplayName);
+                }
+            }
+            return parcalar.Count > 0 ? string.Join(" ", parcalar) : "0 " + para.DisplayName;
+        }
+
         public static int KaliteSirasi(InstantiatedItem esya) {
             int sira;
             if (esya != null && esya.ItemQuality != null && kaliteSirasi.TryGetValue(esya.ItemQuality.ResourceName, out sira)) {
@@ -282,9 +300,8 @@ namespace AnyRPG {
                 adet++;
             }
             List<string> yazilar = new List<string>();
-            SystemGameManager o = Oyun;
             foreach (KeyValuePair<Currency, int> k in toplam) {
-                yazilar.Add(o != null ? o.CurrencyConverter.GetCombinedPriceString(k.Key, k.Value).Trim() : k.Value + " " + k.Key.DisplayName);
+                yazilar.Add(FiyatYazisi(k.Key, k.Value));
             }
             kazanc = string.Join(", ", yazilar);
             if (adet > 0) {
@@ -432,7 +449,7 @@ namespace AnyRPG {
                     toplam[fiyat.Key] = onceki + fiyat.Value;
                 }
                 Color renk = esya.ItemQuality != null ? esya.ItemQuality.QualityColor : textColor;
-                string fiyatYazisi = Oyun.CurrencyConverter.GetCombinedPriceString(fiyat.Key, fiyat.Value).Trim();
+                string fiyatYazisi = FiyatYazisi(fiyat.Key, fiyat.Value);
                 long kimlik = esya.InstanceId;
                 Satir(i, esya.DisplayName, renk, esya.Icon, adaylar[i].Value, fiyatYazisi, tut, () => {
                     MobileFeedback.Tap();
@@ -446,7 +463,7 @@ namespace AnyRPG {
             bosYazisi.text = adaylar.Count == 0 ? "Satılacak eşya yok. Seçimleri değiştirebilirsin." : string.Empty;
             List<string> yazilar = new List<string>();
             foreach (KeyValuePair<Currency, int> k in toplam) {
-                yazilar.Add(Oyun.CurrencyConverter.GetCombinedPriceString(k.Key, k.Value).Trim());
+                yazilar.Add(FiyatYazisi(k.Key, k.Value));
             }
             toplamYazisi.text = satilacak > 0 ? satilacak + " eşya  ·  <color=#FFD54A><b>+" + string.Join(", ", yazilar) + "</b></color>" : string.Empty;
             satDugmesi.interactable = satilacak > 0;
@@ -495,13 +512,13 @@ namespace AnyRPG {
             panelRoot.SetActive(true);
             string[] adlar = { "Kırık Ok Ucu", "Paslı Hançer", "Yırtık Deri Eldiven", "Kurt Postu Başlık", "Bakır Yüzük" };
             string[] nedenler = { "değersiz", "değersiz", "giydiğinden zayıf", "kullanamazsın", "giydiğinden zayıf" };
-            string[] fiyatlar = { "2 Akçe", "3 Akçe", "14 Akçe", "22 Akçe", "1 Gümüş 5 Akçe" };
+            string[] fiyatlar = { "2 Bakır Akçe", "3 Bakır Akçe", "14 Bakır Akçe", "22 Bakır Akçe", "1 Gümüş Akçe 5 Bakır Akçe" };
             Color[] renkler = { Color.gray, Color.gray, Color.white, new Color(0.45f, 0.85f, 0.35f), Color.white };
             for (int i = 0; i < adlar.Length; i++) {
                 Satir(i, adlar[i], renkler[i], null, nedenler[i], fiyatlar[i], i == 3, () => { });
             }
             liste.sizeDelta = new Vector2(0f, adlar.Length * (SatirBoyu + 6f) + 6f);
-            toplamYazisi.text = "4 eşya  ·  <color=#FFD54A><b>+1 Gümüş 24 Akçe</b></color>";
+            toplamYazisi.text = "4 eşya  ·  <color=#FFD54A><b>+1 Gümüş Akçe 24 Bakır Akçe</b></color>";
             satYazisi.text = "Sat (4)";
             nadirDugmesi.color = buttonColor;
         }
@@ -556,16 +573,20 @@ namespace AnyRPG {
         /// <summary>
         /// çanta penceresinin (InventoryPanel) para satırının altına "Sırala" ve "Toplu Sat" düğmelerini ekler.
         /// Panelin dikey yerleşimine katılan bir satırdır; pencere kendi boyunu buna göre ayarlar.
+        /// sonra: altına girilecek gösterge (para çubuğu); bulunamazsa ağırlık satırının (InfoRow) altı
         /// </summary>
-        public static void CantaDugmeleriniEkle(Transform panel) {
+        public static void CantaDugmeleriniEkle(Transform panel, Transform sonra = null) {
             if (panel == null || panel.Find("CantaAraclari") != null) {
                 return;
             }
             Font yaziTipi = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
             GameObject satir = new GameObject("CantaAraclari", typeof(RectTransform));
             satir.transform.SetParent(panel, false);
-            Transform bilgi = AltNesne(panel, "InfoRow");
-            if (bilgi != null && bilgi.parent == panel) {
+            Transform bilgi = sonra != null ? sonra : AltNesne(panel, "InfoRow");
+            while (bilgi != null && bilgi.parent != panel) {
+                bilgi = bilgi.parent;
+            }
+            if (bilgi != null && bilgi != satir.transform) {
                 satir.transform.SetSiblingIndex(bilgi.GetSiblingIndex() + 1);
             }
             LayoutElement yer = satir.AddComponent<LayoutElement>();

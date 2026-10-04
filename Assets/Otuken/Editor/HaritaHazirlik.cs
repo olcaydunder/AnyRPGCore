@@ -1008,7 +1008,9 @@ namespace Otuken.EditorAraclari {
                         Object.Instantiate(yuva, panel.ContentArea, false);
                     }
                 }
-                AnyRPG.Canta.CantaDugmeleriniEkle(panel.transform);
+                FieldInfo paraAlani = typeof(AnyRPG.InventoryPanel).GetField("currencyBarController", BindingFlags.Instance | BindingFlags.NonPublic);
+                Component para = paraAlani != null ? paraAlani.GetValue(panel) as Component : null;
+                AnyRPG.Canta.CantaDugmeleriniEkle(panel.transform, para != null ? para.transform : null);
 
                 GameObject kameraNesnesi = new GameObject("ArayuzKamerasi");
                 silinecek.Add(kameraNesnesi);
