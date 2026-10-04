@@ -217,7 +217,10 @@ namespace AnyRPG {
             if (Time.unscaledTime - karakterZamani < 4f) {
                 return;
             }
-            SeviyeOdulleri(oyuncu);
+            if (systemGameManager.GameMode != GameMode.Network) {
+                // çevrimiçi oyunda ödüller sunucudan verilmeli (Cevrimici)
+                SeviyeOdulleri(oyuncu);
+            }
             EsyalaraBak(oyuncu);
             GucuIzle(oyuncu);
             if (instance != null) {

@@ -36,6 +36,10 @@ on:
         description: 'Otomatik oyun testi (bot) çalışsın (hızlı denemede de)'
         type: boolean
         default: true
+      sadece_sunucu:
+        description: 'Yalnız Linux sunucu + çevrimiçi deneme (APK derlenmez, sunucu yayımlanmaz; hızlı ağ denemesi)'
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -142,6 +146,7 @@ jobs:
           echo "anahtar=$(base64 -w0 'Tools~/android/gelistirme.keystore')" >> "$GITHUB_OUTPUT"
 
       - name: Unity ile Android APK derle
+        if: ${{ !inputs.sadece_sunucu }}
         uses: game-ci/unity-builder@v4
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -165,7 +170,7 @@ jobs:
           androidKeyaliasPass: android
 
       - name: APK'yı bul
-        if: ${{ !inputs.sadece_arayuz }}
+        if: ${{ !inputs.sadece_arayuz && !inputs.sadece_sunucu }}
         id: apk
         run: |
           apk=$(find build/Android -maxdepth 2 -name '*.apk' | head -n 1)
@@ -179,7 +184,7 @@ jobs:
           echo "APK: $apk ($((boyut / 1048576)) MB)"
 
       - name: APK'yı çalıştırma sayfasına ekle (5 gün)
-        if: ${{ !inputs.sadece_arayuz }}
+        if: ${{ !inputs.sadece_arayuz && !inputs.sadece_sunucu }}
         uses: actions/upload-artifact@v7
         with:
           name: ${{ env.APK_ADI }}-${{ steps.hazirlik.outputs.surum }}
@@ -188,7 +193,7 @@ jobs:
           compression-level: 0
 
       - name: Telefondan indirme bağlantısını yenile
-        if: ${{ !inputs.sadece_arayuz && steps.apk.outputs.boyut_mb < 2000 }}
+        if: ${{ !inputs.sadece_arayuz && !inputs.sadece_sunucu && steps.apk.outputs.boyut_mb < 2000 }}
         env:
           GH_TOKEN: ${{ github.token }}
           APK_YOLU: ${{ steps.apk.outputs.yol }}
@@ -228,7 +233,7 @@ jobs:
         # editörde oyun modunda: yeni oyun, 15 haritaya ışınlanma, otomatik av; hatalar tani/oyun_testi.* dosyalarına
         # (Assets/Otuken/Editor/OyunTesti.cs). APK zaten yayımlandı; bu adım tutmazsa derleme bozulmaz.
         # Lisans GameCI gibi etkinleştirilir (kişisel lisans dosyasındaki seri numarası + hesap) ve sonunda geri verilir.
-        if: ${{ inputs.oyun_testi && (inputs.sadece_arayuz || steps.apk.outcome == 'success') }}
+        if: ${{ inputs.oyun_testi && !inputs.sadece_sunucu && (inputs.sadece_arayuz || steps.apk.outcome == 'success') }}
         continue-on-error: true
         timeout-minutes: 50
         env:
@@ -292,7 +297,7 @@ jobs:
         # aynı çalışma alanında, telefon derlemesinden sonra: sahneler ve ağ kimlikleri APK ile aynı (AgHazirlik).
         # Tutmazsa APK etkilenmez.
         id: sunucu
-        if: ${{ !inputs.sadece_arayuz && steps.apk.outcome == 'success' }}
+        if: ${{ !inputs.sadece_arayuz && (inputs.sadece_sunucu || steps.apk.outcome == 'success') }}
         continue-on-error: true
         timeout-minutes: 90
         uses: game-ci/unity-builder@v4
@@ -304,7 +309,7 @@ jobs:
           targetPlatform: StandaloneLinux64
           buildName: OtukenSunucu
           buildMethod: Otuken.EditorAraclari.Derleme.SunucuDerle
-          customParameters: -istemciSurumu ${{ steps.hazirlik.outputs.surum }}
+          customParameters: -istemciSurumu ${{ steps.hazirlik.outputs.surum }} ${{ inputs.sadece_sunucu && '-haritalariHazirla' || '' }}
           # telefon derlemesi sahneleri işledi (yürüme ağı, ağ nesneleri): çalışma alanı bilerek "kirli"
           allowDirtyBuild: true
           versioning: Custom
@@ -320,15 +325,19 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           SURUM: ${{ steps.hazirlik.outputs.surum }}
+          YAYIMLA: ${{ !inputs.sadece_sunucu }}
         run: |
           mkdir -p tani
-          ikili=$(find build/StandaloneLinux64 -maxdepth 2 -name '*.x86_64' | head -n 1)
+          set +e
+          # derleme kapsayıcıda root olarak yazıldı: önce sahiplik, sonra arama
+          sudo chown -R "$(id -u):$(id -g)" build/StandaloneLinux64 2>/dev/null
+          ls -la build/StandaloneLinux64 | head -n 20
+          ikili=$(find build/StandaloneLinux64 -maxdepth 2 -name '*.x86_64' 2>/dev/null | head -n 1)
           if [ -z "$ikili" ]; then
             echo "::warning title=Sunucu::derlendi ama .x86_64 dosyası yok"; ls -la build/StandaloneLinux64 || true; exit 0
           fi
           klasor=$(dirname "$ikili")
-          cat "$klasor/derleme.txt" 2>/dev/null || true
-          sudo chown -R "$(id -u):$(id -g)" "$klasor" || true
+          cat "$klasor/derleme.txt" 2>/dev/null
           chmod +x "$ikili"
           "$ikili" -batchmode -nographics --serverport 7770 --servermode MMO -logFile "$PWD/tani/sunucu_deneme.log" &
           pid=$!
@@ -367,6 +376,10 @@ jobs:
           printf 'surum=%s\nbasladi=%s\ndinliyor=%s\nhata_satiri=%s\n' "$SURUM" "$basladi" "$dinliyor" "$hata" > tani/sunucu_durum.txt
           if [ "$basladi" != "1" ]; then
             echo "::warning title=Sunucu::denemede açılmadı (tani/sunucu_deneme_son.log); yayımlanmadı"; exit 0
+          fi
+          for b in Bot1 Bot2; do echo "$b: $(grep 'SONUÇ' tani/ag_botu_$b.txt 2>/dev/null | tail -n 1)" >> "$GITHUB_STEP_SUMMARY"; done
+          if [ "$YAYIMLA" != "true" ]; then
+            echo "yalnız sunucu denemesi: yayımlanmadı"; exit 0
           fi
           (cd "$klasor" && zip -qr "$GITHUB_WORKSPACE/OtukenSunucu.zip" .)
           printf '%s\n' "$SURUM" > surum.txt
@@ -416,7 +429,7 @@ jobs:
       # ---- hata panosu (hata-kayitlari dalı): son derlemenin sonucu ve tanı uyarıları
       # (APK adımlarından sonra ve hata verse bile derlemeyi bozmaz)
       - name: Hata panosu dalını indir
-        if: ${{ always() && !inputs.sadece_arayuz && !cancelled() }}
+        if: ${{ always() && !inputs.sadece_arayuz && !inputs.sadece_sunucu && !cancelled() }}
         continue-on-error: true
         uses: actions/checkout@v7
         with:
@@ -424,7 +437,7 @@ jobs:
           path: kayit-dali
 
       - name: Derleme sonucunu hata panosuna yaz
-        if: ${{ always() && !inputs.sadece_arayuz && !cancelled() }}
+        if: ${{ always() && !inputs.sadece_arayuz && !inputs.sadece_sunucu && !cancelled() }}
         continue-on-error: true
         env:
           SONUC: ${{ job.status }}

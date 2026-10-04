@@ -394,9 +394,15 @@ namespace Otuken.EditorAraclari {
             string[] listeler = AssetDatabase.FindAssets("t:DefaultPrefabObjects");
             Object liste = listeler.Length > 0 ? AssetDatabase.LoadAssetAtPath<Object>(AssetDatabase.GUIDToAssetPath(listeler[0])) : null;
             int prefabSayisi = 0;
-            if (liste != null) {
-                MethodInfo say = liste.GetType().GetMethod("GetObjectCount");
-                prefabSayisi = say != null ? (int)say.Invoke(liste, null) : -1;
+            int bizim = 0;
+            FishNet.Managing.Object.SinglePrefabObjects tekli = liste as FishNet.Managing.Object.SinglePrefabObjects;
+            if (tekli != null) {
+                prefabSayisi = tekli.Prefabs.Count;
+                foreach (FishNet.Object.NetworkObject p in tekli.Prefabs) {
+                    if (p != null && AssetDatabase.GetAssetPath(p).StartsWith(UretilenKlasor)) {
+                        bizim++;
+                    }
+                }
             }
 
             Scene sahne = EditorSceneManager.OpenScene(OyunSahnesi, OpenSceneMode.Single);
@@ -423,23 +429,10 @@ namespace Otuken.EditorAraclari {
                     s.ApplyModifiedPropertiesWithoutUndo();
                 }
             }
-            int baglanan = 0;
-            foreach (MonoBehaviour yonetici in new MonoBehaviour[] {
-                oyun.GetComponentInChildren<AnyRPG.NetworkManagerClient>(true), oyun.GetComponentInChildren<AnyRPG.NetworkManagerServer>(true) }) {
-                if (yonetici == null) {
-                    continue;
-                }
-                SerializedObject s = new SerializedObject(yonetici);
-                SerializedProperty p = s.FindProperty("networkController");
-                if (p != null) {
-                    p.objectReferenceValue = denetci;
-                    s.ApplyModifiedPropertiesWithoutUndo();
-                    baglanan++;
-                }
-            }
+            // NetworkManagerClient/Server.networkController serileştirilmez: FishNetNetworkController çalışınca kendini bağlar
             EditorSceneManager.MarkSceneDirty(sahne);
             EditorSceneManager.SaveScene(sahne);
-            Yaz($"ağ yöneticisi: oyun sahnesinde, {baglanan}/2 yöneticiye bağlandı; doğurulabilir prefab: {prefabSayisi}"
+            Yaz($"ağ yöneticisi: oyun sahnesinde; doğurulabilir prefab: {prefabSayisi} (üretilen model varyantı {bizim})"
                 + (liste != null ? " (" + AssetDatabase.GetAssetPath(liste) + ")" : " (liste YOK)"));
         }
     }

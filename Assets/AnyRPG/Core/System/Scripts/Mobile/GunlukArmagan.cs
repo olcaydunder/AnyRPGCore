@@ -79,6 +79,8 @@ namespace AnyRPG {
         /// called every frame by MobileBootstrap
         /// </summary>
         public static void Tick(SystemGameManager systemGameManager, bool inGame) {
+            // çevrimiçi oyunda karakter sunucudadır: telefondan ödül/yetenek verilmez (Cevrimici)
+            inGame = inGame && (systemGameManager == null || systemGameManager.GameMode != GameMode.Network);
             if (inGame == false || systemGameManager == null) {
                 inGameSince = -1f;
                 checkedKey = string.Empty;

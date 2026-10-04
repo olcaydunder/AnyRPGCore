@@ -350,6 +350,9 @@ namespace AnyRPG {
 
         /// <param name="force">otomatik oyun testi için: savaşta da ışınla</param>
         public static string Teleport(string sceneName, bool force) {
+            if (Cevrimici.Acik) {
+                return "Çevrimiçi oyunda diyarlar arasında kapılardan geçilir (Geçit Taşı ile ışınlanma yakında).";
+            }
             Ensure();
             SystemGameManager gameManager = instance.GameManager;
             PlayerManagerClient playerManagerClient = gameManager != null ? gameManager.PlayerManagerClient : null;

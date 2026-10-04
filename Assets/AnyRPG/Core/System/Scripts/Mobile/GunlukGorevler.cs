@@ -117,6 +117,8 @@ namespace AnyRPG {
 
         /// <summary>MobileBootstrap saniyede bir çağırır</summary>
         public static void Tick(SystemGameManager systemGameManager, bool oyunda) {
+            // çevrimiçi oyunda karakter sunucudadır: telefondan ödül/yetenek verilmez (Cevrimici)
+            oyunda = oyunda && (systemGameManager == null || systemGameManager.GameMode != GameMode.Network);
             oyun = systemGameManager;
             UnitController oyuncu = oyunda && systemGameManager != null && systemGameManager.PlayerManagerClient != null
                 ? systemGameManager.PlayerManagerClient.UnitController : null;
@@ -378,6 +380,9 @@ namespace AnyRPG {
         }
 
         public static void Goster() {
+            if (Cevrimici.Engelle("Günlük görevler")) {
+                return;
+            }
             if (takipEdilen == null) {
                 return;
             }

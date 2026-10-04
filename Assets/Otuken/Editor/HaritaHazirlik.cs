@@ -91,6 +91,14 @@ namespace Otuken.EditorAraclari {
         }
 
         private static void SunucuDerleIc(StringBuilder kayit) {
+            if (Environment.GetCommandLineArgs().Contains("-haritalariHazirla")) {
+                // yalnız sunucu denemesi: telefon derlemesi yapılmadı, haritaları (yürüme ağı) burada hazırla
+                try {
+                    HaritaHazirlik.Calistir();
+                } catch (Exception e) {
+                    Debug.LogError("HaritaHazirlik başarısız oldu, derlemeye devam ediliyor: " + e);
+                }
+            }
             try {
                 AgHazirlik.Calistir();
             } catch (Exception e) {

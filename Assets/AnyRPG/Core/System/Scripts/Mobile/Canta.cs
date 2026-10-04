@@ -338,6 +338,9 @@ namespace AnyRPG {
 
         /// <summary>çanta penceresindeki "Toplu Sat" düğmesi</summary>
         public static void TopluSatisGoster() {
+            if (Cevrimici.Engelle("Toplu satış")) {
+                return;
+            }
             if (Oyuncu == null) {
                 return;
             }
@@ -350,6 +353,9 @@ namespace AnyRPG {
 
         /// <summary>çanta penceresindeki "Sırala" düğmesi</summary>
         public static void SiralaDugmesi() {
+            if (Cevrimici.Engelle("Çanta sıralama")) {
+                return;
+            }
             MobileFeedback.Tap();
             Sirala(Oyuncu);
         }

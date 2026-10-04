@@ -253,6 +253,9 @@ namespace AnyRPG {
         }
 
         public static void Goster() {
+            if (Cevrimici.Engelle("Demirci")) {
+                return;
+            }
             Ensure();
             instance.Ac();
         }
