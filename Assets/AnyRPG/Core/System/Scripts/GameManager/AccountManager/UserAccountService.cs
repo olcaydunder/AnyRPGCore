@@ -99,9 +99,12 @@ namespace AnyRPG {
             }
 
             // create new account
+            // Ötüken: AnyRPG şifreyi hiç koymuyordu (boş şifrenin özeti saklanıyordu); hesap ilk girişte açılıyor, ikinci
+            // girişte "şifre yanlış" ile reddediliyordu. ProvideSaltAndHash buradaki düz şifreyi tuzlayıp özetine çevirir.
             UserAccount userAccount = new UserAccount() {
                 Id = serverDataService.GetNewAccountId(),
                 UserName = username,
+                PasswordHash = password ?? string.Empty,
             };
 
             // populate salt and hash values

@@ -361,6 +361,12 @@ jobs:
           ss -lun | grep -q ':7770' && dinliyor=1
           # çok oyunculu deneme: iki istemci botu sunucuya girer, dünyada 60 sn dolaşır (AnyRPG.AgBotu)
           if [ "$basladi" = "1" ] && [ -n "$istemci" ]; then
+            # önce Bot2 hesap ve karakter açıp çıkar; asıl denemede aynı hesapla yeniden girer (şifre ve kayıtlı karakter sınanır)
+            timeout 300 xvfb-run -a "$istemci" -batchmode -istemciBotu Bot2 -adres 127.0.0.1:7770 -sure 1 \
+              -rapor "$PWD/tani/ag_botu_Bot2_ilk.txt" -logFile "$PWD/tani/ag_botu_Bot2_ilk.log"
+            s=$(grep 'SONUÇ' tani/ag_botu_Bot2_ilk.txt 2>/dev/null | tail -n 1)
+            echo "::notice title=Çevrimiçi Bot2 ilk giriş::${s:-rapor yok}"
+            rm -f tani/ag_botu_Bot2_ilk.log
             for b in Bot1 Bot2; do
               xvfb-run -a "$istemci" -batchmode -istemciBotu $b -adres 127.0.0.1:7770 -sure 90 \
                 -rapor "$PWD/tani/ag_botu_$b.txt" -logFile "$PWD/tani/ag_botu_$b.log" &

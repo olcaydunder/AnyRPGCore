@@ -84,8 +84,17 @@ namespace AnyRPG {
             }
 
             if (userAccount.PasswordHash != AuthenticationHelpers.ComputeHash(authenticationRequest.Password, userAccount.Salt)) {
-                //Debug.Log($"[LOGIN] invalid password for user {authenticationRequest.UserName}");
-                return (null, "Invalid password");
+                // Ötüken: eski sürümler hesabı şifresiz kaydediyordu (UserAccountService.CreateNewAccount). Böyle bir hesaba
+                // ilk girişte verilen şifre hesabın şifresi olur; sonraki girişler bu şifreyle yapılır.
+                if (string.IsNullOrEmpty(authenticationRequest.Password) == false
+                    && userAccount.PasswordHash == AuthenticationHelpers.ComputeHash(string.Empty, userAccount.Salt)) {
+                    userAccount.PasswordHash = AuthenticationHelpers.ComputeHash(authenticationRequest.Password, userAccount.Salt);
+                    serverDataService.SaveAccount(userAccount);
+                    Debug.Log($"[Sunucu] {authenticationRequest.UserName} hesabına şifre kaydedildi (eski şifresiz hesap)");
+                } else {
+                    //Debug.Log($"[LOGIN] invalid password for user {authenticationRequest.UserName}");
+                    return (null, "Invalid password");
+                }
             }
 
             //Debug.Log($"[LOGIN] Successfully logged in user {authenticationRequest.UserName}");
