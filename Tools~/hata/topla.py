@@ -381,7 +381,7 @@ def pano(durum):
             for h in bot["haritalar"]:
                 isaret = "✅" if h.get("sonuc") == "tamam" and not h.get("hata") else ("⚠️" if h.get("sonuc") == "tamam" else "❌")
                 parcalar.append(f"| {isaret} | {tablo_hucresi(h.get('ad') or h.get('sahne'))} | {tablo_hucresi(h.get('sonuc'))} | "
-                                f"{int(h.get('yuklemeSuresi') or 0)} sn | {h.get('hata') or 0} | {tablo_hucresi(h.get('not') or '')} |")
+                                f"{int(h.get('yuklemeSuresi') or 0)} sn | {h.get('hata') or 0} | {tablo_hucresi('; '.join(x for x in (h.get('not'), h.get('bilgi')) if x))} |")
             parcalar.append("")
     baslik = "| Durum | Sorun | Tür | Tekrar | Cihaz | Sürüm | Son görülme |\n|---|---|---|---|---|---|---|"
     parcalar += ["## Açık sorunlar", ""]

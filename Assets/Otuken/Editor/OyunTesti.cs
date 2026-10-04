@@ -44,6 +44,7 @@ namespace Otuken.EditorAraclari {
             public float yuklemeSuresi;
             public int hata;
             public string not;
+            public string bilgi;
             public string goruntu;
         }
 
@@ -66,7 +67,7 @@ namespace Otuken.EditorAraclari {
             public List<HataKaydi> hatalar = new List<HataKaydi>();
         }
 
-        private enum Adim { OyunModu, Acilis, YeniOyun, Dogus, Bekle, Isinla, Bitti }
+        private enum Adim { OyunModu, Acilis, YeniOyun, Dogus, Bekle, Dirilis, Bitti }
 
         private static readonly object kilit = new object();
         private static Rapor rapor;
@@ -258,6 +259,16 @@ namespace Otuken.EditorAraclari {
                     HaritaBitir(sonuc.not == null ? "tamam" : "sorunlu");
                     SonrakiHarita(oyun);
                     break;
+
+                case Adim.Dirilis:
+                    // ölen oyuncu ölüm penceresindeki "yeniden doğ" yoluyla dirilir, sonra yolculuk sürer
+                    AnyRPG.PlayerManagerClient pm = oyun != null ? oyun.PlayerManagerClient : null;
+                    bool dirildi = pm != null && pm.PlayerUnitSpawned && pm.UnitController != null
+                        && pm.UnitController.CharacterStats != null && pm.UnitController.CharacterStats.IsAlive;
+                    if ((dirildi && AdimSuresi > 2) || AdimSuresi > 60) {
+                        Isinla(oyun);
+                    }
+                    break;
             }
         }
 
@@ -283,9 +294,23 @@ namespace Otuken.EditorAraclari {
                 Bitir("tamamlandı");
                 return;
             }
+            AnyRPG.OtomatikAv.Kapat();
+            AnyRPG.UnitController oyuncu = oyun != null && oyun.PlayerManagerClient != null ? oyun.PlayerManagerClient.UnitController : null;
+            if (oyuncu != null && oyuncu.CharacterStats != null && oyuncu.CharacterStats.IsAlive == false) {
+                Debug.Log("[OyunTesti] oyuncu öldü, yeniden doğuyor");
+                if (oyun.UIManager != null && oyun.UIManager.playerOptionsMenuWindow != null) {
+                    oyun.UIManager.playerOptionsMenuWindow.CloseWindow();
+                }
+                oyun.PlayerManagerClient.RequestRespawnPlayer();
+                Gec(Adim.Dirilis);
+                return;
+            }
+            Isinla(oyun);
+        }
+
+        private static void Isinla(AnyRPG.SystemGameManager oyun) {
             string sahne = sahneler[sira];
             HaritaBasla(sahne);
-            AnyRPG.OtomatikAv.Kapat();
             string engel = AnyRPG.IsinlanmaPenceresi.Teleport(sahne, true);
             if (engel != null) {
                 sonuc.not = engel;
@@ -313,7 +338,8 @@ namespace Otuken.EditorAraclari {
                 notlar.Add("oyuncu yürüme ağının dışında " + p.ToString("F1"));
             }
             if (oyuncu.CharacterStats != null && oyuncu.CharacterStats.IsAlive == false) {
-                notlar.Add("oyuncu öldü");
+                // ışınlanma her haritaya açık: 1. seviye karakter zor haritada ölebilir (sorun değil, bilgi)
+                sonuc.bilgi = "oyuncu öldü (" + oyuncu.CharacterStats.Level + ". seviye), yeniden doğdu";
             }
             YolDenetle(p, notlar);
             MalzemeDenetle(notlar);
@@ -460,6 +486,9 @@ namespace Otuken.EditorAraclari {
                     .Append(", yükleme ").Append(h.yuklemeSuresi.ToString("0")).Append(" sn, ").Append(h.hata).Append(" hata");
                 if (string.IsNullOrEmpty(h.not) == false) {
                     sb.Append(" — ").Append(h.not);
+                }
+                if (string.IsNullOrEmpty(h.bilgi) == false) {
+                    sb.Append(" (").Append(h.bilgi).Append(')');
                 }
                 sb.Append('\n');
             }
