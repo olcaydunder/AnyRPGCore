@@ -316,7 +316,7 @@ jobs:
         # yeni sürümü kendisi indirir.
         if: ${{ !inputs.sadece_arayuz && steps.sunucu.outcome == 'success' }}
         continue-on-error: true
-        timeout-minutes: 15
+        timeout-minutes: 25
         env:
           GH_TOKEN: ${{ github.token }}
           SURUM: ${{ steps.hazirlik.outputs.surum }}
@@ -341,6 +341,24 @@ jobs:
           sleep 5
           dinliyor=0
           ss -lun | grep -q ':7770' && dinliyor=1
+          # çok oyunculu deneme: aynı dosyadan iki istemci botu sunucuya girer, dünyada 60 sn dolaşır (AnyRPG.AgBotu)
+          if [ "$basladi" = "1" ]; then
+            for b in Bot1 Bot2; do
+              "$ikili" -batchmode -nographics -istemciBotu $b -adres 127.0.0.1:7770 -sure 60 \
+                -rapor "$PWD/tani/ag_botu_$b.txt" -logFile "$PWD/tani/ag_botu_$b.log" &
+              eval "pid_$b=\$!"
+              sleep 8
+            done
+            for i in $(seq 1 300); do
+              sleep 1
+              kill -0 $pid_Bot1 2>/dev/null || kill -0 $pid_Bot2 2>/dev/null || break
+            done
+            kill -9 $pid_Bot1 $pid_Bot2 2>/dev/null || true
+            for b in Bot1 Bot2; do
+              echo "--- $b"; cat "tani/ag_botu_$b.txt" 2>/dev/null || echo "rapor yok"
+              [ -f "tani/ag_botu_$b.log" ] && tail -n 2000 "tani/ag_botu_$b.log" > "tani/ag_botu_$b.son.log" && rm -f "tani/ag_botu_$b.log"
+            done
+          fi
           kill $pid 2>/dev/null; sleep 3; kill -9 $pid 2>/dev/null || true
           hata=$(grep -c -E "Exception|Error|error CS" tani/sunucu_deneme.log 2>/dev/null || true)
           echo "başladı=$basladi dinliyor=$dinliyor hata satırı=$hata"
@@ -363,6 +381,7 @@ jobs:
           {
             echo "## Oyun sunucusu $SURUM"
             echo "başladı: $basladi, UDP 7770: $dinliyor, boyut: $(( $(stat -c %s OtukenSunucu.zip) / 1048576 )) MB"
+            for b in Bot1 Bot2; do echo ""; echo "$b: $(grep 'SONUÇ' tani/ag_botu_$b.txt 2>/dev/null | tail -n 1)"; done
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Tanı raporunu yükle (yürüme ağı, ekran görüntüleri)

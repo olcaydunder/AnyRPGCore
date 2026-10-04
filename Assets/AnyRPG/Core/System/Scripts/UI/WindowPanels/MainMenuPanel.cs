@@ -68,6 +68,11 @@ namespace AnyRPG {
 
         public void PlayOnlineMenu() {
             //Debug.Log("MainMenuController.PlayOnlineMenu()");
+            // Ötüken: telefonda sunucu barındırma yok; "Çevrim İçi Oyna" doğrudan giriş penceresini açar
+            if (Application.isMobilePlatform) {
+                NetworkLoginMenu();
+                return;
+            }
             uIManager.playMenuWindow.CloseWindow();
             uIManager.exitMenuWindow.CloseWindow();
             uIManager.deleteGameMenuWindow.CloseWindow();

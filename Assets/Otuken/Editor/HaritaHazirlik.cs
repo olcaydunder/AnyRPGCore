@@ -64,8 +64,8 @@ namespace Otuken.EditorAraclari {
 
         /// <summary>
         /// Linux oyun sunucusu (workflow'da Android derlemesinden sonra, aynı çalışma alanında: sahneler ve ağ kimlikleri
-        /// telefon sürümüyle aynı). Ayrılmış sunucu (Dedicated Server) modülü varsa onunla, yoksa olağan Linux oyunu
-        /// olarak derlenir; ikisi de "-batchmode -nographics -sunucu" ile başsız çalışır (AnyRPG.Sunucu).
+        /// telefon sürümüyle aynı). Olağan Linux oyunu olarak derlenir; "-batchmode -nographics -sunucu" ile başsız
+        /// sunucu (AnyRPG.Sunucu), "-istemciBotu Ad" ile otomatik denemenin istemcisi olur (AnyRPG.AgBotu).
         /// </summary>
         public static void SunucuDerle() {
             try {
@@ -82,7 +82,8 @@ namespace Otuken.EditorAraclari {
             Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(yol)));
             string[] sahneler = EditorBuildSettings.scenes.Where(s => s.enabled).Select(s => s.path).ToArray();
             PlayerSettings.SetScriptingBackend(UnityEditor.Build.NamedBuildTarget.Standalone, ScriptingImplementation.Mono2x);
-            foreach (StandaloneBuildSubtarget alt in new[] { StandaloneBuildSubtarget.Server, StandaloneBuildSubtarget.Player }) {
+            // olağan Linux oyunu: aynı dosya hem sunucu ("-sunucu") hem otomatik denemedeki istemci botudur ("-istemciBotu")
+            foreach (StandaloneBuildSubtarget alt in new[] { StandaloneBuildSubtarget.Player }) {
                 BuildPlayerOptions secenek = new BuildPlayerOptions() {
                     scenes = sahneler,
                     locationPathName = yol,
