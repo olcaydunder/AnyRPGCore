@@ -448,10 +448,41 @@ def prefab_temizle(metin, kaynak, gecerli):
     bilesenleri_temizle(s, kaynak)
     s.kullanilmayan_gomulu_sil()
     metin = s.metin()
-    metin = isik_duzelt(katman_duzelt(metin))
+    metin = wip_malzeme_duzelt(isik_duzelt(katman_duzelt(metin)))
     if gecerli is not None:
         metin = degisiklik_temizle(metin, gecerli)
     return metin
+
+
+# Chop Chop'un yarım kalmış ProBuilder parçaları (merdiven, kemer, iskele, ev zemini) dokusu olmayan
+# WIP malzemesiyle düz gri görünüyordu (oyun testi: Kaf Dağı Yolu girişinde gri duvar).
+WIP_MALZEME = "27fd0bb504f007f42a738e4e113a10f4"      # WIP/Materials/Probuilder_Toon.mat
+WIP_YERINE = "fa9e1f24076f7154bbf0c0960bf2b7e2"       # Art/Nature/Rocks_Medium/Rock_Medium.mat
+WIP_AHSAP = "caa7f5772bebd2a48a02b14b43382cf5"        # Art/Props/Festival/WoodplankLight.mat
+
+
+def wip_malzeme_duzelt(metin):
+    if WIP_MALZEME not in metin:
+        return metin
+    belgeler = metin.split("\n--- ")
+    adlar = {}
+    for b in belgeler:
+        m = re.match(r"!u!1 &(-?\d+)", b)
+        if m:
+            ad = re.search(r"\n  m_Name: (.*)", b)
+            adlar[m.group(1)] = ad.group(1) if ad else ""
+    for i, b in enumerate(belgeler):
+        if not b.startswith("!u!23 ") or WIP_MALZEME not in b:
+            continue
+        go = re.search(r"m_GameObject: \{fileID: (-?\d+)", b)
+        ad = adlar.get(go.group(1), "") if go else ""
+        if ad.startswith("Boundary"):
+            # görünmez sınır duvarı: çarpışma kalır, görüntü kapanır
+            b = re.sub(r"\n  m_Enabled: 1", "\n  m_Enabled: 0", b, count=1)
+        else:
+            b = b.replace(WIP_MALZEME, WIP_AHSAP if ad in ("Pier",) else WIP_YERINE)
+        belgeler[i] = b
+    return "\n--- ".join(belgeler)
 
 
 # ---------------------------------------------------------------- varlık kopyalama

@@ -315,8 +315,63 @@ namespace Otuken.EditorAraclari {
             if (oyuncu.CharacterStats != null && oyuncu.CharacterStats.IsAlive == false) {
                 notlar.Add("oyuncu öldü");
             }
+            YolDenetle(p, notlar);
+            MalzemeDenetle(notlar);
             if (notlar.Count > 0) {
                 sonuc.not = string.Join("; ", notlar);
+            }
+        }
+
+        /// <summary>geçit taşına ve komşu haritalara açılan kapılara oyuncunun durduğu yerden yürünebiliyor mu</summary>
+        private static void YolDenetle(Vector3 oyuncuYeri, List<string> notlar) {
+            NavMeshHit baslangic;
+            if (NavMesh.SamplePosition(oyuncuYeri, out baslangic, 3f, NavMesh.AllAreas) == false) {
+                return;
+            }
+            Scene sahne = SceneManager.GetActiveScene();
+            List<string> yolsuz = new List<string>();
+            NavMeshPath yol = new NavMeshPath();
+            foreach (GameObject kok in sahne.GetRootGameObjects()) {
+                string ad = kok.name;
+                bool gecit = ad == "GecitTasi";
+                // uçurum altındaki geniş "düşenleri yakala" kutuları kapı sayılmaz
+                bool kapi = ad.StartsWith("Kapi_", StringComparison.Ordinal) && kok.transform.lossyScale.x <= 12f && kok.transform.lossyScale.z <= 12f;
+                if (gecit == false && kapi == false) {
+                    continue;
+                }
+                NavMeshHit hedef;
+                if (NavMesh.SamplePosition(kok.transform.position, out hedef, 6f, NavMesh.AllAreas) == false
+                    || NavMesh.CalculatePath(baslangic.position, hedef.position, NavMesh.AllAreas, yol) == false
+                    || yol.status != NavMeshPathStatus.PathComplete) {
+                    yolsuz.Add(ad + " " + kok.transform.position.ToString("F0"));
+                }
+            }
+            if (yolsuz.Count > 0) {
+                notlar.Add("yürüyerek ulaşılamayan: " + string.Join(", ", yolsuz));
+            }
+        }
+
+        /// <summary>malzemesi eksik (boş yuva) ya da gölgelendiricisi bozuk (pembe görünen) nesneler</summary>
+        private static void MalzemeDenetle(List<string> notlar) {
+            Scene sahne = SceneManager.GetActiveScene();
+            List<string> bozuk = new List<string>();
+            int adet = 0;
+            foreach (Renderer r in Object.FindObjectsByType<Renderer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)) {
+                if (r.enabled == false || r.gameObject.scene != sahne || r is ParticleSystemRenderer || r is TrailRenderer || r is LineRenderer) {
+                    continue;
+                }
+                foreach (Material m in r.sharedMaterials) {
+                    if (m == null || m.shader == null || m.shader.isSupported == false || m.shader.name == "Hidden/InternalErrorShader") {
+                        adet++;
+                        if (bozuk.Count < 5) {
+                            bozuk.Add(r.name + (m == null ? " (malzeme yok)" : " (" + m.name + ")"));
+                        }
+                        break;
+                    }
+                }
+            }
+            if (adet > 0) {
+                notlar.Add(adet + " nesnede eksik/bozuk malzeme: " + string.Join(", ", bozuk));
             }
         }
 
