@@ -190,8 +190,16 @@ namespace AnyRPG {
                 Bitir("SONUÇ: dünyaya girilemedi (120 sn)");
                 yield break;
             }
-            Not("dünyada: " + UnityEngine.SceneManagement.SceneManager.GetActiveScene().name + ", konum " + ben.transform.position.ToString("0"));
+            Not("dünyada: " + UnityEngine.SceneManagement.SceneManager.GetActiveScene().name + ", konum " + ben.transform.position.ToString("0")
+                + (ben.CharacterStats.IsAlive ? ", canlı" : ", ÖLÜ (önceki oturumda ölmüş)"));
             yield return new WaitForSecondsRealtime(5f);
+            // ölü girdiyse oyuncunun yapacağı gibi ölüm penceresinden yeniden doğ
+            yield return Diril(oyun);
+            ben = oyun.PlayerManagerClient.UnitController;
+            if (ben == null) {
+                Bitir("SONUÇ: yeniden doğduktan sonra oyuncu birimi yok");
+                yield break;
+            }
 
             // yürüme: hareket çubuğu 4 sn ileri (sunucu hareketi kabul edip ötekilere yayıyor mu)
             Vector3 yurumeOncesi = ben.transform.position;
@@ -220,6 +228,10 @@ namespace AnyRPG {
             while (Time.realtimeSinceStartup - t < sure) {
                 yield return new WaitForSecondsRealtime(5f);
                 ben = oyun.PlayerManagerClient.UnitController;
+                if (ben != null && ben.CharacterStats.IsAlive == false) {
+                    yield return Diril(oyun);
+                    ben = oyun.PlayerManagerClient.UnitController;
+                }
                 if (ben == null) {
                     Not("oyuncu birimi kayboldu");
                     break;
@@ -264,8 +276,46 @@ namespace AnyRPG {
             Bitir("SONUÇ: " + (enCokOyuncu > 0 ? "öteki oyuncu GÖRÜLDÜ (" + string.Join(", ", gorulenOyuncular) + ", onun yürüyüşü " + otekiYuruyus.ToString("0") + " m)" : "öteki oyuncu görülmedi")
                 + ", en çok NPC/düşman " + enCokNpc + ", çubukla " + yurunen.ToString("0") + " m, toplam yer değiştirme " + Vector3.Distance(ilkKonum, son).ToString("0") + " m"
                 + ", " + saldiri + " saldırı isteği"
+                + (olum > 0 ? ", " + olum + " ölüm / " + dirilme + " yeniden doğma" + (olumPenceresi < olum ? " (ölüm penceresi " + olumPenceresi + " kez açıldı)" : string.Empty) : string.Empty)
                 + ", seviye " + ilkSeviye + " → " + (ben != null ? ben.CharacterStats.Level : 0)
                 + ", tecrübe " + ilkTecrube + " → " + (ben != null ? ben.CharacterStats.CurrentXP : 0));
+        }
+
+        private int olum = 0;
+        private int dirilme = 0;
+        private int olumPenceresi = 0;
+
+        /// <summary>oyuncu ölüyse ölüm penceresinin açıldığını denetler ve "Yeniden doğ" düğmesinin yaptığını yapar</summary>
+        private IEnumerator Diril(SystemGameManager oyun) {
+            UnitController ben = oyun.PlayerManagerClient.UnitController;
+            if (ben == null || ben.CharacterStats.IsAlive) {
+                yield break;
+            }
+            olum++;
+            Vector3 olduguYer = ben.transform.position;
+            // pencere ölümden 2 sn sonra açılır
+            yield return new WaitForSecondsRealtime(3f);
+            CloseableWindow pencere = oyun.UIManager != null ? oyun.UIManager.playerOptionsMenuWindow : null;
+            bool acik = pencere != null && pencere.IsOpen;
+            if (acik) {
+                olumPenceresi++;
+                pencere.CloseWindow();
+            }
+            oyun.PlayerManagerClient.RequestRespawnPlayer();
+            float t = Time.realtimeSinceStartup;
+            while (Time.realtimeSinceStartup - t < 30f) {
+                yield return new WaitForSecondsRealtime(0.5f);
+                ben = oyun.PlayerManagerClient.UnitController;
+                if (ben != null && ben.CharacterStats.IsAlive) {
+                    break;
+                }
+            }
+            bool dirildi = ben != null && ben.CharacterStats.IsAlive;
+            if (dirildi) {
+                dirilme++;
+            }
+            Not("ölüm: " + olduguYer.ToString("0") + ", ölüm penceresi " + (acik ? "açıktı" : "AÇILMAMIŞTI") + "; yeniden doğma "
+                + (dirildi ? "oldu: " + ben.transform.position.ToString("0") : "OLMADI (30 sn)"));
         }
 
         private static UnitController EnYakinDusman(UnitController ben) {
