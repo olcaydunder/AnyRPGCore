@@ -161,7 +161,7 @@ namespace AnyRPG {
         }
 
         /// <summary>
-        /// eşya kuşanılabiliyorsa ve uyduğu yuvalardan biri boşsa ya da oradakinden güçlüyse, kazanacağı değer; değilse -1
+        /// eşya kuşanılabiliyorsa ve uyduğu yuvalardan biri boşsa (en az 1) ya da oradakinden güçlüyse, kazanacağı değer; değilse -1
         /// </summary>
         public static float DahaIyiMi(InstantiatedEquipment esya, UnitController oyuncu) {
             if (esya == null || esya.Equipment == null || esya.Equipment.EquipmentSlotType == null || oyuncu.CharacterEquipmentManager == null) {
@@ -181,8 +181,11 @@ namespace AnyRPG {
                 if (yuva == null || oyuncu.CharacterEquipmentManager.CurrentEquipment.TryGetValue(yuva, out kusanili) == false) {
                     continue;
                 }
-                float eski = kusanili == null || kusanili.InstantiatedEquipment == null ? 0f : EsyaDegeri(kusanili.InstantiatedEquipment, oyuncu);
-                enZayif = Mathf.Min(enZayif, eski);
+                if (kusanili == null || kusanili.InstantiatedEquipment == null) {
+                    // boş yuva: kuşanmak her zaman kazançtır
+                    return Mathf.Max(1f, yeni);
+                }
+                enZayif = Mathf.Min(enZayif, EsyaDegeri(kusanili.InstantiatedEquipment, oyuncu));
             }
             if (enZayif == float.MaxValue) {
                 return -1f;

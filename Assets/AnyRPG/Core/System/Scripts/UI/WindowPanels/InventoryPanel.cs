@@ -33,6 +33,8 @@ namespace AnyRPG {
             bagBarController.SetBagButtonCount(systemConfigurationManager.MaxInventoryBags);
             bagBarController.SetBagPanel(this);
             currencyBarController.Configure(systemGameManager);
+            // Ötüken: para satırının altında "Sırala" ve "Toplu Sat" (Canta)
+            Canta.CantaDugmeleriniEkle(transform);
         }
 
         public override void SetGameManagerReferences() {

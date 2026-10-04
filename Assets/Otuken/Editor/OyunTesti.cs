@@ -72,6 +72,7 @@ namespace Otuken.EditorAraclari {
             public string dunyaHaritasi;
             public string ilkHaritaAvi;
             public string demirciTesti;
+            public string cantaTesti;
             public string gelisim;
         }
 
@@ -481,12 +482,106 @@ namespace Otuken.EditorAraclari {
                 string kusan = oneriGeldi ? AnyRPG.Gelisim.TestIcinKusan(oyuncu) : "kart gelmedi";
                 rapor.demirciTesti = demirciOzet + "; seviye " + oyuncu.CharacterStats.Level + ", ödül " + (AnyRPG.Gelisim.VerilenOdulSayisi - demirciOdul)
                     + " (" + AnyRPG.Gelisim.SonOdul + "); çantaya +9 konunca: " + kusan + ", Güç Puanı " + AnyRPG.Gelisim.GucPuani(oyuncu);
+                try {
+                    rapor.cantaTesti = CantaTesti(oyun, oyuncu);
+                } catch (Exception e) {
+                    rapor.cantaTesti = "hata: " + e.Message;
+                    Debug.LogError("[OyunTesti] çanta denemesi: " + e);
+                }
                 return true;
             } catch (Exception e) {
                 rapor.demirciTesti = (demirciOzet != null ? demirciOzet + "; " : string.Empty) + "hata: " + e.Message;
                 Debug.LogError("[OyunTesti] demirci denemesi: " + e);
                 return true;
             }
+        }
+
+        private static int CantadakiEsya(AnyRPG.UnitController oyuncu) {
+            int adet = 0;
+            foreach (AnyRPG.InventorySlot yuva in oyuncu.CharacterInventoryManager.InventorySlots) {
+                if (yuva != null) {
+                    adet += yuva.Count;
+                }
+            }
+            return adet;
+        }
+
+        /// <summary>
+        /// Çanta denemesi: çantaya giyilen eşyanın 2 gri kopyası ve 3 Şifa İksiri konur; "Sırala" (eşya sayısı aynı mı, türler
+        /// sırada mı, arada boş yuva var mı) ve "Toplu Sat" (öneriler, satılan, kazanç, gri kalan, demirci eşyası korundu mu)
+        /// </summary>
+        private static string CantaTesti(AnyRPG.SystemGameManager oyun, AnyRPG.UnitController oyuncu) {
+            AnyRPG.CharacterInventoryManager canta = oyuncu.CharacterInventoryManager;
+            AnyRPG.ItemQuality gri = oyun.SystemDataFactory.GetResource<AnyRPG.ItemQuality>(AnyRPG.Ganimet.JunkQualityName);
+            string kaynak = null;
+            foreach (AnyRPG.InstantiatedEquipment e in AnyRPG.Demirci.Esyalar(oyuncu)) {
+                if (AnyRPG.Demirci.KusaniliMi(oyuncu, e)) {
+                    kaynak = e.ResourceName;
+                    break;
+                }
+            }
+            int griEklenen = 0;
+            for (int i = 0; i < 2 && kaynak != null && gri != null; i++) {
+                AnyRPG.InstantiatedItem kopya = canta.GetNewInstantiatedItem(kaynak, gri);
+                if (kopya != null && canta.AddItem(kopya, false)) {
+                    griEklenen++;
+                }
+            }
+            for (int i = 0; i < 3; i++) {
+                AnyRPG.InstantiatedItem iksir = canta.GetNewInstantiatedItem("Health Potion");
+                if (iksir != null) {
+                    canta.AddItem(iksir, false);
+                }
+            }
+            int once = CantadakiEsya(oyuncu);
+            int dolu = AnyRPG.Canta.Sirala(oyuncu, false);
+            int sonra = CantadakiEsya(oyuncu);
+            bool sirali = true;
+            bool bosluk = false;
+            bool bosGoruldu = false;
+            int onceki = -1;
+            List<string> ilkler = new List<string>();
+            foreach (AnyRPG.InventorySlot yuva in canta.InventorySlots) {
+                if (yuva == null || yuva.IsEmpty) {
+                    bosGoruldu = true;
+                    continue;
+                }
+                if (bosGoruldu) {
+                    bosluk = true;
+                }
+                int k = AnyRPG.Canta.Kategori(yuva.InstantiatedItem);
+                if (k < onceki) {
+                    sirali = false;
+                }
+                onceki = k;
+                if (ilkler.Count < 4) {
+                    ilkler.Add(yuva.InstantiatedItem.DisplayName + (yuva.Count > 1 ? " ×" + yuva.Count : string.Empty));
+                }
+            }
+            List<KeyValuePair<AnyRPG.InstantiatedItem, string>> adaylar = AnyRPG.Canta.Adaylar(oyuncu, true, true, false);
+            List<AnyRPG.InstantiatedItem> satilacak = new List<AnyRPG.InstantiatedItem>();
+            Dictionary<string, int> nedenler = new Dictionary<string, int>();
+            bool demirciKorundu = true;
+            foreach (KeyValuePair<AnyRPG.InstantiatedItem, string> aday in adaylar) {
+                satilacak.Add(aday.Key);
+                int n;
+                nedenler.TryGetValue(aday.Value, out n);
+                nedenler[aday.Value] = n + 1;
+                if (AnyRPG.Demirci.Seviye(aday.Key) > 0) {
+                    demirciKorundu = false;
+                }
+            }
+            List<string> nedenYazisi = new List<string>();
+            foreach (KeyValuePair<string, int> n in nedenler) {
+                nedenYazisi.Add(n.Value + " " + n.Key);
+            }
+            string kazanc;
+            int satilan = AnyRPG.Canta.Sat(oyuncu, satilacak, out kazanc);
+            int griKalan = AnyRPG.Ganimet.FindJunk(oyuncu).Count;
+            return "sıralama: " + once + " eşya → " + sonra + ", " + dolu + " yuva, tür sırası " + (sirali ? "doğru" : "YANLIŞ")
+                + (bosluk ? ", arada boş yuva VAR" : ", boşluk yok") + " (ilk: " + string.Join(", ", ilkler) + "); toplu satış: "
+                + griEklenen + " gri kopya eklendi, " + adaylar.Count + " öneri (" + string.Join(", ", nedenYazisi) + "), " + satilan + " satıldı"
+                + (kazanc.Length > 0 ? " +" + kazanc : string.Empty) + ", kalan gri " + griKalan + ", demirci eşyası " + (demirciKorundu ? "korundu" : "SATILDI");
         }
 
         private static void HaritaBasla(string sahne) {
@@ -817,6 +912,7 @@ namespace Otuken.EditorAraclari {
             sb.Append("Umay Tarlaları'nda 40 sn av: ").Append(rapor.ilkHaritaAvi).Append('\n');
             sb.Append("Dünya haritası: ").Append(rapor.dunyaHaritasi).Append('\n');
             sb.Append("Demirci: ").Append(rapor.demirciTesti).Append('\n');
+            sb.Append("Çanta: ").Append(rapor.cantaTesti).Append('\n');
             sb.Append("Gelişim: ").Append(rapor.gelisim).Append("\n\n");
             foreach (HaritaSonucu h in rapor.haritalar) {
                 sb.Append(h.sonuc == "tamam" ? "  ok  " : "  !!  ").Append(h.ad).Append(" (").Append(h.sahne).Append("): ").Append(h.sonuc)

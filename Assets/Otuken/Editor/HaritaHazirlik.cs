@@ -754,9 +754,19 @@ namespace Otuken.EditorAraclari {
                 Yaz($"!! HATA demirci önizlemesi: {e}");
             }
             try {
+                ArayuzCiz("arayuz_toplusat", "toplusat");
+            } catch (Exception e) {
+                Yaz($"!! HATA toplu satış önizlemesi: {e}");
+            }
+            try {
                 OyunArayuzu();
             } catch (Exception e) {
                 Yaz($"!! HATA oyun arayüzü önizlemesi: {e}");
+            }
+            try {
+                CantaPenceresi();
+            } catch (Exception e) {
+                Yaz($"!! HATA çanta penceresi önizlemesi: {e}");
             }
         }
 
@@ -952,6 +962,95 @@ namespace Otuken.EditorAraclari {
             }
         }
 
+        /// <summary>
+        /// Çanta penceresi (tani/arayuz_canta.jpg): oyunun kendi penceresi telefon ölçeğinde, 16 boş yuva ve para satırının
+        /// altına kodla eklenen "Sırala" / "Toplu Sat" düğmeleriyle (Canta.CantaDugmeleriniEkle)
+        /// </summary>
+        private static void CantaPenceresi() {
+            GameObject kaynak = AssetDatabase.LoadAssetAtPath<GameObject>(OyunYoneticisi);
+            if (kaynak == null) {
+                return;
+            }
+            Scene sahne = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Single);
+            GameObject oyun = (GameObject)PrefabUtility.InstantiatePrefab(kaynak, sahne);
+            PrefabUtility.UnpackPrefabInstance(oyun, PrefabUnpackMode.Completely, InteractionMode.AutomatedAction);
+            List<GameObject> silinecek = new List<GameObject>() { oyun };
+            RenderTexture rt = null;
+            try {
+                AnyRPG.UIManager ui = oyun.GetComponentInChildren<AnyRPG.UIManager>(true);
+                if (ui == null || ui.inventoryWindow == null) {
+                    Yaz("!! çanta önizlemesi: pencere yok");
+                    return;
+                }
+                foreach (AnyRPG.CloseableWindow w in oyun.GetComponentsInChildren<AnyRPG.CloseableWindow>(true)) {
+                    w.gameObject.SetActive(false);
+                }
+                AnyRPG.CloseableWindow pencere = ui.inventoryWindow;
+                IcerikKur(pencere);
+                for (Transform t = pencere.transform; t != null; t = t.parent) {
+                    t.gameObject.SetActive(true);
+                }
+                Canvas kok = KokTuval(pencere.transform);
+                foreach (Canvas tuval in oyun.GetComponentsInChildren<Canvas>(true)) {
+                    if (KokTuval(tuval.transform) == tuval && tuval != kok) {
+                        tuval.gameObject.SetActive(false);
+                    }
+                }
+                AnyRPG.InventoryPanel panel = pencere.GetComponentInChildren<AnyRPG.InventoryPanel>(true);
+                if (panel == null) {
+                    Yaz("!! çanta önizlemesi: InventoryPanel yok");
+                    return;
+                }
+                FieldInfo yuvaAlani = typeof(AnyRPG.BagPanel).GetField("slotPrefab", BindingFlags.Instance | BindingFlags.NonPublic);
+                GameObject yuva = yuvaAlani != null ? yuvaAlani.GetValue(panel) as GameObject : null;
+                if (yuva != null && panel.ContentArea != null) {
+                    for (int i = 0; i < 16; i++) {
+                        Object.Instantiate(yuva, panel.ContentArea, false);
+                    }
+                }
+                AnyRPG.Canta.CantaDugmeleriniEkle(panel.transform);
+
+                GameObject kameraNesnesi = new GameObject("ArayuzKamerasi");
+                silinecek.Add(kameraNesnesi);
+                Camera kamera = kameraNesnesi.AddComponent<Camera>();
+                kamera.transform.position = new Vector3(0f, -5000f, 0f);
+                kamera.clearFlags = CameraClearFlags.SolidColor;
+                kamera.backgroundColor = new Color(0.33f, 0.42f, 0.3f, 1f);
+                kamera.nearClipPlane = 0.1f;
+                kamera.farClipPlane = 20f;
+                GameObject onyukleyici = new GameObject("MobileBootstrapOnizleme");
+                silinecek.Add(onyukleyici);
+                Component bootstrap = onyukleyici.AddComponent<AnyRPG.MobileBootstrap>();
+                YontemCagir(bootstrap, "ScaleCanvases");
+                if (kok != null) {
+                    kok.renderMode = RenderMode.ScreenSpaceCamera;
+                    kok.worldCamera = kamera;
+                    kok.planeDistance = 2f;
+                }
+                rt = new RenderTexture(1600, 720, 24, RenderTextureFormat.ARGB32, RenderTextureReadWrite.sRGB);
+                rt.Create();
+                kamera.targetTexture = rt;
+                OlcekleriYenile();
+                Canvas.ForceUpdateCanvases();
+                UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(panel.GetComponent<RectTransform>());
+                Canvas.ForceUpdateCanvases();
+                Transform satir = panel.transform.Find("CantaAraclari");
+                RectTransform srt = satir != null ? satir.GetComponent<RectTransform>() : null;
+                Yaz("çanta penceresi: araç satırı " + (srt != null ? srt.rect.width.ToString("0") + "x" + srt.rect.height.ToString("0") + ", sıra " + satir.GetSiblingIndex() : "YOK"));
+                KameraCiz(kamera, rt, "arayuz_canta");
+            } finally {
+                foreach (GameObject go in silinecek) {
+                    if (go != null) {
+                        Object.DestroyImmediate(go);
+                    }
+                }
+                if (rt != null) {
+                    rt.Release();
+                    Object.DestroyImmediate(rt);
+                }
+            }
+        }
+
         private static Canvas KokTuval(Transform t) {
             Canvas kok = null;
             for (Transform p = t; p != null; p = p.parent) {
@@ -1050,6 +1149,10 @@ namespace Otuken.EditorAraclari {
                     Component dunya = Tuval("DunyaHaritasi", kamera, 1f, 31, silinecek).AddComponent<AnyRPG.DunyaHaritasi>();
                     YontemCagir(dunya, "Build");
                     YontemCagir(dunya, "Onizleme");
+                } else if (pencere == "toplusat") {
+                    Component toplu = Tuval("TopluSatis", kamera, 1f, 31, silinecek).AddComponent<AnyRPG.Canta>();
+                    YontemCagir(toplu, "Build");
+                    YontemCagir(toplu, "Onizleme");
                 } else if (pencere == "demirci") {
                     Component demirci = Tuval("Demirci", kamera, 1f, 31, silinecek).AddComponent<AnyRPG.Demirci>();
                     YontemCagir(demirci, "Build");

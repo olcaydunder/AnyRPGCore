@@ -446,7 +446,7 @@ namespace AnyRPG {
                     || canvas.name == SeceneklerPenceresi.CanvasName || canvas.name == IsinlanmaPenceresi.CanvasName
                     || canvas.name == HataBildirici.CanvasName || canvas.name == GunlukGorevler.CanvasName || canvas.name == GorevOku.CanvasName
                     || canvas.name == DunyaHaritasi.CanvasName || canvas.name == CevrimdisiKazanc.CanvasName
-                    || canvas.name == Demirci.CanvasName || canvas.name == Gelisim.CanvasName
+                    || canvas.name == Demirci.CanvasName || canvas.name == Gelisim.CanvasName || canvas.name == Canta.CanvasName
                     || canvas.transform.root.name == "[Graphy]"
                     || canvas.transform.root.name == "IngameDebugConsole") {
                     continue;

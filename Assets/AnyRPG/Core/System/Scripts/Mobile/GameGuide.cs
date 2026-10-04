@@ -330,7 +330,9 @@ namespace AnyRPG {
                 "• <b>Seviye ödülleri</b>: 2, 3, 4, 5, 7, 10, 12, 15, 20, 25 ve 30. seviyelerde iksir, Gümüş Akçe, Gök Taşı Parçası ve Altın armağan edilir.\n" +
                 "• <b>Daha iyi eşya</b>: çantana giydiğinden güçlü bir eşya girerse solda kart çıkar; <b>Kuşan</b>'a dokunman yeter.\n" +
                 "• <b>Acemi koruması</b>: 5. seviyeye kadar düşmanlardan %40 daha az hasar alırsın.\n" +
-                "• <b>Çanta</b>: eşyaların ve paran.\n" +
+                "• <b>Çanta</b>: eşyaların ve paran. Altındaki <b>Sırala</b> eşyaları türe ve kaliteye göre dizer, yığınları birleştirir; " +
+                "<b>Toplu Sat</b> satıcıya gitmeden değersiz (gri) eşyaları ve giydiğinden zayıf ya da kullanamadığın donanımı satar " +
+                "(tutmak istediğine dokun; demirciden geçmiş eşyalar listelenmez).\n" +
                 "• <b>Görevler</b>: aldığın görevler ve kalan hedefleri.\n" +
                 "• <b>Menü</b>: seçenekler (grafik, akıcılık, ses, oyun), bu rehber, ekran görüntüsü paylaşma ve <b>Sorun Bildir</b> " +
                 "(bir sorun görürsen kısaca yaz; ekran görüntüsüyle geliştiriciye gider). Hatalar ve çökmeler zaten kendiliğinden bildirilir.\n" +
