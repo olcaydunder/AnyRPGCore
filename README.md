@@ -1,12 +1,12 @@
 # Ötüken Destanı · Hata panosu
 
-Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 04.10.2026 03:07.
+Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 04.10.2026 03:39.
 
 **0** açık sorun · **4** düzeltilen · toplam **9** rapor
 
 ## Son APK derlemesi
 
-Derleme [23](https://github.com/olcaydunder/AnyRPGCore/actions/runs/37162892319) · ✅ başarılı · commit `435d0995` · 04.10.2026 03:07
+Derleme [24](https://github.com/olcaydunder/AnyRPGCore/actions/runs/37164612951) · ✅ başarılı · commit `6dbf9e78` · 04.10.2026 03:39
 
 Tanı raporunda 1 uyarı ([tam rapor](https://github.com/olcaydunder/AnyRPGCore/releases/download/tani/tani.zip)):
 
@@ -20,21 +20,21 @@ Bot yeni oyun başlatıp haritaları gezdi: **tamamlandı**, 0 hata/istisna.
 
 | | Harita | Sonuç | Yükleme | Hata | Not |
 |---|---|---|---|---|---|
-| ✅ | Ötüken Yaylası | tamam | 3 sn | 0 |  |
-| ✅ | Umay Tarlaları | tamam | 2 sn | 0 |  |
-| ✅ | Börü Tepesi | tamam | 1 sn | 0 |  |
-| ✅ | Ak Deniz Kıyısı | tamam | 0 sn | 0 |  |
-| ✅ | Ordubalık Çarşısı | tamam | 1 sn | 0 |  |
-| ✅ | Ordubalık Kenti | tamam | 0 sn | 0 |  |
-| ✅ | Ulukayın Ormanı | tamam | 0 sn | 0 |  |
-| ❌ | Koncolos İni | sorunlu | 0 sn | 0 | oyuncu öldü |
-| ❌ | Kağan Ordası | ışınlanılamadı | 0 sn | 0 | Ölüyken ışınlanamazsın. Önce yeniden doğ. |
-| ❌ | Kaf Dağı Yolu | ışınlanılamadı | 0 sn | 0 | Ölüyken ışınlanamazsın. Önce yeniden doğ. |
-| ❌ | Ergenekon Mağarası | ışınlanılamadı | 0 sn | 0 | Ölüyken ışınlanamazsın. Önce yeniden doğ. |
-| ❌ | Kurgan Mezarlığı | ışınlanılamadı | 0 sn | 0 | Ölüyken ışınlanamazsın. Önce yeniden doğ. |
-| ❌ | Ay Dede Koyu | ışınlanılamadı | 0 sn | 0 | Ölüyken ışınlanamazsın. Önce yeniden doğ. |
-| ❌ | Erlik'in Mağarası | ışınlanılamadı | 0 sn | 0 | Ölüyken ışınlanamazsın. Önce yeniden doğ. |
-| ❌ | Tamu Zindanı | ışınlanılamadı | 0 sn | 0 | Ölüyken ışınlanamazsın. Önce yeniden doğ. |
+| ❌ | Ötüken Yaylası | sorunlu | 3 sn | 0 | 12 nesnede eksik/bozuk malzeme: Billboard (malzeme yok), Billboard (malzeme yok), Billboard (malzeme yok), Billboard (malzeme yok), Billboard (malzeme yok) |
+| ✅ | Umay Tarlaları | tamam | 1 sn | 0 |  |
+| ✅ | Börü Tepesi | tamam | 0 sn | 0 |  |
+| ❌ | Ak Deniz Kıyısı | sorunlu | 0 sn | 0 | 1 nesnede eksik/bozuk malzeme: BoatHideWaterMask (malzeme yok) |
+| ❌ | Ordubalık Çarşısı | sorunlu | 1 sn | 0 | yürüyerek ulaşılamayan: Kapi_KafDagiYolu_1 (123, 12, 35) |
+| ❌ | Ordubalık Kenti | sorunlu | 0 sn | 0 | yürüyerek ulaşılamayan: Kapi_KaganOrdasi_3 (7, 20, 63), Kapi_UlukayinOrmani_1 (-30, 10, 34) |
+| ❌ | Ulukayın Ormanı | sorunlu | 0 sn | 0 | yürüyerek ulaşılamayan: Kapi_OrdubalikKenti_0 (-45, 9, 29) |
+| ✅ | Koncolos İni | tamam | 0 sn | 0 |  |
+| ✅ | Kağan Ordası | tamam | 1 sn | 0 |  |
+| ❌ | Kaf Dağı Yolu | sorunlu | 0 sn | 0 | yürüyerek ulaşılamayan: Kapi_OrdubalikCarsisi_1 (135, 13, 42) |
+| ✅ | Ergenekon Mağarası | tamam | 0 sn | 0 |  |
+| ✅ | Kurgan Mezarlığı | tamam | 0 sn | 0 |  |
+| ✅ | Ay Dede Koyu | tamam | 1 sn | 0 |  |
+| ✅ | Erlik'in Mağarası | tamam | 0 sn | 0 |  |
+| ✅ | Tamu Zindanı | tamam | 0 sn | 0 |  |
 
 ## Açık sorunlar
 
