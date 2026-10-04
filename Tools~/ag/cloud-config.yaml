@@ -6,7 +6,8 @@
 #  - "otuken" adlı yetkisiz bir kullanıcı açar, 2 GB takas alanı ekler
 #  - /usr/local/bin/otuken-guncelle: GitHub'daki "sunucu" sürümüne bakar (surum.txt); yeni sürüm varsa
 #    OtukenSunucu.zip'i indirir, kurar, oyunu yeniden başlatır. 5 dakikada bir çalışır (systemd zamanlayıcı).
-#  - otuken.service: oyunu başsız sunucu kipinde çalıştırır (UDP 7770), çökerse 10 sn sonra yeniden açar.
+#  - otuken.service: oyunu başsız sunucu kipinde çalıştırır (paketteki baslat.sh; UDP 7770), çökerse 10 sn sonra
+#    yeniden açar.
 #    Günlük: journalctl -u otuken  (hesaplar ve karakterler /var/lib/otuken altında kalır, güncellemede silinmez)
 # Şifre, anahtar, jeton içermez; sunucu yalnız herkese açık sürüm dosyalarını indirir.
 
@@ -17,9 +18,12 @@ packages:
   - ca-certificates
   - libglib2.0-0t64
   - libgl1
+  - libgl1-mesa-dri
+  - libglu1-mesa
   - libxcursor1
   - libxrandr2
   - libxi6
+  - xvfb
 
 users:
   - default
@@ -51,7 +55,7 @@ write_files:
       if ! unzip -q "$gecici/sunucu.zip" -d "$gecici/oyun"; then
         rm -rf "$gecici"; exit 0
       fi
-      chmod +x "$gecici"/oyun/*.x86_64
+      chmod +x "$gecici"/oyun/*.x86_64 "$gecici"/oyun/baslat.sh
       systemctl stop otuken || true
       rm -rf "$KLASOR/oyun.eski"
       [ -d "$KLASOR/oyun" ] && mv "$KLASOR/oyun" "$KLASOR/oyun.eski"
@@ -73,7 +77,7 @@ write_files:
       User=otuken
       Environment=HOME=/var/lib/otuken
       WorkingDirectory=/opt/otuken/oyun
-      ExecStart=/bin/sh -c 'exec /opt/otuken/oyun/*.x86_64 -batchmode -nographics --serverport 7770 --servermode MMO -logFile -'
+      ExecStart=/opt/otuken/oyun/baslat.sh
       Restart=always
       RestartSec=10
       LimitNOFILE=65536

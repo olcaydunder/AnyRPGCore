@@ -331,18 +331,27 @@ jobs:
           set +e
           # derleme ve tanı klasörleri kapsayıcıda root olarak yazıldı: önce sahiplik (yoksa sunucu günlük dosyasını açamaz)
           sudo chown -R "$(id -u):$(id -g)" build/StandaloneLinux64 tani 2>/dev/null
-          ls -la build/StandaloneLinux64 | head -n 20
-          ikili=$(find build/StandaloneLinux64 -maxdepth 2 -name '*.x86_64' 2>/dev/null | head -n 1)
-          if [ -z "$ikili" ]; then
-            echo "::warning title=Sunucu::derlendi ama .x86_64 dosyası yok"; ls -la build/StandaloneLinux64 || true; exit 0
+          ls -la build/StandaloneLinux64/* | head -n 30
+          cat build/StandaloneLinux64/*/derleme.txt 2>/dev/null
+          sunucu=$(find build/StandaloneLinux64/sunucu -maxdepth 1 -name '*.x86_64' 2>/dev/null | head -n 1)
+          istemci=$(find build/StandaloneLinux64/istemci -maxdepth 1 -name '*.x86_64' 2>/dev/null | head -n 1)
+          if [ -z "$sunucu" ] && [ -z "$istemci" ]; then
+            echo "::warning title=Sunucu::derlendi ama .x86_64 dosyası yok"; exit 0
           fi
-          klasor=$(dirname "$ikili")
-          cat "$klasor/derleme.txt" 2>/dev/null
-          chmod +x "$ikili"
-          "$ikili" -batchmode -nographics --serverport 7770 --servermode MMO -logFile "$PWD/tani/sunucu_deneme.log" &
+          chmod +x $sunucu $istemci 2>/dev/null
+          # istemci botları (ve sunucu modülü yoksa sunucu) sanal ekranla çalışır
+          sudo apt-get update -qq >/dev/null 2>&1; sudo apt-get install -y -qq xvfb libgl1-mesa-dri libglu1-mesa >/dev/null 2>&1
+          if [ -n "$sunucu" ]; then
+            klasor=$(dirname "$sunucu")
+            "$sunucu" -batchmode -nographics --serverport 7770 --servermode MMO -logFile "$PWD/tani/sunucu_deneme.log" &
+          else
+            klasor=$(dirname "$istemci")
+            xvfb-run -a "$istemci" -batchmode --serverport 7770 --servermode MMO -logFile "$PWD/tani/sunucu_deneme.log" &
+          fi
           pid=$!
+          echo "sunucu klasörü: $klasor"
           basladi=0
-          for i in $(seq 1 120); do
+          for i in $(seq 1 150); do
             sleep 1
             if grep -q "\[Sunucu\] başladı" tani/sunucu_deneme.log 2>/dev/null; then basladi=1; break; fi
             kill -0 $pid 2>/dev/null || break
@@ -350,52 +359,64 @@ jobs:
           sleep 5
           dinliyor=0
           ss -lun | grep -q ':7770' && dinliyor=1
-          # çok oyunculu deneme: aynı dosyadan iki istemci botu sunucuya girer, dünyada 60 sn dolaşır (AnyRPG.AgBotu)
-          if [ "$basladi" = "1" ]; then
+          # çok oyunculu deneme: iki istemci botu sunucuya girer, dünyada 60 sn dolaşır (AnyRPG.AgBotu)
+          if [ "$basladi" = "1" ] && [ -n "$istemci" ]; then
             for b in Bot1 Bot2; do
-              "$ikili" -batchmode -nographics -istemciBotu $b -adres 127.0.0.1:7770 -sure 60 \
+              xvfb-run -a "$istemci" -batchmode -istemciBotu $b -adres 127.0.0.1:7770 -sure 60 \
                 -rapor "$PWD/tani/ag_botu_$b.txt" -logFile "$PWD/tani/ag_botu_$b.log" &
               eval "pid_$b=\$!"
-              sleep 8
+              sleep 10
             done
-            for i in $(seq 1 300); do
+            for i in $(seq 1 360); do
               sleep 1
               kill -0 $pid_Bot1 2>/dev/null || kill -0 $pid_Bot2 2>/dev/null || break
             done
-            kill -9 $pid_Bot1 $pid_Bot2 2>/dev/null || true
+            kill $pid_Bot1 $pid_Bot2 2>/dev/null; sleep 2
+            pkill -f "istemciBotu" 2>/dev/null
             for b in Bot1 Bot2; do
               echo "--- $b"; cat "tani/ag_botu_$b.txt" 2>/dev/null || echo "rapor yok"
-              [ -f "tani/ag_botu_$b.log" ] && tail -n 2000 "tani/ag_botu_$b.log" > "tani/ag_botu_$b.son.log" && rm -f "tani/ag_botu_$b.log"
+              [ -f "tani/ag_botu_$b.log" ] && tail -n 3000 "tani/ag_botu_$b.log" > "tani/ag_botu_$b.son.log" && rm -f "tani/ag_botu_$b.log"
             done
           fi
-          kill $pid 2>/dev/null; sleep 3; kill -9 $pid 2>/dev/null || true
-          hata=$(grep -c -E "Exception|Error|error CS" tani/sunucu_deneme.log 2>/dev/null || true)
+          kill $pid 2>/dev/null; sleep 3; kill -9 $pid 2>/dev/null; pkill -f "servermode MMO" 2>/dev/null
+          hata=$(grep -c -E "Exception|fatal signal" tani/sunucu_deneme.log 2>/dev/null)
           echo "başladı=$basladi dinliyor=$dinliyor hata satırı=$hata"
-          grep "\[Sunucu\]" tani/sunucu_deneme.log | tail -n 20 || true
-          tail -n 3000 tani/sunucu_deneme.log > tani/sunucu_deneme_son.log 2>/dev/null; rm -f tani/sunucu_deneme.log
-          printf 'surum=%s\nbasladi=%s\ndinliyor=%s\nhata_satiri=%s\n' "$SURUM" "$basladi" "$dinliyor" "$hata" > tani/sunucu_durum.txt
+          grep "\[Sunucu\]" tani/sunucu_deneme.log | tail -n 20
+          tail -n 4000 tani/sunucu_deneme.log > tani/sunucu_deneme_son.log 2>/dev/null; rm -f tani/sunucu_deneme.log
+          printf 'surum=%s\nklasor=%s\nbasladi=%s\ndinliyor=%s\nhata_satiri=%s\n' "$SURUM" "$klasor" "$basladi" "$dinliyor" "$hata" > tani/sunucu_durum.txt
+          {
+            echo "## Oyun sunucusu $SURUM"
+            echo "klasör: $klasor, başladı: $basladi, UDP 7770: $dinliyor"
+            for b in Bot1 Bot2; do echo ""; echo "$b: $(grep 'SONUÇ' tani/ag_botu_$b.txt 2>/dev/null | tail -n 1)"; done
+          } >> "$GITHUB_STEP_SUMMARY"
           if [ "$basladi" != "1" ]; then
             echo "::warning title=Sunucu::denemede açılmadı (tani/sunucu_deneme_son.log); yayımlanmadı"; exit 0
           fi
-          for b in Bot1 Bot2; do echo "$b: $(grep 'SONUÇ' tani/ag_botu_$b.txt 2>/dev/null | tail -n 1)" >> "$GITHUB_STEP_SUMMARY"; done
           if [ "$YAYIMLA" != "true" ]; then
             echo "yalnız sunucu denemesi: yayımlanmadı"; exit 0
           fi
+          # başlatıcı: ayrılmış sunucu derlemesi görüntüsüz, olağan oyun sanal ekranla çalışır (Tools~/ag/cloud-config.yaml)
+          cat > "$klasor/baslat.sh" <<'SH'
+          #!/bin/sh
+          cd "$(dirname "$0")"
+          oyun=$(ls *.x86_64 | head -n 1)
+          if grep -q "tur=Server" derleme.txt 2>/dev/null; then
+            exec "./$oyun" -batchmode -nographics --serverport "${PORT:-7770}" --servermode MMO -logFile -
+          fi
+          exec xvfb-run -a "./$oyun" -batchmode --serverport "${PORT:-7770}" --servermode MMO -logFile -
+          SH
+          sed -i 's/^          //' "$klasor/baslat.sh"
+          chmod +x "$klasor/baslat.sh"
           (cd "$klasor" && zip -qr "$GITHUB_WORKSPACE/OtukenSunucu.zip" .)
           printf '%s\n' "$SURUM" > surum.txt
           ls -la OtukenSunucu.zip
           snotlar="Oyun sunucusu $SURUM (Linux, başsız). Telefon sürümü $SURUM ile eşleşir. Kiralık sunucu bunu kendisi indirir."
           if gh release view sunucu >/dev/null 2>&1; then
             gh release upload sunucu OtukenSunucu.zip surum.txt --clobber
-            gh release edit sunucu --title "Oyun sunucusu ($SURUM)" --notes "$snotlar" --prerelease --draft=false || true
+            gh release edit sunucu --title "Oyun sunucusu ($SURUM)" --notes "$snotlar" --prerelease --draft=false
           else
             gh release create sunucu OtukenSunucu.zip surum.txt --prerelease --target "$GITHUB_SHA" --title "Oyun sunucusu ($SURUM)" --notes "$snotlar"
           fi
-          {
-            echo "## Oyun sunucusu $SURUM"
-            echo "başladı: $basladi, UDP 7770: $dinliyor, boyut: $(( $(stat -c %s OtukenSunucu.zip) / 1048576 )) MB"
-            for b in Bot1 Bot2; do echo ""; echo "$b: $(grep 'SONUÇ' tani/ag_botu_$b.txt 2>/dev/null | tail -n 1)"; done
-          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Tanı raporunu yükle (yürüme ağı, ekran görüntüleri)
         # derleme başarısız olsa bile: "tani" ön sürümünde tani.zip (rapor.txt, *.jpg, navmesh/)

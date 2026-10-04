@@ -113,21 +113,33 @@ namespace Otuken.EditorAraclari {
             if (yol.EndsWith(".x86_64") == false) {
                 yol += ".x86_64";
             }
-            Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(yol)));
+            string kok = Path.GetDirectoryName(Path.GetFullPath(yol));
+            string dosya = Path.GetFileName(yol);
             string[] sahneler = EditorBuildSettings.scenes.Where(s => s.enabled).Select(s => s.path).ToArray();
             PlayerSettings.SetScriptingBackend(UnityEditor.Build.NamedBuildTarget.Standalone, ScriptingImplementation.Mono2x);
-            // olağan Linux oyunu: aynı dosya hem sunucu ("-sunucu") hem otomatik denemedeki istemci botudur ("-istemciBotu")
-            foreach (StandaloneBuildSubtarget alt in new[] { StandaloneBuildSubtarget.Player }) {
+            // sunucu/: ayrılmış sunucu (Dedicated Server; görüntüsüz, -nographics'e gerek yok) - kiralık sunucuya bu gider
+            // istemci/: olağan Linux oyunu - otomatik denemedeki istemci botları (sanal ekranla) ve sunucu modülü yoksa sunucu
+            int basarili = 0;
+            foreach (StandaloneBuildSubtarget alt in new[] { StandaloneBuildSubtarget.Server, StandaloneBuildSubtarget.Player }) {
+                string klasor = Path.Combine(kok, alt == StandaloneBuildSubtarget.Server ? "sunucu" : "istemci");
+                Directory.CreateDirectory(klasor);
+                string hedef = Path.Combine(klasor, dosya);
                 BuildPlayerOptions secenek = new BuildPlayerOptions() {
                     scenes = sahneler,
-                    locationPathName = yol,
+                    locationPathName = hedef,
                     target = BuildTarget.StandaloneLinux64,
                     subtarget = (int)alt,
                     options = BuildOptions.None
                 };
-                UnityEditor.Build.Reporting.BuildReport sonuc = BuildPipeline.BuildPlayer(secenek);
+                UnityEditor.Build.Reporting.BuildReport sonuc = null;
+                try {
+                    sonuc = BuildPipeline.BuildPlayer(secenek);
+                } catch (Exception e) {
+                    kayit.AppendLine($"== {alt}: istisna {e.Message}");
+                    continue;
+                }
                 Debug.Log($"[Sunucu derlemesi] {alt}: {sonuc.summary.result}, {sonuc.summary.totalErrors} hata, {sonuc.summary.totalSize / (1024 * 1024)} MB");
-                kayit.AppendLine($"== {alt}: {sonuc.summary.result}, {sonuc.summary.totalErrors} hata, {sonuc.summary.totalSize / (1024 * 1024)} MB, {sonuc.summary.totalTime}, {yol}");
+                kayit.AppendLine($"== {alt}: {sonuc.summary.result}, {sonuc.summary.totalErrors} hata, {sonuc.summary.totalSize / (1024 * 1024)} MB, {sonuc.summary.totalTime}, {hedef}");
                 foreach (UnityEditor.Build.Reporting.BuildStep adim in sonuc.steps) {
                     foreach (UnityEditor.Build.Reporting.BuildStepMessage m in adim.messages) {
                         if (m.type == LogType.Error || m.type == LogType.Exception) {
@@ -136,10 +148,14 @@ namespace Otuken.EditorAraclari {
                     }
                 }
                 if (sonuc.summary.result == UnityEditor.Build.Reporting.BuildResult.Succeeded) {
-                    File.WriteAllText(Path.Combine(Path.GetDirectoryName(Path.GetFullPath(yol)), "derleme.txt"),
-                        $"tur={alt}\nsurum={AgHazirlik.IstemciSurumu}\n");
-                    return;
+                    File.WriteAllText(Path.Combine(klasor, "derleme.txt"), $"tur={alt}\nsurum={AgHazirlik.IstemciSurumu}\n");
+                    basarili++;
+                } else if (Directory.Exists(klasor) && Directory.GetFiles(klasor).Length == 0) {
+                    Directory.Delete(klasor, true);
                 }
+            }
+            if (basarili > 0) {
+                return;
             }
             throw new Exception("Linux sunucu derlenemedi");
         }
