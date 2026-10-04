@@ -1,12 +1,12 @@
 # Ötüken Destanı · Hata panosu
 
-Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 04.10.2026 16:59.
+Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 04.10.2026 17:48.
 
 **0** açık sorun · **6** düzeltilen · toplam **12** rapor
 
 ## Son APK derlemesi
 
-Derleme [34](https://github.com/olcaydunder/AnyRPGCore/actions/runs/37206286322) · ✅ başarılı · commit `a23d594a` · 04.10.2026 16:59
+Derleme [35](https://github.com/olcaydunder/AnyRPGCore/actions/runs/37209285420) · ✅ başarılı · commit `a3b77caf` · 04.10.2026 17:48
 
 Tanı raporunda uyarı yok.
 
@@ -20,12 +20,13 @@ Bot yeni oyun başlatıp haritaları gezdi: **tamamlandı**, 0 hata/istisna.
 - Dünya haritası: 15/15 diyar görüntülü; harita üzerinden ışınlanma: oldu
 - Demirci: Kahverengi Deri Zırh → Kahverengi Deri Zırh +3 (eşyadaki her temel değer +1); ilk deneme: Başarılı! Kahverengi Deri Zırh +1; Güç Puanı 68 → 70; kayıttaki ad: Kahverengi Deri Zırh +3; seviye 3, ödül 2 (3: 20 Gümüş Akçe); çantaya +9 konunca: Kuşan ile giyildi: Kahverengi Deri Zırh +9, Güç Puanı 212
 - Gelişim: Güç Puanı 212, seviye ödülü 2 (son: 3: 20 Gümüş Akçe), daha iyi eşya önerisi 1, oto av becerisi 11 kez
+- Çanta: sıralama: 11 eşya → 11, 5 yuva, tür sırası doğru, boşluk yok (ilk: Kahverengi Deri Zırh +3, Şifa İksiri ×5, Şifa İksiri ×3, Kahverengi Deri Zırh); toplu satış: 2 gri kopya eklendi, 2 öneri (2 değersiz), 2 satıldı +0 Altın 0 Gümüş Akçe 74 Bakır Akçe, kalan gri 0, demirci eşyası korundu
 
 | | Harita | Sonuç | Yükleme | Hata | Not |
 |---|---|---|---|---|---|
 | ✅ | Ötüken Yaylası | tamam | 3 sn | 0 | ok: Yeni görev: Olcayto Han |
-| ✅ | Umay Tarlaları | tamam | 1 sn | 0 | ok: Hazine sandığı (günlük görev) |
-| ✅ | Börü Tepesi | tamam | 0 sn | 0 | ok: Hazine sandığı (günlük görev) |
+| ✅ | Umay Tarlaları | tamam | 2 sn | 0 | ok: Hazine sandığı (günlük görev) |
+| ✅ | Börü Tepesi | tamam | 1 sn | 0 | ok: Hazine sandığı (günlük görev) |
 | ✅ | Ak Deniz Kıyısı | tamam | 0 sn | 0 | ok: Hazine sandığı (günlük görev) |
 | ❌ | Ordubalık Çarşısı | sorunlu | 1 sn | 0 | yürüyerek ulaşılamayan: Kapi_KafDagiYolu_1 (123, 12, 35); ok: Hazine sandığı (günlük görev) |
 | ✅ | Ordubalık Kenti | tamam | 0 sn | 0 | ok: Hazine sandığı (günlük görev) |
