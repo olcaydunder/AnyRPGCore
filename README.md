@@ -1,12 +1,12 @@
 # Ötüken Destanı · Hata panosu
 
-Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 04.10.2026 13:05.
+Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 04.10.2026 13:44.
 
 **0** açık sorun · **5** düzeltilen · toplam **11** rapor
 
 ## Son APK derlemesi
 
-Derleme [27](https://github.com/olcaydunder/AnyRPGCore/actions/runs/37192582090) · ✅ başarılı · commit `efef01dd` · 04.10.2026 12:54
+Derleme [28](https://github.com/olcaydunder/AnyRPGCore/actions/runs/37195085827) · ✅ başarılı · commit `cb92f6e9` · 04.10.2026 13:44
 
 Tanı raporunda uyarı yok.
 
@@ -16,11 +16,13 @@ Bot yeni oyun başlatıp haritaları gezdi: **tamamlandı**, 0 hata/istisna.
 
 - Binek denemesi: binildi, 2,5 sn'de 13 m gidildi, inildi
 - Günlük görevler (botun bir günü): 12 düşman yen 0/12, 1 hazine sandığını boşalt 0/1, 2 farklı diyara ayak bas 2/2 (tamam)
+- İlk haritada av: 0 düşman yenildi, seviye 1 → 1, tecrübe 0 → 0
+- Dünya haritası: 15/15 diyar görüntülü; harita üzerinden ışınlanma: olmadı (Savaşın ortasında ışınlanamazsın. Düşmanlardan uzaklaş ya da savaşı bitir.)
 
 | | Harita | Sonuç | Yükleme | Hata | Not |
 |---|---|---|---|---|---|
-| ✅ | Ötüken Yaylası | tamam | 3 sn | 0 | ok: Yeni görev: Olcayto Han |
-| ✅ | Umay Tarlaları | tamam | 1 sn | 0 | ok: Hazine sandığı (günlük görev) |
+| ✅ | Ötüken Yaylası | tamam | 4 sn | 0 | ok: Yeni görev: Olcayto Han |
+| ✅ | Umay Tarlaları | tamam | 2 sn | 0 | ok: Hazine sandığı (günlük görev) |
 | ✅ | Börü Tepesi | tamam | 0 sn | 0 | ok: Hazine sandığı (günlük görev) |
 | ✅ | Ak Deniz Kıyısı | tamam | 0 sn | 0 | ok: Hazine sandığı (günlük görev) |
 | ❌ | Ordubalık Çarşısı | sorunlu | 1 sn | 0 | yürüyerek ulaşılamayan: Kapi_KafDagiYolu_1 (123, 12, 35); ok: Hazine sandığı (günlük görev) |
@@ -30,10 +32,10 @@ Bot yeni oyun başlatıp haritaları gezdi: **tamamlandı**, 0 hata/istisna.
 | ✅ | Kağan Ordası | tamam | 1 sn | 0 | ok: Hazine sandığı (günlük görev) |
 | ❌ | Kaf Dağı Yolu | sorunlu | 0 sn | 0 | yürüyerek ulaşılamayan: Kapi_OrdubalikCarsisi_1 (135, 13, 42); ok: Hazine sandığı (günlük görev) |
 | ✅ | Ergenekon Mağarası | tamam | 0 sn | 0 | ok: Hazine sandığı (günlük görev) |
-| ✅ | Kurgan Mezarlığı | tamam | 0 sn | 0 | ok: Hazine sandığı (günlük görev) |
+| ✅ | Kurgan Mezarlığı | tamam | 0 sn | 0 | oyuncu öldü (1. seviye), yeniden doğdu; ok: Hazine sandığı (günlük görev) |
 | ✅ | Ay Dede Koyu | tamam | 1 sn | 0 | ok: Hazine sandığı (günlük görev) |
-| ✅ | Erlik'in Mağarası | tamam | 1 sn | 0 | ok: Hazine sandığı (günlük görev) |
-| ✅ | Tamu Zindanı | tamam | 0 sn | 0 | oyuncu öldü (1. seviye), yeniden doğdu; ok: Hazine sandığı (günlük görev) |
+| ✅ | Erlik'in Mağarası | tamam | 0 sn | 0 | ok: Hazine sandığı (günlük görev) |
+| ✅ | Tamu Zindanı | tamam | 0 sn | 0 | ok: Hazine sandığı (günlük görev) |
 
 ## Açık sorunlar
 
