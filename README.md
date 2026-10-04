@@ -1,12 +1,12 @@
 # Ötüken Destanı · Hata panosu
 
-Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 04.10.2026 15:06.
+Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 04.10.2026 15:46.
 
 **1** açık sorun · **5** düzeltilen · toplam **12** rapor
 
 ## Son APK derlemesi
 
-Derleme [31](https://github.com/olcaydunder/AnyRPGCore/actions/runs/37199780026) · ✅ başarılı · commit `15aa193c` · 04.10.2026 15:06
+Derleme [32](https://github.com/olcaydunder/AnyRPGCore/actions/runs/37201973384) · ✅ başarılı · commit `b24e7e27` · 04.10.2026 15:46
 
 Tanı raporunda uyarı yok.
 
@@ -32,10 +32,10 @@ Bot yeni oyun başlatıp haritaları gezdi: **tamamlandı**, 0 hata/istisna.
 | ✅ | Kağan Ordası | tamam | 1 sn | 0 | ok: Hazine sandığı (günlük görev) |
 | ❌ | Kaf Dağı Yolu | sorunlu | 0 sn | 0 | yürüyerek ulaşılamayan: Kapi_OrdubalikCarsisi_1 (135, 13, 42); ok: Hazine sandığı (günlük görev) |
 | ✅ | Ergenekon Mağarası | tamam | 0 sn | 0 | ok: Hazine sandığı (günlük görev) |
-| ✅ | Kurgan Mezarlığı | tamam | 0 sn | 0 | oyuncu öldü (1. seviye), yeniden doğdu; ok: Hazine sandığı (günlük görev) |
+| ✅ | Kurgan Mezarlığı | tamam | 0 sn | 0 | ok: Hazine sandığı (günlük görev) |
 | ✅ | Ay Dede Koyu | tamam | 1 sn | 0 | ok: Hazine sandığı (günlük görev) |
-| ✅ | Erlik'in Mağarası | tamam | 1 sn | 0 | ok: Hazine sandığı (günlük görev) |
-| ✅ | Tamu Zindanı | tamam | 0 sn | 0 | ok: Hazine sandığı (günlük görev) |
+| ✅ | Erlik'in Mağarası | tamam | 0 sn | 0 | ok: Hazine sandığı (günlük görev) |
+| ✅ | Tamu Zindanı | tamam | 0 sn | 0 | oyuncu öldü (1. seviye), yeniden doğdu; ok: Hazine sandığı (günlük görev) |
 
 ## Açık sorunlar
 
