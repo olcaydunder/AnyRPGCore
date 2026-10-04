@@ -1,12 +1,12 @@
 # Ötüken Destanı · Hata panosu
 
-Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 04.10.2026 17:48.
+Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 04.10.2026 18:20.
 
 **0** açık sorun · **6** düzeltilen · toplam **12** rapor
 
 ## Son APK derlemesi
 
-Derleme [35](https://github.com/olcaydunder/AnyRPGCore/actions/runs/37209285420) · ✅ başarılı · commit `a3b77caf` · 04.10.2026 17:48
+Derleme [36](https://github.com/olcaydunder/AnyRPGCore/actions/runs/37211211681) · ✅ başarılı · commit `79de59cd` · 04.10.2026 18:20
 
 Tanı raporunda uyarı yok.
 
@@ -20,7 +20,7 @@ Bot yeni oyun başlatıp haritaları gezdi: **tamamlandı**, 0 hata/istisna.
 - Dünya haritası: 15/15 diyar görüntülü; harita üzerinden ışınlanma: oldu
 - Demirci: Kahverengi Deri Zırh → Kahverengi Deri Zırh +3 (eşyadaki her temel değer +1); ilk deneme: Başarılı! Kahverengi Deri Zırh +1; Güç Puanı 68 → 70; kayıttaki ad: Kahverengi Deri Zırh +3; seviye 3, ödül 2 (3: 20 Gümüş Akçe); çantaya +9 konunca: Kuşan ile giyildi: Kahverengi Deri Zırh +9, Güç Puanı 212
 - Gelişim: Güç Puanı 212, seviye ödülü 2 (son: 3: 20 Gümüş Akçe), daha iyi eşya önerisi 1, oto av becerisi 11 kez
-- Çanta: sıralama: 11 eşya → 11, 5 yuva, tür sırası doğru, boşluk yok (ilk: Kahverengi Deri Zırh +3, Şifa İksiri ×5, Şifa İksiri ×3, Kahverengi Deri Zırh); toplu satış: 2 gri kopya eklendi, 2 öneri (2 değersiz), 2 satıldı +0 Altın 0 Gümüş Akçe 74 Bakır Akçe, kalan gri 0, demirci eşyası korundu
+- Çanta: sıralama: 11 eşya → 11, 5 yuva, tür sırası doğru, boşluk yok (ilk: Kahverengi Deri Zırh +3, Şifa İksiri ×5, Şifa İksiri ×3, Kahverengi Deri Zırh); toplu satış: 2 gri kopya eklendi, 2 öneri (2 değersiz), 2 satıldı +74 Bakır Akçe, kalan gri 0, demirci eşyası korundu
 
 | | Harita | Sonuç | Yükleme | Hata | Not |
 |---|---|---|---|---|---|
@@ -37,7 +37,7 @@ Bot yeni oyun başlatıp haritaları gezdi: **tamamlandı**, 0 hata/istisna.
 | ✅ | Ergenekon Mağarası | tamam | 0 sn | 0 | ok: Hazine sandığı (günlük görev) |
 | ✅ | Kurgan Mezarlığı | tamam | 0 sn | 0 | ok: Hazine sandığı (günlük görev) |
 | ✅ | Ay Dede Koyu | tamam | 1 sn | 0 | ok: Hazine sandığı (günlük görev) |
-| ✅ | Erlik'in Mağarası | tamam | 0 sn | 0 | ok: Hazine sandığı (günlük görev) |
+| ✅ | Erlik'in Mağarası | tamam | 1 sn | 0 | ok: Hazine sandığı (günlük görev) |
 | ✅ | Tamu Zindanı | tamam | 0 sn | 0 | ok: Hazine sandığı (günlük görev) |
 
 ## Açık sorunlar
