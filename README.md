@@ -1,12 +1,12 @@
 # Ötüken Destanı · Hata panosu
 
-Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 04.10.2026 04:06.
+Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 04.10.2026 12:24.
 
 **0** açık sorun · **4** düzeltilen · toplam **9** rapor
 
 ## Son APK derlemesi
 
-Derleme [25](https://github.com/olcaydunder/AnyRPGCore/actions/runs/37165997916) · ✅ başarılı · commit `e371e088` · 04.10.2026 04:06
+Derleme [26](https://github.com/olcaydunder/AnyRPGCore/actions/runs/37190818819) · ✅ başarılı · commit `19982b5a` · 04.10.2026 12:24
 
 Tanı raporunda uyarı yok.
 
@@ -14,23 +14,26 @@ Tanı raporunda uyarı yok.
 
 Bot yeni oyun başlatıp haritaları gezdi: **tamamlandı**, 0 hata/istisna.
 
+- Binek denemesi: binildi, 2,5 sn'de 13 m gidildi, inildi
+- Günlük görevler (botun bir günü): günlük görev yok
+
 | | Harita | Sonuç | Yükleme | Hata | Not |
 |---|---|---|---|---|---|
-| ✅ | Ötüken Yaylası | tamam | 3 sn | 0 |  |
+| ✅ | Ötüken Yaylası | tamam | 2 sn | 0 |  |
 | ✅ | Umay Tarlaları | tamam | 1 sn | 0 |  |
 | ✅ | Börü Tepesi | tamam | 0 sn | 0 |  |
 | ✅ | Ak Deniz Kıyısı | tamam | 0 sn | 0 |  |
 | ❌ | Ordubalık Çarşısı | sorunlu | 1 sn | 0 | yürüyerek ulaşılamayan: Kapi_KafDagiYolu_1 (123, 12, 35) |
 | ✅ | Ordubalık Kenti | tamam | 0 sn | 0 |  |
 | ✅ | Ulukayın Ormanı | tamam | 0 sn | 0 |  |
-| ✅ | Koncolos İni | tamam | 0 sn | 0 |  |
+| ✅ | Koncolos İni | tamam | 0 sn | 0 | oyuncu öldü (1. seviye), yeniden doğdu |
 | ✅ | Kağan Ordası | tamam | 1 sn | 0 |  |
 | ❌ | Kaf Dağı Yolu | sorunlu | 0 sn | 0 | yürüyerek ulaşılamayan: Kapi_OrdubalikCarsisi_1 (135, 13, 42) |
 | ✅ | Ergenekon Mağarası | tamam | 0 sn | 0 |  |
 | ✅ | Kurgan Mezarlığı | tamam | 0 sn | 0 |  |
 | ✅ | Ay Dede Koyu | tamam | 1 sn | 0 |  |
 | ✅ | Erlik'in Mağarası | tamam | 0 sn | 0 |  |
-| ✅ | Tamu Zindanı | tamam | 0 sn | 0 |  |
+| ✅ | Tamu Zindanı | tamam | 0 sn | 0 | oyuncu öldü (1. seviye), yeniden doğdu |
 
 ## Açık sorunlar
 

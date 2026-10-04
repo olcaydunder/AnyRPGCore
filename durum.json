@@ -123,134 +123,166 @@
  },
  "derleme": {
   "sonuc": "basarili",
-  "numara": "25",
-  "commit": "e371e088",
-  "baglanti": "https://github.com/olcaydunder/AnyRPGCore/actions/runs/37165997916",
-  "zaman": 1791075995,
+  "numara": "26",
+  "commit": "19982b5a",
+  "baglanti": "https://github.com/olcaydunder/AnyRPGCore/actions/runs/37190818819",
+  "zaman": 1791105882,
   "uyarilar": [],
   "bot": {
    "durum": "tamamlandı",
    "toplamHata": 0,
+   "binek": "binildi, 2,5 sn'de 13 m gidildi, inildi",
+   "gunluk": "günlük görev yok",
    "haritalar": [
     {
      "sahne": "FeaturesDemoZone",
      "ad": "Ötüken Yaylası",
      "sonuc": "tamam",
-     "yuklemeSuresi": 3.536186933517456,
+     "yuklemeSuresi": 2.9794676303863525,
      "hata": 0,
-     "not": ""
+     "not": "",
+     "bilgi": "",
+     "okHedefi": ""
     },
     {
      "sahne": "UmayTarlalari",
      "ad": "Umay Tarlaları",
      "sonuc": "tamam",
-     "yuklemeSuresi": 1.9465824365615845,
+     "yuklemeSuresi": 1.735315203666687,
      "hata": 0,
-     "not": ""
+     "not": "",
+     "bilgi": "",
+     "okHedefi": ""
     },
     {
      "sahne": "BoruTepesi",
      "ad": "Börü Tepesi",
      "sonuc": "tamam",
-     "yuklemeSuresi": 0.912684440612793,
+     "yuklemeSuresi": 0.8446901440620422,
      "hata": 0,
-     "not": ""
+     "not": "",
+     "bilgi": "",
+     "okHedefi": ""
     },
     {
      "sahne": "AkDenizKiyisi",
      "ad": "Ak Deniz Kıyısı",
      "sonuc": "tamam",
-     "yuklemeSuresi": 0.9000871181488037,
+     "yuklemeSuresi": 0.8048503398895264,
      "hata": 0,
-     "not": ""
+     "not": "",
+     "bilgi": "",
+     "okHedefi": ""
     },
     {
      "sahne": "OrdubalikCarsisi",
      "ad": "Ordubalık Çarşısı",
      "sonuc": "sorunlu",
-     "yuklemeSuresi": 1.2404699325561523,
+     "yuklemeSuresi": 1.0666401386260986,
      "hata": 0,
-     "not": "yürüyerek ulaşılamayan: Kapi_KafDagiYolu_1 (123, 12, 35)"
+     "not": "yürüyerek ulaşılamayan: Kapi_KafDagiYolu_1 (123, 12, 35)",
+     "bilgi": "",
+     "okHedefi": ""
     },
     {
      "sahne": "OrdubalikKenti",
      "ad": "Ordubalık Kenti",
      "sonuc": "tamam",
-     "yuklemeSuresi": 0.7444005012512207,
+     "yuklemeSuresi": 0.6901059746742249,
      "hata": 0,
-     "not": ""
+     "not": "",
+     "bilgi": "",
+     "okHedefi": ""
     },
     {
      "sahne": "UlukayinOrmani",
      "ad": "Ulukayın Ormanı",
      "sonuc": "tamam",
-     "yuklemeSuresi": 0.7269454002380371,
+     "yuklemeSuresi": 0.6905797719955444,
      "hata": 0,
-     "not": ""
+     "not": "",
+     "bilgi": "",
+     "okHedefi": ""
     },
     {
      "sahne": "KoncolosIni",
      "ad": "Koncolos İni",
      "sonuc": "tamam",
-     "yuklemeSuresi": 0.741327166557312,
+     "yuklemeSuresi": 0.657014012336731,
      "hata": 0,
-     "not": ""
+     "not": "",
+     "bilgi": "oyuncu öldü (1. seviye), yeniden doğdu",
+     "okHedefi": ""
     },
     {
      "sahne": "KaganOrdasi",
      "ad": "Kağan Ordası",
      "sonuc": "tamam",
-     "yuklemeSuresi": 1.1631208658218384,
+     "yuklemeSuresi": 1.0430821180343628,
      "hata": 0,
-     "not": ""
+     "not": "",
+     "bilgi": "",
+     "okHedefi": ""
     },
     {
      "sahne": "KafDagiYolu",
      "ad": "Kaf Dağı Yolu",
      "sonuc": "sorunlu",
-     "yuklemeSuresi": 0.731569766998291,
+     "yuklemeSuresi": 0.7031257748603821,
      "hata": 0,
-     "not": "yürüyerek ulaşılamayan: Kapi_OrdubalikCarsisi_1 (135, 13, 42)"
+     "not": "yürüyerek ulaşılamayan: Kapi_OrdubalikCarsisi_1 (135, 13, 42)",
+     "bilgi": "",
+     "okHedefi": ""
     },
     {
      "sahne": "ErgenekonMagarasi",
      "ad": "Ergenekon Mağarası",
      "sonuc": "tamam",
-     "yuklemeSuresi": 0.6805917024612427,
+     "yuklemeSuresi": 0.6571555733680725,
      "hata": 0,
-     "not": ""
+     "not": "",
+     "bilgi": "",
+     "okHedefi": ""
     },
     {
      "sahne": "KurganMezarligi",
      "ad": "Kurgan Mezarlığı",
      "sonuc": "tamam",
-     "yuklemeSuresi": 0.7290045022964478,
+     "yuklemeSuresi": 0.6932558417320251,
      "hata": 0,
-     "not": ""
+     "not": "",
+     "bilgi": "",
+     "okHedefi": ""
     },
     {
      "sahne": "AyDedeKoyu",
      "ad": "Ay Dede Koyu",
      "sonuc": "tamam",
-     "yuklemeSuresi": 1.1567851305007935,
+     "yuklemeSuresi": 1.030110478401184,
      "hata": 0,
-     "not": ""
+     "not": "",
+     "bilgi": "",
+     "okHedefi": ""
     },
     {
      "sahne": "FeaturesDemoDungeon",
      "ad": "Erlik'in Mağarası",
      "sonuc": "tamam",
-     "yuklemeSuresi": 0.9114327430725098,
+     "yuklemeSuresi": 0.8360370397567749,
      "hata": 0,
-     "not": ""
+     "not": "",
+     "bilgi": "",
+     "okHedefi": ""
     },
     {
      "sahne": "TamuZindani",
      "ad": "Tamu Zindanı",
      "sonuc": "tamam",
-     "yuklemeSuresi": 0.7263529300689697,
+     "yuklemeSuresi": 0.6867183446884155,
      "hata": 0,
-     "not": ""
+     "not": "",
+     "bilgi": "oyuncu öldü (1. seviye), yeniden doğdu",
+     "okHedefi": ""
     }
    ]
   }
