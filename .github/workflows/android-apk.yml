@@ -409,13 +409,19 @@ jobs:
           chmod +x "$klasor/baslat.sh"
           (cd "$klasor" && zip -qr "$GITHUB_WORKSPACE/OtukenSunucu.zip" .)
           printf '%s\n' "$SURUM" > surum.txt
-          ls -la OtukenSunucu.zip
+          ek=""
+          # canlı sunucu denemesi için Linux istemcisi (canli-deneme.yml indirir, botu kiralık sunucuya bağlar)
+          if [ -n "$istemci" ]; then
+            (cd "$(dirname "$istemci")" && zip -qr "$GITHUB_WORKSPACE/OtukenIstemciLinux.zip" .)
+            ek="OtukenIstemciLinux.zip"
+          fi
+          ls -la OtukenSunucu.zip $ek
           snotlar="Oyun sunucusu $SURUM (Linux, başsız). Telefon sürümü $SURUM ile eşleşir. Kiralık sunucu bunu kendisi indirir."
           if gh release view sunucu >/dev/null 2>&1; then
-            gh release upload sunucu OtukenSunucu.zip surum.txt --clobber
+            gh release upload sunucu OtukenSunucu.zip surum.txt $ek --clobber
             gh release edit sunucu --title "Oyun sunucusu ($SURUM)" --notes "$snotlar" --prerelease --draft=false
           else
-            gh release create sunucu OtukenSunucu.zip surum.txt --prerelease --target "$GITHUB_SHA" --title "Oyun sunucusu ($SURUM)" --notes "$snotlar"
+            gh release create sunucu OtukenSunucu.zip surum.txt $ek --prerelease --target "$GITHUB_SHA" --title "Oyun sunucusu ($SURUM)" --notes "$snotlar"
           fi
 
       - name: Tanı raporunu yükle (yürüme ağı, ekran görüntüleri)

@@ -1,0 +1,79 @@
+# Ötüken Destanı - kiralık (canlı) oyun sunucusunu dener: "sunucu" sürümündeki Linux istemcisini indirir,
+# iki istemci botunu (AnyRPG.AgBotu) verilen adrese bağlar; giriş, karakter, dünyaya giriş, birbirini görme,
+# yürüme ve av sonucu özet sayfasına ve açıklamalara yazılır. Elle başlatılır (Actions > Canlı sunucu denemesi).
+
+name: Canlı sunucu denemesi
+
+on:
+  workflow_dispatch:
+    inputs:
+      adres:
+        description: 'Sunucu adresi (IP:port, ör. 95.217.1.2:7770); boşsa Tools~/ag/sunucu.txt'
+        type: string
+        default: ''
+      sure:
+        description: 'Botların dünyada kalacağı süre (sn)'
+        type: string
+        default: '60'
+
+permissions:
+  contents: read
+
+jobs:
+  deneme:
+    name: Canlı sunucu denemesi
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Kodu indir
+        uses: actions/checkout@v7
+        with:
+          sparse-checkout: |
+            Tools~/ag
+      - name: İstemciyi indir ve botları bağla
+        env:
+          ADRES: ${{ inputs.adres }}
+          SURE: ${{ inputs.sure }}
+        run: |
+          set +e
+          adres="$ADRES"
+          [ -z "$adres" ] && adres=$(tr -d '[:space:]' < 'Tools~/ag/sunucu.txt' 2>/dev/null)
+          if [ -z "$adres" ] || [ "$adres" = "localhost" ]; then
+            echo "::error title=Adres yok::Sunucu adresi verilmedi (Tools~/ag/sunucu.txt boş)"; exit 1
+          fi
+          surum=$(curl -fsSL https://github.com/${GITHUB_REPOSITORY}/releases/download/sunucu/surum.txt | tr -d '[:space:]')
+          echo "sunucu sürümü (yayımdaki): $surum, adres: $adres"
+          curl -fsSL -o istemci.zip https://github.com/${GITHUB_REPOSITORY}/releases/download/sunucu/OtukenIstemciLinux.zip || { echo "::error::istemci indirilemedi"; exit 1; }
+          mkdir -p istemci tani && unzip -q istemci.zip -d istemci
+          ikili=$(find istemci -maxdepth 1 -name '*.x86_64' | head -n 1)
+          chmod +x "$ikili"
+          sudo apt-get update -qq >/dev/null 2>&1; sudo apt-get install -y -qq xvfb libgl1-mesa-dri libglu1-mesa >/dev/null 2>&1
+          for b in Canli1 Canli2; do
+            xvfb-run -a "$ikili" -batchmode -istemciBotu $b -adres "$adres" -sure "${SURE:-60}" \
+              -rapor "$PWD/tani/$b.txt" -logFile "$PWD/tani/$b.log" &
+            eval "pid_$b=\$!"
+            sleep 10
+          done
+          for i in $(seq 1 600); do
+            sleep 1
+            kill -0 $pid_Canli1 2>/dev/null || kill -0 $pid_Canli2 2>/dev/null || break
+          done
+          pkill -f istemciBotu 2>/dev/null
+          {
+            echo "## Canlı sunucu denemesi ($adres, sunucu $surum)"
+            for b in Canli1 Canli2; do
+              echo ""; echo "### $b"; echo '```'; cat "tani/$b.txt" 2>/dev/null || echo "rapor yok"; echo '```'
+            done
+          } >> "$GITHUB_STEP_SUMMARY"
+          for b in Canli1 Canli2; do
+            sonuc=$(grep 'SONUÇ' "tani/$b.txt" 2>/dev/null | tail -n 1)
+            echo "::notice title=$b::${sonuc:-rapor yok}"
+            grep -E "Exception|fatal" "tani/$b.log" 2>/dev/null | head -n 5
+          done
+      - name: Günlükleri sakla
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: canli-deneme
+          path: tani
+          retention-days: 5
