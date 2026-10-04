@@ -1,12 +1,12 @@
 # Ötüken Destanı · Hata panosu
 
-Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 04.10.2026 14:43.
+Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 04.10.2026 15:06.
 
 **1** açık sorun · **5** düzeltilen · toplam **12** rapor
 
 ## Son APK derlemesi
 
-Derleme [30](https://github.com/olcaydunder/AnyRPGCore/actions/runs/37198581902) · ✅ başarılı · commit `d3fc003e` · 04.10.2026 14:43
+Derleme [31](https://github.com/olcaydunder/AnyRPGCore/actions/runs/37199780026) · ✅ başarılı · commit `15aa193c` · 04.10.2026 15:06
 
 Tanı raporunda uyarı yok.
 
@@ -15,15 +15,15 @@ Tanı raporunda uyarı yok.
 Bot yeni oyun başlatıp haritaları gezdi: **tamamlandı**, 0 hata/istisna.
 
 - Binek denemesi: binildi, 2,5 sn'de 13 m gidildi, inildi
-- Günlük görevler (botun bir günü): 12 düşman yen 0/12, 1 hazine sandığını boşalt 0/1, 2 farklı diyara ayak bas 2/2 (tamam)
-- İlk haritada av: 0 düşman yenildi, seviye 1 → 1, tecrübe 0 → 0
+- Günlük görevler (botun bir günü): 12 düşman yen 3/12, 1 hazine sandığını boşalt 0/1, 2 farklı diyara ayak bas 2/2 (tamam)
+- İlk haritada av: 3 düşman yenildi, seviye 1 → 1, tecrübe 0 → 315
 - Dünya haritası: 15/15 diyar görüntülü; harita üzerinden ışınlanma: oldu
 
 | | Harita | Sonuç | Yükleme | Hata | Not |
 |---|---|---|---|---|---|
 | ✅ | Ötüken Yaylası | tamam | 3 sn | 0 | ok: Yeni görev: Olcayto Han |
-| ✅ | Umay Tarlaları | tamam | 1 sn | 0 | oyuncu öldü (1. seviye), yeniden doğdu; ok: Hazine sandığı (günlük görev) |
-| ✅ | Börü Tepesi | tamam | 0 sn | 0 | ok: Hazine sandığı (günlük görev) |
+| ✅ | Umay Tarlaları | tamam | 2 sn | 0 | ok: Hazine sandığı (günlük görev) |
+| ✅ | Börü Tepesi | tamam | 1 sn | 0 | ok: Hazine sandığı (günlük görev) |
 | ✅ | Ak Deniz Kıyısı | tamam | 0 sn | 0 | ok: Hazine sandığı (günlük görev) |
 | ❌ | Ordubalık Çarşısı | sorunlu | 1 sn | 0 | yürüyerek ulaşılamayan: Kapi_KafDagiYolu_1 (123, 12, 35); ok: Hazine sandığı (günlük görev) |
 | ✅ | Ordubalık Kenti | tamam | 0 sn | 0 | ok: Hazine sandığı (günlük görev) |
@@ -34,7 +34,7 @@ Bot yeni oyun başlatıp haritaları gezdi: **tamamlandı**, 0 hata/istisna.
 | ✅ | Ergenekon Mağarası | tamam | 0 sn | 0 | ok: Hazine sandığı (günlük görev) |
 | ✅ | Kurgan Mezarlığı | tamam | 0 sn | 0 | oyuncu öldü (1. seviye), yeniden doğdu; ok: Hazine sandığı (günlük görev) |
 | ✅ | Ay Dede Koyu | tamam | 1 sn | 0 | ok: Hazine sandığı (günlük görev) |
-| ✅ | Erlik'in Mağarası | tamam | 0 sn | 0 | ok: Hazine sandığı (günlük görev) |
+| ✅ | Erlik'in Mağarası | tamam | 1 sn | 0 | ok: Hazine sandığı (günlük görev) |
 | ✅ | Tamu Zindanı | tamam | 0 sn | 0 | ok: Hazine sandığı (günlük görev) |
 
 ## Açık sorunlar
