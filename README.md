@@ -1,12 +1,12 @@
 # Ötüken Destanı · Hata panosu
 
-Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 05.10.2026 01:56.
+Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 05.10.2026 02:42.
 
 **5** açık sorun · **5** düzeltilen · toplam **32** rapor
 
 ## Son APK derlemesi
 
-Derleme [45](https://github.com/olcaydunder/AnyRPGCore/actions/runs/37239142564) · ✅ başarılı · commit `dc487e0e` · 05.10.2026 01:55
+Derleme [46](https://github.com/olcaydunder/AnyRPGCore/actions/runs/37242080237) · ✅ başarılı · commit `70d40d06` · 05.10.2026 02:42
 
 Tanı raporunda uyarı yok.
 
@@ -24,10 +24,10 @@ Bot yeni oyun başlatıp haritaları gezdi: **tamamlandı**, 0 hata/istisna.
 
 | | Harita | Sonuç | Yükleme | Hata | Not |
 |---|---|---|---|---|---|
-| ✅ | Ötüken Yaylası | tamam | 4 sn | 0 | ok: Yeni görev: Olcayto Han |
+| ✅ | Ötüken Yaylası | tamam | 3 sn | 0 | ok: Yeni görev: Olcayto Han |
 | ✅ | Umay Tarlaları | tamam | 2 sn | 0 |  |
 | ✅ | Börü Tepesi | tamam | 1 sn | 0 |  |
-| ✅ | Ak Deniz Kıyısı | tamam | 0 sn | 0 |  |
+| ✅ | Ak Deniz Kıyısı | tamam | 1 sn | 0 |  |
 | ❌ | Ordubalık Çarşısı | sorunlu | 1 sn | 0 | yürüyerek ulaşılamayan: Kapi_KafDagiYolu_1 (123, 12, 35) |
 | ✅ | Ordubalık Kenti | tamam | 0 sn | 0 |  |
 | ❌ | Ulukayın Ormanı | sorunlu | 0 sn | 0 | yürüyerek ulaşılamayan: Kapi_OrdubalikKenti_0 (-45, 9, 29) |
