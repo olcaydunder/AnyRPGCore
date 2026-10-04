@@ -452,7 +452,7 @@ def bot_isle(durum, numara, yol_):
         gunluk("oyun testi okunamadı", e)
         return
     durum["derleme"]["bot"] = {"durum": b.get("durum", "?"), "toplamHata": b.get("toplamHata", 0),
-                               "haritalar": [{k: h.get(k) for k in ("sahne", "ad", "sonuc", "yuklemeSuresi", "hata", "not")}
+                               "haritalar": [{k: h.get(k) for k in ("sahne", "ad", "sonuc", "yuklemeSuresi", "hata", "not", "bilgi")}
                                              for h in b.get("haritalar", [])]}
     zaman = int(time.time())
     surum = f"0.1.{numara}"
