@@ -1,6 +1,6 @@
 # Oyuncu bildirimi: merhaba
 
-Durum: 🔴 açık
+Durum: ✅ düzeltildi (0.1.27)
 
 | Tekrar | Cihaz | Sürümler | İlk görülme | Son görülme |
 |---|---|---|---|---|
