@@ -276,7 +276,7 @@ namespace Otuken.EditorAraclari {
                     }
                     // uzun avda kamplar girişten uzakta olabilir: görev okunun "Git"i gibi en yakın düşmana yürüyüp saldır
                     if (sira == UzunAvSirasi && AdimSuresi > 2 && AdimSuresi < 2 + av && EditorApplication.timeSinceStartup >= sonrakiSaldiri) {
-                        sonrakiSaldiri = EditorApplication.timeSinceStartup + 6;
+                        sonrakiSaldiri = EditorApplication.timeSinceStartup + 2;
                         DusmanaGit(oyun);
                     }
                     if (AdimSuresi > 2 + av && AnyRPG.OtomatikAv.Acik) {
@@ -447,7 +447,14 @@ namespace Otuken.EditorAraclari {
             if (oyuncu == null || kontrol == null || oyuncu.CharacterStats == null || oyuncu.CharacterStats.IsAlive == false) {
                 return;
             }
+            // deneme: 1. seviye bot kamp içinde ölmesin, saldırdığı düşman bir vuruşta düşsün (öldürme → tecrübe →
+            // günlük görev sayacı zinciri denensin)
+            oyuncu.CharacterStats.SetResourceAmountsToMaximum();
             if (oyuncu.CharacterCombat != null && oyuncu.CharacterCombat.GetInCombat()) {
+                AnyRPG.UnitController hedef = oyuncu.Target as AnyRPG.UnitController;
+                if (hedef != null && hedef.CharacterStats != null && hedef.CharacterStats.IsAlive) {
+                    hedef.CharacterStats.SetResourceAmount("Health", 1f);
+                }
                 return;
             }
             AnyRPG.UnitController enYakin = null;
