@@ -115,12 +115,29 @@ namespace AnyRPG {
                 Not("giriş hatası: " + e.Message);
             }
             Not("giriş isteği: " + istendi);
+            // giriş olmazsa nedenini ayır: sunucuya hiç ulaşılamadı mı, sürüm mü tutmadı, hesap mı reddedildi
+            string sunucuSurumu = null;
+            Action<string> surumDinle = v => sunucuSurumu = v ?? "?";
+            oyun.NetworkManagerClient.OnClientVersionFailure += surumDinle;
+            bool baglandi = false;
+            bool reddedildi = false;
             float t = Time.realtimeSinceStartup;
-            while (oyun.NetworkManagerClient.AccountId <= 0 && Time.realtimeSinceStartup - t < 60f) {
+            while (oyun.NetworkManagerClient.AccountId <= 0 && Time.realtimeSinceStartup - t < 60f && sunucuSurumu == null && reddedildi == false) {
+                global::FishNet.Managing.Client.ClientManager istemci = global::FishNet.InstanceFinder.ClientManager;
+                if (istemci != null && istemci.Started && baglandi == false) {
+                    baglandi = true;
+                    Not("sunucuya bağlandı (" + (Time.realtimeSinceStartup - t).ToString("0.0") + " sn)");
+                }
+                reddedildi = oyun.UIManager != null && oyun.UIManager.loginFailedWindow != null && oyun.UIManager.loginFailedWindow.IsOpen;
                 yield return new WaitForSecondsRealtime(0.5f);
             }
+            oyun.NetworkManagerClient.OnClientVersionFailure -= surumDinle;
             if (oyun.NetworkManagerClient.AccountId <= 0) {
-                Bitir("SONUÇ: giriş olmadı (60 sn)");
+                string neden = sunucuSurumu != null ? "SÜRÜM TUTMUYOR: sunucu " + sunucuSurumu + " istiyor, bu istemci " + oyun.SystemConfigurationManager.ClientVersion
+                    : reddedildi ? "hesap/şifre reddedildi"
+                    : baglandi ? "sunucuya bağlandı ama 60 sn'de giriş cevabı gelmedi"
+                    : "sunucuya ulaşılamadı (sunucu kapalı, açılıyor ya da UDP portu kapalı)";
+                Bitir("SONUÇ: giriş olmadı: " + neden);
                 yield break;
             }
             Not("giriş tamam: hesap " + oyun.NetworkManagerClient.AccountId + ", kip " + oyun.NetworkManagerClient.ClientMode);

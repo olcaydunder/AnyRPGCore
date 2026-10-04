@@ -411,6 +411,8 @@ jobs:
           SH
           sed -i 's/^          //' "$klasor/baslat.sh"
           chmod +x "$klasor/baslat.sh"
+          # paketin içindeki sürüm: güncelleyici yarım/eski paketi bununla ayırır
+          printf '%s\n' "$SURUM" > "$klasor/surum.txt"
           (cd "$klasor" && zip -qr "$GITHUB_WORKSPACE/OtukenSunucu.zip" .)
           printf '%s\n' "$SURUM" > surum.txt
           ek=""
@@ -422,7 +424,9 @@ jobs:
           ls -la OtukenSunucu.zip $ek
           snotlar="Oyun sunucusu $SURUM (Linux, başsız). Telefon sürümü $SURUM ile eşleşir. Kiralık sunucu bunu kendisi indirir."
           if gh release view sunucu >/dev/null 2>&1; then
-            gh release upload sunucu OtukenSunucu.zip surum.txt $ek --clobber
+            # önce paketler, en son surum.txt: kiralık sunucu yeni sürümü ancak paket tamamen yüklenince görür
+            gh release upload sunucu OtukenSunucu.zip $ek --clobber
+            gh release upload sunucu surum.txt --clobber
             gh release edit sunucu --title "Oyun sunucusu ($SURUM)" --notes "$snotlar" --prerelease --draft=false
           else
             gh release create sunucu OtukenSunucu.zip surum.txt $ek --prerelease --target "$GITHUB_SHA" --title "Oyun sunucusu ($SURUM)" --notes "$snotlar"

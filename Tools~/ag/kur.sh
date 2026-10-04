@@ -11,7 +11,7 @@
 #  - otuken.service: oyunu başsız sunucu kipinde çalıştırır (paketteki baslat.sh; UDP 7770), çökerse yeniden açar
 #  - güvenlik duvarı (ufw) açıksa UDP 7770'e izin verir
 # Şifre, anahtar, jeton içermez; sunucu yalnız herkese açık sürüm dosyalarını indirir. Yeniden çalıştırmak zararsızdır.
-# Günlük: journalctl -u otuken -n 100     Durum: systemctl status otuken     Sürüm: cat /opt/otuken/surum.txt
+# Kısa durum: otuken-durum     Günlük: journalctl -u otuken -n 100
 set -e
 export DEBIAN_FRONTEND=noninteractive
 PORT=7770
@@ -46,6 +46,12 @@ fi
 if ! unzip -q "$gecici/sunucu.zip" -d "$gecici/oyun"; then
   rm -rf "$gecici"; exit 0
 fi
+# paketin içindeki sürüm (varsa) yayımdakiyle aynı olmalı; değilse paket yarım/eski indirilmiştir, sonra yine denenir
+ic=$(tr -d '[:space:]' < "$gecici/oyun/surum.txt" 2>/dev/null || true)
+if [ -n "$ic" ] && [ "$ic" != "$yeni" ]; then
+  logger -t otuken "indirilen paket $ic, beklenen $yeni; sonra yeniden denenecek"
+  rm -rf "$gecici"; exit 0
+fi
 chmod +x "$gecici"/oyun/*.x86_64 "$gecici"/oyun/baslat.sh 2>/dev/null
 systemctl stop otuken || true
 rm -rf "$KLASOR/oyun.eski"
@@ -58,6 +64,19 @@ systemctl start otuken
 logger -t otuken "oyun sunucusu $yeni kuruldu"
 BETIK
 chmod 755 /usr/local/bin/otuken-guncelle
+
+# kısa durum: sürüm, çalışıyor mu, son sunucu satırları ("otuken-durum" yazınca)
+cat > /usr/local/bin/otuken-durum <<'BETIK'
+#!/bin/bash
+echo "Kurulu sürüm : $(cat /opt/otuken/surum.txt 2>/dev/null || echo yok)"
+echo "Yayımdaki    : $(curl -fsSL https://github.com/olcaydunder/AnyRPGCore/releases/download/sunucu/surum.txt 2>/dev/null | tr -d '[:space:]')"
+echo "Oyun sunucusu: $(systemctl is-active otuken 2>/dev/null)   Güncelleyici: $(systemctl is-active otuken-guncelle.timer 2>/dev/null)"
+echo "UDP 7770     : $(ss -lun 2>/dev/null | grep -q ':7770 ' && echo dinleniyor || echo DİNLENMİYOR)"
+echo "--- son sunucu satırları"
+journalctl -u otuken --no-pager -n 400 2>/dev/null | grep -E "\[Sunucu\]|Exception|signal|Killed|oom" | tail -n 8
+journalctl -t otuken --no-pager -n 3 2>/dev/null
+BETIK
+chmod 755 /usr/local/bin/otuken-durum
 
 cat > /etc/systemd/system/otuken.service <<BIRIM
 [Unit]
@@ -114,7 +133,12 @@ systemctl daemon-reload
 systemctl enable otuken.service
 systemctl enable --now otuken-guncelle.timer
 /usr/local/bin/otuken-guncelle || true
-sleep 2
+systemctl is-active --quiet otuken || systemctl start otuken || true
+# sunucunun açılmasını bekle (en çok 2 dk)
+for i in $(seq 1 60); do
+  ss -lun 2>/dev/null | grep -q ":$PORT " && break
+  sleep 2
+done
 echo ""
-echo "Ötüken Destanı sunucusu kuruldu. Sürüm: $(cat /opt/otuken/surum.txt 2>/dev/null || echo 'henüz indirilmedi (5 dk içinde)')"
-echo "Durum: $(systemctl is-active otuken 2>/dev/null)   Port: UDP $PORT"
+echo "Ötüken Destanı sunucusu kuruldu."
+/usr/local/bin/otuken-durum
