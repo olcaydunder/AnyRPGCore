@@ -1,12 +1,12 @@
 # Ötüken Destanı · Hata panosu
 
-Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 04.10.2026 16:34.
+Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 04.10.2026 16:59.
 
 **0** açık sorun · **6** düzeltilen · toplam **12** rapor
 
 ## Son APK derlemesi
 
-Derleme [33](https://github.com/olcaydunder/AnyRPGCore/actions/runs/37204908126) · ✅ başarılı · commit `44319ab2` · 04.10.2026 16:34
+Derleme [34](https://github.com/olcaydunder/AnyRPGCore/actions/runs/37206286322) · ✅ başarılı · commit `a23d594a` · 04.10.2026 16:59
 
 Tanı raporunda uyarı yok.
 
@@ -16,21 +16,21 @@ Bot yeni oyun başlatıp haritaları gezdi: **tamamlandı**, 0 hata/istisna.
 
 - Binek denemesi: binildi, 2,5 sn'de 13 m gidildi, inildi
 - Günlük görevler (botun bir günü): 12 düşman yen 3/12, 1 hazine sandığını boşalt 0/1, 2 farklı diyara ayak bas 2/2 (tamam)
-- İlk haritada av: 3 düşman yenildi, seviye 1 → 1, tecrübe 0 → 315
+- İlk haritada av: 3 düşman yenildi, seviye 3 → 3, tecrübe 0 → 315
 - Dünya haritası: 15/15 diyar görüntülü; harita üzerinden ışınlanma: oldu
-- Demirci: Kahverengi Deri Zırh → Kahverengi Deri Zırh +3 (eşyadaki her temel değer +1); ilk deneme: Başarılı! Kahverengi Deri Zırh +1; Güç Puanı 68 → 70; kayıttaki ad: Kahverengi Deri Zırh +3
-- Gelişim: Güç Puanı 70, seviye ödülü 0, daha iyi eşya önerisi 0, oto av becerisi 11 kez
+- Demirci: Kahverengi Deri Zırh → Kahverengi Deri Zırh +3 (eşyadaki her temel değer +1); ilk deneme: Başarılı! Kahverengi Deri Zırh +1; Güç Puanı 68 → 70; kayıttaki ad: Kahverengi Deri Zırh +3; seviye 3, ödül 2 (3: 20 Gümüş Akçe); çantaya +9 konunca: Kuşan ile giyildi: Kahverengi Deri Zırh +9, Güç Puanı 212
+- Gelişim: Güç Puanı 212, seviye ödülü 2 (son: 3: 20 Gümüş Akçe), daha iyi eşya önerisi 1, oto av becerisi 11 kez
 
 | | Harita | Sonuç | Yükleme | Hata | Not |
 |---|---|---|---|---|---|
-| ✅ | Ötüken Yaylası | tamam | 2 sn | 0 | ok: Yeni görev: Olcayto Han |
+| ✅ | Ötüken Yaylası | tamam | 3 sn | 0 | ok: Yeni görev: Olcayto Han |
 | ✅ | Umay Tarlaları | tamam | 1 sn | 0 | ok: Hazine sandığı (günlük görev) |
 | ✅ | Börü Tepesi | tamam | 0 sn | 0 | ok: Hazine sandığı (günlük görev) |
 | ✅ | Ak Deniz Kıyısı | tamam | 0 sn | 0 | ok: Hazine sandığı (günlük görev) |
 | ❌ | Ordubalık Çarşısı | sorunlu | 1 sn | 0 | yürüyerek ulaşılamayan: Kapi_KafDagiYolu_1 (123, 12, 35); ok: Hazine sandığı (günlük görev) |
 | ✅ | Ordubalık Kenti | tamam | 0 sn | 0 | ok: Hazine sandığı (günlük görev) |
 | ✅ | Ulukayın Ormanı | tamam | 0 sn | 0 | ok: Hazine sandığı (günlük görev) |
-| ✅ | Koncolos İni | tamam | 0 sn | 0 | oyuncu öldü (1. seviye), yeniden doğdu; ok: Hazine sandığı (günlük görev) |
+| ✅ | Koncolos İni | tamam | 0 sn | 0 | ok: Hazine sandığı (günlük görev) |
 | ✅ | Kağan Ordası | tamam | 1 sn | 0 | ok: Hazine sandığı (günlük görev) |
 | ❌ | Kaf Dağı Yolu | sorunlu | 0 sn | 0 | yürüyerek ulaşılamayan: Kapi_OrdubalikCarsisi_1 (135, 13, 42); ok: Hazine sandığı (günlük görev) |
 | ✅ | Ergenekon Mağarası | tamam | 0 sn | 0 | ok: Hazine sandığı (günlük görev) |
