@@ -1,8 +1,8 @@
 # Ötüken Destanı · Hata panosu
 
-Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 05.10.2026 00:55.
+Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 05.10.2026 00:56.
 
-**4** açık sorun · **6** düzeltilen · toplam **20** rapor
+**5** açık sorun · **5** düzeltilen · toplam **30** rapor
 
 ## Son APK derlemesi
 
@@ -44,16 +44,16 @@ Bot yeni oyun başlatıp haritaları gezdi: **tamamlandı**, 0 hata/istisna.
 
 | Durum | Sorun | Tür | Tekrar | Cihaz | Sürüm | Son görülme |
 |---|---|---|---|---|---|---|
+| 🔁 yeniden görüldü | [Arayüz yerleşimi, 3120x1335 ekran](kayitlar/arayuz-3120x1335.md) | Arayüz | 4 | 1 | 0.1.25, 0.1.36, 0.1.43 | 05.10.2026 00:08 |
 | 🔴 açık | [İstisna: NullReferenceException: Object reference not set to an instance of an object.](kayitlar/istisna-44cafcb8.md) | İstisna | 1 | 1 | 0.1.36 | 04.10.2026 19:08 |
-| 🔴 açık | [Hata: Screen position out of view frustum (screen pos inf, -inf) (Camera rect 0 0 640 480)](kayitlar/hata-60de498e.md) | Hata | 2 | 1 | 0.1.43 | 04.10.2026 23:44 |
-| 🔴 açık | [Hata: InputManager not found in scene.  Is the GameManager in the scene?](kayitlar/hata-8f05154f.md) | Hata | 3 | 1 | 0.1.43 | 04.10.2026 23:43 |
+| 🔴 açık | [Hata: Screen position out of view frustum (screen pos inf, -inf) (Camera rect 0 0 640 480)](kayitlar/hata-60de498e.md) | Hata | 6 | 1 | 0.1.43, 0.1.44 | 05.10.2026 00:52 |
+| 🔴 açık | [Hata: InputManager not found in scene.  Is the GameManager in the scene?](kayitlar/hata-8f05154f.md) | Hata | 8 | 2 | 0.1.43 | 05.10.2026 00:12 |
 | 🔴 açık | [Bellek: Bellek yetmedi, sistem oyunu kapattı](kayitlar/bellek-d3941b2d.md) | Bellek | 1 | 1 | 0.1.36 | 04.10.2026 19:07 |
 
 ## Düzeltilenler
 
 | Durum | Sorun | Tür | Tekrar | Cihaz | Sürüm | Son görülme |
 |---|---|---|---|---|---|---|
-| ✅ düzeltildi (0.1.19) | [Arayüz yerleşimi, 3120x1335 ekran](kayitlar/arayuz-3120x1335.md) | Arayüz | 3 | 1 | 0.1.17, 0.1.25, 0.1.36 | 04.10.2026 19:07 |
 | ✅ düzeltildi (0.1.32) | [Arayüz yerleşimi, 2664x1073 ekran](kayitlar/arayuz-2664x1073.md) | Arayüz | 1 | 1 | 0.1.27 | 04.10.2026 14:15 |
 | ✅ düzeltildi (0.1.27) | [Oyuncu bildirimi: merhaba](kayitlar/oyuncu-b9efbe7a2a.md) | Oyuncu bildirimi | 1 | 1 | 0.1.25 | 04.10.2026 11:42 |
 | ✅ düzeltildi (0.1.19) | [İstisna: NullReferenceException: Object reference not set to an instance of an object.](kayitlar/istisna-d581f62b.md) | İstisna | 4 | 1 | 0.1.17 | 03.10.2026 23:44 |

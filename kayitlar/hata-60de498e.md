@@ -4,7 +4,7 @@ Durum: 🔴 açık
 
 | Tekrar | Cihaz | Sürümler | İlk görülme | Son görülme |
 |---|---|---|---|---|
-| 2 | 1 | 0.1.43 | 04.10.2026 23:44 | 04.10.2026 23:44 |
+| 6 | 1 | 0.1.43, 0.1.44 | 04.10.2026 23:44 | 05.10.2026 00:52 |
 
 
 ## İlk rapor
@@ -53,6 +53,10 @@ Oyuncu karakteri: oluştu (MecanimMale133) | Önizleme karakteri: yok | Önizlem
 
 | Zaman · sürüm · cihaz · harita · oyuncu · ekran |
 |---|
+| 05.10.2026 00:52 · 0.1.44 · PC · FeaturesDemoZone · seviye 1 · 640x480 |
+| 05.10.2026 00:52 · 0.1.44 · PC · FeaturesDemoZone · seviye 1 · 640x480 |
+| 04.10.2026 23:57 · 0.1.43 · PC · FeaturesDemoZone · seviye 1 · 640x480 |
+| 04.10.2026 23:57 · 0.1.43 · PC · FeaturesDemoZone · seviye 1 · 640x480 |
 | 04.10.2026 23:44 · 0.1.43 · PC · FeaturesDemoZone · seviye 1 · 640x480 |
 | 04.10.2026 23:44 · 0.1.43 · PC · FeaturesDemoZone · seviye 1 · 640x480 |
 
