@@ -365,10 +365,9 @@ namespace Otuken.EditorAraclari {
                 if (gecit == false && kapi == false) {
                     continue;
                 }
-                NavMeshHit hedef;
-                if (NavMesh.SamplePosition(kok.transform.position, out hedef, 6f, NavMesh.AllAreas) == false
-                    || NavMesh.CalculatePath(baslangic.position, hedef.position, NavMesh.AllAreas, yol) == false
-                    || yol.status != NavMeshPathStatus.PathComplete) {
+                BoxCollider kutu = kapi ? kok.GetComponent<BoxCollider>() : null;
+                bool ulasildi = kutu != null ? KutuyaUlasilir(baslangic.position, kutu, yol) : NoktayaUlasilir(baslangic.position, kok.transform.position, yol);
+                if (ulasildi == false) {
                     yolsuz.Add(ad + " " + kok.transform.position.ToString("F0"));
                 }
             }
@@ -377,13 +376,44 @@ namespace Otuken.EditorAraclari {
             }
         }
 
+        private static bool NoktayaUlasilir(Vector3 baslangic, Vector3 hedefYeri, NavMeshPath yol) {
+            NavMeshHit hedef;
+            return NavMesh.SamplePosition(hedefYeri, out hedef, 6f, NavMesh.AllAreas)
+                && NavMesh.CalculatePath(baslangic, hedef.position, NavMesh.AllAreas, yol) && yol.status == NavMeshPathStatus.PathComplete;
+        }
+
+        /// <summary>kapı tetiğinin çevresinde, oyuncunun gövdesi tetiğe değecek kadar yakın ve oyuncunun
+        /// yerinden yürünerek gidilebilen bir yürüme ağı noktası var mı</summary>
+        internal static bool KutuyaUlasilir(Vector3 baslangic, BoxCollider kutu, NavMeshPath yol) {
+            Bounds b = kutu.bounds;
+            const int adim = 6;
+            for (int ix = 0; ix <= adim; ix++) {
+                for (int iz = 0; iz <= adim; iz++) {
+                    Vector3 nokta = new Vector3(Mathf.Lerp(b.min.x - 2f, b.max.x + 2f, ix / (float)adim), b.center.y,
+                        Mathf.Lerp(b.min.z - 2f, b.max.z + 2f, iz / (float)adim));
+                    NavMeshHit hedef;
+                    if (NavMesh.SamplePosition(nokta, out hedef, b.extents.y + 3f, NavMesh.AllAreas) == false) {
+                        continue;
+                    }
+                    Vector3 govde = hedef.position + Vector3.up * 0.9f;
+                    if (Vector3.Distance(kutu.ClosestPoint(govde), govde) > 0.8f) {
+                        continue;
+                    }
+                    if (NavMesh.CalculatePath(baslangic, hedef.position, NavMesh.AllAreas, yol) && yol.status == NavMeshPathStatus.PathComplete) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
         /// <summary>malzemesi eksik (boş yuva) ya da gölgelendiricisi bozuk (pembe görünen) nesneler</summary>
         private static void MalzemeDenetle(List<string> notlar) {
             Scene sahne = SceneManager.GetActiveScene();
             List<string> bozuk = new List<string>();
             int adet = 0;
             foreach (Renderer r in Object.FindObjectsByType<Renderer>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)) {
-                if (r.enabled == false || r.gameObject.scene != sahne || r is ParticleSystemRenderer || r is TrailRenderer || r is LineRenderer) {
+                if (r.enabled == false || r.gameObject.scene != sahne || r is ParticleSystemRenderer || r is TrailRenderer || r is LineRenderer || r is BillboardRenderer) {
                     continue;
                 }
                 foreach (Material m in r.sharedMaterials) {

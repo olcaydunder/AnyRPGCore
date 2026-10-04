@@ -370,9 +370,22 @@ namespace Otuken.EditorAraclari {
                 if (!hedef) {
                     continue;
                 }
+                BoxCollider kapiKutusu = n.StartsWith("Kapi_") ? t.GetComponent<BoxCollider>() : null;
+                if (kapiKutusu != null && (t.lossyScale.x > 12f || t.lossyScale.z > 12f)) {
+                    // uçurumdan düşenleri yakalayan geniş kutu: yürüyerek ulaşılması beklenmez
+                    continue;
+                }
                 toplam++;
                 string durum;
-                if (!NavMesh.SamplePosition(t.position, out NavMeshHit nokta, 4f, NavMesh.AllAreas)) {
+                if (kapiKutusu != null) {
+                    // oyuncunun gövdesi tetiğe değecek kadar yakın, girişten yürünen bir nokta var mı (oyun testiyle aynı ölçü)
+                    if (OyunTesti.KutuyaUlasilir(girisNoktasi.position, kapiKutusu, yolBilgisi)) {
+                        durum = "ok";
+                        ulasilan++;
+                    } else {
+                        durum = "YOL YOK";
+                    }
+                } else if (!NavMesh.SamplePosition(t.position, out NavMeshHit nokta, 4f, NavMesh.AllAreas)) {
                     durum = "AĞ DIŞI";
                 } else if (NavMesh.CalculatePath(girisNoktasi.position, nokta.position, NavMesh.AllAreas, yolBilgisi)
                            && yolBilgisi.status == NavMeshPathStatus.PathComplete) {

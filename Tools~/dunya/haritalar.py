@@ -448,7 +448,7 @@ def prefab_temizle(metin, kaynak, gecerli):
     bilesenleri_temizle(s, kaynak)
     s.kullanilmayan_gomulu_sil()
     metin = s.metin()
-    metin = wip_malzeme_duzelt(isik_duzelt(katman_duzelt(metin)))
+    metin = bos_malzeme_kapat(wip_malzeme_duzelt(isik_duzelt(katman_duzelt(metin))))
     if gecerli is not None:
         metin = degisiklik_temizle(metin, gecerli)
     return metin
@@ -459,6 +459,20 @@ def prefab_temizle(metin, kaynak, gecerli):
 WIP_MALZEME = "27fd0bb504f007f42a738e4e113a10f4"      # WIP/Materials/Probuilder_Toon.mat
 WIP_YERINE = "fa9e1f24076f7154bbf0c0960bf2b7e2"       # Art/Nature/Rocks_Medium/Rock_Medium.mat
 WIP_AHSAP = "caa7f5772bebd2a48a02b14b43382cf5"        # Art/Props/Festival/WoodplankLight.mat
+
+
+def bos_malzeme_kapat(metin):
+    """Chop Chop'ta malzemesi boş bırakılıp özel bir çizim aşamasıyla boyanan maske nesneleri (BoatHideWaterMask)
+    bizde malzemesiz kalıyordu (oyun testi: "eksik malzeme"): çizici kapatılır."""
+    kalip = re.compile(r"    - target: \{fileID: (-?\d+), guid: (\w+),\s+type: (\d+)\}\n"
+                       r"      propertyPath: m_Materials\.Array\.data\[0\]\n      value: ?\n"
+                       r"      objectReference: \{fileID: 0\}\n"
+                       r"(?!    - target: \{fileID: \1, guid: \2, type: \3\}\n      propertyPath: m_Enabled\n)")
+    def ekle(m):
+        hedef = f"    - target: {{fileID: {m.group(1)}, guid: {m.group(2)}, type: {m.group(3)}}}\n"
+        kapat = hedef + "      propertyPath: m_Enabled\n      value: 0\n      objectReference: {fileID: 0}\n"
+        return m.group(0) + kapat
+    return kalip.sub(ekle, metin)
 
 
 def wip_malzeme_duzelt(metin):
@@ -703,6 +717,45 @@ def kutu_belge(fid, go, boyut, merkez=(0, 0, 0), tetik=True):
             f"  m_ExcludeLayers:\n    serializedVersion: 2\n    m_Bits: 0\n  m_LayerOverridePriority: 0\n"
             f"  m_IsTrigger: {1 if tetik else 0}\n  m_ProvidesContacts: 0\n  m_Enabled: 1\n  serializedVersion: 3\n"
             f"  m_Size: {v3(boyut)}\n  m_Center: {v3(merkez)}\n")
+
+
+KAPI_UZATMA = 6.0   # kapı tetiği yürünebilir yere en fazla bu kadar uzatılır (m)
+
+
+def ulasilan_noktalar(polys, comp, giris):
+    """girişin bulunduğu yürüme ağı bileşeninin köşeleri ve kenar ortaları"""
+    merkez = [(sum(v[0] for v in p) / len(p), sum(v[1] for v in p) / len(p), sum(v[2] for v in p) / len(p)) for p in polys]
+    gi = min(range(len(polys)), key=lambda i: math.dist(merkez[i], giris))
+    noktalar = []
+    for i, p in enumerate(polys):
+        if comp[i] != comp[gi]:
+            continue
+        for a, b in zip(p, p[1:] + p[:1]):
+            noktalar.append(a)
+            noktalar.append(((a[0] + b[0]) / 2, (a[1] + b[1]) / 2, (a[2] + b[2]) / 2))
+    return noktalar
+
+
+def kapi_kutusu(p, q, s, noktalar, pay=0.6):
+    """Chop Chop çıkışları çoğu zaman yürüme ağının bittiği yerin 1-4 m ötesinde kalıyor, oyuncu tetiğe
+    değemiyordu (oyun testi: "yürüyerek ulaşılamayan kapı"). Tetik kutusu en yakın yürünebilir noktaya kadar
+    uzatılır. Dönüş: BoxCollider (merkez, boyut), yerel birimlerde."""
+    qi = (-q[0], -q[1], -q[2], q[3])
+    en = None
+    for v in noktalar:
+        d = unitysahne.qrot(qi, (v[0] - p[0], v[1] + 0.9 - p[1], v[2] - p[2]))
+        yerel = [d[i] / s[i] for i in range(3)]
+        disari = [max(abs(yerel[i]) - 0.5, 0.0) * s[i] for i in range(3)]
+        m = math.sqrt(sum(x * x for x in disari))
+        if en is None or m < en[0]:
+            en = (m, yerel)
+    if en is None or en[0] <= 0.3 or en[0] > KAPI_UZATMA:
+        return (0, 0, 0), (1, 1, 1)
+    yerel = en[1]
+    alt = [min(-0.5, yerel[i] - pay / s[i]) for i in range(3)]
+    ust = [max(0.5, yerel[i] + pay / s[i]) for i in range(3)]
+    return (tuple(round((alt[i] + ust[i]) / 2, 4) for i in range(3)),
+            tuple(round(ust[i] - alt[i], 4) for i in range(3)))
 
 
 def mb_bas(fid, go, betik):
@@ -952,7 +1005,9 @@ def harita_yaz(h, s, haritalar, kaynak):
     sag = (ileri[2], 0, -ileri[0])
     tp = (gp[0] + ileri[0] * 5 + sag[0] * 4, gp[1], gp[2] + ileri[2] * 5 + sag[2] * 4)
     if nm is not None:
-        yer = harita_icerik.tas_yeri(nm, (gp[0], gp[2]), (ileri[0], ileri[2]), gp[1])
+        # yalnız girişten yürünerek gidilen bileşen (birleşik ağdaki kopuk parçalar taşı boşluğa koyabiliyordu)
+        gi = min(range(len(h.ag.polys)), key=lambda i: math.dist(h.ag.merkez[i], gp))
+        yer = harita_icerik.tas_yeri(h.ag.bilesen(h.ag.comp[gi]), (gp[0], gp[2]), (ileri[0], ileri[2]), gp[1])
         if yer:
             tp = yer
     tas_yaw = math.degrees(math.atan2(gp[0] - tp[0], gp[2] - tp[2]))
@@ -962,6 +1017,7 @@ def harita_yaz(h, s, haritalar, kaynak):
 
     # 5. komşu haritalara kapılar (Chop Chop çıkışlarının yerinde)
     h.kapilar = []
+    ulasilan = ulasilan_noktalar(h.ag.polys, h.ag.comp, gp) if h.ag is not None else []
     for i, (ad, trs, yol, hedef) in enumerate(h.cikislar):
         hh = haritalar[hedef]
         varis = next((g for g in hh.girisler if g[2] == yol), None)
@@ -973,13 +1029,14 @@ def harita_yaz(h, s, haritalar, kaynak):
         s_ = tuple(abs(v) * OLCEK for v in trs.s)
         kgo, ktr, kkutu, kint, kls = (kimlik(f"Kapi{i}:{x}", k) for x in ("go", "tr", "kutu", "int", "ls"))
         kad = f"Kapi_{hh.dosya}_{i}"
+        dusme = s_[0] > 12 or s_[2] > 12   # uçurumdan düşenleri yakalayan geniş kutular: yazı ve tabela yok
+        kmerkez, kboyut = ((0, 0, 0), (1, 1, 1)) if dusme else kapi_kutusu(p, trs.q, s_, ulasilan)
         ek.append(go_belge(kgo, kad, [ktr, kkutu, kint, kls], katman=11)
                   + tr_belge(ktr, kgo, p, trs.q, s_)
-                  + kutu_belge(kkutu, kgo, (1, 1, 1))
+                  + kutu_belge(kkutu, kgo, kboyut, kmerkez)
                   + interactable_belge(kint, kgo, tetik=True, pencere_yok=True)
                   + loadscene_belge(kls, kgo, hh.ad, hh.dosya,
                                     ((vp[0], vp[1] + 0.3, vp[2]), (vileri[0], 0, vileri[2])) if varis else None))
-        dusme = s_[0] > 12 or s_[2] > 12   # uçurumdan düşenleri yakalayan geniş kutular: yazı ve tabela yok
         if not dusme:
             rot = bakis(gp, p)
             yp = (p[0], p[1] + max(2.2, s_[1] * 0.5 + 1.6), p[2])

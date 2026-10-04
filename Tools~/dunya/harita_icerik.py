@@ -239,15 +239,19 @@ def tas_yeri(nm, giris, ileri, gy=None):
     """Geçit Taşı için girişin önünde/yanında düz bir yer: (x, y, z) ya da None"""
     gx, gz = giris
     en_iyi = None
-    for r in (5.0, 6.0, 4.5, 7.0, 8.0, 9.0):
-        for k in range(16):
-            a = math.atan2(ileri[0], ileri[1]) + math.radians(35 + 22.5 * k)
-            x, z = gx + r * math.sin(a), gz + r * math.cos(a)
-            h = yukseklik(nm, x, z, gy)
-            if h is None or (gy is not None and abs(h - gy) > 2.0):
-                continue
-            if duz(nm, x, z, h, 1.8, 0.35):
-                return (x, h, z)
-            if en_iyi is None and duz(nm, x, z, h, 1.4, 0.6):
-                en_iyi = (x, h, z)
+    # önce girişle aynı katta yakın bir yer; yoksa (giriş dar bir rampa ya da çıkıntıdaysa) biraz ötede
+    for tolerans, yaricaplar in ((2.0, (5.0, 6.0, 4.5, 7.0, 8.0, 9.0)), (6.0, (8.0, 10.0, 12.0, 14.0))):
+        for r in yaricaplar:
+            for k in range(16):
+                a = math.atan2(ileri[0], ileri[1]) + math.radians(35 + 22.5 * k)
+                x, z = gx + r * math.sin(a), gz + r * math.cos(a)
+                h = yukseklik(nm, x, z, gy)
+                if h is None or (gy is not None and abs(h - gy) > tolerans):
+                    continue
+                if duz(nm, x, z, h, 1.8, 0.35):
+                    return (x, h, z)
+                if en_iyi is None and duz(nm, x, z, h, 1.4, 0.6):
+                    en_iyi = (x, h, z)
+        if en_iyi is not None:
+            return en_iyi
     return en_iyi
