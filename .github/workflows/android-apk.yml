@@ -153,7 +153,7 @@ jobs:
           # önce haritaları hazırlar (yürüme ağı, tanı raporu, ekran görüntüleri), sonra standart GameCI derlemesi
           # (Assets/Otuken/Editor/HaritaHazirlik.cs, Assets/Editor/UnityBuilderAction)
           buildMethod: Otuken.EditorAraclari.Derleme.Derle
-          customParameters: ${{ inputs.sadece_arayuz && '-sadeceArayuz' || '' }}
+          customParameters: ${{ inputs.sadece_arayuz && '-sadeceArayuz' || '' }} -istemciSurumu ${{ steps.hazirlik.outputs.surum }}
           androidExportType: androidPackage
           versioning: Custom
           version: ${{ steps.hazirlik.outputs.surum }}
@@ -287,6 +287,83 @@ jobs:
             echo "::warning title=Oyun testi::rapor çıkmadı (tani/oyun_testi_unity_son.log)"
           fi
           exit 0
+
+      - name: Linux oyun sunucusunu derle (çevrimiçi oyun)
+        # aynı çalışma alanında, telefon derlemesinden sonra: sahneler ve ağ kimlikleri APK ile aynı (AgHazirlik).
+        # Tutmazsa APK etkilenmez.
+        id: sunucu
+        if: ${{ !inputs.sadece_arayuz && steps.apk.outcome == 'success' }}
+        continue-on-error: true
+        timeout-minutes: 90
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          targetPlatform: StandaloneLinux64
+          buildName: OtukenSunucu
+          buildMethod: Otuken.EditorAraclari.Derleme.SunucuDerle
+          customParameters: -istemciSurumu ${{ steps.hazirlik.outputs.surum }}
+          # telefon derlemesi sahneleri işledi (yürüme ağı, ağ nesneleri): çalışma alanı bilerek "kirli"
+          allowDirtyBuild: true
+          versioning: Custom
+          version: ${{ steps.hazirlik.outputs.surum }}
+
+      - name: Sunucuyu dene ve yayımla
+        # sunucu 2 dakika başsız çalıştırılır: "[Sunucu] başladı" ve UDP 7770 dinleniyor mu. Tutarsa "sunucu" ön
+        # sürümüne OtukenSunucu.zip ve surum.txt yüklenir; kiralık sunucudaki güncelleyici (Tools~/ag/cloud-config.yaml)
+        # yeni sürümü kendisi indirir.
+        if: ${{ !inputs.sadece_arayuz && steps.sunucu.outcome == 'success' }}
+        continue-on-error: true
+        timeout-minutes: 15
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SURUM: ${{ steps.hazirlik.outputs.surum }}
+        run: |
+          mkdir -p tani
+          ikili=$(find build/StandaloneLinux64 -maxdepth 2 -name '*.x86_64' | head -n 1)
+          if [ -z "$ikili" ]; then
+            echo "::warning title=Sunucu::derlendi ama .x86_64 dosyası yok"; ls -la build/StandaloneLinux64 || true; exit 0
+          fi
+          klasor=$(dirname "$ikili")
+          cat "$klasor/derleme.txt" 2>/dev/null || true
+          sudo chown -R "$(id -u):$(id -g)" "$klasor" || true
+          chmod +x "$ikili"
+          "$ikili" -batchmode -nographics -sunucu -port 7770 -logFile "$PWD/tani/sunucu_deneme.log" &
+          pid=$!
+          basladi=0
+          for i in $(seq 1 120); do
+            sleep 1
+            if grep -q "\[Sunucu\] başladı" tani/sunucu_deneme.log 2>/dev/null; then basladi=1; break; fi
+            kill -0 $pid 2>/dev/null || break
+          done
+          sleep 5
+          dinliyor=0
+          ss -lun | grep -q ':7770' && dinliyor=1
+          kill $pid 2>/dev/null; sleep 3; kill -9 $pid 2>/dev/null || true
+          hata=$(grep -c -E "Exception|Error|error CS" tani/sunucu_deneme.log 2>/dev/null || true)
+          echo "başladı=$basladi dinliyor=$dinliyor hata satırı=$hata"
+          grep "\[Sunucu\]" tani/sunucu_deneme.log | tail -n 20 || true
+          tail -n 3000 tani/sunucu_deneme.log > tani/sunucu_deneme_son.log 2>/dev/null; rm -f tani/sunucu_deneme.log
+          printf 'surum=%s\nbasladi=%s\ndinliyor=%s\nhata_satiri=%s\n' "$SURUM" "$basladi" "$dinliyor" "$hata" > tani/sunucu_durum.txt
+          if [ "$basladi" != "1" ]; then
+            echo "::warning title=Sunucu::denemede açılmadı (tani/sunucu_deneme_son.log); yayımlanmadı"; exit 0
+          fi
+          (cd "$klasor" && zip -qr "$GITHUB_WORKSPACE/OtukenSunucu.zip" .)
+          printf '%s\n' "$SURUM" > surum.txt
+          ls -la OtukenSunucu.zip
+          snotlar="Oyun sunucusu $SURUM (Linux, başsız). Telefon sürümü $SURUM ile eşleşir. Kiralık sunucu bunu kendisi indirir."
+          if gh release view sunucu >/dev/null 2>&1; then
+            gh release upload sunucu OtukenSunucu.zip surum.txt --clobber
+            gh release edit sunucu --title "Oyun sunucusu ($SURUM)" --notes "$snotlar" --prerelease --draft=false || true
+          else
+            gh release create sunucu OtukenSunucu.zip surum.txt --prerelease --target "$GITHUB_SHA" --title "Oyun sunucusu ($SURUM)" --notes "$snotlar"
+          fi
+          {
+            echo "## Oyun sunucusu $SURUM"
+            echo "başladı: $basladi, UDP 7770: $dinliyor, boyut: $(( $(stat -c %s OtukenSunucu.zip) / 1048576 )) MB"
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Tanı raporunu yükle (yürüme ağı, ekran görüntüleri)
         # derleme başarısız olsa bile: "tani" ön sürümünde tani.zip (rapor.txt, *.jpg, navmesh/)

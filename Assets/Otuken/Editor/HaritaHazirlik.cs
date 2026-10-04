@@ -33,6 +33,12 @@ namespace Otuken.EditorAraclari {
             } catch (Exception e) {
                 Debug.LogError("HaritaHazirlik başarısız oldu, derlemeye devam ediliyor: " + e);
             }
+            try {
+                // çevrimiçi oyun: sahnelere ağ nesneleri, birim profillerine FishNet prefabları (AgHazirlik)
+                AgHazirlik.Calistir();
+            } catch (Exception e) {
+                Debug.LogError("AgHazirlik başarısız oldu, derlemeye devam ediliyor: " + e);
+            }
             if (SadeceArayuz) {
                 // GameCI derleme klasörünü bekler
                 string[] argumanlar = Environment.GetCommandLineArgs();
@@ -54,6 +60,45 @@ namespace Otuken.EditorAraclari {
             } catch (TargetInvocationException e) {
                 throw e.InnerException ?? e;
             }
+        }
+
+        /// <summary>
+        /// Linux oyun sunucusu (workflow'da Android derlemesinden sonra, aynı çalışma alanında: sahneler ve ağ kimlikleri
+        /// telefon sürümüyle aynı). Ayrılmış sunucu (Dedicated Server) modülü varsa onunla, yoksa olağan Linux oyunu
+        /// olarak derlenir; ikisi de "-batchmode -nographics -sunucu" ile başsız çalışır (AnyRPG.Sunucu).
+        /// </summary>
+        public static void SunucuDerle() {
+            try {
+                AgHazirlik.Calistir();
+            } catch (Exception e) {
+                Debug.LogError("AgHazirlik başarısız oldu, derlemeye devam ediliyor: " + e);
+            }
+            string[] argumanlar = Environment.GetCommandLineArgs();
+            int i = Array.IndexOf(argumanlar, "-customBuildPath");
+            string yol = i >= 0 && i + 1 < argumanlar.Length ? argumanlar[i + 1] : "Build/Sunucu/OtukenSunucu.x86_64";
+            if (yol.EndsWith(".x86_64") == false) {
+                yol += ".x86_64";
+            }
+            Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(yol)));
+            string[] sahneler = EditorBuildSettings.scenes.Where(s => s.enabled).Select(s => s.path).ToArray();
+            PlayerSettings.SetScriptingBackend(UnityEditor.Build.NamedBuildTarget.Standalone, ScriptingImplementation.Mono2x);
+            foreach (StandaloneBuildSubtarget alt in new[] { StandaloneBuildSubtarget.Server, StandaloneBuildSubtarget.Player }) {
+                BuildPlayerOptions secenek = new BuildPlayerOptions() {
+                    scenes = sahneler,
+                    locationPathName = yol,
+                    target = BuildTarget.StandaloneLinux64,
+                    subtarget = (int)alt,
+                    options = BuildOptions.None
+                };
+                UnityEditor.Build.Reporting.BuildReport sonuc = BuildPipeline.BuildPlayer(secenek);
+                Debug.Log($"[Sunucu derlemesi] {alt}: {sonuc.summary.result}, {sonuc.summary.totalErrors} hata, {sonuc.summary.totalSize / (1024 * 1024)} MB");
+                if (sonuc.summary.result == UnityEditor.Build.Reporting.BuildResult.Succeeded) {
+                    File.WriteAllText(Path.Combine(Path.GetDirectoryName(Path.GetFullPath(yol)), "derleme.txt"),
+                        $"tur={alt}\nsurum={AgHazirlik.IstemciSurumu}\n");
+                    return;
+                }
+            }
+            throw new Exception("Linux sunucu derlenemedi");
         }
     }
 

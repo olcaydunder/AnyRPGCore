@@ -87,12 +87,10 @@ Assets/Standard*
 Assets/UMA*
 Assets/UnusedExternalContent*
 AssetBundles/
-Assets/FishNet*
+# FishNet ve AnyMMO (çevrimiçi oyun) depoya eklidir: Assets/FishNet (Demos hariç), Assets/AnyRPG/Addons/anymmo-fishnet (Games hariç)
 Assets/DefaultPrefabObjects*
 Assets/AnyRPG/Addons/anyrpg-uma
 Assets/AnyRPG/Addons/anyrpg-uma*
-Assets/AnyRPG/Addons/anymmo-fishnet
-Assets/AnyRPG/Addons/anymmo-fishnet*
 Assets/AnyRPG/Addons/anymmo-fishnet-uma
 Assets/AnyRPG/Addons/anymmo-fishnet-uma*
 Assets/AnyRPG/Addons/anyrpg-movement-test-game
@@ -135,3 +133,7 @@ __pycache__/
 # dünya haritası görüntüleri her derlemede yeniden çekilir (HaritaHazirlik.DunyaHaritasiCek)
 /Assets/Otuken/Resources/DunyaHaritasi/
 /Assets/Otuken/Resources/DunyaHaritasi.meta
+
+# çevrimiçi oyun hazırlığının derlemede ürettikleri (AgHazirlik): FishNet model varyantları
+/Assets/Otuken/Ag/
+/Assets/Otuken/Ag.meta
