@@ -1,18 +1,14 @@
 # Ötüken Destanı · Hata panosu
 
-Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 04.10.2026 03:39.
+Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 04.10.2026 04:06.
 
 **0** açık sorun · **4** düzeltilen · toplam **9** rapor
 
 ## Son APK derlemesi
 
-Derleme [24](https://github.com/olcaydunder/AnyRPGCore/actions/runs/37164612951) · ✅ başarılı · commit `6dbf9e78` · 04.10.2026 03:39
+Derleme [25](https://github.com/olcaydunder/AnyRPGCore/actions/runs/37165997916) · ✅ başarılı · commit `e371e088` · 04.10.2026 04:06
 
-Tanı raporunda 1 uyarı ([tam rapor](https://github.com/olcaydunder/AnyRPGCore/releases/download/tani/tani.zip)):
-
-```text
-!! zemine oturtulamayan nesne: 1 (GecitTasi (101.1, 16.0, 30.6))
-```
+Tanı raporunda uyarı yok.
 
 ### Otomatik oyun testi
 
@@ -20,13 +16,13 @@ Bot yeni oyun başlatıp haritaları gezdi: **tamamlandı**, 0 hata/istisna.
 
 | | Harita | Sonuç | Yükleme | Hata | Not |
 |---|---|---|---|---|---|
-| ❌ | Ötüken Yaylası | sorunlu | 3 sn | 0 | 12 nesnede eksik/bozuk malzeme: Billboard (malzeme yok), Billboard (malzeme yok), Billboard (malzeme yok), Billboard (malzeme yok), Billboard (malzeme yok) |
+| ✅ | Ötüken Yaylası | tamam | 3 sn | 0 |  |
 | ✅ | Umay Tarlaları | tamam | 1 sn | 0 |  |
 | ✅ | Börü Tepesi | tamam | 0 sn | 0 |  |
-| ❌ | Ak Deniz Kıyısı | sorunlu | 0 sn | 0 | 1 nesnede eksik/bozuk malzeme: BoatHideWaterMask (malzeme yok) |
+| ✅ | Ak Deniz Kıyısı | tamam | 0 sn | 0 |  |
 | ❌ | Ordubalık Çarşısı | sorunlu | 1 sn | 0 | yürüyerek ulaşılamayan: Kapi_KafDagiYolu_1 (123, 12, 35) |
-| ❌ | Ordubalık Kenti | sorunlu | 0 sn | 0 | yürüyerek ulaşılamayan: Kapi_KaganOrdasi_3 (7, 20, 63), Kapi_UlukayinOrmani_1 (-30, 10, 34) |
-| ❌ | Ulukayın Ormanı | sorunlu | 0 sn | 0 | yürüyerek ulaşılamayan: Kapi_OrdubalikKenti_0 (-45, 9, 29) |
+| ✅ | Ordubalık Kenti | tamam | 0 sn | 0 |  |
+| ✅ | Ulukayın Ormanı | tamam | 0 sn | 0 |  |
 | ✅ | Koncolos İni | tamam | 0 sn | 0 |  |
 | ✅ | Kağan Ordası | tamam | 1 sn | 0 |  |
 | ❌ | Kaf Dağı Yolu | sorunlu | 0 sn | 0 | yürüyerek ulaşılamayan: Kapi_OrdubalikCarsisi_1 (135, 13, 42) |
