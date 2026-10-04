@@ -274,6 +274,11 @@ namespace Otuken.EditorAraclari {
                         ilkSeviye = oyun.PlayerManagerClient.UnitController.CharacterStats.Level;
                         ilkOldurme = oldurmeSayisi;
                     }
+                    // uzun avda kamplar girişten uzakta olabilir: görev okunun "Git"i gibi en yakın düşmana yürüyüp saldır
+                    if (sira == UzunAvSirasi && AdimSuresi > 2 && AdimSuresi < 2 + av && EditorApplication.timeSinceStartup >= sonrakiSaldiri) {
+                        sonrakiSaldiri = EditorApplication.timeSinceStartup + 6;
+                        DusmanaGit(oyun);
+                    }
                     if (AdimSuresi > 2 + av && AnyRPG.OtomatikAv.Acik) {
                         AnyRPG.OtomatikAv.Kapat();
                     }
@@ -433,6 +438,36 @@ namespace Otuken.EditorAraclari {
         private static int ilkTecrube = -1;
         private static int ilkSeviye = 0;
         private static AnyRPG.UnitController sayilan = null;
+
+        private static double sonrakiSaldiri = 0;
+
+        private static void DusmanaGit(AnyRPG.SystemGameManager oyun) {
+            AnyRPG.UnitController oyuncu = oyun != null && oyun.PlayerManagerClient != null ? oyun.PlayerManagerClient.UnitController : null;
+            AnyRPG.PlayerController kontrol = oyun != null && oyun.PlayerManagerClient != null ? oyun.PlayerManagerClient.PlayerController : null;
+            if (oyuncu == null || kontrol == null || oyuncu.CharacterStats == null || oyuncu.CharacterStats.IsAlive == false) {
+                return;
+            }
+            if (oyuncu.CharacterCombat != null && oyuncu.CharacterCombat.GetInCombat()) {
+                return;
+            }
+            AnyRPG.UnitController enYakin = null;
+            float enAz = float.MaxValue;
+            foreach (AnyRPG.UnitController birim in Object.FindObjectsByType<AnyRPG.UnitController>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)) {
+                if (birim == oyuncu || birim.CharacterStats == null || birim.CharacterStats.IsAlive == false || oyuncu.BaseCharacter == null
+                    || AnyRPG.Faction.RelationWith(birim, oyuncu.BaseCharacter.Faction) > -1) {
+                    continue;
+                }
+                float d = Vector3.Distance(birim.transform.position, oyuncu.transform.position);
+                if (d < enAz) {
+                    enAz = d;
+                    enYakin = birim;
+                }
+            }
+            if (enYakin != null) {
+                Debug.Log("[OyunTesti] en yakın düşmana gidiliyor: " + enYakin.DisplayName + " (" + enAz.ToString("0") + " m)");
+                kontrol.RightMouseInteraction(enYakin);
+            }
+        }
 
         private static void OldurmeleriSay(AnyRPG.UnitController oyuncu) {
             if (oyuncu == sayilan || oyuncu == null) {
