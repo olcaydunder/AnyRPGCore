@@ -145,8 +145,19 @@ namespace AnyRPG {
             }
             Not("dünyada: " + UnityEngine.SceneManagement.SceneManager.GetActiveScene().name + ", konum " + ben.transform.position.ToString("0"));
             yield return new WaitForSecondsRealtime(5f);
-            if (OtomatikAv.Acik == false) {
-                OtomatikAv.Degistir();
+
+            // yürüme: hareket çubuğu 4 sn ileri (sunucu hareketi kabul edip ötekilere yayıyor mu)
+            Vector3 yurumeOncesi = ben.transform.position;
+            MobileInput.SetJoystick(Vector2.up, true);
+            yield return new WaitForSecondsRealtime(4f);
+            MobileInput.SetJoystick(Vector2.zero, false);
+            yield return new WaitForSecondsRealtime(1f);
+            ben = oyun.PlayerManagerClient.UnitController;
+            float yurunen = ben != null ? Vector3.Distance(yurumeOncesi, ben.transform.position) : 0f;
+            Not("hareket çubuğuyla 4 sn: " + yurunen.ToString("0.0") + " m");
+            if (ben == null) {
+                Bitir("SONUÇ: oyuncu birimi kayboldu");
+                yield break;
             }
 
             int enCokOyuncu = 0;
@@ -155,6 +166,9 @@ namespace AnyRPG {
             int ilkSeviye = ben.CharacterStats != null ? ben.CharacterStats.Level : 0;
             Vector3 ilkKonum = ben.transform.position;
             HashSet<string> gorulenOyuncular = new HashSet<string>();
+            Dictionary<string, Vector3> otekiIlk = new Dictionary<string, Vector3>();
+            float otekiYuruyus = 0f;
+            int saldiri = 0;
             t = Time.realtimeSinceStartup;
             while (Time.realtimeSinceStartup - t < sure) {
                 yield return new WaitForSecondsRealtime(5f);
@@ -162,6 +176,18 @@ namespace AnyRPG {
                 if (ben == null) {
                     Not("oyuncu birimi kayboldu");
                     break;
+                }
+                // av: savaşta değilse en yakın düşmana yürü ve saldır (dokunmayla aynı yol: sunucuya istek)
+                try {
+                    if (ben.CharacterStats.IsAlive && (ben.CharacterCombat == null || ben.CharacterCombat.GetInCombat() == false)) {
+                        UnitController dusman = EnYakinDusman(ben);
+                        if (dusman != null && oyun.PlayerManagerClient.PlayerController != null) {
+                            oyun.PlayerManagerClient.PlayerController.RightMouseInteraction(dusman);
+                            saldiri++;
+                        }
+                    }
+                } catch (Exception e) {
+                    Not("av hatası: " + e.Message);
                 }
                 int oyuncu = 0;
                 int npc = 0;
@@ -172,6 +198,12 @@ namespace AnyRPG {
                     if (u.UnitControllerMode == UnitControllerMode.Player) {
                         oyuncu++;
                         gorulenOyuncular.Add(u.DisplayName);
+                        Vector3 ilk;
+                        if (otekiIlk.TryGetValue(u.DisplayName, out ilk)) {
+                            otekiYuruyus = Mathf.Max(otekiYuruyus, Vector3.Distance(ilk, u.transform.position));
+                        } else {
+                            otekiIlk[u.DisplayName] = u.transform.position;
+                        }
                     } else if (u.UnitControllerMode == UnitControllerMode.AI) {
                         npc++;
                     }
@@ -182,10 +214,28 @@ namespace AnyRPG {
                     + ", konum " + ben.transform.position.ToString("0") + (ben.Target != null ? ", hedef " + ben.Target.DisplayName : string.Empty));
             }
             Vector3 son = ben != null ? ben.transform.position : ilkKonum;
-            Bitir("SONUÇ: " + (enCokOyuncu > 0 ? "öteki oyuncu GÖRÜLDÜ (" + string.Join(", ", gorulenOyuncular) + ")" : "öteki oyuncu görülmedi")
-                + ", en çok NPC/düşman " + enCokNpc + ", yürüdüğü " + Vector3.Distance(ilkKonum, son).ToString("0") + " m"
+            Bitir("SONUÇ: " + (enCokOyuncu > 0 ? "öteki oyuncu GÖRÜLDÜ (" + string.Join(", ", gorulenOyuncular) + ", onun yürüyüşü " + otekiYuruyus.ToString("0") + " m)" : "öteki oyuncu görülmedi")
+                + ", en çok NPC/düşman " + enCokNpc + ", çubukla " + yurunen.ToString("0") + " m, toplam yer değiştirme " + Vector3.Distance(ilkKonum, son).ToString("0") + " m"
+                + ", " + saldiri + " saldırı isteği"
                 + ", seviye " + ilkSeviye + " → " + (ben != null ? ben.CharacterStats.Level : 0)
                 + ", tecrübe " + ilkTecrube + " → " + (ben != null ? ben.CharacterStats.CurrentXP : 0));
+        }
+
+        private static UnitController EnYakinDusman(UnitController ben) {
+            UnitController enYakin = null;
+            float enAz = 80f;
+            foreach (UnitController u in FindObjectsByType<UnitController>(FindObjectsSortMode.None)) {
+                if (u == ben || u.UnitControllerMode != UnitControllerMode.AI || u.CharacterStats == null || u.CharacterStats.IsAlive == false
+                    || ben.BaseCharacter == null || Faction.RelationWith(u, ben.BaseCharacter.Faction) > -1) {
+                    continue;
+                }
+                float d = Vector3.Distance(u.transform.position, ben.transform.position);
+                if (d < enAz) {
+                    enAz = d;
+                    enYakin = u;
+                }
+            }
+            return enYakin;
         }
 
         private void Bitir(string sonuc) {

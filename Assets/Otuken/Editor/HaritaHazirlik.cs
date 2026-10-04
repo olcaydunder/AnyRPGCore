@@ -117,6 +117,9 @@ namespace Otuken.EditorAraclari {
             string dosya = Path.GetFileName(yol);
             string[] sahneler = EditorBuildSettings.scenes.Where(s => s.enabled).Select(s => s.path).ToArray();
             PlayerSettings.SetScriptingBackend(UnityEditor.Build.NamedBuildTarget.Standalone, ScriptingImplementation.Mono2x);
+            if (AgHazirlik.IstemciSurumu != "gelistirme") {
+                PlayerSettings.bundleVersion = AgHazirlik.IstemciSurumu;
+            }
             // sunucu/: ayrılmış sunucu (Dedicated Server; görüntüsüz, -nographics'e gerek yok) - kiralık sunucuya bu gider
             // istemci/: olağan Linux oyunu - otomatik denemedeki istemci botları (sanal ekranla) ve sunucu modülü yoksa sunucu
             int basarili = 0;

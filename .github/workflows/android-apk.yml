@@ -362,7 +362,7 @@ jobs:
           # çok oyunculu deneme: iki istemci botu sunucuya girer, dünyada 60 sn dolaşır (AnyRPG.AgBotu)
           if [ "$basladi" = "1" ] && [ -n "$istemci" ]; then
             for b in Bot1 Bot2; do
-              xvfb-run -a "$istemci" -batchmode -istemciBotu $b -adres 127.0.0.1:7770 -sure 60 \
+              xvfb-run -a "$istemci" -batchmode -istemciBotu $b -adres 127.0.0.1:7770 -sure 90 \
                 -rapor "$PWD/tani/ag_botu_$b.txt" -logFile "$PWD/tani/ag_botu_$b.log" &
               eval "pid_$b=\$!"
               sleep 10
