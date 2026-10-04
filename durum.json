@@ -158,166 +158,166 @@
  },
  "derleme": {
   "sonuc": "basarili",
-  "numara": "26",
-  "commit": "19982b5a",
-  "baglanti": "https://github.com/olcaydunder/AnyRPGCore/actions/runs/37190818819",
-  "zaman": 1791105882,
+  "numara": "27",
+  "commit": "efef01dd",
+  "baglanti": "https://github.com/olcaydunder/AnyRPGCore/actions/runs/37192582090",
+  "zaman": 1791107671,
   "uyarilar": [],
   "bot": {
    "durum": "tamamlandı",
    "toplamHata": 0,
    "binek": "binildi, 2,5 sn'de 13 m gidildi, inildi",
-   "gunluk": "günlük görev yok",
+   "gunluk": "12 düşman yen 0/12, 1 hazine sandığını boşalt 0/1, 2 farklı diyara ayak bas 2/2 (tamam)",
    "haritalar": [
     {
      "sahne": "FeaturesDemoZone",
      "ad": "Ötüken Yaylası",
      "sonuc": "tamam",
-     "yuklemeSuresi": 2.9794676303863525,
+     "yuklemeSuresi": 3.426480531692505,
      "hata": 0,
      "not": "",
      "bilgi": "",
-     "okHedefi": ""
+     "okHedefi": "Yeni görev: Olcayto Han"
     },
     {
      "sahne": "UmayTarlalari",
      "ad": "Umay Tarlaları",
      "sonuc": "tamam",
-     "yuklemeSuresi": 1.735315203666687,
+     "yuklemeSuresi": 1.906978726387024,
      "hata": 0,
      "not": "",
      "bilgi": "",
-     "okHedefi": ""
+     "okHedefi": "Hazine sandığı (günlük görev)"
     },
     {
      "sahne": "BoruTepesi",
      "ad": "Börü Tepesi",
      "sonuc": "tamam",
-     "yuklemeSuresi": 0.8446901440620422,
+     "yuklemeSuresi": 0.8928054571151733,
      "hata": 0,
      "not": "",
      "bilgi": "",
-     "okHedefi": ""
+     "okHedefi": "Hazine sandığı (günlük görev)"
     },
     {
      "sahne": "AkDenizKiyisi",
      "ad": "Ak Deniz Kıyısı",
      "sonuc": "tamam",
-     "yuklemeSuresi": 0.8048503398895264,
+     "yuklemeSuresi": 0.8299486041069031,
      "hata": 0,
      "not": "",
      "bilgi": "",
-     "okHedefi": ""
+     "okHedefi": "Hazine sandığı (günlük görev)"
     },
     {
      "sahne": "OrdubalikCarsisi",
      "ad": "Ordubalık Çarşısı",
      "sonuc": "sorunlu",
-     "yuklemeSuresi": 1.0666401386260986,
+     "yuklemeSuresi": 1.148926019668579,
      "hata": 0,
      "not": "yürüyerek ulaşılamayan: Kapi_KafDagiYolu_1 (123, 12, 35)",
      "bilgi": "",
-     "okHedefi": ""
+     "okHedefi": "Hazine sandığı (günlük görev)"
     },
     {
      "sahne": "OrdubalikKenti",
      "ad": "Ordubalık Kenti",
      "sonuc": "tamam",
-     "yuklemeSuresi": 0.6901059746742249,
+     "yuklemeSuresi": 0.7122297883033752,
      "hata": 0,
      "not": "",
      "bilgi": "",
-     "okHedefi": ""
+     "okHedefi": "Hazine sandığı (günlük görev)"
     },
     {
      "sahne": "UlukayinOrmani",
      "ad": "Ulukayın Ormanı",
      "sonuc": "tamam",
-     "yuklemeSuresi": 0.6905797719955444,
+     "yuklemeSuresi": 0.6810700297355652,
      "hata": 0,
      "not": "",
      "bilgi": "",
-     "okHedefi": ""
+     "okHedefi": "Hazine sandığı (günlük görev)"
     },
     {
      "sahne": "KoncolosIni",
      "ad": "Koncolos İni",
      "sonuc": "tamam",
-     "yuklemeSuresi": 0.657014012336731,
+     "yuklemeSuresi": 0.6619521379470825,
      "hata": 0,
      "not": "",
      "bilgi": "oyuncu öldü (1. seviye), yeniden doğdu",
-     "okHedefi": ""
+     "okHedefi": "Hazine sandığı (günlük görev)"
     },
     {
      "sahne": "KaganOrdasi",
      "ad": "Kağan Ordası",
      "sonuc": "tamam",
-     "yuklemeSuresi": 1.0430821180343628,
+     "yuklemeSuresi": 1.2575541734695435,
      "hata": 0,
      "not": "",
      "bilgi": "",
-     "okHedefi": ""
+     "okHedefi": "Hazine sandığı (günlük görev)"
     },
     {
      "sahne": "KafDagiYolu",
      "ad": "Kaf Dağı Yolu",
      "sonuc": "sorunlu",
-     "yuklemeSuresi": 0.7031257748603821,
+     "yuklemeSuresi": 0.7260176539421082,
      "hata": 0,
      "not": "yürüyerek ulaşılamayan: Kapi_OrdubalikCarsisi_1 (135, 13, 42)",
      "bilgi": "",
-     "okHedefi": ""
+     "okHedefi": "Hazine sandığı (günlük görev)"
     },
     {
      "sahne": "ErgenekonMagarasi",
      "ad": "Ergenekon Mağarası",
      "sonuc": "tamam",
-     "yuklemeSuresi": 0.6571555733680725,
+     "yuklemeSuresi": 0.66718590259552,
      "hata": 0,
      "not": "",
      "bilgi": "",
-     "okHedefi": ""
+     "okHedefi": "Hazine sandığı (günlük görev)"
     },
     {
      "sahne": "KurganMezarligi",
      "ad": "Kurgan Mezarlığı",
      "sonuc": "tamam",
-     "yuklemeSuresi": 0.6932558417320251,
+     "yuklemeSuresi": 0.7292132377624512,
      "hata": 0,
      "not": "",
      "bilgi": "",
-     "okHedefi": ""
+     "okHedefi": "Hazine sandığı (günlük görev)"
     },
     {
      "sahne": "AyDedeKoyu",
      "ad": "Ay Dede Koyu",
      "sonuc": "tamam",
-     "yuklemeSuresi": 1.030110478401184,
+     "yuklemeSuresi": 1.196828842163086,
      "hata": 0,
      "not": "",
      "bilgi": "",
-     "okHedefi": ""
+     "okHedefi": "Hazine sandığı (günlük görev)"
     },
     {
      "sahne": "FeaturesDemoDungeon",
      "ad": "Erlik'in Mağarası",
      "sonuc": "tamam",
-     "yuklemeSuresi": 0.8360370397567749,
+     "yuklemeSuresi": 1.1722335815429688,
      "hata": 0,
      "not": "",
      "bilgi": "",
-     "okHedefi": ""
+     "okHedefi": "Hazine sandığı (günlük görev)"
     },
     {
      "sahne": "TamuZindani",
      "ad": "Tamu Zindanı",
      "sonuc": "tamam",
-     "yuklemeSuresi": 0.6867183446884155,
+     "yuklemeSuresi": 0.7065733075141907,
      "hata": 0,
      "not": "",
      "bilgi": "oyuncu öldü (1. seviye), yeniden doğdu",
-     "okHedefi": ""
+     "okHedefi": "Hazine sandığı (günlük görev)"
     }
    ]
   }
