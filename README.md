@@ -1,8 +1,8 @@
 # Ötüken Destanı · Hata panosu
 
-Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 04.10.2026 14:13.
+Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 04.10.2026 14:20.
 
-**0** açık sorun · **5** düzeltilen · toplam **11** rapor
+**1** açık sorun · **5** düzeltilen · toplam **12** rapor
 
 ## Son APK derlemesi
 
@@ -39,7 +39,9 @@ Bot yeni oyun başlatıp haritaları gezdi: **tamamlandı**, 0 hata/istisna.
 
 ## Açık sorunlar
 
-Açık sorun yok.
+| Durum | Sorun | Tür | Tekrar | Cihaz | Sürüm | Son görülme |
+|---|---|---|---|---|---|---|
+| 🔴 açık | [Arayüz yerleşimi, 2664x1073 ekran](kayitlar/arayuz-2664x1073.md) | Arayüz | 1 | 1 | 0.1.27 | 04.10.2026 14:15 |
 
 ## Düzeltilenler
 
