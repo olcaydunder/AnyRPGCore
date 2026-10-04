@@ -780,6 +780,7 @@ namespace AnyRPG {
         // ---- Ötüken: otomatik av (Metin2 tarzı) ----
 
         private float autoHuntNextCheck = 0f;
+        private float autoSkillNextTime = 0f;
         private float autoHuntPausedUntil = 0f;
         private bool autoHuntWasOn = false;
         private InteractableBase autoHuntTarget = null;
@@ -829,6 +830,9 @@ namespace AnyRPG {
                 if (player.CharacterCombat.GetInCombat()) {
                     // fighting: it is reachable
                     autoHuntTargetTime = Time.time;
+                    if (TryAutoSkill(player)) {
+                        return;
+                    }
                     if (player.CharacterCombat.AutoAttackActive == false) {
                         RightMouseInteraction(target);
                     }
@@ -859,6 +863,52 @@ namespace AnyRPG {
             autoHuntTarget = next;
             autoHuntTargetTime = Time.time;
             RightMouseInteraction(next);
+        }
+
+        /// <summary>
+        /// Metin2 tarzı oto av becerisi: dövüşteyken öğrenilmiş, düşmana kullanılabilen ve bekleme süresi dolmuş saldırı
+        /// becerilerinden en uzun bekleme sürelisi (genelde en güçlüsü) kullanılır. Normal saldırı, yere hedefli beceriler
+        /// ve binek gibi kendine kullanılanlar dışarıda kalır. Seçenekler > Oyun > "Oto av becerileri" ile kapatılır.
+        /// </summary>
+        private bool TryAutoSkill(UnitController player) {
+            if (OtomatikAv.BeceriKullan == false || Time.time < autoSkillNextTime || player.Target == null) {
+                return false;
+            }
+            CharacterAbilityManager abilityManager = player.CharacterAbilityManager;
+            if (abilityManager == null || abilityManager.PerformingAbility) {
+                return false;
+            }
+            autoSkillNextTime = Time.time + 1f;
+            AbilityProperties best = null;
+            float bestCoolDown = -1f;
+            foreach (AbilityProperties ability in abilityManager.AbilityList.Values) {
+                if (ability == null || ability.IsAutoAttack || ability == abilityManager.AutoAttackAbility) {
+                    continue;
+                }
+                TargetProps targetOptions = ability.GetTargetOptions(player);
+                if (targetOptions == null || targetOptions.CanCastOnEnemy == false || targetOptions.RequiresGroundTarget) {
+                    continue;
+                }
+                if (abilityManager.CanCastAbility(ability) == false
+                    || ability.CanUseOn(player.Target, player) == false
+                    || ability.CanCast(player) == false
+                    || abilityManager.PerformLOSCheck(player.Target, ability) == false) {
+                    continue;
+                }
+                if (ability.CoolDown > bestCoolDown) {
+                    best = ability;
+                    bestCoolDown = ability.CoolDown;
+                }
+            }
+            if (best == null) {
+                return false;
+            }
+            if (abilityManager.BeginAbility(best)) {
+                OtomatikAv.BeceriSayisi++;
+                autoSkillNextTime = Time.time + 1.5f;
+                return true;
+            }
+            return false;
         }
 
         /// <summary>the nearest dead unit within 20 meters that still has loot (each corpse is tried at most twice)</summary>

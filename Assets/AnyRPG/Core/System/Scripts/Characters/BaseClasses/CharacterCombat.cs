@@ -645,6 +645,11 @@ namespace AnyRPG {
 
             damage = (int)(damage * unitController.CharacterStats.GetIncomingDamageModifiers());
 
+            // Ötüken: acemi koruması (birçok mobil RPG'deki yeni oyuncu koruması): 5. seviyeye kadar oyuncu %40 az hasar alır
+            if (damage > 0 && unitController.UnitControllerMode == UnitControllerMode.Player && unitController.CharacterStats.Level < Gelisim.AcemiSeviyesi) {
+                damage = Mathf.Max(1, Mathf.RoundToInt(damage * Gelisim.AcemiHasarCarpani));
+            }
+
             ProcessTakeDamage(abilityEffectContext, powerResource, damage, source, combatMagnitude, abilityEffect);
             //Debug.Log($"{unitController.gameObject.name} sending " + damage.ToString() + " to character stats");
             unitController.CharacterStats.ReducePowerResource(powerResource, damage);

@@ -749,6 +749,11 @@ namespace Otuken.EditorAraclari {
                 Yaz($"!! HATA dünya haritası önizlemesi: {e}");
             }
             try {
+                ArayuzCiz("arayuz_demirci", "demirci");
+            } catch (Exception e) {
+                Yaz($"!! HATA demirci önizlemesi: {e}");
+            }
+            try {
                 OyunArayuzu();
             } catch (Exception e) {
                 Yaz($"!! HATA oyun arayüzü önizlemesi: {e}");
@@ -855,6 +860,22 @@ namespace Otuken.EditorAraclari {
                 AnyRPG.MobileHud mobilHud = hudNesnesi.AddComponent<AnyRPG.MobileHud>();
                 YontemCagir(mobilHud, "Build");
                 gerekli.Add(hudTuvali);
+
+                // "daha iyi eşya" kartı (Gelisim): göstergelerle çakışıyor mu görünsün
+                GameObject kartNesnesi = new GameObject(AnyRPG.Gelisim.CanvasName, typeof(RectTransform));
+                silinecek.Add(kartNesnesi);
+                Canvas kartTuvali = kartNesnesi.AddComponent<Canvas>();
+                kartTuvali.renderMode = RenderMode.ScreenSpaceOverlay;
+                kartTuvali.sortingOrder = 27;
+                UnityEngine.UI.CanvasScaler kartOlcegi = kartNesnesi.AddComponent<UnityEngine.UI.CanvasScaler>();
+                kartOlcegi.uiScaleMode = UnityEngine.UI.CanvasScaler.ScaleMode.ScaleWithScreenSize;
+                kartOlcegi.referenceResolution = new Vector2(1422f, 800f);
+                kartOlcegi.screenMatchMode = UnityEngine.UI.CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
+                kartOlcegi.matchWidthOrHeight = 1f;
+                Component kart = kartNesnesi.AddComponent<AnyRPG.Gelisim>();
+                YontemCagir(kart, "Build");
+                YontemCagir(kart, "Onizleme");
+                gerekli.Add(kartTuvali);
 
                 // oyun yalnız oyun kolu kullanılırken gösterdiği tuş ipuçlarını (HideControllerHints) gizler
                 foreach (Transform t in oyun.GetComponentsInChildren<Transform>(true)) {
@@ -1029,6 +1050,10 @@ namespace Otuken.EditorAraclari {
                     Component dunya = Tuval("DunyaHaritasi", kamera, 1f, 31, silinecek).AddComponent<AnyRPG.DunyaHaritasi>();
                     YontemCagir(dunya, "Build");
                     YontemCagir(dunya, "Onizleme");
+                } else if (pencere == "demirci") {
+                    Component demirci = Tuval("Demirci", kamera, 1f, 31, silinecek).AddComponent<AnyRPG.Demirci>();
+                    YontemCagir(demirci, "Build");
+                    YontemCagir(demirci, "Onizleme");
                 } else if (pencere == "gunluk") {
                     gunluk = Tuval("GunlukGorevler", kamera, 1f, 31, silinecek).AddComponent<AnyRPG.GunlukGorevler>();
                     YontemCagir(gunluk, "Build");

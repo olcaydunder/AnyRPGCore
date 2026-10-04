@@ -8,10 +8,21 @@ namespace AnyRPG {
     /// düşmanları sırayla bulur, yanına koşar, saldırır ve ölenlerin ganimetini toplar. Hareket çubuğuna dokununca
     /// kısa bir süre durur, oyuncu yönetir. İşi PlayerController.HandleAutoHunt yapar.
     /// Otomatik iksir: can belirlenen oranın altına inince çantadaki can iksiri içilir (PlayerController.HandleAutoPotion).
+    /// Oto av becerileri (Metin2'deki oto av gibi): dövüşte öğrenilmiş saldırı becerileri bekleme süreleri dolunca kullanılır
+    /// (PlayerController.TryAutoSkill); Seçenekler > Oyun'dan kapatılabilir.
     /// </summary>
     public static class OtomatikAv {
 
         private const string IksirKey = "otomatik-iksir";
+        private const string BeceriKey = "oto-av-beceri";
+
+        /// <summary>bu oturumda oto avın kullandığı beceri sayısı (oyun testi okur)</summary>
+        public static int BeceriSayisi = 0;
+
+        public static bool BeceriKullan {
+            get { return PlayerPrefs.GetInt(BeceriKey, 1) == 1; }
+            set { PlayerPrefs.SetInt(BeceriKey, value ? 1 : 0); }
+        }
 
         private static bool acik = false;
 

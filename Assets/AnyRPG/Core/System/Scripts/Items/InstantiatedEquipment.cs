@@ -107,7 +107,12 @@ namespace AnyRPG {
         }
 
         public override string GetDescription() {
-            return base.GetDescription() + "\n\n" + equipment.GetEquipmentDescription(ItemQuality, GetItemLevel(playerManagerClient.UnitController.CharacterStats.Level), SecondaryStats);
+            string aciklama = base.GetDescription() + "\n\n" + equipment.GetEquipmentDescription(ItemQuality, GetItemLevel(playerManagerClient.UnitController.CharacterStats.Level), SecondaryStats);
+            int basamak = Demirci.Seviye(this);
+            if (basamak > 0 && playerManagerClient.UnitController != null) {
+                aciklama += "\n<color=#FFD54A>Demirci +" + basamak + ": " + Demirci.KazancYazisi(this, basamak, playerManagerClient.UnitController.CharacterStats.Level) + "</color>";
+            }
+            return aciklama;
         }
 
     }

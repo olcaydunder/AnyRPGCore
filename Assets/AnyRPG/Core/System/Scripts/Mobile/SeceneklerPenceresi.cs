@@ -245,6 +245,8 @@ namespace AnyRPG {
                 new[] { "Küçük", "Normal", "Büyük" }, () => MobilArayuzDuzeni.DugmeBoyutuSecimi, v => MobilArayuzDuzeni.DugmeBoyutuSecimi = v);
             s.Choice("Düğme saydamlığı", "Düğmelerin arkasındaki dünya daha çok görünsün mü?",
                 new[] { "%50", "%75", "%100" }, () => MobilArayuzDuzeni.SaydamlikSecimi, v => MobilArayuzDuzeni.SaydamlikSecimi = v);
+            s.Choice("Oto av becerileri", "Oto av açıkken dövüşte yeteneklerin bekleme süreleri dolunca kendiliğinden kullanılır.",
+                new[] { "Kapalı", "Açık" }, () => OtomatikAv.BeceriKullan ? 1 : 0, v => OtomatikAv.BeceriKullan = v == 1);
             s.Choice("Görev oku", "Ekranda sıradaki görev hedefini ve uzaklığını gösteren sarı ok.",
                 new[] { "Kapalı", "Açık" }, () => GorevOku.Acik ? 1 : 0, v => GorevOku.Acik = v == 1);
             s.Choice("Bildirimler", "Günlük armağan hazır olunca ve uzun süre girmeyince telefona hatırlatma gelsin mi?",

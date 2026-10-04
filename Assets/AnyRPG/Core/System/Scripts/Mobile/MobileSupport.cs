@@ -446,6 +446,7 @@ namespace AnyRPG {
                     || canvas.name == SeceneklerPenceresi.CanvasName || canvas.name == IsinlanmaPenceresi.CanvasName
                     || canvas.name == HataBildirici.CanvasName || canvas.name == GunlukGorevler.CanvasName || canvas.name == GorevOku.CanvasName
                     || canvas.name == DunyaHaritasi.CanvasName || canvas.name == CevrimdisiKazanc.CanvasName
+                    || canvas.name == Demirci.CanvasName || canvas.name == Gelisim.CanvasName
                     || canvas.transform.root.name == "[Graphy]"
                     || canvas.transform.root.name == "IngameDebugConsole") {
                     continue;
@@ -565,6 +566,11 @@ namespace AnyRPG {
                 CevrimdisiKazanc.Tick(GetSystemGameManager(), inGame);
             } catch (System.Exception exception) {
                 Debug.LogWarning($"MobileBootstrap: CevrimdisiKazanc.Tick(): {exception.Message}");
+            }
+            try {
+                Gelisim.Tick(GetSystemGameManager(), inGame);
+            } catch (System.Exception exception) {
+                Debug.LogWarning($"MobileBootstrap: Gelisim.Tick(): {exception.Message}");
             }
             try {
                 OyunAyarlari.Tick(GetSystemGameManager());

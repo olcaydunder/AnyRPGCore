@@ -553,11 +553,15 @@ namespace AnyRPG {
                     secondaryStats[itemSecondaryStatNode.SecondaryStat].AddMultiplyModifier(newInstantiatedEquipment.Equipment.GetSecondaryStatMultiplyModifier(newInstantiatedEquipment.SecondaryStats, itemSecondaryStatNode.SecondaryStat));
                 }
 
+                // Demirci basamağı (+1..+9)
+                Demirci.Uygula(newInstantiatedEquipment, Level, primaryStats, secondaryStats, true);
+
             }
 
             // remove modifiers for old item
             if (oldInstantiatedEquipment != null) {
                 secondaryStats[SecondaryStatType.Armor].RemoveModifier(oldInstantiatedEquipment.Equipment.GetArmorModifier(Level));
+                Demirci.Uygula(oldInstantiatedEquipment, Level, primaryStats, secondaryStats, false);
 
                 foreach (ItemSecondaryStatNode itemSecondaryStatNode in oldInstantiatedEquipment.SecondaryStats) {
                     secondaryStats[itemSecondaryStatNode.SecondaryStat].RemoveModifier(oldInstantiatedEquipment.Equipment.GetSecondaryStatAddModifier(oldInstantiatedEquipment.SecondaryStats, itemSecondaryStatNode.SecondaryStat, Level));

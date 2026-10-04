@@ -71,6 +71,8 @@ namespace Otuken.EditorAraclari {
             public string gunlukGorevler;
             public string dunyaHaritasi;
             public string ilkHaritaAvi;
+            public string demirciTesti;
+            public string gelisim;
         }
 
         private enum Adim { OyunModu, Acilis, YeniOyun, Dogus, Bekle, Dirilis, BinekTesti, Bitti }
@@ -307,6 +309,7 @@ namespace Otuken.EditorAraclari {
 
                 case Adim.BinekTesti:
                     if (BinekTesti(oyun)) {
+                        DemirciTesti(oyun);
                         SonrakiHarita(oyun);
                     }
                     break;
@@ -392,6 +395,48 @@ namespace Otuken.EditorAraclari {
                         return true;
                     }
                     return false;
+            }
+        }
+
+        /// <summary>
+        /// Demirci denemesi: kuşanılı ilk eşyaya Gümüş Akçe verilip pencerenin yoluyla +1 (şans %100), sonra iki basamak
+        /// daha (malzemesiz) basılır; Güç Puanı, eşyanın adı ve kayda giden ad raporlanır.
+        /// </summary>
+        private static void DemirciTesti(AnyRPG.SystemGameManager oyun) {
+            try {
+                AnyRPG.UnitController oyuncu = oyun != null && oyun.PlayerManagerClient != null ? oyun.PlayerManagerClient.UnitController : null;
+                if (oyuncu == null) {
+                    rapor.demirciTesti = "oyuncu yok";
+                    return;
+                }
+                AnyRPG.InstantiatedEquipment esya = null;
+                foreach (AnyRPG.InstantiatedEquipment e in AnyRPG.Demirci.Esyalar(oyuncu)) {
+                    if (AnyRPG.Demirci.KusaniliMi(oyuncu, e)) {
+                        esya = e;
+                        break;
+                    }
+                }
+                if (esya == null) {
+                    rapor.demirciTesti = "kuşanılı eşya yok";
+                    return;
+                }
+                string ilkAd = esya.DisplayName;
+                int ilkGuc = AnyRPG.Gelisim.GucPuani(oyuncu);
+                AnyRPG.Currency gumus = oyun.SystemDataFactory.GetResource<AnyRPG.Currency>("Silver");
+                if (gumus != null) {
+                    oyuncu.CharacterCurrencyManager.AddCurrency(gumus, AnyRPG.Demirci.GumusBedeli(1) + 5);
+                }
+                bool basarili;
+                string ilkDeneme = AnyRPG.Demirci.Yukselt(oyuncu, esya, oyun, false, out basarili);
+                AnyRPG.Demirci.Yukselt(oyuncu, esya, oyun, true, out basarili);
+                AnyRPG.Demirci.Yukselt(oyuncu, esya, oyun, true, out basarili);
+                int sonGuc = AnyRPG.Gelisim.GucPuani(oyuncu);
+                string kayit = esya.GetItemSaveData().DisplayName;
+                rapor.demirciTesti = ilkAd + " → " + esya.DisplayName + " (" + AnyRPG.Demirci.KazancYazisi(esya, AnyRPG.Demirci.Seviye(esya), oyuncu.CharacterStats.Level)
+                    + "); ilk deneme: " + ilkDeneme + "; Güç Puanı " + ilkGuc + " → " + sonGuc + "; kayıttaki ad: " + kayit;
+            } catch (Exception e) {
+                rapor.demirciTesti = "hata: " + e.Message;
+                Debug.LogError("[OyunTesti] demirci denemesi: " + e);
             }
         }
 
@@ -689,6 +734,13 @@ namespace Otuken.EditorAraclari {
                 rapor.durum = durum;
                 rapor.bitis = DateTime.UtcNow.ToString("o");
                 rapor.gunlukGorevler = AnyRPG.GunlukGorevler.Ozet();
+                AnyRPG.UnitController sonOyuncu = Object.FindAnyObjectByType<AnyRPG.SystemGameManager>()?.PlayerManagerClient?.UnitController;
+                rapor.gelisim = "Güç Puanı " + AnyRPG.Gelisim.GucPuani(sonOyuncu) + ", seviye ödülü " + AnyRPG.Gelisim.VerilenOdulSayisi
+                    + (AnyRPG.Gelisim.SonOdul.Length > 0 ? " (son: " + AnyRPG.Gelisim.SonOdul + ")" : string.Empty)
+                    + ", daha iyi eşya önerisi " + AnyRPG.Gelisim.OneriSayisi + ", oto av becerisi " + AnyRPG.OtomatikAv.BeceriSayisi + " kez";
+                if (rapor.demirciTesti == null) {
+                    rapor.demirciTesti = "yapılmadı";
+                }
                 if (rapor.binekTesti == null) {
                     rapor.binekTesti = "yapılmadı";
                 }
@@ -714,7 +766,9 @@ namespace Otuken.EditorAraclari {
             sb.Append("Binek denemesi: ").Append(rapor.binekTesti).Append('\n');
             sb.Append("Günlük görevler: ").Append(rapor.gunlukGorevler).Append('\n');
             sb.Append("Umay Tarlaları'nda 40 sn av: ").Append(rapor.ilkHaritaAvi).Append('\n');
-            sb.Append("Dünya haritası: ").Append(rapor.dunyaHaritasi).Append("\n\n");
+            sb.Append("Dünya haritası: ").Append(rapor.dunyaHaritasi).Append('\n');
+            sb.Append("Demirci: ").Append(rapor.demirciTesti).Append('\n');
+            sb.Append("Gelişim: ").Append(rapor.gelisim).Append("\n\n");
             foreach (HaritaSonucu h in rapor.haritalar) {
                 sb.Append(h.sonuc == "tamam" ? "  ok  " : "  !!  ").Append(h.ad).Append(" (").Append(h.sahne).Append("): ").Append(h.sonuc)
                     .Append(", yükleme ").Append(h.yuklemeSuresi.ToString("0")).Append(" sn, ").Append(h.hata).Append(" hata");

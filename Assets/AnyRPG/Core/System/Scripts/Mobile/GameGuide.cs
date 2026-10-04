@@ -307,7 +307,8 @@ namespace AnyRPG {
                 H + "Ekrandaki düğmeler" + HE + "\n" +
                 "• <b>Saldır</b>: seçili düşmana saldırır. Seçili düşman yoksa en yakın düşmanı bulur, yanına koşar ve vurur.\n" +
                 "• <b>Oto Av</b>: açınca (düğme altın rengi olur) karakter yakındaki düşmanları kendisi bulur, saldırır ve ölenlerin " +
-                "ganimetini toplar. Hareket çubuğuna dokununca kısa bir süre durur, sen yönetirsin. Yeniden dokununca kapanır.\n" +
+                "ganimetini toplar. Dövüşte yeteneklerini de bekleme süreleri dolunca kendisi kullanır (Menü > Oyun'dan kapatılabilir). " +
+                "Hareket çubuğuna dokununca kısa bir süre durur, sen yönetirsin. Yeniden dokununca kapanır.\n" +
                 "• <b>Hedef</b>: önündeki düşmanlar arasında sırayla hedef değiştirir.\n" +
                 "• <b>Harita</b>: <b>Dünya Haritası</b>; 15 diyar tek haritada. İki parmakla kıstırarak yakınlaş, sürükleyerek gez. " +
                 "Yakınlaşınca mavi elmas Geçit Taşı'nı, altın noktalar komşu diyarlara kapıları, mavi ok seni gösterir. " +
@@ -323,6 +324,12 @@ namespace AnyRPG {
                 "varınca konuşur, toplar ya da saldırır. Menü > Oyun'dan kapatılabilir.\n" +
                 "• <b>Sen yokken</b>: oyuna yarım saatten uzun ara verip dönersen yiğitlerin topladığı Gümüş Akçe ve tecrübe seni bekler " +
                 "(en çok 10 saat sayılır).\n" +
+                "• <b>Demirci</b> (Görevler'in yanında): silahını ve zırhını Gümüş Akçe ile, +4'ten sonra Gök Taşı Parçası da vererek " +
+                "+9'a kadar güçlendir. +1 kesin tutar, sonra şans azalır (+9 %25). Tutmazsa eşyan bozulmaz, yalnız malzeme gider. " +
+                "Silah hasar, zırh zırh, takılar temel değer kazanır. Üstte <b>Güç Puanı</b>'nı görürsün.\n" +
+                "• <b>Seviye ödülleri</b>: 2, 3, 4, 5, 7, 10, 12, 15, 20, 25 ve 30. seviyelerde iksir, Gümüş Akçe, Gök Taşı Parçası ve Altın armağan edilir.\n" +
+                "• <b>Daha iyi eşya</b>: çantana giydiğinden güçlü bir eşya girerse solda kart çıkar; <b>Kuşan</b>'a dokunman yeter.\n" +
+                "• <b>Acemi koruması</b>: 5. seviyeye kadar düşmanlardan %40 daha az hasar alırsın.\n" +
                 "• <b>Çanta</b>: eşyaların ve paran.\n" +
                 "• <b>Görevler</b>: aldığın görevler ve kalan hedefleri.\n" +
                 "• <b>Menü</b>: seçenekler (grafik, akıcılık, ses, oyun), bu rehber, ekran görüntüsü paylaşma ve <b>Sorun Bildir</b> " +
