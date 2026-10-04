@@ -336,6 +336,33 @@ namespace AnyRPG {
             }
         }
 
+        /// <summary>bir seviyeyi bitirmek için gereken tecrübe (oyun testi; LevelEquations dışarıya kapalı)</summary>
+        public static int SeviyeIcinTecrube(SystemGameManager systemGameManager, int seviye) {
+            return LevelEquations.GetXPNeededForLevel(seviye, systemGameManager.SystemConfigurationManager);
+        }
+
+        /// <summary>oyun testi: sıradaki ya da gösterilen "daha iyi eşya" kartındaki eşyayı Kuşan düğmesinin yoluyla kuşanır</summary>
+        public static string TestIcinKusan(UnitController oyuncu) {
+            Kart kart = instance != null && instance.gosterilen != null && instance.gosterilen.esya != null ? instance.gosterilen : null;
+            if (kart == null) {
+                foreach (Kart k in kuyruk) {
+                    if (k.esya != null) {
+                        kart = k;
+                        break;
+                    }
+                }
+            }
+            if (kart == null || oyuncu == null) {
+                return "kart yok";
+            }
+            InstantiatedEquipment esya = kart.esya;
+            if (esya.Slot == null) {
+                return "eşya çantada değil";
+            }
+            oyuncu.CharacterInventoryManager.RequestUseItem(esya.Slot);
+            return (Demirci.KusaniliMi(oyuncu, esya) ? "Kuşan ile giyildi: " : "Kuşan tutmadı: ") + esya.DisplayName;
+        }
+
         // ---------------------------------------------------------------- kart
 
         private static void Ensure() {
@@ -359,8 +386,8 @@ namespace AnyRPG {
 
         private void Build() {
             font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-            // sol sütunun (Harita/Işınlan) sağında, hareket çubuğunun üstünde
-            kartKoku = Kutu(transform, "Kart", new Vector2(0f, 0.5f), new Vector2(0f, 0.5f), new Vector2(206f, 96f), new Vector2(576f, 262f));
+            // sol sütunların (Harita/Işınlan/Demirci) sağında, hareket çubuğunun üstünde
+            kartKoku = Kutu(transform, "Kart", new Vector2(0f, 0.5f), new Vector2(0f, 0.5f), new Vector2(296f, 96f), new Vector2(666f, 262f));
             kartKoku.AddComponent<Image>().color = panelColor;
             Outline cizgi = kartKoku.AddComponent<Outline>();
             cizgi.effectColor = gold;

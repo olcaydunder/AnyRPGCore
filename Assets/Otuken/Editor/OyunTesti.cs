@@ -75,7 +75,7 @@ namespace Otuken.EditorAraclari {
             public string gelisim;
         }
 
-        private enum Adim { OyunModu, Acilis, YeniOyun, Dogus, Bekle, Dirilis, BinekTesti, Bitti }
+        private enum Adim { OyunModu, Acilis, YeniOyun, Dogus, Bekle, Dirilis, BinekTesti, DemirciTesti, Bitti }
 
         private static readonly object kilit = new object();
         private static Rapor rapor;
@@ -309,7 +309,13 @@ namespace Otuken.EditorAraclari {
 
                 case Adim.BinekTesti:
                     if (BinekTesti(oyun)) {
-                        DemirciTesti(oyun);
+                        demirciAsama = 0;
+                        Gec(Adim.DemirciTesti);
+                    }
+                    break;
+
+                case Adim.DemirciTesti:
+                    if (DemirciTesti(oyun)) {
                         SonrakiHarita(oyun);
                     }
                     break;
@@ -398,45 +404,88 @@ namespace Otuken.EditorAraclari {
             }
         }
 
+        private static int demirciAsama = 0;
+        private static int demirciOneri = 0;
+        private static int demirciOdul = 0;
+        private static string demirciOzet = null;
+        private static AnyRPG.InstantiatedEquipment demirciYeni = null;
+
         /// <summary>
-        /// Demirci denemesi: kuşanılı ilk eşyaya Gümüş Akçe verilip pencerenin yoluyla +1 (şans %100), sonra iki basamak
-        /// daha (malzemesiz) basılır; Güç Puanı, eşyanın adı ve kayda giden ad raporlanır.
+        /// Demirci ve gelişim denemesi. 1) kuşanılı ilk eşyaya Gümüş Akçe verilip pencerenin yoluyla +1 (şans %100), sonra iki
+        /// basamak daha (malzemesiz) basılır; Güç Puanı ve kayda giden ad raporlanır. 2) oyuncu 3. seviyeye çıkarılır
+        /// (seviye ödülleri), çantaya aynı eşyanın +9'u konur ("daha iyi eşya" kartı). 3) kart gelince Kuşan'a basılır.
+        /// Bitince true döner; sonuç rapor.demirciTesti'ne yazılır.
         /// </summary>
-        private static void DemirciTesti(AnyRPG.SystemGameManager oyun) {
+        private static bool DemirciTesti(AnyRPG.SystemGameManager oyun) {
             try {
                 AnyRPG.UnitController oyuncu = oyun != null && oyun.PlayerManagerClient != null ? oyun.PlayerManagerClient.UnitController : null;
                 if (oyuncu == null) {
                     rapor.demirciTesti = "oyuncu yok";
-                    return;
+                    return true;
                 }
-                AnyRPG.InstantiatedEquipment esya = null;
-                foreach (AnyRPG.InstantiatedEquipment e in AnyRPG.Demirci.Esyalar(oyuncu)) {
-                    if (AnyRPG.Demirci.KusaniliMi(oyuncu, e)) {
-                        esya = e;
-                        break;
+                if (demirciAsama == 0) {
+                    AnyRPG.InstantiatedEquipment esya = null;
+                    foreach (AnyRPG.InstantiatedEquipment e in AnyRPG.Demirci.Esyalar(oyuncu)) {
+                        if (AnyRPG.Demirci.KusaniliMi(oyuncu, e)) {
+                            esya = e;
+                            break;
+                        }
                     }
+                    if (esya == null) {
+                        rapor.demirciTesti = "kuşanılı eşya yok";
+                        return true;
+                    }
+                    string ilkAd = esya.DisplayName;
+                    int ilkGuc = AnyRPG.Gelisim.GucPuani(oyuncu);
+                    AnyRPG.Currency gumus = oyun.SystemDataFactory.GetResource<AnyRPG.Currency>("Silver");
+                    if (gumus != null) {
+                        oyuncu.CharacterCurrencyManager.AddCurrency(gumus, AnyRPG.Demirci.GumusBedeli(1) + 5);
+                    }
+                    bool basarili;
+                    string ilkDeneme = AnyRPG.Demirci.Yukselt(oyuncu, esya, oyun, false, out basarili);
+                    AnyRPG.Demirci.Yukselt(oyuncu, esya, oyun, true, out basarili);
+                    AnyRPG.Demirci.Yukselt(oyuncu, esya, oyun, true, out basarili);
+                    int sonGuc = AnyRPG.Gelisim.GucPuani(oyuncu);
+                    string kayit = esya.GetItemSaveData().DisplayName;
+                    demirciOzet = ilkAd + " → " + esya.DisplayName + " (" + AnyRPG.Demirci.KazancYazisi(esya, AnyRPG.Demirci.Seviye(esya), oyuncu.CharacterStats.Level)
+                        + "); ilk deneme: " + ilkDeneme + "; Güç Puanı " + ilkGuc + " → " + sonGuc + "; kayıttaki ad: " + kayit;
+                    rapor.demirciTesti = demirciOzet;
+
+                    // seviye ödülleri: 3. seviyeye çıkar (2. ve 3. seviye ödülleri gelmeli)
+                    demirciOdul = AnyRPG.Gelisim.VerilenOdulSayisi;
+                    demirciOneri = AnyRPG.Gelisim.OneriSayisi;
+                    AnyRPG.CharacterStats st = oyuncu.CharacterStats;
+                    int gereken = 0;
+                    for (int l = st.Level; l < 3; l++) {
+                        gereken += AnyRPG.Gelisim.SeviyeIcinTecrube(oyun, l);
+                    }
+                    if (gereken > 0) {
+                        st.GainExperience(Mathf.Max(1, gereken - st.CurrentXP));
+                    }
+                    // daha iyi eşya: aynı eşyanın +9'u çantaya
+                    demirciYeni = oyuncu.CharacterInventoryManager.GetNewInstantiatedItem(esya.ResourceName) as AnyRPG.InstantiatedEquipment;
+                    if (demirciYeni != null) {
+                        demirciYeni.DisplayName = esya.Item.DisplayName + " +9";
+                        oyuncu.CharacterInventoryManager.AddItem(demirciYeni, false);
+                    }
+                    demirciAsama = 1;
+                    binekZamani = EditorApplication.timeSinceStartup;
+                    return false;
                 }
-                if (esya == null) {
-                    rapor.demirciTesti = "kuşanılı eşya yok";
-                    return;
+                double gecen = EditorApplication.timeSinceStartup - binekZamani;
+                bool odulGeldi = AnyRPG.Gelisim.VerilenOdulSayisi - demirciOdul >= 2;
+                bool oneriGeldi = AnyRPG.Gelisim.OneriSayisi > demirciOneri;
+                if ((odulGeldi == false || oneriGeldi == false) && gecen < 10) {
+                    return false;
                 }
-                string ilkAd = esya.DisplayName;
-                int ilkGuc = AnyRPG.Gelisim.GucPuani(oyuncu);
-                AnyRPG.Currency gumus = oyun.SystemDataFactory.GetResource<AnyRPG.Currency>("Silver");
-                if (gumus != null) {
-                    oyuncu.CharacterCurrencyManager.AddCurrency(gumus, AnyRPG.Demirci.GumusBedeli(1) + 5);
-                }
-                bool basarili;
-                string ilkDeneme = AnyRPG.Demirci.Yukselt(oyuncu, esya, oyun, false, out basarili);
-                AnyRPG.Demirci.Yukselt(oyuncu, esya, oyun, true, out basarili);
-                AnyRPG.Demirci.Yukselt(oyuncu, esya, oyun, true, out basarili);
-                int sonGuc = AnyRPG.Gelisim.GucPuani(oyuncu);
-                string kayit = esya.GetItemSaveData().DisplayName;
-                rapor.demirciTesti = ilkAd + " → " + esya.DisplayName + " (" + AnyRPG.Demirci.KazancYazisi(esya, AnyRPG.Demirci.Seviye(esya), oyuncu.CharacterStats.Level)
-                    + "); ilk deneme: " + ilkDeneme + "; Güç Puanı " + ilkGuc + " → " + sonGuc + "; kayıttaki ad: " + kayit;
+                string kusan = oneriGeldi ? AnyRPG.Gelisim.TestIcinKusan(oyuncu) : "kart gelmedi";
+                rapor.demirciTesti = demirciOzet + "; seviye " + oyuncu.CharacterStats.Level + ", ödül " + (AnyRPG.Gelisim.VerilenOdulSayisi - demirciOdul)
+                    + " (" + AnyRPG.Gelisim.SonOdul + "); çantaya +9 konunca: " + kusan + ", Güç Puanı " + AnyRPG.Gelisim.GucPuani(oyuncu);
+                return true;
             } catch (Exception e) {
-                rapor.demirciTesti = "hata: " + e.Message;
+                rapor.demirciTesti = (demirciOzet != null ? demirciOzet + "; " : string.Empty) + "hata: " + e.Message;
                 Debug.LogError("[OyunTesti] demirci denemesi: " + e);
+                return true;
             }
         }
 

@@ -324,7 +324,7 @@ namespace AnyRPG {
                 "varınca konuşur, toplar ya da saldırır. Menü > Oyun'dan kapatılabilir.\n" +
                 "• <b>Sen yokken</b>: oyuna yarım saatten uzun ara verip dönersen yiğitlerin topladığı Gümüş Akçe ve tecrübe seni bekler " +
                 "(en çok 10 saat sayılır).\n" +
-                "• <b>Demirci</b> (Görevler'in yanında): silahını ve zırhını Gümüş Akçe ile, +4'ten sonra Gök Taşı Parçası da vererek " +
+                "• <b>Demirci</b> (Işınlan'ın yanında): silahını ve zırhını Gümüş Akçe ile, +4'ten sonra Gök Taşı Parçası da vererek " +
                 "+9'a kadar güçlendir. +1 kesin tutar, sonra şans azalır (+9 %25). Tutmazsa eşyan bozulmaz, yalnız malzeme gider. " +
                 "Silah hasar, zırh zırh, takılar temel değer kazanır. Üstte <b>Güç Puanı</b>'nı görürsün.\n" +
                 "• <b>Seviye ödülleri</b>: 2, 3, 4, 5, 7, 10, 12, 15, 20, 25 ve 30. seviyelerde iksir, Gümüş Akçe, Gök Taşı Parçası ve Altın armağan edilir.\n" +

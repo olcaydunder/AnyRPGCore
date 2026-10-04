@@ -101,6 +101,8 @@ namespace AnyRPG {
             CreateActionButton("Harita", DunyaHaritasi.Goster, leftMiddle, new Vector2(60f, 210f), 78f, 16);
             // Harita'nın yanında: aynı haritada diyar seçip ışınlanma (liste görünümü de oradan)
             CreateActionButton("Işınlan", DunyaHaritasi.Goster, leftMiddle, new Vector2(146f, 210f), 78f, 15);
+            // üst sıranın üçüncüsü: eşya güçlendirme (+1..+9); alt sıralar hareket çubuğuna yakın
+            CreateActionButton("Demirci", Demirci.Goster, leftMiddle, new Vector2(232f, 210f), 78f, 14);
             CreateActionButton("Karakter", "CHARACTERPANEL", leftMiddle, new Vector2(60f, 126f), 78f, 14);
             // ikinci sütun: günlük görevler (ödül bekleyince altın nokta) ve binek (5. seviyede gelir)
             GameObject gunluk = CreateActionButton("Günlük", GunlukGorevler.Goster, leftMiddle, new Vector2(146f, 126f), 78f, 15);
@@ -112,8 +114,6 @@ namespace AnyRPG {
             binekDugmesi.SetActive(false);
             CreateActionButton("Çanta", "INVENTORY", leftMiddle, new Vector2(60f, 42f), 78f, 16);
             CreateActionButton("Görevler", "QUESTLOG", leftMiddle, new Vector2(60f, -42f), 78f, 14);
-            // Görevler'in yanında: eşya güçlendirme (+1..+9)
-            CreateActionButton("Demirci", Demirci.Goster, leftMiddle, new Vector2(146f, -42f), 78f, 14);
             // Seçenekler penceresi; "Nasıl Oynanır" rehberi de oradan açılır
             // hareket çubuğuna değmesin diye sütundan 4 birim içeride
             CreateActionButton("Menü", SeceneklerPenceresi.Show, leftMiddle, new Vector2(56f, -126f), 70f, 17);
