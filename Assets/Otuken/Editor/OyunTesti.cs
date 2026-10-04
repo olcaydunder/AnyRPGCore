@@ -266,9 +266,10 @@ namespace Otuken.EditorAraclari {
                         }
                     }
                     // ilk haritada uzun av: öldürme, ganimet, tecrübe ve günlük görev sayaçları da denensin
-                    double av = sira == 0 ? IlkAvSuresi : AvSuresi;
-                    double kalma = sira == 0 ? IlkAvSuresi + 4 : HaritadaKalma;
-                    if (sira == 0 && avAcildi && ilkTecrube < 0 && oyun != null && oyun.PlayerManagerClient.UnitController != null) {
+                    // ikinci haritada (Umay Tarlaları: girişin yakınında kamplar) uzun av
+                    double av = sira == UzunAvSirasi ? IlkAvSuresi : AvSuresi;
+                    double kalma = sira == UzunAvSirasi ? IlkAvSuresi + 4 : HaritadaKalma;
+                    if (sira == UzunAvSirasi && avAcildi && ilkTecrube < 0 && oyun != null && oyun.PlayerManagerClient.UnitController != null) {
                         ilkTecrube = oyun.PlayerManagerClient.UnitController.CharacterStats.CurrentXP;
                         ilkSeviye = oyun.PlayerManagerClient.UnitController.CharacterStats.Level;
                         ilkOldurme = oldurmeSayisi;
@@ -280,7 +281,7 @@ namespace Otuken.EditorAraclari {
                         break;
                     }
                     HaritaDenetle(oyun);
-                    if (sira == 0 && rapor.ilkHaritaAvi == null && oyun.PlayerManagerClient.UnitController != null) {
+                    if (sira == UzunAvSirasi && rapor.ilkHaritaAvi == null && oyun.PlayerManagerClient.UnitController != null) {
                         AnyRPG.CharacterStats st = oyun.PlayerManagerClient.UnitController.CharacterStats;
                         rapor.ilkHaritaAvi = (oldurmeSayisi - Mathf.Max(0, ilkOldurme)) + " düşman yenildi, seviye " + ilkSeviye + " → " + st.Level
                             + ", tecrübe " + Mathf.Max(0, ilkTecrube) + " → " + st.CurrentXP;
@@ -425,7 +426,8 @@ namespace Otuken.EditorAraclari {
             Isinla(oyun);
         }
 
-        private const double IlkAvSuresi = 36;
+        private const double IlkAvSuresi = 40;
+        private const int UzunAvSirasi = 1;
         private static int oldurmeSayisi = 0;
         private static int ilkOldurme = -1;
         private static int ilkTecrube = -1;
@@ -453,8 +455,8 @@ namespace Otuken.EditorAraclari {
             string sahne = sahneler[sira];
             HaritaBasla(sahne);
             string engel;
-            if (sira == sahneler.Length - 1) {
-                // son yolculuk dünya haritası üzerinden: pencere kurulur, diyar seçilir, Işınlan'a basılır
+            if (sira == 1) {
+                // ilk yolculuk (binek denemesinde savaş bitti) dünya haritası üzerinden: pencere kurulur, diyar seçilir, Işınlan'a basılır
                 engel = AnyRPG.DunyaHaritasi.TestIcinIsinla(sahne);
                 rapor.dunyaHaritasi = AnyRPG.DunyaHaritasi.ResimliBolgeSayisi + "/" + sahneler.Length + " diyar görüntülü; harita üzerinden ışınlanma: "
                     + (engel == null ? "oldu" : "olmadı (" + engel + ")");
@@ -669,7 +671,7 @@ namespace Otuken.EditorAraclari {
                 .Append(" (").Append(rapor.hatalar.Count).Append(" farklı)\n");
             sb.Append("Binek denemesi: ").Append(rapor.binekTesti).Append('\n');
             sb.Append("Günlük görevler: ").Append(rapor.gunlukGorevler).Append('\n');
-            sb.Append("İlk haritada av: ").Append(rapor.ilkHaritaAvi).Append('\n');
+            sb.Append("Umay Tarlaları'nda 40 sn av: ").Append(rapor.ilkHaritaAvi).Append('\n');
             sb.Append("Dünya haritası: ").Append(rapor.dunyaHaritasi).Append("\n\n");
             foreach (HaritaSonucu h in rapor.haritalar) {
                 sb.Append(h.sonuc == "tamam" ? "  ok  " : "  !!  ").Append(h.ad).Append(" (").Append(h.sahne).Append("): ").Append(h.sonuc)

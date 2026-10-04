@@ -44,21 +44,21 @@ namespace AnyRPG {
 
         // diyarların dünya üzerindeki yeri (sol alt köşeden). Kapı komşuları yan yana, yolculuk soldan sağa zorlaşır.
         private static readonly Dictionary<string, Vector2> yerler = new Dictionary<string, Vector2>() {
-            { "FeaturesDemoZone", new Vector2(330f, 760f) },
-            { "UmayTarlalari", new Vector2(720f, 620f) },
-            { "BoruTepesi", new Vector2(620f, 300f) },
+            { "FeaturesDemoZone", new Vector2(330f, 780f) },
+            { "UmayTarlalari", new Vector2(740f, 680f) },
+            { "BoruTepesi", new Vector2(600f, 280f) },
             { "AkDenizKiyisi", new Vector2(1030f, 250f) },
             { "AyDedeKoyu", new Vector2(1420f, 230f) },
             { "OrdubalikCarsisi", new Vector2(1080f, 700f) },
-            { "OrdubalikKenti", new Vector2(1060f, 1100f) },
-            { "KaganOrdasi", new Vector2(1440f, 1200f) },
-            { "UlukayinOrmani", new Vector2(680f, 1130f) },
-            { "KoncolosIni", new Vector2(300f, 1240f) },
+            { "OrdubalikKenti", new Vector2(1060f, 1130f) },
+            { "KaganOrdasi", new Vector2(1440f, 1230f) },
+            { "UlukayinOrmani", new Vector2(680f, 1160f) },
+            { "KoncolosIni", new Vector2(300f, 1260f) },
             { "KafDagiYolu", new Vector2(1460f, 760f) },
-            { "ErgenekonMagarasi", new Vector2(1840f, 960f) },
-            { "KurganMezarligi", new Vector2(1830f, 470f) },
-            { "FeaturesDemoDungeon", new Vector2(2150f, 700f) },
-            { "TamuZindani", new Vector2(2140f, 1220f) },
+            { "ErgenekonMagarasi", new Vector2(1820f, 990f) },
+            { "KurganMezarligi", new Vector2(1830f, 450f) },
+            { "FeaturesDemoDungeon", new Vector2(2180f, 640f) },
+            { "TamuZindani", new Vector2(2140f, 1240f) },
         };
 
         // kapıdan yürüyerek geçilen komşular (Chop Chop çıkışları)
@@ -115,6 +115,8 @@ namespace AnyRPG {
         private GameObject panelRoot = null;
         private RectTransform viewport = null;
         private RectTransform content = null;
+        private Transform bolgeKatmani = null;
+        private Transform etiketKatmani = null;
         private ScrollRect kaydirma = null;
         private Text altBaslik = null;
         private Text bilgiAdi = null;
@@ -259,6 +261,9 @@ namespace AnyRPG {
             foreach (string[] yol in kapiYollari) {
                 CizgiEkle(yol[0], yol[1], new Color(0.45f, 0.3f, 0.12f, 0.95f), 12f, false);
             }
+            // madalyonlar, üstlerinde adlar (adlar komşu madalyonun altında kalmasın)
+            bolgeKatmani = CreateRect(content, "Bolgeler", Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero).transform;
+            etiketKatmani = CreateRect(content, "Etiketler", Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero).transform;
             string[] sahneler = IsinlanmaPenceresi.SahneAdlari;
             for (int i = 0; i < sahneler.Length; i++) {
                 if (yerler.ContainsKey(sahneler[i])) {
@@ -354,7 +359,7 @@ namespace AnyRPG {
 
         private void BolgeKur(string sahne, int sira) {
             Bolge b = new Bolge() { sahne = sahne };
-            GameObject kok = CreateRect(content, "Bolge_" + sahne, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, Vector2.zero);
+            GameObject kok = CreateRect(bolgeKatmani, "Bolge_" + sahne, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, Vector2.zero);
             b.kok = kok.GetComponent<RectTransform>();
             b.kok.anchoredPosition = yerler[sahne] - DunyaBoyutu * 0.5f;
             b.kok.sizeDelta = new Vector2(BolgeCapi + 24f, BolgeCapi + 24f);
@@ -427,10 +432,10 @@ namespace AnyRPG {
             }
 
             // ad ve zorluk (yakınlıktan bağımsız boyda)
-            GameObject etiket = CreateRect(kok.transform, "Etiket", new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, Vector2.zero);
+            GameObject etiket = CreateRect(etiketKatmani, "Etiket_" + sahne, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, Vector2.zero);
             b.etiket = etiket.GetComponent<RectTransform>();
             b.etiket.pivot = new Vector2(0.5f, 1f);
-            b.etiket.anchoredPosition = new Vector2(0f, -BolgeCapi * 0.5f - 14f);
+            b.etiket.anchoredPosition = b.kok.anchoredPosition + new Vector2(0f, -BolgeCapi * 0.5f - 14f);
             b.etiket.sizeDelta = new Vector2(280f, 58f);
             Text adYazisi = CreateText(etiket, (sira + 1) + ". " + IsinlanmaPenceresi.GorunenAd(sahne) + "\n<size=17><color=#"
                 + ColorUtility.ToHtmlStringRGB(IsinlanmaPenceresi.ZorlukRengi(sahne)) + ">" + IsinlanmaPenceresi.ZorlukAdi(sahne) + "</color></size>",
@@ -442,10 +447,11 @@ namespace AnyRPG {
             adCizgisi.effectDistance = new Vector2(1.5f, -1.5f);
 
             // "Buradasın"
-            GameObject burada = CreateRect(kok.transform, "Buradasin", new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, Vector2.zero);
+            GameObject burada = CreateRect(etiketKatmani, "Buradasin_" + sahne, new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f), Vector2.zero, Vector2.zero);
             b.buradasin = burada.GetComponent<RectTransform>();
+            // madalyonun üst kenarına oturur
             b.buradasin.pivot = new Vector2(0.5f, 0f);
-            b.buradasin.anchoredPosition = new Vector2(0f, BolgeCapi * 0.5f + 8f);
+            b.buradasin.anchoredPosition = b.kok.anchoredPosition + new Vector2(0f, BolgeCapi * 0.5f - 10f);
             b.buradasin.sizeDelta = new Vector2(150f, 34f);
             Image buradaResmi = burada.AddComponent<Image>();
             buradaResmi.color = gold;
