@@ -1,8 +1,8 @@
 # Ötüken Destanı · Hata panosu
 
-Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 04.10.2026 23:46.
+Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 04.10.2026 23:48.
 
-**2** açık sorun · **6** düzeltilen · toplam **15** rapor
+**4** açık sorun · **6** düzeltilen · toplam **20** rapor
 
 ## Son APK derlemesi
 
@@ -45,6 +45,8 @@ Bot yeni oyun başlatıp haritaları gezdi: **tamamlandı**, 0 hata/istisna.
 | Durum | Sorun | Tür | Tekrar | Cihaz | Sürüm | Son görülme |
 |---|---|---|---|---|---|---|
 | 🔴 açık | [İstisna: NullReferenceException: Object reference not set to an instance of an object.](kayitlar/istisna-44cafcb8.md) | İstisna | 1 | 1 | 0.1.36 | 04.10.2026 19:08 |
+| 🔴 açık | [Hata: Screen position out of view frustum (screen pos inf, -inf) (Camera rect 0 0 640 480)](kayitlar/hata-60de498e.md) | Hata | 2 | 1 | 0.1.43 | 04.10.2026 23:44 |
+| 🔴 açık | [Hata: InputManager not found in scene.  Is the GameManager in the scene?](kayitlar/hata-8f05154f.md) | Hata | 3 | 1 | 0.1.43 | 04.10.2026 23:43 |
 | 🔴 açık | [Bellek: Bellek yetmedi, sistem oyunu kapattı](kayitlar/bellek-d3941b2d.md) | Bellek | 1 | 1 | 0.1.36 | 04.10.2026 19:07 |
 
 ## Düzeltilenler
