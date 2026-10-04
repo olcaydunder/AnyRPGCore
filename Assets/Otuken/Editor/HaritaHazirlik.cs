@@ -70,7 +70,10 @@ namespace Otuken.EditorAraclari {
         public static void SunucuDerle() {
             StringBuilder kayit = new StringBuilder();
             Application.LogCallback dinleyici = (mesaj, yigin, tur) => {
-                if ((tur == LogType.Error || tur == LogType.Exception) && kayit.Length < 200000) {
+                bool onemli = tur == LogType.Error || tur == LogType.Exception
+                    || (tur == LogType.Warning && mesaj != null && (mesaj.IndexOf("prefab", StringComparison.OrdinalIgnoreCase) >= 0
+                        || mesaj.IndexOf("could not", StringComparison.OrdinalIgnoreCase) >= 0 || mesaj.IndexOf("missing", StringComparison.OrdinalIgnoreCase) >= 0));
+                if (onemli && kayit.Length < 200000) {
                     kayit.AppendLine("[" + tur + "] " + mesaj);
                     if (string.IsNullOrEmpty(yigin) == false) {
                         kayit.AppendLine("    " + yigin.Split('\n')[0]);

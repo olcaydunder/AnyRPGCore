@@ -329,8 +329,8 @@ jobs:
         run: |
           mkdir -p tani
           set +e
-          # derleme kapsayıcıda root olarak yazıldı: önce sahiplik, sonra arama
-          sudo chown -R "$(id -u):$(id -g)" build/StandaloneLinux64 2>/dev/null
+          # derleme ve tanı klasörleri kapsayıcıda root olarak yazıldı: önce sahiplik (yoksa sunucu günlük dosyasını açamaz)
+          sudo chown -R "$(id -u):$(id -g)" build/StandaloneLinux64 tani 2>/dev/null
           ls -la build/StandaloneLinux64 | head -n 20
           ikili=$(find build/StandaloneLinux64 -maxdepth 2 -name '*.x86_64' 2>/dev/null | head -n 1)
           if [ -z "$ikili" ]; then
