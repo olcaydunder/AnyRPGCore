@@ -67,7 +67,7 @@ namespace AnyRPG {
                         foreach (UnitController u in oyun.PlayerManagerServer.ActiveUnitControllers.Values) {
                             if (u != null && u.CharacterStats != null) {
                                 Debug.Log("[Sunucu] oyuncu " + u.DisplayName + " " + u.CharacterStats.Level + ". sv, can " + u.CharacterStats.CurrentPrimaryResource
-                                    + "/" + u.CharacterStats.MaxPrimaryResource + ": " + AgBotu.SavasTanisi(u));
+                                    + "/" + u.CharacterStats.MaxPrimaryResource + ": " + AgBotu.SavasTanisi(u) + "; " + Denge.OlcumYazisi(u));
                             }
                         }
                     }

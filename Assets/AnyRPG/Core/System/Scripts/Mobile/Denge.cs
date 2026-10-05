@@ -30,6 +30,75 @@ namespace AnyRPG {
             return CanavarHasari;
         }
 
+        // ---------------------------------------------------------------- ölçüm: oyuncuların verdiği ve aldığı hasar
+        // (oyun testi ve çevrimiçi sunucu günlüğü okur; çevrimiçi savaşın çevrimdışıyla aynı işleyip işlemediğini görmek için)
+
+        public class HasarSayaci {
+            public int verilenVurus;
+            public int verilenToplam;
+            public int sonVerilen;
+            public int alinanVurus;
+            public int alinanToplam;
+            public float ilk = -1f;
+            public float son;
+        }
+
+        private static readonly System.Collections.Generic.Dictionary<UnitController, HasarSayaci> sayaclar =
+            new System.Collections.Generic.Dictionary<UnitController, HasarSayaci>();
+
+        private static HasarSayaci Sayac(UnitController oyuncu) {
+            HasarSayaci s;
+            if (sayaclar.TryGetValue(oyuncu, out s) == false) {
+                if (sayaclar.Count > 200) {
+                    // uzun süre açık sunucuda çıkan oyuncuların sayaçları birikmesin
+                    sayaclar.Clear();
+                }
+                s = new HasarSayaci();
+                sayaclar[oyuncu] = s;
+            }
+            return s;
+        }
+
+        /// <summary>CharacterCombat.TakeDamageCommon her hasarda çağırır</summary>
+        public static void HasarKaydet(UnitController hedef, IAbilityCaster kaynak, int hasar) {
+            UnitController saldiran = kaynak as UnitController;
+            if (hedef == null || saldiran == null || hasar <= 0) {
+                return;
+            }
+            if (saldiran.UnitControllerMode == UnitControllerMode.Player && hedef.UnitControllerMode == UnitControllerMode.AI) {
+                HasarSayaci s = Sayac(saldiran);
+                s.verilenVurus++;
+                s.verilenToplam += hasar;
+                s.sonVerilen = hasar;
+                if (s.ilk < 0f) {
+                    s.ilk = UnityEngine.Time.time;
+                }
+                s.son = UnityEngine.Time.time;
+            } else if (hedef.UnitControllerMode == UnitControllerMode.Player && saldiran.UnitControllerMode == UnitControllerMode.AI) {
+                HasarSayaci s = Sayac(hedef);
+                s.alinanVurus++;
+                s.alinanToplam += hasar;
+            }
+        }
+
+        public static HasarSayaci Olcum(UnitController oyuncu) {
+            return oyuncu != null ? Sayac(oyuncu) : new HasarSayaci();
+        }
+
+        public static void OlcumuSifirla(UnitController oyuncu) {
+            if (oyuncu != null) {
+                sayaclar.Remove(oyuncu);
+            }
+        }
+
+        public static string OlcumYazisi(UnitController oyuncu) {
+            HasarSayaci s = Olcum(oyuncu);
+            float sure = s.ilk >= 0f ? UnityEngine.Mathf.Max(0.1f, s.son - s.ilk) : 0f;
+            return "verdiği " + s.verilenVurus + " vuruş/" + s.verilenToplam + " hasar (son " + s.sonVerilen
+                + (s.verilenVurus > 1 ? ", " + (s.verilenVurus / sure * 60f).ToString("0") + " vuruş/dk" : string.Empty)
+                + "), aldığı " + s.alinanVurus + " vuruş/" + s.alinanToplam + " hasar";
+        }
+
         /// <summary>birimin can (ve diğer kaynak) çarpanı: canavarlar CanavarCani, Ötüken Taşı ve oyuncular 1</summary>
         public static float CanCarpani(UnitController birim) {
             if (birim == null || birim.UnitControllerMode != UnitControllerMode.AI || OtukenTasi.TasMi(birim)) {

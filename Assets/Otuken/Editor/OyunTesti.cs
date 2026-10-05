@@ -464,6 +464,7 @@ namespace Otuken.EditorAraclari {
                     }
                     savasSatiri += ": " + savasHedefi.DisplayName + " " + savasHedefi.CharacterStats.Level + ". sv (can " + savasHedefi.CharacterStats.MaxPrimaryResource
                         + ", " + Vector3.Distance(oyuncu.transform.position, savasHedefi.transform.position).ToString("0") + " m)";
+                    AnyRPG.Denge.OlcumuSifirla(oyuncu);
                     kontrol.RightMouseInteraction(savasHedefi);
                     if (AnyRPG.OtomatikAv.Acik == false) {
                         AnyRPG.OtomatikAv.Degistir();
@@ -482,7 +483,8 @@ namespace Otuken.EditorAraclari {
                     }
                     bool oldu = savasHedefi == null || savasHedefi.CharacterStats == null || savasHedefi.CharacterStats.IsAlive == false;
                     if (oldu) {
-                        savasSatiri += " → YENDİ, " + gecen.ToString("0") + " sn, oyuncunun canı en az %" + (enAzCan * 100f).ToString("0");
+                        savasSatiri += " → YENDİ, " + gecen.ToString("0") + " sn, oyuncunun canı en az %" + (enAzCan * 100f).ToString("0")
+                            + " [" + AnyRPG.Denge.OlcumYazisi(oyuncu) + "]";
                         savasAsama = 2;
                         return false;
                     }

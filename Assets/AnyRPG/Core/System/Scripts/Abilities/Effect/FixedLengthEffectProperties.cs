@@ -100,6 +100,11 @@ namespace AnyRPG {
                 // effects cast by environmental areas will spawn on network clients this way
                 return (target as IAbilityCaster).AbilityManager.SpawnAbilityEffectPrefabs(target, originalTarget, this, abilityEffectInput);
             } else {
+                // Ötüken: vuruş, atan birim öldükten/kaybolduktan sonra gelirse (ok, büyü) atanın yetenek yöneticisi yoktur
+                // (oyun testinde Börü Tepesi'nde 5 kez NullReferenceException); görsel etki atlanır, hasar zaten işlendi
+                if (source == null || source.AbilityManager == null) {
+                    return new Dictionary<PrefabProfile, List<GameObject>>();
+                }
                 return source.AbilityManager.SpawnAbilityEffectPrefabs(target, originalTarget, this, abilityEffectInput);
             }
             //Dictionary<PrefabProfile, List<GameObject>> prefabObjects = source.AbilityManager.SpawnAbilityEffectPrefabs(target, originalTarget, this, abilityEffectInput);

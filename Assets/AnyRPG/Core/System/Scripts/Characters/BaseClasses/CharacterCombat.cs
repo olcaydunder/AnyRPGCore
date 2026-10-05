@@ -658,6 +658,7 @@ namespace AnyRPG {
                 damage = Mathf.Max(1, Mathf.RoundToInt(damage * Gelisim.AcemiHasarCarpani));
             }
 
+            Denge.HasarKaydet(unitController, source, damage);
             ProcessTakeDamage(abilityEffectContext, powerResource, damage, source, combatMagnitude, abilityEffect);
             //Debug.Log($"{unitController.gameObject.name} sending " + damage.ToString() + " to character stats");
             unitController.CharacterStats.ReducePowerResource(powerResource, damage);
