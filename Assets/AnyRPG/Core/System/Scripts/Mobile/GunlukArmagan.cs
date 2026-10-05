@@ -329,10 +329,10 @@ namespace AnyRPG {
 
         private bool bekliyor = false;
 
-        private void Open(SystemGameManager gameManager, string character, int day) {
+        private void Open(SystemGameManager gameManager, string character, int gun) {
             systemGameManager = gameManager;
             characterName = character;
-            rewardDay = day;
+            rewardDay = gun;
             bekliyor = false;
             subtitleText.text = "Her gün oyuna gir, armağanını al! 7 gün üst üste gelirsen en büyük armağan seni bekler.\n" +
                 "Bir gün kaçırırsan seri 1. günden yeniden başlar.";

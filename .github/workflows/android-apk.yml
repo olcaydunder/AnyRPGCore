@@ -160,8 +160,7 @@ jobs:
           # önce haritaları hazırlar (yürüme ağı, tanı raporu, ekran görüntüleri), sonra standart GameCI derlemesi
           # (Assets/Otuken/Editor/HaritaHazirlik.cs, Assets/Editor/UnityBuilderAction)
           buildMethod: Otuken.EditorAraclari.Derleme.Derle
-          # Unity günlüğü dosyaya da yazılır (derleme hatalarını not olarak göstermek için; tani.zip'e girer)
-          customParameters: ${{ inputs.sadece_arayuz && '-sadeceArayuz' || '' }} -istemciSurumu ${{ steps.hazirlik.outputs.surum }} -logFile /github/workspace/tani/unity_derleme.log
+          customParameters: ${{ inputs.sadece_arayuz && '-sadeceArayuz' || '' }} -istemciSurumu ${{ steps.hazirlik.outputs.surum }}
           androidExportType: androidPackage
           versioning: Custom
           version: ${{ steps.hazirlik.outputs.surum }}

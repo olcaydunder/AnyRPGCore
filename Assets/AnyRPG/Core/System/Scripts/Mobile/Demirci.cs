@@ -284,9 +284,10 @@ namespace AnyRPG {
                 bool basarili = false;
                 SystemGameManager o = OtukenAg.Oyun;
                 string sonuc = esya == null ? "Eşya bulunamadı." : Yukselt(oyuncu, esya, o, false, out basarili);
-                if (basarili && o.SystemItemManager != null) {
-                    // basamak eşyanın adındadır: eşya kaydı yenilenir
-                    o.SystemItemManager.SaveItemInstance(esya);
+                if (basarili) {
+                    // basamak eşyanın adındadır: eşyalar karakter kaydıyla birlikte yazılır (PlayerCharacterSaveData),
+                    // kayıt kirlensin ki yeni ad saklansın
+                    oyuncu.UnitEventController.NotifyOnSaveDataUpdated();
                 }
                 Debug.Log("[Sunucu] " + oyuncu.DisplayName + " demirci: " + sonuc);
                 OtukenAg.Yanitla(oyuncu, "demirci", (basarili ? "1" : "0") + "|" + (esya != null ? esya.InstanceId : 0)
