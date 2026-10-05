@@ -191,7 +191,7 @@ namespace AnyRPG {
                 yield break;
             }
             Not("dünyada: " + UnityEngine.SceneManagement.SceneManager.GetActiveScene().name + ", konum " + ben.transform.position.ToString("0")
-                + (ben.CharacterStats.IsAlive ? ", canlı" : ", ÖLÜ (önceki oturumda ölmüş)"));
+                + (ben.CharacterStats.IsAlive ? ", canlı" : ", ÖLÜ (önceki oturumda ölmüş)") + "; " + SavasTanisi(ben));
             yield return new WaitForSecondsRealtime(5f);
             // ölü girdiyse oyuncunun yapacağı gibi ölüm penceresinden yeniden doğ
             yield return Diril(oyun);
@@ -228,6 +228,7 @@ namespace AnyRPG {
             Dictionary<string, Vector3> otekiIlk = new Dictionary<string, Vector3>();
             float otekiYuruyus = 0f;
             int saldiri = 0;
+            int tanilar = 0;
             t = Time.realtimeSinceStartup;
             while (Time.realtimeSinceStartup - t < sure) {
                 yield return new WaitForSecondsRealtime(5f);
@@ -274,6 +275,10 @@ namespace AnyRPG {
                 enCokOyuncu = Mathf.Max(enCokOyuncu, oyuncu);
                 enCokNpc = Mathf.Max(enCokNpc, npc);
                 UnitController hedefBirim = ben.Target as UnitController;
+                if (hedefBirim != null && ben.CharacterCombat != null && ben.CharacterCombat.GetInCombat() && tanilar < 3) {
+                    tanilar++;
+                    Not("savaş tanısı (istemci): " + SavasTanisi(ben));
+                }
                 Not("öteki oyuncu " + oyuncu + ", NPC/düşman " + npc + ", seviye " + ben.CharacterStats.Level + ", tecrübe " + ben.CharacterStats.CurrentXP
                     + ", can %" + Yuzde(ben) + (ben.CharacterCombat != null && ben.CharacterCombat.GetInCombat() ? " (savaşta)" : string.Empty)
                     + ", konum " + ben.transform.position.ToString("0")
@@ -324,6 +329,32 @@ namespace AnyRPG {
             }
             Not("ölüm: " + olduguYer.ToString("0") + ", ölüm penceresi " + (acik ? "açıktı" : "AÇILMAMIŞTI") + "; yeniden doğma "
                 + (dirildi ? "oldu: " + ben.transform.position.ToString("0") : "OLMADI (30 sn)"));
+        }
+
+        /// <summary>savaş tanısı: sınıf, kuşanılanlar, normal saldırı ve açık mı, savaşta mı, hedef (istemcide ve sunucuda)</summary>
+        public static string SavasTanisi(UnitController u) {
+            if (u == null) {
+                return "birim yok";
+            }
+            try {
+                string sinif = u.BaseCharacter != null && u.BaseCharacter.CharacterClass != null ? u.BaseCharacter.CharacterClass.DisplayName : "sınıfsız";
+                List<string> esyalar = new List<string>();
+                if (u.CharacterEquipmentManager != null && u.CharacterEquipmentManager.CurrentEquipment != null) {
+                    foreach (EquipmentInventorySlot yuva in u.CharacterEquipmentManager.CurrentEquipment.Values) {
+                        if (yuva != null && yuva.InstantiatedEquipment != null) {
+                            esyalar.Add(yuva.InstantiatedEquipment.DisplayName);
+                        }
+                    }
+                }
+                string oto = u.CharacterAbilityManager != null && u.CharacterAbilityManager.AutoAttackAbility != null ? u.CharacterAbilityManager.AutoAttackAbility.DisplayName : "YOK";
+                bool acik = u.CharacterCombat != null && u.CharacterCombat.AutoAttackActive;
+                bool savasta = u.CharacterCombat != null && u.CharacterCombat.GetInCombat();
+                return "sınıf " + sinif + ", " + esyalar.Count + " eşya (" + string.Join("/", esyalar.GetRange(0, Mathf.Min(5, esyalar.Count))) + ")"
+                    + ", normal saldırı " + oto + (acik ? " AÇIK" : " kapalı") + (savasta ? ", savaşta" : string.Empty)
+                    + ", hedef " + (u.Target != null ? u.Target.DisplayName : "yok");
+            } catch (Exception e) {
+                return "tanı hatası: " + e.Message;
+            }
         }
 
         private static string Yuzde(UnitController u) {

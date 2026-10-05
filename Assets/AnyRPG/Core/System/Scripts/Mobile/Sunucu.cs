@@ -57,11 +57,20 @@ namespace AnyRPG {
             Debug.Log("[Sunucu] başladı: " + oyun.NetworkManagerServer.ServerMode + " kipi, port " + oyun.NetworkManagerServer.GetServerPort()
                 + ", istemci sürümü " + oyun.SystemConfigurationManager.ClientVersion + ", kayıtlar " + Application.persistentDataPath);
             while (true) {
-                yield return new WaitForSecondsRealtime(60f);
+                yield return new WaitForSecondsRealtime(30f);
                 try {
                     int oyuncu = oyun.AuthenticationService != null ? oyun.AuthenticationService.LoggedInAccounts.Count : -1;
                     Debug.Log("[Sunucu] açık: " + (oyun.NetworkManagerServer.ServerModeActive ? "evet" : "HAYIR") + ", bağlı oyuncu " + oyuncu
                         + ", çalışma " + (int)(Time.realtimeSinceStartup / 60f) + " dk");
+                    // oyuncuların sunucudaki savaş durumu (çevrimiçi savaş sorunlarını görmek için)
+                    if (oyun.PlayerManagerServer != null) {
+                        foreach (UnitController u in oyun.PlayerManagerServer.ActiveUnitControllers.Values) {
+                            if (u != null && u.CharacterStats != null) {
+                                Debug.Log("[Sunucu] oyuncu " + u.DisplayName + " " + u.CharacterStats.Level + ". sv, can " + u.CharacterStats.CurrentPrimaryResource
+                                    + "/" + u.CharacterStats.MaxPrimaryResource + ": " + AgBotu.SavasTanisi(u));
+                            }
+                        }
+                    }
                 } catch (Exception e) {
                     Debug.LogWarning("[Sunucu] durum yazılamadı: " + e.Message);
                 }
