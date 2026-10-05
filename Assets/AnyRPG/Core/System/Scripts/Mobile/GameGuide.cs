@@ -48,6 +48,13 @@ namespace AnyRPG {
         /// <summary>
         /// open the guide the first time a character enters the world
         /// </summary>
+        /// <summary>ağ botu: açıksa kapatır (ilk girişte kendiliğinden açılır)</summary>
+        public static void Kapat() {
+            if (IsOpen) {
+                instance.Close();
+            }
+        }
+
         public static void ShowFirstTimeIfNeeded() {
             if (PlayerPrefs.GetInt(ShownKey, 0) != 0) {
                 return;

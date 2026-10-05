@@ -33,6 +33,11 @@ namespace AnyRPG {
 
             base.ProcessOpenWindowNotification();
 
+            // Ötüken: pencere gecikmeyle açılır; bu arada harita değiştiyse oyuncu birimi henüz yoktur
+            if (playerManagerClient.UnitController == null || playerManagerClient.UnitController.CharacterStats == null) {
+                reviveButton.gameObject.SetActive(false);
+                return;
+            }
             if (playerManagerClient.UnitController.CharacterStats.CanRevive() == true) {
                 //Debug.Log("PlayerDeathPanelController.ProcessOpenWindowNotification(): CanRevive is true, enabling revive button");
                 reviveButton.gameObject.SetActive(true);

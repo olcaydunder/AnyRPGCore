@@ -202,8 +202,11 @@ namespace AnyRPG {
             }
 
             // günlük armağan: sunucu durumu bildirince pencere açılır; oyuncu gibi "Armağanı Al"a basılır
+            // (ilk girişte rehber açılır, oyuncu kapatınca armağana bakılır)
+            GameGuide.Kapat();
             string armagan = "pencere açılmadı";
             for (int i = 0; i < 30; i++) {
+                GameGuide.Kapat();
                 if (GunlukArmagan.IsOpen) {
                     GunlukArmagan.TestIcinAl();
                     yield return new WaitForSecondsRealtime(3f);

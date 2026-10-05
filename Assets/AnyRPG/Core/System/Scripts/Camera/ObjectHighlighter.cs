@@ -35,8 +35,11 @@ namespace AnyRPG {
 			meshRenderersDict.Add(interactable, meshRenderers);
 			originalRenderingLayersDict.Add(interactable, new List<uint>());
 
-            OutlineVolumeComponent outlineVolume = VolumeManager.instance.stack.GetComponent<OutlineVolumeComponent>();
-			outlineVolume.color1.value = outlineColor;
+            OutlineVolumeComponent outlineVolume = VolumeManager.instance.stack != null ? VolumeManager.instance.stack.GetComponent<OutlineVolumeComponent>() : null;
+			// Ötüken: grafik kalitesi değişirken (çizim hattı yeniden kurulurken) hacim yığını bir an boş olabiliyor
+			if (outlineVolume != null) {
+				outlineVolume.color1.value = outlineColor;
+			}
 
             // loop through mesh renderers and add Outline_1 to their rendering layers
             foreach (Renderer renderer in meshRenderers) {

@@ -56,15 +56,16 @@ namespace AnyRPG {
             tonlama.mode.Override(TonemappingMode.Neutral);
 
             Bloom isilti = profil.Add<Bloom>(false);
-            isilti.threshold.Override(1.05f);
-            isilti.intensity.Override(0.35f);
+            isilti.threshold.Override(1.1f);
+            isilti.intensity.Override(0.3f);
             isilti.scatter.Override(0.6f);
             isilti.highQualityFiltering.Override(false);
 
             ColorAdjustments renk = profil.Add<ColorAdjustments>(false);
-            renk.postExposure.Override(0.2f);
-            renk.contrast.Override(10f);
-            renk.saturation.Override(14f);
+            // açık renkli kayalar ve sis solmasın: pozlama artmaz, kontrast biraz yüksek
+            renk.postExposure.Override(0f);
+            renk.contrast.Override(14f);
+            renk.saturation.Override(12f);
 
             Vignette kenar = profil.Add<Vignette>(false);
             kenar.intensity.Override(0.18f);

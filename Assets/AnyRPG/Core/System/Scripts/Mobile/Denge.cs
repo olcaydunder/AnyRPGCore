@@ -16,7 +16,8 @@ namespace AnyRPG {
         // 0.1.49 (0.5 / 0.2): tek canavar 10-20 sn, çoğunda can %80-100 kaldı; kalabalık kampta ve zindan girişinde
         // ölümler sürdü -> hasar 0.4
         // 0.1.53: oyuncunun canı da yanlışlıkla x0.2 idi (düzeltildi) -> oyuncu artık 5 kat dayanıklı; hasar 0.5
-        public const float CanavarHasari = 0.5f;
+        // 0.1.60: Börü Tepesi'nde (5. sv, Ağulu Körmös) ve Tamu'da (can %4) zorlandı -> 0.45
+        public const float CanavarHasari = 0.45f;
         public const float CanavarCani = 0.2f;
 
         /// <summary>hedefin aldığı hasarın çarpanı (oyuncuya canavar vurduysa CanavarHasari)</summary>

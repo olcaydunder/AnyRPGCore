@@ -283,6 +283,9 @@ namespace Otuken.EditorAraclari {
                 Vector3? yer = null;
                 if (halka.Count > 0) {
                     yer = halka.OrderByDescending(p => Mathf.Min(KenarUzakligi(p), 3f) - Mathf.Abs(Yatay(p, giris) - 8f) * 0.2f).First();
+                } else if (GirisYani(giris, etkilesimler, out Vector3 yan)) {
+                    // dar girişler: açık nokta yok, yürüme ağında girişin 5-10 m yanı
+                    yer = yan;
                 } else if (adaylar.Count > 0) {
                     yer = adaylar.Where(p => Yatay(p, giris) >= 3f).OrderBy(p => Yatay(p, giris)).FirstOrDefault();
                 }
@@ -298,13 +301,26 @@ namespace Otuken.EditorAraclari {
             if (h[1].Length > 0) {
                 List<Vector3> eskiler = Object.FindObjectsByType<AnyRPG.UnitSpawnNode>(FindObjectsInactive.Include, FindObjectsSortMode.None)
                     .Where(n => n.gameObject.scene == sahne && BossMu(n)).Select(n => n.transform.position).ToList();
+                // oyuncunun haritaya vardığı yerler (giriş ve geçit taşı): boss oradan en az BossUzakligi uzakta olmalı
+                // (0.1.60'ta Ergenekon'un açık alanı girişin dibindeydi, boss 9 m'ye kondu ve gelen oyuncuyu hemen öldürdü)
+                List<Vector3> varislar = new List<Vector3>() { giris };
+                foreach (GameObject kok in sahne.GetRootGameObjects()) {
+                    if (kok.name == "GecitTasi") {
+                        varislar.Add(kok.transform.position);
+                    }
+                }
                 List<Vector3> adaylar = noktalar.Where(p => KenarUzakligi(p) >= 3f && eskiler.All(e => Yatay(p, e) >= 25f)
-                    && engeller.All(e => Yatay(p, e.p) >= Mathf.Min(e.r, 9f))).ToList();
+                    && engeller.All(e => Yatay(p, e.p) >= Mathf.Min(e.r, 9f)) && varislar.All(v => Yatay(p, v) >= BossUzakligi)).ToList();
                 if (adaylar.Count == 0) {
-                    adaylar = noktalar.Where(p => eskiler.All(e => Yatay(p, e) >= 15f)).ToList();
+                    adaylar = noktalar.Where(p => eskiler.All(e => Yatay(p, e) >= 15f) && varislar.All(v => Yatay(p, v) >= BossUzakligi)).ToList();
+                }
+                if (adaylar.Count == 0) {
+                    // dar koridorlu haritalar (mağaralar): açık nokta yok; yürüme ağının köşelerinden girişten yürünerek
+                    // ulaşılan en uzağı
+                    adaylar = UlasilanUzakNoktalar(giris, varislar, eskiler);
                 }
                 if (adaylar.Count > 0) {
-                    Vector3 yer = adaylar.OrderByDescending(p => Yatay(p, giris)).First();
+                    Vector3 yer = adaylar.OrderByDescending(p => varislar.Min(v => Yatay(p, v))).First();
                     DogmaNoktasi(prefab, sahne, Onek + "Boss", yer, Ozet(ad) % 360, h[1], 600);
                     engeller.Add(new Engel(yer, 12f));
                     rapor += $", boss {h[1]} (girişe {Yatay(yer, giris):0} m)";
@@ -313,6 +329,47 @@ namespace Otuken.EditorAraclari {
                 }
             }
             return rapor;
+        }
+
+        private const float BossUzakligi = 35f;
+
+        /// <summary>girişin 5-10 m yanında, yürüme ağında, girişten yürünerek ulaşılan bir yer (kapı ve geçit taşından 3 m uzak)</summary>
+        private static bool GirisYani(Vector3 giris, List<Vector3> etkilesimler, out Vector3 yer) {
+            NavMeshPath yol = new NavMeshPath();
+            foreach (float r in new[] { 7f, 5f, 9f, 11f }) {
+                for (int k = 0; k < 12; k++) {
+                    float a = k * Mathf.PI / 6f;
+                    Vector3 q = giris + new Vector3(Mathf.Cos(a), 0f, Mathf.Sin(a)) * r;
+                    if (NavMesh.SamplePosition(q, out NavMeshHit h, 1.5f, NavMesh.AllAreas) && Mathf.Abs(h.position.y - giris.y) < 2.5f
+                        && Yatay(h.position, giris) >= 4.5f && etkilesimler.All(e => Yatay(h.position, e) >= 3f)
+                        && NavMesh.CalculatePath(giris, h.position, NavMesh.AllAreas, yol) && yol.status == NavMeshPathStatus.PathComplete) {
+                        yer = h.position;
+                        return true;
+                    }
+                }
+            }
+            yer = Vector3.zero;
+            return false;
+        }
+
+        /// <summary>yürüme ağının köşelerinden girişten yürünerek ulaşılanlar (varış yerlerinden en az BossUzakligi uzakta)</summary>
+        private static List<Vector3> UlasilanUzakNoktalar(Vector3 giris, List<Vector3> varislar, List<Vector3> eskiler) {
+            List<Vector3> sonuc = new List<Vector3>();
+            NavMeshTriangulation ag = NavMesh.CalculateTriangulation();
+            NavMeshPath yol = new NavMeshPath();
+            IEnumerable<Vector3> koseler = ag.vertices
+                .Where(p => varislar.All(v => Yatay(p, v) >= BossUzakligi) && eskiler.All(e => Yatay(p, e) >= 15f))
+                .OrderByDescending(p => varislar.Min(v => Yatay(p, v))).Take(300);
+            foreach (Vector3 k in koseler) {
+                if (NavMesh.SamplePosition(k, out NavMeshHit h, 2f, NavMesh.AllAreas)
+                    && NavMesh.CalculatePath(giris, h.position, NavMesh.AllAreas, yol) && yol.status == NavMeshPathStatus.PathComplete) {
+                    sonuc.Add(h.position);
+                    if (sonuc.Count >= 5) {
+                        break;
+                    }
+                }
+            }
+            return sonuc;
         }
 
         private static bool BossMu(AnyRPG.UnitSpawnNode n) {
