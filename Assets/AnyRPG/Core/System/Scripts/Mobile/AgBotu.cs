@@ -215,6 +215,10 @@ namespace AnyRPG {
                 yield break;
             }
 
+            // gerçek oyuncu gibi otomatik av (beceriler, ganimet); ayrıca 5 sn'de bir en yakın düşmana saldırı isteği
+            if (OtomatikAv.Acik == false) {
+                OtomatikAv.Degistir();
+            }
             int enCokOyuncu = 0;
             int enCokNpc = 0;
             int ilkTecrube = ben.CharacterStats != null ? ben.CharacterStats.CurrentXP : 0;
@@ -269,8 +273,12 @@ namespace AnyRPG {
                 }
                 enCokOyuncu = Mathf.Max(enCokOyuncu, oyuncu);
                 enCokNpc = Mathf.Max(enCokNpc, npc);
+                UnitController hedefBirim = ben.Target as UnitController;
                 Not("öteki oyuncu " + oyuncu + ", NPC/düşman " + npc + ", seviye " + ben.CharacterStats.Level + ", tecrübe " + ben.CharacterStats.CurrentXP
-                    + ", konum " + ben.transform.position.ToString("0") + (ben.Target != null ? ", hedef " + ben.Target.DisplayName : string.Empty));
+                    + ", can %" + Yuzde(ben) + (ben.CharacterCombat != null && ben.CharacterCombat.GetInCombat() ? " (savaşta)" : string.Empty)
+                    + ", konum " + ben.transform.position.ToString("0")
+                    + (ben.Target != null ? ", hedef " + ben.Target.DisplayName + (hedefBirim != null ? " " + hedefBirim.CharacterStats.Level + ". sv can %" + Yuzde(hedefBirim)
+                        + " " + Vector3.Distance(ben.transform.position, hedefBirim.transform.position).ToString("0") + " m" : string.Empty) : string.Empty));
             }
             Vector3 son = ben != null ? ben.transform.position : ilkKonum;
             Bitir("SONUÇ: " + (enCokOyuncu > 0 ? "öteki oyuncu GÖRÜLDÜ (" + string.Join(", ", gorulenOyuncular) + ", onun yürüyüşü " + otekiYuruyus.ToString("0") + " m)" : "öteki oyuncu görülmedi")
@@ -316,6 +324,13 @@ namespace AnyRPG {
             }
             Not("ölüm: " + olduguYer.ToString("0") + ", ölüm penceresi " + (acik ? "açıktı" : "AÇILMAMIŞTI") + "; yeniden doğma "
                 + (dirildi ? "oldu: " + ben.transform.position.ToString("0") : "OLMADI (30 sn)"));
+        }
+
+        private static string Yuzde(UnitController u) {
+            if (u == null || u.CharacterStats == null) {
+                return "?";
+            }
+            return (100f * u.CharacterStats.CurrentPrimaryResource / Mathf.Max(1, u.CharacterStats.MaxPrimaryResource)).ToString("0");
         }
 
         private static UnitController EnYakinDusman(UnitController ben) {

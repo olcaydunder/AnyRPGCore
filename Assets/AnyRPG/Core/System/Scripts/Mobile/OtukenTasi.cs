@@ -259,7 +259,8 @@ namespace AnyRPG {
                 return;
             }
             bool hedefti = oyuncu.Target == (InteractableBase)birim || Time.time - oyuncuVurdu < 8f;
-            if (hedefti == false || Vector3.Distance(oyuncu.transform.position, birim.transform.position) > 12f) {
+            // okçu ve büyücüler taşı uzaktan kırar: menzil kadar uzaktan da ödüle yürünür
+            if (hedefti == false || Vector3.Distance(oyuncu.transform.position, birim.transform.position) > 45f) {
                 return;
             }
             StartCoroutine(OdulAlGec(kontrol, oyuncu));

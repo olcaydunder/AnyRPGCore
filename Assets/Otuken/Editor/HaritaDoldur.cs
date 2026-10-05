@@ -84,6 +84,9 @@ namespace Otuken.EditorAraclari {
             }
             float alan = noktalar.Count * adim * adim;
 
+            // 0. girişte güvenli alan: haritaya girer girmez savaşa düşülmesin (zindanların girişi dar)
+            int tasinan = GuvenliGiris(sahne, giris, noktalar);
+
             // engeller: giriş, etkileşimli her şey (geçit taşı, kapılar, sandıklar, NPC'ler), var olan doğma noktaları
             List<Engel> engeller = new List<Engel>() { new Engel(giris, 16f) };
             foreach (AnyRPG.InteractableBase e in Object.FindObjectsByType<AnyRPG.InteractableBase>(FindObjectsInactive.Include, FindObjectsSortMode.None)) {
@@ -131,7 +134,42 @@ namespace Otuken.EditorAraclari {
                 }
             }
             return $"taş/kamp: {taslar.Count} Ötüken Taşı, {kampSayisi} ek kamp ({canavar} canavar)"
+                + (tasinan > 0 ? $", girişten uzaklaştırılan {tasinan} düşman" : string.Empty)
                 + $" | açık alan ~{alan:0} m² ({noktalar.Count} nokta)" + (silinen > 0 ? $", eskiden {silinen} silindi" : string.Empty);
+        }
+
+        private const float GuvenliYaricap = 20f;
+
+        /// <summary>girişe GuvenliYaricap'tan yakın düşman doğma noktalarını (TR_) en yakın uygun açık noktaya taşır</summary>
+        private static int GuvenliGiris(Scene sahne, Vector3 giris, List<Vector3> noktalar) {
+            List<AnyRPG.UnitSpawnNode> dugumler = Object.FindObjectsByType<AnyRPG.UnitSpawnNode>(FindObjectsInactive.Include, FindObjectsSortMode.None)
+                .Where(n => n.gameObject.scene == sahne).ToList();
+            List<Vector3> dolu = dugumler.Select(n => n.transform.position).ToList();
+            int tasinan = 0;
+            foreach (AnyRPG.UnitSpawnNode n in dugumler.OrderBy(d => d.name)) {
+                if (n.name.StartsWith("TR_") == false || Yatay(n.transform.position, giris) >= GuvenliYaricap) {
+                    continue;
+                }
+                Vector3 eski = n.transform.position;
+                Vector3 enIyi = eski;
+                float enAz = float.MaxValue;
+                foreach (Vector3 p in noktalar) {
+                    if (Yatay(p, giris) < GuvenliYaricap + 6f || dolu.Any(d => Yatay(d, p) < 4f)) {
+                        continue;
+                    }
+                    float d = Vector3.Distance(p, eski);
+                    if (d < enAz) {
+                        enAz = d;
+                        enIyi = p;
+                    }
+                }
+                if (enAz < float.MaxValue) {
+                    n.transform.position = enIyi + Vector3.up * 0.05f;
+                    dolu.Add(enIyi);
+                    tasinan++;
+                }
+            }
+            return tasinan;
         }
 
         private static int Temizle(Scene sahne) {

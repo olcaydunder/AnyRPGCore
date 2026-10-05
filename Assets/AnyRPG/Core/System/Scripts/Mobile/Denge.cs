@@ -13,7 +13,9 @@ namespace AnyRPG {
 
         // ölçüm (0.1.48, çarpanlar 0.8 / 0.9 iken): aynı seviyedeki canavarla dövüş başlangıç donanımıyla ~60 sn sürüyor,
         // oyuncu canının %50-80'ini kaybediyordu; 2-3'lü kampta ölüyordu. Hedef: tek canavar ~10-15 sn, canın ~%10'u.
-        public const float CanavarHasari = 0.5f;
+        // 0.1.49 (0.5 / 0.2): tek canavar 10-20 sn, çoğunda can %80-100 kaldı; kalabalık kampta ve zindan girişinde
+        // ölümler sürdü -> hasar 0.4
+        public const float CanavarHasari = 0.4f;
         public const float CanavarCani = 0.2f;
 
         /// <summary>hedefin aldığı hasarın çarpanı (oyuncuya canavar vurduysa CanavarHasari)</summary>
