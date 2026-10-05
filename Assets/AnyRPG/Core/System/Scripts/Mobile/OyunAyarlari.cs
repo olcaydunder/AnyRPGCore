@@ -31,8 +31,11 @@ namespace AnyRPG {
         private const string KonsolKey = "ayar-hata-konsolu";
 
         // seçenek değerleri (pencerede soldan sağa)
-        public static readonly int[] KaliteSeviyeleri = { 1, 2, 3 };              // Düşük, Orta, Yüksek (QualitySettings)
-        private static readonly float[] cozunurlukOlcekleri = { 0f, 0.6f, 0.8f, 1f }; // Otomatik, Düşük, Orta, Yüksek
+        public static readonly int[] KaliteSeviyeleri = { 1, 2, 3, 5 };           // Düşük, Orta, Yüksek, 4K (QualitySettings)
+        public const int DortKSeviyesi = 5;                                         // "Ultra": 4K, gölge 4096, ışıltı, kenar yumuşatma
+        // Otomatik, Düşük, Orta, Yüksek, 4K (-1: ekranın uzun kenarı 3840 piksel olacak şekilde, en çok 2 kat)
+        private static readonly float[] cozunurlukOlcekleri = { 0f, 0.6f, 0.8f, 1f, -1f };
+        public const int DortKGenislik = 3840;
         private static readonly float[] golgeMesafeleri = { -1f, 0f, 15f, 35f };     // Otomatik, Kapalı, Yakın, Uzak
         private static readonly int[] fpsSinirlari = { 30, 60 };
         private static readonly float[] gorusMesafeleri = { 120f, 160f, 200f };     // Yakın, Orta, Uzak (kameranın varsayılanı 200)
@@ -93,6 +96,31 @@ namespace AnyRPG {
             get { return isimMesafeleri[IsimMesafesiSecimi]; }
         }
 
+        /// <summary>grafik kalitesi 4K mı (ışıltı, renk katmanı, kenar yumuşatma ve 4K çizim)</summary>
+        public static bool DortK {
+            get { return QualitySettings.GetQualityLevel() == DortKSeviyesi; }
+        }
+
+        /// <summary>
+        /// 4K çizim ölçeği: oyun, ekranın uzun kenarı 3840 piksel olacak büyüklükte çizilip ekrana küçültülür
+        /// (telefon ekranı 4K'dan küçük olduğu için kenarlar pürüzsüz, ayrıntı keskin). URP en çok 2 kat çizer.
+        /// </summary>
+        public static float DortKOlcegi() {
+            int uzun = Mathf.Max(Screen.width, Screen.height);
+            if (uzun <= 0) {
+                return 1f;
+            }
+            return Mathf.Clamp((float)DortKGenislik / uzun, 1f, 2f);
+        }
+
+        /// <summary>şu an oyunun çizildiği çözünürlük (oyun testi ve durum raporu)</summary>
+        public static string CizimCozunurlugu() {
+            UniversalRenderPipelineAsset asset = GraphicsSettings.currentRenderPipeline as UniversalRenderPipelineAsset;
+            float olcek = asset != null ? asset.renderScale : 1f;
+            return Mathf.RoundToInt(Screen.width * olcek) + "x" + Mathf.RoundToInt(Screen.height * olcek)
+                + " (ekran " + Screen.width + "x" + Screen.height + ", ölçek " + olcek.ToString("0.00") + ")";
+        }
+
         private static int Al(string key, int varsayilan, int adet) {
             return Mathf.Clamp(PlayerPrefs.GetInt(key, varsayilan), 0, adet - 1);
         }
@@ -108,7 +136,7 @@ namespace AnyRPG {
 
         private const string ElleKey = "ayar-elle-degisti";
         private const float OlcumSuresi = 20f;
-        private static readonly string[] kaliteAdlari = { "Düşük", "Orta", "Yüksek" };
+        private static readonly string[] kaliteAdlari = { "Düşük", "Orta", "Yüksek", "4K" };
         private static float olcumBaslangic = -1f;
         private static int olcumKaresi = 0;
         private static float olcumBekleme = 0f;
@@ -183,6 +211,7 @@ namespace AnyRPG {
         /// Düşük/30. Oyuncu sonra Seçenekler'den değiştirebilir. MobileBootstrap sahne yüklenmeden çağırır.
         /// </summary>
         public static void IlkAcilisAyari() {
+            DortKGecisi();
             if (PlayerPrefs.GetInt(OtomatikGrafikKey, 0) == 1) {
                 return;
             }
@@ -193,6 +222,9 @@ namespace AnyRPG {
                 return;
             }
             int seviye = CihazSeviyesi();
+            if (seviye == 2 && DortKCihazi()) {
+                seviye = 3;
+            }
             PlayerPrefs.SetInt(KaliteKey, KaliteSeviyeleri[seviye]);
             QualitySettings.SetQualityLevel(KaliteSeviyeleri[seviye], true);
             PlayerPrefs.SetInt(FpsKey, seviye == 0 ? 0 : 1);
@@ -201,6 +233,45 @@ namespace AnyRPG {
             }
             PlayerPrefs.Save();
             Debug.Log($"OyunAyarlari: ilk açılış grafik seviyesi {seviye} (bellek {SystemInfo.systemMemorySize} MB, {SystemInfo.graphicsDeviceName})");
+        }
+
+        private const string DortKGecisKey = "ayar-4k-gecis";
+        private static string bekleyenMesaj = null;
+
+        /// <summary>
+        /// 4K, güçlü ve yeni kuşak ekran kartlı telefonlarda bir kez kendiliğinden açılır (eski kurulumlarda da);
+        /// oyuncu sonra Menü > Grafik'ten değiştirebilir. Kare hızı düşerse akıcılık bekçisi Yüksek'e indirir
+        /// (oyuncu kendisi ayar değiştirmediyse).
+        /// </summary>
+        private static void DortKGecisi() {
+            if (PlayerPrefs.GetInt(DortKGecisKey, 0) == 1) {
+                return;
+            }
+            PlayerPrefs.SetInt(DortKGecisKey, 1);
+            if (Application.isEditor || Application.isBatchMode || CihazSeviyesi() < 2 || DortKCihazi() == false) {
+                PlayerPrefs.Save();
+                return;
+            }
+            PlayerPrefs.SetInt(OtomatikGrafikKey, 1);
+            PlayerPrefs.SetInt(KaliteKey, DortKSeviyesi);
+            QualitySettings.SetQualityLevel(DortKSeviyesi, true);
+            PlayerPrefs.SetInt(FpsKey, 1);
+            if (Cozunurluk != 0 && Cozunurluk != 4) {
+                PlayerPrefs.SetInt(CozunurlukKey, 0);
+            }
+            PlayerPrefs.Save();
+            bekleyenMesaj = "Görüntü 4K yapıldı. Telefon ısınırsa Menü > Grafik'ten Yüksek'e alabilirsin.";
+            Debug.Log($"OyunAyarlari: 4K açıldı ({SystemInfo.graphicsDeviceName}, bellek {SystemInfo.systemMemorySize} MB)");
+        }
+
+        /// <summary>4K'yı rahat çizen yeni kuşak ekran kartı (Adreno 7xx/8xx, Mali-G7xx/G9xx, Immortalis, Xclipse)</summary>
+        public static bool DortKCihazi() {
+            string k = SystemInfo.graphicsDeviceName ?? string.Empty;
+            if (SystemInfo.systemMemorySize < 7000) {
+                return false;
+            }
+            return k.Contains("Adreno (TM) 7") || k.Contains("Adreno (TM) 8") || k.Contains("Immortalis") || k.Contains("Xclipse")
+                || System.Text.RegularExpressions.Regex.IsMatch(k, @"Mali-G[7-9]\d\d");
         }
 
         /// <summary>0: zayıf, 1: orta, 2: güçlü cihaz</summary>
@@ -238,8 +309,13 @@ namespace AnyRPG {
         /// </summary>
         public static void Tick(SystemGameManager systemGameManager) {
             // kalite değişince (AnyRPG'nin kendi Görüntü ayarı da değiştirebilir) yeni URP varlığına uygula
-            if (GraphicsSettings.currentRenderPipeline != sonUrp) {
+            if (GraphicsSettings.currentRenderPipeline != sonUrp || Screen.width != sonEkranGenisligi || Screen.height != sonEkranYuksekligi) {
                 UygulaUrp();
+            }
+            if (bekleyenMesaj != null && systemGameManager != null && systemGameManager.PlayerManagerClient != null
+                && systemGameManager.PlayerManagerClient.PlayerUnitSpawned && systemGameManager.PlayerManagerClient.UnitController != null) {
+                systemGameManager.PlayerManagerClient.UnitController.WriteMessageFeedMessage("<color=#FFD54A>" + bekleyenMesaj + "</color>");
+                bekleyenMesaj = null;
             }
             Camera kamera = KameraBul(systemGameManager);
             if (kamera != sonKamera || sonKameraAyari != KameraAyarKodu()) {
@@ -348,8 +424,13 @@ namespace AnyRPG {
             return kamera;
         }
 
+        private static int sonEkranGenisligi = -1;
+        private static int sonEkranYuksekligi = -1;
+
         private static void UygulaUrp() {
             sonUrp = GraphicsSettings.currentRenderPipeline;
+            sonEkranGenisligi = Screen.width;
+            sonEkranYuksekligi = Screen.height;
             UniversalRenderPipelineAsset asset = sonUrp as UniversalRenderPipelineAsset;
             if (asset == null) {
                 return;
@@ -359,13 +440,51 @@ namespace AnyRPG {
                 urpVarsayilan[asset] = varsayilan;
             }
             float olcek = cozunurlukOlcekleri[Cozunurluk];
+            if (olcek < 0f || (olcek == 0f && DortK)) {
+                // 4K: ekranın uzun kenarı 3840 piksel olacak şekilde çiz, ekrana küçült
+                olcek = DortKOlcegi();
+            }
             asset.renderScale = olcek > 0f ? olcek : varsayilan.x;
             float golge = golgeMesafeleri[Golge];
             asset.shadowDistance = golge > 0f ? golge : varsayilan.y;
         }
 
         private static int KameraAyarKodu() {
-            return Gorus * 10 + Golge;
+            return Gorus * 10 + Golge + (DortK ? 1000 : 0);
+        }
+
+        private static readonly Dictionary<int, Vector3Int> kameraVarsayilan = new Dictionary<int, Vector3Int>();
+
+        /// <summary>
+        /// 4K'da ana kamera HDR çizer, SMAA kenar yumuşatması yapar ve renk katmanını (GorselEtkiler) görür;
+        /// öteki kalitelerde kameranın kendi ayarları geri gelir.
+        /// </summary>
+        public static void UygulaDortK(Camera kamera) {
+            bool dortK = DortK;
+            GorselEtkiler.Uygula(dortK);
+            if (kamera == null) {
+                return;
+            }
+            UniversalAdditionalCameraData veri = kamera.GetUniversalAdditionalCameraData();
+            if (veri == null) {
+                return;
+            }
+            int id = kamera.GetInstanceID();
+            if (kameraVarsayilan.TryGetValue(id, out Vector3Int varsayilan) == false) {
+                varsayilan = new Vector3Int(kamera.allowHDR ? 1 : 0, (int)veri.antialiasing, veri.volumeLayerMask.value);
+                kameraVarsayilan[id] = varsayilan;
+            }
+            if (dortK) {
+                kamera.allowHDR = true;
+                veri.antialiasing = AntialiasingMode.SubpixelMorphologicalAntiAliasing;
+                veri.antialiasingQuality = AntialiasingQuality.High;
+                veri.volumeLayerMask = varsayilan.z | (1 << GorselEtkiler.Katman);
+                veri.renderPostProcessing = true;
+            } else {
+                kamera.allowHDR = varsayilan.x == 1;
+                veri.antialiasing = (AntialiasingMode)varsayilan.y;
+                veri.volumeLayerMask = varsayilan.z;
+            }
         }
 
         private static void UygulaKamera(Camera kamera) {
@@ -386,6 +505,7 @@ namespace AnyRPG {
             if (kameraVerisi != null) {
                 kameraVerisi.renderShadows = golgeMesafeleri[Golge] != 0f;
             }
+            UygulaDortK(kamera);
         }
 
         private static int AraziAyarKodu() {

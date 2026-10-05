@@ -310,6 +310,7 @@ namespace AnyRPG {
                 .Append(" | ekran ").Append(Screen.currentResolution.refreshRateRatio.value.ToString("0")).Append(" Hz")
                 .Append(" | hedef ").Append(Application.targetFrameRate)
                 .Append(" | kalite ").Append(QualitySettings.names[QualitySettings.GetQualityLevel()])
+                .Append(" | çizim ").Append(OyunAyarlari.CizimCozunurlugu())
                 .Append(" | pil ").Append((SystemInfo.batteryLevel * 100f).ToString("0")).Append('%').Append('\n');
             builder.Append("Sahneler:");
             for (int i = 0; i < UnityEngine.SceneManagement.SceneManager.sceneCount; i++) {

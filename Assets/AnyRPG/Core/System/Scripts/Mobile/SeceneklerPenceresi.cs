@@ -175,10 +175,10 @@ namespace AnyRPG {
         // ---------------------------------------------------------------- bölümler
 
         private void BuildGoruntu(SectionBuilder s) {
-            s.Choice("Grafik kalitesi", "Düşük en akıcısıdır; Yüksek daha güzel ama telefonu ısıtır.",
-                new[] { "Düşük", "Orta", "Yüksek" }, () => OyunAyarlari.Kalite, v => OyunAyarlari.Kalite = v);
-            s.Choice("Çözünürlük", "Oyunun çizildiği netlik. Düşük, kare hızını en çok artıran ayardır.",
-                new[] { "Otomatik", "Düşük", "Orta", "Yüksek" }, () => OyunAyarlari.Cozunurluk, v => OyunAyarlari.Cozunurluk = v);
+            s.Choice("Grafik kalitesi", "Düşük en akıcısıdır. 4K en keskin ve canlı görüntüdür; güçlü telefon ister, ısıtır.",
+                new[] { "Düşük", "Orta", "Yüksek", "4K" }, () => OyunAyarlari.Kalite, v => OyunAyarlari.Kalite = v);
+            s.Choice("Çözünürlük", "Oyunun çizildiği netlik. Düşük en akıcısıdır; Otomatik, 4K kalitede 4K çizer.",
+                new[] { "Otomatik", "Düşük", "Orta", "Yüksek", "4K" }, () => OyunAyarlari.Cozunurluk, v => OyunAyarlari.Cozunurluk = v);
             s.Choice("Gölgeler", "Gölgeleri kapatmak ya da yakına almak akıcılığı artırır.",
                 new[] { "Otomatik", "Kapalı", "Yakın", "Uzak" }, () => OyunAyarlari.Golge, v => OyunAyarlari.Golge = v);
             s.Choice("Görüş mesafesi", "Uzaktaki nesneler, ağaçlar ve canavarlar çizilmez.",

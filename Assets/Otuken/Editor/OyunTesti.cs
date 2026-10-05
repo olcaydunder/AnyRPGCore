@@ -75,6 +75,7 @@ namespace Otuken.EditorAraclari {
             public string cantaTesti;
             public string gelisim;
             public List<string> savaslar = new List<string>();
+            public List<string> dortKGoruntuleri = new List<string>();
         }
 
         private enum Adim { OyunModu, Acilis, YeniOyun, Dogus, Bekle, Dirilis, BinekTesti, DemirciTesti, Savas, Bitti }
@@ -298,6 +299,7 @@ namespace Otuken.EditorAraclari {
                     sonuc.okHedefi = AnyRPG.GorevOku.SonHedef;
                     sonuc.uzaktaGizlenen = AnyRPG.OyunAyarlari.KucukNesneSayisi;
                     sonuc.goruntu = GoruntuAl(oyun, "bot_" + sonuc.sahne);
+                    DortKGoruntu(oyun, sonuc.sahne);
                     HaritaBitir(sonuc.not == null ? "tamam" : "sorunlu");
                     if (sira == 0 && rapor.binekTesti == null) {
                         // ilk haritada (binmeye izin var) ejderha bineği denenir, sonra yolculuk sürer
@@ -1083,7 +1085,53 @@ namespace Otuken.EditorAraclari {
             return GoruntuAl(kamera, ad);
         }
 
-        private static string GoruntuAl(Camera kamera, string ad) {
+        // 4K görüntü alınan haritalar (her biri ~3 MB; hepsi alınsa tanı arşivi şişer)
+        private static readonly HashSet<string> dortKHaritalari = new HashSet<string>() {
+            "FeaturesDemoZone", "UmayTarlalari", "UlukayinOrmani", "KafDagiYolu", "ErgenekonMagarasi", "TamuZindani"
+        };
+
+        /// <summary>
+        /// oyuncunun gördüğünün 3840x2160 görüntüsü, grafik kalitesi 4K iken (ışıltı, renk katmanı, SMAA, Ultra gölgeler);
+        /// ilk haritada karşılaştırma için Yüksek kalitede de alınır. Sonra kalite eski hâline döner.
+        /// </summary>
+        private static void DortKGoruntu(AnyRPG.SystemGameManager oyun, string sahne) {
+            if (dortKHaritalari.Contains(sahne) == false) {
+                return;
+            }
+            Camera kamera = oyun != null && oyun.CameraManager != null ? oyun.CameraManager.ActiveMainCamera : Camera.main;
+            if (kamera == null) {
+                return;
+            }
+            int eskiKalite = QualitySettings.GetQualityLevel();
+            try {
+                if (sahne == "FeaturesDemoZone") {
+                    GoruntuAl(kamera, "yuksek_" + sahne, 3840, 2160, 90);
+                }
+                QualitySettings.SetQualityLevel(AnyRPG.OyunAyarlari.DortKSeviyesi, true);
+                AnyRPG.OyunAyarlari.UygulaDortK(kamera);
+                UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset urp =
+                    UnityEngine.Rendering.GraphicsSettings.currentRenderPipeline as UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset;
+                float eskiOlcek = urp != null ? urp.renderScale : 1f;
+                if (urp != null) {
+                    // görüntünün kendisi 4K: ayrıca büyütülmesin
+                    urp.renderScale = 1f;
+                }
+                string dosya = GoruntuAl(kamera, "4k_" + sahne, 3840, 2160, 90);
+                if (urp != null) {
+                    urp.renderScale = eskiOlcek;
+                }
+                if (dosya != null) {
+                    rapor.dortKGoruntuleri.Add(dosya);
+                }
+            } catch (Exception e) {
+                Debug.LogWarning("[OyunTesti] 4K görüntü alınamadı: " + e.Message);
+            } finally {
+                QualitySettings.SetQualityLevel(eskiKalite, true);
+                AnyRPG.OyunAyarlari.UygulaDortK(kamera);
+            }
+        }
+
+        private static string GoruntuAl(Camera kamera, string ad, int genislik = 960, int yukseklik = 540, int jpgKalitesi = 80) {
             if (kamera == null) {
                 return null;
             }
@@ -1091,7 +1139,7 @@ namespace Otuken.EditorAraclari {
             Texture2D doku = null;
             RenderTexture eskiHedef = kamera.targetTexture;
             try {
-                rt = new RenderTexture(960, 540, 24, RenderTextureFormat.ARGB32, RenderTextureReadWrite.sRGB);
+                rt = new RenderTexture(genislik, yukseklik, 24, RenderTextureFormat.ARGB32, RenderTextureReadWrite.sRGB);
                 rt.Create();
                 RenderPipeline.StandardRequest istek = new RenderPipeline.StandardRequest();
                 istek.destination = rt;
@@ -1107,7 +1155,7 @@ namespace Otuken.EditorAraclari {
                 doku.ReadPixels(new Rect(0, 0, rt.width, rt.height), 0, 0);
                 doku.Apply();
                 RenderTexture.active = onceki;
-                File.WriteAllBytes(Path.Combine(Path.GetFullPath("tani"), ad + ".jpg"), doku.EncodeToJPG(80));
+                File.WriteAllBytes(Path.Combine(Path.GetFullPath("tani"), ad + ".jpg"), doku.EncodeToJPG(jpgKalitesi));
                 return ad + ".jpg";
             } catch (Exception e) {
                 Debug.LogWarning("[OyunTesti] görüntü alınamadı: " + e.Message);
@@ -1177,6 +1225,7 @@ namespace Otuken.EditorAraclari {
             sb.Append("Demirci: ").Append(rapor.demirciTesti).Append('\n');
             sb.Append("Çanta: ").Append(rapor.cantaTesti).Append('\n');
             sb.Append("Gelişim: ").Append(rapor.gelisim).Append("\n");
+            sb.Append("4K görüntüler (3840x2160, kalite 4K): ").Append(rapor.dortKGoruntuleri.Count > 0 ? string.Join(", ", rapor.dortKGoruntuleri) : "yok").Append('\n');
             sb.Append("Savaş denemesi (her haritada o haritanın en düşük seviyesinde, hilesiz):\n");
             foreach (string satir in rapor.savaslar) {
                 sb.Append("  - ").Append(satir).Append('\n');
