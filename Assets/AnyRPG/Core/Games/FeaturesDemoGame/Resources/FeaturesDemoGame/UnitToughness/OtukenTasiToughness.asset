@@ -23,7 +23,7 @@ MonoBehaviour:
   focusProjectorOverrideMap: []
   currencyMultiplier: 1.5
   experienceMultiplier: 0.5
-  defaultResourceMultiplier: 0.7
+  defaultResourceMultiplier: 0.07
   resourceMultipliers: []
   defaultPrimaryStatMultiplier: 1
   primaryStatMultipliers: []

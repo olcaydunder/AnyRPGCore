@@ -323,11 +323,25 @@ namespace Otuken.EditorAraclari {
                     break;
 
                 case Adim.Savas:
-                    if (SavasTesti(oyun)) {
+                    if (savasAsama < 9 && SavasTesti(oyun)) {
                         rapor.savaslar.Add(savasSatiri);
                         Debug.Log("[OyunTesti] savaş denemesi: " + savasSatiri);
-                        AnyRPG.OtomatikAv.Kapat();
-                        SonrakiHarita(oyun);
+                        // yolculuktan önce savaş bitsin (savaşta ışınlanılamaz): kalan düşmanlar otomatik avla temizlenir
+                        savasAsama = 9;
+                        savasZamani = EditorApplication.timeSinceStartup;
+                        if (AnyRPG.OtomatikAv.Acik == false) {
+                            AnyRPG.OtomatikAv.Degistir();
+                        }
+                    }
+                    if (savasAsama == 9) {
+                        AnyRPG.UnitController o = oyun != null && oyun.PlayerManagerClient != null ? oyun.PlayerManagerClient.UnitController : null;
+                        bool savasta = o != null && o.CharacterStats != null && o.CharacterStats.IsAlive && o.CharacterCombat != null && o.CharacterCombat.GetInCombat();
+                        if (savasta == false || EditorApplication.timeSinceStartup - savasZamani > 25) {
+                            AnyRPG.OtomatikAv.Kapat();
+                            SonrakiHarita(oyun);
+                        } else if (o != null) {
+                            o.CharacterStats.SetResourceAmountsToMaximum();
+                        }
                     }
                     break;
 
@@ -355,6 +369,51 @@ namespace Otuken.EditorAraclari {
         private static int ganimetOnce = 0;
         private static string savasSatiri = null;
         private static int tasResmi = 0;
+        private static string tasTani = null;
+
+        /// <summary>kırılan taşın ganimet durumu: tablo sayısı, oyuncuya ganimet, etkileşim seçeneği, ganimet penceresi</summary>
+        private static string TasTani(AnyRPG.SystemGameManager oyun, AnyRPG.UnitController oyuncu, AnyRPG.UnitController tas) {
+            if (tas == null) {
+                return "taş yok oldu";
+            }
+            try {
+                AnyRPG.LootableCharacterComponent lc = AnyRPG.LootableCharacterComponent.GetLootableCharacterComponent(tas);
+                int tablo = lc != null && lc.LootHolder != null ? lc.LootHolder.LootTableStates.Count : -1;
+                int ganimet = lc != null ? lc.GetLootCount(oyuncu) : -1;
+                int secenek = tas.GetCurrentInteractables(oyuncu).Count;
+                bool pencere = oyun.UIManager != null && oyun.UIManager.lootWindow != null && oyun.UIManager.lootWindow.IsOpen;
+                return "tablo " + tablo + ", ganimet " + ganimet + ", seçenek " + secenek + ", pencere " + (pencere ? "açık" : "kapalı")
+                    + ", uzaklık " + Vector3.Distance(oyuncu.transform.position, tas.transform.position).ToString("0.0") + " m";
+            } catch (Exception e) {
+                return "tanı hatası: " + e.Message;
+            }
+        }
+
+        /// <summary>hedefin 3 m yanından, ayrı bir kamerayla görüntü (oyun kamerası oyuncunun arkasında kalır)</summary>
+        private static void YakinGoruntu(AnyRPG.SystemGameManager oyun, Transform hedef, string ad) {
+            Camera ana = oyun != null && oyun.CameraManager != null ? oyun.CameraManager.ActiveMainCamera : Camera.main;
+            if (ana == null || hedef == null) {
+                return;
+            }
+            GameObject go = new GameObject("YakinKamera");
+            try {
+                Camera k = go.AddComponent<Camera>();
+                k.CopyFrom(ana);
+                k.enabled = false;
+                Vector3 merkez = hedef.position + Vector3.up * 0.9f;
+                Vector3 yon = (ana.transform.position - hedef.position);
+                yon.y = 0f;
+                if (yon.sqrMagnitude < 0.01f) {
+                    yon = Vector3.back;
+                }
+                k.transform.position = merkez + yon.normalized * 3.2f + Vector3.up * 0.9f;
+                k.transform.LookAt(merkez);
+                k.fieldOfView = 50f;
+                GoruntuAl(k, ad);
+            } finally {
+                Object.Destroy(go);
+            }
+        }
 
         private static void SavasaBasla() {
             savasAsama = 0;
@@ -451,6 +510,7 @@ namespace Otuken.EditorAraclari {
                         + Vector3.Distance(oyuncu.transform.position, tasHedefi.transform.position).ToString("0") + " m)";
                     ganimetOnce = AnyRPG.Ganimet.AlinanSayisi;
                     kirilma = -1;
+                    tasTani = null;
                     tasResmi = 0;
                     kontrol.RightMouseInteraction(tasHedefi);
                     sonEmir = simdi;
@@ -467,22 +527,26 @@ namespace Otuken.EditorAraclari {
                     if (kirildi && kirilma < 0) {
                         kirilma = gecen;
                     }
-                    // ilk iki haritada taşın görüntüsü: vururken ve kırıldıktan hemen sonra
+                    // ilk iki haritada taşın yakın görüntüsü: vurulurken ve kırıldıktan hemen sonra (ayrı bir kamerayla)
                     if (rapor.savaslar.Count < 2 && tasHedefi != null) {
                         float uzaklik = Vector3.Distance(oyuncu.transform.position, tasHedefi.transform.position);
-                        if (tasResmi == 0 && kirildi == false && uzaklik < 5f) {
+                        if (tasResmi == 0 && kirildi == false && uzaklik < 6f) {
                             tasResmi = 1;
-                            GoruntuAl(oyun, "tas_" + sahne);
-                        } else if (tasResmi <= 1 && kirildi && gecen - kirilma > 0.4) {
+                            YakinGoruntu(oyun, tasHedefi.transform, "tas_" + sahne);
+                        } else if (tasResmi <= 1 && kirildi && gecen - kirilma > 0.35) {
                             tasResmi = 2;
-                            GoruntuAl(oyun, "tas_kirik_" + sahne);
+                            YakinGoruntu(oyun, tasHedefi.transform, "tas_kirik_" + sahne);
                         }
+                    }
+                    if (kirildi && tasTani == null && gecen - kirilma > 0.3) {
+                        tasTani = TasTani(oyun, oyuncu, tasHedefi);
                     }
                     int alinan = AnyRPG.Ganimet.AlinanSayisi - ganimetOnce;
                     if (kirildi && (alinan > 0 && gecen - kirilma > 2 || gecen - kirilma > 10)) {
                         int n = Mathf.Min(alinan, AnyRPG.Ganimet.SonAlinanlar.Count);
                         savasSatiri += ": " + kirilma.ToString("0") + " sn'de kırıldı, ödül " + alinan + " eşya"
-                            + (n > 0 ? " (" + string.Join(", ", AnyRPG.Ganimet.SonAlinanlar.GetRange(AnyRPG.Ganimet.SonAlinanlar.Count - n, n)) + ")" : " — ÖDÜL ALINMADI");
+                            + (n > 0 ? " (" + string.Join(", ", AnyRPG.Ganimet.SonAlinanlar.GetRange(AnyRPG.Ganimet.SonAlinanlar.Count - n, n)) + ")"
+                                : " — ÖDÜL ALINMADI [kırılınca: " + tasTani + "; şimdi: " + TasTani(oyun, oyuncu, tasHedefi) + "]");
                         return true;
                     }
                     if (kirildi == false && gecen > 45) {
@@ -1014,6 +1078,10 @@ namespace Otuken.EditorAraclari {
             if (kamera == null) {
                 kamera = Camera.main;
             }
+            return GoruntuAl(kamera, ad);
+        }
+
+        private static string GoruntuAl(Camera kamera, string ad) {
             if (kamera == null) {
                 return null;
             }

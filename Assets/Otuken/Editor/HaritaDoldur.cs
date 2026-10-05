@@ -12,7 +12,7 @@ namespace Otuken.EditorAraclari {
     /// <summary>
     /// Derlemede (HaritaHazirlik) her haritaya:
     ///  1. ÖTÜKEN TAŞLARI: girişten yürüyerek ulaşılan, çevresi açık düz yerlere birbirinden uzak taşlar
-    ///     (haritanın büyüklüğüne göre 14-45 tane). Her biri "Otuken Tasi" birimi doğuran bir doğma noktasıdır;
+    ///     (haritanın büyüklüğüne göre 14-45 tane; Ötüken Yaylası'nda 70). Her biri "Otuken Tasi" birimi doğuran bir doğma noktasıdır;
     ///     kırılınca 150 saniye sonra yerinde yenisi biter.
     ///  2. EK KAMPLAR: haritanın canavarlarından 2-3'erli kamplar (haritanın büyüklüğüne göre 3-8 kamp), var olan
     ///     kamplardan ve taşlardan uzakta. Canavarların seviyesi haritanın basamağından, girişe uzaklıkla artar
@@ -75,6 +75,13 @@ namespace Otuken.EditorAraclari {
             float yaricap = buyuk ? 420f : 210f;
             float adim = buyuk ? 6f : 4f;
             List<Vector3> noktalar = AcikNoktalar(giris, yaricap, adim, 1.6f);
+            float tasAraligi = 13f;
+            if (noktalar.Count < 300) {
+                // dar haritalar (zindanlar, mağaralar): koridorlar dar, ızgara sık, taşlar daha yakın
+                adim = 3f;
+                noktalar = AcikNoktalar(giris, yaricap, adim, 0.9f);
+                tasAraligi = 8f;
+            }
             float alan = noktalar.Count * adim * adim;
 
             // engeller: giriş, etkileşimli her şey (geçit taşı, kapılar, sandıklar, NPC'ler), var olan doğma noktaları
@@ -91,8 +98,8 @@ namespace Otuken.EditorAraclari {
             }
 
             // 1. Ötüken Taşları
-            int tasHedef = Mathf.Clamp(Mathf.RoundToInt(alan / (buyuk ? 4500f : 1100f)), 14, 45);
-            List<Vector3> taslar = UzakNoktalar(noktalar, engeller, giris, tasHedef, 13f);
+            int tasHedef = Mathf.Clamp(Mathf.RoundToInt(alan / (buyuk ? 4500f : 1100f)), 14, buyuk ? 70 : 45);
+            List<Vector3> taslar = UzakNoktalar(noktalar, engeller, giris, tasHedef, tasAraligi);
             int i = 0;
             foreach (Vector3 p in taslar) {
                 i++;

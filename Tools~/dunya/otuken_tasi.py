@@ -7,7 +7,8 @@ Oyunda bir "birim"dir (düşman gibi canı ve seviyesi vardır) ama yerinden kı
                 "Kristal": kayadan fışkıran gök turkuazı kristaller (kırılınca parçalanan kısım)
               OtukenTasi.prefab: modelin oyundaki hâli + AnyRPG.OtukenTasi bileşeni (sarsılma, parçalanma)
   - MALZEME   kaya ve yazı Kök Taş'ınkiler (M_KokTas, M_KokTasYazi); kristal: M_OtukenKristal (ışır)
-  - DAYANIKLILIK "Otuken Tasi": canı aynı seviyedeki bir düşmanın %70'i, tecrübesi yarısı, akçesi 1,5 katı
+  - DAYANIKLILIK "Otuken Tasi": canı aynı seviyedeki bir düşmanın %7'si (birkaç vuruşta kırılır), tecrübesi yarısı,
+              akçesi 1,5 katı
   - GANİMET   "Otuken Tasi": her zaman akçe kesesi; sık sık Gök Taşı Parçası (demirci), iksir; bazen
               değerli taş, silah, gerdanlık, çanta; çok nadir Ergenekon Demiri
   - BİRİM     "Otuken Tasi" (UnitProfile): hareketsiz, saldırmaz, sınıfsız; Erlik'in yandaşlarıyla aynı
@@ -272,7 +273,7 @@ def dayaniklilik_yaz():
     src = (RES / "UnitToughness/SoloDungeonMinionToughness.asset").read_text(encoding="utf-8")
     t = src.replace("  m_Name: SoloDungeonMinionToughness\n", "  m_Name: OtukenTasiToughness\n")
     t = t.replace("  resourceName: Solo Dungeon Minion\n", f"  resourceName: {BIRIM_ADI}\n")
-    for alan, deger in (("currencyMultiplier", 1.5), ("experienceMultiplier", 0.5), ("defaultResourceMultiplier", 0.7)):
+    for alan, deger in (("currencyMultiplier", 1.5), ("experienceMultiplier", 0.5), ("defaultResourceMultiplier", 0.07)):
         t, n = re.subn(rf"^  {alan}: .*$", f"  {alan}: {deger}", t, count=1, flags=re.M)
         assert n == 1, alan
     native(RES / "UnitToughness/OtukenTasiToughness.asset", t, K.guid("dayaniklilik"))
