@@ -1,5 +1,5 @@
 {
- "son_zaman": 1791161386,
+ "son_zaman": 1791197329,
  "islenen": [
   "ZA4f7jqHrQMP",
   "ECmsu6OF1Jgp",
@@ -51,7 +51,12 @@
   "j2biB3198wjP",
   "2aBeoGaLemzV",
   "CYK3KsYO9hwD",
-  "7CYtA9Elj4e4"
+  "7CYtA9Elj4e4",
+  "xzeq5qir3pTz",
+  "qGryNjIHU1FF",
+  "DDc1LMvKj3YW",
+  "WfFCUFT63OSS",
+  "WsghxXHxX5dp"
  ],
  "kayitlar": {
   "istisna-d581f62b": {
@@ -82,7 +87,7 @@
   "arayuz-3120x1335": {
    "tur": "arayuz",
    "baslik": "Arayüz yerleşimi, 3120x1335 ekran",
-   "adet": 4,
+   "adet": 5,
    "cihazlar": [
     "samsung SM-S938B"
    ],
@@ -90,22 +95,25 @@
     "0.1.17",
     "0.1.25",
     "0.1.36",
-    "0.1.43"
+    "0.1.43",
+    "0.1.47"
    ],
    "ilk": 1791058158,
-   "son": 1791148119,
+   "son": 1791192139,
    "ilk_rapor": "**Arayüz** · sürüm **0.1.17** · samsung SM-S938B · Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3) · ekran 3120x1335 · KoncolosIni\n\n### Mesaj\n```text\nçakışma yok (3120x1335)\n```\n\n### Ayrıntı\n```text\nEkran 3120x1335, güvenli alan (128,0 2992x1335)\nHarita kaydırıldı (60, 0)\nIşınlan kaydırıldı (60, 0)\nKarakter kaydırıldı (60, 0)\nÇanta kaydırıldı (60, 0)\nGörevler kaydırıldı (60, 0)\nMenü kaydırıldı (140, 90)\nÇakışmalar (0):\nDüğmeler:\nSaldır (2745,125 250x250)\nHareket (142,159 384x384)\nZıpla (2503,75 167x167)\nHedef (2544,284 167x167)\nKoş/Yürü (2836,459 150x150)\nHarita (135,953 130x130)\nIşınlan (279,953 130x130)\nKarakter (135,813 130x130)\nÇanta (135,673 130x130)\nGörevler (135,532 130x130)\nMenü (275,549 117x117)\nGöstergeler:\nAbilityBar (739,43 819x67)\nFocusUnitFrame (414,1158 334x134)\nMiniMap (2516,955 785x844)\nPlayerUnitFrame (53,1156 334x134)\nQuestTrackerWindow (2319,471 434x392)\nSystemBar (1562,43 819x67)\nXPBarPanel (739,8 1642x25)\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: arayuz\nsurum: 0.1.17\ncihaz: samsung SM-S938B\nsistem: Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3)\ngrafik: Vulkan / Adreno (TM) 830 / bellek 11113 MB\nekran: 3120x1335\nayarlar: kalite 1, çözünürlük 0, gölge 0, fps sınırı 1\nsahne: KoncolosIni\noyuncu: seviye 1\nsure: 44 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 0.1.17 | samsung SM-S938B | Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3)\nVulkan Adreno (TM) 830 | Bellek 11113 MB | 3120x1335 | FPS 31 | Süre 42 sn\nKare süresi: işlemci 33.3 ms | ekran kartı 14.6 ms | ekran 60 Hz | hedef 60 | kalite Medium | pil 32%\nSahneler: KoncolosIni\nGiriş: dokunmatik var | fare bağlı | ekran tuşları açık\nSon dokunuş: 2870,129 -> Panel/Kapat [IsinlanmaCanvas 31]\nOyuncu karakteri: oluştu (MecanimMale156) | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n<details><summary>Son kayıt satırları</summary>\n\n```text\n23:09:14 [Exception] NullReferenceException: Object reference not set to an instance of an object.\n23:09:14 [Exception] NullReferenceException: Object reference not set to an instance of an object.\n23:09:14 [Exception] NullReferenceException: Object reference not set to an instance of an object.\n23:09:14 [Exception] NullReferenceException: Object reference not set to an instance of an object.\n23:09:14 [Exception] NullReferenceException: Object reference not set to an instance of an object.\n23:09:14 [Exception] NullReferenceException: Object reference not set to an instance of an object.\n23:09:14 [Exception] NullReferenceException: Object reference not set to an instance of an object.\n23:09:14 [Exception] NullReferenceException: Object reference not set to an instance of an object.\n23:09:14 [Exception] NullReferenceException: Object reference not set to an instance of an object.\n23:09:14 [Exception] NullReferenceException: Object reference not set to an instance of an object.\n23:09:14 [Exception] NullReferenceException: Object reference not set to an instance of an object.\n23:09:14 [Exception] NullReferenceException: Object reference not set to an instance of an object.\n23:09:14 [Exception] NullReferenceException: Object reference not set to an instance of an object.\n23:09:14 [Exception] NullReferenceException: Object reference not set to an instance of an object.\n23:09:14 [Exception] NullReferenceException: Object reference not set to an instance of an object.\n```\n\n</details>\n",
    "gorulmeler": [
     "03.10.2026 23:09 · 0.1.17 · samsung SM-S938B · KoncolosIni · seviye 1 · 3120x1335",
     "04.10.2026 11:41 · 0.1.25 · samsung SM-S938B · FeaturesDemoZone · seviye 1 · 3120x1335",
     "04.10.2026 19:07 · 0.1.36 · samsung SM-S938B · UmayTarlalari · seviye 1 · 3120x1335",
-    "05.10.2026 00:08 · 0.1.43 · samsung SM-S938B · FeaturesDemoZone · seviye 1 · 3120x1335"
+    "05.10.2026 00:08 · 0.1.43 · samsung SM-S938B · FeaturesDemoZone · seviye 1 · 3120x1335",
+    "05.10.2026 12:22 · 0.1.47 · samsung SM-S938B · FeaturesDemoZone · seviye 1 · 3120x1335"
    ],
    "ekler": [
     "30fef20d23.jpg",
     "65cd9441ab.jpg",
     "918440a67a.jpg",
-    "fefc7b643d.jpg"
+    "fefc7b643d.jpg",
+    "eef72b1416.jpg"
    ],
    "duzeltildi": null,
    "yeniden": true,
@@ -114,7 +122,8 @@
     "04.10.2026 11:41 · 0.1.25 · samsung SM-S938B — Arayüz: çakışma yok (3120x1335)\n\n```text\nEkran 3120x1335, güvenli alan (128,0 2992x1335)\nDüğmeler yerinde.\nÇakışmalar (0):\nDüğmeler:\nSaldır (2745,125 250x250)\nHareket (270,159 384x384)\nZıpla (2503,75 167x167)\nHedef (2544,284 167x167)\nKoş/Yürü (2945,476 150x150)\nOto Av (2770,467 150x150)\nHarita (163,953 130x130)\nIşınlan (307,953 130x130)\nKarakter (163,813 130x130)\nÇanta (163,673 130x130)\nGörevler (163,532 130x130)\nMenü (163,399 117x117)\nGöstergeler:\nAbilityBar (1007,44 1106x90)\nMiniMap (2816,955 250x340)\nPlayerUnitFrame (53,1156 334x134)\nQuestTrackerWindow (2319,471 434x392)\nSystemBar (1150,1163 819x67)\nXPBarPanel (739,8 1642x25)\n```",
     "04.10.2026 19:07 · 0.1.36 · samsung SM-S938B — Arayüz: çakışma yok (3120x1335)\n\n```text\nEkran 3120x1335, güvenli alan (128,0 2992x1335)\nDüğmeler yerinde.\nÇakışmalar (0):\nDüğmeler:\nSaldır (2745,125 250x250)\nHareket (270,159 384x384)\nZıpla (2503,75 167x167)\nHedef (2544,284 167x167)\nKoş/Yürü (2945,476 150x150)\nOto Av (2770,467 150x150)\nHarita (163,953 130x130)\nIşınlan (307,953 130x130)\nDemirci (450,953 130x130)\nKarakter (163,813 130x130)\nGünlük (307,813 130x130)\nBinek (307,673 130x130)\nÇanta (163,673 130x130)\nGörevler (163,532 130x130)\nMenü (163,399 117x117)\nGöstergeler:\nAbilityBar (1007,44 1106x90)\nFocusUnitFrame (414,1158 334x134)\nMiniMap (2816,955 250x340)\nPlayerUnitFrame (53,1156 334x134)\nQuestTrackerWindow (2319,471 434x392)\nStatusEffectWindow (2696,1212 110x79)\nSystemBar (1150,1163 819x67)\nXPBarPanel (739,8 1642x25)\n```",
     "05.10.2026 00:08 · 0.1.43 · samsung SM-S938B — Arayüz: 1 çakışma (3120x1335)\n\n```text\nEkran 3120x1335, güvenli alan (128,0 2992x1335)\nKoş/Yürü kaydırıldı (0, -50)\nOto Av kaydırıldı (0, -50)\nÇakışmalar (1):\n- düğme Binek ~ düğme Çanta\nDüğmeler:\nSaldır (2763,144 213x213)\nHareket (299,187 326x326)\nZıpla (2515,88 142x142)\nHedef (2557,296 142x142)\nKoş/Yürü (2956,403 128x128)\nOto Av (2781,395 128x128)\nHarita (173,963 111x111)\nIşınlan (316,963 111x111)\nDemirci (460,963 111x111)\nKarakter (173,822 111x111)\nGünlük (316,822 111x111)\nBinek (188,682 111x111)\nSohbet (460,822 111x111)\nÇanta (173,682 111x111)\nGörevler (173,542 111x111)\nMenü (172,408 99x99)\nGöstergeler:\nAbilityBar (1007,44 1106x90)\nMiniMap (2816,955 250x340)\nPlayerUnitFrame (53,1156 334x134)\nQuestTrackerWindow (2686,543 434x392)\nSystemBar (1150,1163 819x67)\nXPBarPanel (739,8 1642x25)\n```",
-    "05.10.2026 00:08: 0.1.19 sürümünde düzeltildi denmişti ama 0.1.43 sürümünde yeniden görüldü (samsung SM-S938B)."
+    "05.10.2026 00:08: 0.1.19 sürümünde düzeltildi denmişti ama 0.1.43 sürümünde yeniden görüldü (samsung SM-S938B).",
+    "05.10.2026 12:22 · 0.1.47 · samsung SM-S938B — Arayüz: 2 çakışma (3120x1335)\n\n```text\nEkran 3120x1335, güvenli alan (128,0 2992x1335)\nHareket kaydırıldı (0, 190)\nKoş/Yürü kaydırıldı (0, -50)\nOto Av kaydırıldı (0, -50)\nSohbet kaydırıldı (0, 10)\nMenü kaydırıldı (260, 60)\nÇakışmalar (2):\n- düğme Binek ~ düğme Çanta\n- MessageLogWindow | XPBarPanel  (XPBarPanel ~ MessageLogWindow/Contents/MessageLogPanel)\nDüğmeler:\nSaldır (2763,144 213x213)\nHareket (299,504 326x326)\nZıpla (2515,88 142x142)\nHedef (2557,296 142x142)\nKoş/Yürü (2956,403 128x128)\nOto Av (2781,395 128x128)\nHarita (173,963 111x111)\nIşınlan (316,963 111x111)\nDemirci (460,963 111x111)\nKarakter (173,822 111x111)\nGünlük (316,822 111x111)\nBinek (188,682 111x111)\nSohbet (460,839 111x111)\nÇanta (173,682 111x111)\nGörevler (173,542 111x111)\nMenü (606,508 99x99)\nGöstergeler:\nAbilityBar (1007,44 1106x90)\nMessageLogWindow (0,0 771x484)\nMiniMap (2816,955 250x340)\nPlayerUnitFrame (53,1156 334x134)\nQuestTrackerWindow (2686,543 434x392)\nSystemBar (1150,1163 819x67)\nXPBarPanel (739,8 1642x25)\n```"
    ]
   },
   "hata-16e86c78": {
@@ -288,7 +297,7 @@
   "hata-60de498e": {
    "tur": "hata",
    "baslik": "Hata: Screen position out of view frustum (screen pos inf, -inf) (Camera rect 0 0 640 480)",
-   "adet": 20,
+   "adet": 23,
    "cihazlar": [
     "PC"
    ],
@@ -297,10 +306,11 @@
     "0.1.44",
     "0.1.45",
     "0.1.46",
-    "0.1.47"
+    "0.1.47",
+    "0.1.48"
    ],
    "ilk": 1791146643,
-   "son": 1791161386,
+   "son": 1791197329,
    "ilk_rapor": "**Hata** · sürüm **0.1.43** · PC · Linux 6.17 Ubuntu 24.04 64bit · ekran 640x480 · FeaturesDemoZone\n\n### Mesaj\n```text\nScreen position out of view frustum (screen pos inf, -inf) (Camera rect 0 0 640 480)\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: hata\nsurum: 0.1.43\ncihaz: PC\nsistem: Linux 6.17 Ubuntu 24.04 64bit\ngrafik: OpenGLCore / llvmpipe (LLVM 20.1.2, 256 bits) / bellek 15989 MB\nekran: 640x480\nayarlar: kalite -1, çözünürlük 0, gölge 0, fps sınırı 1\nsahne: FeaturesDemoZone\noyuncu: seviye 1\nsure: 38 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 0.1.43 | PC | Linux 6.17 Ubuntu 24.04 64bit\nOpenGLCore llvmpipe (LLVM 20.1.2, 256 bits) | Bellek 15989 MB | 640x480 | FPS ? | Süre 37 sn\nKare süresi: işlemci ? | ekran kartı ? | ekran 0 Hz | hedef 500 | kalite Ultra | pil -100%\nSahneler: MovedObjectsHolder FeaturesDemoZone\nGiriş: dokunmatik yok | fare bağlı | ekran tuşları kapalı\nSon dokunuş: -\nOyuncu karakteri: oluştu (MecanimMale133) | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n",
    "gorulmeler": [
     "04.10.2026 23:44 · 0.1.43 · PC · FeaturesDemoZone · seviye 1 · 640x480",
@@ -322,7 +332,10 @@
     "05.10.2026 03:37 · 0.1.47 · PC · FeaturesDemoZone · seviye 1 · 640x480",
     "05.10.2026 03:37 · 0.1.47 · PC · FeaturesDemoZone · seviye 1 · 640x480",
     "05.10.2026 03:49 · 0.1.47 · PC · FeaturesDemoZone · seviye 1 · 640x480",
-    "05.10.2026 03:49 · 0.1.47 · PC · FeaturesDemoZone · seviye 1 · 640x480"
+    "05.10.2026 03:49 · 0.1.47 · PC · FeaturesDemoZone · seviye 1 · 640x480",
+    "05.10.2026 13:48 · 0.1.48 · PC · FeaturesDemoZone · seviye 1 · 640x480",
+    "05.10.2026 13:48 · 0.1.48 · PC · FeaturesDemoZone · seviye 1 · 640x480",
+    "05.10.2026 13:48 · 0.1.48 · PC · FeaturesDemoZone · seviye 1 · 640x480"
    ],
    "ekler": [],
    "duzeltildi": null,
@@ -375,7 +388,11 @@
   "0a3cafad90": "hata-60de498e",
   "1e8c6d2dd1": "hata-60de498e",
   "1d83d05acc": "hata-60de498e",
-  "8327de408e": "hata-60de498e"
+  "8327de408e": "hata-60de498e",
+  "eef72b1416": "arayuz-3120x1335",
+  "47353b7cf4": "hata-60de498e",
+  "7cc56e70f2": "hata-60de498e",
+  "407ea12ee1": "hata-60de498e"
  },
  "derleme": {
   "sonuc": "basarili",
