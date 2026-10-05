@@ -523,10 +523,10 @@
  },
  "derleme": {
   "sonuc": "basarisiz",
-  "numara": "58",
-  "commit": "b6f937a0",
-  "baglanti": "https://github.com/olcaydunder/AnyRPGCore/actions/runs/37370495374",
-  "zaman": 1791233859,
+  "numara": "59",
+  "commit": "dac31e63",
+  "baglanti": "https://github.com/olcaydunder/AnyRPGCore/actions/runs/37374026782",
+  "zaman": 1791235303,
   "uyarilar": [],
   "bot": null
  }
