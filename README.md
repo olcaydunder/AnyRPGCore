@@ -1,20 +1,70 @@
 # Ötüken Destanı · Hata panosu
 
-Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 06.10.2026 00:21.
+Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 06.10.2026 01:33.
 
-**7** açık sorun · **5** düzeltilen · toplam **77** rapor
+**9** açık sorun · **5** düzeltilen · toplam **79** rapor
 
 ## Son APK derlemesi
 
-Derleme [59](https://github.com/olcaydunder/AnyRPGCore/actions/runs/37374026782) · ❌ başarısız · commit `dac31e63` · 06.10.2026 00:21
+Derleme [60](https://github.com/olcaydunder/AnyRPGCore/actions/runs/37376062019) · ✅ başarılı · commit `1dbf8c86` · 06.10.2026 01:33
 
 Tanı raporunda uyarı yok.
+
+### Otomatik oyun testi
+
+Bot yeni oyun başlatıp haritaları gezdi: **tamamlandı**, 2 hata/istisna.
+
+- Binek denemesi: binildi, 2,5 sn'de 34 m gidildi, inildi
+- Günlük görevler (botun bir günü): 25 düşman yen 18/25, 16 ganimet topla 16/16 (tamam), 3 hazine sandığını boşalt 0/3
+- İlk haritada av: 5 düşman yenildi, seviye 3 → 3, tecrübe 150 → 500
+- Dünya haritası: 15/15 diyar görüntülü; harita üzerinden ışınlanma: oldu
+- Demirci: Kahverengi Deri Zırh → Kahverengi Deri Zırh +3 (eşyadaki her temel değer +1); ilk deneme: Başarılı! Kahverengi Deri Zırh +1; Güç Puanı 68 → 70; kayıttaki ad: Kahverengi Deri Zırh +3; seviye 3, ödül 2 (3: 20 Gümüş Akçe); çantaya +9 konunca: Kuşan ile giyildi: Kahverengi Deri Zırh +9, Güç Puanı 212
+- Gelişim: Güç Puanı 2016, seviye ödülü 10 (son: 25: 6 Gök Taşı Parçası + 8 Altın), daha iyi eşya önerisi 4, oto av becerisi 103 kez
+- Çanta: sıralama: 11 eşya → 11, 5 yuva, tür sırası doğru, boşluk yok (ilk: Kahverengi Deri Zırh +3, Şifa İksiri ×5, Şifa İksiri ×3, Kahverengi Deri Zırh); toplu satış: 2 gri kopya eklendi, 2 öneri (2 değersiz), 2 satıldı +74 Bakır Akçe, kalan gri 0, demirci eşyası korundu
+
+**Savaş denemesi** (her haritada o haritanın en düşük seviyesinde, hilesiz; sonra en yakın Ötüken Taşı):
+
+- Ötüken Yaylası (Seviye 1–4), oyuncu 3. sv, can 650: Kara Yek 1. sv (can 40, 66 m) → YENDİ, 15 sn, oyuncunun canı en az %100 [verdiği 2 vuruş/64 hasar (son 32, 24 vuruş/dk), aldığı 0 vuruş/0 hasar] | Ötüken Taşı 1. sv (can 14, 122 m): 22 sn'de kırıldı, ödül 5 eşya (1 Gümüş Akçe, 3 Gümüş Akçe, Gök Taşı Parçası, Mana İksiri, 8 Gözlü Heybe)
+- Umay Tarlaları (Seviye 3–6), oyuncu 3. sv, can 650: Kara Yek 4. sv (can 160, 69 m) → YENDİ, 27 sn, oyuncunun canı en az %92 [verdiği 5 vuruş/160 hasar (son 32, 18 vuruş/dk), aldığı 5 vuruş/53 hasar] | Ötüken Taşı 4. sv (can 56, 20 m): 11 sn'de kırıldı, ödül 3 eşya (4 Gümüş Akçe, 12 Gümüş Akçe, Gök Taşı Parçası)
+- Börü Tepesi (Seviye 5–8), oyuncu 5. sv, can 1070: Ağulu Körmös 6. sv (can 240, 57 m) → ÖLDÜ (39 sn, düşmanın canı %19)
+- Ak Deniz Kıyısı (Seviye 7–10), oyuncu 7. sv, can 1500: Şulmus 7. sv (can 280, 45 m) → YENDİ, 35 sn, oyuncunun canı en az %73 [verdiği 2 vuruş/152 hasar (son 76, 26 vuruş/dk), aldığı 10 vuruş/404 hasar] | Ötüken Taşı 8. sv (can 112, 89 m): 17 sn'de kırıldı, ödül 4 eşya (8 Gümüş Akçe, 3 Gümüş Akçe, Gök Taşı Parçası, Şifa İksiri)
+- Ordubalık Çarşısı (Seviye 9–12), oyuncu 9. sv, can 1930: Şulmus 10. sv (can 400, 28 m) → YENDİ, 32 sn, oyuncunun canı en az %65 [verdiği 1 vuruş/103 hasar (son 103), aldığı 9 vuruş/675 hasar] | Ötüken Taşı 10. sv (can 140, 41 m): 8 sn'de kırıldı, ödül 3 eşya (10 Gümüş Akçe, 3 Gümüş Akçe, Şifa İksiri)
+- Ordubalık Kenti (Seviye 11–14), oyuncu 11. sv, can 2350: Kara Otacı 12. sv (can 480, 38 m) → YENDİ, 13 sn, oyuncunun canı en az %99 [verdiği 3 vuruş/556 hasar (son 282, 19 vuruş/dk), aldığı 1 vuruş/33 hasar] | Ötüken Taşı 12. sv (can 168, 28 m): 11 sn'de kırıldı, ödül 4 eşya (12 Gümüş Akçe, 3 Gümüş Akçe, Gök Taşı Parçası, Şifa İksiri)
+- Ulukayın Ormanı (Seviye 13–16), oyuncu 13. sv, can 2780: Ağulu Körmös 13. sv (can 492, 5 m) → YENDİ, 7 sn, oyuncunun canı en az %93 [verdiği 2 vuruş/342 hasar (son 171, 30 vuruş/dk), aldığı 5 vuruş/190 hasar] | Ötüken Taşı 14. sv (can 196, 33 m): 11 sn'de kırıldı, ödül 3 eşya (14 Gümüş Akçe, 3 Gümüş Akçe, Turkuaz Kolye)
+- Koncolos İni (Seviye 15–18), oyuncu 15. sv, can 3210: Körmös 16. sv (can 640, 12 m) → YENDİ, 10 sn, oyuncunun canı en az %77 [verdiği 2 vuruş/396 hasar (son 198, 29 vuruş/dk), aldığı 12 vuruş/728 hasar] | Ötüken Taşı 16. sv (can 224, 16 m): 5 sn'de kırıldı, ödül 9 eşya (3 Gümüş Akçe, Mavi Kolye, 16 Gümüş Akçe, Çeviklik Tomarı, 16 Gümüş Akçe, 3 Gümüş Akçe, Gök Taşı Parçası, Şifa İksiri)
+- Kağan Ordası (Seviye 17–20), oyuncu 17. sv, can 3630: Kara Otacı 18. sv (can 720, 56 m) → YENDİ, 22 sn, oyuncunun canı en az %92 [verdiği 4 vuruş/1088 hasar (son 440, 18 vuruş/dk), aldığı 4 vuruş/285 hasar] | Ötüken Taşı 18. sv (can 252, 23 m): 11 sn'de kırıldı, ödül 3 eşya (18 Gümüş Akçe, 3 Gümüş Akçe, Yeşil Kolye)
+- Kaf Dağı Yolu (Seviye 19–22), oyuncu 19. sv, can 4060: Kızıl Cin 20. sv (can 800, 32 m) → YENDİ, 15 sn, oyuncunun canı en az %100 [verdiği 4 vuruş/1000 hasar (son 250, 20 vuruş/dk), aldığı 0 vuruş/0 hasar] | Ötüken Taşı 20. sv (can 280, 27 m): 11 sn'de kırıldı, ödül 3 eşya (20 Gümüş Akçe, 12 Gümüş Akçe, Yeşil Mücevher)
+- Ergenekon Mağarası (Seviye 21–24), oyuncu 21. sv, can 4490: Demirkıynak 24. sv (can 2684, 10 m) → ÖLDÜ (47 sn, düşmanın canı %88)
+- Kurgan Mezarlığı (Seviye 23–26), oyuncu 23. sv, can 4920: Kemik Alp 25. sv (can 1422, 12 m) → YENDİ, 7 sn, oyuncunun canı en az %97 [verdiği 2 vuruş/606 hasar (son 303, 30 vuruş/dk), aldığı 4 vuruş/153 hasar] | Ötüken Taşı 24. sv (can 336, 20 m): 11 sn'de kırıldı, ödül 3 eşya (24 Gümüş Akçe, 12 Gümüş Akçe, Gök Taşı Parçası)
+- Ay Dede Koyu (Seviye 25–28), oyuncu 25. sv, can 5340: Kemik Alp 26. sv (can 1560, 49 m) → YENDİ, 21 sn, oyuncunun canı en az %96 [verdiği 4 vuruş/1316 hasar (son 329, 23 vuruş/dk), aldığı 6 vuruş/188 hasar] | Ötüken Taşı 25. sv (can 350, 42 m): 11 sn'de kırıldı, ödül 4 eşya (25 Gümüş Akçe, 3 Gümüş Akçe, Gök Taşı Parçası, Şifa İksiri)
+- Erlik'in Mağarası (Seviye 27–30), oyuncu 27. sv, can 5770: Abası 29. sv (can 1650, 15 m) → YENDİ, 19 sn, oyuncunun canı en az %42 [verdiği 5 vuruş/1705 hasar (son 597, 19 vuruş/dk), aldığı 15 vuruş/3358 hasar] | Ötüken Taşı 28. sv (can 392, 40 m): 8 sn'de kırıldı, ödül 3 eşya (28 Gümüş Akçe, 3 Gümüş Akçe, Şifa İksiri)
+- Tamu Zindanı (Seviye 29–32), oyuncu 29. sv, can 6200: Abası 31. sv (can 1764, 2 m) → YENDİ, 15 sn, oyuncunun canı en az %4 [verdiği 4 vuruş/1172 hasar (son 293, 20 vuruş/dk), aldığı 28 vuruş/6976 hasar] | Ötüken Taşı 30. sv (can 420, 18 m): 8 sn'de kırıldı, ödül 2 eşya (30 Gümüş Akçe, 12 Gümüş Akçe)
+
+| | Harita | Sonuç | Yükleme | Hata | Not |
+|---|---|---|---|---|---|
+| ✅ | Ötüken Yaylası | tamam | 4 sn | 0 | ok: Ötüken Taşı kır 0/3 |
+| ✅ | Umay Tarlaları | tamam | 2 sn | 0 | ok: Çalı Cini yen 1/6 |
+| ✅ | Börü Tepesi | tamam | 1 sn | 0 | ok: Çalı Cini yen 1/6 |
+| ✅ | Ak Deniz Kıyısı | tamam | 1 sn | 0 |  |
+| ❌ | Ordubalık Çarşısı | sorunlu | 1 sn | 0 | yürüyerek ulaşılamayan: Kapi_KafDagiYolu_1 (123, 12, 35) |
+| ✅ | Ordubalık Kenti | tamam | 0 sn | 0 |  |
+| ❌ | Ulukayın Ormanı | sorunlu | 0 sn | 0 | yürüyerek ulaşılamayan: Kapi_OrdubalikKenti_0 (-45, 9, 29); ok: Çalı Cini yen 1/6 |
+| ✅ | Koncolos İni | tamam | 0 sn | 0 | ok: Çalı Cini yen 1/6 |
+| ✅ | Kağan Ordası | tamam | 1 sn | 0 |  |
+| ❌ | Kaf Dağı Yolu | sorunlu | 0 sn | 0 | yürüyerek ulaşılamayan: Kapi_OrdubalikCarsisi_1 (135, 13, 42) |
+| ❌ | Ergenekon Mağarası | sorunlu | 0 sn | 0 | oyuncu yürüme ağının dışında (134.7, 40.2, 137.7); hikâye birimine yürüyerek ulaşılamıyor: Destan Bozkurt Ata; hikâye birimine yürüyerek ulaşılamıyor: Demirkiynak |
+| ⚠️ | Kurgan Mezarlığı | tamam | 0 sn | 1 |  |
+| ✅ | Ay Dede Koyu | tamam | 1 sn | 0 |  |
+| ✅ | Erlik'in Mağarası | tamam | 1 sn | 0 |  |
+| ✅ | Tamu Zindanı | tamam | 1 sn | 0 |  |
 
 ## Açık sorunlar
 
 | Durum | Sorun | Tür | Tekrar | Cihaz | Sürüm | Son görülme |
 |---|---|---|---|---|---|---|
 | 🔁 yeniden görüldü | [Arayüz yerleşimi, 3120x1335 ekran](kayitlar/arayuz-3120x1335.md) | Arayüz | 6 | 1 | 0.1.43, 0.1.47, 0.1.54 | 05.10.2026 20:53 |
+| 🔴 açık | [Oyun testi: NullReferenceException: Object reference not set to an instance of an object](kayitlar/bot-6148c624.md) | İstisna | 1 | 1 | 0.1.60 | 06.10.2026 01:33 |
+| 🔴 açık | [Oyun testi: NullReferenceException: Object reference not set to an instance of an object](kayitlar/bot-c8c4895b.md) | İstisna | 1 | 1 | 0.1.60 | 06.10.2026 01:33 |
 | 🔴 açık | [Oyun testi: NullReferenceException: Object reference not set to an instance of an object](kayitlar/bot-370f1dd7.md) | İstisna | 5 | 1 | 0.1.52 | 05.10.2026 17:13 |
 | 🔴 açık | [İstisna: NullReferenceException: Object reference not set to an instance of an object.](kayitlar/istisna-9434295e.md) | İstisna | 1 | 1 | 0.1.52 | 05.10.2026 17:12 |
 | 🔴 açık | [İstisna: NullReferenceException: Object reference not set to an instance of an object.](kayitlar/istisna-44cafcb8.md) | İstisna | 1 | 1 | 0.1.36 | 04.10.2026 19:08 |
