@@ -1,12 +1,12 @@
 # Ötüken Destanı · Hata panosu
 
-Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 05.10.2026 14:55.
+Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 05.10.2026 15:49.
 
 **5** açık sorun · **5** düzeltilen · toplam **51** rapor
 
 ## Son APK derlemesi
 
-Derleme [49](https://github.com/olcaydunder/AnyRPGCore/actions/runs/37299721393) · ✅ başarılı · commit `f3fdd0fc` · 05.10.2026 14:53
+Derleme [50](https://github.com/olcaydunder/AnyRPGCore/actions/runs/37306289468) · ✅ başarılı · commit `a3f76f18` · 05.10.2026 15:49
 
 Tanı raporunda uyarı yok.
 
@@ -15,30 +15,30 @@ Tanı raporunda uyarı yok.
 Bot yeni oyun başlatıp haritaları gezdi: **tamamlandı**, 0 hata/istisna.
 
 - Binek denemesi: binildi, 2,5 sn'de 34 m gidildi, inildi
-- Günlük görevler (botun bir günü): 25 düşman yen 15/25, 16 ganimet topla 6/16, 3 hazine sandığını boşalt 0/3
-- İlk haritada av: 5 düşman yenildi, seviye 3 → 3, tecrübe 250 → 600
+- Günlük görevler (botun bir günü): 25 düşman yen 18/25, 16 ganimet topla 16/16 (tamam), 3 hazine sandığını boşalt 0/3
+- İlk haritada av: 5 düşman yenildi, seviye 3 → 3, tecrübe 150 → 500
 - Dünya haritası: 15/15 diyar görüntülü; harita üzerinden ışınlanma: oldu
 - Demirci: Kahverengi Deri Zırh → Kahverengi Deri Zırh +3 (eşyadaki her temel değer +1); ilk deneme: Başarılı! Kahverengi Deri Zırh +1; Güç Puanı 68 → 70; kayıttaki ad: Kahverengi Deri Zırh +3; seviye 3, ödül 2 (3: 20 Gümüş Akçe); çantaya +9 konunca: Kuşan ile giyildi: Kahverengi Deri Zırh +9, Güç Puanı 212
-- Gelişim: Güç Puanı 2016, seviye ödülü 10 (son: 25: 6 Gök Taşı Parçası + 8 Altın), daha iyi eşya önerisi 1, oto av becerisi 66 kez
+- Gelişim: Güç Puanı 2016, seviye ödülü 10 (son: 25: 6 Gök Taşı Parçası + 8 Altın), daha iyi eşya önerisi 3, oto av becerisi 83 kez
 - Çanta: sıralama: 11 eşya → 11, 5 yuva, tür sırası doğru, boşluk yok (ilk: Kahverengi Deri Zırh +3, Şifa İksiri ×5, Şifa İksiri ×3, Kahverengi Deri Zırh); toplu satış: 2 gri kopya eklendi, 2 öneri (2 değersiz), 2 satıldı +74 Bakır Akçe, kalan gri 0, demirci eşyası korundu
 
 **Savaş denemesi** (her haritada o haritanın en düşük seviyesinde, hilesiz; sonra en yakın Ötüken Taşı):
 
-- Ötüken Yaylası (Seviye 1–4), oyuncu 3. sv, can 130: Kara Yek 1. sv (can 40, 70 m) → YENDİ, 16 sn, oyuncunun canı en az %100 | Ötüken Taşı 1. sv (can 14, 115 m): 17 sn'de kırıldı, ödül 0 eşya — ÖDÜL ALINMADI [kırılınca: tablo 2, ganimet 3, seçenek 1, pencere kapalı, uzaklık 39.7 m; şimdi: tablo 2, ganimet 3, seçenek 1, pencere kapalı, uzaklık 39.7 m]
-- Umay Tarlaları (Seviye 3–6), oyuncu 3. sv, can 130: Kara Yek 4. sv (can 160, 69 m) → YENDİ, 23 sn, oyuncunun canı en az %80 | Ötüken Taşı 4. sv (can 56, 20 m): 7 sn'de kırıldı, ödül 0 eşya — ÖDÜL ALINMADI [kırılınca: tablo 2, ganimet 3, seçenek 1, pencere kapalı, uzaklık 19.6 m; şimdi: tablo 2, ganimet 3, seçenek 1, pencere kapalı, uzaklık 19.6 m]
-- Börü Tepesi (Seviye 5–8), oyuncu 5. sv, can 214: Ağulu Körmös 6. sv (can 240, 57 m) → ÖLDÜ (24 sn, düşmanın canı %100)
-- Ak Deniz Kıyısı (Seviye 7–10), oyuncu 7. sv, can 300: Şulmus 7. sv (can 280, 45 m) → 50 sn'de bitmedi (düşmanın canı %20, oyuncunun en az %20) | Ötüken Taşı 8. sv (can 112, 92 m): 45 sn'de kırılamadı (taşın canı %23)
-- Ordubalık Çarşısı (Seviye 9–12), oyuncu 9. sv, can 386: Şulmus 10. sv (can 400, 38 m) → YENDİ, 30 sn, oyuncunun canı en az %28 | Ötüken Taşı 10. sv (can 140, 40 m): 8 sn'de kırıldı, ödül 0 eşya — ÖDÜL ALINMADI [kırılınca: tablo 2, ganimet 3, seçenek 1, pencere kapalı, uzaklık 39.9 m; şimdi: tablo 2, ganimet 3, seçenek 1, pencere kapalı, uzaklık 39.9 m]
-- Ordubalık Kenti (Seviye 11–14), oyuncu 11. sv, can 470: Kara Otacı 12. sv (can 480, 38 m) → YENDİ, 16 sn, oyuncunun canı en az %80 | Ötüken Taşı 12. sv (can 158, 28 m): 7 sn'de kırıldı, ödül 0 eşya — ÖDÜL ALINMADI [kırılınca: tablo 2, ganimet 4, seçenek 1, pencere kapalı, uzaklık 27.9 m; şimdi: tablo 2, ganimet 4, seçenek 1, pencere kapalı, uzaklık 27.9 m]
-- Ulukayın Ormanı (Seviye 13–16), oyuncu 13. sv, can 556: Ağulu Körmös 13. sv (can 492, 5 m) → YENDİ, 3 sn, oyuncunun canı en az %86 | Ötüken Taşı 14. sv (can 196, 33 m): 11 sn'de kırıldı, ödül 0 eşya — ÖDÜL ALINMADI [kırılınca: tablo 2, ganimet 2, seçenek 1, pencere kapalı, uzaklık 33.2 m; şimdi: tablo 2, ganimet 2, seçenek 1, pencere kapalı, uzaklık 33.2 m]
-- Koncolos İni (Seviye 15–18), oyuncu 15. sv, can 642: Ağulu Körmös 16. sv (can 640, 2 m) → ÖLDÜ (4 sn, düşmanın canı %69)
-- Kağan Ordası (Seviye 17–20), oyuncu 17. sv, can 726: Kara Otacı 18. sv (can 720, 56 m) → YENDİ, 14 sn, oyuncunun canı en az %100 | Ötüken Taşı 18. sv (can 252, 23 m): 11 sn'de kırıldı, ödül 0 eşya — ÖDÜL ALINMADI [kırılınca: tablo 2, ganimet 4, seçenek 1, pencere kapalı, uzaklık 22.8 m; şimdi: tablo 2, ganimet 4, seçenek 1, pencere kapalı, uzaklık 22.8 m]
-- Kaf Dağı Yolu (Seviye 19–22), oyuncu 19. sv, can 812: Kızıl Cin 20. sv (can 800, 32 m) → YENDİ, 15 sn, oyuncunun canı en az %100 | Ötüken Taşı 20. sv (can 280, 27 m): 11 sn'de kırıldı, ödül 0 eşya — ÖDÜL ALINMADI [kırılınca: tablo 2, ganimet 3, seçenek 1, pencere kapalı, uzaklık 27.2 m; şimdi: tablo 2, ganimet 3, seçenek 1, pencere kapalı, uzaklık 27.2 m]
-- Ergenekon Mağarası (Seviye 21–24), oyuncu 21. sv, can 898: Kızıl Cin 22. sv (can 880, 29 m) → YENDİ, 11 sn, oyuncunun canı en az %100 | Ötüken Taşı 22. sv (can 308, 18 m): 7 sn'de kırıldı, ödül 0 eşya — ÖDÜL ALINMADI [kırılınca: tablo 2, ganimet 4, seçenek 1, pencere kapalı, uzaklık 18.2 m; şimdi: tablo 2, ganimet 4, seçenek 1, pencere kapalı, uzaklık 18.2 m]
-- Kurgan Mezarlığı (Seviye 23–26), oyuncu 23. sv, can 984: Kemik Akıncı 24. sv (can 960, 2 m) → YENDİ, 11 sn, oyuncunun canı en az %45 | Ötüken Taşı 24. sv (can 336, 20 m): 8 sn'de kırıldı, ödül 0 eşya — ÖDÜL ALINMADI [kırılınca: tablo 2, ganimet 2, seçenek 1, pencere kapalı, uzaklık 20.1 m; şimdi: tablo 2, ganimet 2, seçenek 1, pencere kapalı, uzaklık 20.1 m]
-- Ay Dede Koyu (Seviye 25–28), oyuncu 25. sv, can 1068: Kemik Alp 26. sv (can 1560, 49 m) → YENDİ, 18 sn, oyuncunun canı en az %90 | Ötüken Taşı 26. sv (can 364, 42 m): 11 sn'de kırıldı, ödül 0 eşya — ÖDÜL ALINMADI [kırılınca: tablo 2, ganimet 3, seçenek 1, pencere kapalı, uzaklık 39.7 m; şimdi: tablo 2, ganimet 3, seçenek 1, pencere kapalı, uzaklık 39.7 m]
-- Erlik'in Mağarası (Seviye 27–30), oyuncu 27. sv, can 1154: Şulmus 28. sv (can 1120, 2 m) → YENDİ, 10 sn, oyuncunun canı en az %31 | Ötüken Taşı 28. sv (can 392, 40 m): 11 sn'de kırıldı, ödül 0 eşya — ÖDÜL ALINMADI [kırılınca: tablo 2, ganimet 3, seçenek 1, pencere kapalı, uzaklık 39.7 m; şimdi: tablo 2, ganimet 3, seçenek 1, pencere kapalı, uzaklık 39.7 m]
-- Tamu Zindanı (Seviye 29–32), oyuncu 29. sv, can 1240: Abası 31. sv (can 1860, 2 m) → ÖLDÜ (5 sn, düşmanın canı %66)
+- Ötüken Yaylası (Seviye 1–4), oyuncu 3. sv, can 130: Kara Yek 1. sv (can 40, 77 m) → YENDİ, 16 sn, oyuncunun canı en az %100 | Ötüken Taşı 1. sv (can 14, 133 m): 22 sn'de kırıldı, ödül 4 eşya (1 Gümüş Akçe, 3 Gümüş Akçe, Gök Taşı Parçası, Şifa İksiri)
+- Umay Tarlaları (Seviye 3–6), oyuncu 3. sv, can 130: Kara Yek 4. sv (can 160, 69 m) → YENDİ, 27 sn, oyuncunun canı en az %72 | Ötüken Taşı 4. sv (can 56, 20 m): 11 sn'de kırıldı, ödül 4 eşya (4 Gümüş Akçe, 1 Altın, Gök Taşı Parçası, Turkuaz Kolye)
+- Börü Tepesi (Seviye 5–8), oyuncu 5. sv, can 214: Ağulu Körmös 6. sv (can 240, 57 m) → ÖLDÜ (27 sn, düşmanın canı %73)
+- Ak Deniz Kıyısı (Seviye 7–10), oyuncu 7. sv, can 300: Şulmus 7. sv (can 280, 45 m) → YENDİ, 40 sn, oyuncunun canı en az %21 | Ötüken Taşı 8. sv (can 112, 93 m): 18 sn'de kırıldı, ödül 0 eşya — ÖDÜL ALINMADI [kırılınca: tablo 2, ganimet 4, seçenek 1, pencere kapalı, uzaklık 39.9 m; şimdi: tablo 2, ganimet 4, seçenek 1, pencere kapalı, uzaklık 7.1 m]
+- Ordubalık Çarşısı (Seviye 9–12), oyuncu 9. sv, can 386: Şulmus 10. sv (can 400, 38 m) → YENDİ, 12 sn, oyuncunun canı en az %89 | Ötüken Taşı 10. sv (can 140, 41 m): 11 sn'de kırıldı, ödül 2 eşya (10 Gümüş Akçe, 12 Gümüş Akçe)
+- Ordubalık Kenti (Seviye 11–14), oyuncu 11. sv, can 470: Kara Otacı 12. sv (can 480, 38 m) → YENDİ, 17 sn, oyuncunun canı en az %76 | Ötüken Taşı 12. sv (can 168, 28 m): 11 sn'de kırıldı, ödül 3 eşya (12 Gümüş Akçe, 3 Gümüş Akçe, Gök Taşı Parçası)
+- Ulukayın Ormanı (Seviye 13–16), oyuncu 13. sv, can 556: Ağulu Körmös 13. sv (can 492, 5 m) → YENDİ, 7 sn, oyuncunun canı en az %73 | Ötüken Taşı 14. sv (can 196, 33 m): 7 sn'de kırıldı, ödül 3 eşya (14 Gümüş Akçe, 12 Gümüş Akçe, Gök Taşı Parçası)
+- Koncolos İni (Seviye 15–18), oyuncu 15. sv, can 642: Körmös 16. sv (can 640, 15 m) → YENDİ, 15 sn, oyuncunun canı en az %34 | Ötüken Taşı 16. sv (can 224, 26 m): 7 sn'de kırıldı, ödül 7 eşya (16 Gümüş Akçe, 3 Gümüş Akçe, Şifa İksiri, 16 Gümüş Akçe, 3 Gümüş Akçe, Gök Taşı Parçası, Kusurlu Gizemli Arbalet)
+- Kağan Ordası (Seviye 17–20), oyuncu 17. sv, can 726: Kara Otacı 18. sv (can 720, 56 m) → YENDİ, 22 sn, oyuncunun canı en az %76 | Ötüken Taşı 18. sv (can 252, 23 m): 7 sn'de kırıldı, ödül 2 eşya (18 Gümüş Akçe, 3 Gümüş Akçe)
+- Kaf Dağı Yolu (Seviye 19–22), oyuncu 19. sv, can 812: Kızıl Cin 20. sv (can 800, 32 m) → YENDİ, 16 sn, oyuncunun canı en az %100 | Ötüken Taşı 20. sv (can 280, 27 m): 11 sn'de kırıldı, ödül 2 eşya (20 Gümüş Akçe, 3 Gümüş Akçe)
+- Ergenekon Mağarası (Seviye 21–24), oyuncu 21. sv, can 898: Kızıl Cin 22. sv (can 880, 26 m) → YENDİ, 15 sn, oyuncunun canı en az %74 | Ötüken Taşı 22. sv (can 308, 15 m): 11 sn'de kırıldı, ödül 8 eşya (22 Gümüş Akçe, 12 Gümüş Akçe, Gök Taşı Parçası, 22 Gümüş Akçe, Çatlak Boncuk, Kurt Dişi, 22 Gümüş Akçe, 12 Gümüş Akçe)
+- Kurgan Mezarlığı (Seviye 23–26), oyuncu 23. sv, can 984: Kemik Er 24. sv (can 960, 22 m) → YENDİ, 15 sn, oyuncunun canı en az %91 | Ötüken Taşı 24. sv (can 336, 20 m): 11 sn'de kırıldı, ödül 6 eşya (24 Gümüş Akçe, 3 Gümüş Akçe, Gök Taşı Parçası, Şifa İksiri, 24 Gümüş Akçe, 12 Gümüş Akçe)
+- Ay Dede Koyu (Seviye 25–28), oyuncu 25. sv, can 1068: Kemik Alp 26. sv (can 1560, 49 m) → YENDİ, 22 sn, oyuncunun canı en az %82 | Ötüken Taşı 26. sv (can 364, 42 m): 12 sn'de kırıldı, ödül 3 eşya (26 Gümüş Akçe, 3 Gümüş Akçe, Şifa İksiri)
+- Erlik'in Mağarası (Seviye 27–30), oyuncu 27. sv, can 1154: Şulmus 28. sv (can 1120, 2 m) → YENDİ, 11 sn, oyuncunun canı en az %32 | Ötüken Taşı 28. sv (can 392, 40 m): 11 sn'de kırıldı, ödül 3 eşya (28 Gümüş Akçe, 3 Gümüş Akçe, Mana İksiri)
+- Tamu Zindanı (Seviye 29–32), oyuncu 29. sv, can 1240: Abası 31. sv (can 1860, 4 m) → ÖLDÜ (5 sn, düşmanın canı %84)
 
 | | Harita | Sonuç | Yükleme | Hata | Not |
 |---|---|---|---|---|---|
@@ -53,7 +53,7 @@ Bot yeni oyun başlatıp haritaları gezdi: **tamamlandı**, 0 hata/istisna.
 | ✅ | Kağan Ordası | tamam | 1 sn | 0 |  |
 | ❌ | Kaf Dağı Yolu | sorunlu | 0 sn | 0 | yürüyerek ulaşılamayan: Kapi_OrdubalikCarsisi_1 (135, 13, 42) |
 | ✅ | Ergenekon Mağarası | tamam | 0 sn | 0 |  |
-| ✅ | Kurgan Mezarlığı | tamam | 1 sn | 0 |  |
+| ✅ | Kurgan Mezarlığı | tamam | 0 sn | 0 |  |
 | ✅ | Ay Dede Koyu | tamam | 1 sn | 0 |  |
 | ✅ | Erlik'in Mağarası | tamam | 1 sn | 0 |  |
 | ✅ | Tamu Zindanı | tamam | 1 sn | 0 |  |
