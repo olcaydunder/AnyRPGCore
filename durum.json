@@ -1,5 +1,5 @@
 {
- "son_zaman": 1791205942,
+ "son_zaman": 1791209543,
  "islenen": [
   "ZA4f7jqHrQMP",
   "ECmsu6OF1Jgp",
@@ -65,7 +65,12 @@
   "edvS6VaHt6I6",
   "an8LRJsNsxUu",
   "44w0Wfemdtt5",
-  "XJ2GyymYVSqo"
+  "XJ2GyymYVSqo",
+  "4D1PxurVCfx0",
+  "WM0coiwrHIgk",
+  "iOy5PtlW9N6Q",
+  "LenX9kSEMWCs",
+  "HLlqQi0fsyIp"
  ],
  "kayitlar": {
   "istisna-d581f62b": {
@@ -232,18 +237,20 @@
   "bellek-d3941b2d": {
    "tur": "bellek",
    "baslik": "Bellek: Bellek yetmedi, sistem oyunu kapattı",
-   "adet": 1,
+   "adet": 2,
    "cihazlar": [
     "samsung SM-S938B"
    ],
    "surumler": [
-    "0.1.36"
+    "0.1.36",
+    "0.1.47"
    ],
    "ilk": 1791130056,
-   "son": 1791130056,
+   "son": 1791209111,
    "ilk_rapor": "**Bellek** · sürüm **0.1.36** · samsung SM-S938B · Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3) · ekran 3120x1335 · UmayTarlalari\n\n### Mesaj\n```text\nBellek yetmedi, sistem oyunu kapattı\n```\n\n### Ayrıntı\n```text\nZaman 2026-10-04 14:47:35 | bellek (PSS) 0 MB | önem 400 (100 = ön planda)\nÖnceki oturumun kaydı:\nOturum başladı 2026-10-04 11:40:55\nOyuna dönüldü 11:40:57\n\nOyuna dönüldü 11:42:41\n\nOyuna dönüldü 11:45:29\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: bellek\nsurum: 0.1.36\ncihaz: samsung SM-S938B\nsistem: Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3)\ngrafik: Vulkan / Adreno (TM) 830 / bellek 11113 MB\nekran: 3120x1335\nayarlar: kalite 2, çözünürlük 3, gölge 3, fps sınırı 1\nsahne: UmayTarlalari\noyuncu: seviye 1\nsure: 12 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 0.1.36 | samsung SM-S938B | Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3)\nVulkan Adreno (TM) 830 | Bellek 11113 MB | 3120x1335 | FPS 60 | Süre 9 sn\nKare süresi: işlemci 16.7 ms | ekran kartı 11.5 ms | ekran 60 Hz | hedef 60 | kalite High | pil 2%\nSahneler: UmayTarlalari\nGiriş: dokunmatik var | fare bağlı | ekran tuşları açık\nSon dokunuş: 2811,236 -> MobileHudCanvas/SaldırButton [MobileHudCanvas 5]\nOyuncu karakteri: oluştu (MecanimMale1) | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n",
    "gorulmeler": [
-    "04.10.2026 19:07 · 0.1.36 · samsung SM-S938B · UmayTarlalari · seviye 1 · 3120x1335"
+    "04.10.2026 19:07 · 0.1.36 · samsung SM-S938B · UmayTarlalari · seviye 1 · 3120x1335",
+    "05.10.2026 17:05 · 0.1.47 · samsung SM-S938B · FeaturesDemoMainMenu · oyunda değil · 3120x1335"
    ],
    "ekler": [],
    "duzeltildi": null,
@@ -306,7 +313,7 @@
   "hata-60de498e": {
    "tur": "hata",
    "baslik": "Hata: Screen position out of view frustum (screen pos inf, -inf) (Camera rect 0 0 640 480)",
-   "adet": 32,
+   "adet": 35,
    "cihazlar": [
     "PC"
    ],
@@ -319,10 +326,11 @@
     "0.1.48",
     "0.1.49",
     "0.1.50",
-    "0.1.51"
+    "0.1.51",
+    "0.1.52"
    ],
    "ilk": 1791146643,
-   "son": 1791205942,
+   "son": 1791209446,
    "ilk_rapor": "**Hata** · sürüm **0.1.43** · PC · Linux 6.17 Ubuntu 24.04 64bit · ekran 640x480 · FeaturesDemoZone\n\n### Mesaj\n```text\nScreen position out of view frustum (screen pos inf, -inf) (Camera rect 0 0 640 480)\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: hata\nsurum: 0.1.43\ncihaz: PC\nsistem: Linux 6.17 Ubuntu 24.04 64bit\ngrafik: OpenGLCore / llvmpipe (LLVM 20.1.2, 256 bits) / bellek 15989 MB\nekran: 640x480\nayarlar: kalite -1, çözünürlük 0, gölge 0, fps sınırı 1\nsahne: FeaturesDemoZone\noyuncu: seviye 1\nsure: 38 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 0.1.43 | PC | Linux 6.17 Ubuntu 24.04 64bit\nOpenGLCore llvmpipe (LLVM 20.1.2, 256 bits) | Bellek 15989 MB | 640x480 | FPS ? | Süre 37 sn\nKare süresi: işlemci ? | ekran kartı ? | ekran 0 Hz | hedef 500 | kalite Ultra | pil -100%\nSahneler: MovedObjectsHolder FeaturesDemoZone\nGiriş: dokunmatik yok | fare bağlı | ekran tuşları kapalı\nSon dokunuş: -\nOyuncu karakteri: oluştu (MecanimMale133) | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n",
    "gorulmeler": [
     "04.10.2026 23:44 · 0.1.43 · PC · FeaturesDemoZone · seviye 1 · 640x480",
@@ -356,7 +364,10 @@
     "05.10.2026 15:47 · 0.1.50 · PC · FeaturesDemoZone · seviye 1 · 640x480",
     "05.10.2026 16:11 · 0.1.51 · PC · FeaturesDemoZone · seviye 1 · 640x480",
     "05.10.2026 16:12 · 0.1.51 · PC · FeaturesDemoZone · seviye 1 · 640x480",
-    "05.10.2026 16:12 · 0.1.51 · PC · FeaturesDemoZone · seviye 1 · 640x480"
+    "05.10.2026 16:12 · 0.1.51 · PC · FeaturesDemoZone · seviye 1 · 640x480",
+    "05.10.2026 17:09 · 0.1.52 · PC · FeaturesDemoZone · seviye 1 · 640x480",
+    "05.10.2026 17:10 · 0.1.52 · PC · FeaturesDemoZone · seviye 1 · 640x480",
+    "05.10.2026 17:10 · 0.1.52 · PC · FeaturesDemoZone · seviye 1 · 640x480"
    ],
    "ekler": [],
    "duzeltildi": null,
@@ -379,6 +390,28 @@
    "ilk_rapor": "**İstisna** · sürüm **0.1.52** · Otomatik oyun testi (CI) · Unity editör · ekran - · BoruTepesi\n\n### Mesaj\n```text\nNullReferenceException: Object reference not set to an instance of an object\n```\n\n### Yığın izi\n```text\nAnyRPG.FixedLengthEffectProperties.Cast (AnyRPG.IAbilityCaster source, AnyRPG.InteractableBase target, AnyRPG.InteractableBase originalTarget, AnyRPG.AbilityEffectContext abilityEffectInput) (at Assets/AnyRPG/Core/System/Scripts/Abilities/Effect/FixedLengthEffectProperties.cs:103)\nAnyRPG.InstantEffectProperties.Cast (AnyRPG.IAbilityCaster source, AnyRPG.InteractableBase target, AnyRPG.InteractableBase originalTarget, AnyRPG.AbilityEffectContext abilityEffectContext) (at Assets/AnyRPG/Core/System/Scripts/Abilities/Effect/InstantEffectProperties.cs:23)\nAnyRPG.AbilityEffectProperties.PerformAbilityEffect (AnyRPG.IAbilityCaster source, AnyRPG.InteractableBase target, AnyRPG.AbilityEffectContext abilityEffectContext, AnyRPG.AbilityEffectProperties abilityEffect) (at Assets/AnyRPG/Core/System/Scripts/Abilities/Effect/AbilityEffectProperties.cs:224)\nAnyRPG.AbilityEffectProperties.PerformAbilityEffects (AnyRPG.IAbilityCaster source, AnyRPG.InteractableBase target, AnyRPG.AbilityEffectContext abilityEffectContext, System.Collections.Generic.List`1[T] abilityEffectList) (at Assets/AnyRPG/Core/System/Scripts/Abilities/Effect/AbilityEffectProperties.cs:180)\nAnyRPG.AbilityEffectProperties.PerformAbilityHitEffects (AnyRPG.IAbilityCaster source, AnyRPG.InteractableBase target, AnyRPG.AbilityEffectContext effectOutput) (at Assets/AnyRPG/Core/System/Scripts/Abilities/Effect/AbilityEffectProperties.cs:233)\nAnyRPG.AbilityEffectProperties.PerformAbilityHit (AnyRPG.IAbilityCaster source, AnyRPG.I…\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: istisna\nsurum: 0.1.52\ncihaz: Otomatik oyun testi (CI)\nsistem: Unity editör\nekran: -\nsahne: BoruTepesi\n```\n\n</details>\n\n\n",
    "gorulmeler": [
     "05.10.2026 17:13 · derleme 52 · 5 kez · BoruTepesi"
+   ],
+   "ekler": [],
+   "duzeltildi": null,
+   "yeniden": false,
+   "issue": null,
+   "notlar": []
+  },
+  "istisna-9434295e": {
+   "tur": "istisna",
+   "baslik": "İstisna: NullReferenceException: Object reference not set to an instance of an object.",
+   "adet": 1,
+   "cihazlar": [
+    "PC"
+   ],
+   "surumler": [
+    "0.1.52"
+   ],
+   "ilk": 1791209543,
+   "son": 1791209543,
+   "ilk_rapor": "**İstisna** · sürüm **0.1.52** · PC · Linux 6.17 Ubuntu 24.04 64bit · ekran 640x480 · FeaturesDemoZone\n\n### Mesaj\n```text\nNullReferenceException: Object reference not set to an instance of an object.\n```\n\n### Yığın izi\n```text\nUnityEngine.Bindings.ThrowHelper.ThrowNullReferenceException (System.Object obj) (at <3d65f019da6044168f2ccd81096ed5c5>:0)\nUnityEngine.Component.get_gameObject () (at <3d65f019da6044168f2ccd81096ed5c5>:0)\nAnyRPG.AggroTable.get_TopAgroNode () (at <17dd357545d54fc1a5592b386b164ec8>:0)\nAnyRPG.UnitController.UpdateTarget () (at <17dd357545d54fc1a5592b386b164ec8>:0)\nAnyRPG.AttackState.Update () (at <17dd357545d54fc1a5592b386b164ec8>:0)\nAnyRPG.UnitController.FixedUpdate () (at <17dd357545d54fc1a5592b386b164ec8>:0)\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: istisna\nsurum: 0.1.52\ncihaz: PC\nsistem: Linux 6.17 Ubuntu 24.04 64bit\ngrafik: Null / Null Device / bellek 15989 MB\nekran: 640x480\nayarlar: kalite -1, çözünürlük 0, gölge 0, fps sınırı 1\nsahne: FeaturesDemoZone\noyuncu: oyunda değil\nsure: 194 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 0.1.52 | PC | Linux 6.17 Ubuntu 24.04 64bit\nNull Null Device | Bellek 15989 MB | 640x480 | FPS ? | Süre 193 sn\nKare süresi: işlemci ? | ekran kartı ? | ekran 0 Hz | hedef 45 | kalite Very Low | pil -100%\nSahneler: MovedObjectsHolder FeaturesDemoZone\nGiriş: dokunmatik yok | fare yok | ekran tuşları kapalı\nSon dokunuş: -\nOyuncu karakteri: yok | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n",
+   "gorulmeler": [
+    "05.10.2026 17:12 · 0.1.52 · PC · FeaturesDemoZone · oyunda değil · 640x480"
    ],
    "ekler": [],
    "duzeltildi": null,
@@ -444,7 +477,12 @@
   "aa82059453": "hata-60de498e",
   "184ca0ab10": "hata-60de498e",
   "f3585dc630": "hata-60de498e",
-  "cd993e965e": "hata-60de498e"
+  "cd993e965e": "hata-60de498e",
+  "7c2622a625": "bellek-d3941b2d",
+  "4832590569": "hata-60de498e",
+  "c5afaa6f2a": "hata-60de498e",
+  "212fc26fa6": "hata-60de498e",
+  "b30adec54d": "istisna-9434295e"
  },
  "derleme": {
   "sonuc": "basarili",
