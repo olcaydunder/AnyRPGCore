@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e31818c35d6ab14fbf88410e7e18453, type: 3}
-  m_Name: QuestNPCUnit
+  m_Name: DemirkiynakUnit
   m_EditorClassIdentifier: 
-  resourceName: Quest NPC
-  displayName: "Olcayto Han"
-  icon: {fileID: 21300000, guid: 4ce9927e29c4e67439b2afb877749f1b, type: 3}
+  resourceName: Demirkiynak
+  displayName: "Demirk\u0131ynak"
+  icon: {fileID: 21300000, guid: ddc11cfd0bc3b22489ffaba76d4aaa30, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: "O\u011fuz obalar\u0131n\u0131n ba\u015f\u0131. Ad\u0131 kutlu anlam\u0131na gelir; boylar\u0131n\u0131 hi\u00e7bir sava\u015fta yaln\u0131z b\u0131rakmam\u0131\u015ft\u0131r."
+  description: "Demir gagal\u0131 kara cad\u0131. Ergenekon'un demir da\u011f\u0131n\u0131 eritenlerin yolunu keser, ocaklar\u0131 s\u00f6nd\u00fcr\u00fcr."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0
@@ -28,7 +28,7 @@ MonoBehaviour:
     unitPrefab: {fileID: 2692339740015506113, guid: ba09f14eb0109ba459f4520b82c3fadc,
       type: 3}
     networkUnitPrefab: {fileID: 0}
-    modelPrefab: {fileID: 6307183516646880328, guid: 67b4508f106648b47a9bdcefd4eaa12b,
+    modelPrefab: {fileID: 6954704190252621995, guid: c6ec7af6705e52949a16b9e2d25d6c63,
       type: 3}
     networkModelPrefab: {fileID: 0}
     modelProvider:
@@ -125,7 +125,7 @@ MonoBehaviour:
       suppressFaction: 1
       overrideNameplatePosition: 0
       namePlatePosition: {x: 0, y: 0, z: 0}
-      useSnapShot: 0
+      useSnapShot: 1
       unitFrameTarget: head
       unitFrameCameraLookOffset: {x: 0, y: 0, z: 0}
       unitFrameCameraPositionOffset: {x: 0, y: 0, z: 0.66}
@@ -133,7 +133,7 @@ MonoBehaviour:
       unitPreviewCameraLookOffset: {x: 0, y: 1, z: 0}
       unitPreviewCameraPositionOffset: {x: 0, y: 1, z: 2.5}
     unitFrameProps:
-      useSnapShot: 0
+      useSnapShot: 1
       unitFrameTarget: head
       unitFrameCameraLookOffset: {x: 0, y: 0, z: 0}
       unitFrameCameraPositionOffset: {x: 0, y: 0, z: 0.66}
@@ -144,7 +144,7 @@ MonoBehaviour:
     position: {x: 0, y: 0, z: 0}
     rotationIsGlobal: 0
     rotation: {x: 0, y: 0, z: 0}
-    scale: {x: 1, y: 1, z: 1}
+    scale: {x: 1.3, y: 1.3, z: 1.3}
     targetBone: 
     attachmentProfileName: Humanoid
     floatHeight: 1.4
@@ -153,17 +153,17 @@ MonoBehaviour:
   isPet: 0
   flightCapable: 0
   glideCapable: 0
-  characterName: "Olcayto Han"
+  characterName: "Demirk\u0131ynak"
   title: 
-  factionName: 
+  factionName: Enemy
   unitTypeName: 
   characterRaceName: 
-  characterClassName: 
-  classSpecializationName: 
+  characterClassName: Warrior
+  classSpecializationName: Knight
   spawnDead: 0
   preventAutoDespawn: 0
-  defaultToughness: 
-  voiceProfile: 
+  defaultToughness: Solo Dungeon Boss
+  voiceProfile: Female Low
   useInlineVoiceProps: 0
   voiceProps:
     aggro: []
@@ -178,7 +178,10 @@ MonoBehaviour:
     stopInteract: []
     stopVendorInteract: []
   capabilities:
-    abilityNames: []
+    abilityNames:
+    - Laser Explosion
+    - Knock Back
+    - Ground Slam
     traitNames: []
     armorClassList: []
     weaponSkills: []
@@ -186,12 +189,12 @@ MonoBehaviour:
     startingPets: []
   primaryStats: []
   powerResources: []
-  useProviderEquipment: 0
+  useProviderEquipment: 1
   equipmentNameList: []
   isAggressive: 1
   aggroRadius: 20
   automaticCombatStrategy: 0
-  combatStrategyName: 
+  combatStrategyName: Boss
   defaultHitEffects: []
   isMobile: 1
   footstepType: 3
@@ -222,75 +225,24 @@ MonoBehaviour:
   saveOnLevelUnload: 0
   saveOnGameSave: 0
   overwriteUnitUUID: 0
-  m_UUID: d101f417-13ab-424f-8398-817d4613c3f1
+  m_UUID: 20e02b06-84e4-5f3b-8781-af2404ebf5e6
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
     - rid: 0
-      type: {class: QuestGiverProps, ns: AnyRPG, asm: Assembly-CSharp}
+      type: {class: LootableCharacterProps, ns: AnyRPG, asm: Assembly-CSharp}
       data:
         interactionPanelTitle: 
         interactionPanelImage: {fileID: 0}
         namePlateImage: {fileID: 0}
         prerequisiteConditions: []
-        quests:
-        - startQuest: 1
-          endQuest: 1
-          questName: Dialog Introduction
-        - startQuest: 1
-          endQuest: 1
-          questName: Collection
-        - startQuest: 1
-          endQuest: 1
-          questName: Finish Another Quest
-        - startQuest: 1
-          endQuest: 1
-          questName: Dialog Objective
-        - startQuest: 1
-          endQuest: 1
-          questName: Kill Things
-        - startQuest: 1
-          endQuest: 0
-          questName: Use Interactable
-        - startQuest: 1
-          endQuest: 1
-          questName: Visit Zone
-        - startQuest: 1
-          endQuest: 1
-          questName: Learn Trade Skill
-        - startQuest: 1
-          endQuest: 1
-          questName: Learn Ability
-        - startQuest: 1
-          endQuest: 1
-          questName: Use Ability
-        - startQuest: 1
-          endQuest: 1
-          questName: Repeatable
-        - startQuest: 1
-          endQuest: 1
-          questName: Repeatable 2 Step
-        - startQuest: 1
-          endQuest: 1
-          questName: Repeatable 3 Step
-        - startQuest: 1
-          endQuest: 1
-          questName: Repeatable 5 Step
-        - startQuest: 1
-          endQuest: 1
-          questName: Status Effect
-        - startQuest: 0
-          endQuest: 1
-          questName: Choose Faction Reward
-        - startQuest: 1
-          endQuest: 1
-          questName: Destan 01 KutunCagrisi
-        - startQuest: 1
-          endQuest: 0
-          questName: Destan 02 UmayTarlalariYolculuk
-        - startQuest: 0
-          endQuest: 1
-          questName: Destan 45 OtukeneDonus
-        questGiverProfileNames: []
+        automaticCurrency: 1
+        lootTableNames:
+        - Potions
+        - Iron Plate Armor
+        - Basic Iron Weapons
+        - Necklaces
+        - Bozkir Ganimeti
+        - Ulu Ganimet

@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b491a306145b8e4aa064bbcf71f8e01, type: 3}
+  m_Name: Destan21IninKormosleri
+  m_EditorClassIdentifier: 
+  resourceName: Destan 21 IninKormosleri
+  displayName: "\u0130nin K\u00f6rm\u00f6sleri"
+  icon: {fileID: 0}
+  iconBackgroundImage: {fileID: 0}
+  description: "K\u00f6rm\u00f6sler inin a\u011fz\u0131n\u0131 tutuyor. Yolu a\u00e7."
+  useRegionalDescription: 0
+  resourceDescriptionProfile: 
+  optionalOverride: 0
+  isAchievement: 0
+  repeatableQuest: 0
+  hasOpeningDialog: 0
+  experienceLevel: 1
+  dynamicLevel: 1
+  extraLevels: 0
+  baseExperienceReward: 6610
+  experienceRewardPerLevel: 0
+  automaticCurrencyReward: 0
+  rewardCurrencyName: Silver
+  baseCurrencyReward: 53
+  currencyRewardPerLevel: 0
+  maxItemRewards: 0
+  itemRewardNames: []
+  maxFactionRewards: 0
+  factionRewards: []
+  maxAbilityRewards: 0
+  abilityRewardNames: []
+  maxSkillRewards: 0
+  skillRewardNames: []
+  steps:
+  - questObjectives:
+    - rid: 751413977757340422
+  prerequisiteConditions:
+  - requireAny: 0
+    reverseMatch: 0
+    questPrerequisites:
+    - prerequisiteName: Destan 20 KoncolosIniYolculuk
+      stepIndex: -1
+      requireComplete: 1
+      requireTurnedIn: 1
+  turnInItems: 0
+  allowRawComplete: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 751413977757340422
+      type: {class: KillObjective, ns: AnyRPG, asm: Assembly-CSharp}
+      data:
+        amount: 7
+        deprecatedType: 
+        overrideDisplayName: "K\u00f6rm\u00f6s yen"
+        targetName: Kormos

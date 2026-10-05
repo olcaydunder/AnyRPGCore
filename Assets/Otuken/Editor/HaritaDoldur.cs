@@ -133,7 +133,10 @@ namespace Otuken.EditorAraclari {
                     }
                 }
             }
-            return $"taş/kamp: {taslar.Count} Ötüken Taşı, {kampSayisi} ek kamp ({canavar} canavar)"
+            // 3. ana hikâye (HikayeVerisi, Tools~/dunya/hikaye.py): görev veren yardımcı girişin yanına, haritanın yeni
+            //    boss'u girişten en uzak açıklığa (sahnedeki öteki boss'lardan uzak)
+            string hikaye = Hikaye(sahne, ad, prefab, giris, noktalar, engeller);
+            return $"taş/kamp: {taslar.Count} Ötüken Taşı, {kampSayisi} ek kamp ({canavar} canavar)" + hikaye
                 + (tasinan > 0 ? $", girişten uzaklaştırılan {tasinan} düşman" : string.Empty)
                 + $" | açık alan ~{alan:0} m² ({noktalar.Count} nokta)" + (silinen > 0 ? $", eskiden {silinen} silindi" : string.Empty);
         }
@@ -259,6 +262,67 @@ namespace Otuken.EditorAraclari {
             so.FindProperty("respawnTimer").intValue = yenilenme;
             so.FindProperty("extraLevels").intValue = 0;
             so.ApplyModifiedPropertiesWithoutUndo();
+        }
+
+        private static readonly HashSet<string> eskiBosslar = new HashSet<string>() {
+            "Tamu Bekcisi", "Kara Koncolos", "Kemik Kagan", "Enemy Boss", "Yelbegen", "Ulu Evren"
+        };
+
+        private static string Hikaye(Scene sahne, string ad, GameObject prefab, Vector3 giris, List<Vector3> noktalar, List<Engel> engeller) {
+            string[] h;
+            if (HikayeVerisi.Haritalar.TryGetValue(ad, out h) == false) {
+                return string.Empty;
+            }
+            string rapor = string.Empty;
+            List<Vector3> etkilesimler = Object.FindObjectsByType<AnyRPG.InteractableBase>(FindObjectsInactive.Include, FindObjectsSortMode.None)
+                .Where(e => e.gameObject.scene == sahne).Select(e => e.transform.position).ToList();
+            if (h[0].Length > 0) {
+                // girişe 6-11 m, açık, geçit taşı ve kapılardan 4 m uzak; yoksa girişe en yakın uygun nokta
+                List<Vector3> adaylar = noktalar.Where(p => etkilesimler.All(e => Yatay(p, e) >= 4f) && Mathf.Abs(p.y - giris.y) < 2.5f).ToList();
+                List<Vector3> halka = adaylar.Where(p => Yatay(p, giris) >= 6f && Yatay(p, giris) <= 11f).ToList();
+                Vector3? yer = null;
+                if (halka.Count > 0) {
+                    yer = halka.OrderByDescending(p => Mathf.Min(KenarUzakligi(p), 3f) - Mathf.Abs(Yatay(p, giris) - 8f) * 0.2f).First();
+                } else if (adaylar.Count > 0) {
+                    yer = adaylar.Where(p => Yatay(p, giris) >= 3f).OrderBy(p => Yatay(p, giris)).FirstOrDefault();
+                }
+                if (yer.HasValue && yer.Value != Vector3.zero) {
+                    // girişe dönük dursun
+                    int yon = Mathf.RoundToInt(Mathf.Atan2(giris.x - yer.Value.x, giris.z - yer.Value.z) * Mathf.Rad2Deg);
+                    DogmaNoktasi(prefab, sahne, Onek + "Yardimci", yer.Value, yon, h[0], 30);
+                    rapor += $", yardımcı {h[0]} (girişe {Yatay(yer.Value, giris):0} m)";
+                } else {
+                    rapor += ", !! yardımcıya yer bulunamadı";
+                }
+            }
+            if (h[1].Length > 0) {
+                List<Vector3> eskiler = Object.FindObjectsByType<AnyRPG.UnitSpawnNode>(FindObjectsInactive.Include, FindObjectsSortMode.None)
+                    .Where(n => n.gameObject.scene == sahne && BossMu(n)).Select(n => n.transform.position).ToList();
+                List<Vector3> adaylar = noktalar.Where(p => KenarUzakligi(p) >= 3f && eskiler.All(e => Yatay(p, e) >= 25f)
+                    && engeller.All(e => Yatay(p, e.p) >= Mathf.Min(e.r, 9f))).ToList();
+                if (adaylar.Count == 0) {
+                    adaylar = noktalar.Where(p => eskiler.All(e => Yatay(p, e) >= 15f)).ToList();
+                }
+                if (adaylar.Count > 0) {
+                    Vector3 yer = adaylar.OrderByDescending(p => Yatay(p, giris)).First();
+                    DogmaNoktasi(prefab, sahne, Onek + "Boss", yer, Ozet(ad) % 360, h[1], 600);
+                    engeller.Add(new Engel(yer, 12f));
+                    rapor += $", boss {h[1]} (girişe {Yatay(yer, giris):0} m)";
+                } else {
+                    rapor += ", !! boss'a yer bulunamadı";
+                }
+            }
+            return rapor;
+        }
+
+        private static bool BossMu(AnyRPG.UnitSpawnNode n) {
+            SerializedProperty adlar = new SerializedObject(n).FindProperty("unitProfileNames");
+            for (int i = 0; adlar != null && i < adlar.arraySize; i++) {
+                if (eskiBosslar.Contains(adlar.GetArrayElementAtIndex(i).stringValue)) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private static int Ozet(string s) {

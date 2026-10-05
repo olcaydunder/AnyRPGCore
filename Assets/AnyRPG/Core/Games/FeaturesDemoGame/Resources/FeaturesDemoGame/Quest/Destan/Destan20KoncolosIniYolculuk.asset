@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b491a306145b8e4aa064bbcf71f8e01, type: 3}
+  m_Name: Destan20KoncolosIniYolculuk
+  m_EditorClassIdentifier: 
+  resourceName: Destan 20 KoncolosIniYolculuk
+  displayName: "Koncolos \u0130ni'ne Yolculuk"
+  icon: {fileID: 0}
+  iconBackgroundImage: {fileID: 0}
+  description: "A\u011fu Bey'in k\u00f6kleri bir ma\u011faraya uzan\u0131yordu. Koncolos \u0130ni'ne git, Avc\u0131 \u00c7a\u011fr\u0131'y\u0131 bul."
+  useRegionalDescription: 0
+  resourceDescriptionProfile: 
+  optionalOverride: 0
+  isAchievement: 0
+  repeatableQuest: 0
+  hasOpeningDialog: 0
+  experienceLevel: 1
+  dynamicLevel: 1
+  extraLevels: 0
+  baseExperienceReward: 1730
+  experienceRewardPerLevel: 0
+  automaticCurrencyReward: 0
+  rewardCurrencyName: Silver
+  baseCurrencyReward: 18
+  currencyRewardPerLevel: 0
+  maxItemRewards: 0
+  itemRewardNames: []
+  maxFactionRewards: 0
+  factionRewards: []
+  maxAbilityRewards: 0
+  abilityRewardNames: []
+  maxSkillRewards: 0
+  skillRewardNames: []
+  steps:
+  - questObjectives:
+    - rid: 2212746736646216572
+  prerequisiteConditions:
+  - requireAny: 0
+    reverseMatch: 0
+    questPrerequisites:
+    - prerequisiteName: Destan 19 AguBey
+      stepIndex: -1
+      requireComplete: 1
+      requireTurnedIn: 1
+  turnInItems: 0
+  allowRawComplete: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 2212746736646216572
+      type: {class: VisitZoneObjective, ns: AnyRPG, asm: Assembly-CSharp}
+      data:
+        amount: 1
+        type: 
+        overrideDisplayName: "Koncolos \u0130ni'ne git"
+        zoneName: KoncolosIni

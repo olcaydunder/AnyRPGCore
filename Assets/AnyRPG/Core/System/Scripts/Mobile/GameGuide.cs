@@ -436,7 +436,14 @@ namespace AnyRPG {
                 "• Başının üstünde sarı <b>!</b> olan kişiler görev verir; sarı <b>?</b> olanlara biten görevi teslim edersin. Bunları haritada da görürsün.\n" +
                 "• <b>Görevler</b> penceresi aldığın görevleri ve kalan hedefleri gösterir. Sağdaki görev takibi ilerlemeni anlık gösterir.\n" +
                 "• Görev ödülleri: tecrübe, altın ve eşya. Bazı görevlerde ödülü sen seçersin.\n\n" +
-                H + "Ana görevler" + HE + "\n" +
+                H + "Ötüken Destanı (ana hikâye)" + HE + "\n" +
+                "Erlik Han Tamu'nun mührünü kırdı; kara ruhları on beş diyara saçıldı. Olcayto Han'dan <b>Kutun Çağrısı</b> görevini al ve yola çık.\n" +
+                "• Her diyarın girişinin yanında bir <b>yardımcı</b> bekler (Ak Ana, Börü Alp Tonga, Kıyı Beyi Aybars...). Önce o diyarın düşmanlarını dağıtırsın, " +
+                "sonra Erlik'in o diyardaki başbuğunu (<b>boss</b>) yenersin; boss haritanın en uzak ucundadır ve kendi savaş müziği çalar.\n" +
+                "• Yardımcı seni bir sonraki diyara gönderir: Umay Tarlaları'ndan Tamu Zindanı'na kadar 15 diyar, 45 görev.\n" +
+                "• Sonunda Tamu'nun dibinde <b>Erlik Han</b>'ı yen ve Ötüken'e, Olcayto Han'a dön.\n" +
+                "• Görev oku sıradaki yardımcıyı ve hedefi gösterir. Diyarın seviyesi adının altında yazar; zorlanırsan bir önceki diyarda biraz daha avlan.\n\n" +
+                H + "Ötüken Yaylası'nın görevleri" + HE + "\n" +
                 "• <b>Olcayto Han'ın Çağrısı</b>: her şeyin başladığı yer.\n" +
                 "• <b>Alp'in Donanımı</b> ve <b>Sefere Hazırlık</b>: Tüccar Karaçor'dan hançer ve kalkan satın al (birkaç gümüş tutar; paran yoksa önce birkaç Kara Yek avla).\n" +
                 "• <b>Bilgeden Öğüt</b>: Bilge Tonyukuk'u dinle.\n" +

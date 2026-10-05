@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e31818c35d6ab14fbf88410e7e18453, type: 3}
-  m_Name: QuestNPCUnit
+  m_Name: DestanKaraBilgeUnit
   m_EditorClassIdentifier: 
-  resourceName: Quest NPC
-  displayName: "Olcayto Han"
-  icon: {fileID: 21300000, guid: 4ce9927e29c4e67439b2afb877749f1b, type: 3}
+  resourceName: Destan Kara Bilge
+  displayName: "Mezar Bek\u00e7isi Kara Bilge"
+  icon: {fileID: 21300000, guid: 74198731b99b8bc488d0a6d20a5bcf32, type: 3}
   iconBackgroundImage: {fileID: 0}
-  description: "O\u011fuz obalar\u0131n\u0131n ba\u015f\u0131. Ad\u0131 kutlu anlam\u0131na gelir; boylar\u0131n\u0131 hi\u00e7bir sava\u015fta yaln\u0131z b\u0131rakmam\u0131\u015ft\u0131r."
+  description: "Eski kurganlar\u0131n bek\u00e7isi."
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0
@@ -28,7 +28,7 @@ MonoBehaviour:
     unitPrefab: {fileID: 2692339740015506113, guid: ba09f14eb0109ba459f4520b82c3fadc,
       type: 3}
     networkUnitPrefab: {fileID: 0}
-    modelPrefab: {fileID: 6307183516646880328, guid: 67b4508f106648b47a9bdcefd4eaa12b,
+    modelPrefab: {fileID: 6307183516646880328, guid: d8058a52a2f60174b903d2db76503c0b,
       type: 3}
     networkModelPrefab: {fileID: 0}
     modelProvider:
@@ -153,7 +153,7 @@ MonoBehaviour:
   isPet: 0
   flightCapable: 0
   glideCapable: 0
-  characterName: "Olcayto Han"
+  characterName: "Mezar Bek\u00e7isi Kara Bilge"
   title: 
   factionName: 
   unitTypeName: 
@@ -222,7 +222,7 @@ MonoBehaviour:
   saveOnLevelUnload: 0
   saveOnGameSave: 0
   overwriteUnitUUID: 0
-  m_UUID: d101f417-13ab-424f-8398-817d4613c3f1
+  m_UUID: 908a5136-6d90-5068-aeab-c7e35d2a871a
   references:
     version: 2
     RefIds:
@@ -236,61 +236,16 @@ MonoBehaviour:
         namePlateImage: {fileID: 0}
         prerequisiteConditions: []
         quests:
-        - startQuest: 1
-          endQuest: 1
-          questName: Dialog Introduction
-        - startQuest: 1
-          endQuest: 1
-          questName: Collection
-        - startQuest: 1
-          endQuest: 1
-          questName: Finish Another Quest
-        - startQuest: 1
-          endQuest: 1
-          questName: Dialog Objective
-        - startQuest: 1
-          endQuest: 1
-          questName: Kill Things
-        - startQuest: 1
-          endQuest: 0
-          questName: Use Interactable
-        - startQuest: 1
-          endQuest: 1
-          questName: Visit Zone
-        - startQuest: 1
-          endQuest: 1
-          questName: Learn Trade Skill
-        - startQuest: 1
-          endQuest: 1
-          questName: Learn Ability
-        - startQuest: 1
-          endQuest: 1
-          questName: Use Ability
-        - startQuest: 1
-          endQuest: 1
-          questName: Repeatable
-        - startQuest: 1
-          endQuest: 1
-          questName: Repeatable 2 Step
-        - startQuest: 1
-          endQuest: 1
-          questName: Repeatable 3 Step
-        - startQuest: 1
-          endQuest: 1
-          questName: Repeatable 5 Step
-        - startQuest: 1
-          endQuest: 1
-          questName: Status Effect
         - startQuest: 0
           endQuest: 1
-          questName: Choose Faction Reward
+          questName: Destan 32 KurganMezarligiYolculuk
         - startQuest: 1
           endQuest: 1
-          questName: Destan 01 KutunCagrisi
+          questName: Destan 33 KurganinOluleri
+        - startQuest: 1
+          endQuest: 1
+          questName: Destan 34 KemikKagan
         - startQuest: 1
           endQuest: 0
-          questName: Destan 02 UmayTarlalariYolculuk
-        - startQuest: 0
-          endQuest: 1
-          questName: Destan 45 OtukeneDonus
+          questName: Destan 35 AyDedeKoyuYolculuk
         questGiverProfileNames: []

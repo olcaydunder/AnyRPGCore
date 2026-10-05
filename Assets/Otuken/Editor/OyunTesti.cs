@@ -48,6 +48,7 @@ namespace Otuken.EditorAraclari {
             public string okHedefi;
             public int uzaktaGizlenen;
             public string goruntu;
+            public string hikaye;
         }
 
         [Serializable]
@@ -74,6 +75,7 @@ namespace Otuken.EditorAraclari {
             public string demirciTesti;
             public string cantaTesti;
             public string gelisim;
+            public string hikaye;
             public List<string> savaslar = new List<string>();
             public List<string> dortKGoruntuleri = new List<string>();
         }
@@ -989,9 +991,99 @@ namespace Otuken.EditorAraclari {
             }
             YolDenetle(p, notlar);
             MalzemeDenetle(notlar);
+            HikayeDenetle(p, notlar);
             if (notlar.Count > 0) {
                 sonuc.not = string.Join("; ", notlar);
             }
+        }
+
+        /// <summary>ana hikâyenin görevleri yüklendi mi (her birinin hedefi var mı), yardımcı ve boss profilleri var mı</summary>
+        private static string HikayeOzeti(AnyRPG.SystemGameManager oyun) {
+            if (oyun == null || oyun.SystemDataFactory == null) {
+                return "oyun yok";
+            }
+            try {
+                int gorev = 0;
+                int bos = 0;
+                string ilk = null;
+                foreach (AnyRPG.Quest g in oyun.SystemDataFactory.GetResourceList<AnyRPG.Quest>()) {
+                    if (g == null || g.ResourceName == null || g.ResourceName.StartsWith("Destan ", StringComparison.Ordinal) == false) {
+                        continue;
+                    }
+                    gorev++;
+                    int hedef = 0;
+                    foreach (AnyRPG.QuestStep adim_ in g.Steps) {
+                        hedef += adim_.QuestObjectives.Count;
+                    }
+                    if (hedef == 0) {
+                        bos++;
+                    }
+                    if (g.ResourceName.StartsWith("Destan 01 ", StringComparison.Ordinal)) {
+                        ilk = g.DisplayName + " (" + hedef + " hedef)";
+                    }
+                }
+                int yardimci = 0;
+                int boss = 0;
+                int eksik = 0;
+                foreach (string[] hk in Otuken.EditorAraclari.HikayeVerisi.Haritalar.Values) {
+                    for (int k = 0; k < hk.Length; k++) {
+                        if (hk[k].Length == 0) {
+                            continue;
+                        }
+                        if (oyun.SystemDataFactory.GetResource<AnyRPG.UnitProfile>(hk[k]) == null) {
+                            eksik++;
+                        } else if (k == 0) {
+                            yardimci++;
+                        } else {
+                            boss++;
+                        }
+                    }
+                }
+                return gorev + " görev yüklü" + (bos > 0 ? " (" + bos + " görevin hedefi YOK)" : string.Empty)
+                    + ", ilk: " + (ilk ?? "YOK") + "; " + yardimci + " yardımcı, " + boss + " yeni boss profili"
+                    + (eksik > 0 ? ", " + eksik + " profil EKSİK" : string.Empty);
+            } catch (Exception e) {
+                return "denetlenemedi: " + e.Message;
+            }
+        }
+
+        /// <summary>ana hikâyenin bu haritadaki yardımcısı ve boss'u doğdu mu, yürüyerek ulaşılıyor mu (HikayeVerisi)</summary>
+        private static void HikayeDenetle(Vector3 oyuncuYeri, List<string> notlar) {
+            string[] hk;
+            if (Otuken.EditorAraclari.HikayeVerisi.Haritalar.TryGetValue(sonuc.sahne, out hk) == false) {
+                return;
+            }
+            NavMeshHit baslangic;
+            bool yolVar = NavMesh.SamplePosition(oyuncuYeri, out baslangic, 3f, NavMesh.AllAreas);
+            NavMeshPath yol = new NavMeshPath();
+            List<string> parcalar = new List<string>();
+            AnyRPG.UnitController[] birimler = Object.FindObjectsByType<AnyRPG.UnitController>(FindObjectsSortMode.None);
+            for (int k = 0; k < hk.Length; k++) {
+                string profil = hk[k];
+                if (profil.Length == 0) {
+                    continue;
+                }
+                AnyRPG.UnitController bulunan = null;
+                foreach (AnyRPG.UnitController u in birimler) {
+                    if (u != null && u.UnitProfile != null && u.UnitProfile.ResourceName == profil) {
+                        bulunan = u;
+                        break;
+                    }
+                }
+                if (bulunan == null) {
+                    notlar.Add("hikâye " + (k == 0 ? "yardımcısı" : "boss'u") + " doğmadı: " + profil);
+                    continue;
+                }
+                bool ulasilir = yolVar && NoktayaUlasilir(baslangic.position, bulunan.transform.position, yol);
+                parcalar.Add((k == 0 ? "yardımcı " : "boss ") + bulunan.DisplayName + " "
+                    + Vector3.Distance(oyuncuYeri, bulunan.transform.position).ToString("0") + " m"
+                    + (k == 1 && bulunan.CharacterStats != null ? ", " + bulunan.CharacterStats.Level + ". sv" : string.Empty)
+                    + (ulasilir ? string.Empty : " (YÜRÜYEREK ULAŞILAMIYOR)"));
+                if (ulasilir == false) {
+                    notlar.Add("hikâye birimine yürüyerek ulaşılamıyor: " + profil);
+                }
+            }
+            sonuc.hikaye = string.Join(", ", parcalar);
         }
 
         /// <summary>geçit taşına ve komşu haritalara açılan kapılara oyuncunun durduğu yerden yürünebiliyor mu</summary>
@@ -1189,6 +1281,7 @@ namespace Otuken.EditorAraclari {
                 rapor.durum = durum;
                 rapor.bitis = DateTime.UtcNow.ToString("o");
                 rapor.gunlukGorevler = AnyRPG.GunlukGorevler.Ozet();
+                rapor.hikaye = HikayeOzeti(Object.FindAnyObjectByType<AnyRPG.SystemGameManager>());
                 AnyRPG.UnitController sonOyuncu = Object.FindAnyObjectByType<AnyRPG.SystemGameManager>()?.PlayerManagerClient?.UnitController;
                 rapor.gelisim = "Güç Puanı " + AnyRPG.Gelisim.GucPuani(sonOyuncu) + ", seviye ödülü " + AnyRPG.Gelisim.VerilenOdulSayisi
                     + (AnyRPG.Gelisim.SonOdul.Length > 0 ? " (son: " + AnyRPG.Gelisim.SonOdul + ")" : string.Empty)
@@ -1225,6 +1318,7 @@ namespace Otuken.EditorAraclari {
             sb.Append("Demirci: ").Append(rapor.demirciTesti).Append('\n');
             sb.Append("Çanta: ").Append(rapor.cantaTesti).Append('\n');
             sb.Append("Gelişim: ").Append(rapor.gelisim).Append("\n");
+            sb.Append("Ana hikâye: ").Append(rapor.hikaye).Append("\n");
             sb.Append("4K görüntüler (3840x2160, kalite 4K): ").Append(rapor.dortKGoruntuleri.Count > 0 ? string.Join(", ", rapor.dortKGoruntuleri) : "yok").Append('\n');
             sb.Append("Savaş denemesi (her haritada o haritanın en düşük seviyesinde, hilesiz):\n");
             foreach (string satir in rapor.savaslar) {
@@ -1242,6 +1336,9 @@ namespace Otuken.EditorAraclari {
                 }
                 if (string.IsNullOrEmpty(h.okHedefi) == false) {
                     sb.Append(" [ok: ").Append(h.okHedefi).Append(']');
+                }
+                if (string.IsNullOrEmpty(h.hikaye) == false) {
+                    sb.Append(" [hikâye: ").Append(h.hikaye).Append(']');
                 }
                 if (string.IsNullOrEmpty(h.bilgi) == false) {
                     sb.Append(" (").Append(h.bilgi).Append(')');

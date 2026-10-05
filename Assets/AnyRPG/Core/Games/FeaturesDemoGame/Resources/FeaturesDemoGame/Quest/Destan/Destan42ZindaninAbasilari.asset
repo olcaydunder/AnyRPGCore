@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b491a306145b8e4aa064bbcf71f8e01, type: 3}
+  m_Name: Destan42ZindaninAbasilari
+  m_EditorClassIdentifier: 
+  resourceName: Destan 42 ZindaninAbasilari
+  displayName: "Zindan\u0131n Abas\u0131lar\u0131"
+  icon: {fileID: 0}
+  iconBackgroundImage: {fileID: 0}
+  description: "A\u011f\u0131r z\u0131rhl\u0131 abas\u0131lar zindan\u0131n koridorlar\u0131n\u0131 tutuyor. Yolu a\u00e7."
+  useRegionalDescription: 0
+  resourceDescriptionProfile: 
+  optionalOverride: 0
+  isAchievement: 0
+  repeatableQuest: 0
+  hasOpeningDialog: 0
+  experienceLevel: 1
+  dynamicLevel: 1
+  extraLevels: 0
+  baseExperienceReward: 19920
+  experienceRewardPerLevel: 0
+  automaticCurrencyReward: 0
+  rewardCurrencyName: Silver
+  baseCurrencyReward: 95
+  currencyRewardPerLevel: 0
+  maxItemRewards: 0
+  itemRewardNames: []
+  maxFactionRewards: 0
+  factionRewards: []
+  maxAbilityRewards: 0
+  abilityRewardNames: []
+  maxSkillRewards: 0
+  skillRewardNames: []
+  steps:
+  - questObjectives:
+    - rid: 261044450791487989
+  prerequisiteConditions:
+  - requireAny: 0
+    reverseMatch: 0
+    questPrerequisites:
+    - prerequisiteName: Destan 41 TamuZindaniYolculuk
+      stepIndex: -1
+      requireComplete: 1
+      requireTurnedIn: 1
+  turnInItems: 0
+  allowRawComplete: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 261044450791487989
+      type: {class: KillObjective, ns: AnyRPG, asm: Assembly-CSharp}
+      data:
+        amount: 5
+        deprecatedType: 
+        overrideDisplayName: "Abas\u0131 yen"
+        targetName: Abasi

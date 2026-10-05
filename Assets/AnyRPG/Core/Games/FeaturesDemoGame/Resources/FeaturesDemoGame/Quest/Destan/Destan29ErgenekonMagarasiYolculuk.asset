@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b491a306145b8e4aa064bbcf71f8e01, type: 3}
+  m_Name: Destan29ErgenekonMagarasiYolculuk
+  m_EditorClassIdentifier: 
+  resourceName: Destan 29 ErgenekonMagarasiYolculuk
+  displayName: "Ergenekon Ma\u011faras\u0131'na Yolculuk"
+  icon: {fileID: 0}
+  iconBackgroundImage: {fileID: 0}
+  description: "Alaz Cin s\u00f6nd\u00fc\u011f\u00fcnde k\u00f6zleri Ergenekon'a do\u011fru savruldu. Ergenekon Ma\u011faras\u0131'na git, Demirci Bozkurt Ata'y\u0131 bul."
+  useRegionalDescription: 0
+  resourceDescriptionProfile: 
+  optionalOverride: 0
+  isAchievement: 0
+  repeatableQuest: 0
+  hasOpeningDialog: 0
+  experienceLevel: 1
+  dynamicLevel: 1
+  extraLevels: 0
+  baseExperienceReward: 3020
+  experienceRewardPerLevel: 0
+  automaticCurrencyReward: 0
+  rewardCurrencyName: Silver
+  baseCurrencyReward: 24
+  currencyRewardPerLevel: 0
+  maxItemRewards: 0
+  itemRewardNames: []
+  maxFactionRewards: 0
+  factionRewards: []
+  maxAbilityRewards: 0
+  abilityRewardNames: []
+  maxSkillRewards: 0
+  skillRewardNames: []
+  steps:
+  - questObjectives:
+    - rid: 3391237030316376702
+  prerequisiteConditions:
+  - requireAny: 0
+    reverseMatch: 0
+    questPrerequisites:
+    - prerequisiteName: Destan 28 AlazCin
+      stepIndex: -1
+      requireComplete: 1
+      requireTurnedIn: 1
+  turnInItems: 0
+  allowRawComplete: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 3391237030316376702
+      type: {class: VisitZoneObjective, ns: AnyRPG, asm: Assembly-CSharp}
+      data:
+        amount: 1
+        type: 
+        overrideDisplayName: "Ergenekon Ma\u011faras\u0131'na git"
+        zoneName: ErgenekonMagarasi

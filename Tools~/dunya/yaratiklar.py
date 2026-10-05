@@ -164,6 +164,65 @@ DUSMANLAR = {
         aciklama="Erlik Han'ın zindanının kapısını tutan dev zindancı. Tamu'ya düşen ruhların hiçbiri "
                  "onun önünden geçemedi.",
         ganimet=["Potions", "Gold Plate Armor", "Epic Medieval Weapons", "Necklaces"]),
+    # ---- ana hikâyenin boss'ları (hikaye.py): her haritanın sonunda bir tane, HaritaDoldur haritanın en uzak
+    #      açıklığına yerleştirir; insan boss'lar Bozok Beyi'nin yetenekleriyle ("Boss" stratejisi), canavarlar düz saldırıyla
+    "Alkarasi": dict(
+        ad="Alkarası", sablon="BlueBossUnit", model="kadin_orta", ses="Female Low", saldirganlik=18,
+        dayaniklilik="Solo Dungeon Boss", savas="Boss", olcek=1.2,
+        aciklama="Kızıl saçlı, demir tırnaklı kara cadı. Umay Ana'nın tarlalarına dadandı; ekinleri kurutur, "
+                 "obanın çocuklarını korkutur.",
+        ganimet=["Potions", "Violet Cloth Armor", "Necklaces", "Bags"]),
+    "Kara Toygar": dict(
+        ad="Kara Toygar", sablon="BlueBossUnit", model="erkek_orta", ses="Male Guard", saldirganlik=20,
+        dayaniklilik="Solo Dungeon Boss", savas="Boss", olcek=1.2,
+        aciklama="Yağmacıların beyi. Börü Tepesi'ni ele geçirip yolları kesti; kurtların uluması onu deli eder.",
+        ganimet=["Potions", "Green Leather Armor", "Random Medieval Weapons", "Bags"]),
+    "Tengiz Kormosu": dict(
+        ad="Tengiz Körmösü", sablon="BlueFighterUnit", model="canavar:KormosMavi", ses="Male Hero", saldirganlik=18,
+        dayaniklilik="Solo Dungeon Boss", savas="Canavar Boss", canavar=dict(olcek=2.0, animasyon="Kormos"),
+        aciklama="Ak Deniz'in dibinden çıkan dev körmös. Gürzünü kayalara vurdukça dalgalar kıyıyı döver.",
+        ganimet=["Potions", "Random Medieval Weapons", "Necklaces"]),
+    "Kara Kuzgun": dict(
+        ad="Kara Kuzgun", sablon="BlueBossUnit", model="erkek_hafif", ses="Male Townsperson", saldirganlik=18,
+        dayaniklilik="Solo Dungeon Boss", savas="Boss", olcek=1.2,
+        aciklama="Ordubalık çarşısının hırsızbaşı. Şulmusları peşine takıp kervanları soyar; gölgesi bile çalar derler.",
+        ganimet=["Potions", "Brown Leather Armor", "Basic Silver Weapons", "Necklaces", "Bags"]),
+    "Kara Albis": dict(
+        ad="Kara Albıs", sablon="BlueBossUnit", model="kadin_agir", ses="Female Low", saldirganlik=20,
+        dayaniklilik="Solo Dungeon Boss", savas="Boss", olcek=1.25,
+        aciklama="Kılık değiştiren kara peri. Ordubalık'ın beylerini birbirine düşürdü; aynalarda gerçek yüzü görünür.",
+        ganimet=["Potions", "Red Cloth Armor", "Necklaces", "Bags"]),
+    "Agu Bey": dict(
+        ad="Ağu Bey", sablon="BlueFighterUnit", model="canavar:KormosYesil", ses="Male Hero", saldirganlik=18,
+        dayaniklilik="Solo Dungeon Boss", savas="Canavar Boss", canavar=dict(olcek=2.2, animasyon="Kormos"),
+        aciklama="Ulukayın'ın kökleri arasında yatan dev ağulu körmös. Soluğu yaprakları sarartır.",
+        ganimet=["Potions", "Random Medieval Weapons", "Bags"]),
+    "Kizil Tamga": dict(
+        ad="Kızıl Tamga", sablon="BlueBossUnit", model="erkek_agir", ses="Male Knight", saldirganlik=20,
+        dayaniklilik="Solo Dungeon Boss", savas="Boss", olcek=1.3,
+        aciklama="Kan süvarilerinin başbuğu. Kağan'ın otağını kuşattı; kalkanındaki kızıl damga Erlik'in işaretidir.",
+        ganimet=["Potions", "Red Plate Armor", "Basic Steel Weapons", "Necklaces"]),
+    "Alaz Cin": dict(
+        ad="Alaz Cin", sablon="BlueFighterUnit", model="canavar:CinKizil", ses="Female High", saldirganlik=20,
+        dayaniklilik="Solo Dungeon Boss", savas="Canavar Boss", canavar=dict(olcek=2.6, animasyon="Cin"),
+        aciklama="Kaf Dağı'nın yolunu tutan kızıl cinlerin anası. Közden doğdu; dokunduğu ot tutuşur.",
+        ganimet=["Potions", "Scrolls", "Necklaces", "Bags"]),
+    "Demirkiynak": dict(
+        ad="Demirkıynak", sablon="BlueBossUnit", model="kadin_agir", ses="Female Low", saldirganlik=20,
+        dayaniklilik="Solo Dungeon Boss", savas="Boss", olcek=1.3,
+        aciklama="Demir gagalı kara cadı. Ergenekon'un demir dağını eritenlerin yolunu keser, ocakları söndürür.",
+        ganimet=["Potions", "Iron Plate Armor", "Basic Iron Weapons", "Necklaces"]),
+    "Karakura": dict(
+        ad="Karakura", sablon="BlueFighterUnit", model="iskelet:KemikKam", ses="Male Guard", saldirganlik=20,
+        dayaniklilik="Solo Dungeon Boss", savas="Canavar Boss", iskelet=dict(olcek=1.5),
+        aciklama="Uyuyanların göğsüne çöken ölü kam. Ay Dede'nin ışığını kararttı; kemik erleri onun düdüğüyle kalkar.",
+        ganimet=["Potions", "Scrolls", "Necklaces", "Bags"]),
+    "Erlik Han": dict(
+        ad="Erlik Han", sablon="BlueBossUnit", model="erkek_agir", ses="Male Hero", saldirganlik=24,
+        dayaniklilik="Solo Dungeon Boss", savas="Boss", olcek=1.55,
+        aciklama="Yeraltının ve ölülerin hanı. Tamu'nun mührünü kırıp kara ruhlarını on beş diyara saldı; "
+                 "Ötüken'in kutunu ele geçirmek ister.",
+        ganimet=["Potions", "Gold Plate Armor", "Epic Medieval Weapons", "Epic Medieval Weapon Recipes", "Necklaces"]),
     "Ulu Evren": dict(
         ad="Ulu Evren", sablon="DragonUnit", model=None, ses=None, saldirganlik=25,
         dayaniklilik="Solo Dungeon Boss",
