@@ -81,6 +81,7 @@ namespace AnyRPG {
         /// </summary>
         public static void Tick(SystemGameManager systemGameManager, bool inGame) {
             if (inGame == false || systemGameManager == null) {
+                Engel = "oyunda değil";
                 inGameSince = -1f;
                 checkedKey = string.Empty;
                 if (IsOpen) {
@@ -93,25 +94,42 @@ namespace AnyRPG {
                 return;
             }
             if (Time.unscaledTime - inGameSince < DelayAfterSpawn || GameGuide.IsOpen || IsinlanmaPenceresi.IsOpen || IsOpen) {
+                Engel = GameGuide.IsOpen ? "rehber açık" : IsinlanmaPenceresi.IsOpen ? "ışınlanma açık" : IsOpen ? "pencere açık" : "bekleme";
                 return;
             }
             UnitController unitController = systemGameManager.PlayerManagerClient.UnitController;
             if (unitController == null) {
+                Engel = "karakter yok";
                 return;
             }
+            Engel = "-";
             string character = unitController.DisplayName;
             string today = DateKey(DateTime.Now);
             string key = character + "|" + today;
+            if (systemGameManager.GameMode == GameMode.Network) {
+                // çevrimiçi: armağanın durumunu sunucu bilir; yanıt gelince pencere açılır. Oyuna girer girmez sorulursa
+                // sunucu karakteri henüz tanımıyor olabilir (istek düşer): yanıt gelene kadar 8 saniyede bir, en çok 6 kez sorulur
+                if (key != checkedKey) {
+                    checkedKey = key;
+                    istekSayisi = 0;
+                    yanitGeldi = false;
+                    sonIstek = -100f;
+                }
+                if (yanitGeldi == false && istekSayisi < 6 && Time.unscaledTime - sonIstek > 8f) {
+                    sonIstek = Time.unscaledTime;
+                    // bağlantı henüz kurulmadıysa gönderilemez: sayılmaz, 8 saniye sonra yine denenir
+                    if (OtukenAg.Gonder("armagan-durum")) {
+                        istekSayisi++;
+                        IstekSayisi++;
+                    }
+                }
+                return;
+            }
             if (key == checkedKey) {
                 return;
             }
             // checked once per character and day; closing with "Sonra" brings it back on the next game load
             checkedKey = key;
-            if (systemGameManager.GameMode == GameMode.Network) {
-                // çevrimiçi: armağanın durumunu sunucu bilir; yanıt gelince pencere açılır
-                OtukenAg.Gonder("armagan-durum");
-                return;
-            }
             if (BugunAlindi(unitController)) {
                 return;
             }
@@ -176,13 +194,26 @@ namespace AnyRPG {
         /// <summary>bu süreçte verilen armağan sayısı (oyun testi, ağ botu)</summary>
         public static int VerilenSayisi { get; private set; }
 
+        // çevrimiçi: armağan durumu istekleri
+        private static int istekSayisi = 0;
+        private static bool yanitGeldi = false;
+        private static float sonIstek = -100f;
+
+        /// <summary>Tick'in son turda pencereyi neden açmadığı (ağ botu raporu)</summary>
+        public static string Engel { get; set; } = "-";
+
+        /// <summary>bu süreçte sunucuya sorulan armağan durumu (ağ botu raporu)</summary>
+        public static int IstekSayisi { get; private set; }
+
         // ---------------------------------------------------------------- çevrimiçi
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void AgKur() {
             // sunucu: armağanın durumu ve verilmesi
             OtukenAg.SunucuIsle("armagan-durum", (oyuncu, veri) => {
-                OtukenAg.Yanitla(oyuncu, "armagan", AlinacakGun(oyuncu) + "|" + (BugunAlindi(oyuncu) ? "1" : "0"));
+                string durum = AlinacakGun(oyuncu) + "|" + (BugunAlindi(oyuncu) ? "1" : "0");
+                Debug.Log("[Sunucu] " + oyuncu.DisplayName + " armağan durumu: " + durum);
+                OtukenAg.Yanitla(oyuncu, "armagan", durum);
             });
             OtukenAg.SunucuIsle("armagan-al", (oyuncu, veri) => {
                 string hata = Ver(oyuncu, OtukenAg.Oyun);
@@ -191,6 +222,7 @@ namespace AnyRPG {
             });
             // istemci: "gün|alındı" gelince pencere açılır
             OtukenAg.IstemciDinle("armagan", veri => {
+                yanitGeldi = true;
                 string[] p = veri.Split('|');
                 int gun;
                 if (p.Length < 2 || p[1] == "1" || int.TryParse(p[0], out gun) == false) {

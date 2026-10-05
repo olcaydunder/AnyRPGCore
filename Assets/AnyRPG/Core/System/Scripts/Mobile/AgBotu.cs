@@ -205,7 +205,7 @@ namespace AnyRPG {
             // (ilk girişte rehber açılır, oyuncu kapatınca armağana bakılır)
             GameGuide.Kapat();
             string armagan = "pencere açılmadı";
-            for (int i = 0; i < 30; i++) {
+            for (int i = 0; i < 50; i++) {
                 GameGuide.Kapat();
                 if (GunlukArmagan.IsOpen) {
                     GunlukArmagan.TestIcinAl();
@@ -219,7 +219,7 @@ namespace AnyRPG {
                 }
                 yield return new WaitForSecondsRealtime(0.5f);
             }
-            Not("günlük armağan: " + armagan + " (sunucu: " + GunlukArmagan.SonDurum + ")");
+            Not("günlük armağan: " + armagan + " (sunucu: " + GunlukArmagan.SonDurum + ", " + GunlukArmagan.IstekSayisi + " istek, engel " + GunlukArmagan.Engel + ")");
 
             // yürüme: hareket çubuğu 4 sn ileri (sunucu hareketi kabul edip ötekilere yayıyor mu)
             Vector3 yurumeOncesi = ben.transform.position;
@@ -336,7 +336,7 @@ namespace AnyRPG {
                 Not("sıralama hatası: " + e.Message);
             }
             yield return new WaitForSecondsRealtime(3f);
-            kolaylik = "armağan " + GunlukArmagan.SonDurum + "; günlük görevler: " + GunlukGorevler.Ozet() + " (" + gorevIstegi + " ödül isteği)"
+            kolaylik = "armağan " + GunlukArmagan.SonDurum + " (" + GunlukArmagan.IstekSayisi + " istek, engel " + GunlukArmagan.Engel + "); günlük görevler: " + GunlukGorevler.Ozet() + " (" + gorevIstegi + " ödül isteği)"
                 + "; demirci " + Demirci.DenemeSayisi + " deneme/" + Demirci.BasariSayisi + " başarı (" + Demirci.SonSonuc + ")"
                 + "; toplu satış " + (satildi ? Canta.SonSatis : "satılacak yok")
                 + "; sıralama " + Canta.SonSiralama

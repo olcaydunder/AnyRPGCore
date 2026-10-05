@@ -538,12 +538,21 @@ namespace AnyRPG {
             }
             // the how-to-play guide: opens by itself the first time a character enters the world,
             // and the main menu gets a "Nasıl Oynanır" button
-            if (inGame) {
-                GameGuide.ShowFirstTimeIfNeeded();
+            try {
+                if (inGame) {
+                    GameGuide.ShowFirstTimeIfNeeded();
+                }
+                GameGuide.SetMenuLauncherVisible(inGame == false && MainMenuOpen());
+            } catch (System.Exception exception) {
+                Debug.LogWarning($"MobileBootstrap: GameGuide: {exception.Message}");
             }
-            GameGuide.SetMenuLauncherVisible(inGame == false && MainMenuOpen());
-            // the daily gift: opens a few seconds after entering the world, after the guide is closed
-            GunlukArmagan.Tick(GetSystemGameManager(), inGame);
+            try {
+                // the daily gift: opens a few seconds after entering the world, after the guide is closed
+                GunlukArmagan.Tick(GetSystemGameManager(), inGame);
+            } catch (System.Exception exception) {
+                GunlukArmagan.Engel = "hata: " + exception.Message;
+                Debug.LogWarning($"MobileBootstrap: GunlukArmagan.Tick(): {exception.Message}");
+            }
             try {
                 // günlük görevler: oyuncunun öldürmelerini dinler, bugün girilen haritaları sayar
                 GunlukGorevler.Tick(GetSystemGameManager(), inGame);
