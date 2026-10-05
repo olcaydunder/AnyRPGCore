@@ -15,7 +15,8 @@ namespace AnyRPG {
         // oyuncu canının %50-80'ini kaybediyordu; 2-3'lü kampta ölüyordu. Hedef: tek canavar ~10-15 sn, canın ~%10'u.
         // 0.1.49 (0.5 / 0.2): tek canavar 10-20 sn, çoğunda can %80-100 kaldı; kalabalık kampta ve zindan girişinde
         // ölümler sürdü -> hasar 0.4
-        public const float CanavarHasari = 0.4f;
+        // 0.1.53: oyuncunun canı da yanlışlıkla x0.2 idi (düzeltildi) -> oyuncu artık 5 kat dayanıklı; hasar 0.5
+        public const float CanavarHasari = 0.5f;
         public const float CanavarCani = 0.2f;
 
         /// <summary>hedefin aldığı hasarın çarpanı (oyuncuya canavar vurduysa CanavarHasari)</summary>
@@ -101,10 +102,16 @@ namespace AnyRPG {
 
         /// <summary>birimin can (ve diğer kaynak) çarpanı: canavarlar CanavarCani, Ötüken Taşı ve oyuncular 1</summary>
         public static float CanCarpani(UnitController birim) {
-            if (birim == null || birim.UnitControllerMode != UnitControllerMode.AI || OtukenTasi.TasMi(birim)) {
+            if (birim == null || OtukenTasi.TasMi(birim)) {
                 return 1f;
             }
-            return CanavarCani;
+            // seviye, birimin kipi (oyuncu/yapay zekâ) atanmadan hesaplanır: kip doğma isteğinden okunur
+            // (0.1.49-0.1.52'de oyuncuların canı da yanlışlıkla %20'ye iniyordu, çevrimiçi canavarlarınki hiç inmiyordu)
+            UnitControllerMode kip = birim.UnitControllerMode;
+            if (birim.CharacterRequestData != null && birim.CharacterRequestData.characterConfigurationRequest != null) {
+                kip = birim.CharacterRequestData.characterConfigurationRequest.unitControllerMode;
+            }
+            return kip == UnitControllerMode.AI ? CanavarCani : 1f;
         }
     }
 }
