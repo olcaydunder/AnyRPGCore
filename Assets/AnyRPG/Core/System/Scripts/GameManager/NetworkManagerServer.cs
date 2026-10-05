@@ -1326,6 +1326,8 @@ namespace AnyRPG {
             if (playerManagerServer.PlayerCharacterMonitors.ContainsKey(accountId) == false) {
                 // no existing monitor, so this is a fresh login
                 CharacterSaveData characterSaveData = playerCharacterService.GetPlayerCharacterSaveData(accountId, playerCharacterId);
+                // Ötüken: eski sürümde eşyasız açılmış karaktere başlangıç eşyaları (NewGameManager)
+                bool esyaVerildi = systemGameManager.NewGameManager.EksikBaslangicEsyalariniVer(characterSaveData);
                 UnitProfile unitProfile = systemDataFactory.GetResource<UnitProfile>(characterSaveData.UnitProfileName);
                 if (unitProfile == null) {
                     Debug.LogWarning($"NetworkManagerServer.RequestLoadPlayerCharacter() could not find unit profile {characterSaveData.UnitProfileName} for character {characterSaveData.CharacterName}");
@@ -1335,6 +1337,9 @@ namespace AnyRPG {
                 }
                 sceneName = characterSaveData.CurrentScene;
                 playerManagerServer.AddPlayerMonitor(accountId, characterSaveData);
+                if (esyaVerildi && playerManagerServer.PlayerCharacterMonitors.ContainsKey(accountId)) {
+                    playerManagerServer.PlayerCharacterMonitors[accountId].saveDataDirty = true;
+                }
                 // configure location and rotation overrides
                 SpawnPlayerRequest spawnPlayerRequest = new SpawnPlayerRequest();
                 if (characterSaveData.OverrideLocation == true) {

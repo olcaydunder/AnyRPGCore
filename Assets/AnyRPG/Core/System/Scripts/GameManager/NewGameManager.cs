@@ -641,6 +641,7 @@ namespace AnyRPG {
             characterSaveData.SwappableMeshSaveData = requestedSaveData.SwappableMeshSaveData;
             characterSaveData.CharacterName = requestedSaveData.CharacterName;
             characterSaveData.UnitProfileName = requestedSaveData.UnitProfileName;
+            characterSaveData.CharacterRace = requestedSaveData.CharacterRace;
             characterSaveData.CharacterClass = requestedSaveData.CharacterClass;
             characterSaveData.ClassSpecialization = requestedSaveData.ClassSpecialization;
             characterSaveData.CharacterFaction = requestedSaveData.CharacterFaction;
@@ -650,10 +651,55 @@ namespace AnyRPG {
             PerformFactionOverrides(characterSaveData, newFaction);
 
             // setup initial equipment
+            // Ötüken: AnyRPG burada karakter yaratma ekranının seçimlerini (characterClass vb.) kullanıyordu; ayrılmış
+            // sunucuda bu ekran olmadığından alanlar boştu ve çevrimiçi karakterler başlangıç eşyasız (silahsız) doğuyordu.
+            // Başlangıç eşyaları istenen boy, sınıf, uzmanlık ve taraftan kurulur.
             EquipmentManager newEquipmentManager = new EquipmentManager(systemGameManager);
-            UpdateEquipmentList(newEquipmentManager, characterSaveData);
+            BaslangicEsyalari(newEquipmentManager, characterSaveData,
+                systemDataFactory.GetResource<CharacterRace>(characterSaveData.CharacterRace),
+                systemDataFactory.GetResource<CharacterClass>(characterSaveData.CharacterClass),
+                systemDataFactory.GetResource<ClassSpecialization>(characterSaveData.ClassSpecialization),
+                newFaction);
 
             return characterSaveData;
+        }
+
+        /// <summary>
+        /// Ötüken: eski sürümlerde sunucuda eşyasız açılmış çevrimiçi karakter (hiçbir yuvası dolu değil) ilk girişte
+        /// sınıfının başlangıç eşyalarını alır; yeni eşyalar sunucunun eşya kaydına yazılır. Eşya verildiyse true.
+        /// </summary>
+        public bool EksikBaslangicEsyalariniVer(CharacterSaveData characterSaveData) {
+            if (characterSaveData == null) {
+                return false;
+            }
+            if (characterSaveData.EquipmentSaveData != null) {
+                foreach (EquipmentInventorySlotSaveData yuva in characterSaveData.EquipmentSaveData) {
+                    if (yuva.HasItem) {
+                        return false;
+                    }
+                }
+            }
+            EquipmentManager equipmentManager = new EquipmentManager(systemGameManager);
+            BaslangicEsyalari(equipmentManager, characterSaveData,
+                systemDataFactory.GetResource<CharacterRace>(characterSaveData.CharacterRace),
+                systemDataFactory.GetResource<CharacterClass>(characterSaveData.CharacterClass),
+                systemDataFactory.GetResource<ClassSpecialization>(characterSaveData.ClassSpecialization),
+                systemDataFactory.GetResource<Faction>(characterSaveData.CharacterFaction));
+            int verilen = 0;
+            foreach (EquipmentInventorySlotSaveData yuva in characterSaveData.EquipmentSaveData) {
+                if (yuva.HasItem == false) {
+                    continue;
+                }
+                InstantiatedItem esya = systemItemManager.GetExistingInstantiatedItem(yuva.ItemInstanceId);
+                if (esya != null) {
+                    systemGameManager.ServerDataService.CreateItemInstance(esya);
+                    verilen++;
+                }
+            }
+            if (verilen > 0) {
+                Debug.Log($"[Sunucu] {characterSaveData.CharacterName}: eşyasız karaktere {verilen} başlangıç eşyası verildi");
+            }
+            return verilen > 0;
         }
 
         public void UpdateEquipmentList() {
@@ -665,6 +711,13 @@ namespace AnyRPG {
 
         public void UpdateEquipmentList(EquipmentManager equipmentManager, CharacterSaveData characterSaveData) {
             //Debug.Log("NameGameManager.UpdateEquipmentList()");
+
+            BaslangicEsyalari(equipmentManager, characterSaveData, characterRace, characterClass, classSpecialization, faction);
+        }
+
+        /// <summary>boy, sınıf, uzmanlık ve tarafın başlangıç eşyaları kuşanılır ve kayda yazılır</summary>
+        public void BaslangicEsyalari(EquipmentManager equipmentManager, CharacterSaveData characterSaveData,
+            CharacterRace characterRace, CharacterClass characterClass, ClassSpecialization classSpecialization, Faction faction) {
 
             equipmentManager.ClearEquipmentList();
 
