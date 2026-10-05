@@ -1,12 +1,12 @@
 # Ötüken Destanı · Hata panosu
 
-Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 05.10.2026 02:43.
+Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 05.10.2026 03:40.
 
 **5** açık sorun · **5** düzeltilen · toplam **35** rapor
 
 ## Son APK derlemesi
 
-Derleme [46](https://github.com/olcaydunder/AnyRPGCore/actions/runs/37242080237) · ✅ başarılı · commit `70d40d06` · 05.10.2026 02:42
+Derleme [47](https://github.com/olcaydunder/AnyRPGCore/actions/runs/37245598073) · ✅ başarılı · commit `c74b6191` · 05.10.2026 03:40
 
 Tanı raporunda uyarı yok.
 
@@ -15,7 +15,7 @@ Tanı raporunda uyarı yok.
 Bot yeni oyun başlatıp haritaları gezdi: **tamamlandı**, 0 hata/istisna.
 
 - Binek denemesi: binildi, 2,5 sn'de 34 m gidildi, inildi
-- Günlük görevler (botun bir günü): 12 düşman yen 4/12, 1 hazine sandığını boşalt 0/1, 2 farklı diyara ayak bas 2/2 (tamam)
+- Günlük görevler (botun bir günü): 16 ganimet topla 0/16, 3 hazine sandığını boşalt 0/3, 4 farklı diyara ayak bas 4/4 (tamam)
 - İlk haritada av: 4 düşman yenildi, seviye 3 → 3, tecrübe 0 → 420
 - Dünya haritası: 15/15 diyar görüntülü; harita üzerinden ışınlanma: oldu
 - Demirci: Kahverengi Deri Zırh → Kahverengi Deri Zırh +3 (eşyadaki her temel değer +1); ilk deneme: Başarılı! Kahverengi Deri Zırh +1; Güç Puanı 68 → 70; kayıttaki ad: Kahverengi Deri Zırh +3; seviye 3, ödül 2 (3: 20 Gümüş Akçe); çantaya +9 konunca: Kuşan ile giyildi: Kahverengi Deri Zırh +9, Güç Puanı 212
@@ -24,10 +24,10 @@ Bot yeni oyun başlatıp haritaları gezdi: **tamamlandı**, 0 hata/istisna.
 
 | | Harita | Sonuç | Yükleme | Hata | Not |
 |---|---|---|---|---|---|
-| ✅ | Ötüken Yaylası | tamam | 3 sn | 0 | ok: Yeni görev: Olcayto Han |
-| ✅ | Umay Tarlaları | tamam | 2 sn | 0 |  |
+| ✅ | Ötüken Yaylası | tamam | 4 sn | 0 | ok: Yeni görev: Olcayto Han |
+| ✅ | Umay Tarlaları | tamam | 3 sn | 0 |  |
 | ✅ | Börü Tepesi | tamam | 1 sn | 0 |  |
-| ✅ | Ak Deniz Kıyısı | tamam | 1 sn | 0 |  |
+| ✅ | Ak Deniz Kıyısı | tamam | 0 sn | 0 |  |
 | ❌ | Ordubalık Çarşısı | sorunlu | 1 sn | 0 | yürüyerek ulaşılamayan: Kapi_KafDagiYolu_1 (123, 12, 35) |
 | ✅ | Ordubalık Kenti | tamam | 0 sn | 0 |  |
 | ❌ | Ulukayın Ormanı | sorunlu | 0 sn | 0 | yürüyerek ulaşılamayan: Kapi_OrdubalikKenti_0 (-45, 9, 29) |
