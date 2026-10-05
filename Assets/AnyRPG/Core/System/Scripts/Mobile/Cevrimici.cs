@@ -29,7 +29,7 @@ namespace AnyRPG {
             UnitController oyuncu = oyun.PlayerManagerClient != null ? oyun.PlayerManagerClient.UnitController : null;
             string mesaj = ozellik + " çevrimiçi oyunda henüz yok (yakında).";
             if (oyuncu != null) {
-                oyuncu.WriteMessageFeedMessage(mesaj);
+                OtukenAg.Mesaj(oyuncu, mesaj);
             } else {
                 Debug.Log("[Cevrimici] " + mesaj);
             }

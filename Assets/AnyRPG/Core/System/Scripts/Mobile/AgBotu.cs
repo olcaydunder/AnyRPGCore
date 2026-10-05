@@ -201,6 +201,23 @@ namespace AnyRPG {
                 yield break;
             }
 
+            // günlük armağan: sunucu durumu bildirince pencere açılır; oyuncu gibi "Armağanı Al"a basılır
+            string armagan = "pencere açılmadı";
+            for (int i = 0; i < 30; i++) {
+                if (GunlukArmagan.IsOpen) {
+                    GunlukArmagan.TestIcinAl();
+                    yield return new WaitForSecondsRealtime(3f);
+                    armagan = "pencere açıldı, " + GunlukArmagan.SonDurum;
+                    break;
+                }
+                if (GunlukArmagan.SonDurum == "bugün alınmış") {
+                    armagan = "bugün alınmış";
+                    break;
+                }
+                yield return new WaitForSecondsRealtime(0.5f);
+            }
+            Not("günlük armağan: " + armagan + " (sunucu: " + GunlukArmagan.SonDurum + ")");
+
             // yürüme: hareket çubuğu 4 sn ileri (sunucu hareketi kabul edip ötekilere yayıyor mu)
             Vector3 yurumeOncesi = ben.transform.position;
             MobileInput.SetJoystick(Vector2.up, true);
@@ -229,6 +246,7 @@ namespace AnyRPG {
             float otekiYuruyus = 0f;
             int saldiri = 0;
             int tanilar = 0;
+            int gorevIstegi = 0;
             t = Time.realtimeSinceStartup;
             while (Time.realtimeSinceStartup - t < sure) {
                 yield return new WaitForSecondsRealtime(5f);
@@ -240,6 +258,14 @@ namespace AnyRPG {
                 if (ben == null) {
                     Not("oyuncu birimi kayboldu");
                     break;
+                }
+                // biten günlük görevin ödülünü iste (sunucu verir)
+                try {
+                    if (GunlukGorevler.TestIcinOdulIste()) {
+                        gorevIstegi++;
+                    }
+                } catch (Exception e) {
+                    Not("görev ödülü hatası: " + e.Message);
                 }
                 // av: savaşta değilse en yakın düşmana yürü ve saldır (dokunmayla aynı yol: sunucuya istek)
                 try {
@@ -285,13 +311,43 @@ namespace AnyRPG {
                     + (ben.Target != null ? ", hedef " + ben.Target.DisplayName + (hedefBirim != null ? " " + hedefBirim.CharacterStats.Level + ". sv can %" + Yuzde(hedefBirim)
                         + " " + Vector3.Distance(ben.transform.position, hedefBirim.transform.position).ToString("0") + " m" : string.Empty) : string.Empty));
             }
+            // kolaylıklar: demirci, toplu satış, sıralama (hepsi sunucuda yapılır)
+            OtomatikAv.Kapat();
+            string kolaylik = string.Empty;
+            try {
+                Demirci.TestIcinYukselt();
+            } catch (Exception e) {
+                Not("demirci hatası: " + e.Message);
+            }
+            yield return new WaitForSecondsRealtime(3f);
+            bool satildi = false;
+            try {
+                satildi = Canta.TestIcinSat();
+            } catch (Exception e) {
+                Not("toplu satış hatası: " + e.Message);
+            }
+            yield return new WaitForSecondsRealtime(3f);
+            try {
+                Canta.SiralaDugmesi();
+            } catch (Exception e) {
+                Not("sıralama hatası: " + e.Message);
+            }
+            yield return new WaitForSecondsRealtime(3f);
+            kolaylik = "armağan " + GunlukArmagan.SonDurum + "; günlük görevler: " + GunlukGorevler.Ozet() + " (" + gorevIstegi + " ödül isteği)"
+                + "; demirci " + Demirci.DenemeSayisi + " deneme/" + Demirci.BasariSayisi + " başarı (" + Demirci.SonSonuc + ")"
+                + "; toplu satış " + (satildi ? Canta.SonSatis : "satılacak yok")
+                + "; sıralama " + Canta.SonSiralama
+                + "; seviye ödülü " + Gelisim.VerilenOdulSayisi + (Gelisim.SonOdul.Length > 0 ? " (" + Gelisim.SonOdul + ")" : string.Empty)
+                + "; binek " + (Binek.Var ? "öğrenildi" : "yok");
+            Not("kolaylıklar: " + kolaylik);
             Vector3 son = ben != null ? ben.transform.position : ilkKonum;
             Bitir("SONUÇ: " + (enCokOyuncu > 0 ? "öteki oyuncu GÖRÜLDÜ (" + string.Join(", ", gorulenOyuncular) + ", onun yürüyüşü " + otekiYuruyus.ToString("0") + " m)" : "öteki oyuncu görülmedi")
                 + ", en çok NPC/düşman " + enCokNpc + ", çubukla " + yurunen.ToString("0") + " m, toplam yer değiştirme " + Vector3.Distance(ilkKonum, son).ToString("0") + " m"
-                + ", " + saldiri + " saldırı isteği"
+                + ", " + saldiri + " saldırı isteği, oto av becerisi " + OtomatikAv.BeceriSayisi
                 + (olum > 0 ? ", " + olum + " ölüm / " + dirilme + " yeniden doğma" + (olumPenceresi < olum ? " (ölüm penceresi " + olumPenceresi + " kez açıldı)" : string.Empty) : string.Empty)
                 + ", seviye " + ilkSeviye + " → " + (ben != null ? ben.CharacterStats.Level : 0)
-                + ", tecrübe " + ilkTecrube + " → " + (ben != null ? ben.CharacterStats.CurrentXP : 0));
+                + ", tecrübe " + ilkTecrube + " → " + (ben != null ? ben.CharacterStats.CurrentXP : 0)
+                + " | kolaylıklar: " + kolaylik);
         }
 
         private int olum = 0;

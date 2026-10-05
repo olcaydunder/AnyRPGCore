@@ -149,10 +149,8 @@ namespace AnyRPG {
                 return -1;
             }
             SystemGameManager o = Oyun;
-            if (o != null && o.GameMode != GameMode.Local) {
-                if (mesaj) {
-                    oyuncu.WriteMessageFeedMessage("Sıralama yalnız tek oyunculu oyunda var");
-                }
+            if (o != null && o.GameMode != GameMode.Local && OtukenAg.Sunucuda == false) {
+                // çevrimiçi istemci: sıralamayı sunucu yapar, dizilişi gönderir (SiralaDugmesi)
                 return -1;
             }
             CharacterInventoryManager canta = oyuncu.CharacterInventoryManager;
@@ -213,7 +211,7 @@ namespace AnyRPG {
                 yuva.InstantiatedItems = yeni;
             }
             if (mesaj) {
-                oyuncu.WriteMessageFeedMessage("Çanta sıralandı (" + toplam + " eşya, " + parcalar.Count + " yuva)");
+                OtukenAg.Mesaj(oyuncu, "Çanta sıralandı (" + toplam + " eşya, " + parcalar.Count + " yuva)");
                 MobileFeedback.Success();
             }
             return parcalar.Count;
@@ -305,7 +303,7 @@ namespace AnyRPG {
             }
             kazanc = string.Join(", ", yazilar);
             if (adet > 0) {
-                oyuncu.WriteMessageFeedMessage("<color=#FFD54A>" + adet + " eşya satıldı: +" + kazanc + "</color>");
+                OtukenAg.Mesaj(oyuncu, "<color=#FFD54A>" + adet + " eşya satıldı: +" + kazanc + "</color>");
                 MobileFeedback.Success();
             }
             return adet;
@@ -338,9 +336,6 @@ namespace AnyRPG {
 
         /// <summary>çanta penceresindeki "Toplu Sat" düğmesi</summary>
         public static void TopluSatisGoster() {
-            if (Cevrimici.Engelle("Toplu satış")) {
-                return;
-            }
             if (Oyuncu == null) {
                 return;
             }
@@ -353,11 +348,134 @@ namespace AnyRPG {
 
         /// <summary>çanta penceresindeki "Sırala" düğmesi</summary>
         public static void SiralaDugmesi() {
-            if (Cevrimici.Engelle("Çanta sıralama")) {
+            MobileFeedback.Tap();
+            if (Cevrimici.Acik) {
+                UnitController oyuncu = Oyuncu;
+                if (oyuncu != null && oyuncu.CharacterInventoryManager != null && oyuncu.CharacterInventoryManager.FromSlot != null) {
+                    // elde taşınan bir eşya var: yerine bırakılmadan sıralanmaz
+                    return;
+                }
+                if (OtukenAg.Gonder("sirala") == false) {
+                    OtukenAg.Mesaj(oyuncu, "Sunucuya ulaşılamadı, biraz sonra yeniden dene.");
+                }
                 return;
             }
-            MobileFeedback.Tap();
             Sirala(Oyuncu);
+        }
+
+        // ---------------------------------------------------------------- çevrimiçi (sunucu satar ve sıralar)
+
+        /// <summary>ağ botu ve oyun testi: son çevrimiçi satış ve sıralama sonuçları</summary>
+        public static string SonSatis { get; private set; } = "-";
+        public static string SonSiralama { get; private set; } = "-";
+
+        private static string Dizilis(UnitController oyuncu) {
+            List<string> yuvalar = new List<string>();
+            foreach (InventorySlot yuva in oyuncu.CharacterInventoryManager.InventorySlots) {
+                List<string> kimlikler = new List<string>();
+                if (yuva != null && yuva.IsEmpty == false) {
+                    foreach (InstantiatedItem esya in yuva.InstantiatedItems.Values) {
+                        kimlikler.Add(esya.InstanceId.ToString(System.Globalization.CultureInfo.InvariantCulture));
+                    }
+                }
+                yuvalar.Add(string.Join(",", kimlikler));
+            }
+            return string.Join(";", yuvalar);
+        }
+
+        /// <summary>sunucunun dizilişini telefondaki çantaya uygular (bütün eşyalar tanınıyorsa)</summary>
+        private static int DizilisiUygula(UnitController oyuncu, string dizilis) {
+            SystemGameManager o = Oyun;
+            if (oyuncu == null || o == null || o.SystemItemManager == null) {
+                return -1;
+            }
+            List<InventorySlot> yuvalar = oyuncu.CharacterInventoryManager.InventorySlots;
+            string[] parcalar = dizilis.Split(';');
+            if (parcalar.Length != yuvalar.Count) {
+                return -1;
+            }
+            List<Dictionary<long, InstantiatedItem>> yeniler = new List<Dictionary<long, InstantiatedItem>>();
+            int dolu = 0;
+            foreach (string parca in parcalar) {
+                Dictionary<long, InstantiatedItem> yeni = new Dictionary<long, InstantiatedItem>();
+                foreach (string k in parca.Split(',')) {
+                    long kimlik;
+                    if (k.Length == 0) {
+                        continue;
+                    }
+                    if (long.TryParse(k, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out kimlik) == false
+                        || o.SystemItemManager.InstantiatedItems.ContainsKey(kimlik) == false) {
+                        return -1;
+                    }
+                    yeni[kimlik] = o.SystemItemManager.InstantiatedItems[kimlik];
+                }
+                if (yeni.Count > 0) {
+                    dolu++;
+                }
+                yeniler.Add(yeni);
+            }
+            for (int i = 0; i < yuvalar.Count; i++) {
+                if (yuvalar[i] == null || (yeniler[i].Count == 0 && yuvalar[i].IsEmpty)) {
+                    continue;
+                }
+                yuvalar[i].InstantiatedItems = yeniler[i];
+            }
+            return dolu;
+        }
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        private static void AgKur() {
+            OtukenAg.SunucuIsle("sat", (oyuncu, veri) => {
+                HashSet<long> istenen = new HashSet<long>();
+                foreach (string k in veri.Split(',')) {
+                    long kimlik;
+                    if (long.TryParse(k, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out kimlik)) {
+                        istenen.Add(kimlik);
+                    }
+                }
+                List<InstantiatedItem> satilacaklar = new List<InstantiatedItem>();
+                foreach (InventorySlot yuva in oyuncu.CharacterInventoryManager.InventorySlots) {
+                    if (yuva == null || yuva.IsEmpty) {
+                        continue;
+                    }
+                    foreach (InstantiatedItem esya in yuva.InstantiatedItems.Values) {
+                        if (istenen.Contains(esya.InstanceId) && (esya is InstantiatedQuestStartItem) == false && (esya is InstantiatedBag) == false) {
+                            satilacaklar.Add(esya);
+                        }
+                    }
+                }
+                string kazanc;
+                int adet = Sat(oyuncu, satilacaklar, out kazanc);
+                Debug.Log("[Sunucu] " + oyuncu.DisplayName + " toplu satış: " + adet + " eşya, " + kazanc);
+                OtukenAg.Yanitla(oyuncu, "sat", adet + "|" + kazanc);
+            });
+            OtukenAg.SunucuIsle("sirala", (oyuncu, veri) => {
+                int n = Sirala(oyuncu, false);
+                OtukenAg.Yanitla(oyuncu, "sirala", n + "|" + (n >= 0 ? Dizilis(oyuncu) : string.Empty));
+            });
+            OtukenAg.IstemciDinle("sat", veri => {
+                SonSatis = veri;
+                if (instance != null && IsOpen) {
+                    // eşyalar ağdan gelince liste yenilensin
+                    instance.StartCoroutine(instance.SonraYenile());
+                }
+            });
+            OtukenAg.IstemciDinle("sirala", veri => {
+                string[] p = veri.Split(new char[] { '|' }, 2);
+                UnitController oyuncu = Oyuncu;
+                int n;
+                if (p.Length < 2 || int.TryParse(p[0], out n) == false || n < 0) {
+                    SonSiralama = "yapılamadı";
+                    OtukenAg.Mesaj(oyuncu, "Çanta şu an sıralanamadı.");
+                    return;
+                }
+                int dolu = DizilisiUygula(oyuncu, p[1]);
+                SonSiralama = dolu >= 0 ? dolu + " yuva" : "diziliş uygulanamadı";
+                if (dolu >= 0) {
+                    OtukenAg.Mesaj(oyuncu, "Çanta sıralandı (" + dolu + " yuva)");
+                    MobileFeedback.Success();
+                }
+            });
         }
 
         private static void Ensure() {
@@ -432,6 +550,13 @@ namespace AnyRPG {
             panelRoot.SetActive(false);
         }
 
+        private System.Collections.IEnumerator SonraYenile() {
+            yield return new WaitForSecondsRealtime(0.6f);
+            if (IsOpen) {
+                Yenile();
+            }
+        }
+
         private void Yenile() {
             UnitController oyuncu = Oyuncu;
             griDugmesi.color = gri ? toggleOnColor : buttonColor;
@@ -484,9 +609,30 @@ namespace AnyRPG {
                     satilacaklar.Add(aday.Key);
                 }
             }
+            if (Cevrimici.Acik) {
+                // çevrimiçi: satışı sunucu yapar (para ve eşyalar ağdan gelir)
+                List<string> kimlikler = new List<string>();
+                foreach (InstantiatedItem esya in satilacaklar) {
+                    kimlikler.Add(esya.InstanceId.ToString(System.Globalization.CultureInfo.InvariantCulture));
+                }
+                if (kimlikler.Count > 0 && OtukenAg.Gonder("sat", string.Join(",", kimlikler)) == false) {
+                    OtukenAg.Mesaj(Oyuncu, "Sunucuya ulaşılamadı, biraz sonra yeniden dene.");
+                }
+                return;
+            }
             string kazanc;
             Sat(Oyuncu, satilacaklar, out kazanc);
             Yenile();
+        }
+
+        /// <summary>ağ botu: toplu satış penceresini açıp önerilenleri satar (satılacak yoksa false)</summary>
+        public static bool TestIcinSat() {
+            TopluSatisGoster();
+            if (instance == null || instance.adaylar.Count == 0) {
+                return false;
+            }
+            instance.SatDugmesi();
+            return true;
         }
 
         private const float SatirBoyu = 60f;

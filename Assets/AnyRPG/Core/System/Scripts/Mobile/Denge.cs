@@ -42,6 +42,11 @@ namespace AnyRPG {
             public int alinanToplam;
             public float ilk = -1f;
             public float son;
+            // çevrimiçi: telefondan gelen beceri istekleri ve sunucuda başlayabilenler (oto av becerileri ölçümü)
+            public int beceriIstegi;
+            public int beceriBasladi;
+            public string sonBeceri = string.Empty;
+            public string sonReddedilen = string.Empty;
         }
 
         private static readonly System.Collections.Generic.Dictionary<UnitController, HasarSayaci> sayaclar =
@@ -82,6 +87,21 @@ namespace AnyRPG {
             }
         }
 
+        /// <summary>FishNetUnitController.HandleBeginAbilityServer: oyuncunun beceri isteği sunucuda başladı mı</summary>
+        public static void BeceriIstegi(UnitController oyuncu, string beceri, bool basladi) {
+            if (oyuncu == null) {
+                return;
+            }
+            HasarSayaci s = Sayac(oyuncu);
+            s.beceriIstegi++;
+            s.sonBeceri = beceri;
+            if (basladi) {
+                s.beceriBasladi++;
+            } else {
+                s.sonReddedilen = beceri;
+            }
+        }
+
         public static HasarSayaci Olcum(UnitController oyuncu) {
             return oyuncu != null ? Sayac(oyuncu) : new HasarSayaci();
         }
@@ -97,7 +117,9 @@ namespace AnyRPG {
             float sure = s.ilk >= 0f ? UnityEngine.Mathf.Max(0.1f, s.son - s.ilk) : 0f;
             return "verdiği " + s.verilenVurus + " vuruş/" + s.verilenToplam + " hasar (son " + s.sonVerilen
                 + (s.verilenVurus > 1 ? ", " + (s.verilenVurus / sure * 60f).ToString("0") + " vuruş/dk" : string.Empty)
-                + "), aldığı " + s.alinanVurus + " vuruş/" + s.alinanToplam + " hasar";
+                + "), aldığı " + s.alinanVurus + " vuruş/" + s.alinanToplam + " hasar"
+                + (s.beceriIstegi > 0 ? ", beceri isteği " + s.beceriIstegi + " (başlayan " + s.beceriBasladi + ", son " + s.sonBeceri
+                    + (s.sonReddedilen.Length > 0 ? ", son reddedilen " + s.sonReddedilen : string.Empty) + ")" : string.Empty);
         }
 
         /// <summary>birimin can (ve diğer kaynak) çarpanı: canavarlar CanavarCani, Ötüken Taşı ve oyuncular 1</summary>

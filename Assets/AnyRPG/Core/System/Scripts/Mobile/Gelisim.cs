@@ -7,7 +7,8 @@ namespace AnyRPG {
     /// <summary>
     /// Gelişim (mobil RPG'lerde yaygın olan ilerleme yardımcıları):
     ///  - Güç Puanı: karakterin gücünü tek sayıyla gösterir (temel değerler + zırh + hasar + seviye); artınca bildirilir.
-    ///  - Seviye ödülleri: belirli seviyelere ulaşınca bir kez verilen armağanlar (karakter başına PlayerPrefs'te).
+    ///  - Seviye ödülleri: belirli seviyelere ulaşınca bir kez verilen armağanlar (karakter başına; tek oyunculu oyunda
+    ///    telefonda, çevrimiçi oyunda sunucuda verilir ve sunucuda kaydedilir: SunucuTick, OtukenVeri).
     ///  - Daha iyi eşya: çantaya giren eşya kuşanılandan güçlüyse "Kuşan" kartı çıkar.
     ///  - Acemi koruması: 5. seviyeye kadar oyuncu daha az hasar alır (CharacterCombat.TakeDamageCommon).
     /// Kartlar sol sütunun sağında, oyunu durdurmadan görünür. MobileBootstrap saniyede bir Tick çağırır. Kodla kurulur.
@@ -218,8 +219,8 @@ namespace AnyRPG {
                 return;
             }
             if (systemGameManager.GameMode != GameMode.Network) {
-                // çevrimiçi oyunda ödüller sunucudan verilmeli (Cevrimici)
-                SeviyeOdulleri(oyuncu);
+                // çevrimiçi oyunda ödülleri sunucu verir (SunucuTick); kartı "kart" yanıtıyla gelir
+                SeviyeOdulleri(oyuncu, ref cantaUyarisi);
             }
             EsyalaraBak(oyuncu);
             GucuIzle(oyuncu);
@@ -234,17 +235,31 @@ namespace AnyRPG {
         private static void GucuIzle(UnitController oyuncu) {
             int guc = GucPuani(oyuncu);
             if (sonGuc >= 0 && guc > sonGuc) {
-                oyuncu.WriteMessageFeedMessage("<color=#FFD54A>Güç Puanı " + guc + " (+" + (guc - sonGuc) + ")</color>");
+                OtukenAg.Mesaj(oyuncu, "<color=#FFD54A>Güç Puanı " + guc + " (+" + (guc - sonGuc) + ")</color>");
             }
             sonGuc = guc;
         }
 
-        public static int AlinanSeviye(string ad) {
-            return PlayerPrefs.GetInt(OdulAnahtari + ad, 1);
+        public static int AlinanSeviye(UnitController oyuncu) {
+            return OtukenVeri.OkuSayi(oyuncu, OdulAnahtari, 1);
         }
 
-        private static void SeviyeOdulleri(UnitController oyuncu) {
-            int alinan = AlinanSeviye(karakter);
+        private static readonly Dictionary<UnitController, bool> sunucuUyarilari = new Dictionary<UnitController, bool>();
+
+        /// <summary>çevrimiçi sunucu: her oyuncu için saniyede bir (OtukenSunucu); seviye ödülleri sunucuda verilir</summary>
+        public static void SunucuTick(UnitController oyuncu) {
+            bool uyari;
+            sunucuUyarilari.TryGetValue(oyuncu, out uyari);
+            SeviyeOdulleri(oyuncu, ref uyari);
+            sunucuUyarilari[oyuncu] = uyari;
+        }
+
+        public static void SunucuCikti(UnitController oyuncu) {
+            sunucuUyarilari.Remove(oyuncu);
+        }
+
+        private static void SeviyeOdulleri(UnitController oyuncu, ref bool uyari) {
+            int alinan = AlinanSeviye(oyuncu);
             int seviye = oyuncu.CharacterStats.Level;
             if (seviye <= alinan) {
                 return;
@@ -254,21 +269,22 @@ namespace AnyRPG {
                     continue;
                 }
                 if (odul.esya != null && oyuncu.CharacterInventoryManager.EmptySlotCount() == 0) {
-                    if (cantaUyarisi == false) {
-                        cantaUyarisi = true;
-                        oyuncu.WriteMessageFeedMessage("<color=#FF9A7A>Seviye ödülün bekliyor: çantanda yer aç.</color>");
+                    if (uyari == false) {
+                        uyari = true;
+                        OtukenAg.Mesaj(oyuncu, "<color=#FF9A7A>Seviye ödülün bekliyor: çantanda yer aç.</color>");
                     }
                     return;
                 }
                 Ver(oyuncu, odul);
                 alinan = odul.seviye;
-                PlayerPrefs.SetInt(OdulAnahtari + karakter, alinan);
+                OtukenVeri.YazSayi(oyuncu, OdulAnahtari, alinan);
             }
-            PlayerPrefs.SetInt(OdulAnahtari + karakter, seviye);
-            PlayerPrefs.Save();
+            OtukenVeri.YazSayi(oyuncu, OdulAnahtari, seviye);
+            OtukenVeri.Kaydet();
         }
 
         private static void Ver(UnitController oyuncu, Odul odul) {
+            SystemGameManager oyun = Gelisim.oyun != null ? Gelisim.oyun : OtukenAg.Oyun;
             if (odul.para != null) {
                 Currency para = oyun.SystemDataFactory.GetResource<Currency>(odul.para);
                 if (para != null) {
@@ -292,9 +308,41 @@ namespace AnyRPG {
             }
             VerilenOdulSayisi++;
             SonOdul = odul.seviye + ": " + odul.yazi;
-            oyuncu.WriteMessageFeedMessage("<color=#FFD54A>Seviye " + odul.seviye + " ödülü: " + odul.yazi + "</color>");
+            OtukenAg.Mesaj(oyuncu, "<color=#FFD54A>Seviye " + odul.seviye + " ödülü: " + odul.yazi + "</color>");
+            if (OtukenAg.Sunucuda) {
+                // kart telefonda gösterilir
+                Debug.Log("[Sunucu] " + oyuncu.DisplayName + " seviye " + odul.seviye + " ödülü: " + odul.yazi);
+                OtukenAg.Yanitla(oyuncu, "kart", "SEVİYE " + odul.seviye + " ÖDÜLÜ|" + odul.yazi + "|" + (odul.esya ?? odul.para ?? string.Empty));
+                return;
+            }
             MobileFeedback.Success();
             kuyruk.Enqueue(new Kart() { baslik = "SEVİYE " + odul.seviye + " ÖDÜLÜ", yazi = odul.yazi, simge = simge, sure = 6f });
+        }
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        private static void AgKur() {
+            // çevrimiçi: sunucunun verdiği ödülün kartı ("başlık|yazı|eşya ya da para kaynağı")
+            OtukenAg.IstemciDinle("kart", veri => {
+                string[] p = veri.Split('|');
+                if (p.Length < 2) {
+                    return;
+                }
+                Sprite simge = null;
+                SystemGameManager o = OtukenAg.Oyun;
+                if (p.Length > 2 && p[2].Length > 0 && o != null && o.SystemDataFactory != null) {
+                    Item esya = o.SystemDataFactory.GetResource<Item>(p[2]);
+                    if (esya != null) {
+                        simge = esya.Icon;
+                    } else {
+                        Currency para = o.SystemDataFactory.GetResource<Currency>(p[2]);
+                        simge = para != null ? para.Icon : null;
+                    }
+                }
+                VerilenOdulSayisi++;
+                SonOdul = p[0] + ": " + p[1];
+                MobileFeedback.Success();
+                kuyruk.Enqueue(new Kart() { baslik = p[0], yazi = p[1], simge = simge, sure = 6f });
+            });
         }
 
         private static void EsyalaraBak(UnitController oyuncu) {

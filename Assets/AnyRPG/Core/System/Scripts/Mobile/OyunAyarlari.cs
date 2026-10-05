@@ -191,7 +191,7 @@ namespace AnyRPG {
             Degisti();
             olcumBekleme = Time.unscaledTime + 5f;
             Debug.Log("OyunAyarlari: " + mesaj);
-            oyuncu.WriteMessageFeedMessage("<color=#FFD54A>" + mesaj + " Menü > Grafik'ten değiştirebilirsin.</color>");
+            OtukenAg.Mesaj(oyuncu, "<color=#FFD54A>" + mesaj + " Menü > Grafik'ten değiştirebilirsin.</color>");
         }
 
         private static void Degisti() {
@@ -314,7 +314,7 @@ namespace AnyRPG {
             }
             if (bekleyenMesaj != null && systemGameManager != null && systemGameManager.PlayerManagerClient != null
                 && systemGameManager.PlayerManagerClient.PlayerUnitSpawned && systemGameManager.PlayerManagerClient.UnitController != null) {
-                systemGameManager.PlayerManagerClient.UnitController.WriteMessageFeedMessage("<color=#FFD54A>" + bekleyenMesaj + "</color>");
+                OtukenAg.Mesaj(systemGameManager.PlayerManagerClient.UnitController, "<color=#FFD54A>" + bekleyenMesaj + "</color>");
                 bekleyenMesaj = null;
             }
             Camera kamera = KameraBul(systemGameManager);

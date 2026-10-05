@@ -39,6 +39,13 @@ namespace AnyRPG {
             Debug.Log("[Sunucu] ayrılmış sunucu kipi");
         }
 
+        private IEnumerator Isler(SystemGameManager oyun) {
+            while (true) {
+                yield return new WaitForSecondsRealtime(1f);
+                OtukenSunucu.Tick(oyun);
+            }
+        }
+
         private IEnumerator Start() {
             float baslangic = Time.realtimeSinceStartup;
             SystemGameManager oyun = null;
@@ -54,6 +61,8 @@ namespace AnyRPG {
                 yield return new WaitForSecondsRealtime(0.5f);
             }
             Basladi = true;
+            // telefondaki kolaylıkların sunucu tarafı (günlük görevler, seviye ödülleri, çevrimdışı kazanç, binek)
+            StartCoroutine(Isler(oyun));
             Debug.Log("[Sunucu] başladı: " + oyun.NetworkManagerServer.ServerMode + " kipi, port " + oyun.NetworkManagerServer.GetServerPort()
                 + ", istemci sürümü " + oyun.SystemConfigurationManager.ClientVersion + ", kayıtlar " + Application.persistentDataPath);
             while (true) {

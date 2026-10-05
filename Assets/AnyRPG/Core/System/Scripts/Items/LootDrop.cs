@@ -59,12 +59,17 @@ namespace AnyRPG {
             InstantiatedItem lootedItem = InstantiatedItem;
             if (ProcessTakeLoot(sourceUnitController)) {
                 AfterLoot(sourceUnitController);
+                // Ötüken: boşalan sandık kimin günlük görevine sayılacak (LootableNodeComponent.CheckDropListSize)
+                Ganimet.SonAlan = sourceUnitController;
                 lootManager.TakeLoot(sourceUnitController, this);
                 if (pickupMessage != string.Empty) {
                     sourceUnitController.WriteMessageFeedMessage(pickupMessage);
                 }
                 if (systemGameManager.PlayerManagerClient.UnitController == sourceUnitController) {
                     Ganimet.OnLooted(lootedItem);
+                } else if (OtukenAg.Sunucuda) {
+                    // çevrimiçi: ganimeti sunucu verir, günlük görev sunucuda sayılır
+                    GunlukGorevler.SunucuBildir(sourceUnitController, GunlukGorevTuru.Ganimet);
                 }
             }
         }

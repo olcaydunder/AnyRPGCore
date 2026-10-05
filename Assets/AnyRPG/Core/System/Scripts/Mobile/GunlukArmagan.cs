@@ -8,7 +8,8 @@ namespace AnyRPG {
 
     /// <summary>
     /// Günlük Armağan: oyuna her gün girene bir armağan. 7 gün üst üste girilirse en büyük armağan gelir;
-    /// bir gün kaçırılırsa seri 1. günden yeniden başlar. Karakter başına, cihazın tarihine göre tutulur.
+    /// bir gün kaçırılırsa seri 1. günden yeniden başlar. Karakter başına tutulur: tek oyunculu oyunda telefonda
+    /// (cihazın tarihi), çevrimiçi oyunda sunucuda (Türkiye saati; armağanı sunucu verir, OtukenAg).
     /// Oyuna girdikten birkaç saniye sonra (rehber açıksa o kapandıktan sonra) kendiliğinden açılır.
     /// Kodla kurulur, prefab gerektirmez.
     /// </summary>
@@ -79,8 +80,6 @@ namespace AnyRPG {
         /// called every frame by MobileBootstrap
         /// </summary>
         public static void Tick(SystemGameManager systemGameManager, bool inGame) {
-            // çevrimiçi oyunda karakter sunucudadır: telefondan ödül/yetenek verilmez (Cevrimici)
-            inGame = inGame && (systemGameManager == null || systemGameManager.GameMode != GameMode.Network);
             if (inGame == false || systemGameManager == null) {
                 inGameSince = -1f;
                 checkedKey = string.Empty;
@@ -108,36 +107,136 @@ namespace AnyRPG {
             }
             // checked once per character and day; closing with "Sonra" brings it back on the next game load
             checkedKey = key;
-            if (PlayerPrefs.GetString(LastClaimKey(character), string.Empty) == today) {
+            if (systemGameManager.GameMode == GameMode.Network) {
+                // çevrimiçi: armağanın durumunu sunucu bilir; yanıt gelince pencere açılır
+                OtukenAg.Gonder("armagan-durum");
+                return;
+            }
+            if (BugunAlindi(unitController)) {
                 return;
             }
             Ensure();
-            instance.Open(systemGameManager, character);
+            instance.Open(systemGameManager, character, AlinacakGun(unitController));
+        }
+
+        // ---------------------------------------------------------------- kurallar (tek oyunculu oyunda telefonda, çevrimiçinde sunucuda)
+
+        private const string SonAnahtar = "gunluk-armagan-son-";
+        private const string SeriAnahtar = "gunluk-armagan-seri-";
+
+        public static bool BugunAlindi(UnitController oyuncu) {
+            return OtukenVeri.Oku(oyuncu, SonAnahtar, string.Empty) == OtukenVeri.Bugun;
+        }
+
+        /// <summary>bugün alınacak armağanın günü (1-7): dün alındıysa seri sürer, yoksa 1. gün</summary>
+        public static int AlinacakGun(UnitController oyuncu) {
+            string son = OtukenVeri.Oku(oyuncu, SonAnahtar, string.Empty);
+            if (son == OtukenVeri.GunAnahtari(OtukenVeri.Simdi.AddDays(-1))) {
+                int seri = OtukenVeri.OkuSayi(oyuncu, SeriAnahtar, 0);
+                return (seri % DayCount) + 1;
+            }
+            return 1;
+        }
+
+        /// <summary>bugünün armağanını verir; olmazsa nedenini döndürür (olursa null)</summary>
+        public static string Ver(UnitController oyuncu, SystemGameManager oyun) {
+            if (oyuncu == null || oyun == null) {
+                return "Karakter bulunamadı.";
+            }
+            if (BugunAlindi(oyuncu)) {
+                return "Bugünün armağanını zaten aldın. Yarın yine gel!";
+            }
+            int gun = AlinacakGun(oyuncu);
+            Reward reward = rewards[gun - 1];
+            if (reward.itemName != null && oyuncu.CharacterInventoryManager.EmptySlotCount() == 0) {
+                return "Çantan dolu! Biraz yer aç, sonra armağanını al.";
+            }
+            if (reward.currencyName != null) {
+                Currency currency = oyun.SystemDataFactory.GetResource<Currency>(reward.currencyName);
+                if (currency != null) {
+                    oyuncu.CharacterCurrencyManager.AddCurrency(currency, reward.currencyAmount);
+                }
+            }
+            if (reward.itemName != null) {
+                for (int i = 0; i < reward.itemCount; i++) {
+                    InstantiatedItem instantiatedItem = oyuncu.CharacterInventoryManager.GetNewInstantiatedItem(reward.itemName);
+                    if (instantiatedItem == null || oyuncu.CharacterInventoryManager.AddItem(instantiatedItem, false) == false) {
+                        break;
+                    }
+                }
+            }
+            OtukenVeri.Yaz(oyuncu, SonAnahtar, OtukenVeri.Bugun);
+            OtukenVeri.YazSayi(oyuncu, SeriAnahtar, gun);
+            OtukenVeri.Kaydet();
+            OtukenAg.Mesaj(oyuncu, $"<color=#FFD54A>Günlük armağan ({gun}. gün): {reward.label}</color>");
+            VerilenSayisi++;
+            return null;
+        }
+
+        /// <summary>bu süreçte verilen armağan sayısı (oyun testi, ağ botu)</summary>
+        public static int VerilenSayisi { get; private set; }
+
+        // ---------------------------------------------------------------- çevrimiçi
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        private static void AgKur() {
+            // sunucu: armağanın durumu ve verilmesi
+            OtukenAg.SunucuIsle("armagan-durum", (oyuncu, veri) => {
+                OtukenAg.Yanitla(oyuncu, "armagan", AlinacakGun(oyuncu) + "|" + (BugunAlindi(oyuncu) ? "1" : "0"));
+            });
+            OtukenAg.SunucuIsle("armagan-al", (oyuncu, veri) => {
+                string hata = Ver(oyuncu, OtukenAg.Oyun);
+                Debug.Log("[Sunucu] " + oyuncu.DisplayName + " günlük armağan: " + (hata ?? "verildi"));
+                OtukenAg.Yanitla(oyuncu, "armagan-sonuc", hata ?? string.Empty);
+            });
+            // istemci: "gün|alındı" gelince pencere açılır
+            OtukenAg.IstemciDinle("armagan", veri => {
+                string[] p = veri.Split('|');
+                int gun;
+                if (p.Length < 2 || p[1] == "1" || int.TryParse(p[0], out gun) == false) {
+                    SonDurum = "bugün alınmış";
+                    return;
+                }
+                SonDurum = gun + ". gün alınabilir";
+                SystemGameManager oyun = OtukenAg.Oyun;
+                UnitController oyuncu = oyun != null && oyun.PlayerManagerClient != null ? oyun.PlayerManagerClient.UnitController : null;
+                if (oyuncu == null || IsOpen) {
+                    return;
+                }
+                Ensure();
+                instance.Open(oyun, oyuncu.DisplayName, Mathf.Clamp(gun, 1, DayCount));
+            });
+            OtukenAg.IstemciDinle("armagan-sonuc", veri => {
+                SonDurum = veri.Length == 0 ? "alındı" : veri;
+                if (instance == null) {
+                    return;
+                }
+                instance.bekliyor = false;
+                if (veri.Length == 0) {
+                    MobileFeedback.Success();
+                    instance.Close();
+                } else {
+                    instance.statusText.text = veri;
+                }
+            });
+        }
+
+        /// <summary>çevrimiçi armağanın son durumu (ağ botu raporu)</summary>
+        public static string SonDurum { get; private set; } = "-";
+
+        /// <summary>ağ botu ve oyun testi: pencere açıksa Armağanı Al'a basar</summary>
+        public static bool TestIcinAl() {
+            if (IsOpen == false) {
+                return false;
+            }
+            instance.Claim();
+            return true;
         }
 
         private static string DateKey(DateTime date) {
             return date.ToString("yyyyMMdd", CultureInfo.InvariantCulture);
         }
 
-        private static string LastClaimKey(string character) {
-            return "gunluk-armagan-son-" + character;
-        }
-
-        private static string StreakKey(string character) {
-            return "gunluk-armagan-seri-" + character;
-        }
-
-        /// <summary>
-        /// the day of the 7 day cycle that would be claimed today
-        /// </summary>
-        private static int GetRewardDay(string character) {
-            string lastClaim = PlayerPrefs.GetString(LastClaimKey(character), string.Empty);
-            if (lastClaim == DateKey(DateTime.Now.AddDays(-1))) {
-                int streak = PlayerPrefs.GetInt(StreakKey(character), 0);
-                return (streak % DayCount) + 1;
-            }
-            return 1;
-        }
 
         private static void Ensure() {
             if (instance != null) {
@@ -228,10 +327,13 @@ namespace AnyRPG {
             panelRoot.SetActive(false);
         }
 
-        private void Open(SystemGameManager gameManager, string character) {
+        private bool bekliyor = false;
+
+        private void Open(SystemGameManager gameManager, string character, int day) {
             systemGameManager = gameManager;
             characterName = character;
-            rewardDay = GetRewardDay(character);
+            rewardDay = day;
+            bekliyor = false;
             subtitleText.text = "Her gün oyuna gir, armağanını al! 7 gün üst üste gelirsen en büyük armağan seni bekler.\n" +
                 "Bir gün kaçırırsan seri 1. günden yeniden başlar.";
             statusText.text = string.Empty;
@@ -289,32 +391,24 @@ namespace AnyRPG {
                 Close();
                 return;
             }
-            Reward reward = rewards[rewardDay - 1];
-            if (reward.itemName != null && unitController.CharacterInventoryManager.EmptySlotCount() == 0) {
-                statusText.text = "Çantan dolu! Biraz yer aç, sonra armağanını al.";
+            if (systemGameManager.GameMode == GameMode.Network) {
+                // çevrimiçi: armağanı sunucu verir (para ve eşya ağdan gelir); yanıtta pencere kapanır
+                if (bekliyor) {
+                    return;
+                }
+                if (OtukenAg.Gonder("armagan-al")) {
+                    bekliyor = true;
+                    statusText.text = string.Empty;
+                } else {
+                    statusText.text = "Sunucuya ulaşılamadı, biraz sonra yeniden dene.";
+                }
                 return;
             }
-
-            if (reward.currencyName != null) {
-                Currency currency = systemGameManager.SystemDataFactory.GetResource<Currency>(reward.currencyName);
-                if (currency != null) {
-                    unitController.CharacterCurrencyManager.AddCurrency(currency, reward.currencyAmount);
-                }
+            string hata = Ver(unitController, systemGameManager);
+            if (hata != null) {
+                statusText.text = hata;
+                return;
             }
-            if (reward.itemName != null) {
-                for (int i = 0; i < reward.itemCount; i++) {
-                    InstantiatedItem instantiatedItem = unitController.CharacterInventoryManager.GetNewInstantiatedItem(reward.itemName);
-                    if (instantiatedItem == null || unitController.CharacterInventoryManager.AddItem(instantiatedItem, false) == false) {
-                        break;
-                    }
-                }
-            }
-
-            PlayerPrefs.SetString(LastClaimKey(characterName), DateKey(DateTime.Now));
-            PlayerPrefs.SetInt(StreakKey(characterName), rewardDay);
-            PlayerPrefs.Save();
-
-            unitController.WriteMessageFeedMessage($"<color=#FFD54A>Günlük armağan ({rewardDay}. gün): {reward.label}</color>");
             MobileFeedback.Success();
             Close();
         }

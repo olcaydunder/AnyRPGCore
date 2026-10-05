@@ -63,6 +63,9 @@ namespace AnyRPG {
         /// </summary>
         /// <summary>yerel oyuncunun aldığı ganimet sayısı ve son aldıkları (otomatik oyun testi ödülleri sayar)</summary>
         public static int AlinanSayisi { get; private set; }
+
+        /// <summary>son ganimet alan (sunucuda boşalan hazine sandığını oyuncusuna saymak için)</summary>
+        public static UnitController SonAlan { get; set; }
         public static readonly List<string> SonAlinanlar = new List<string>();
 
         public static void OnLooted(InstantiatedItem instantiatedItem) {

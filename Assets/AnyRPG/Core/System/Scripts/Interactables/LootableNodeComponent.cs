@@ -175,7 +175,11 @@ namespace AnyRPG {
 
                 // Ötüken: boşaltılan hazine sandığı günlük görevlerde sayılır
                 if (this is ItemPickupComponent && Ganimet.IsTreasureChest(Props)) {
-                    GunlukGorevler.Bildir(GunlukGorevTuru.Sandik);
+                    if (OtukenAg.Sunucuda) {
+                        GunlukGorevler.SunucuBildir(Ganimet.SonAlan, GunlukGorevTuru.Sandik);
+                    } else {
+                        GunlukGorevler.Bildir(GunlukGorevTuru.Sandik);
+                    }
                 }
 
                 lootDropped = false;

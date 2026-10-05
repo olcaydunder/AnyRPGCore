@@ -11,7 +11,8 @@ namespace AnyRPG {
     public enum GunlukGorevTuru { Oldurme, Ganimet, Sandik, Harita, Tas }
 
     /// <summary>
-    /// Günlük Görevler: her gün (cihazın tarihine göre) karakter başına 3 görev çıkar; ertesi gün yenilenir.
+    /// Günlük Görevler: her gün karakter başına 3 görev çıkar; ertesi gün yenilenir. Tek oyunculu oyunda telefonda sayılır
+    /// (cihazın tarihi); çevrimiçi oyunda sunucuda sayılır ve ödülü sunucu verir (Türkiye saati, OtukenAg).
     /// Görevler 5 türden seçilir: düşman yen, ganimet topla, hazine sandığı boşalt, farklı haritalara git,
     /// Ötüken Taşı kır.
     /// Her biri tamamlanınca Gümüş Akçe ve tecrübe, üçü de tamamlanınca büyük ödül (Gök Taşı Parçası) alınır.
@@ -79,37 +80,59 @@ namespace AnyRPG {
             public string Yazi { get { return string.Format(tanim.aciklama, hedef); } }
         }
 
-        private static string karakter = string.Empty;
-        private static string gun = string.Empty;
-        private static readonly List<Gorev> gorevler = new List<Gorev>();
-        private static readonly HashSet<string> gezilenler = new HashSet<string>();
-        private static bool buyukOdulAlindi = false;
-        private static bool kirli = false;
-        private static float sonKayit = 0f;
+        /// <summary>
+        /// bir karakterin günü: tek oyunculu oyunda telefondaki oyuncunun, sunucuda her oyuncunun ayrı ayrı;
+        /// çevrimiçi istemcide sunucudan gelen kopya (pencere ve HUD bunu gösterir)
+        /// </summary>
+        private class Durum {
+            public string karakter = string.Empty;
+            public string gun = string.Empty;
+            public readonly List<Gorev> gorevler = new List<Gorev>();
+            public readonly HashSet<string> gezilenler = new HashSet<string>();
+            public bool buyukOdulAlindi = false;
+            public bool kirli = false;
+            public float sonKayit = 0f;
+            // ilerlemenin sahibi (tek oyunculu oyunda ve sunucuda)
+            public UnitController oyuncu = null;
+            // sunucu: telefona yeni kopya gidecek
+            public bool gonderilecek = false;
+            public float sonGonderim = -100f;
+            public System.Action<UnitController, UnitController, float> oldurme = null;
+        }
+
+        private static readonly Durum yerel = new Durum();
+        private static readonly Dictionary<UnitController, Durum> sunucuDurumlari = new Dictionary<UnitController, Durum>();
         private static UnitController takipEdilen = null;
         private static SystemGameManager oyun = null;
+        private static float sonIstek = -100f;
+
+        private static SystemGameManager Oyun {
+            get { return oyun != null ? oyun : OtukenAg.Oyun; }
+        }
+
+        private static bool OdulVarMi(Durum d) {
+            if (d.gorevler.Count == 0) {
+                return false;
+            }
+            bool hepsi = true;
+            foreach (Gorev g in d.gorevler) {
+                if (g.Tamam && g.alindi == false) {
+                    return true;
+                }
+                hepsi &= g.alindi;
+            }
+            return hepsi && d.buyukOdulAlindi == false;
+        }
 
         /// <summary>alınmayı bekleyen ödül var mı (HUD düğmesindeki altın nokta)</summary>
         public static bool OdulVar {
-            get {
-                if (gorevler.Count == 0) {
-                    return false;
-                }
-                bool hepsi = true;
-                foreach (Gorev g in gorevler) {
-                    if (g.Tamam && g.alindi == false) {
-                        return true;
-                    }
-                    hepsi &= g.alindi;
-                }
-                return hepsi && buyukOdulAlindi == false;
-            }
+            get { return OdulVarMi(yerel); }
         }
 
         /// <summary>bugünün sandık görevi sürüyor mu (görev oku sıradaki hedef yoksa en yakın sandığı gösterir)</summary>
         public static bool SandikGoreviSuruyor {
             get {
-                foreach (Gorev g in gorevler) {
+                foreach (Gorev g in yerel.gorevler) {
                     if (g.tanim.tur == GunlukGorevTuru.Sandik && g.Tamam == false) {
                         return true;
                     }
@@ -120,99 +143,236 @@ namespace AnyRPG {
 
         /// <summary>MobileBootstrap saniyede bir çağırır</summary>
         public static void Tick(SystemGameManager systemGameManager, bool oyunda) {
-            // çevrimiçi oyunda karakter sunucudadır: telefondan ödül/yetenek verilmez (Cevrimici)
-            oyunda = oyunda && (systemGameManager == null || systemGameManager.GameMode != GameMode.Network);
             oyun = systemGameManager;
+            bool cevrimici = systemGameManager != null && systemGameManager.GameMode == GameMode.Network;
             UnitController oyuncu = oyunda && systemGameManager != null && systemGameManager.PlayerManagerClient != null
                 ? systemGameManager.PlayerManagerClient.UnitController : null;
-            if (oyuncu != takipEdilen) {
+            // tek oyunculu oyunda öldürmeler telefonda sayılır; çevrimiçi oyunda sunucuda (SunucuTick)
+            UnitController izlenecek = cevrimici ? null : oyuncu;
+            if (izlenecek != takipEdilen) {
                 if (takipEdilen != null && takipEdilen.UnitEventController != null) {
-                    takipEdilen.UnitEventController.OnKillEvent -= OldurmeOldu;
+                    takipEdilen.UnitEventController.OnKillEvent -= YerelOldurme;
                 }
-                takipEdilen = oyuncu;
+                takipEdilen = izlenecek;
                 if (takipEdilen != null && takipEdilen.UnitEventController != null) {
-                    takipEdilen.UnitEventController.OnKillEvent += OldurmeOldu;
+                    takipEdilen.UnitEventController.OnKillEvent += YerelOldurme;
                 }
             }
             if (oyuncu == null) {
-                Kaydet(true);
+                Kaydet(yerel, true);
                 if (IsOpen) {
                     instance.Kapat();
                 }
                 return;
             }
-            Hazirla(oyuncu.DisplayName);
-            // bugün girilen haritalar
-            string sahne = SceneManager.GetActiveScene().name;
-            if (Array.IndexOf(IsinlanmaPenceresi.SahneAdlari, sahne) >= 0 && gezilenler.Add(sahne)) {
-                kirli = true;
-                Ilerlet(GunlukGorevTuru.Harita, 0, gezilenler.Count);
-            }
-            if (kirli && Time.unscaledTime - sonKayit > 10f) {
-                Kaydet(false);
-            }
-        }
-
-        /// <summary>oyunun olaylarından: ganimet ve sandık (düşman öldürme kendi olayından sayılır)</summary>
-        public static void Bildir(GunlukGorevTuru tur, int adet = 1) {
-            if (takipEdilen == null || gorevler.Count == 0) {
+            if (cevrimici) {
+                // durum sunucudan gelir: karakter değişince (ve gün dönünce) istenir
+                bool gunDondu = yerel.gun.Length > 0 && yerel.gun != OtukenVeri.GunAnahtari(DateTime.UtcNow.AddHours(3));
+                if ((yerel.karakter != oyuncu.DisplayName || gunDondu) && Time.unscaledTime - sonIstek > 10f) {
+                    sonIstek = Time.unscaledTime;
+                    OtukenAg.Gonder("gorev-iste");
+                }
                 return;
             }
-            Ilerlet(tur, adet, -1);
+            yerel.oyuncu = oyuncu;
+            Hazirla(yerel, oyuncu, OtukenVeri.Bugun);
+            HaritaSay(yerel, SceneManager.GetActiveScene().name);
+            if (yerel.kirli && Time.unscaledTime - yerel.sonKayit > 10f) {
+                Kaydet(yerel, false);
+            }
         }
 
-        private static void OldurmeOldu(UnitController olduren, UnitController olen, float pay) {
-            if (pay <= 0f || olen == null || olen == takipEdilen) {
+        private static void HaritaSay(Durum d, string sahne) {
+            // bugün girilen haritalar
+            if (Array.IndexOf(IsinlanmaPenceresi.SahneAdlari, sahne) >= 0 && d.gezilenler.Add(sahne)) {
+                d.kirli = true;
+                Ilerlet(d, GunlukGorevTuru.Harita, 0, d.gezilenler.Count);
+            }
+        }
+
+        /// <summary>oyunun olaylarından: ganimet ve sandık (tek oyunculu oyunda; düşman öldürme kendi olayından sayılır)</summary>
+        public static void Bildir(GunlukGorevTuru tur, int adet = 1) {
+            if (takipEdilen == null || yerel.gorevler.Count == 0) {
+                return;
+            }
+            Ilerlet(yerel, tur, adet, -1);
+        }
+
+        /// <summary>çevrimiçi sunucu: bir oyuncunun ganimeti ya da boşalttığı sandık</summary>
+        public static void SunucuBildir(UnitController oyuncu, GunlukGorevTuru tur, int adet = 1) {
+            if (oyuncu == null || OtukenAg.Sunucuda == false) {
+                return;
+            }
+            Durum d;
+            if (sunucuDurumlari.TryGetValue(oyuncu, out d) && d.gorevler.Count > 0) {
+                Ilerlet(d, tur, adet, -1);
+            }
+        }
+
+        private static void YerelOldurme(UnitController olduren, UnitController olen, float pay) {
+            Oldurme(yerel, olen, pay);
+        }
+
+        private static void Oldurme(Durum d, UnitController olen, float pay) {
+            if (pay <= 0f || olen == null || olen == d.oyuncu || d.gorevler.Count == 0) {
                 return;
             }
             if (OtukenTasi.TasMi(olen)) {
-                Ilerlet(GunlukGorevTuru.Tas, 1, -1);
+                Ilerlet(d, GunlukGorevTuru.Tas, 1, -1);
                 return;
             }
-            Ilerlet(GunlukGorevTuru.Oldurme, 1, -1);
+            Ilerlet(d, GunlukGorevTuru.Oldurme, 1, -1);
         }
 
         /// <param name="kesin">0 veya üstüyse ilerleme bu değere çekilir (harita sayısı), değilse adet eklenir</param>
-        private static void Ilerlet(GunlukGorevTuru tur, int adet, int kesin) {
-            foreach (Gorev g in gorevler) {
+        private static void Ilerlet(Durum d, GunlukGorevTuru tur, int adet, int kesin) {
+            foreach (Gorev g in d.gorevler) {
                 if (g.tanim.tur != tur || g.Tamam) {
                     continue;
                 }
                 g.ilerleme = Mathf.Min(g.hedef, kesin >= 0 ? kesin : g.ilerleme + adet);
-                kirli = true;
-                if (g.Tamam && takipEdilen != null) {
-                    takipEdilen.WriteMessageFeedMessage($"<color=#FFD54A>Günlük görev tamamlandı: {g.Yazi}. Ödülün için Günlük'e dokun.</color>");
-                    MobileFeedback.Success();
+                d.kirli = true;
+                d.gonderilecek = true;
+                if (g.Tamam && d.oyuncu != null) {
+                    OtukenAg.Mesaj(d.oyuncu, $"<color=#FFD54A>Günlük görev tamamlandı: {g.Yazi}. Ödülün için Günlük'e dokun.</color>");
+                    if (OtukenAg.Sunucuda == false) {
+                        MobileFeedback.Success();
+                    }
                 }
             }
-            if (IsOpen) {
+            if (d == yerel && IsOpen) {
                 instance.Yenile();
             }
         }
 
-        // ---------------------------------------------------------------- kayıt (PlayerPrefs, karakter başına)
+        // ---------------------------------------------------------------- sunucu (çevrimiçi oyun)
 
-        private static string GunAnahtari(DateTime tarih) {
-            return tarih.ToString("yyyyMMdd", CultureInfo.InvariantCulture);
+        /// <summary>sunucu her oyuncu için saniyede bir çağırır (OtukenSunucu)</summary>
+        public static void SunucuTick(UnitController oyuncu) {
+            Durum d = SunucuDurumu(oyuncu);
+            Hazirla(d, oyuncu, OtukenVeri.Bugun);
+            if (oyuncu.gameObject != null) {
+                HaritaSay(d, oyuncu.gameObject.scene.name);
+            }
+            if (d.kirli) {
+                Kaydet(d, true);
+            }
+            if (d.gonderilecek && Time.realtimeSinceStartup - d.sonGonderim > 1f) {
+                SunucuGonder(d);
+            }
         }
 
-        private static string KayitAnahtari(string ad) {
-            return "gunluk-gorevler-" + ad;
-        }
-
-        private static void Hazirla(string ad) {
-            string bugun = GunAnahtari(DateTime.Now);
-            if (ad == karakter && bugun == gun && gorevler.Count > 0) {
+        /// <summary>oyuncu oyundan çıktı ya da harita değiştirdi (sunucudaki birimi gitti)</summary>
+        public static void SunucuCikti(UnitController oyuncu) {
+            Durum d;
+            if (oyuncu == null || sunucuDurumlari.TryGetValue(oyuncu, out d) == false) {
                 return;
             }
-            Kaydet(true);
-            karakter = ad;
-            gun = bugun;
-            gorevler.Clear();
-            gezilenler.Clear();
-            buyukOdulAlindi = false;
+            if (d.oldurme != null && oyuncu.UnitEventController != null) {
+                oyuncu.UnitEventController.OnKillEvent -= d.oldurme;
+            }
+            sunucuDurumlari.Remove(oyuncu);
+        }
 
-            // günün görevleri: tarih ve karakterden türeyen sayıyla karıştırılan türlerden ilk üçü (sırası korunur)
+        private static Durum SunucuDurumu(UnitController oyuncu) {
+            Durum d;
+            if (sunucuDurumlari.TryGetValue(oyuncu, out d)) {
+                return d;
+            }
+            d = new Durum();
+            d.oyuncu = oyuncu;
+            Durum yakalanan = d;
+            d.oldurme = (olduren, olen, pay) => Oldurme(yakalanan, olen, pay);
+            oyuncu.UnitEventController.OnKillEvent += d.oldurme;
+            d.gonderilecek = true;
+            sunucuDurumlari[oyuncu] = d;
+            return d;
+        }
+
+        private static void SunucuGonder(Durum d) {
+            d.gonderilecek = false;
+            d.sonGonderim = Time.realtimeSinceStartup;
+            OtukenAg.Yanitla(d.oyuncu, "gorev", KayitYazisi(d));
+        }
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        private static void AgKur() {
+            OtukenAg.SunucuIsle("gorev-iste", (oyuncu, veri) => {
+                Durum d = SunucuDurumu(oyuncu);
+                Hazirla(d, oyuncu, OtukenVeri.Bugun);
+                SunucuGonder(d);
+            });
+            OtukenAg.SunucuIsle("gorev-al", (oyuncu, veri) => {
+                Durum d = SunucuDurumu(oyuncu);
+                Hazirla(d, oyuncu, OtukenVeri.Bugun);
+                int index;
+                string hata = int.TryParse(veri, out index) ? OdulVer(d, index) : "Geçersiz görev.";
+                Kaydet(d, true);
+                SunucuGonder(d);
+                if (hata != null) {
+                    OtukenAg.Yanitla(oyuncu, "gorev-hata", hata);
+                }
+            });
+            OtukenAg.SunucuIsle("gorev-buyuk", (oyuncu, veri) => {
+                Durum d = SunucuDurumu(oyuncu);
+                Hazirla(d, oyuncu, OtukenVeri.Bugun);
+                string hata = BuyukOdulVer(d);
+                Kaydet(d, true);
+                SunucuGonder(d);
+                if (hata != null) {
+                    OtukenAg.Yanitla(oyuncu, "gorev-hata", hata);
+                }
+            });
+            // istemci: sunucudan günün kopyası
+            OtukenAg.IstemciDinle("gorev", veri => {
+                SystemGameManager o = Oyun;
+                UnitController oyuncu = o != null && o.PlayerManagerClient != null ? o.PlayerManagerClient.UnitController : null;
+                if (oyuncu == null) {
+                    return;
+                }
+                string gunu = veri.Split('|')[0];
+                Kur(yerel, oyuncu.DisplayName, gunu);
+                Yukle(yerel, veri);
+                yerel.oyuncu = null;
+                if (IsOpen) {
+                    instance.Yenile();
+                }
+            });
+            OtukenAg.IstemciDinle("gorev-hata", veri => {
+                if (instance != null) {
+                    instance.durumYazisi.text = veri;
+                }
+            });
+        }
+
+        // ---------------------------------------------------------------- kayıt (karakter başına: telefonda PlayerPrefs, sunucuda karakter kaydı)
+
+        private const string KayitAnahtari = "gunluk-gorevler-";
+
+        /// <summary>günün görevlerini kurar (gerekirse) ve kayıtlı ilerlemeyi yükler</summary>
+        private static void Hazirla(Durum d, UnitController oyuncu, string bugun) {
+            string ad = oyuncu.DisplayName;
+            if (ad == d.karakter && bugun == d.gun && d.gorevler.Count > 0) {
+                return;
+            }
+            Kaydet(d, true);
+            d.oyuncu = oyuncu;
+            Kur(d, ad, bugun);
+            string kayit = OtukenVeri.Oku(oyuncu, KayitAnahtari, string.Empty);
+            if (kayit.Split('|')[0] == bugun) {
+                Yukle(d, kayit);
+            }
+            d.kirli = false;
+            d.gonderilecek = true;
+        }
+
+        /// <summary>günün görevleri: tarih ve karakterden türeyen sayıyla karıştırılan türlerden ilk üçü (sırası korunur)</summary>
+        private static void Kur(Durum d, string ad, string bugun) {
+            d.karakter = ad;
+            d.gun = bugun;
+            d.gorevler.Clear();
+            d.gezilenler.Clear();
+            d.buyukOdulAlindi = false;
             uint tohum = Ozet32(bugun + "|" + ad);
             List<int> turler = new List<int>();
             for (int i = 0; i < tanimlar.Length; i++) {
@@ -232,50 +392,59 @@ namespace AnyRPG {
             foreach (int i in secilen) {
                 Tanim t = tanimlar[i];
                 int zorluk = (int)((tohum / 7u + (uint)sira * 3u) % (uint)t.adetler.Length);
-                gorevler.Add(new Gorev() { tanim = t, hedef = t.adetler[zorluk] });
+                d.gorevler.Add(new Gorev() { tanim = t, hedef = t.adetler[zorluk] });
                 sira++;
             }
-
-            // kayıt: gün|ilerleme,ilerleme,ilerleme|alındı bitleri|büyük ödül|gezilen;haritalar
-            string kayit = PlayerPrefs.GetString(KayitAnahtari(ad), string.Empty);
-            string[] parcalar = kayit.Split('|');
-            if (parcalar.Length >= 5 && parcalar[0] == bugun) {
-                string[] ilerlemeler = parcalar[1].Split(',');
-                for (int i = 0; i < gorevler.Count && i < ilerlemeler.Length; i++) {
-                    int deger;
-                    if (int.TryParse(ilerlemeler[i], NumberStyles.Integer, CultureInfo.InvariantCulture, out deger)) {
-                        gorevler[i].ilerleme = Mathf.Clamp(deger, 0, gorevler[i].hedef);
-                    }
-                    gorevler[i].alindi = i < parcalar[2].Length && parcalar[2][i] == '1';
-                }
-                buyukOdulAlindi = parcalar[3] == "1";
-                foreach (string s in parcalar[4].Split(';')) {
-                    if (s.Length > 0) {
-                        gezilenler.Add(s);
-                    }
-                }
-            }
-            kirli = false;
         }
 
-        private static void Kaydet(bool zorla) {
-            if (kirli == false || string.IsNullOrEmpty(karakter) || gorevler.Count == 0) {
+        /// <summary>kayıt: gün|ilerleme,ilerleme,ilerleme|alındı bitleri|büyük ödül|gezilen;haritalar</summary>
+        private static void Yukle(Durum d, string kayit) {
+            string[] parcalar = kayit.Split('|');
+            if (parcalar.Length < 5 || parcalar[0] != d.gun) {
                 return;
             }
+            string[] ilerlemeler = parcalar[1].Split(',');
+            for (int i = 0; i < d.gorevler.Count && i < ilerlemeler.Length; i++) {
+                int deger;
+                if (int.TryParse(ilerlemeler[i], NumberStyles.Integer, CultureInfo.InvariantCulture, out deger)) {
+                    d.gorevler[i].ilerleme = Mathf.Clamp(deger, 0, d.gorevler[i].hedef);
+                }
+                d.gorevler[i].alindi = i < parcalar[2].Length && parcalar[2][i] == '1';
+            }
+            d.buyukOdulAlindi = parcalar[3] == "1";
+            d.gezilenler.Clear();
+            foreach (string s in parcalar[4].Split(';')) {
+                if (s.Length > 0) {
+                    d.gezilenler.Add(s);
+                }
+            }
+        }
+
+        private static string KayitYazisi(Durum d) {
             StringBuilder sb = new StringBuilder();
-            sb.Append(gun).Append('|');
-            for (int i = 0; i < gorevler.Count; i++) {
-                sb.Append(i > 0 ? "," : string.Empty).Append(gorevler[i].ilerleme.ToString(CultureInfo.InvariantCulture));
+            sb.Append(d.gun).Append('|');
+            for (int i = 0; i < d.gorevler.Count; i++) {
+                sb.Append(i > 0 ? "," : string.Empty).Append(d.gorevler[i].ilerleme.ToString(CultureInfo.InvariantCulture));
             }
             sb.Append('|');
-            foreach (Gorev g in gorevler) {
+            foreach (Gorev g in d.gorevler) {
                 sb.Append(g.alindi ? '1' : '0');
             }
-            sb.Append('|').Append(buyukOdulAlindi ? '1' : '0').Append('|').Append(string.Join(";", gezilenler));
-            PlayerPrefs.SetString(KayitAnahtari(karakter), sb.ToString());
-            PlayerPrefs.Save();
-            kirli = false;
-            sonKayit = Time.unscaledTime;
+            sb.Append('|').Append(d.buyukOdulAlindi ? '1' : '0').Append('|').Append(string.Join(";", d.gezilenler));
+            return sb.ToString();
+        }
+
+        private static void Kaydet(Durum d, bool zorla) {
+            if (d.kirli == false || d.oyuncu == null || string.IsNullOrEmpty(d.karakter) || d.gorevler.Count == 0) {
+                return;
+            }
+            if (d.oyuncu.DisplayName != d.karakter) {
+                return;
+            }
+            OtukenVeri.Yaz(d.oyuncu, KayitAnahtari, KayitYazisi(d));
+            OtukenVeri.Kaydet();
+            d.kirli = false;
+            d.sonKayit = Time.unscaledTime;
         }
 
         private static uint Ozet32(string metin) {
@@ -287,14 +456,14 @@ namespace AnyRPG {
             return h;
         }
 
-        /// <summary>oyun testi raporu için kısa özet</summary>
+        /// <summary>oyun testi ve ağ botu raporu için kısa özet</summary>
         public static string Ozet() {
-            if (gorevler.Count == 0) {
+            if (yerel.gorevler.Count == 0) {
                 return "günlük görev yok";
             }
             List<string> satirlar = new List<string>();
-            foreach (Gorev g in gorevler) {
-                satirlar.Add(g.Yazi + " " + g.ilerleme + "/" + g.hedef + (g.Tamam ? " (tamam)" : string.Empty));
+            foreach (Gorev g in yerel.gorevler) {
+                satirlar.Add(g.Yazi + " " + g.ilerleme + "/" + g.hedef + (g.Tamam ? " (tamam" + (g.alindi ? ", alındı)" : ")") : string.Empty));
             }
             return string.Join(", ", satirlar);
         }
@@ -306,7 +475,7 @@ namespace AnyRPG {
         }
 
         private static int TecrubeOdulu(int seviye) {
-            SystemConfigurationManager ayarlar = oyun != null ? oyun.SystemConfigurationManager : null;
+            SystemConfigurationManager ayarlar = Oyun != null ? Oyun.SystemConfigurationManager : null;
             if (ayarlar == null) {
                 // derleme önizlemesi: oyun yok
                 return 25 * Mathf.Max(1, seviye);
@@ -314,61 +483,111 @@ namespace AnyRPG {
             return Mathf.Max(10, Mathf.RoundToInt(LevelEquations.GetXPNeededForLevel(Mathf.Max(1, seviye), ayarlar) * 0.12f));
         }
 
-        private void OdulVer(int index) {
-            UnitController oyuncu = takipEdilen;
-            if (oyuncu == null || index < 0 || index >= gorevler.Count) {
-                return;
+        /// <summary>tamamlanan görevin ödülü; olmazsa nedeni (olursa null)</summary>
+        private static string OdulVer(Durum d, int index) {
+            UnitController oyuncu = d.oyuncu;
+            if (oyuncu == null || index < 0 || index >= d.gorevler.Count) {
+                return "Görev bulunamadı.";
             }
-            Gorev g = gorevler[index];
+            Gorev g = d.gorevler[index];
             if (g.Tamam == false || g.alindi) {
-                return;
+                return g.alindi ? "Bu görevin ödülünü zaten aldın." : "Görev henüz bitmedi.";
             }
             int seviye = oyuncu.CharacterStats.Level;
             int gumus = GumusOdulu(seviye);
             int tecrube = TecrubeOdulu(seviye);
-            Currency para = oyun.SystemDataFactory.GetResource<Currency>("Silver");
+            Currency para = Oyun.SystemDataFactory.GetResource<Currency>("Silver");
             if (para != null) {
                 oyuncu.CharacterCurrencyManager.AddCurrency(para, gumus);
             }
             g.alindi = true;
-            kirli = true;
-            Kaydet(true);
+            d.kirli = true;
+            d.gonderilecek = true;
+            Kaydet(d, true);
             if (tecrube > 0) {
                 oyuncu.CharacterStats.GainExperience(tecrube);
             }
-            oyuncu.WriteMessageFeedMessage($"<color=#FFD54A>Günlük görev ödülü: {gumus} Gümüş Akçe, {tecrube} tecrübe</color>");
-            MobileFeedback.Success();
-            Yenile();
+            OtukenAg.Mesaj(oyuncu, $"<color=#FFD54A>Günlük görev ödülü: {gumus} Gümüş Akçe, {tecrube} tecrübe</color>");
+            OdulSayisi++;
+            return null;
         }
 
-        private void BuyukOdulVer() {
-            UnitController oyuncu = takipEdilen;
-            if (oyuncu == null || buyukOdulAlindi) {
-                return;
+        private static string BuyukOdulVer(Durum d) {
+            UnitController oyuncu = d.oyuncu;
+            if (oyuncu == null || d.buyukOdulAlindi) {
+                return d.buyukOdulAlindi ? "Bugünün büyük ödülünü zaten aldın." : "Karakter bulunamadı.";
             }
-            foreach (Gorev g in gorevler) {
+            foreach (Gorev g in d.gorevler) {
                 if (g.alindi == false) {
-                    return;
+                    return "Önce üç görevin ödülünü de al.";
                 }
             }
             if (oyuncu.CharacterInventoryManager.EmptySlotCount() == 0) {
-                durumYazisi.text = "Çantan dolu! Biraz yer aç, sonra büyük ödülü al.";
-                return;
+                return "Çantan dolu! Biraz yer aç, sonra büyük ödülü al.";
             }
             InstantiatedItem esya = oyuncu.CharacterInventoryManager.GetNewInstantiatedItem(BuyukOdulEsyasi);
             if (esya != null) {
                 oyuncu.CharacterInventoryManager.AddItem(esya, false);
             }
-            Currency para = oyun.SystemDataFactory.GetResource<Currency>("Silver");
+            Currency para = Oyun.SystemDataFactory.GetResource<Currency>("Silver");
             if (para != null) {
                 oyuncu.CharacterCurrencyManager.AddCurrency(para, BuyukOdulGumus);
             }
-            buyukOdulAlindi = true;
-            kirli = true;
-            Kaydet(true);
-            oyuncu.WriteMessageFeedMessage($"<color=#FFD54A>Günün büyük ödülü: {BuyukOdulEsyaAdi} ve {BuyukOdulGumus} Gümüş Akçe!</color>");
-            MobileFeedback.Success();
+            d.buyukOdulAlindi = true;
+            d.kirli = true;
+            d.gonderilecek = true;
+            Kaydet(d, true);
+            OtukenAg.Mesaj(oyuncu, $"<color=#FFD54A>Günün büyük ödülü: {BuyukOdulEsyaAdi} ve {BuyukOdulGumus} Gümüş Akçe!</color>");
+            OdulSayisi++;
+            return null;
+        }
+
+        /// <summary>bu süreçte verilen günlük görev ödülü sayısı (oyun testi, ağ botu)</summary>
+        public static int OdulSayisi { get; private set; }
+
+        /// <summary>pencerenin "Ödülü Al" düğmesi: tek oyunculu oyunda burada, çevrimiçinde sunucuda verilir</summary>
+        private void OdulDugmesi(int index) {
+            if (Cevrimici.Acik) {
+                if (OtukenAg.Gonder("gorev-al", index.ToString(CultureInfo.InvariantCulture)) == false) {
+                    durumYazisi.text = "Sunucuya ulaşılamadı, biraz sonra yeniden dene.";
+                }
+                return;
+            }
+            string hata = OdulVer(yerel, index);
+            if (hata != null) {
+                durumYazisi.text = hata;
+            } else {
+                MobileFeedback.Success();
+            }
             Yenile();
+        }
+
+        private void BuyukOdulDugmesi() {
+            if (Cevrimici.Acik) {
+                if (OtukenAg.Gonder("gorev-buyuk") == false) {
+                    durumYazisi.text = "Sunucuya ulaşılamadı, biraz sonra yeniden dene.";
+                }
+                return;
+            }
+            string hata = BuyukOdulVer(yerel);
+            if (hata != null) {
+                durumYazisi.text = hata;
+            } else {
+                MobileFeedback.Success();
+            }
+            Yenile();
+        }
+
+        /// <summary>ağ botu: tamamlanan ilk görevin ödülünü ister (yoksa false)</summary>
+        public static bool TestIcinOdulIste() {
+            for (int i = 0; i < yerel.gorevler.Count; i++) {
+                if (yerel.gorevler[i].Tamam && yerel.gorevler[i].alindi == false) {
+                    Ensure();
+                    instance.OdulDugmesi(i);
+                    return true;
+                }
+            }
+            return false;
         }
 
         // ---------------------------------------------------------------- pencere
@@ -397,13 +616,19 @@ namespace AnyRPG {
         }
 
         public static void Goster() {
-            if (Cevrimici.Engelle("Günlük görevler")) {
+            SystemGameManager o = Oyun;
+            UnitController oyuncu = o != null && o.PlayerManagerClient != null ? o.PlayerManagerClient.UnitController : null;
+            if (oyuncu == null) {
                 return;
             }
-            if (takipEdilen == null) {
-                return;
+            if (Cevrimici.Acik) {
+                // güncel durumu sunucudan iste (pencere gelen kopyayı gösterir)
+                sonIstek = Time.unscaledTime;
+                OtukenAg.Gonder("gorev-iste");
+            } else {
+                yerel.oyuncu = oyuncu;
+                Hazirla(yerel, oyuncu, OtukenVeri.Bugun);
             }
-            Hazirla(takipEdilen.DisplayName);
             Ensure();
             instance.panelRoot.SetActive(true);
             instance.durumYazisi.text = string.Empty;
@@ -436,13 +661,13 @@ namespace AnyRPG {
 
         /// <summary>derleme önizlemesi (HaritaHazirlik, tani/arayuz_gunluk.jpg): örnek görevlerle pencere</summary>
         private void Onizleme() {
-            gorevler.Clear();
+            yerel.gorevler.Clear();
             int[] ilerlemeler = { 18, 5, 1 };
             for (int i = 0; i < GorevSayisi; i++) {
                 Tanim t = tanimlar[i];
-                gorevler.Add(new Gorev() { tanim = t, hedef = t.adetler[1], ilerleme = Mathf.Min(ilerlemeler[i], t.adetler[1]), alindi = false });
+                yerel.gorevler.Add(new Gorev() { tanim = t, hedef = t.adetler[1], ilerleme = Mathf.Min(ilerlemeler[i], t.adetler[1]), alindi = false });
             }
-            buyukOdulAlindi = false;
+            yerel.buyukOdulAlindi = false;
             panelRoot.SetActive(true);
             durumYazisi.text = string.Empty;
             Yenile();
@@ -450,9 +675,9 @@ namespace AnyRPG {
 
         /// <summary>önizlemeden sonra örnek görevleri sil</summary>
         private void OnizlemeBitti() {
-            gorevler.Clear();
-            karakter = string.Empty;
-            gun = string.Empty;
+            yerel.gorevler.Clear();
+            yerel.karakter = string.Empty;
+            yerel.gun = string.Empty;
         }
 
         private void Update() {
@@ -515,7 +740,7 @@ namespace AnyRPG {
 
                 Text alYazisi;
                 Button al = CreateButton(satir.transform, "Al", new Vector2(1f, 0.5f), new Vector2(-92f, 0f), new Vector2(160f, 64f), 24, claimColor,
-                    () => { MobileFeedback.Tap(); OdulVer(index); }, out alYazisi);
+                    () => { MobileFeedback.Tap(); OdulDugmesi(index); }, out alYazisi);
                 alDugmeleri.Add(al);
                 alYazilari.Add(alYazisi);
             }
@@ -526,7 +751,7 @@ namespace AnyRPG {
             GameObject buyukMetin = CreateRect(buyuk.transform, "Yazi", Vector2.zero, Vector2.one, new Vector2(18f, 0f), new Vector2(-230f, 0f));
             buyukYazi = CreateText(buyukMetin, string.Empty, 20, TextAnchor.MiddleLeft, textColor);
             buyukDugme = CreateButton(buyuk.transform, "Büyük Ödülü Al", new Vector2(1f, 0.5f), new Vector2(-112f, 0f), new Vector2(210f, 48f), 21, claimColor,
-                () => { MobileFeedback.Tap(); BuyukOdulVer(); }, out buyukDugmeYazisi);
+                () => { MobileFeedback.Tap(); BuyukOdulDugmesi(); }, out buyukDugmeYazisi);
 
             GameObject durum = CreateRect(panel.transform, "Durum", new Vector2(0f, 0f), new Vector2(1f, 0f), new Vector2(24f, 64f), new Vector2(-24f, 90f));
             durumYazisi = CreateText(durum, string.Empty, 19, TextAnchor.MiddleCenter, errorColor);
@@ -543,9 +768,14 @@ namespace AnyRPG {
             if (panelRoot == null) {
                 return;
             }
-            TimeSpan kalan = DateTime.Now.Date.AddDays(1) - DateTime.Now;
+            // çevrimiçi oyunda günler sunucuda Türkiye saatiyle döner
+            DateTime simdi = Cevrimici.Acik ? DateTime.UtcNow.AddHours(3) : DateTime.Now;
+            TimeSpan kalan = simdi.Date.AddDays(1) - simdi;
             altBaslik.text = $"Her gün 3 yeni görev. Hepsini bitirene büyük ödül! Yenilenmesine {(int)kalan.TotalHours} sa {kalan.Minutes} dk var.";
-            int seviye = takipEdilen != null ? takipEdilen.CharacterStats.Level : 1;
+            SystemGameManager o = Oyun;
+            UnitController oyuncu = o != null && o.PlayerManagerClient != null ? o.PlayerManagerClient.UnitController : null;
+            int seviye = oyuncu != null && oyuncu.CharacterStats != null ? oyuncu.CharacterStats.Level : 1;
+            List<Gorev> gorevler = yerel.gorevler;
             bool hepsiAlindi = gorevler.Count > 0;
             for (int i = 0; i < GorevSayisi; i++) {
                 bool mevcut = i < gorevler.Count;
@@ -566,11 +796,11 @@ namespace AnyRPG {
                 alYazilari[i].text = g.alindi ? "Alındı" : (g.Tamam ? "Ödülü Al" : "Sürüyor");
                 hepsiAlindi &= g.alindi;
             }
-            buyukYazi.text = buyukOdulAlindi
+            buyukYazi.text = yerel.buyukOdulAlindi
                 ? "Bugünün büyük ödülünü aldın. Yarın yeni görevler seni bekliyor."
                 : $"Üç görevin ödülünü de alınca: {BuyukOdulEsyaAdi} + {BuyukOdulGumus} Gümüş Akçe";
-            buyukDugme.interactable = hepsiAlindi && buyukOdulAlindi == false;
-            buyukDugmeYazisi.text = buyukOdulAlindi ? "Alındı" : "Büyük Ödülü Al";
+            buyukDugme.interactable = hepsiAlindi && yerel.buyukOdulAlindi == false;
+            buyukDugmeYazisi.text = yerel.buyukOdulAlindi ? "Alındı" : "Büyük Ödülü Al";
         }
 
         // ---------------------------------------------------------------- yapı taşları

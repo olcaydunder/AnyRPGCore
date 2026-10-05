@@ -13,6 +13,7 @@ namespace AnyRPG {
     /// Gücü: eşyanın verdiği her temel değere (Güç, Çeviklik, Zekâ, Dayanıklılık) basamak başına seviyeye göre ek,
     /// zırhlara zırh, temel değeri olmayan silahlara hasar (CharacterStats.CalculateEquipmentChanged ekler ve çıkarır).
     /// Sol sütundaki "Demirci" düğmesiyle açılır. Kodla kurulur.
+    /// Çevrimiçi oyunda yükseltmeyi sunucu yapar (malzeme, şans ve yeni ad sunucuda; "demirci" yanıtıyla telefona gelir).
     /// </summary>
     public class Demirci : MonoBehaviour {
 
@@ -190,7 +191,7 @@ namespace AnyRPG {
             }
             basarili = true;
             MobileFeedback.Success();
-            oyuncu.WriteMessageFeedMessage("<color=#FFD54A>Demirci: " + esya.DisplayName + "!</color>");
+            OtukenAg.Mesaj(oyuncu, "<color=#FFD54A>Demirci: " + esya.DisplayName + "!</color>");
             return "Başarılı! " + esya.DisplayName;
         }
 
@@ -253,11 +254,89 @@ namespace AnyRPG {
         }
 
         public static void Goster() {
-            if (Cevrimici.Engelle("Demirci")) {
-                return;
-            }
             Ensure();
             instance.Ac();
+        }
+
+        // ---------------------------------------------------------------- çevrimiçi
+
+        private bool bekliyor = false;
+
+        /// <summary>bu süreçteki yükseltme denemeleri ve başarılar (ağ botu, oyun testi)</summary>
+        public static int DenemeSayisi { get; private set; }
+        public static int BasariSayisi { get; private set; }
+        public static string SonSonuc { get; private set; } = "-";
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        private static void AgKur() {
+            // sunucu: eşyayı kimliğinden bul, yükselt, yeni adı kaydet
+            OtukenAg.SunucuIsle("demirci", (oyuncu, veri) => {
+                InstantiatedEquipment esya = null;
+                long kimlik;
+                if (long.TryParse(veri, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out kimlik)) {
+                    foreach (InstantiatedEquipment e in Esyalar(oyuncu)) {
+                        if (e.InstanceId == kimlik) {
+                            esya = e;
+                            break;
+                        }
+                    }
+                }
+                bool basarili = false;
+                SystemGameManager o = OtukenAg.Oyun;
+                string sonuc = esya == null ? "Eşya bulunamadı." : Yukselt(oyuncu, esya, o, false, out basarili);
+                if (basarili && o.SystemItemManager != null) {
+                    // basamak eşyanın adındadır: eşya kaydı yenilenir
+                    o.SystemItemManager.SaveItemInstance(esya);
+                }
+                Debug.Log("[Sunucu] " + oyuncu.DisplayName + " demirci: " + sonuc);
+                OtukenAg.Yanitla(oyuncu, "demirci", (basarili ? "1" : "0") + "|" + (esya != null ? esya.InstanceId : 0)
+                    + "|" + (esya != null ? esya.DisplayName : string.Empty) + "|" + sonuc);
+            });
+            // istemci: sonuç; başarılıysa telefondaki eşyanın adı ve değerleri yenilenir
+            OtukenAg.IstemciDinle("demirci", veri => {
+                string[] p = veri.Split(new char[] { '|' }, 4);
+                if (p.Length < 4) {
+                    return;
+                }
+                bool basarili = p[0] == "1";
+                DenemeSayisi++;
+                SonSonuc = p[3];
+                SystemGameManager o = OtukenAg.Oyun;
+                UnitController oyuncu = o != null && o.PlayerManagerClient != null ? o.PlayerManagerClient.UnitController : null;
+                long kimlik;
+                if (basarili && oyuncu != null && long.TryParse(p[1], System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out kimlik)) {
+                    BasariSayisi++;
+                    foreach (InstantiatedEquipment e in Esyalar(oyuncu)) {
+                        if (e.InstanceId == kimlik) {
+                            e.DisplayName = p[2];
+                            if (KusaniliMi(oyuncu, e)) {
+                                oyuncu.CharacterStats.CalculateEquipmentStats();
+                                oyuncu.CharacterStats.CalculatePrimaryStats();
+                            }
+                            break;
+                        }
+                    }
+                    MobileFeedback.Success();
+                } else {
+                    MobileFeedback.Medium();
+                }
+                if (instance != null) {
+                    instance.bekliyor = false;
+                    instance.sonucYazisi.text = p[3];
+                    instance.sonucYazisi.color = basarili ? okColor : errorColor;
+                    if (IsOpen) {
+                        instance.ListeyiKur();
+                        instance.Yenile();
+                    }
+                }
+            });
+        }
+
+        /// <summary>ağ botu: pencereyi açıp ilk eşyayı yükseltmeyi dener (çevrimiçinde sunucuya istek)</summary>
+        public static void TestIcinYukselt() {
+            Ensure();
+            instance.Ac();
+            instance.YukseltDugmesi();
         }
 
         private static void Ensure() {
@@ -454,6 +533,20 @@ namespace AnyRPG {
 
         private void YukseltDugmesi() {
             MobileFeedback.Tap();
+            if (Cevrimici.Acik) {
+                if (secili == null || bekliyor) {
+                    return;
+                }
+                if (OtukenAg.Gonder("demirci", secili.InstanceId.ToString(System.Globalization.CultureInfo.InvariantCulture))) {
+                    bekliyor = true;
+                    sonucYazisi.text = "Örs çalışıyor...";
+                    sonucYazisi.color = hintColor;
+                } else {
+                    sonucYazisi.text = "Sunucuya ulaşılamadı, biraz sonra yeniden dene.";
+                    sonucYazisi.color = errorColor;
+                }
+                return;
+            }
             bool basarili;
             string sonuc = Yukselt(Oyuncu, secili, oyun, false, out basarili);
             sonucYazisi.text = sonuc;

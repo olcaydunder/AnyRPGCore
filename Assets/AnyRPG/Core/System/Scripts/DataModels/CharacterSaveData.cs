@@ -57,6 +57,9 @@ namespace AnyRPG {
         public List<QuestSaveData> AchievementSaveData = new List<QuestSaveData>();
         public List<DialogSaveData> DialogSaveData = new List<DialogSaveData>();
         public List<String> VisitedSceneNodes = new List<String>();
+        // Ötüken: karakter başına küçük kayıtlar ("anahtar=değer" satırları; günlük armağan, günlük görevler, seviye ödülleri...)
+        // çevrimiçi sunucuda tutulur (OtukenVeri)
+        public string OtukenVerisi = string.Empty;
     }
 
 

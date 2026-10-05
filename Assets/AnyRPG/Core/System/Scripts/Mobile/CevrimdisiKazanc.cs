@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,6 +11,7 @@ namespace AnyRPG {
     /// ara süresine göre (en çok 10 saat sayılır) Gümüş Akçe ve tecrübe. "Topla"ya dokununca verilir.
     /// Son görülme karakter başına PlayerPrefs'te tutulur: oyundayken 30 saniyede bir ve arka plana geçince yazılır;
     /// oyuna girince ve arka plandan dönünce bakılır. Günlük Armağan ve rehber kapanınca açılır. Kodla kurulur.
+    /// Çevrimiçi oyunda son görülmeyi ve birikeni sunucu tutar (karakter kaydında); kazancı "Topla"da sunucu verir.
     /// </summary>
     public class CevrimdisiKazanc : MonoBehaviour {
 
@@ -43,7 +45,20 @@ namespace AnyRPG {
 
         /// <summary>MobileBootstrap saniyede bir çağırır</summary>
         public static void Tick(SystemGameManager systemGameManager, bool oyunda) {
-            // çevrimiçi oyunda karakter sunucudadır: telefondan ödül/yetenek verilmez (Cevrimici)
+            if (oyunda && systemGameManager != null && systemGameManager.GameMode == GameMode.Network) {
+                // çevrimiçi: kazancı sunucu hesaplar ("kazanc" yanıtı); pencere armağan ve rehber kapanınca açılır
+                oyun = systemGameManager;
+                if (sunucuKazanci != null && GunlukArmagan.IsOpen == false && GameGuide.IsOpen == false && IsOpen == false) {
+                    string[] p = sunucuKazanci;
+                    sunucuKazanci = null;
+                    int dakika, gumus, tecrube;
+                    if (int.TryParse(p[0], out dakika) && int.TryParse(p[1], out gumus) && int.TryParse(p[2], out tecrube)) {
+                        Ensure();
+                        instance.Ac(TimeSpan.FromMinutes(dakika), p[3] == "1", gumus, tecrube);
+                    }
+                }
+                return;
+            }
             oyunda = oyunda && (systemGameManager == null || systemGameManager.GameMode != GameMode.Network);
             oyun = systemGameManager;
             UnitController oyuncu = oyunda && systemGameManager != null && systemGameManager.PlayerManagerClient != null
@@ -104,14 +119,106 @@ namespace AnyRPG {
                 return;
             }
             double saat = Math.Min(ara.TotalHours, EnCokSaat);
-            int seviye = Mathf.Max(1, oyuncu.CharacterStats.Level);
-            int gumus = Mathf.Max(1, (int)Math.Round(saat * (1.0 + seviye * 0.5)));
-            int tecrube = 0;
-            if (oyun != null && oyun.SystemConfigurationManager != null) {
-                tecrube = Mathf.Max(1, (int)Math.Round(saat * 0.04 * LevelEquations.GetXPNeededForLevel(seviye, oyun.SystemConfigurationManager)));
-            }
+            int gumus, tecrube;
+            Hesapla(saat, oyuncu, out gumus, out tecrube);
             Ensure();
             instance.Ac(ara, saat >= EnCokSaat, gumus, tecrube);
+        }
+
+        private static void Hesapla(double saat, UnitController oyuncu, out int gumus, out int tecrube) {
+            int seviye = Mathf.Max(1, oyuncu.CharacterStats.Level);
+            gumus = Mathf.Max(1, (int)Math.Round(saat * (1.0 + seviye * 0.5)));
+            tecrube = 0;
+            SystemGameManager o = oyun != null ? oyun : OtukenAg.Oyun;
+            if (o != null && o.SystemConfigurationManager != null) {
+                tecrube = Mathf.Max(1, (int)Math.Round(saat * 0.04 * LevelEquations.GetXPNeededForLevel(seviye, o.SystemConfigurationManager)));
+            }
+        }
+
+        // ---------------------------------------------------------------- çevrimiçi (sunucu)
+
+        private const string BekleyenAnahtar = "bekleyen-kazanc-";
+        private static readonly Dictionary<UnitController, float> sunucuYazma = new Dictionary<UnitController, float>();
+        private static string[] sunucuKazanci = null;
+
+        /// <summary>sunucu her oyuncu için saniyede bir çağırır (OtukenSunucu): girişte araya bakar, sonra son görülmeyi yazar</summary>
+        public static void SunucuTick(UnitController oyuncu) {
+            float son;
+            if (sunucuYazma.TryGetValue(oyuncu, out son) == false) {
+                sunucuYazma[oyuncu] = Time.realtimeSinceStartup;
+                SunucuBak(oyuncu);
+                return;
+            }
+            if (Time.realtimeSinceStartup - son > 30f) {
+                sunucuYazma[oyuncu] = Time.realtimeSinceStartup;
+                OtukenVeri.Yaz(oyuncu, Anahtar, DateTime.UtcNow.Ticks.ToString(CultureInfo.InvariantCulture));
+            }
+        }
+
+        public static void SunucuCikti(UnitController oyuncu) {
+            if (oyuncu != null && sunucuYazma.ContainsKey(oyuncu)) {
+                OtukenVeri.Yaz(oyuncu, Anahtar, DateTime.UtcNow.Ticks.ToString(CultureInfo.InvariantCulture));
+                sunucuYazma.Remove(oyuncu);
+            }
+        }
+
+        private static double Bekleyen(UnitController oyuncu) {
+            double saat;
+            return double.TryParse(OtukenVeri.Oku(oyuncu, BekleyenAnahtar, "0"), NumberStyles.Float, CultureInfo.InvariantCulture, out saat)
+                ? Math.Max(0, Math.Min(EnCokSaat, saat)) : 0;
+        }
+
+        private static void SunucuBak(UnitController oyuncu) {
+            string kayit = OtukenVeri.Oku(oyuncu, Anahtar, string.Empty);
+            OtukenVeri.Yaz(oyuncu, Anahtar, DateTime.UtcNow.Ticks.ToString(CultureInfo.InvariantCulture));
+            double bekleyen = Bekleyen(oyuncu);
+            long onceki;
+            if (long.TryParse(kayit, NumberStyles.Integer, CultureInfo.InvariantCulture, out onceki) && onceki > 0 && onceki <= DateTime.UtcNow.Ticks) {
+                TimeSpan ara = DateTime.UtcNow - new DateTime(onceki, DateTimeKind.Utc);
+                if (ara.TotalMinutes >= EnAzDakika) {
+                    bekleyen = Math.Min(EnCokSaat, bekleyen + ara.TotalHours);
+                    OtukenVeri.Yaz(oyuncu, BekleyenAnahtar, bekleyen.ToString("0.###", CultureInfo.InvariantCulture));
+                }
+            }
+            if (bekleyen <= 0) {
+                return;
+            }
+            int gumus, tecrube;
+            Hesapla(bekleyen, oyuncu, out gumus, out tecrube);
+            OtukenAg.Yanitla(oyuncu, "kazanc", (int)Math.Round(bekleyen * 60) + "|" + gumus + "|" + tecrube + "|" + (bekleyen >= EnCokSaat ? "1" : "0"));
+        }
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        private static void AgKur() {
+            OtukenAg.SunucuIsle("kazanc-topla", (oyuncu, veri) => {
+                double bekleyen = Bekleyen(oyuncu);
+                if (bekleyen <= 0) {
+                    return;
+                }
+                int gumus, tecrube;
+                Hesapla(bekleyen, oyuncu, out gumus, out tecrube);
+                OtukenVeri.Yaz(oyuncu, BekleyenAnahtar, "0");
+                Ver(oyuncu, gumus, tecrube);
+                Debug.Log("[Sunucu] " + oyuncu.DisplayName + " çevrimdışı kazanç: " + gumus + " gümüş, " + tecrube + " tecrübe");
+            });
+            OtukenAg.IstemciDinle("kazanc", veri => {
+                string[] p = veri.Split('|');
+                if (p.Length >= 4) {
+                    sunucuKazanci = p;
+                }
+            });
+        }
+
+        private static void Ver(UnitController oyuncu, int gumus, int tecrube) {
+            SystemGameManager o = oyun != null ? oyun : OtukenAg.Oyun;
+            Currency para = o.SystemDataFactory.GetResource<Currency>("Silver");
+            if (para != null && gumus > 0) {
+                oyuncu.CharacterCurrencyManager.AddCurrency(para, gumus);
+            }
+            if (tecrube > 0) {
+                oyuncu.CharacterStats.GainExperience(tecrube);
+            }
+            OtukenAg.Mesaj(oyuncu, $"<color=#FFD54A>Sen yokken kazandıkların: {gumus} Gümüş Akçe, {tecrube} tecrübe</color>");
         }
 
         private static void Ensure() {
@@ -177,15 +284,11 @@ namespace AnyRPG {
         private void Topla() {
             MobileFeedback.Success();
             UnitController oyuncu = oyun != null && oyun.PlayerManagerClient != null ? oyun.PlayerManagerClient.UnitController : null;
-            if (oyuncu != null && oyuncu.DisplayName == karakter) {
-                Currency para = oyun.SystemDataFactory.GetResource<Currency>("Silver");
-                if (para != null && bekleyenGumus > 0) {
-                    oyuncu.CharacterCurrencyManager.AddCurrency(para, bekleyenGumus);
-                }
-                if (bekleyenTecrube > 0) {
-                    oyuncu.CharacterStats.GainExperience(bekleyenTecrube);
-                }
-                oyuncu.WriteMessageFeedMessage($"<color=#FFD54A>Sen yokken kazandıkların: {bekleyenGumus} Gümüş Akçe, {bekleyenTecrube} tecrübe</color>");
+            if (Cevrimici.Acik) {
+                // çevrimiçi: kazancı sunucu verir
+                OtukenAg.Gonder("kazanc-topla");
+            } else if (oyuncu != null && oyuncu.DisplayName == karakter) {
+                Ver(oyuncu, bekleyenGumus, bekleyenTecrube);
             }
             bekleyenGumus = 0;
             bekleyenTecrube = 0;

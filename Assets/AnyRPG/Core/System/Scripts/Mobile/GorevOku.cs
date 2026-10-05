@@ -256,7 +256,7 @@ namespace AnyRPG {
             OtomatikAv.Kapat();
             InteractableBase gidilecek = hedefEtkilesim.CharacterTarget != null ? hedefEtkilesim.CharacterTarget : hedefEtkilesim;
             kontrol.RightMouseInteraction(gidilecek);
-            oyuncu.WriteMessageFeedMessage("Hedefe gidiliyor: " + hedefAdi);
+            OtukenAg.Mesaj(oyuncu, "Hedefe gidiliyor: " + hedefAdi);
         }
 
         // ---------------------------------------------------------------- hedef seçimi

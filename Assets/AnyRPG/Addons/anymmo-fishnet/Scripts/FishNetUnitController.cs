@@ -2828,7 +2828,9 @@ namespace AnyRPG {
             if (targetNetworkInteractable != null) {
                 targetInteractable = targetNetworkInteractable.GetComponent<InteractableBase>();
             }
-            unitController.CharacterAbilityManager.BeginAbility(baseAbility.AbilityProperties, targetInteractable, playerInitiated);
+            bool basladi = unitController.CharacterAbilityManager.BeginAbility(baseAbility.AbilityProperties, targetInteractable, playerInitiated);
+            // Ötüken: çevrimiçi beceri ölçümü (sunucu günlüğü)
+            Denge.BeceriIstegi(unitController, abilityName, basladi);
         }
 
         [ServerRpc]

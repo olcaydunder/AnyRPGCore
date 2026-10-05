@@ -348,10 +348,12 @@ namespace AnyRPG {
                 "• Aynı diyardaki öteki oyuncuları görürsün, birlikte savaşırsın. Düşmanları ve ganimeti sunucu yönetir.\n" +
                 "• <b>Sohbet</b> düğmesi (yalnız çevrimiçi): yaz ve gönder; aynı diyardakiler görür.\n" +
                 "• Diyarlar arası: kapılardan geçersin ya da bir <b>Geçit Taşı</b>'na dokunup haritadan seçersin.\n" +
-                "• Şimdilik çevrimiçi oyunda kapalı (yakında): günlük armağan ve görevler, demirci, toplu satış, çanta sıralama, " +
-                "seviye ödülleri, sen yokken kazancı ve binek. Tek oyunculu oyunun ve kayıtların ayrıdır, etkilenmez.\n\n" +
+                "• Günlük armağan ve görevler, demirci, toplu satış, çanta sıralama, seviye ödülleri, sen yokken kazancı ve binek " +
+                "çevrimiçi oyunda da var: hepsini sunucu verir ve karakterinle birlikte sunucuda saklanır. Çevrimiçi günler Türkiye saatiyle " +
+                "gece yarısı yenilenir. Tek oyunculu oyunun ve kayıtların ayrıdır, etkilenmez.\n\n" +
                 H + "Oyun takılıyorsa" + HE + "\n" +
-                "• <b>Menü > Görüntü</b>: Çözünürlüğü Düşük, Gölgeleri Kapalı yap; Görüş mesafesini ve İsim mesafesini kısalt.\n" +
+                "• <b>Menü > Görüntü</b>: Grafik kalitesini 4K'dan Yüksek'e ya da Orta'ya al; Çözünürlüğü Düşük, Gölgeleri Kapalı yap; " +
+                "Görüş mesafesini ve İsim mesafesini kısalt.\n" +
                 "• <b>Akıcılık</b> bölümünde FPS göstergesini açarsan kare hızını sol üstte görürsün.\n" +
                 "• FPS sınırını 30 yaparsan telefon daha az ısınır ve pil daha uzun gider."),
 

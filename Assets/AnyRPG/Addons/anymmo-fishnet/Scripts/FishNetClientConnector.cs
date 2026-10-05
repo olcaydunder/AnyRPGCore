@@ -414,6 +414,41 @@ namespace AnyRPG {
 
             FishNetNetworkController fishNetNetworkController = GameObject.FindAnyObjectByType<FishNetNetworkController>();
             fishNetNetworkController.RegisterConnector(this);
+
+            // Ötüken: telefondaki kolaylıkların sunucu kanalı (OtukenAg)
+            OtukenAg.IstemciGonderici = OtukenIstegi;
+            OtukenAg.SunucuGonderici = OtukenYaniti;
+        }
+
+        // ---------------------------------------------------------------- Ötüken: kolaylıkların sunucu kanalı (OtukenAg)
+
+        public void OtukenIstegi(string islem, string veri) {
+            OtukenIstegiServer(islem, veri);
+        }
+
+        [ServerRpc(RequireOwnership = false)]
+        private void OtukenIstegiServer(string islem, string veri, NetworkConnection networkConnection = null) {
+            if (networkConnection == null || systemGameManager == null || systemGameManager.AuthenticationService == null) {
+                return;
+            }
+            int accountId = systemGameManager.AuthenticationService.GetAccountId(networkConnection.ClientId);
+            if (accountId == -1) {
+                return;
+            }
+            OtukenAg.SunucuyaGeldi(accountId, islem, veri);
+        }
+
+        public void OtukenYaniti(int accountId, string islem, string veri) {
+            int clientId = networkManagerServer.GetClientIDForAccount(accountId);
+            if (clientId == -1 || fishNetNetworkManager == null || fishNetNetworkManager.ServerManager.Clients.ContainsKey(clientId) == false) {
+                return;
+            }
+            OtukenYanitiClient(fishNetNetworkManager.ServerManager.Clients[clientId], islem, veri);
+        }
+
+        [TargetRpc]
+        private void OtukenYanitiClient(NetworkConnection networkConnection, string islem, string veri) {
+            OtukenAg.IstemciyeGeldi(islem, veri);
         }
 
         /*
