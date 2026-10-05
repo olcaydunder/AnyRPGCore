@@ -255,6 +255,7 @@ namespace Otuken.EditorAraclari {
                         dogusZamani = EditorApplication.timeSinceStartup;
                         dogusYeri = oyuncular.UnitController.transform.position;
                         OldurmeleriSay(oyuncular.UnitController);
+                        HikayeGoreviniAl(oyun, oyuncular.UnitController);
                         avAcildi = false;
                         Debug.Log("[OyunTesti] " + sonuc.sahne + " yüklendi (" + sonuc.yuklemeSuresi.ToString("0") + " sn)");
                         Gec(Adim.Bekle);
@@ -997,6 +998,39 @@ namespace Otuken.EditorAraclari {
             }
         }
 
+        private const string IlkHikayeGorevi = "Destan 01 KutunCagrisi";
+
+        /// <summary>ilk haritada ana hikâyenin ilk görevi alınır (Olcayto Han'dan almak gibi); sayaçları yolculuk boyunca dolar</summary>
+        private static void HikayeGoreviniAl(AnyRPG.SystemGameManager oyun, AnyRPG.UnitController oyuncu) {
+            try {
+                AnyRPG.Quest gorev = oyun.SystemDataFactory.GetResource<AnyRPG.Quest>(IlkHikayeGorevi);
+                if (gorev != null && oyuncu.CharacterQuestLog.HasQuest(IlkHikayeGorevi) == false && gorev.TurnedIn(oyuncu) == false) {
+                    oyuncu.CharacterQuestLog.AcceptQuest(gorev);
+                    Debug.Log("[OyunTesti] ana hikâyenin ilk görevi alındı: " + gorev.DisplayName);
+                }
+            } catch (Exception e) {
+                Debug.LogWarning("[OyunTesti] hikâye görevi alınamadı: " + e.Message);
+            }
+        }
+
+        private static string HikayeIlerlemesi(AnyRPG.SystemGameManager oyun) {
+            AnyRPG.UnitController oyuncu = oyun != null && oyun.PlayerManagerClient != null ? oyun.PlayerManagerClient.UnitController : null;
+            AnyRPG.Quest gorev = oyun != null ? oyun.SystemDataFactory.GetResource<AnyRPG.Quest>(IlkHikayeGorevi) : null;
+            if (oyuncu == null || gorev == null) {
+                return "ilk görev denenemedi";
+            }
+            if (oyuncu.CharacterQuestLog.HasQuest(IlkHikayeGorevi) == false) {
+                return "ilk görev günlükte değil";
+            }
+            List<string> hedefler = new List<string>();
+            foreach (AnyRPG.QuestStep adim_ in gorev.Steps) {
+                foreach (AnyRPG.QuestObjective h in adim_.QuestObjectives) {
+                    hedefler.Add(h.DisplayName + " " + h.CurrentAmount(oyuncu) + "/" + h.Amount);
+                }
+            }
+            return gorev.DisplayName + ": " + string.Join(", ", hedefler) + (gorev.IsComplete(oyuncu) ? " (TAMAM)" : string.Empty);
+        }
+
         /// <summary>ana hikâyenin görevleri yüklendi mi (her birinin hedefi var mı), yardımcı ve boss profilleri var mı</summary>
         private static string HikayeOzeti(AnyRPG.SystemGameManager oyun) {
             if (oyun == null || oyun.SystemDataFactory == null) {
@@ -1041,7 +1075,8 @@ namespace Otuken.EditorAraclari {
                 }
                 return gorev + " görev yüklü" + (bos > 0 ? " (" + bos + " görevin hedefi YOK)" : string.Empty)
                     + ", ilk: " + (ilk ?? "YOK") + "; " + yardimci + " yardımcı, " + boss + " yeni boss profili"
-                    + (eksik > 0 ? ", " + eksik + " profil EKSİK" : string.Empty);
+                    + (eksik > 0 ? ", " + eksik + " profil EKSİK" : string.Empty)
+                    + "; yolculukta " + HikayeIlerlemesi(oyun);
             } catch (Exception e) {
                 return "denetlenemedi: " + e.Message;
             }
