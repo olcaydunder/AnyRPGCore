@@ -1168,6 +1168,22 @@ namespace AnyRPG {
 
             }
 
+            // Ötüken: canavar gücü dengesi (Denge): canavarların canı. Dayanıklılığı olmayan birimde sözlük
+            // burada sıfırlanır ki çarpan her seviye atlamada üst üste binmesin.
+            float dengeCani = Denge.CanCarpani(unitController);
+            if (dengeCani != 1f) {
+                if (unitController.BaseCharacter.UnitToughness == null) {
+                    resourceMultipliers = new Dictionary<string, float>();
+                }
+                foreach (PowerResource powerResource in powerResourceDictionary.Keys) {
+                    if (resourceMultipliers.ContainsKey(powerResource.ResourceName)) {
+                        resourceMultipliers[powerResource.ResourceName] = resourceMultipliers[powerResource.ResourceName] * dengeCani;
+                    } else {
+                        resourceMultipliers.Add(powerResource.ResourceName, dengeCani);
+                    }
+                }
+            }
+
             // calculate base values independent of any modifiers
             foreach (string statName in primaryStats.Keys) {
                 primaryStats[statName].BaseValue = (int)(currentLevel * LevelEquations.GetPrimaryStatForLevel(statName, currentLevel, unitController.BaseCharacter, systemConfigurationManager) * multiplierValues[statName] * primaryStatMultiplier);

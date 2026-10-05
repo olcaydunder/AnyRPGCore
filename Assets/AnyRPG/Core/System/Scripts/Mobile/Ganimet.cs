@@ -61,7 +61,18 @@ namespace AnyRPG {
         /// <summary>
         /// called after the local player took a piece of loot
         /// </summary>
+        /// <summary>yerel oyuncunun aldığı ganimet sayısı ve son aldıkları (otomatik oyun testi ödülleri sayar)</summary>
+        public static int AlinanSayisi { get; private set; }
+        public static readonly List<string> SonAlinanlar = new List<string>();
+
         public static void OnLooted(InstantiatedItem instantiatedItem) {
+            AlinanSayisi++;
+            if (instantiatedItem != null) {
+                SonAlinanlar.Add(instantiatedItem.DisplayName);
+                if (SonAlinanlar.Count > 8) {
+                    SonAlinanlar.RemoveAt(0);
+                }
+            }
             if (IsPrecious(instantiatedItem)) {
                 MobileFeedback.Success();
             }

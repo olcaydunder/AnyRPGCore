@@ -289,10 +289,16 @@ namespace Otuken.EditorAraclari {
                 NavMeshPisir(sahne, yol);
                 List<Vector3> ulasilan = UlasilabilirNoktalar(ad);
                 UlasilmayaniTasi(ulasilan);
+                TasVeKamp(sahne, ad);
                 EditorSceneManager.MarkSceneDirty(sahne);
                 EditorSceneManager.SaveScene(sahne);
                 YurumeAgiRaporu(ad);
                 SahneDenetle(nesneler);
+            } else if (AnyRPG.HaritaSeviyeleri.Aralik(ad, out int _, out int _)) {
+                // AnyRPG'nin kendi haritaları (Ötüken Yaylası, Erlik'in Mağarası): yürüme ağı hazır, yalnız taş ve kamp
+                TasVeKamp(sahne, ad);
+                EditorSceneManager.MarkSceneDirty(sahne);
+                EditorSceneManager.SaveScene(sahne);
             }
 
             DynamicGI.UpdateEnvironment();
@@ -317,6 +323,15 @@ namespace Otuken.EditorAraclari {
                             new Vector3(c.hedef[0], c.hedef[1], c.hedef[2]), c.fov, false, 0f, 960, 540);
                     }
                 }
+            }
+        }
+
+        /// <summary>Ötüken Taşları ve ek canavar kampları (HaritaDoldur); seviye basamağı da rapora yazılır</summary>
+        private static void TasVeKamp(Scene sahne, string ad) {
+            try {
+                Yaz(HaritaDoldur.Doldur(sahne, ad) + " | " + AnyRPG.HaritaSeviyeleri.Yazi(ad));
+            } catch (Exception e) {
+                Yaz($"!! HATA taş/kamp yerleştirme {ad}: {e}");
             }
         }
 

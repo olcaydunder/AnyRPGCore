@@ -8,17 +8,19 @@ using UnityEngine.UI;
 
 namespace AnyRPG {
 
-    public enum GunlukGorevTuru { Oldurme, Ganimet, Sandik, Harita }
+    public enum GunlukGorevTuru { Oldurme, Ganimet, Sandik, Harita, Tas }
 
     /// <summary>
     /// Günlük Görevler: her gün (cihazın tarihine göre) karakter başına 3 görev çıkar; ertesi gün yenilenir.
-    /// Görevler 4 türden seçilir: düşman yen, ganimet topla, hazine sandığı boşalt, farklı haritalara git.
+    /// Görevler 5 türden seçilir: düşman yen, ganimet topla, hazine sandığı boşalt, farklı haritalara git,
+    /// Ötüken Taşı kır.
     /// Her biri tamamlanınca Gümüş Akçe ve tecrübe, üçü de tamamlanınca büyük ödül (Gök Taşı Parçası) alınır.
     /// İlerleme oyunun kendi olaylarından sayılır:
     ///  - düşman: oyuncunun UnitEventController.OnKillEvent'i (pay alınan her öldürme)
     ///  - ganimet: Ganimet.OnLooted (oyuncunun aldığı her ganimet)
     ///  - sandık: LootableNodeComponent.CheckDropListSize (içi tamamen boşaltılan hazine sandığı)
     ///  - harita: o gün girilen farklı haritalar (Işınlan penceresindeki 15 harita)
+    ///  - taş: kırılan Ötüken Taşları (öldürme olayından; taşlar "düşman yen"e sayılmaz)
     /// Sol sütundaki "Günlük" düğmesiyle açılır; ödül bekleyince düğmede altın nokta yanar. Kodla kurulur.
     /// </summary>
     public class GunlukGorevler : MonoBehaviour {
@@ -62,6 +64,7 @@ namespace AnyRPG {
             new Tanim(GunlukGorevTuru.Ganimet, "Ganimet avcısı", "{0} ganimet topla", new int[] { 8, 12, 16 }),
             new Tanim(GunlukGorevTuru.Sandik, "Hazine avı", "{0} hazine sandığını boşalt", new int[] { 1, 2, 3 }),
             new Tanim(GunlukGorevTuru.Harita, "Yolculuk", "{0} farklı diyara ayak bas", new int[] { 2, 3, 4 }),
+            new Tanim(GunlukGorevTuru.Tas, "Ötüken Taşları", "{0} Ötüken Taşı kır", new int[] { 5, 8, 12 }),
         };
 
         // ---------------------------------------------------------------- günün durumu
@@ -162,6 +165,10 @@ namespace AnyRPG {
             if (pay <= 0f || olen == null || olen == takipEdilen) {
                 return;
             }
+            if (OtukenTasi.TasMi(olen)) {
+                Ilerlet(GunlukGorevTuru.Tas, 1, -1);
+                return;
+            }
             Ilerlet(GunlukGorevTuru.Oldurme, 1, -1);
         }
 
@@ -205,14 +212,24 @@ namespace AnyRPG {
             gezilenler.Clear();
             buyukOdulAlindi = false;
 
-            // günün görevleri: tarih ve karakterden türeyen sayı; dört türden biri dışarıda kalır
+            // günün görevleri: tarih ve karakterden türeyen sayıyla karıştırılan türlerden ilk üçü (sırası korunur)
             uint tohum = Ozet32(bugun + "|" + ad);
-            int disarida = (int)(tohum % (uint)tanimlar.Length);
+            List<int> turler = new List<int>();
+            for (int i = 0; i < tanimlar.Length; i++) {
+                turler.Add(i);
+            }
+            uint karistir = tohum;
+            for (int i = turler.Count - 1; i > 0; i--) {
+                karistir = karistir * 1664525u + 1013904223u;
+                int j = (int)((karistir >> 8) % (uint)(i + 1));
+                int gecici = turler[i];
+                turler[i] = turler[j];
+                turler[j] = gecici;
+            }
+            List<int> secilen = turler.GetRange(0, Mathf.Min(GorevSayisi, turler.Count));
+            secilen.Sort();
             int sira = 0;
-            for (int i = 0; i < tanimlar.Length && gorevler.Count < GorevSayisi; i++) {
-                if (i == disarida) {
-                    continue;
-                }
+            foreach (int i in secilen) {
                 Tanim t = tanimlar[i];
                 int zorluk = (int)((tohum / 7u + (uint)sira * 3u) % (uint)t.adetler.Length);
                 gorevler.Add(new Gorev() { tanim = t, hedef = t.adetler[zorluk] });

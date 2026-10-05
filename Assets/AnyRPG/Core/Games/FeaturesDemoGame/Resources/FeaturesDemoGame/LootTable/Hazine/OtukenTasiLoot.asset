@@ -1,0 +1,277 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d27b95b419c1844fa9682cc3b78657b, type: 3}
+  m_Name: OtukenTasiLoot
+  m_EditorClassIdentifier: 
+  resourceName: Otuken Tasi
+  displayName: 
+  icon: {fileID: 0}
+  iconBackgroundImage: {fileID: 0}
+  description: 
+  useRegionalDescription: 0
+  resourceDescriptionProfile: 
+  optionalOverride: 0
+  ignoreGlobalDropLimit: 1
+  dropLimit: 0
+  lootGroups:
+  - guaranteedDrop: 1
+    groupChance: 100
+    dropLimit: 1
+    uniqueLimit: 0
+    ignoreGlobalDropLimit: 1
+    loot:
+    - itemName: Akce Kesesi
+      dropChance: 70
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 0
+      prerequisiteConditions: []
+    - itemName: Dolu Akce Kesesi
+      dropChance: 26
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 0
+      prerequisiteConditions: []
+    - itemName: Altin Kese
+      dropChance: 4
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 0
+      prerequisiteConditions: []
+  - guaranteedDrop: 1
+    groupChance: 60
+    dropLimit: 1
+    uniqueLimit: 0
+    ignoreGlobalDropLimit: 1
+    loot:
+    - itemName: Gok Tasi Parcasi
+      dropChance: 100
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 0
+      prerequisiteConditions: []
+  - guaranteedDrop: 1
+    groupChance: 35
+    dropLimit: 1
+    uniqueLimit: 0
+    ignoreGlobalDropLimit: 1
+    loot:
+    - itemName: Health Potion
+      dropChance: 60
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 0
+      prerequisiteConditions: []
+    - itemName: Mana Potion
+      dropChance: 40
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 0
+      prerequisiteConditions: []
+  - guaranteedDrop: 1
+    groupChance: 15
+    dropLimit: 1
+    uniqueLimit: 0
+    ignoreGlobalDropLimit: 1
+    loot:
+    - itemName: Red Gem
+      dropChance: 10
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 0
+      prerequisiteConditions: []
+    - itemName: Blue Gem
+      dropChance: 10
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 0
+      prerequisiteConditions: []
+    - itemName: Green Gem
+      dropChance: 10
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 0
+      prerequisiteConditions: []
+    - itemName: Yellow Gem
+      dropChance: 10
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 0
+      prerequisiteConditions: []
+    - itemName: Violet Gem
+      dropChance: 10
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 0
+      prerequisiteConditions: []
+    - itemName: Cyan Gem
+      dropChance: 10
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 0
+      prerequisiteConditions: []
+  - guaranteedDrop: 1
+    groupChance: 7
+    dropLimit: 1
+    uniqueLimit: 0
+    ignoreGlobalDropLimit: 1
+    loot:
+    - itemName: Random Medieval Bow
+      dropChance: 10
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 1
+      prerequisiteConditions: []
+    - itemName: Random Medieval Crossbow
+      dropChance: 10
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 1
+      prerequisiteConditions: []
+    - itemName: Random Medieval Dagger
+      dropChance: 10
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 1
+      prerequisiteConditions: []
+    - itemName: Random Medieval Grimoire
+      dropChance: 10
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 1
+      prerequisiteConditions: []
+    - itemName: Random Medieval One Hand Axe
+      dropChance: 10
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 1
+      prerequisiteConditions: []
+    - itemName: Random Medieval One Hand Mace
+      dropChance: 10
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 1
+      prerequisiteConditions: []
+    - itemName: Random Medieval One Hand Sword
+      dropChance: 10
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 1
+      prerequisiteConditions: []
+    - itemName: Random Medieval Shield
+      dropChance: 10
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 1
+      prerequisiteConditions: []
+    - itemName: Random Medieval Staff
+      dropChance: 10
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 1
+      prerequisiteConditions: []
+    - itemName: Random Medieval Two Hand Axe
+      dropChance: 10
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 1
+      prerequisiteConditions: []
+    - itemName: Random Medieval Two Hand Mace
+      dropChance: 10
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 1
+      prerequisiteConditions: []
+    - itemName: Random Medieval Two Hand Sword
+      dropChance: 10
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 1
+      prerequisiteConditions: []
+    - itemName: Random Medieval Wand
+      dropChance: 10
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 1
+      prerequisiteConditions: []
+  - guaranteedDrop: 1
+    groupChance: 5
+    dropLimit: 1
+    uniqueLimit: 0
+    ignoreGlobalDropLimit: 1
+    loot:
+    - itemName: Red Necklace
+      dropChance: 10
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 0
+      prerequisiteConditions: []
+    - itemName: Blue Necklace
+      dropChance: 10
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 0
+      prerequisiteConditions: []
+    - itemName: Green Necklace
+      dropChance: 10
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 0
+      prerequisiteConditions: []
+    - itemName: Yellow Necklace
+      dropChance: 10
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 0
+      prerequisiteConditions: []
+    - itemName: Violet Necklace
+      dropChance: 10
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 0
+      prerequisiteConditions: []
+    - itemName: Cyan Necklace
+      dropChance: 10
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 0
+      prerequisiteConditions: []
+  - guaranteedDrop: 1
+    groupChance: 3
+    dropLimit: 1
+    uniqueLimit: 0
+    ignoreGlobalDropLimit: 1
+    loot:
+    - itemName: 8 Slot Bag
+      dropChance: 70
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 0
+      prerequisiteConditions: []
+    - itemName: 10 Slot Bag
+      dropChance: 30
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 0
+      prerequisiteConditions: []
+  - guaranteedDrop: 1
+    groupChance: 1
+    dropLimit: 1
+    uniqueLimit: 0
+    ignoreGlobalDropLimit: 1
+    loot:
+    - itemName: Ergenekon Demiri
+      dropChance: 100
+      minDrops: 1
+      maxDrops: 1
+      matchItemRestrictions: 0
+      prerequisiteConditions: []

@@ -645,6 +645,14 @@ namespace AnyRPG {
 
             damage = (int)(damage * unitController.CharacterStats.GetIncomingDamageModifiers());
 
+            // Ötüken: canavar gücü dengesi (Denge): canavarın oyuncuya vurduğu hasar
+            if (damage > 0) {
+                float denge = Denge.HasarCarpani(unitController, source);
+                if (denge != 1f) {
+                    damage = Mathf.Max(1, Mathf.RoundToInt(damage * denge));
+                }
+            }
+
             // Ötüken: acemi koruması (birçok mobil RPG'deki yeni oyuncu koruması): 5. seviyeye kadar oyuncu %40 az hasar alır
             if (damage > 0 && unitController.UnitControllerMode == UnitControllerMode.Player && unitController.CharacterStats.Level < Gelisim.AcemiSeviyesi) {
                 damage = Mathf.Max(1, Mathf.RoundToInt(damage * Gelisim.AcemiHasarCarpani));

@@ -391,7 +391,10 @@ def pano(durum):
                 parcalar += [f"- Gelişim: {bot['gelisim']}"]
             if bot.get("canta"):
                 parcalar += [f"- Çanta: {bot['canta']}"]
-            if any(bot.get(k) for k in ("binek", "gunluk", "av", "dunya", "demirci", "gelisim", "canta")):
+            if bot.get("savaslar"):
+                parcalar += ["", "**Savaş denemesi** (her haritada o haritanın en düşük seviyesinde, hilesiz; sonra en yakın Ötüken Taşı):", ""]
+                parcalar += [f"- {satir}" for satir in bot["savaslar"]]
+            if any(bot.get(k) for k in ("binek", "gunluk", "av", "dunya", "demirci", "gelisim", "canta", "savaslar")):
                 parcalar += [""]
             parcalar += [
                          "| | Harita | Sonuç | Yükleme | Hata | Not |", "|---|---|---|---|---|---|"]
@@ -472,6 +475,7 @@ def bot_isle(durum, numara, yol_):
                                "binek": b.get("binekTesti"), "gunluk": b.get("gunlukGorevler"),
                                "av": b.get("ilkHaritaAvi"), "dunya": b.get("dunyaHaritasi"),
                                "demirci": b.get("demirciTesti"), "gelisim": b.get("gelisim"), "canta": b.get("cantaTesti"),
+                               "savaslar": b.get("savaslar", []),
                                "haritalar": [{k: h.get(k) for k in ("sahne", "ad", "sonuc", "yuklemeSuresi", "hata", "not", "bilgi", "okHedefi")}
                                              for h in b.get("haritalar", [])]}
     zaman = int(time.time())

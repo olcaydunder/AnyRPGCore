@@ -323,6 +323,7 @@ namespace AnyRPG {
             bilgiAdi.horizontalOverflow = HorizontalWrapMode.Overflow;
             GameObject zorluk = CreateRect(serit.transform, "Zorluk", new Vector2(0.3f, 0.55f), new Vector2(0.62f, 1f), new Vector2(0f, 0f), new Vector2(0f, -4f));
             bilgiZorluk = CreateText(zorluk, string.Empty, 20, TextAnchor.MiddleRight, textColor);
+            bilgiZorluk.horizontalOverflow = HorizontalWrapMode.Overflow;
             bilgiZorluk.fontStyle = FontStyle.Bold;
             GameObject aciklama = CreateRect(serit.transform, "Aciklama", new Vector2(0f, 0f), new Vector2(0.62f, 0.55f), new Vector2(18f, 4f), new Vector2(0f, 0f));
             bilgiAciklama = CreateText(aciklama, string.Empty, 18, TextAnchor.UpperLeft, hintColor);
@@ -471,7 +472,7 @@ namespace AnyRPG {
             b.etiket.anchoredPosition = b.kok.anchoredPosition + new Vector2(0f, -BolgeCapi * 0.5f - 14f);
             b.etiket.sizeDelta = new Vector2(280f, 58f);
             Text adYazisi = CreateText(etiket, (sira + 1) + ". " + IsinlanmaPenceresi.GorunenAd(sahne) + "\n<size=17><color=#"
-                + ColorUtility.ToHtmlStringRGB(IsinlanmaPenceresi.ZorlukRengi(sahne)) + ">" + IsinlanmaPenceresi.ZorlukAdi(sahne) + "</color></size>",
+                + ColorUtility.ToHtmlStringRGB(IsinlanmaPenceresi.ZorlukRengi(sahne)) + ">" + HaritaSeviyeleri.Yazi(sahne) + " · " + IsinlanmaPenceresi.ZorlukAdi(sahne) + "</color></size>",
                 22, TextAnchor.UpperCenter, textColor);
             adYazisi.fontStyle = FontStyle.Bold;
             adYazisi.horizontalOverflow = HorizontalWrapMode.Overflow;
@@ -588,8 +589,11 @@ namespace AnyRPG {
                 diger.halka.color = diger.sahne == secili ? gold : (diger.sahne == mevcut ? new Color(0.62f, 0.5f, 0.28f, 1f) : halkaRengi);
             }
             bilgiAdi.text = IsinlanmaPenceresi.GorunenAd(sahne);
-            bilgiZorluk.text = IsinlanmaPenceresi.ZorlukAdi(sahne);
-            bilgiZorluk.color = IsinlanmaPenceresi.ZorlukRengi(sahne);
+            // haritanın seviyesi ve oyuncuya göre zorluğu ("Seviye 3–6 · sana göre")
+            Color seviyeRengi;
+            string yorum = HaritaSeviyeleri.Yorum(sahne, HaritaSeviyeleri.OyuncuSeviyesi(), out seviyeRengi);
+            bilgiZorluk.text = HaritaSeviyeleri.Yazi(sahne) + (yorum.Length > 0 ? " · " + yorum : " · " + IsinlanmaPenceresi.ZorlukAdi(sahne));
+            bilgiZorluk.color = yorum.Length > 0 ? seviyeRengi : IsinlanmaPenceresi.ZorlukRengi(sahne);
             bilgiAciklama.text = IsinlanmaPenceresi.Aciklama(sahne);
             durumYazisi.text = string.Empty;
             isinlanYazisi.text = sahne == mevcut ? "Girişe Dön" : "Işınlan";

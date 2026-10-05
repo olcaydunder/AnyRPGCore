@@ -30,7 +30,7 @@ namespace Otuken.EditorAraclari {
         private const string AktifKey = "OyunTesti.Aktif";
         private const string BaslangicKey = "OyunTesti.Baslangic";
         private const string IlkSahne = "Assets/AnyRPG/Core/Games/FeaturesDemoGame/Scenes/Game/FeaturesDemoGame/FeaturesDemoGame.unity";
-        private const double ToplamSure = 34 * 60;
+        private const double ToplamSure = 52 * 60;
         private const double MenuBekleme = 240;
         private const double DogusBekleme = 180;
         private const double HaritadaKalma = 12;
@@ -74,9 +74,10 @@ namespace Otuken.EditorAraclari {
             public string demirciTesti;
             public string cantaTesti;
             public string gelisim;
+            public List<string> savaslar = new List<string>();
         }
 
-        private enum Adim { OyunModu, Acilis, YeniOyun, Dogus, Bekle, Dirilis, BinekTesti, DemirciTesti, Bitti }
+        private enum Adim { OyunModu, Acilis, YeniOyun, Dogus, Bekle, Dirilis, BinekTesti, DemirciTesti, Savas, Bitti }
 
         private static readonly object kilit = new object();
         private static Rapor rapor;
@@ -305,7 +306,7 @@ namespace Otuken.EditorAraclari {
                         Gec(Adim.BinekTesti);
                         break;
                     }
-                    SonrakiHarita(oyun);
+                    SavasaBasla();
                     break;
 
                 case Adim.BinekTesti:
@@ -317,6 +318,15 @@ namespace Otuken.EditorAraclari {
 
                 case Adim.DemirciTesti:
                     if (DemirciTesti(oyun)) {
+                        SavasaBasla();
+                    }
+                    break;
+
+                case Adim.Savas:
+                    if (SavasTesti(oyun)) {
+                        rapor.savaslar.Add(savasSatiri);
+                        Debug.Log("[OyunTesti] savaş denemesi: " + savasSatiri);
+                        AnyRPG.OtomatikAv.Kapat();
                         SonrakiHarita(oyun);
                     }
                     break;
@@ -331,6 +341,189 @@ namespace Otuken.EditorAraclari {
                     }
                     break;
             }
+        }
+
+        // ---------------------------------------------------------------- savaş denemesi (güç dengesi)
+
+        private static int savasAsama = 0;
+        private static double savasZamani = 0;
+        private static double sonEmir = 0;
+        private static AnyRPG.UnitController savasHedefi = null;
+        private static AnyRPG.UnitController tasHedefi = null;
+        private static float enAzCan = 1f;
+        private static double kirilma = -1;
+        private static int ganimetOnce = 0;
+        private static string savasSatiri = null;
+        private static int tasResmi = 0;
+
+        private static void SavasaBasla() {
+            savasAsama = 0;
+            savasZamani = EditorApplication.timeSinceStartup;
+            Gec(Adim.Savas);
+        }
+
+        /// <summary>
+        /// Hilesiz dövüş: oyuncu haritanın en düşük seviyesine çıkarılır (başlangıç donanımıyla), canı doldurulur,
+        /// en yakın canavara saldırır, otomatik av (beceriler) açık. Sonuç: yendi / öldü / bitmedi, süre, en düşük can.
+        /// Sonra en yakın Ötüken Taşı kırılır: kaç saniyede kırıldı, ödülden kaç eşya alındı. Bitince true.
+        /// </summary>
+        private static bool SavasTesti(AnyRPG.SystemGameManager oyun) {
+            AnyRPG.PlayerManagerClient pm = oyun != null ? oyun.PlayerManagerClient : null;
+            AnyRPG.UnitController oyuncu = pm != null ? pm.UnitController : null;
+            AnyRPG.PlayerController kontrol = pm != null ? pm.PlayerController : null;
+            double simdi = EditorApplication.timeSinceStartup;
+            double gecen = simdi - savasZamani;
+            string sahne = SceneManager.GetActiveScene().name;
+            string ad = AnyRPG.IsinlanmaPenceresi.GorunenAd(sahne);
+            if (oyuncu == null || kontrol == null || oyuncu.CharacterStats == null) {
+                savasSatiri = ad + ": oyuncu yok";
+                return true;
+            }
+            AnyRPG.CharacterStats st = oyuncu.CharacterStats;
+            switch (savasAsama) {
+                case 0: {
+                    int en, ust;
+                    if (AnyRPG.HaritaSeviyeleri.Aralik(sahne, out en, out ust) == false) {
+                        savasSatiri = ad + ": seviye basamağı yok";
+                        return true;
+                    }
+                    if (st.IsAlive == false) {
+                        savasSatiri = ad + ": oyuncu ölü başladı";
+                        return true;
+                    }
+                    if (st.Level < en) {
+                        st.SetLevel(en);
+                    }
+                    st.SetResourceAmountsToMaximum();
+                    AnyRPG.OtomatikAv.Kapat();
+                    savasSatiri = ad + " (" + AnyRPG.HaritaSeviyeleri.Yazi(sahne) + "), oyuncu " + st.Level + ". sv, can " + st.MaxPrimaryResource;
+                    savasHedefi = EnYakinBirim(oyuncu, false, 160f);
+                    if (savasHedefi == null) {
+                        savasSatiri += ": yakında canavar yok";
+                        savasAsama = 2;
+                        return false;
+                    }
+                    savasSatiri += ": " + savasHedefi.DisplayName + " " + savasHedefi.CharacterStats.Level + ". sv (can " + savasHedefi.CharacterStats.MaxPrimaryResource
+                        + ", " + Vector3.Distance(oyuncu.transform.position, savasHedefi.transform.position).ToString("0") + " m)";
+                    kontrol.RightMouseInteraction(savasHedefi);
+                    if (AnyRPG.OtomatikAv.Acik == false) {
+                        AnyRPG.OtomatikAv.Degistir();
+                    }
+                    enAzCan = 1f;
+                    sonEmir = simdi;
+                    savasZamani = simdi;
+                    savasAsama = 1;
+                    return false;
+                }
+                case 1: {
+                    enAzCan = Mathf.Min(enAzCan, st.CurrentPrimaryResource / (float)Mathf.Max(1, st.MaxPrimaryResource));
+                    if (st.IsAlive == false) {
+                        savasSatiri += " → ÖLDÜ (" + gecen.ToString("0") + " sn, düşmanın canı %" + CanYuzde(savasHedefi) + ")";
+                        return true;
+                    }
+                    bool oldu = savasHedefi == null || savasHedefi.CharacterStats == null || savasHedefi.CharacterStats.IsAlive == false;
+                    if (oldu) {
+                        savasSatiri += " → YENDİ, " + gecen.ToString("0") + " sn, oyuncunun canı en az %" + (enAzCan * 100f).ToString("0");
+                        savasAsama = 2;
+                        return false;
+                    }
+                    if (gecen > 50) {
+                        savasSatiri += " → 50 sn'de bitmedi (düşmanın canı %" + CanYuzde(savasHedefi) + ", oyuncunun en az %" + (enAzCan * 100f).ToString("0") + ")";
+                        savasAsama = 2;
+                        return false;
+                    }
+                    // otomatik av başka hedefe geçerse ya da durursa ilk hedefe yeniden saldır
+                    if (simdi - sonEmir > 4 && (oyuncu.CharacterCombat == null || oyuncu.CharacterCombat.GetInCombat() == false)) {
+                        sonEmir = simdi;
+                        kontrol.RightMouseInteraction(savasHedefi);
+                    }
+                    return false;
+                }
+                case 2: {
+                    AnyRPG.OtomatikAv.Kapat();
+                    st.SetResourceAmountsToMaximum();
+                    tasHedefi = EnYakinBirim(oyuncu, true, 220f);
+                    if (tasHedefi == null) {
+                        savasSatiri += " | Ötüken Taşı yok";
+                        return true;
+                    }
+                    savasSatiri += " | Ötüken Taşı " + tasHedefi.CharacterStats.Level + ". sv (can " + tasHedefi.CharacterStats.MaxPrimaryResource + ", "
+                        + Vector3.Distance(oyuncu.transform.position, tasHedefi.transform.position).ToString("0") + " m)";
+                    ganimetOnce = AnyRPG.Ganimet.AlinanSayisi;
+                    kirilma = -1;
+                    tasResmi = 0;
+                    kontrol.RightMouseInteraction(tasHedefi);
+                    sonEmir = simdi;
+                    savasZamani = simdi;
+                    savasAsama = 3;
+                    return false;
+                }
+                case 3: {
+                    if (st.IsAlive == false) {
+                        savasSatiri += ": oyuncu öldü";
+                        return true;
+                    }
+                    bool kirildi = tasHedefi == null || tasHedefi.CharacterStats == null || tasHedefi.CharacterStats.IsAlive == false;
+                    if (kirildi && kirilma < 0) {
+                        kirilma = gecen;
+                    }
+                    // ilk iki haritada taşın görüntüsü: vururken ve kırıldıktan hemen sonra
+                    if (rapor.savaslar.Count < 2 && tasHedefi != null) {
+                        float uzaklik = Vector3.Distance(oyuncu.transform.position, tasHedefi.transform.position);
+                        if (tasResmi == 0 && kirildi == false && uzaklik < 5f) {
+                            tasResmi = 1;
+                            GoruntuAl(oyun, "tas_" + sahne);
+                        } else if (tasResmi <= 1 && kirildi && gecen - kirilma > 0.4) {
+                            tasResmi = 2;
+                            GoruntuAl(oyun, "tas_kirik_" + sahne);
+                        }
+                    }
+                    int alinan = AnyRPG.Ganimet.AlinanSayisi - ganimetOnce;
+                    if (kirildi && (alinan > 0 && gecen - kirilma > 2 || gecen - kirilma > 10)) {
+                        int n = Mathf.Min(alinan, AnyRPG.Ganimet.SonAlinanlar.Count);
+                        savasSatiri += ": " + kirilma.ToString("0") + " sn'de kırıldı, ödül " + alinan + " eşya"
+                            + (n > 0 ? " (" + string.Join(", ", AnyRPG.Ganimet.SonAlinanlar.GetRange(AnyRPG.Ganimet.SonAlinanlar.Count - n, n)) + ")" : " — ÖDÜL ALINMADI");
+                        return true;
+                    }
+                    if (kirildi == false && gecen > 45) {
+                        savasSatiri += ": 45 sn'de kırılamadı (taşın canı %" + CanYuzde(tasHedefi) + ")";
+                        return true;
+                    }
+                    if (kirildi == false && simdi - sonEmir > 4 && (oyuncu.CharacterCombat == null || oyuncu.CharacterCombat.GetInCombat() == false)) {
+                        sonEmir = simdi;
+                        kontrol.RightMouseInteraction(tasHedefi);
+                    }
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private static string CanYuzde(AnyRPG.UnitController u) {
+            if (u == null || u.CharacterStats == null) {
+                return "?";
+            }
+            return (100f * u.CharacterStats.CurrentPrimaryResource / Mathf.Max(1, u.CharacterStats.MaxPrimaryResource)).ToString("0");
+        }
+
+        /// <summary>en yakın canlı düşman (tas: yalnız Ötüken Taşları, değilse taş olmayanlar)</summary>
+        private static AnyRPG.UnitController EnYakinBirim(AnyRPG.UnitController oyuncu, bool tas, float menzil) {
+            AnyRPG.UnitController enYakin = null;
+            float enAz = menzil;
+            foreach (AnyRPG.UnitController birim in Object.FindObjectsByType<AnyRPG.UnitController>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)) {
+                if (birim == oyuncu || birim.CharacterStats == null || birim.CharacterStats.IsAlive == false || oyuncu.BaseCharacter == null
+                    || birim.UnitControllerMode != AnyRPG.UnitControllerMode.AI
+                    || AnyRPG.Faction.RelationWith(birim, oyuncu.BaseCharacter.Faction) > -1
+                    || AnyRPG.OtukenTasi.TasMi(birim) != tas) {
+                    continue;
+                }
+                float d = Vector3.Distance(birim.transform.position, oyuncu.transform.position);
+                if (d < enAz) {
+                    enAz = d;
+                    enYakin = birim;
+                }
+            }
+            return enYakin;
         }
 
         private static int binekAsama = 0;
@@ -913,7 +1106,12 @@ namespace Otuken.EditorAraclari {
             sb.Append("Dünya haritası: ").Append(rapor.dunyaHaritasi).Append('\n');
             sb.Append("Demirci: ").Append(rapor.demirciTesti).Append('\n');
             sb.Append("Çanta: ").Append(rapor.cantaTesti).Append('\n');
-            sb.Append("Gelişim: ").Append(rapor.gelisim).Append("\n\n");
+            sb.Append("Gelişim: ").Append(rapor.gelisim).Append("\n");
+            sb.Append("Savaş denemesi (her haritada o haritanın en düşük seviyesinde, hilesiz):\n");
+            foreach (string satir in rapor.savaslar) {
+                sb.Append("  - ").Append(satir).Append('\n');
+            }
+            sb.Append('\n');
             foreach (HaritaSonucu h in rapor.haritalar) {
                 sb.Append(h.sonuc == "tamam" ? "  ok  " : "  !!  ").Append(h.ad).Append(" (").Append(h.sahne).Append("): ").Append(h.sonuc)
                     .Append(", yükleme ").Append(h.yuklemeSuresi.ToString("0")).Append(" sn, ").Append(h.hata).Append(" hata");

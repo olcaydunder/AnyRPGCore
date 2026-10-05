@@ -514,23 +514,40 @@ namespace AnyRPG {
                 "• Ordubalık ve çevresindeki haritalar birbirine yollarla da bağlıdır: yolun sonunda üstünde yer adı yazan " +
                 "geçitten yürüyerek komşu haritaya geçersin.\n\n" +
                 H + "Haritalar (kolaydan zora)" + HE + "\n" +
-                "1. <b>Ötüken Yaylası</b>: köy ve çevresi. Başlangıç.\n" +
-                "2. <b>Umay Tarlaları</b>: ekinler, limon bahçeleri. Çalı Cinleri, yağmacılar.\n" +
-                "3. <b>Börü Tepesi</b>: meşaleli patikalar, denize inen yamaç.\n" +
-                "4. <b>Ak Deniz Kıyısı</b>: bambu korulukları, kumsal. Yağmacılar ve Şulmuslar.\n" +
-                "5. <b>Ordubalık Çarşısı</b>: başkentin şenlikli çarşısı.\n" +
-                "6. <b>Ordubalık Kenti</b>: değirmenler, taş köprüler.\n" +
-                "7. <b>Ulukayın Ormanı</b>: şelalenin ardındaki gölgeli orman.\n" +
-                "8. <b>Koncolos İni</b>: kemiklerle dolu mağara; dipte <b>Kara Koncolos</b>.\n" +
-                "9. <b>Kağan Ordası</b>: kentin tepesi; Erlik'in en güçlü yandaşları.\n" +
-                "10. <b>Kaf Dağı Yolu</b>: sarp kayalıklar, Kızıl Cinler.\n" +
-                "11. <b>Ergenekon Mağarası</b>: atalarımızın demir dağı.\n" +
-                "12. <b>Kurgan Mezarlığı</b>: gece; kemik erler ve <b>Kemik Kağan</b>.\n" +
-                "13. <b>Ay Dede Koyu</b>: ay ışığında ölülerin indiği koy.\n" +
-                "14. <b>Erlik'in Mağarası</b>: lavlı zindan; dipte <b>Tepegöz</b>.\n" +
-                "15. <b>Tamu Zindanı</b>: Erlik Han'ın yeraltı zindanı; kapıda <b>Tamu Bekçisi</b>.\n\n" +
-                "Düşmanlar senin seviyene göre güçlenir; zor haritalarda birkaç seviye üstüne çıkarlar. " +
-                "Kampların ortasındaki sandıklar ve bosslar en iyi ganimeti verir."),
+                "1. <color=#8FE07A>Sv 1–4</color> <b>Ötüken Yaylası</b>: köy ve çevresi. Başlangıç.\n" +
+                "2. <color=#8FE07A>Sv 3–6</color> <b>Umay Tarlaları</b>: ekinler, limon bahçeleri. Çalı Cinleri, yağmacılar.\n" +
+                "3. <color=#8FE07A>Sv 5–8</color> <b>Börü Tepesi</b>: meşaleli patikalar, denize inen yamaç.\n" +
+                "4. <color=#8FE07A>Sv 7–10</color> <b>Ak Deniz Kıyısı</b>: bambu korulukları, kumsal. Yağmacılar ve Şulmuslar.\n" +
+                "5. <color=#8FE07A>Sv 9–12</color> <b>Ordubalık Çarşısı</b>: başkentin şenlikli çarşısı.\n" +
+                "6. <color=#8FE07A>Sv 11–14</color> <b>Ordubalık Kenti</b>: değirmenler, taş köprüler.\n" +
+                "7. <color=#8FE07A>Sv 13–16</color> <b>Ulukayın Ormanı</b>: şelalenin ardındaki gölgeli orman.\n" +
+                "8. <color=#8FE07A>Sv 15–18</color> <b>Koncolos İni</b>: kemiklerle dolu mağara; dipte <b>Kara Koncolos</b>.\n" +
+                "9. <color=#8FE07A>Sv 17–20</color> <b>Kağan Ordası</b>: kentin tepesi; Erlik'in en güçlü yandaşları.\n" +
+                "10. <color=#8FE07A>Sv 19–22</color> <b>Kaf Dağı Yolu</b>: sarp kayalıklar, Kızıl Cinler.\n" +
+                "11. <color=#8FE07A>Sv 21–24</color> <b>Ergenekon Mağarası</b>: atalarımızın demir dağı.\n" +
+                "12. <color=#8FE07A>Sv 23–26</color> <b>Kurgan Mezarlığı</b>: gece; kemik erler ve <b>Kemik Kağan</b>.\n" +
+                "13. <color=#8FE07A>Sv 25–28</color> <b>Ay Dede Koyu</b>: ay ışığında ölülerin indiği koy.\n" +
+                "14. <color=#8FE07A>Sv 27–30</color> <b>Erlik'in Mağarası</b>: lavlı zindan; dipte <b>Tepegöz</b>.\n" +
+                "15. <color=#8FE07A>Sv 29–32</color> <b>Tamu Zindanı</b>: Erlik Han'ın yeraltı zindanı; kapıda <b>Tamu Bekçisi</b>.\n\n" +
+                H + "Haritaların seviyesi" + HE + "\n" +
+                "Her haritanın bir seviye aralığı vardır; Işınlan penceresinde ve Dünya Haritası'nda haritanın adının " +
+                "altında yazar, haritaya girince de ekranın üstünde görünür. Renk senin seviyene göredir: " +
+                "<color=#8FE07A>yeşil</color> sana göre, <color=#FF7359>kırmızı</color> henüz zor, gri artık kolay.\n" +
+                "• Canavarlar haritanın seviyesinde doğar: girişe yakın olanlar aralığın altında, haritanın derinlerindekiler üstünde.\n" +
+                "• İri, dayanıklı canavarlar bir seviye yukarıda; boss'lar aralığın tepesindedir.\n" +
+                "• Kampların ortasındaki sandıklar ve bosslar en iyi ganimeti verir.\n" +
+                "• Aralığın altındaysan önce bir önceki haritada güçlen; çok üstündeysen canavarlar az tecrübe verir, sonraki haritaya geç."),
+
+            new Section("Ötüken Taşları",
+                "Her haritaya saçılmış, gök turkuazı kristalleri olan, üstünde Göktürk harfleri parlayan kayalar: <b>Ötüken Taşları</b>.\n\n" +
+                "• Taşa dokun: kahramanın taşa vurur. Her vuruşta taş sarsılır, kristal kıymıkları sıçrar.\n" +
+                "• Canı bitince taş <b>parçalanır</b> ve içinden ödül çıkar; kahramanın kırıntıya yürüyüp ödülü kendiliğinden toplar.\n" +
+                "• Ödül: her seferinde <b>akçe kesesi</b>; çoğu zaman <b>Gök Taşı Parçası</b> (Demirci'de güçlendirme için); sık sık iksir; " +
+                "bazen değerli taş, silah, gerdanlık ya da çanta; çok nadiren efsanevi <b>Ergenekon Demiri</b>.\n" +
+                "• Taşlar karşılık vermez ama seviyeleri haritanın seviyesidir: zor haritadaki taş daha çok vuruşta kırılır.\n" +
+                "• Kırılan taşın yerinde birkaç dakika sonra yenisi biter.\n" +
+                "• <b>Oto Av</b> açıkken kahramanın canavarlarla birlikte taşları da kırar.\n" +
+                "• Günlük görevlerde \"Ötüken Taşı kır\" görevi çıkabilir."),
 
             new Section("Gereksinimler",
                 H + "Cihaz" + HE + "\n" +

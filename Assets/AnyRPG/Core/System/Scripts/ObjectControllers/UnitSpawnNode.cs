@@ -446,6 +446,12 @@ namespace AnyRPG {
             } else if (systemGameManager.GameMode == GameMode.Local) {
                 _unitLevel = (dynamicLevel ? GetUnspawnedPlayerLevel(unitLevel) : unitLevel) + extraLevels;
             }
+            // Ötüken: canavarlar oyuncuya göre değil haritanın seviye basamağına göre doğar (HaritaSeviyeleri);
+            // çevrimiçi sunucuda da aynı kural (AnyRPG orada hepsini 1. seviyede doğuruyordu)
+            int haritaSeviyesi = HaritaSeviyeleri.BirimSeviyesi(this, unitProfile, toughness != null ? toughness : unitProfile.DefaultToughness);
+            if (haritaSeviyesi > 0) {
+                _unitLevel = haritaSeviyesi;
+            }
             CharacterConfigurationRequest characterConfigurationRequest = new CharacterConfigurationRequest(unitProfile);
             characterConfigurationRequest.unitLevel = _unitLevel;
             characterConfigurationRequest.unitToughness = (toughness != null ? toughness : unitProfile.DefaultToughness);

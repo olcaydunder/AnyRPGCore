@@ -67,6 +67,7 @@ namespace AnyRPG {
         private SystemGameManager systemGameManager = null;
         private readonly List<Image> cardImages = new List<Image>();
         private readonly List<Text> cardTags = new List<Text>();
+        private readonly List<Text> cardLevels = new List<Text>();
         private readonly List<Outline> cardOutlines = new List<Outline>();
         private Text statusText = null;
         private Button teleportButton = null;
@@ -183,27 +184,34 @@ namespace AnyRPG {
             stripeImage.color = DifficultyColor(index);
             stripeImage.raycastTarget = false;
 
-            GameObject nameObject = CreateRect(card.transform, "Ad", new Vector2(0f, 0.48f), new Vector2(1f, 1f), new Vector2(18f, 0f), new Vector2(-110f, -4f));
+            GameObject nameObject = CreateRect(card.transform, "Ad", new Vector2(0f, 0.56f), new Vector2(1f, 1f), new Vector2(18f, 0f), new Vector2(-110f, -4f));
             Text nameText = CreateText(nameObject, (index + 1) + ". " + harita.ad, 24, TextAnchor.LowerLeft, textColor);
             nameText.fontStyle = FontStyle.Bold;
             nameText.resizeTextForBestFit = true;
             nameText.resizeTextMinSize = 16;
             nameText.resizeTextMaxSize = 24;
 
-            GameObject tagObject = CreateRect(card.transform, "Etiket", new Vector2(1f, 0.48f), new Vector2(1f, 1f), new Vector2(-108f, 0f), new Vector2(-10f, -4f));
+            GameObject tagObject = CreateRect(card.transform, "Etiket", new Vector2(1f, 0.56f), new Vector2(1f, 1f), new Vector2(-108f, 0f), new Vector2(-10f, -4f));
             Text tagText = CreateText(tagObject, string.Empty, 16, TextAnchor.LowerRight, DifficultyColor(index));
             tagText.fontStyle = FontStyle.Bold;
             // tek satırda kalsın, gerekirse sola taşsın
             tagText.horizontalOverflow = HorizontalWrapMode.Overflow;
 
-            GameObject descriptionObject = CreateRect(card.transform, "Aciklama", new Vector2(0f, 0f), new Vector2(1f, 0.48f), new Vector2(18f, 4f), new Vector2(-10f, -2f));
-            Text descriptionText = CreateText(descriptionObject, harita.aciklama, 17, TextAnchor.UpperLeft, hintColor);
+            // adın altında haritanın seviyesi (HaritaSeviyeleri), oyuncunun seviyesine göre renkli
+            GameObject levelObject = CreateRect(card.transform, "Seviye", new Vector2(0f, 0.32f), new Vector2(1f, 0.56f), new Vector2(18f, 0f), new Vector2(-10f, 0f));
+            Text levelText = CreateText(levelObject, HaritaSeviyeleri.Yazi(harita.sahne), 18, TextAnchor.MiddleLeft, gold);
+            levelText.fontStyle = FontStyle.Bold;
+            levelText.horizontalOverflow = HorizontalWrapMode.Overflow;
+
+            GameObject descriptionObject = CreateRect(card.transform, "Aciklama", new Vector2(0f, 0f), new Vector2(1f, 0.32f), new Vector2(18f, 3f), new Vector2(-10f, 0f));
+            Text descriptionText = CreateText(descriptionObject, harita.aciklama, 15, TextAnchor.UpperLeft, hintColor);
             descriptionText.resizeTextForBestFit = true;
-            descriptionText.resizeTextMinSize = 12;
-            descriptionText.resizeTextMaxSize = 17;
+            descriptionText.resizeTextMinSize = 11;
+            descriptionText.resizeTextMaxSize = 15;
 
             cardImages.Add(image);
             cardTags.Add(tagText);
+            cardLevels.Add(levelText);
             cardOutlines.Add(outline);
         }
 
@@ -262,10 +270,22 @@ namespace AnyRPG {
             }
         }
 
+        private int OyuncuSeviyesi {
+            get {
+                UnitController oyuncu = GameManager != null && GameManager.PlayerManagerClient != null ? GameManager.PlayerManagerClient.UnitController : null;
+                return oyuncu != null && oyuncu.CharacterStats != null ? oyuncu.CharacterStats.Level : 0;
+            }
+        }
+
         private void Refresh() {
+            int oyuncuSeviyesi = OyuncuSeviyesi;
             for (int i = 0; i < cardImages.Count; i++) {
                 cardImages[i].color = i == selected ? cardSelectedColor : cardColor;
                 bool here = i == current;
+                Color levelColor;
+                string yorum = HaritaSeviyeleri.Yorum(haritalar[i].sahne, oyuncuSeviyesi, out levelColor);
+                cardLevels[i].text = HaritaSeviyeleri.Yazi(haritalar[i].sahne) + (yorum.Length > 0 ? "  ·  " + yorum : string.Empty);
+                cardLevels[i].color = levelColor;
                 cardTags[i].text = here ? "Buradasın" : DifficultyName(i);
                 cardTags[i].color = here ? gold : DifficultyColor(i);
                 cardOutlines[i].effectColor = here || i == selected ? gold : new Color(gold.r, gold.g, gold.b, 0.45f);

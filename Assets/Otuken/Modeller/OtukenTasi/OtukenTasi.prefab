@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &1235513711832093977
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 919132149155446097, guid: be812e70d0e9555da303fd1695848f94, type: 3}
+      propertyPath: m_Name
+      value: OtukenTasi
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: be812e70d0e9555da303fd1695848f94, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 256106780182533592}
+  m_SourcePrefab: {fileID: 100100000, guid: be812e70d0e9555da303fd1695848f94, type: 3}
+--- !u!1 &616843975548749225 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: be812e70d0e9555da303fd1695848f94, type: 3}
+  m_PrefabInstance: {fileID: 1235513711832093977}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &256106780182533592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 616843975548749225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87cf191e79575a0eb139c54d4238e290, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
