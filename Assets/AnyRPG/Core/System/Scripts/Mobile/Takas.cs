@@ -206,8 +206,8 @@ namespace AnyRPG {
                     TamamlananSayisi++;
                     MobileFeedback.Success();
                 }
-                if (ornek != null) {
-                    ornek.Kapat();
+                if (ornek != null && ornek.kok != null) {
+                    ornek.kok.SetActive(false);
                 }
                 MesajYaz(mesaj);
             });
@@ -614,6 +614,10 @@ namespace AnyRPG {
         public override void Kapat() {
             if (secimKoku != null) {
                 secimKoku.SetActive(false);
+            }
+            // pencere kapatılınca takas da biter (sunucuda takas yoksa istek yok sayılır)
+            if (Acik) {
+                OtukenAg.Gonder("takas-iptal");
             }
             base.Kapat();
         }
