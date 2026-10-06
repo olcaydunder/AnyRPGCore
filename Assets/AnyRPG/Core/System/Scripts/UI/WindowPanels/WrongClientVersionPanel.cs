@@ -41,13 +41,28 @@ namespace AnyRPG {
             networkManagerClient.OnClientVersionFailure -= HandleClientVersionFailure;
         }
 
+        // Ötüken: Google Play sürümünde güncelleme yalnız Play'den (politika gereği başka yerden APK gösterilmez)
+        private bool PlayAdresi {
+            get {
+                string adres = systemConfigurationManager.ClientDownloadUrl;
+                return string.IsNullOrEmpty(adres) == false && adres.Contains("play.google.com");
+            }
+        }
+
         public void HandleClientVersionFailure(string requiredClientVersion) {
-            versionMessage.text = $"Wrong client version.\nDownload version {requiredClientVersion} from {systemConfigurationManager.ClientDownloadUrl}";
+            if (PlayAdresi) {
+                versionMessage.text = "Oyunun yeni sürümü çıktı.\nGoogle Play'den güncelleyip yeniden gir.";
+            } else {
+                versionMessage.text = $"Oyunun yeni sürümü çıktı ({requiredClientVersion}).\nİndir: {systemConfigurationManager.ClientDownloadUrl}";
+            }
         }
 
         public void ConfirmAction() {
             //Debug.Log("DisconnectedPanelController.ConfirmAction()");
             uIManager.wrongClientVersionWindow.CloseWindow();
+            if (PlayAdresi && Application.platform == RuntimePlatform.Android) {
+                Application.OpenURL("market://details?id=" + Application.identifier);
+            }
         }
 
     }

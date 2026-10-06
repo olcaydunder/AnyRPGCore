@@ -38,7 +38,26 @@ namespace Otuken.EditorAraclari {
         public const string OyunSahnesi = "Assets/AnyRPG/Core/Games/FeaturesDemoGame/Scenes/Game/FeaturesDemoGame/FeaturesDemoGame.unity";
         private const string OyunYoneticisiYolu = "Assets/AnyRPG/Core/Games/FeaturesDemoGame/Prefab/GameManager/FeaturesDemoGameManager.prefab";
         private const string SunucuAdresiDosyasi = "Tools~/ag/sunucu.txt";
-        public const string IndirmeAdresi = "https://github.com/olcaydunder/AnyRPGCore/releases/download/son-apk/OtukenDestani.apk";
+        private const string DenemeIndirmeAdresi = "https://github.com/olcaydunder/AnyRPGCore/releases/download/son-apk/OtukenDestani.apk";
+
+        /// <summary>Google Play sürümü (1.0.N): deneme sürümleri 0.1.N, editör "gelistirme"</summary>
+        public static bool PlaySurumu {
+            get { return IstemciSurumu.StartsWith("0.") == false && IstemciSurumu != "gelistirme"; }
+        }
+
+        /// <summary>
+        /// "Sürüm tutmuyor" penceresindeki güncelleme adresi. Play sürümünde Play Store sayfası: Play'den kurulan oyun
+        /// başka yerden APK indirmeye yönlendiremez (Google Play politikası: güncelleme yalnız Play'den).
+        /// </summary>
+        public static string IndirmeAdresi {
+            get {
+                if (PlaySurumu) {
+                    return "https://play.google.com/store/apps/details?id="
+                        + PlayerSettings.GetApplicationIdentifier(UnityEditor.Build.NamedBuildTarget.Android);
+                }
+                return DenemeIndirmeAdresi;
+            }
+        }
 
         private static StringBuilder rapor;
 

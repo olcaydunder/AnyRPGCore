@@ -399,6 +399,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           SURUM: ${{ steps.hazirlik.outputs.surum }}
           YAYIMLA: ${{ !inputs.sadece_sunucu }}
+          PLAY: ${{ inputs.play_surumu }}
         run: |
           mkdir -p tani
           set +e
@@ -477,6 +478,12 @@ jobs:
           fi
           if [ "$YAYIMLA" != "true" ]; then
             echo "yalnız sunucu denemesi: yayımlanmadı"; exit 0
+          fi
+          # Google Play sürümü çıktıktan sonra canlı sunucuyu yalnız Play derlemesi günceller: deneme derlemesi (0.1.N)
+          # sunucuyu değiştirseydi Play'den kurulan oyun (1.0.N) "sürüm tutmuyor" der, bağlanamazdı
+          if [ "$PLAY" != "true" ] && gh release view play-aab >/dev/null 2>&1; then
+            echo "::notice title=Canlı sunucu::Play sürümü yayında; bu deneme derlemesi canlı sunucuya gönderilmedi (yalnız Play derlemesi günceller)"
+            exit 0
           fi
           # başlatıcı: ayrılmış sunucu derlemesi görüntüsüz, olağan oyun sanal ekranla çalışır (Tools~/ag/cloud-config.yaml)
           cat > "$klasor/baslat.sh" <<'SH'
