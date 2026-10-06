@@ -6,7 +6,7 @@ from pathlib import Path
 
 CIKIS = Path(sys.argv[1] if len(sys.argv) > 1 else "yasal_sayfalar")
 OYUN = sys.argv[2] if len(sys.argv) > 2 else "Ötüken Destanı"
-EPOSTA = sys.argv[3] if len(sys.argv) > 3 else "destek@zootopiayazilim.com"
+EPOSTA = sys.argv[3] if len(sys.argv) > 3 else "zootopiayazilim@gmail.com"
 GELISTIRICI = "Olcay Yasin Dünder (Zootopia Yazılım)"
 SITE = "https://zootopiayazilim.com"
 TARIH = datetime.date.today().strftime("%d.%m.%Y")
