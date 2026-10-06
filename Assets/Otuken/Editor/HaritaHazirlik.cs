@@ -39,6 +39,12 @@ namespace Otuken.EditorAraclari {
             } catch (Exception e) {
                 Debug.LogError("AgHazirlik başarısız oldu, derlemeye devam ediliyor: " + e);
             }
+            try {
+                // uygulama simgesi (Play Store simgesiyle aynı çizim)
+                Simgeler.Kur();
+            } catch (Exception e) {
+                Debug.LogError("Simgeler başarısız oldu, derlemeye devam ediliyor: " + e);
+            }
             if (SadeceArayuz) {
                 // GameCI derleme klasörünü bekler
                 string[] argumanlar = Environment.GetCommandLineArgs();
