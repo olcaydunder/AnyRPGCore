@@ -166,7 +166,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   androidMinAspectRatio: 1
   applicationIdentifier:
-    Android: com.olcaydunder.otukendestani
+    Android: com.zootopiayazilim.otukendestani
     Standalone: com.AnyRPG.AnyRPG-Engine
   buildNumber:
     Standalone: 0
