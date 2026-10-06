@@ -747,10 +747,10 @@
  },
  "derleme": {
   "sonuc": "basarili",
-  "numara": "69",
-  "commit": "8649adb4",
-  "baglanti": "https://github.com/olcaydunder/AnyRPGCore/actions/runs/37506161903",
-  "zaman": 1791311278,
+  "numara": "70",
+  "commit": "cabeb095",
+  "baglanti": "https://github.com/olcaydunder/AnyRPGCore/actions/runs/37533375065",
+  "zaman": 1791324084,
   "uyarilar": [],
   "bot": null
  }
