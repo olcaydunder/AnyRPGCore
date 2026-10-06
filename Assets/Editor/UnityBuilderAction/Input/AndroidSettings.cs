@@ -147,6 +147,44 @@ namespace UnityBuilderAction.Input
         return;
       }
       levelProp.SetValue(null, enumValue);
+
+      // Ötüken: semboller AAB'nin içine de konur (Play Console kilitlenme raporlarını kendiliğinden çözer, ayrıca
+      // dosya yüklemek gerekmez) ve yanına .symbols.zip olarak yazılır. Unity sürümünde seçenek yoksa yalnız zip.
+      if (enumValueName == "None")
+      {
+        return;
+      }
+      try
+      {
+        var formatProp = debugSymbolsType.GetProperty("format", BindingFlags.Static | BindingFlags.Public);
+        var formatType = Type.GetType("Unity.Android.Types.DebugSymbolFormat, Unity.Android.Types");
+        if (formatProp == null || formatType == null)
+        {
+          return;
+        }
+        object format = null;
+        bool bayrak = formatType.IsDefined(typeof(FlagsAttribute), false);
+        foreach (string secenek in bayrak ? new[] { "Zip, IncludeInBundle", "Zip" } : new[] { "Zip" })
+        {
+          try
+          {
+            format = Enum.Parse(formatType, secenek);
+            break;
+          }
+          catch
+          {
+          }
+        }
+        if (format != null)
+        {
+          formatProp.SetValue(null, format);
+          UnityEngine.Debug.Log("[Derleme] hata ayıklama sembolleri: " + enumValueName + ", biçim " + format);
+        }
+      }
+      catch (Exception e)
+      {
+        UnityEngine.Debug.LogWarning("Sembol biçimi ayarlanamadı: " + e.Message);
+      }
     }
 #endif
   }

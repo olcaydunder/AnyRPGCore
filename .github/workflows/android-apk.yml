@@ -193,6 +193,8 @@ jobs:
           buildMethod: Otuken.EditorAraclari.Derleme.Derle
           customParameters: ${{ inputs.sadece_arayuz && '-sadeceArayuz' || '' }} -istemciSurumu ${{ steps.hazirlik.outputs.surum }}
           androidExportType: ${{ env.CIKTI_TURU }}
+          # Play sürümünde IL2CPP hata ayıklama sembolleri (AAB'nin içinde: Play Console kilitlenme raporlarını çözer)
+          androidSymbolType: ${{ inputs.play_surumu && 'public' || 'none' }}
           versioning: Custom
           version: ${{ steps.hazirlik.outputs.surum }}
           androidVersionCode: ${{ steps.hazirlik.outputs.kod }}
@@ -249,13 +251,21 @@ jobs:
           KOD: ${{ steps.hazirlik.outputs.kod }}
         run: |
           cp "$AAB_YOLU" "${APK_ADI}.aab"
+          # sembol dosyası (varsa): AAB'nin içinde yoksa Play Console > App bundle gezgini > İndirilenler'e elle yüklenir
+          ekler="${APK_ADI}.aab"
+          sembol=$(find build/Android -maxdepth 2 -name '*symbols*.zip' | head -n 1)
+          if [ -n "$sembol" ]; then
+            cp "$sembol" "${APK_ADI}.symbols.zip"
+            ekler="$ekler ${APK_ADI}.symbols.zip"
+            echo "semboller: $sembol ($(du -m "$sembol" | cut -f1) MB)"
+          fi
           baslik="Google Play paketi $SURUM (sürüm kodu $KOD)"
           notlar="Play Console > Sürüm oluştur'a yüklenecek AAB. Yükleme anahtarıyla imzalı. $(date -u +'%d.%m.%Y %H:%M') UTC, commit ${GITHUB_SHA::8}."
           if gh release view play-aab >/dev/null 2>&1; then
-            gh release upload play-aab "${APK_ADI}.aab" --clobber
+            gh release upload play-aab $ekler --clobber
             gh release edit play-aab --title "$baslik" --notes "$notlar" --prerelease --draft=false
           else
-            gh release create play-aab "${APK_ADI}.aab" --prerelease --target "$GITHUB_SHA" --title "$baslik" --notes "$notlar"
+            gh release create play-aab $ekler --prerelease --target "$GITHUB_SHA" --title "$baslik" --notes "$notlar"
           fi
           {
             echo "## Google Play paketi $SURUM hazır"
