@@ -65,6 +65,19 @@ namespace AnyRPG {
             }
             hataSayisi++;
             string kisa = mesaj.Length > 160 ? mesaj.Substring(0, 160) : mesaj;
+            // ağ paketinde istisna: kendi kodumuzdaki ilk iki çerçeve de yazılsın
+            if (mesaj.IndexOf("while parsing data", StringComparison.Ordinal) >= 0) {
+                List<string> cerceveler = new List<string>();
+                foreach (string satir in mesaj.Split('\n')) {
+                    string t = satir.Trim();
+                    if (t.StartsWith("at AnyRPG.", StringComparison.Ordinal) && cerceveler.Count < 2) {
+                        cerceveler.Add(t.Length > 140 ? t.Substring(0, 140) : t);
+                    }
+                }
+                if (cerceveler.Count > 0) {
+                    kisa += " @ " + string.Join(" < ", cerceveler);
+                }
+            }
             if (hatalar.Count < 3 && hatalar.Contains(kisa) == false) {
                 hatalar.Add(kisa);
             }

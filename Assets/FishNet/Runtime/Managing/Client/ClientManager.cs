@@ -1,4 +1,4 @@
-﻿#if UNITY_EDITOR || DEVELOPMENT_BUILD
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
 #define DEVELOPMENT
 #endif
 using FishNet.Connection;
@@ -648,7 +648,8 @@ namespace FishNet.Managing.Client
                 }
                 catch (Exception e)
                 {
-                    NetworkManager.LogError($"Client encountered an error while parsing data for packetId {packetId}. Message: {e.Message}.");
+                    // Ötüken: yığın izi de yazılsın (hata panosu ve ağ botu nerede olduğunu görsün)
+                    NetworkManager.LogError($"Client encountered an error while parsing data for packetId {packetId}. Message: {e}.");
                 }
                 #endif
             }

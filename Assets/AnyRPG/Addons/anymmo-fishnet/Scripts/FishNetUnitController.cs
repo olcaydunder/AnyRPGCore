@@ -2730,9 +2730,18 @@ namespace AnyRPG {
 
         [ObserversRpc]
         public void HandleBeginChatMessageClient(string messageText) {
-            // Ötüken: engellenen oyuncunun başının üstündeki yazı da gösterilmez
-            if (Engelleme.EngelliMi(unitController.DisplayName)) {
-                return;
+            // Ötüken: engellenen oyuncunun başının üstündeki yazı da gösterilmez. Yalnız oyuncularda bakılır: düşmanların
+            // savaş naraları da bu yoldan gelir ve bazılarının adı (ad levhası ayarı) yoktur (0.1.66'da istisna verdi)
+            if (unitController.UnitControllerMode == UnitControllerMode.Player) {
+                string ad = null;
+                try {
+                    ad = unitController.DisplayName;
+                } catch (System.Exception) {
+                    ad = null;
+                }
+                if (Engelleme.EngelliMi(ad)) {
+                    return;
+                }
             }
             unitController.BeginChatMessage(messageText);
         }
