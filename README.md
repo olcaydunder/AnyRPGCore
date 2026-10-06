@@ -1,8 +1,8 @@
 # Ötüken Destanı · Hata panosu
 
-Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 06.10.2026 17:43.
+Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 06.10.2026 18:51.
 
-**10** açık sorun · **5** düzeltilen · toplam **109** rapor
+**11** açık sorun · **5** düzeltilen · toplam **116** rapor
 
 ## Son APK derlemesi
 
@@ -69,7 +69,8 @@ Bot yeni oyun başlatıp haritaları gezdi: **tamamlandı**, 0 hata/istisna.
 | 🔴 açık | [Oyun testi: NullReferenceException: Object reference not set to an instance of an object](kayitlar/bot-c8c4895b.md) | İstisna | 1 | 1 | 0.1.60 | 06.10.2026 01:33 |
 | 🔴 açık | [Oyun testi: NullReferenceException: Object reference not set to an instance of an object](kayitlar/bot-370f1dd7.md) | İstisna | 5 | 1 | 0.1.52 | 05.10.2026 17:13 |
 | 🔴 açık | [İstisna: NullReferenceException: Object reference not set to an instance of an object.](kayitlar/istisna-44cafcb8.md) | İstisna | 1 | 1 | 0.1.36 | 04.10.2026 19:08 |
-| 🔴 açık | [Hata: Screen position out of view frustum (screen pos inf, -inf) (Camera rect 0 0 640 480)](kayitlar/hata-60de498e.md) | Hata | 70 | 1 | 0.1.64, 0.1.65, 0.1.66 | 06.10.2026 17:38 |
+| 🔴 açık | [Hata: Screen position out of view frustum (screen pos inf, -inf) (Camera rect 0 0 640 480)](kayitlar/hata-60de498e.md) | Hata | 75 | 1 | 0.1.65, 0.1.66, 0.1.67 | 06.10.2026 18:48 |
+| 🔴 açık | [Hata: [2026.10.06 14:54:05] Client encountered an error while parsing data for packetId 35771. Message: Objec…](kayitlar/hata-dc1219d9.md) | Hata | 2 | 1 | 0.1.66 | 06.10.2026 17:54 |
 | 🔴 açık | [Hata: InputManager not found in scene.  Is the GameManager in the scene?](kayitlar/hata-8f05154f.md) | Hata | 8 | 2 | 0.1.43 | 05.10.2026 00:12 |
 | 🔴 açık | [Bellek: Bellek yetmedi, sistem oyunu kapattı](kayitlar/bellek-d3941b2d.md) | Bellek | 3 | 1 | 0.1.36, 0.1.47, 0.1.54 | 05.10.2026 20:52 |
 
