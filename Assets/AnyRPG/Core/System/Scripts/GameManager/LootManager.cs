@@ -97,7 +97,32 @@ namespace AnyRPG {
                 networkManagerServer.AddAvailableDroppedLoot(accountId, lootDropIds);
             } else {
                 OnAvailableLootAdded();
+                // çevrimiçi otomatik toplama: pencere ganimet listesinden önce açıldıysa liste gelince toplanır
+                if (otomatikToplamaBekliyor > 0f && Time.unscaledTime - otomatikToplamaBekliyor < 3f && items.Count > 0
+                    && systemGameManager.GameMode == GameMode.Network && accountId == networkManagerClient.AccountId) {
+                    otomatikToplamaBekliyor = 0f;
+                    CevrimiciOtomatikTopla();
+                }
             }
+        }
+
+        // çevrimiçi: ceset açıldı, ganimet listesi bekleniyor (Time.unscaledTime; 0: beklenmiyor)
+        private float otomatikToplamaBekliyor = 0f;
+
+        /// <summary>
+        /// çevrimiçi otomatik toplama: ganimet sunucuda alınır (eşyalar, para ve mesaj ağ olaylarıyla gelir); çanta doluysa
+        /// pencere açık kalır, oyuncu seçer
+        /// </summary>
+        private bool CevrimiciOtomatikTopla() {
+            UnitController oyuncu = playerManagerClient.UnitController;
+            if (oyuncu == null || oyuncu.CharacterInventoryManager == null || oyuncu.CharacterInventoryManager.EmptySlotCount() == 0) {
+                return false;
+            }
+            networkManagerClient.TakeAllLoot();
+            if (systemGameManager.UIManager.lootWindow.IsOpen) {
+                systemGameManager.UIManager.lootWindow.CloseWindow();
+            }
+            return true;
         }
 
         public void ClearAvailableDroppedLoot() {
@@ -167,6 +192,17 @@ namespace AnyRPG {
                 TakeAllLootInternal(0, playerUnitController);
                 if (availableDroppedLoot[0].Count == 0) {
                     return;
+                }
+            }
+            if (Ganimet.AutoLoot && systemGameManager.GameMode == GameMode.Network && playerUnitController != null) {
+                int hesap = networkManagerClient.AccountId;
+                if (availableDroppedLoot.ContainsKey(hesap) && availableDroppedLoot[hesap].Count > 0) {
+                    if (CevrimiciOtomatikTopla()) {
+                        return;
+                    }
+                } else {
+                    // liste henüz gelmedi: gelince toplanır
+                    otomatikToplamaBekliyor = Time.unscaledTime;
                 }
             }
             systemGameManager.UIManager.lootWindow.OpenWindow();
