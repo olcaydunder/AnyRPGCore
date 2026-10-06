@@ -151,12 +151,31 @@ public class OtukenOdeme implements PurchasesUpdatedListener {
         QueryProductDetailsParams p = QueryProductDetailsParams.newBuilder().setProductList(liste).build();
         istemci.queryProductDetailsAsync(p, (sonuc, urunSonucu) -> {
             if (sonuc.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                StringBuilder eksik = new StringBuilder();
                 for (ProductDetails d : urunSonucu.getProductDetailsList()) {
                     urunler.put(d.getProductId(), d);
                     ProductDetails.OneTimePurchaseOfferDetails teklif = d.getOneTimePurchaseOfferDetails();
                     if (teklif != null) {
                         olay("urun", d.getProductId() + "\t" + teklif.getFormattedPrice());
+                    } else {
+                        eksik.append(d.getProductId()).append(":teklif-yok ");
                     }
+                }
+                // teşhis: Play'in getiremediği ürünler ve nedenleri (Billing 8 getUnfetchedProductList; yansımayla, sürüm farkında derleme bozulmasın)
+                try {
+                    Object gelmeyenler = urunSonucu.getClass().getMethod("getUnfetchedProductList").invoke(urunSonucu);
+                    if (gelmeyenler instanceof List) {
+                        for (Object u : (List<?>) gelmeyenler) {
+                            Object kimlik = u.getClass().getMethod("getProductId").invoke(u);
+                            Object durum = u.getClass().getMethod("getStatusCode").invoke(u);
+                            eksik.append(kimlik).append(":").append(durum).append(" ");
+                        }
+                    }
+                } catch (Exception e) {
+                    // eski Billing sürümü
+                }
+                if (eksik.length() > 0) {
+                    olay("eksik", eksik.toString().trim());
                 }
                 olay("hazir", "");
             } else {

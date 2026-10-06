@@ -298,7 +298,7 @@ namespace AnyRPG {
                 al.GetComponent<Button>().interactable = string.IsNullOrEmpty(fiyat) == false;
                 i++;
             }
-            if (Odeme.Hazir == false) {
+            if (Odeme.Hazir == false || Odeme.FiyatSayisi == 0) {
                 Yazi(Kutu(paketListesi, "Durum", new Vector2(0f, 0f), new Vector2(1f, 0f), new Vector2(10f, -i * 70f - 120f), new Vector2(-10f, -i * 70f - 10f)),
                     Odeme.DurumYazisi, 17, TextAnchor.UpperLeft, IpucuRengi);
             }

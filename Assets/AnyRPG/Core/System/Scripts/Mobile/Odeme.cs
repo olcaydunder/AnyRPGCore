@@ -46,6 +46,13 @@ namespace AnyRPG {
 
         private static readonly Dictionary<string, string> fiyatlar = new Dictionary<string, string>();
 
+        private static string eksikUrunler = string.Empty;
+
+        /// <summary>Play'den fiyatı gelen paket sayısı (0 ise dükkân nedenini yazar)</summary>
+        public static int FiyatSayisi {
+            get { return fiyatlar.Count; }
+        }
+
         public static string Fiyat(string kod) {
             string f;
             return fiyatlar.TryGetValue(kod, out f) ? f : null;
@@ -210,7 +217,8 @@ namespace AnyRPG {
             switch (tur) {
                 case "hazir":
                     Hazir = true;
-                    DurumYazisi = fiyatlar.Count > 0 ? string.Empty : "Kut paketleri Google Play'de bulunamadı.";
+                    DurumYazisi = fiyatlar.Count > 0 ? string.Empty
+                        : "Kut paketleri Google Play'de bulunamadı." + (string.IsNullOrEmpty(eksikUrunler) ? string.Empty : " (" + eksikUrunler + ")");
                     break;
                 case "urun": {
                     string[] p = veri.Split('\t');
@@ -236,6 +244,11 @@ namespace AnyRPG {
                         DurumYazisi = "Google Play ödemesine ulaşılamadı (" + veri + ").";
                     }
                     Mesaj(SonSonuc);
+                    break;
+                case "eksik":
+                    // Play'in getiremediği ürünler: "kimlik:durum" (1 = bulunamadı/etkin değil, teklif-yok = satın alma seçeneği yok)
+                    eksikUrunler = veri;
+                    Debug.LogWarning("[Odeme] Play'den gelmeyen ürünler: " + veri);
                     break;
                 case "tuketildi":
                     break;
