@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a05b885c89f64548ad8d671452c8c5f, type: 3}
+  m_Name: KutCurrency
+  m_EditorClassIdentifier: 
+  resourceName: Kut
+  displayName: Kut
+  icon: {fileID: 21300000, guid: b1ec61aa7558519d9837c7ed4ebf2840, type: 3}
+  iconBackgroundImage: {fileID: 0}
+  description: "Kut D\u00fckk\u00e2n\u0131 paras\u0131. Hesaba ba\u011fl\u0131d\u0131r: takas edilemez, pazarda sat\u0131lamaz, ger\u00e7ek paraya \u00e7evrilemez."
+  useRegionalDescription: 0
+  resourceDescriptionProfile: 
+  optionalOverride: 0

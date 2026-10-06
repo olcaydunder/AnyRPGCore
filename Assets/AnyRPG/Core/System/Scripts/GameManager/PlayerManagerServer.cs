@@ -261,7 +261,9 @@ namespace AnyRPG {
                 return;
             }
             //Debug.Log($"{gameObject.name}: About to gain xp from kill with creditPercent: " + creditPercent);
-            GainXP(unitController, (int)(LevelEquations.GetXPAmountForKill(unitController.CharacterStats.Level, killedUnitController, systemConfigurationManager) * creditPercent));
+            // Ötüken: Kut Dükkânı'nın Deneyim Muskası (1 saat %50 fazla)
+            GainXP(unitController, (int)(LevelEquations.GetXPAmountForKill(unitController.CharacterStats.Level, killedUnitController, systemConfigurationManager) * creditPercent
+                * KutDukkani.TecrubeCarpani(unitController)));
         }
 
         public void GainXP(int amount, int accountId) {

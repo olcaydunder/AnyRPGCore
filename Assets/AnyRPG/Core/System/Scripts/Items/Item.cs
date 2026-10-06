@@ -389,7 +389,9 @@ namespace AnyRPG {
                 usedCurrency = currencyGroup.BaseCurrency;
             }
 
-            sellPrice = (int)Mathf.Clamp(sellPrice * unpricedMultiplier * (instantiatedItem.ItemQuality == null ? 1f : instantiatedItem.ItemQuality.SellPriceMultiplier) * systemConfigurationManager.VendorPriceMultiplier, 1f, Mathf.Infinity);
+            // Ötüken: demirciden geçmiş eşya daha değerlidir (+9 sıradanın 14 katı)
+            sellPrice = (int)Mathf.Clamp(sellPrice * unpricedMultiplier * (instantiatedItem.ItemQuality == null ? 1f : instantiatedItem.ItemQuality.SellPriceMultiplier) * systemConfigurationManager.VendorPriceMultiplier
+                * Demirci.DegerCarpani(instantiatedItem), 1f, Mathf.Infinity);
 
             return new KeyValuePair<Currency, int>(usedCurrency, sellPrice);
         }

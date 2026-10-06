@@ -84,6 +84,128 @@ namespace AnyRPG {
             }
         }
 
+        private string ticaretOzeti = "-";
+
+        private UnitController YakindakiOyuncu(SystemGameManager oyun, float mesafe) {
+            UnitController ben = oyun.PlayerManagerClient.UnitController;
+            UnitController en = null;
+            float enYakin = mesafe;
+            foreach (UnitController u in FindObjectsByType<UnitController>(FindObjectsSortMode.None)) {
+                if (u != null && u != ben && u.UnitControllerMode == UnitControllerMode.Player && ben != null) {
+                    float m = Vector3.Distance(u.transform.position, ben.transform.position);
+                    if (m <= enYakin) {
+                        enYakin = m;
+                        en = u;
+                    }
+                }
+            }
+            return en;
+        }
+
+        /// <summary>
+        /// Adı 1 ile biten bot takası başlatır ve öbürünün pazarından alır; öbürü takası kabul eder, pazar açar.
+        /// Kut: deneme sunucusunda (-testOdeme) imzasız deneme satın alması, sonra Kut Dükkânı'ndan kutsama.
+        /// </summary>
+        private IEnumerator TicaretDenemesi(SystemGameManager oyun) {
+            List<string> ozet = new List<string>();
+            // Kut
+            int kutOnce = KutDukkani.KutMiktari(oyun.PlayerManagerClient.UnitController);
+            Odeme.TestIcinSatinAl("kut_550");
+            yield return new WaitForSecondsRealtime(3f);
+            int kutSonra = KutDukkani.KutMiktari(oyun.PlayerManagerClient.UnitController);
+            ozet.Add("Kut " + kutOnce + " → " + kutSonra + " (" + Odeme.SonSonuc + ")");
+            if (kutSonra >= 40) {
+                KutDukkani.TestIcinUrunAl("kutsama1");
+                yield return new WaitForSecondsRealtime(2.5f);
+                ozet.Add("dükkân: " + KutDukkani.SonSonuc + ", kutsama " + KutDukkani.IstemciKutsama);
+            }
+
+            bool baslatan = ad.EndsWith("1");
+            Takas.OtoKabul = true;
+            float t0 = Time.realtimeSinceStartup;
+            if (baslatan) {
+                // takas: yakındaki öbür bota teklif, eşya koy, onayla
+                UnitController karsi = null;
+                while (karsi == null && Time.realtimeSinceStartup - t0 < 25f) {
+                    karsi = YakindakiOyuncu(oyun, Ticaret.TakasMesafesi - 1f);
+                    if (karsi == null) {
+                        yield return new WaitForSecondsRealtime(1f);
+                    }
+                }
+                if (karsi == null) {
+                    ozet.Add("takas: yakında oyuncu yok");
+                } else {
+                    Takas.Iste(karsi.DisplayName);
+                    float t1 = Time.realtimeSinceStartup;
+                    while (Takas.AcikMi == false && Time.realtimeSinceStartup - t1 < 12f) {
+                        yield return new WaitForSecondsRealtime(0.5f);
+                    }
+                    if (Takas.AcikMi) {
+                        bool kondu = Takas.TestIcinEsyaKoy();
+                        yield return new WaitForSecondsRealtime(2f);
+                        float t2 = Time.realtimeSinceStartup;
+                        while (Takas.AcikMi && Time.realtimeSinceStartup - t2 < 15f) {
+                            Takas.TestIcinOnayla();
+                            yield return new WaitForSecondsRealtime(2f);
+                        }
+                        ozet.Add("takas " + karsi.DisplayName + " ile: " + (kondu ? "eşya kondu, " : "koyacak eşya yok, ") + Takas.TamamlananSayisi + " tamam (" + Takas.SonBilgi + ")");
+                    } else {
+                        ozet.Add("takas açılmadı (" + Takas.SonBilgi + ")");
+                    }
+                }
+                // pazar: öbür botun pazarından ilk malı al
+                float t3 = Time.realtimeSinceStartup;
+                string sahip = null;
+                while (sahip == null && Time.realtimeSinceStartup - t3 < 25f) {
+                    Pazar.ListeIste();
+                    yield return new WaitForSecondsRealtime(1.5f);
+                    foreach (Pazar.PazarBilgisi b in Pazar.Pazarlar) {
+                        if (b.sahip != oyun.PlayerManagerClient.UnitController.DisplayName) {
+                            sahip = b.sahip;
+                        }
+                    }
+                }
+                if (sahip == null) {
+                    ozet.Add("pazar bulunamadı");
+                } else {
+                    Pazar.Bak(sahip);
+                    yield return new WaitForSecondsRealtime(2f);
+                    long mal = Pazar.TestIcinIlkMal;
+                    if (mal >= 0) {
+                        Pazar.TestIcinAl(sahip, mal);
+                        yield return new WaitForSecondsRealtime(2.5f);
+                    }
+                    ozet.Add("pazar " + sahip + ": " + Pazar.AlinanSayisi + " alındı (" + Pazar.SonSonuc + ")");
+                }
+            } else {
+                // takası kabul eden: karşı taraf eşya koyunca onayla
+                while (Takas.AcikMi == false && Time.realtimeSinceStartup - t0 < 25f) {
+                    yield return new WaitForSecondsRealtime(0.5f);
+                }
+                float t2 = Time.realtimeSinceStartup;
+                while (Takas.AcikMi && Time.realtimeSinceStartup - t2 < 20f) {
+                    yield return new WaitForSecondsRealtime(2.5f);
+                    Takas.TestIcinOnayla();
+                }
+                ozet.Add("takas " + Takas.TamamlananSayisi + " tamam (" + Takas.SonBilgi + ")");
+                // pazar aç ve 25 sn kıpırdama
+                bool acildi = Pazar.TestIcinAc(1);
+                float t3 = Time.realtimeSinceStartup;
+                while (acildi && Time.realtimeSinceStartup - t3 < 25f) {
+                    yield return new WaitForSecondsRealtime(1f);
+                    if (Pazar.BenimAcik == false && Time.realtimeSinceStartup - t3 > 4f) {
+                        break;
+                    }
+                }
+                ozet.Add("pazarım: " + (acildi ? Pazar.SonSonuc : "satacak eşya yok") + (Pazar.BenimAcik ? " (açık kaldı)" : string.Empty));
+                if (Pazar.BenimAcik) {
+                    Pazar.KendiPazariniKapat();
+                }
+            }
+            Takas.OtoKabul = false;
+            ticaretOzeti = string.Join("; ", ozet);
+        }
+
         /// <summary>
         /// telefonda kolaylıkları MobileBootstrap saniyede bir yürütür; o yalnız telefonda kurulur. Linux botunda
         /// aynı işleri bot yürütür ki armağan penceresi, günlük görev isteği, seviye ödülü kartları telefondaki gibi denensin.
@@ -99,6 +221,7 @@ namespace AnyRPG {
                 Dene("Binek", () => Binek.Tick(oyun, oyunda));
                 Dene("CevrimdisiKazanc", () => CevrimdisiKazanc.Tick(oyun, oyunda));
                 Dene("Gelisim", () => Gelisim.Tick(oyun, oyunda));
+                Dene("Pazar", () => Pazar.Tick(oyun, oyunda));
             }
         }
 
@@ -250,6 +373,10 @@ namespace AnyRPG {
             }
             Not("günlük armağan: " + armagan + " (sunucu: " + GunlukArmagan.SonDurum + ", " + GunlukArmagan.IstekSayisi + " istek, engel " + GunlukArmagan.Engel + ")");
 
+            // ticaret: Kut (deneme satın alması), Kut Dükkânı, iki bot arasında takas ve pazar (yürümeden önce, yan yanayken)
+            yield return TicaretDenemesi(oyun);
+            Not("ticaret: " + ticaretOzeti);
+
             // yürüme: hareket çubuğu 4 sn ileri (sunucu hareketi kabul edip ötekilere yayıyor mu)
             Vector3 yurumeOncesi = ben.transform.position;
             MobileInput.SetJoystick(Vector2.up, true);
@@ -370,7 +497,8 @@ namespace AnyRPG {
                 + "; toplu satış " + (satildi ? Canta.SonSatis : "satılacak yok")
                 + "; sıralama " + Canta.SonSiralama
                 + "; seviye ödülü " + Gelisim.VerilenOdulSayisi + (Gelisim.SonOdul.Length > 0 ? " (" + Gelisim.SonOdul + ")" : string.Empty)
-                + "; binek " + (Binek.Var ? "öğrenildi" : "yok");
+                + "; binek " + (Binek.Var ? "öğrenildi" : "yok")
+                + "; ticaret: " + ticaretOzeti;
             Not("kolaylıklar: " + kolaylik);
             Vector3 son = ben != null ? ben.transform.position : ilkKonum;
             Bitir("SONUÇ: " + (enCokOyuncu > 0 ? "öteki oyuncu GÖRÜLDÜ (" + string.Join(", ", gorulenOyuncular) + ", onun yürüyüşü " + otekiYuruyus.ToString("0") + " m)" : "öteki oyuncu görülmedi")

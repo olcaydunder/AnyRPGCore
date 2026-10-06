@@ -116,6 +116,8 @@ namespace AnyRPG {
             sohbetDugmesi = CreateActionButton("Sohbet", Sohbet, leftMiddle, new Vector2(232f, 126f), 78f, 15);
             sohbetDugmesi.SetActive(false);
             CreateActionButton("Çanta", "INVENTORY", leftMiddle, new Vector2(60f, 42f), 78f, 16);
+            // takas, pazar, Kut Dükkânı, oyuncu şikâyet/engelleme
+            CreateActionButton("Ticaret", TicaretPenceresi.Goster, leftMiddle, new Vector2(232f, 42f), 78f, 15);
             CreateActionButton("Görevler", "QUESTLOG", leftMiddle, new Vector2(60f, -42f), 78f, 14);
             // Seçenekler penceresi; "Nasıl Oynanır" rehberi de oradan açılır
             // hareket çubuğuna değmesin diye sütundan 4 birim içeride

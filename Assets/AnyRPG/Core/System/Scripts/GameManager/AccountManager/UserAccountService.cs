@@ -68,6 +68,24 @@ namespace AnyRPG {
         /// </summary>
         /// <param name="userName"></param>
         /// <returns></returns>
+        /// <summary>Ötüken: hesabı kimliğinden bulur (hesap silme)</summary>
+        public UserAccount HesapBul(int id) {
+            foreach (UserAccount hesap in userAccounts.Values) {
+                if (hesap.Id == id) {
+                    return hesap;
+                }
+            }
+            return null;
+        }
+
+        /// <summary>Ötüken: silinen hesabı bellekten çıkarır (ad yeniden alınabilir)</summary>
+        public void HesapKaldir(int id) {
+            UserAccount hesap = HesapBul(id);
+            if (hesap != null) {
+                userAccounts.Remove(hesap.UserName);
+            }
+        }
+
         public bool AccountExists(string userName) {
             //Debug.Log($"UserAccountService.AccountExists({userName})");
             

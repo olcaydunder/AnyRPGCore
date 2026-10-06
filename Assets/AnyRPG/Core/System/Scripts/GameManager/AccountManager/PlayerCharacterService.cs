@@ -128,6 +128,15 @@ namespace AnyRPG {
 
         public void RequestCreatePlayerCharacter(int accountId, CharacterSaveData requestedSaveData) {
 
+            // Ötüken: küfürlü, hakaretli ya da yetkili/kurum taklidi adlar (Sozguc) "ad kullanılamaz" ile reddedilir
+            if (string.IsNullOrWhiteSpace(requestedSaveData.CharacterName) || requestedSaveData.CharacterName.Length > 24
+                || Sozguc.AdSorunu(requestedSaveData.CharacterName) != null) {
+                UnityEngine.Debug.Log($"[Sunucu] uygunsuz karakter adı reddedildi: {requestedSaveData.CharacterName}");
+                ProcessCreatePlayerCharacterResponse(accountId, false, 0, requestedSaveData);
+                LoadCharacterList(accountId);
+                return;
+            }
+
             if (playerNameMap.ContainsKey(requestedSaveData.CharacterName.ToLower())) {
                 ProcessCreatePlayerCharacterResponse(accountId, false, 0, requestedSaveData);
                 LoadCharacterList(accountId);
@@ -166,6 +175,9 @@ namespace AnyRPG {
 
         public bool RenamePlayerCharacter(UnitController unitController, string newName) {
             int characterId = unitController.CharacterId;
+            if (Sozguc.AdSorunu(newName) != null) {
+                return false;
+            }
             if (playerNameMap.ContainsKey(newName.ToLower())) {
                 return false;
             }
@@ -182,6 +194,18 @@ namespace AnyRPG {
             friendServiceServer.ProcessStatusChange(unitController.CharacterId);
             guildServiceServer.ProcessStatusChange(unitController.CharacterId);
             return true;
+        }
+
+        /// <summary>Ötüken: silinen hesabın karakterlerini bellekten çıkarır (adlar yeniden alınabilir)</summary>
+        public void KarakterleriUnut(int accountId, System.Collections.Generic.List<int> kimlikler) {
+            foreach (int kimlik in kimlikler) {
+                if (playerNameLookupMap.ContainsKey(kimlik)) {
+                    playerNameMap.Remove(playerNameLookupMap[kimlik].ToLower());
+                    playerNameLookupMap.Remove(kimlik);
+                }
+                playerCharacterSummaryData.Remove(kimlik);
+            }
+            playerCharacterDataDict.Remove(accountId);
         }
 
         public int GetPlayerIdFromName(string targetPlayerName) {

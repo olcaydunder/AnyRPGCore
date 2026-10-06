@@ -35,12 +35,12 @@ DAL = "hata-kayitlari"
 TZ = datetime.timezone(datetime.timedelta(hours=3))  # İstanbul
 
 TUR_ADI = {"istisna": "İstisna", "hata": "Hata", "cokme": "Çökme", "anr": "Donma", "bellek": "Bellek",
-           "performans": "Yavaşlık", "arayuz": "Arayüz", "oyuncu": "Oyuncu bildirimi"}
+           "performans": "Yavaşlık", "arayuz": "Arayüz", "oyuncu": "Oyuncu bildirimi", "sikayet": "Oyuncu şikâyeti"}
 TUR_ETIKETI = {"istisna": "hata", "hata": "hata", "cokme": "çökme", "anr": "çökme", "bellek": "performans",
-               "performans": "performans", "arayuz": "arayüz", "oyuncu": "oyuncu-bildirimi"}
+               "performans": "performans", "arayuz": "arayüz", "oyuncu": "oyuncu-bildirimi", "sikayet": "şikâyet"}
 ETIKET_RENGI = {"hata-raporu": "5319e7", "hata": "d73a4a", "çökme": "b60205", "performans": "fbca04",
-                "arayüz": "0e8a16", "oyuncu-bildirimi": "1d76db"}
-TUR_SIRASI = ["cokme", "anr", "istisna", "hata", "bellek", "performans", "arayuz", "oyuncu"]
+                "arayüz": "0e8a16", "oyuncu-bildirimi": "1d76db", "şikâyet": "e99695"}
+TUR_SIRASI = ["sikayet", "cokme", "anr", "istisna", "hata", "bellek", "performans", "arayuz", "oyuncu"]
 
 kanal = os.environ.get("HATA_KANALI", "").strip()
 token = os.environ.get("GH_TOKEN", "").strip()
@@ -187,7 +187,7 @@ def ilk_rapor(alanlar, bolumler):
     tur = alanlar.get("tur", "?")
     parcalar = [f"**{TUR_ADI.get(tur, tur)}** · sürüm **{alanlar.get('surum', '?')}** · {alanlar.get('cihaz', '?')} · "
                 f"{alanlar.get('sistem', '?')} · ekran {alanlar.get('ekran', '?')} · {alanlar.get('sahne', '?')}", ""]
-    if tur == "oyuncu":
+    if tur in ("oyuncu", "sikayet"):
         parcalar += ["### Oyuncunun notu", "", "> " + (bolumler.get("mesaj") or "").replace("\n", "\n> "), ""]
     else:
         parcalar += ["### Mesaj", kod(bolumler.get("mesaj")), ""]
@@ -224,8 +224,8 @@ def rapor_isle(m, durum, issue):
     surum = alanlar.get("surum", "?")
     cihaz = alanlar.get("cihaz", "?")
     zaman = m.get("time", int(time.time()))
-    if tur == "oyuncu":
-        anahtar = "oyuncu-" + kimlik
+    if tur in ("oyuncu", "sikayet"):
+        anahtar = tur + "-" + kimlik
     elif tur == "arayuz":
         anahtar = "arayuz-" + alanlar.get("ekran", "x")
     else:

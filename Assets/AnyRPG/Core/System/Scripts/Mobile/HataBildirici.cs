@@ -442,7 +442,7 @@ namespace AnyRPG {
             if (zorla == false && gorulen.Add(imza) == false) {
                 return;
             }
-            if (oturumSayisi >= OturumSiniri && tur != "oyuncu") {
+            if (oturumSayisi >= OturumSiniri && tur != "oyuncu" && tur != "sikayet") {
                 return;
             }
             oturumSayisi++;
@@ -518,6 +518,7 @@ namespace AnyRPG {
                 case "performans": return "Yavaşlık";
                 case "arayuz": return "Arayüz";
                 case "oyuncu": return "Oyuncu bildirimi";
+                case "sikayet": return "Oyuncu şikâyeti";
                 default: return tur;
             }
         }
@@ -530,6 +531,7 @@ namespace AnyRPG {
                 case "performans": return "turtle";
                 case "arayuz": return "art";
                 case "oyuncu": return "speech_balloon";
+                case "sikayet": return "triangular_flag_on_post";
                 default: return "warning";
             }
         }
@@ -773,6 +775,15 @@ namespace AnyRPG {
         }
 
         // ---------------------------------------------------------------- Sorun Bildir penceresi
+
+        /// <summary>oyuncu şikâyeti (Engelleme.SikayetEt): hata panosuna "Oyuncu şikâyeti" olarak gider; gönderilemezse false</summary>
+        public static bool OyuncuSikayeti(string metin) {
+            if (ornek == null) {
+                return false;
+            }
+            ornek.Raporla("sikayet", metin, string.Empty, null, null, true);
+            return true;
+        }
 
         /// <summary>Seçenekler > "Sorun Bildir": ekranın görüntüsünü alır, oyuncunun notunu sorar ve gönderir</summary>
         public static void SorunBildir() {

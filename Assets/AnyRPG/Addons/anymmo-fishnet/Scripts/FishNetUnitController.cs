@@ -2730,6 +2730,10 @@ namespace AnyRPG {
 
         [ObserversRpc]
         public void HandleBeginChatMessageClient(string messageText) {
+            // Ötüken: engellenen oyuncunun başının üstündeki yazı da gösterilmez
+            if (Engelleme.EngelliMi(unitController.DisplayName)) {
+                return;
+            }
             unitController.BeginChatMessage(messageText);
         }
 

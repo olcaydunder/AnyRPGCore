@@ -439,6 +439,26 @@ namespace AnyRPG {
                 "Gri: değersiz  •  Beyaz: sıradan  •  Yeşil: sıradışı  •  Mavi: nadir  •  Mor: destansı  •  Turuncu: efsanevi.\n" +
                 "Adının önünde \"Kusurlu\", \"Güçlü\", \"Üstün\", \"Eşsiz\" ya da \"Tanrısal\" yazan silahların gücü rastgeledir."),
 
+            new Section("Ticaret ve Kut",
+                H + "Takas" + HE + "\n" +
+                "• Sol sütundaki <b>Ticaret</b> düğmesi: yakındaki oyuncular listelenir. 15 m yakınındaki oyuncuya <b>Takas</b> teklif edersin.\n" +
+                "• İkiniz de çantanızdan en çok 9 yuva eşya ve para koyarsınız. Bir şey değişince onaylar düşer; ikiniz de onaylayınca takas olur ve <b>geri alınamaz</b>.\n\n" +
+                H + "Pazar kurmak" + HE + "\n" +
+                "• <b>Ticaret > Pazar Kur</b>: çantandaki en çok 8 eşyaya fiyat yaz (ör. <b>5a 20g</b> = 5 Altın 20 Gümüş; çıplak sayı gümüştür), pazarına ad ver ve aç.\n" +
+                "• Pazarının adı başının üstünde görünür. Yakındakiler dokunup mallarını alır, para sana gelir. Yürürsen pazar kapanır.\n" +
+                "• Başkalarının pazarları <b>Ticaret</b> penceresinde ve başlarının üstünde görünür.\n\n" +
+                H + "Sayılabilen eşyalar ve değer" + HE + "\n" +
+                "• İksirler, malzemeler ve ganimetler bir yuvada <b>200</b>'e kadar yığılır.\n" +
+                "• Demirciden geçmiş eşya daha değerlidir: satıcı fiyatı +1'de 1,3 kat, +5'te 4 kat, +9'da 14 kat olur.\n\n" +
+                H + "Kut Dükkânı" + HE + "\n" +
+                "• <b>Kut</b>, Google Play'den alınan oyun parasıdır. Kut ile <b>Demirci Kutsaması</b> (yükseltme şansı +15 puan), " +
+                "<b>Deneyim Muskası</b> (1 saat %50 fazla tecrübe) ve <b>Ulu Heybe</b> (24 göz) alınır. Rastgele ödül satılmaz; şanslar açıkça yazar.\n" +
+                "• Kut ve Kut ile alınanlar hesabına bağlıdır: takas edilemez, satılamaz, gerçek paraya çevrilemez.\n\n" +
+                H + "Kurallar" + HE + "\n" +
+                "• Küfür, hakaret, taciz, dolandırıcılık, hile ve <b>gerçek parayla eşya, para ya da hesap satmak yasaktır</b>.\n" +
+                "• Rahatsız eden oyuncuyu <b>Ticaret</b> penceresinden <b>Şikâyet Et</b> ve <b>Engelle</b>. Engellediğin oyuncunun yazıları görünmez, takas teklifleri gelmez.\n" +
+                "• Şartlar, gizlilik ve hesap silme: <b>Menü > Hesap</b>."),
+
             new Section("Görevler",
                 "• Başının üstünde sarı <b>!</b> olan kişiler görev verir; sarı <b>?</b> olanlara biten görevi teslim edersin. Bunları haritada da görürsün.\n" +
                 "• <b>Görevler</b> penceresi aldığın görevleri ve kalan hedefleri gösterir. Sağdaki görev takibi ilerlemeni anlık gösterir.\n" +

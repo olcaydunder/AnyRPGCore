@@ -144,6 +144,13 @@ namespace AnyRPG {
             return sanslar[Mathf.Clamp(hedef, 0, sanslar.Length - 1)];
         }
 
+        // demirci basamağına göre eşyanın değeri (satıcı fiyatı, pazar önerisi): +9 eşya sıradanın 14 katı eder
+        private static readonly float[] degerler = { 1f, 1.3f, 1.7f, 2.2f, 3f, 4f, 5.5f, 7.5f, 10f, 14f };
+
+        public static float DegerCarpani(InstantiatedItem esya) {
+            return degerler[Mathf.Clamp(Seviye(esya), 0, degerler.Length - 1)];
+        }
+
         private static void AdiYaz(InstantiatedItem esya, int basamak) {
             string temel = basamakDeseni.Replace(esya.DisplayName ?? esya.Item.DisplayName, string.Empty);
             esya.DisplayName = basamak > 0 ? temel + " +" + basamak : temel;
@@ -153,6 +160,11 @@ namespace AnyRPG {
         /// bir basamak yükseltmeyi dener; sonuç yazısını döndürür. hileli = oyun testi (malzeme ve şans yok sayılır)
         /// </summary>
         public static string Yukselt(UnitController oyuncu, InstantiatedEquipment esya, SystemGameManager oyun, bool hileli, out bool basarili) {
+            return Yukselt(oyuncu, esya, oyun, hileli, false, out basarili);
+        }
+
+        /// <summary>kutsama: Kut Dükkânı'nın Demirci Kutsaması varsa biri harcanır, şans +KutsamaEki puan</summary>
+        public static string Yukselt(UnitController oyuncu, InstantiatedEquipment esya, SystemGameManager oyun, bool hileli, bool kutsama, out bool basarili) {
             basarili = false;
             if (oyuncu == null || esya == null || oyun == null) {
                 return "Eşya bulunamadı.";
@@ -177,9 +189,14 @@ namespace AnyRPG {
                 foreach (InstantiatedItem t in taslar) {
                     oyuncu.CharacterInventoryManager.RemoveInventoryItem(t);
                 }
-                if (Random.Range(0, 100) >= Sans(hedef)) {
+                int sans = Sans(hedef);
+                bool kutsandi = kutsama && KutDukkani.KutsamaHarca(oyuncu);
+                if (kutsandi) {
+                    sans = Mathf.Min(100, sans + KutDukkani.KutsamaEki);
+                }
+                if (Random.Range(0, 100) >= sans) {
                     MobileFeedback.Medium();
-                    return "Başarısız! Örs kıvılcım saçtı ama eşya güçlenmedi. Eşyan sağlam, malzeme gitti.";
+                    return "Başarısız! Örs kıvılcım saçtı ama eşya güçlenmedi. Eşyan sağlam, malzeme gitti." + (kutsandi ? " (kutsama kullanıldı)" : string.Empty);
                 }
             }
             bool kusanili = KusaniliMi(oyuncu, esya);
@@ -248,6 +265,8 @@ namespace AnyRPG {
         private List<InstantiatedEquipment> esyalar = new List<InstantiatedEquipment>();
         private InstantiatedEquipment secili = null;
         private SystemGameManager oyun = null;
+        private bool kutsamaAcik = false;
+        private GameObject kutsamaDugmesi = null;
 
         public static bool IsOpen {
             get { return instance != null && instance.panelRoot != null && instance.panelRoot.activeSelf; }
@@ -273,6 +292,10 @@ namespace AnyRPG {
             OtukenAg.SunucuIsle("demirci", (oyuncu, veri) => {
                 InstantiatedEquipment esya = null;
                 long kimlik;
+                bool kutsama = veri.EndsWith("|k");
+                if (kutsama) {
+                    veri = veri.Substring(0, veri.Length - 2);
+                }
                 if (long.TryParse(veri, System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out kimlik)) {
                     foreach (InstantiatedEquipment e in Esyalar(oyuncu)) {
                         if (e.InstanceId == kimlik) {
@@ -283,7 +306,8 @@ namespace AnyRPG {
                 }
                 bool basarili = false;
                 SystemGameManager o = OtukenAg.Oyun;
-                string sonuc = esya == null ? "Eşya bulunamadı." : Yukselt(oyuncu, esya, o, false, out basarili);
+                string sonuc = esya == null ? "Eşya bulunamadı." : Yukselt(oyuncu, esya, o, false, kutsama, out basarili);
+                KutDukkani.DurumGonder(oyuncu);
                 if (basarili) {
                     // basamak eşyanın adındadır: eşyalar karakter kaydıyla birlikte yazılır (PlayerCharacterSaveData),
                     // kayıt kirlensin ki yeni ad saklansın
@@ -418,6 +442,16 @@ namespace AnyRPG {
                 MobileFeedback.Tap();
                 panelRoot.SetActive(false);
             });
+            // Kut Dükkânı'nın Demirci Kutsaması: açıkken denemede biri kullanılır (+15 puan şans)
+            kutsamaDugmesi = Dugme(panel.transform, "Kutsama", new Vector2(0.75f, 0f), new Vector2(0f, 128f), new Vector2(280f, 46f), 18, buttonColor, () => {
+                MobileFeedback.Tap();
+                if (KutDukkani.IstemciKutsama <= 0) {
+                    KutDukkani.Goster();
+                    return;
+                }
+                kutsamaAcik = !kutsamaAcik;
+                Yenile();
+            });
             panelRoot.SetActive(false);
         }
 
@@ -523,9 +557,20 @@ namespace AnyRPG {
             int tas = TasBedeli(hedef);
             bool yeter = varolanGumus >= bedel && varolanTas >= tas;
             string ek = KazancYazisi(secili, hedef, seviye);
+            int kutsamaSayisi = KutDukkani.IstemciKutsama;
+            if (kutsamaSayisi <= 0) {
+                kutsamaAcik = false;
+            }
+            int sans = Sans(hedef);
+            string sansYazisi = kutsamaAcik ? "<b>%" + Mathf.Min(100, sans + KutDukkani.KutsamaEki) + "</b>  <size=16>(%" + sans + " + %" + KutDukkani.KutsamaEki + " kutsama)</size>" : "<b>%" + sans + "</b>";
+            if (kutsamaDugmesi != null) {
+                kutsamaDugmesi.GetComponentInChildren<Text>().text = kutsamaSayisi <= 0 ? "Kutsama al (Kut Dükkânı)"
+                    : "Kutsama: " + (kutsamaAcik ? "AÇIK" : "kapalı") + " (" + kutsamaSayisi + ")";
+                kutsamaDugmesi.GetComponent<Image>().color = kutsamaAcik ? new Color(0.7f, 0.5f, 0.12f, 1f) : buttonColor;
+            }
             ayrintiYazisi.text = "+" + simdiki + "  →  <color=#FFD54A><b>+" + hedef + "</b></color>\n"
                 + "Kazanç: " + ek + "\n"
-                + "Başarı şansı: <b>%" + Sans(hedef) + "</b>\n\n"
+                + "Başarı şansı: " + sansYazisi + "\n\n"
                 + "Bedel: <color=#" + (varolanGumus >= bedel ? "E8E0D0" : "FF7A66") + ">" + bedel + " Gümüş Akçe</color>  (sende " + varolanGumus + ")\n"
                 + (tas > 0 ? "<color=#" + (varolanTas >= tas ? "E8E0D0" : "FF7A66") + ">" + tas + " " + TasAdi + "</color>  (sende " + varolanTas + ")" : TasAdi + " gerekmez");
             yukseltDugmesi.interactable = yeter;
@@ -538,7 +583,10 @@ namespace AnyRPG {
                 if (secili == null || bekliyor) {
                     return;
                 }
-                if (OtukenAg.Gonder("demirci", secili.InstanceId.ToString(System.Globalization.CultureInfo.InvariantCulture))) {
+                if (OtukenAg.Gonder("demirci", secili.InstanceId.ToString(System.Globalization.CultureInfo.InvariantCulture) + (kutsamaAcik ? "|k" : string.Empty))) {
+                    if (kutsamaAcik) {
+                        KutDukkani.IstemciKutsamaDus();
+                    }
                     bekliyor = true;
                     sonucYazisi.text = "Örs çalışıyor...";
                     sonucYazisi.color = hintColor;
@@ -549,7 +597,7 @@ namespace AnyRPG {
                 return;
             }
             bool basarili;
-            string sonuc = Yukselt(Oyuncu, secili, oyun, false, out basarili);
+            string sonuc = Yukselt(Oyuncu, secili, oyun, false, kutsamaAcik, out basarili);
             sonucYazisi.text = sonuc;
             sonucYazisi.color = basarili ? okColor : errorColor;
             ListeyiKur();

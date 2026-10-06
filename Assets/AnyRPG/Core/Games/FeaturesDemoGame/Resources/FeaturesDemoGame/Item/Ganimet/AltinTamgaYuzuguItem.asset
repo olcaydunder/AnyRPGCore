@@ -20,7 +20,7 @@ MonoBehaviour:
   useRegionalDescription: 0
   resourceDescriptionProfile: 
   optionalOverride: 0
-  stackSize: 20
+  stackSize: 200
   itemQuality: Epic
   randomItemQuality: 0
   dynamicLevel: 0

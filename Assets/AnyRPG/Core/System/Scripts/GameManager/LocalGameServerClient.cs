@@ -819,6 +819,40 @@ namespace AnyRPG {
             return characterSaveDataList;
         }
 
+        /// <summary>
+        /// Ötüken: hesap silme (HesapSilme). Hesabın dosyası, bütün karakterleri ve karakterlerin posta, pazar (açık artırma)
+        /// ve arkadaş kayıtları silinir. Silinen karakter kimliklerini döndürür.
+        /// </summary>
+        public List<int> HesabiSil(int accountId) {
+            List<int> karakterler = new List<int>();
+            string klasor = GetAccountSaveFolder(accountId);
+            if (Directory.Exists(klasor)) {
+                foreach (string dosya in Directory.GetFiles(klasor, "*.json")) {
+                    int kimlik;
+                    if (int.TryParse(Path.GetFileNameWithoutExtension(dosya), out kimlik)) {
+                        karakterler.Add(kimlik);
+                    }
+                }
+                Directory.Delete(klasor, true);
+            }
+            foreach (int kimlik in karakterler) {
+                foreach (string yol in new[] { $"{mailSaveFolderName}/{kimlik}", $"{auctionSaveFolderName}/{kimlik}" }) {
+                    if (Directory.Exists(yol)) {
+                        Directory.Delete(yol, true);
+                    }
+                }
+                string arkadas = Path.Combine(friendSaveFolderName, $"{kimlik}.json");
+                if (File.Exists(arkadas)) {
+                    File.Delete(arkadas);
+                }
+            }
+            string hesap = Path.Combine(accountSaveFolderName, $"{accountId}.json");
+            if (File.Exists(hesap)) {
+                File.Delete(hesap);
+            }
+            return karakterler;
+        }
+
         public bool DeletePlayerCharacter(int accountId, int playerCharacterId) {
             string jsonSavePath = $"{GetAccountSaveFolder(accountId)}/{playerCharacterId}.json";
             if (File.Exists(jsonSavePath)) {

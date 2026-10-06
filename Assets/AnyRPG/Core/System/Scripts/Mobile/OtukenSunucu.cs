@@ -20,6 +20,7 @@ namespace AnyRPG {
         private static readonly Dictionary<UnitController, float> gorulenler = new Dictionary<UnitController, float>();
         private static readonly List<UnitController> gidenler = new List<UnitController>();
         private static readonly HashSet<UnitController> etkinler = new HashSet<UnitController>();
+        private static readonly HashSet<UnitController> ilkTurlar = new HashSet<UnitController>();
         private static readonly Dictionary<string, int> hataSayilari = new Dictionary<string, int>();
 
         public static void Tick(SystemGameManager oyun) {
@@ -41,6 +42,10 @@ namespace AnyRPG {
                 if (simdi - ilk < Bekleme) {
                     continue;
                 }
+                if (ilkTurlar.Add(oyuncu)) {
+                    // girişte bir kez: Kut Dükkânı durumu (kutsama, muska)
+                    Calistir("kut durumu", () => KutDukkani.DurumGonder(oyuncu));
+                }
                 Calistir("günlük görevler", () => GunlukGorevler.SunucuTick(oyuncu));
                 Calistir("seviye ödülleri", () => Gelisim.SunucuTick(oyuncu));
                 Calistir("çevrimdışı kazanç", () => CevrimdisiKazanc.SunucuTick(oyuncu));
@@ -53,8 +58,13 @@ namespace AnyRPG {
                     gidenler.Add(u);
                 }
             }
+            // takas, pazar ve hesap silme
+            Calistir("takas", Takas.SunucuTick);
+            Calistir("pazar", Pazar.SunucuTick);
+            Calistir("hesap silme", () => HesapSilme.SunucuTick(oyun));
             foreach (UnitController u in gidenler) {
                 gorulenler.Remove(u);
+                ilkTurlar.Remove(u);
                 Calistir("çıkış", () => {
                     GunlukGorevler.SunucuCikti(u);
                     Gelisim.SunucuCikti(u);

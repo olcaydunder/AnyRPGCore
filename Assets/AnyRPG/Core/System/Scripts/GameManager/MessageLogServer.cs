@@ -32,6 +32,12 @@ namespace AnyRPG {
                 return;
             }
             string playerName = playerCharacterService.GetPlayerNameFromId(playerCharacterId);
+            // Ötüken: küfür, hakaret ve bağlantılar yıldızlanır; satır şikâyet incelemesi için saklanır (Engelleme)
+            if (newMessage.Length > 200) {
+                newMessage = newMessage.Substring(0, 200);
+            }
+            newMessage = Sozguc.Temizle(newMessage);
+            Engelleme.SohbetKaydet(playerName, newMessage);
             string addedText = $"{playerName}: {newMessage}";
 
 

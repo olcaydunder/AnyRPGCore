@@ -38,7 +38,7 @@ namespace AnyRPG {
         private ScrollRect bodyScroll = null;
         private int currentSection = 0;
 
-        private string[] sectionTitles = { "Görüntü", "Akıcılık", "Ses", "Oyun" };
+        private string[] sectionTitles = { "Görüntü", "Akıcılık", "Ses", "Oyun", "Hesap" };
 
         public static bool IsOpen {
             get { return instance != null && instance.panelRoot != null && instance.panelRoot.activeSelf; }
@@ -120,6 +120,7 @@ namespace AnyRPG {
             BuildAkicilik(CreateSection(viewport.transform, "Akicilik"));
             BuildSes(CreateSection(viewport.transform, "Ses"));
             BuildOyun(CreateSection(viewport.transform, "Oyun"));
+            BuildHesap(CreateSection(viewport.transform, "Hesap"));
 
             // alt düğmeler
             // dört düğme 4:3 tablette de sığsın diye toplam 920 birim
@@ -212,6 +213,22 @@ namespace AnyRPG {
 
         private static float Volume(string key) {
             return PlayerPrefs.GetFloat(key, 1f);
+        }
+
+        private void BuildHesap(SectionBuilder s) {
+            s.Eylem("Kullanım şartları", "Oyunu kullanma koşulları (web sayfası).", "Aç",
+                () => Application.OpenURL(Sartlar.KullanimSartlariAdresi));
+            s.Eylem("Gizlilik politikası", "Hangi verilerin neden toplandığı ve nasıl silineceği (web sayfası).", "Aç",
+                () => Application.OpenURL(Sartlar.GizlilikAdresi));
+            s.Eylem("Oyun kuralları", "Sohbet, ticaret ve adlar için kurallar; yaptırımlar (web sayfası).", "Aç",
+                () => Application.OpenURL(Sartlar.OyunKurallariAdresi));
+            s.Eylem("Engellenen oyuncular", "Engellediğin oyuncuların listesi ve engel kaldırma.", "Göster",
+                () => { Close(); TicaretPenceresi.EngellenenleriGoster(); });
+            s.Eylem("Açık kaynak lisansları", "Oyunda kullanılan açık kaynak yazılımlar ve ücretsiz içerikler.", "Göster",
+                () => { Close(); Lisanslar.Goster(); });
+            s.Eylem("Hesabımı sil", "Çevrimiçi hesabını, karakterlerini ve verilerini kalıcı olarak siler.", "Sil...",
+                () => { Close(); HesapSilme.Goster(); });
+            s.Finish();
         }
 
         private void BuildOyun(SectionBuilder s) {
@@ -323,6 +340,29 @@ namespace AnyRPG {
                 }
                 y += RowHeight + RowSpacing;
                 return row;
+            }
+
+            /// <summary>tek düğmeli satır (sayfa aç, pencere göster)</summary>
+            public void Eylem(string label, string hint, string buttonLabel, Action action) {
+                GameObject row = Row(label, hint);
+                GameObject buttonObject = window.CreateRect(row.transform, buttonLabel, new Vector2(0.62f, 0.14f), new Vector2(0.98f, 0.86f), Vector2.zero, Vector2.zero);
+                Image image = buttonObject.AddComponent<Image>();
+                image.color = optionColor;
+                Outline outline = buttonObject.AddComponent<Outline>();
+                outline.effectColor = new Color(gold.r, gold.g, gold.b, 0.5f);
+                outline.effectDistance = new Vector2(1f, -1f);
+                Button button = buttonObject.AddComponent<Button>();
+                button.targetGraphic = image;
+                button.onClick.AddListener(() => {
+                    MobileFeedback.Tap();
+                    try {
+                        action();
+                    } catch (Exception exception) {
+                        Debug.LogWarning($"SeceneklerPenceresi: {label}: {exception.Message}");
+                    }
+                });
+                GameObject textObject = window.CreateRect(buttonObject.transform, "Yazi", Vector2.zero, Vector2.one, new Vector2(4f, 0f), new Vector2(-4f, 0f));
+                window.CreateText(textObject, buttonLabel, 22, TextAnchor.MiddleCenter, textColor);
             }
 
             public void Choice(string label, string hint, string[] options, Func<int> get, Action<int> set) {

@@ -268,6 +268,17 @@ namespace AnyRPG {
             }
         }
 
+        /// <summary>Ötüken: hesap silme (dosya sunucusu). Silinen karakter kimlikleri; diskte yazma sürüyorsa null</summary>
+        public System.Collections.Generic.List<int> HesabiSil(int accountId) {
+            if (systemConfigurationManager.ServerBackend != ServerBackend.File) {
+                return new System.Collections.Generic.List<int>();
+            }
+            if (localGameServerClient.ActiveSaveTasks > 0) {
+                return null;
+            }
+            return localGameServerClient.HesabiSil(accountId);
+        }
+
         public void LoadAllUserAccounts() {
             if (systemConfigurationManager.ServerBackend == ServerBackend.File) {
                 localGameServerClient.LoadAllUserAccountsAsync();

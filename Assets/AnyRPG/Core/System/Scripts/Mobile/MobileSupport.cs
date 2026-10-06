@@ -539,6 +539,18 @@ namespace AnyRPG {
             // the how-to-play guide: opens by itself the first time a character enters the world,
             // and the main menu gets a "Nasıl Oynanır" button
             try {
+                // ilk açılışta kullanım şartları ve oyun kuralları kabul edilir
+                Sartlar.Tick();
+            } catch (System.Exception exception) {
+                Debug.LogWarning($"MobileBootstrap: Sartlar.Tick(): {exception.Message}");
+            }
+            try {
+                // çevrimiçi: yakındaki oyuncu pazarlarının adları
+                Pazar.Tick(GetSystemGameManager(), inGame);
+            } catch (System.Exception exception) {
+                Debug.LogWarning($"MobileBootstrap: Pazar.Tick(): {exception.Message}");
+            }
+            try {
                 if (inGame) {
                     GameGuide.ShowFirstTimeIfNeeded();
                 }

@@ -337,6 +337,10 @@ namespace AnyRPG {
         }
 
         public void AdvertiseSendSceneChatMessage(string messageText, int accountId) {
+            // Ötüken: engellenen oyuncunun yazıları gösterilmez (Engelleme)
+            if (Engelleme.SohbetEngelli(messageText)) {
+                return;
+            }
             OnSendSceneChatMessage(messageText, accountId);
             messageLogClient.WriteGeneralMessage(messageText);
         }
