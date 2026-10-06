@@ -23,6 +23,7 @@ import hashlib
 import json
 import os
 import re
+import subprocess
 import sys
 import time
 import urllib.error
@@ -216,9 +217,42 @@ def durum_yazisi(k):
 
 # ---------------------------------------------------------------- işleme
 
+# oyuncuların yazdıkları (Sorun Bildir notu, şikâyet) ve ekran görüntüleri herkese açık depoya düz yazılmaz:
+# VARLIK_ANAHTARI ile şifrelenip gizli/ klasörüne konur; panoda ve issue'da yalnız tür (ve şikâyet nedeni) görünür
+GIZLI_TURLER = ("oyuncu", "sikayet")
+
+
+def sifrele(veri, ad):
+    if not os.environ.get("VARLIK_ANAHTARI"):
+        return False
+    os.makedirs(yol("gizli"), exist_ok=True)
+    p = subprocess.run(["openssl", "enc", "-aes-256-cbc", "-pbkdf2", "-iter", "200000", "-salt", "-pass", "env:VARLIK_ANAHTARI",
+                        "-out", yol("gizli", ad + ".enc")], input=veri)
+    return p.returncode == 0
+
+
+def gizle(m, alanlar, bolumler):
+    tur = alanlar.get("tur", "hata")
+    kimlik = alanlar.get("kimlik", m["id"])
+    sifrele(m["message"].encode("utf-8"), dosya_adi(tur + "-" + kimlik))
+    neden = ""
+    for satir in (bolumler.get("mesaj") or "").splitlines():
+        if satir.startswith("neden:"):
+            neden = satir[6:].strip()
+    if tur == "sikayet":
+        bolumler["mesaj"] = f"Neden: {neden or '?'}. Ayrıntılar (şikâyet edilen, harita) gizlilik için şifreli: gizli/{dosya_adi(tur + '-' + kimlik)}.enc"
+        m["title"] = TUR_ADI[tur] + (f": {neden}" if neden else "")
+    else:
+        bolumler["mesaj"] = f"Oyuncunun notu ve ekran görüntüsü gizlilik için şifreli: gizli/{dosya_adi(tur + '-' + kimlik)}.enc"
+        m["title"] = TUR_ADI.get(tur, tur)
+    bolumler.pop("kayit", None)
+
+
 def rapor_isle(m, durum, issue):
     alanlar, bolumler = ayristir(m["message"])
     tur = alanlar.get("tur", "hata")
+    if tur in GIZLI_TURLER:
+        gizle(m, alanlar, bolumler)
     imza = alanlar.get("imza", "00000000")
     kimlik = alanlar.get("kimlik", m["id"])
     surum = alanlar.get("surum", "?")
@@ -304,6 +338,13 @@ def ek_isle(m, durum, issue):
         veri = ek_indir(ek["url"])
     except Exception as e:
         gunluk("ek indirilemedi (süresi dolmuş olabilir)", ad, e)
+        return
+    anahtar0 = durum["kimlikler"].get(kimlik)
+    k0 = durum["kayitlar"].get(anahtar0) if anahtar0 else None
+    if k0 is None or k0.get("tur") in GIZLI_TURLER:
+        # oyuncunun ekran görüntüsü (ya da raporu henüz bilinmeyen): şifreli
+        sifrele(veri, ad)
+        gunluk("ekran görüntüsü şifreli saklandı", ad)
         return
     os.makedirs(yol("ekler"), exist_ok=True)
     with open(yol("ekler", ad), "wb") as f:
