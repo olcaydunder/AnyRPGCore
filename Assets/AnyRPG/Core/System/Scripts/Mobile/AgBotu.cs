@@ -84,7 +84,36 @@ namespace AnyRPG {
             }
         }
 
+        /// <summary>
+        /// telefonda kolaylıkları MobileBootstrap saniyede bir yürütür; o yalnız telefonda kurulur. Linux botunda
+        /// aynı işleri bot yürütür ki armağan penceresi, günlük görev isteği, seviye ödülü kartları telefondaki gibi denensin.
+        /// </summary>
+        private IEnumerator Kolayliklar() {
+            while (true) {
+                yield return new WaitForSecondsRealtime(1f);
+                SystemGameManager oyun = OtukenAg.Oyun;
+                bool oyunda = oyun != null && SystemGameManager.IsShuttingDown == false && oyun.PlayerManagerClient != null
+                    && oyun.PlayerManagerClient.PlayerUnitSpawned && oyun.PlayerManagerClient.UnitController != null;
+                Dene("GunlukArmagan", () => GunlukArmagan.Tick(oyun, oyunda));
+                Dene("GunlukGorevler", () => GunlukGorevler.Tick(oyun, oyunda));
+                Dene("Binek", () => Binek.Tick(oyun, oyunda));
+                Dene("CevrimdisiKazanc", () => CevrimdisiKazanc.Tick(oyun, oyunda));
+                Dene("Gelisim", () => Gelisim.Tick(oyun, oyunda));
+            }
+        }
+
+        private static void Dene(string ad, Action is_) {
+            try {
+                is_();
+            } catch (Exception e) {
+                Debug.LogWarning("[AgBotu] " + ad + ".Tick(): " + e.Message);
+            }
+        }
+
         private IEnumerator Start() {
+            if (Application.isMobilePlatform == false) {
+                StartCoroutine(Kolayliklar());
+            }
             baslangic = Time.realtimeSinceStartup;
             ad = Arguman("-istemciBotu");
             string adres = Arguman("-adres") ?? "127.0.0.1:" + Sunucu.VarsayilanPort;
