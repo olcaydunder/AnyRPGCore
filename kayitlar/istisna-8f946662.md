@@ -4,12 +4,12 @@ Durum: 🔴 açık
 
 | Tekrar | Cihaz | Sürümler | İlk görülme | Son görülme |
 |---|---|---|---|---|
-| 2 | 1 | 0.1.52, 0.1.64 | 05.10.2026 17:12 | 06.10.2026 11:26 |
+| 1 | 1 | 0.1.64 | 06.10.2026 11:26 | 06.10.2026 11:26 |
 
 
 ## İlk rapor
 
-**İstisna** · sürüm **0.1.52** · PC · Linux 6.17 Ubuntu 24.04 64bit · ekran 640x480 · FeaturesDemoZone
+**İstisna** · sürüm **0.1.64** · PC · Linux 6.8 Ubuntu 24.04 64bit · ekran 640x480 · FeaturesDemoZone
 
 ### Mesaj
 ```text
@@ -20,25 +20,25 @@ NullReferenceException: Object reference not set to an instance of an object.
 ```text
 UnityEngine.Bindings.ThrowHelper.ThrowNullReferenceException (System.Object obj) (at <3d65f019da6044168f2ccd81096ed5c5>:0)
 UnityEngine.Component.get_gameObject () (at <3d65f019da6044168f2ccd81096ed5c5>:0)
-AnyRPG.AggroTable.get_TopAgroNode () (at <17dd357545d54fc1a5592b386b164ec8>:0)
-AnyRPG.UnitController.UpdateTarget () (at <17dd357545d54fc1a5592b386b164ec8>:0)
-AnyRPG.AttackState.Update () (at <17dd357545d54fc1a5592b386b164ec8>:0)
-AnyRPG.UnitController.FixedUpdate () (at <17dd357545d54fc1a5592b386b164ec8>:0)
+AnyRPG.AggroTable.get_TopAgroNode () (at <4279f169e03540928411c6f637104929>:0)
+AnyRPG.CharacterCombat.TryToDropCombat () (at <4279f169e03540928411c6f637104929>:0)
+AnyRPG.CharacterCombat.Tick () (at <4279f169e03540928411c6f637104929>:0)
+AnyRPG.UnitController.Update () (at <4279f169e03540928411c6f637104929>:0)
 ```
 
 <details><summary>Ortam</summary>
 
 ```text
 tur: istisna
-surum: 0.1.52
+surum: 0.1.64
 cihaz: PC
-sistem: Linux 6.17 Ubuntu 24.04 64bit
-grafik: Null / Null Device / bellek 15989 MB
+sistem: Linux 6.8 Ubuntu 24.04 64bit
+grafik: Null / Null Device / bellek 7940 MB
 ekran: 640x480
 ayarlar: kalite -1, çözünürlük 0, gölge 0, fps sınırı 1
 sahne: FeaturesDemoZone
 oyuncu: oyunda değil
-sure: 194 sn
+sure: 20667 sn
 ```
 
 </details>
@@ -46,10 +46,10 @@ sure: 194 sn
 <details><summary>Oyunun durumu</summary>
 
 ```text
-Sürüm 0.1.52 | PC | Linux 6.17 Ubuntu 24.04 64bit
-Null Null Device | Bellek 15989 MB | 640x480 | FPS ? | Süre 193 sn
-Kare süresi: işlemci ? | ekran kartı ? | ekran 0 Hz | hedef 45 | kalite Very Low | pil -100%
-Sahneler: MovedObjectsHolder FeaturesDemoZone
+Sürüm 0.1.64 | PC | Linux 6.8 Ubuntu 24.04 64bit
+Null Null Device | Bellek 7940 MB | 640x480 | FPS ? | Süre 20666 sn
+Kare süresi: işlemci ? | ekran kartı ? | ekran 0 Hz | hedef 45 | kalite Very Low | çizim 640x480 (ekran 640x480, ölçek 1.00) | pil -100%
+Sahneler: MovedObjectsHolder FeaturesDemoZone FeaturesDemoDungeon(yükleniyor)
 Giriş: dokunmatik yok | fare yok | ekran tuşları kapalı
 Son dokunuş: -
 Oyuncu karakteri: yok | Önizleme karakteri: yok | Önizleme kamerası: kapalı
@@ -64,6 +64,5 @@ Oyuncu karakteri: yok | Önizleme karakteri: yok | Önizleme kamerası: kapalı
 | Zaman · sürüm · cihaz · harita · oyuncu · ekran |
 |---|
 | 06.10.2026 11:26 · 0.1.64 · PC · FeaturesDemoZone · oyunda değil · 640x480 |
-| 05.10.2026 17:12 · 0.1.52 · PC · FeaturesDemoZone · oyunda değil · 640x480 |
 
-Anahtar: `istisna-9434295e`
+Anahtar: `istisna-8f946662`
