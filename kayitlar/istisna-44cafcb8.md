@@ -4,7 +4,7 @@ Durum: 🔴 açık
 
 | Tekrar | Cihaz | Sürümler | İlk görülme | Son görülme |
 |---|---|---|---|---|
-| 1 | 1 | 0.1.36 | 04.10.2026 19:08 | 04.10.2026 19:08 |
+| 2 | 1 | 0.1.36, 0.1.67 | 04.10.2026 19:08 | 06.10.2026 20:25 |
 
 
 ## İlk rapor
@@ -71,6 +71,7 @@ Oyuncu karakteri: oluştu (MecanimMale1) | Önizleme karakteri: yok | Önizleme 
 
 | Zaman · sürüm · cihaz · harita · oyuncu · ekran |
 |---|
+| 06.10.2026 20:25 · 0.1.67 · samsung SM-S938B · FeaturesDemoZone · seviye 1 · 3120x1335 |
 | 04.10.2026 19:08 · 0.1.36 · samsung SM-S938B · UmayTarlalari · seviye 1 · 3120x1335 |
 
 Anahtar: `istisna-44cafcb8`
