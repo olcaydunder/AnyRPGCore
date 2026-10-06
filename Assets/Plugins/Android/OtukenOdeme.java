@@ -84,10 +84,24 @@ public class OtukenOdeme implements PurchasesUpdatedListener {
         });
     }
 
+    /** Kut Dükkânı her açılışta: bağlı değilse yeniden bağlanır; fiyatlar gelmediyse (ürün sonradan etkinleştirildiyse) yeniden sorar */
     public static void bekleyenleriSor() {
-        if (ornek != null && ornek.bagli) {
-            ornek.satinAlmalariSor();
+        if (ornek == null) {
+            return;
         }
+        ornek.etkinlik.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (ornek.bagli == false) {
+                    ornek.baglan();
+                    return;
+                }
+                if (ornek.urunler.isEmpty()) {
+                    ornek.urunleriSor();
+                }
+                ornek.satinAlmalariSor();
+            }
+        });
     }
 
     private void olay(String tur, String veri) {

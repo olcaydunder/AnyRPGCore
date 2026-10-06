@@ -210,7 +210,7 @@ namespace AnyRPG {
             switch (tur) {
                 case "hazir":
                     Hazir = true;
-                    DurumYazisi = fiyatlar.Count > 0 ? string.Empty : "Kut paketleri yakında.";
+                    DurumYazisi = fiyatlar.Count > 0 ? string.Empty : "Kut paketleri Google Play'de bulunamadı.";
                     break;
                 case "urun": {
                     string[] p = veri.Split('\t');
