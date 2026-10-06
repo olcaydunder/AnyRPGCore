@@ -257,6 +257,49 @@ namespace AnyRPG {
             Debug.Log("[Ticaret] " + satir);
         }
 
+        private static float sonBudama = -1f;
+
+        /// <summary>
+        /// sunucu, saatte bir: kayıt defterleri gizlilik politikasındaki sürelerden eski satırlardan arındırılır
+        /// (sohbet 30 gün, şikâyet 1 yıl, ticaret 2 yıl). Satırlar "yyyy-MM-dd ..." ile başlar.
+        /// </summary>
+        public static void KayitlariBuda() {
+            if (sonBudama >= 0f && Time.realtimeSinceStartup - sonBudama < 3600f) {
+                return;
+            }
+            sonBudama = Time.realtimeSinceStartup;
+            Buda("sohbet.log", 30);
+            Buda("sikayetler.log", 365);
+            Buda("ticaret.log", 730);
+        }
+
+        private static void Buda(string ad, int gun) {
+            try {
+                string yol = Path.Combine(Application.persistentDataPath, ad);
+                if (File.Exists(yol) == false) {
+                    return;
+                }
+                string sinir = DateTime.UtcNow.AddHours(3).AddDays(-gun).ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+                string[] satirlar = File.ReadAllLines(yol, Encoding.UTF8);
+                List<string> kalan = new List<string>(satirlar.Length);
+                bool tut = false;
+                foreach (string satir in satirlar) {
+                    // tarihli satır karar verir; tarihsiz (girintili) satırlar bir öncekine bağlıdır
+                    if (satir.Length >= 10 && char.IsDigit(satir[0]) && satir[4] == '-') {
+                        tut = string.CompareOrdinal(satir.Substring(0, 10), sinir) >= 0;
+                    }
+                    if (tut) {
+                        kalan.Add(satir);
+                    }
+                }
+                if (kalan.Count != satirlar.Length) {
+                    File.WriteAllLines(yol, kalan, Encoding.UTF8);
+                }
+            } catch (Exception e) {
+                Debug.LogWarning("[Ticaret] " + ad + " budanamadı: " + e.Message);
+            }
+        }
+
         public static string Ozet(List<List<InstantiatedItem>> yiginlar) {
             List<string> p = new List<string>();
             foreach (List<InstantiatedItem> y in yiginlar) {

@@ -62,6 +62,7 @@ namespace AnyRPG {
             Calistir("takas", Takas.SunucuTick);
             Calistir("pazar", Pazar.SunucuTick);
             Calistir("hesap silme", () => HesapSilme.SunucuTick(oyun));
+            Calistir("kayıt budama", Ticaret.KayitlariBuda);
             foreach (UnitController u in gidenler) {
                 gorulenler.Remove(u);
                 ilkTurlar.Remove(u);

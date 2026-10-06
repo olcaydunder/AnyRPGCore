@@ -40,6 +40,14 @@ namespace Otuken.EditorAraclari {
                 Debug.LogError("AgHazirlik başarısız oldu, derlemeye devam ediliyor: " + e);
             }
             try {
+                // Google Play sürümü (AAB): 200 MB temel modül sınırı için oyun verisi kurulumla gelen varlık paketine ayrılır
+                bool aab = Array.IndexOf(Environment.GetCommandLineArgs(), "androidAppBundle") >= 0;
+                PlayerSettings.Android.splitApplicationBinary = aab;
+                Debug.Log("[Derleme] " + (aab ? "Google Play paketi (AAB, varlık paketi ayrık)" : "APK"));
+            } catch (Exception e) {
+                Debug.LogError("AAB ayarı yapılamadı: " + e);
+            }
+            try {
                 // uygulama simgesi (Play Store simgesiyle aynı çizim)
                 Simgeler.Kur();
             } catch (Exception e) {

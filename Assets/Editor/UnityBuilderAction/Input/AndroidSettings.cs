@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using UnityEditor;
 using System.Reflection;
@@ -62,11 +62,14 @@ namespace UnityBuilderAction.Input
             EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
             if (buildAppBundle != null)
               buildAppBundle.SetValue(null, true, null);
+            // Ötüken: Google Play'in 200 MB temel modül sınırı: oyun verisi kurulumla gelen varlık paketine (Play Asset Delivery)
+            PlayerSettings.Android.splitApplicationBinary = true;
             break;
           case "androidPackage":
             EditorUserBuildSettings.exportAsGoogleAndroidProject = false;
             if (buildAppBundle != null)
               buildAppBundle.SetValue(null, false, null);
+            PlayerSettings.Android.splitApplicationBinary = false;
             break;
         }
       }

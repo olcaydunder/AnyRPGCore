@@ -40,6 +40,10 @@ on:
         description: 'Yalnız Linux sunucu + çevrimiçi deneme (APK derlenmez, sunucu yayımlanmaz; hızlı ağ denemesi)'
         type: boolean
         default: false
+      play_surumu:
+        description: 'Google Play sürümü: AAB, yükleme anahtarıyla imzalı (play-aab sürümüne), sürüm 1.0.N; canlı sunucu da aynı sürüme geçer'
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -140,10 +144,37 @@ jobs:
 
       - name: Sürüm numarası ve imza anahtarı
         id: hazirlik
+        env:
+          VARLIK_ANAHTARI: ${{ secrets.VARLIK_ANAHTARI }}
+          PLAY: ${{ inputs.play_surumu }}
         run: |
-          echo "surum=0.1.${GITHUB_RUN_NUMBER}" >> "$GITHUB_OUTPUT"
-          echo "kod=$((100 + GITHUB_RUN_NUMBER))" >> "$GITHUB_OUTPUT"
-          echo "anahtar=$(base64 -w0 'Tools~/android/gelistirme.keystore')" >> "$GITHUB_OUTPUT"
+          if [ "$PLAY" = "true" ]; then
+            # Google Play: yükleme anahtarı depoda VARLIK_ANAHTARI ile şifreli durur (Tools~/android/yukleme.keystore.enc),
+            # şifresi de ondan türetilir. Play App Signing'de asıl imza anahtarı Google'dadır; bu yalnız yükleme anahtarıdır.
+            echo "surum=1.0.${GITHUB_RUN_NUMBER}" >> "$GITHUB_OUTPUT"
+            echo "kod=$((10000 + GITHUB_RUN_NUMBER))" >> "$GITHUB_OUTPUT"
+            openssl enc -d -aes-256-cbc -pbkdf2 -iter 200000 -in 'Tools~/android/yukleme.keystore.enc' -out /tmp/yukleme.keystore -pass env:VARLIK_ANAHTARI
+            sifre=$(printf '%s' "${VARLIK_ANAHTARI}:yukleme-anahtari" | sha256sum | cut -c1-32)
+            echo "::add-mask::$sifre"
+            {
+              echo "IMZA_DOSYA=yukleme.keystore"
+              echo "IMZA_B64=$(base64 -w0 /tmp/yukleme.keystore)"
+              echo "IMZA_SIFRE=$sifre"
+              echo "IMZA_TAKMA=yukleme"
+              echo "CIKTI_TURU=androidAppBundle"
+            } >> "$GITHUB_ENV"
+            rm -f /tmp/yukleme.keystore
+          else
+            echo "surum=0.1.${GITHUB_RUN_NUMBER}" >> "$GITHUB_OUTPUT"
+            echo "kod=$((100 + GITHUB_RUN_NUMBER))" >> "$GITHUB_OUTPUT"
+            {
+              echo "IMZA_DOSYA=gelistirme.keystore"
+              echo "IMZA_B64=$(base64 -w0 'Tools~/android/gelistirme.keystore')"
+              echo "IMZA_SIFRE=android"
+              echo "IMZA_TAKMA=androiddebugkey"
+              echo "CIKTI_TURU=androidPackage"
+            } >> "$GITHUB_ENV"
+          fi
           # Unity günlüğü buraya yazılır (Derleme hatalarını not olarak yaz)
           mkdir -p tani
 
@@ -161,15 +192,15 @@ jobs:
           # (Assets/Otuken/Editor/HaritaHazirlik.cs, Assets/Editor/UnityBuilderAction)
           buildMethod: Otuken.EditorAraclari.Derleme.Derle
           customParameters: ${{ inputs.sadece_arayuz && '-sadeceArayuz' || '' }} -istemciSurumu ${{ steps.hazirlik.outputs.surum }}
-          androidExportType: androidPackage
+          androidExportType: ${{ env.CIKTI_TURU }}
           versioning: Custom
           version: ${{ steps.hazirlik.outputs.surum }}
           androidVersionCode: ${{ steps.hazirlik.outputs.kod }}
-          androidKeystoreName: gelistirme.keystore
-          androidKeystoreBase64: ${{ steps.hazirlik.outputs.anahtar }}
-          androidKeystorePass: android
-          androidKeyaliasName: androiddebugkey
-          androidKeyaliasPass: android
+          androidKeystoreName: ${{ env.IMZA_DOSYA }}
+          androidKeystoreBase64: ${{ env.IMZA_B64 }}
+          androidKeystorePass: ${{ env.IMZA_SIFRE }}
+          androidKeyaliasName: ${{ env.IMZA_TAKMA }}
+          androidKeyaliasPass: ${{ env.IMZA_SIFRE }}
 
       - name: Derleme hatalarını not olarak yaz
         if: ${{ failure() }}
@@ -190,7 +221,7 @@ jobs:
         if: ${{ !inputs.sadece_arayuz && !inputs.sadece_sunucu }}
         id: apk
         run: |
-          apk=$(find build/Android -maxdepth 2 -name '*.apk' | head -n 1)
+          apk=$(find build/Android -maxdepth 2 \( -name '*.apk' -o -name '*.aab' \) | head -n 1)
           if [ -z "$apk" ]; then
             echo "::error title=APK yok::Derleme bitti ama APK dosyası bulunamadı."
             exit 1
@@ -209,8 +240,33 @@ jobs:
           retention-days: 5
           compression-level: 0
 
+      - name: Google Play paketini yayımla (play-aab)
+        if: ${{ inputs.play_surumu && steps.apk.outcome == 'success' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          AAB_YOLU: ${{ steps.apk.outputs.yol }}
+          SURUM: ${{ steps.hazirlik.outputs.surum }}
+          KOD: ${{ steps.hazirlik.outputs.kod }}
+        run: |
+          cp "$AAB_YOLU" "${APK_ADI}.aab"
+          baslik="Google Play paketi $SURUM (sürüm kodu $KOD)"
+          notlar="Play Console > Sürüm oluştur'a yüklenecek AAB. Yükleme anahtarıyla imzalı. $(date -u +'%d.%m.%Y %H:%M') UTC, commit ${GITHUB_SHA::8}."
+          if gh release view play-aab >/dev/null 2>&1; then
+            gh release upload play-aab "${APK_ADI}.aab" --clobber
+            gh release edit play-aab --title "$baslik" --notes "$notlar" --prerelease --draft=false
+          else
+            gh release create play-aab "${APK_ADI}.aab" --prerelease --target "$GITHUB_SHA" --title "$baslik" --notes "$notlar"
+          fi
+          {
+            echo "## Google Play paketi $SURUM hazır"
+            echo ""
+            echo "İndir: https://github.com/${GITHUB_REPOSITORY}/releases/download/play-aab/${APK_ADI}.aab"
+            echo ""
+            echo "Boyut: ${{ steps.apk.outputs.boyut_mb }} MB · sürüm kodu $KOD"
+          } >> "$GITHUB_STEP_SUMMARY"
+
       - name: Telefondan indirme bağlantısını yenile
-        if: ${{ !inputs.sadece_arayuz && !inputs.sadece_sunucu && steps.apk.outputs.boyut_mb < 2000 }}
+        if: ${{ !inputs.play_surumu && !inputs.sadece_arayuz && !inputs.sadece_sunucu && steps.apk.outputs.boyut_mb < 2000 }}
         env:
           GH_TOKEN: ${{ github.token }}
           APK_YOLU: ${{ steps.apk.outputs.yol }}
@@ -250,7 +306,7 @@ jobs:
         # editörde oyun modunda: yeni oyun, 15 haritaya ışınlanma, otomatik av; hatalar tani/oyun_testi.* dosyalarına
         # (Assets/Otuken/Editor/OyunTesti.cs). APK zaten yayımlandı; bu adım tutmazsa derleme bozulmaz.
         # Lisans GameCI gibi etkinleştirilir (kişisel lisans dosyasındaki seri numarası + hesap) ve sonunda geri verilir.
-        if: ${{ inputs.oyun_testi && !inputs.sadece_sunucu && (inputs.sadece_arayuz || steps.apk.outcome == 'success') }}
+        if: ${{ inputs.oyun_testi && !inputs.play_surumu && !inputs.sadece_sunucu && (inputs.sadece_arayuz || steps.apk.outcome == 'success') }}
         continue-on-error: true
         timeout-minutes: 70
         env:
