@@ -121,7 +121,10 @@ namespace AnyRPG {
             }
 
             bool baslatan = ad.EndsWith("1");
-            Takas.OtoKabul = true;
+            // deneme sunucusunda takas ve pazar için çantaya eşya (canlı sunucuda bir şey olmaz)
+            Odeme.TestIcinEsya("Health Potion");
+            Odeme.TestIcinEsya("Kurt Disi");
+            yield return new WaitForSecondsRealtime(1.5f);
             float t0 = Time.realtimeSinceStartup;
             if (baslatan) {
                 // takas: yakındaki öbür bota teklif, eşya koy, onayla
@@ -178,8 +181,8 @@ namespace AnyRPG {
                     ozet.Add("pazar " + sahip + ": " + Pazar.AlinanSayisi + " alındı (" + Pazar.SonSonuc + ")");
                 }
             } else {
-                // takası kabul eden: karşı taraf eşya koyunca onayla
-                while (Takas.AcikMi == false && Time.realtimeSinceStartup - t0 < 25f) {
+                // takası kabul eden: karşı taraf eşya koyunca onayla (teklif bu bot hazırlanırken de gelmiş olabilir)
+                while (Takas.AcikMi == false && Time.realtimeSinceStartup - t0 < 40f) {
                     yield return new WaitForSecondsRealtime(0.5f);
                 }
                 float t2 = Time.realtimeSinceStartup;
@@ -187,7 +190,7 @@ namespace AnyRPG {
                     yield return new WaitForSecondsRealtime(2.5f);
                     Takas.TestIcinOnayla();
                 }
-                ozet.Add("takas " + Takas.TamamlananSayisi + " tamam (" + Takas.SonBilgi + ")");
+                ozet.Add("takas " + Takas.GelenDavet + " davet, " + Takas.TamamlananSayisi + " tamam (" + Takas.SonBilgi + ")");
                 // pazar aç ve 25 sn kıpırdama
                 bool acildi = Pazar.TestIcinAc(1);
                 float t3 = Time.realtimeSinceStartup;
@@ -202,7 +205,6 @@ namespace AnyRPG {
                     Pazar.KendiPazariniKapat();
                 }
             }
-            Takas.OtoKabul = false;
             ticaretOzeti = string.Join("; ", ozet);
         }
 
@@ -237,6 +239,8 @@ namespace AnyRPG {
             if (Application.isMobilePlatform == false) {
                 StartCoroutine(Kolayliklar());
             }
+            // öbür botun takas teklifi ne zaman gelirse gelsin kabul edilir
+            Takas.OtoKabul = true;
             baslangic = Time.realtimeSinceStartup;
             ad = Arguman("-istemciBotu");
             string adres = Arguman("-adres") ?? "127.0.0.1:" + Sunucu.VarsayilanPort;

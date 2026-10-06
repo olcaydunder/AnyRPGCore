@@ -171,6 +171,7 @@ namespace AnyRPG {
 
             // ---------------------------------------------------------------- telefon
             OtukenAg.IstemciDinle("takas-davet", veri => {
+                GelenDavet++;
                 if (Engelleme.EngelliMi(veri)) {
                     // engellenen oyuncunun teklifi gösterilmez
                     OtukenAg.Gonder("takas-cevap", "0");
@@ -359,6 +360,7 @@ namespace AnyRPG {
         public static bool OtoKabul = false;
 
         public static int TamamlananSayisi { get; private set; }
+        public static int GelenDavet { get; private set; }
         public static string SonBilgi { get; private set; } = "-";
 
         private static Takas ornek = null;

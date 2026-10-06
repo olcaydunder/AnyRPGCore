@@ -392,6 +392,16 @@ namespace AnyRPG {
                 }
                 OtukenAg.Yanitla(oyuncu, "odeme-sonuc", "1\u001F" + s.purchaseToken + "\u001F" + miktar.ToString(CultureInfo.InvariantCulture));
             });
+            // CI deneme sunucusu (-testOdeme): ağ botlarına takas ve pazar denemesi için eşya (canlı sunucuda kapalı)
+            OtukenAg.SunucuIsle("test-esya", (oyuncu, ad) => {
+                if (TestKipi == false) {
+                    return;
+                }
+                InstantiatedItem esya = oyuncu.CharacterInventoryManager.GetNewInstantiatedItem(ad);
+                if (esya != null) {
+                    oyuncu.CharacterInventoryManager.AddItem(esya, false);
+                }
+            });
             OtukenAg.IstemciDinle("odeme-sonuc", veri => {
                 string[] p = veri.Split('\u001F');
                 if (p.Length < 3) {
@@ -415,6 +425,11 @@ namespace AnyRPG {
                 }
                 Degisti();
             });
+        }
+
+        /// <summary>ağ botu: deneme sunucusunda çantaya eşya (takas ve pazar denemesi)</summary>
+        public static void TestIcinEsya(string ad) {
+            OtukenAg.Gonder("test-esya", ad);
         }
 
         /// <summary>ağ botu: deneme sunucusunda imzasız deneme satın alması</summary>
