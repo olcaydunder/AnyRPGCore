@@ -206,6 +206,7 @@ namespace AnyRPG {
             //Debug.Log($"{interactable.gameObject.name}.LootableCharacter.HandleBeforeDie({sourceUnitController.gameObject.name})");
 
             int lootCount = 0;
+            bool cevherAtildi = false;
 
             if (LootHolder.LootTableStates.Count > 0) {
                 foreach (AggroNode aggroNode in characterUnit.UnitController.CharacterCombat.AggroTable.AggroNodes) {
@@ -235,6 +236,11 @@ namespace AnyRPG {
                             }
                         }
                         lootDrops = alinamayanlar;
+                        // Ötüken: Demirci cevheri (en çok hasarı veren ilk oyuncu için)
+                        if (cevherAtildi == false) {
+                            cevherAtildi = true;
+                            yereDusenler.AddRange(YerdekiGanimet.CevherAt(characterUnit.UnitController, aggroNode.aggroTarget));
+                        }
                         if (yereDusenler.Count > 0) {
                             YerdekiGanimet.CanavardanDusur(characterUnit.UnitController, aggroNode.aggroTarget, yereDusenler);
                         }

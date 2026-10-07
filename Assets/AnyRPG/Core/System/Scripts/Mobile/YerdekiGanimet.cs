@@ -89,6 +89,57 @@ namespace AnyRPG {
             }
         }
 
+        // ---------------------------------------------------------------- cevherler (Demirci +6..+9)
+
+        private static readonly string[] cevherler = { "Demir Cevheri", "Gumus Cevheri", "Altin Cevheri", "Gok Demiri" };
+        // hangi haritadan (HaritaSeviyeleri.Sira sırası) itibaren düşer ve sıradan canavarda yüzde şansı
+        private static readonly int[] cevherHaritasi = { 2, 5, 8, 11 };
+        private static readonly float[] cevherSansi = { 4f, 2.5f, 1.5f, 0.8f };
+
+        /// <summary>
+        /// canavarın bıraktığı cevher (en çok biri; boss en iyisinden bir tane, %35 ihtimalle bir alt basamaktan bir tane daha).
+        /// Seçkin canavarlarda şans 2,5 kat, Ganimet Bereketi/Boss Avı etkinliğinde 1,5–2 kat.
+        /// </summary>
+        public static List<InstantiatedItem> CevherAt(UnitController olu, UnitController sahip) {
+            List<InstantiatedItem> liste = new List<InstantiatedItem>();
+            if (olu == null || sahip == null || sahip.CharacterInventoryManager == null) {
+                return liste;
+            }
+            int harita = System.Array.IndexOf(HaritaSeviyeleri.Sira, olu.gameObject.scene.name);
+            int enIyi = -1;
+            for (int i = 0; i < cevherHaritasi.Length; i++) {
+                if (harita >= cevherHaritasi[i]) {
+                    enIyi = i;
+                }
+            }
+            if (enIyi < 0) {
+                return liste;
+            }
+            string dayaniklilik = olu.BaseCharacter != null && olu.BaseCharacter.UnitToughness != null ? olu.BaseCharacter.UnitToughness.ResourceName : string.Empty;
+            List<string> adlar = new List<string>();
+            if (HaritaSeviyeleri.BossMu(dayaniklilik)) {
+                adlar.Add(cevherler[enIyi]);
+                if (Random.value < 0.35f) {
+                    adlar.Add(cevherler[Mathf.Max(0, enIyi - 1)]);
+                }
+            } else {
+                float carpan = (HaritaSeviyeleri.SeckinMi(dayaniklilik) ? 2.5f : 1f) * Etkinlikler.GanimetCarpani(sahip);
+                for (int i = enIyi; i >= 0; i--) {
+                    if (Random.value * 100f < cevherSansi[i] * carpan) {
+                        adlar.Add(cevherler[i]);
+                        break;
+                    }
+                }
+            }
+            foreach (string ad in adlar) {
+                InstantiatedItem esya = sahip.CharacterInventoryManager.GetNewInstantiatedItem(ad);
+                if (esya != null) {
+                    liste.Add(esya);
+                }
+            }
+            return liste;
+        }
+
         /// <summary>sunucu (ve tek oyunculu oyun) saniyede bir: süresi dolan ganimet kaybolur</summary>
         public static void SunucuTick() {
             if (Time.time >= sonrakiRapor) {

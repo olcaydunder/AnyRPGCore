@@ -140,6 +140,24 @@ namespace AnyRPG {
             return hedef <= 3 ? 0 : (hedef <= 6 ? 1 : 2);
         }
 
+        // ---------------------------------------------------------------- cevher yuvası (+6 ve üstü)
+
+        /// <summary>+5'ten sonra her basamak cevher yuvasına bir cevher ister (Tools~/dunya/cevherler.py)</summary>
+        public const int CevherBasamagi = 6;
+        private static readonly string[] cevherler = { "Demir Cevheri", "Gumus Cevheri", "Altin Cevheri", "Gok Demiri" };
+        private static readonly string[] cevherAdlari = { "Demir Cevheri", "Gümüş Cevheri", "Altın Cevheri", "Gök Demiri" };
+
+        /// <summary>hedef basamağın istediği cevherin kaynak adı (gerekmezse null)</summary>
+        public static string Cevher(int hedef) {
+            int i = hedef - CevherBasamagi;
+            return i >= 0 && i < cevherler.Length ? cevherler[i] : null;
+        }
+
+        public static string CevherAdi(int hedef) {
+            int i = hedef - CevherBasamagi;
+            return i >= 0 && i < cevherAdlari.Length ? cevherAdlari[i] : string.Empty;
+        }
+
         public static int Sans(int hedef) {
             return sanslar[Mathf.Clamp(hedef, 0, sanslar.Length - 1)];
         }
@@ -185,9 +203,18 @@ namespace AnyRPG {
                 if (taslar.Count < tas) {
                     return "Çantanda yeterli " + TasAdi + " yok (" + tas + " gerekli). Seviye, günlük görev ve günlük armağan ödüllerinde bulunur.";
                 }
+                // +6 ve üstü: cevher yuvası
+                string cevher = Cevher(hedef);
+                List<InstantiatedItem> cevherListesi = cevher != null ? oyuncu.CharacterInventoryManager.GetItems(cevher, 1) : new List<InstantiatedItem>();
+                if (cevher != null && cevherListesi.Count < 1) {
+                    return "Cevher yuvası boş: +" + hedef + " için 1 " + CevherAdi(hedef) + " gerekli. Canavarlardan ve boss'lardan düşer.";
+                }
                 oyuncu.CharacterCurrencyManager.SpendCurrency(gumus, bedel);
                 foreach (InstantiatedItem t in taslar) {
                     oyuncu.CharacterInventoryManager.RemoveInventoryItem(t);
+                }
+                foreach (InstantiatedItem c in cevherListesi) {
+                    oyuncu.CharacterInventoryManager.RemoveInventoryItem(c);
                 }
                 int sans = Sans(hedef);
                 bool kutsandi = kutsama && KutDukkani.KutsamaHarca(oyuncu);
@@ -267,6 +294,14 @@ namespace AnyRPG {
         private SystemGameManager oyun = null;
         private bool kutsamaAcik = false;
         private GameObject kutsamaDugmesi = null;
+        // cevher yuvası: +6 ve üstünde cevher konmadan Yükselt açılmaz
+        private GameObject cevherYuvasi = null;
+        private Image cevherResmi = null;
+        private Text cevherYazisi = null;
+        private GameObject cevherDugmesi = null;
+        private bool cevherKondu = false;
+        private InstantiatedEquipment cevherinEsyasi = null;
+        private int cevherinHedefi = -1;
 
         public static bool IsOpen {
             get { return instance != null && instance.panelRoot != null && instance.panelRoot.activeSelf; }
@@ -408,7 +443,7 @@ namespace AnyRPG {
             gucYazisi = Yazi(Kutu(panel.transform, "Guc", new Vector2(0.5f, 1f), new Vector2(1f, 1f), new Vector2(0f, -62f), new Vector2(-24f, -8f)),
                 string.Empty, 24, TextAnchor.MiddleRight, gold);
             Yazi(Kutu(panel.transform, "Aciklama", new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(24f, -98f), new Vector2(-24f, -60f)),
-                "Eşyanı Gümüş Akçe ve " + TasAdi + " ile +9'a kadar güçlendir. Başarısızlıkta eşyan bozulmaz, yalnız malzeme gider.",
+                "Eşyanı Gümüş Akçe ve " + TasAdi + " ile +9'a kadar güçlendir; +6'dan sonra cevher yuvasına cevher konur. Başarısızlıkta eşyan bozulmaz, yalnız malzeme gider.",
                 18, TextAnchor.MiddleLeft, hintColor);
 
             // sol: eşya listesi
@@ -429,7 +464,7 @@ namespace AnyRPG {
             adYazisi = Yazi(Kutu(panel.transform, "Ad", new Vector2(0.5f, 1f), new Vector2(1f, 1f), new Vector2(14f, -160f), new Vector2(-24f, -110f)),
                 string.Empty, 28, TextAnchor.MiddleLeft, textColor);
             adYazisi.fontStyle = FontStyle.Bold;
-            ayrintiYazisi = Yazi(Kutu(panel.transform, "Ayrinti", new Vector2(0.5f, 0f), new Vector2(1f, 1f), new Vector2(14f, 190f), new Vector2(-24f, -166f)),
+            ayrintiYazisi = Yazi(Kutu(panel.transform, "Ayrinti", new Vector2(0.5f, 0f), new Vector2(1f, 1f), new Vector2(14f, 258f), new Vector2(-24f, -166f)),
                 string.Empty, 21, TextAnchor.UpperLeft, textColor);
             sonucYazisi = Yazi(Kutu(panel.transform, "Sonuc", new Vector2(0.5f, 0f), new Vector2(1f, 0f), new Vector2(14f, 104f), new Vector2(-24f, 184f)),
                 string.Empty, 22, TextAnchor.MiddleLeft, okColor);
@@ -452,6 +487,26 @@ namespace AnyRPG {
                 kutsamaAcik = !kutsamaAcik;
                 Yenile();
             });
+            // cevher yuvası (+6 ve üstü): ayrıntının altında
+            cevherYuvasi = Kutu(panel.transform, "CevherYuvasi", new Vector2(0.5f, 0f), new Vector2(1f, 0f), new Vector2(14f, 186f), new Vector2(-24f, 252f));
+            cevherYuvasi.AddComponent<Image>().color = new Color(0.12f, 0.09f, 0.06f, 0.95f);
+            Outline yc = cevherYuvasi.AddComponent<Outline>();
+            yc.effectColor = new Color(gold.r, gold.g, gold.b, 0.7f);
+            yc.effectDistance = new Vector2(1f, -1f);
+            GameObject yuvaKutusu = Kutu(cevherYuvasi.transform, "Yuva", new Vector2(0f, 0.5f), new Vector2(0f, 0.5f), new Vector2(8f, -28f), new Vector2(64f, 28f));
+            yuvaKutusu.AddComponent<Image>().color = new Color(0f, 0f, 0f, 0.5f);
+            GameObject cr = Kutu(yuvaKutusu.transform, "Cevher", Vector2.zero, Vector2.one, new Vector2(3f, 3f), new Vector2(-3f, -3f));
+            cevherResmi = cr.AddComponent<Image>();
+            cevherResmi.preserveAspect = true;
+            cevherResmi.raycastTarget = false;
+            cevherYazisi = Yazi(Kutu(cevherYuvasi.transform, "Yazi", Vector2.zero, Vector2.one, new Vector2(74f, 0f), new Vector2(-150f, 0f)),
+                string.Empty, 17, TextAnchor.MiddleLeft, textColor);
+            cevherDugmesi = Dugme(cevherYuvasi.transform, "Cevher Ekle", new Vector2(1f, 0.5f), new Vector2(-72f, 0f), new Vector2(132f, 46f), 17, buttonColor, () => {
+                MobileFeedback.Tap();
+                cevherKondu = !cevherKondu;
+                Yenile();
+            });
+            cevherYuvasi.SetActive(false);
             panelRoot.SetActive(false);
         }
 
@@ -568,12 +623,37 @@ namespace AnyRPG {
                     : "Kutsama: " + (kutsamaAcik ? "AÇIK" : "kapalı") + " (" + kutsamaSayisi + ")";
                 kutsamaDugmesi.GetComponent<Image>().color = kutsamaAcik ? new Color(0.7f, 0.5f, 0.12f, 1f) : buttonColor;
             }
+            // cevher yuvası
+            string cevher = Cevher(hedef);
+            bool cevherTamam = true;
+            if (secili != cevherinEsyasi || hedef != cevherinHedefi) {
+                cevherinEsyasi = secili;
+                cevherinHedefi = hedef;
+                cevherKondu = false;
+            }
+            cevherYuvasi.SetActive(cevher != null);
+            if (cevher != null) {
+                int varolanCevher = oyuncu.CharacterInventoryManager.GetItems(cevher, 999).Count;
+                if (varolanCevher <= 0) {
+                    cevherKondu = false;
+                }
+                Item cevherEsyasi = oyun.SystemDataFactory.GetResource<Item>(cevher);
+                cevherResmi.sprite = cevherEsyasi != null ? cevherEsyasi.Icon : null;
+                cevherResmi.enabled = cevherResmi.sprite != null;
+                cevherResmi.color = cevherKondu ? Color.white : new Color(1f, 1f, 1f, 0.3f);
+                cevherYazisi.text = "<b>Cevher yuvası</b>: " + CevherAdi(hedef) + "  <size=15>(sende " + varolanCevher + ")</size>\n"
+                    + (cevherKondu ? "<color=#9FE08A>Yuvaya kondu, yükseltmeye hazır.</color>"
+                        : varolanCevher > 0 ? "<color=#FFD54A>Yükseltmek için cevheri yuvaya koy.</color>" : "<color=#FF7A66>Canavarlardan ve boss'lardan düşer.</color>");
+                DugmeYazisiYaz(cevherDugmesi, cevherKondu ? "Çıkar" : "Cevher Ekle");
+                cevherDugmesi.GetComponent<Button>().interactable = cevherKondu || varolanCevher > 0;
+                cevherTamam = cevherKondu;
+            }
             ayrintiYazisi.text = "+" + simdiki + "  →  <color=#FFD54A><b>+" + hedef + "</b></color>\n"
                 + "Kazanç: " + ek + "\n"
                 + "Başarı şansı: " + sansYazisi + "\n\n"
                 + "Bedel: <color=#" + (varolanGumus >= bedel ? "E8E0D0" : "FF7A66") + ">" + bedel + " Gümüş Akçe</color>  (sende " + varolanGumus + ")\n"
                 + (tas > 0 ? "<color=#" + (varolanTas >= tas ? "E8E0D0" : "FF7A66") + ">" + tas + " " + TasAdi + "</color>  (sende " + varolanTas + ")" : TasAdi + " gerekmez");
-            yukseltDugmesi.interactable = yeter;
+            yukseltDugmesi.interactable = yeter && cevherTamam;
             yukseltYazisi.text = "Yükselt (+" + hedef + ")";
         }
 
@@ -629,6 +709,13 @@ namespace AnyRPG {
             t.verticalOverflow = VerticalWrapMode.Overflow;
             t.raycastTarget = false;
             return t;
+        }
+
+        private static void DugmeYazisiYaz(GameObject dugme, string metin) {
+            Text t = dugme != null ? dugme.GetComponentInChildren<Text>() : null;
+            if (t != null && t.text != metin) {
+                t.text = metin;
+            }
         }
 
         private GameObject Dugme(Transform ust, string etiket, Vector2 anchor, Vector2 konum, Vector2 boyut, int yaziBoyu, Color renk, UnityEngine.Events.UnityAction tik) {

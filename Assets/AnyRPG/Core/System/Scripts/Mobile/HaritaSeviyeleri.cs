@@ -43,6 +43,15 @@ namespace AnyRPG {
         };
         private const string SeckinDayaniklilik = "Solo Dungeon Minion";
 
+        /// <summary>dayanıklılık boss mu / seçkin mi (cevher düşme şansı)</summary>
+        public static bool BossMu(string dayaniklilik) {
+            return dayaniklilik != null && bossDayanikliliklari.Contains(dayaniklilik);
+        }
+
+        public static bool SeckinMi(string dayaniklilik) {
+            return dayaniklilik == SeckinDayaniklilik;
+        }
+
         public static bool Aralik(string sahne, out int en, out int ust) {
             int i = System.Array.IndexOf(Sira, sahne);
             if (i < 0) {
