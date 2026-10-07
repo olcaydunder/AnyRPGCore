@@ -234,6 +234,7 @@ namespace AnyRPG {
         // ---------------------------------------------------------------- telefon (ve ağ botu)
 
         private static readonly List<DroppedItemComponent> silinecek = new List<DroppedItemComponent>();
+        private static readonly List<DroppedItemComponent> alinacak = new List<DroppedItemComponent>();
 
         /// <summary>
         /// otomatik toplama (saniyede bir; tek oyunculu oyunda süre denetimini de yapar). Yakındaki en çok 3 eşyayı ister.
@@ -273,7 +274,8 @@ namespace AnyRPG {
                 }
                 istenen[c] = Time.unscaledTime;
                 if (oyun.GameMode == GameMode.Local) {
-                    Al(oyuncu, c);
+                    // alınan eşya yerdekiler'den çıkar (Birak): döngü bitince alınır
+                    alinacak.Add(c);
                 } else {
                     OtukenAg.Gonder("yerden-al", c.IlkKimlik.ToString(CultureInfo.InvariantCulture));
                 }
@@ -286,6 +288,10 @@ namespace AnyRPG {
                 yerdekiler.Remove(c);
                 istenen.Remove(c);
             }
+            for (int i = 0; i < alinacak.Count; i++) {
+                Al(oyuncu, alinacak[i]);
+            }
+            alinacak.Clear();
         }
 
         /// <summary>Oto Av: oyuncuya en yakın, 15 m içindeki yer eşyası (yoksa null)</summary>

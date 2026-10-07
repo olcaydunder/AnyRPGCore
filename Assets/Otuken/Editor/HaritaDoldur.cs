@@ -364,6 +364,9 @@ namespace Otuken.EditorAraclari {
                         + (konanlar.Count > 0 ? Mathf.Min(konanlar.Min(k => Yatay(p, k)), 12f) * 0.4f : 0f)).First();
                 } else if (GirisYani(giris, dolu, out Vector3 yan)) {
                     yer = yan;
+                } else if (GenisArama(giris, dolu, out Vector3 genis)) {
+                    // dar, eğimli girişler (Ulukayın Ormanı, Kaf Dağı Yolu): 4-24 m, gevşek koşullar
+                    yer = genis;
                 }
                 if (yer.HasValue == false) {
                     eksik++;
@@ -386,6 +389,25 @@ namespace Otuken.EditorAraclari {
                     Vector3 q = giris + new Vector3(Mathf.Cos(a), 0f, Mathf.Sin(a)) * r;
                     if (NavMesh.SamplePosition(q, out NavMeshHit h, 1.5f, NavMesh.AllAreas) && Mathf.Abs(h.position.y - giris.y) < 2.5f
                         && Yatay(h.position, giris) >= 4.5f && etkilesimler.All(e => Yatay(h.position, e) >= 3f)
+                        && NavMesh.CalculatePath(giris, h.position, NavMesh.AllAreas, yol) && yol.status == NavMeshPathStatus.PathComplete) {
+                        yer = h.position;
+                        return true;
+                    }
+                }
+            }
+            yer = Vector3.zero;
+            return false;
+        }
+
+        /// <summary>girişin 4-24 m çevresinde, yürüme ağında, girişten yürünerek ulaşılan, dolu yerlerden 2,5 m uzak bir nokta</summary>
+        private static bool GenisArama(Vector3 giris, List<Vector3> dolu, out Vector3 yer) {
+            NavMeshPath yol = new NavMeshPath();
+            for (float r = 4f; r <= 24f; r += 2f) {
+                for (int k = 0; k < 24; k++) {
+                    float a = k * Mathf.PI / 12f + r * 0.37f;
+                    Vector3 q = giris + new Vector3(Mathf.Cos(a), 0f, Mathf.Sin(a)) * r;
+                    if (NavMesh.SamplePosition(q, out NavMeshHit h, 2.5f, NavMesh.AllAreas) && Mathf.Abs(h.position.y - giris.y) < 4f
+                        && Yatay(h.position, giris) >= 3.5f && dolu.All(e => Yatay(h.position, e) >= 2.5f)
                         && NavMesh.CalculatePath(giris, h.position, NavMesh.AllAreas, yol) && yol.status == NavMeshPathStatus.PathComplete) {
                         yer = h.position;
                         return true;
