@@ -172,7 +172,12 @@ namespace AnyRPG {
                 return "Işınlanmak için önce oyuna girmelisin.";
             }
             if (sonGecitTasi == null) {
-                return "Çevrimiçi oyunda ışınlanmak için bir Geçit Taşı'na dokun.";
+                // Ötüken: her yerden ışınlanma (seviyeye göre; sunucu denetler)
+                return IsinlanmaPenceresi.Teleport(sahne);
+            }
+            string engel = IsinlanmaPenceresi.Engel(oyuncu, sahne, false);
+            if (engel != null) {
+                return engel;
             }
             if (oyuncu.CharacterCombat != null && oyuncu.CharacterCombat.GetInCombat()) {
                 return "Savaşın ortasında ışınlanamazsın. Düşmanlardan uzaklaş ya da savaşı bitir.";

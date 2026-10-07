@@ -284,14 +284,17 @@ namespace AnyRPG {
                 bool here = i == current;
                 Color levelColor;
                 string yorum = HaritaSeviyeleri.Yorum(haritalar[i].sahne, oyuncuSeviyesi, out levelColor);
-                cardLevels[i].text = HaritaSeviyeleri.Yazi(haritalar[i].sahne) + (yorum.Length > 0 ? "  ·  " + yorum : string.Empty);
-                cardLevels[i].color = levelColor;
+                int gereken = GerekenSeviye(haritalar[i].sahne);
+                bool kilitli = oyuncuSeviyesi > 0 && oyuncuSeviyesi < gereken;
+                cardLevels[i].text = kilitli ? "Kilitli · " + gereken + ". seviyede açılır"
+                    : HaritaSeviyeleri.Yazi(haritalar[i].sahne) + (yorum.Length > 0 ? "  ·  " + yorum : string.Empty);
+                cardLevels[i].color = kilitli ? new Color(0.62f, 0.58f, 0.52f, 1f) : levelColor;
                 cardTags[i].text = here ? "Buradasın" : DifficultyName(i);
                 cardTags[i].color = here ? gold : DifficultyColor(i);
                 cardOutlines[i].effectColor = here || i == selected ? gold : new Color(gold.r, gold.g, gold.b, 0.45f);
                 cardOutlines[i].effectDistance = here || i == selected ? new Vector2(2f, -2f) : new Vector2(1f, -1f);
             }
-            bool canTeleport = selected >= 0;
+            bool canTeleport = selected >= 0 && (oyuncuSeviyesi <= 0 || oyuncuSeviyesi >= GerekenSeviye(haritalar[selected].sahne));
             teleportButton.interactable = canTeleport;
             teleportButton.GetComponent<Image>().color = canTeleport ? teleportColor : new Color(teleportColor.r, teleportColor.g, teleportColor.b, 0.35f);
             teleportButtonText.text = selected >= 0 && selected == current ? "Girişe Dön" : "Işınlan";
@@ -368,10 +371,93 @@ namespace AnyRPG {
             return Teleport(sceneName, false);
         }
 
+        // ---------------------------------------------------------------- seviyeye göre ışınlanma (Ötüken)
+
+        /// <summary>haritaya ışınlanmak için gereken seviye: haritanın en düşük seviyesinin bir altı</summary>
+        public static int GerekenSeviye(string sahne) {
+            int en, ust;
+            if (HaritaSeviyeleri.Aralik(sahne, out en, out ust) == false) {
+                return 1;
+            }
+            return Mathf.Max(1, en - 1);
+        }
+
+        /// <summary>ışınlanmaya engel (yoksa null): ölü, savaşta, seviye yetersiz, bilinmeyen harita</summary>
+        public static string Engel(UnitController oyuncu, string sahne, bool force) {
+            if (oyuncu == null) {
+                return "Işınlanmak için önce oyuna girmelisin.";
+            }
+            if (System.Array.IndexOf(SahneAdlari, sahne) < 0) {
+                return "Bu diyar bilinmiyor.";
+            }
+            if (oyuncu.CharacterStats != null && oyuncu.CharacterStats.IsAlive == false) {
+                return "Ölüyken ışınlanamazsın. Önce yeniden doğ.";
+            }
+            if (force == false && oyuncu.CharacterCombat != null && oyuncu.CharacterCombat.GetInCombat()) {
+                return "Savaşın ortasında ışınlanamazsın. Düşmanlardan uzaklaş ya da savaşı bitir.";
+            }
+            int gereken = GerekenSeviye(sahne);
+            if (force == false && oyuncu.CharacterStats != null && oyuncu.CharacterStats.Level < gereken) {
+                return GorunenAd(sahne) + " için en az " + gereken + ". seviye olmalısın.";
+            }
+            return null;
+        }
+
+        /// <summary>sunucu: çevrimiçi ışınlanma isteği ("isinlan" + sahne adı); her yerden, seviyeye göre</summary>
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        private static void AgKur() {
+            OtukenAg.SunucuIsle("isinlan", (oyuncu, sahne) => {
+                string hata = Engel(oyuncu, sahne, false);
+                SystemGameManager o = OtukenAg.Oyun;
+                if (hata == null && (o == null || o.PlayerManagerServer == null)) {
+                    hata = "Sunucu hazır değil.";
+                }
+                if (hata != null) {
+                    OtukenAg.Yanitla(oyuncu, "isinlan-sonuc", hata);
+                    return;
+                }
+                if (oyuncu.gameObject.scene.name == sahne) {
+                    TeleportEffectProperties ayni = new TeleportEffectProperties();
+                    ayni.levelName = sahne;
+                    o.PlayerManagerServer.Teleport(oyuncu, ayni);
+                    OtukenAg.Yanitla(oyuncu, "isinlan-sonuc", string.Empty);
+                    return;
+                }
+                Debug.Log("[Sunucu] " + oyuncu.DisplayName + " ışınlanıyor: " + sahne);
+                o.PlayerManagerServer.AddSpawnRequest(oyuncu, new SpawnPlayerRequest());
+                oyuncu.StartCoroutine(SunucudaYukle(o.PlayerManagerServer, sahne, oyuncu));
+                OtukenAg.Yanitla(oyuncu, "isinlan-sonuc", string.Empty);
+            });
+            OtukenAg.IstemciDinle("isinlan-sonuc", hata => {
+                SonCevrimiciSonuc = hata;
+                if (string.IsNullOrEmpty(hata) == false) {
+                    SystemGameManager o = OtukenAg.Oyun;
+                    UnitController oyuncu = o != null && o.PlayerManagerClient != null ? o.PlayerManagerClient.UnitController : null;
+                    OtukenAg.Mesaj(oyuncu, hata);
+                }
+            });
+        }
+
+        public static string SonCevrimiciSonuc { get; private set; } = "-";
+
+        private static IEnumerator SunucudaYukle(PlayerManagerServer sunucu, string sahne, UnitController oyuncu) {
+            // ekransız sunucuda WaitForEndOfFrame gelmez: bir kare bekle
+            yield return null;
+            if (oyuncu != null) {
+                sunucu.LoadScene(sahne, oyuncu);
+            }
+        }
+
         /// <param name="force">otomatik oyun testi için: savaşta da ışınla</param>
         public static string Teleport(string sceneName, bool force) {
             if (Cevrimici.Acik) {
-                return "Çevrimiçi oyunda diyarlar arasında kapılardan geçilir (Geçit Taşı ile ışınlanma yakında).";
+                SystemGameManager o = OtukenAg.Oyun;
+                UnitController oyuncu = o != null && o.PlayerManagerClient != null ? o.PlayerManagerClient.UnitController : null;
+                string engel = Engel(oyuncu, sceneName, force);
+                if (engel != null) {
+                    return engel;
+                }
+                return OtukenAg.Gonder("isinlan", sceneName) ? null : "Sunucuya ulaşılamadı, biraz sonra yeniden dene.";
             }
             Ensure();
             SystemGameManager gameManager = instance.GameManager;
@@ -381,11 +467,9 @@ namespace AnyRPG {
             if (player == null || playerManagerServer == null || SystemGameManager.IsShuttingDown) {
                 return "Işınlanmak için önce oyuna girmelisin.";
             }
-            if (player.CharacterStats != null && player.CharacterStats.IsAlive == false) {
-                return "Ölüyken ışınlanamazsın. Önce yeniden doğ.";
-            }
-            if (force == false && player.CharacterCombat != null && player.CharacterCombat.GetInCombat()) {
-                return "Savaşın ortasında ışınlanamazsın. Düşmanlardan uzaklaş ya da savaşı bitir.";
+            string yerelEngel = Engel(player, sceneName, force);
+            if (yerelEngel != null) {
+                return yerelEngel;
             }
             try {
                 if (player.gameObject.scene.name == sceneName) {
