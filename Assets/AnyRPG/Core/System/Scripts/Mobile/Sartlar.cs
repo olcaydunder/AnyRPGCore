@@ -15,10 +15,12 @@ namespace AnyRPG {
     public class Sartlar : OtukenPencere {
 
         public const string Site = "https://zootopiayazilim.com";
-        public const string GizlilikAdresi = Site + "/gizlilik";
-        public const string KullanimSartlariAdresi = Site + "/kullanim-sartlari";
-        public const string OyunKurallariAdresi = Site + "/oyun-kurallari";
-        public const string HesapSilmeAdresi = Site + "/hesap-silme";
+        // aynı sitede başka uygulamalar da var: bu oyunun sayfaları "otuken-" önekli Shopify sayfalarıdır (Tools~/yasal/sayfalar.py)
+        public const string Sayfalar = Site + "/pages/otuken-";
+        public const string GizlilikAdresi = Sayfalar + "gizlilik";
+        public const string KullanimSartlariAdresi = Sayfalar + "kullanim-sartlari";
+        public const string OyunKurallariAdresi = Sayfalar + "oyun-kurallari";
+        public const string HesapSilmeAdresi = Sayfalar + "hesap-silme";
 
         // şartlar değişince artırılır: herkes yeniden kabul eder
         private const int Surum = 2;   // 2: isteğe bağlı ödüllü reklamlar (AdMob) gizlilik politikasına eklendi

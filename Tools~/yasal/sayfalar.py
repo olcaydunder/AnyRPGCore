@@ -1,14 +1,23 @@
 #!/usr/bin/env python3
-"""zootopiayazilim.com'a yüklenecek yasal sayfalar: gizlilik, kullanım şartları, oyun kuralları, hesap silme.
-Kullanım: python3 sayfalar.py <çıkış klasörü> [oyun adı] [e-posta]"""
+"""zootopiayazilim.com'a (Shopify) yüklenecek yasal sayfalar: gizlilik, kullanım şartları, oyun kuralları, hesap silme.
+Aynı sitede birden çok uygulama olduğu için her uygulamanın sayfaları kendi önekini taşır:
+  https://zootopiayazilim.com/pages/<önek>-gizlilik  (Shopify sayfa adresi; "Sayfa tanıtıcısı" = <önek>-gizlilik)
+Çıktı: <çıkış>/*.html (tam sayfa) ve <çıkış>/shopify/<önek>-*.html (Shopify sayfasının HTML düzenleyicisine yapıştırılacak gövde).
+Kullanım: python3 sayfalar.py <çıkış klasörü> [oyun adı] [e-posta] [önek]"""
 import sys, html, datetime
 from pathlib import Path
 
 CIKIS = Path(sys.argv[1] if len(sys.argv) > 1 else "yasal_sayfalar")
 OYUN = sys.argv[2] if len(sys.argv) > 2 else "Ötüken Destanı"
 EPOSTA = sys.argv[3] if len(sys.argv) > 3 else "zootopiayazilim@gmail.com"
+ONEK = sys.argv[4] if len(sys.argv) > 4 else "otuken"
 GELISTIRICI = "Olcay Yasin Dünder (Zootopia Yazılım)"
 SITE = "https://zootopiayazilim.com"
+
+
+def adres(sayfa_adi):
+    """bu uygulamanın sayfasının Shopify adresi"""
+    return f"{SITE}/pages/{ONEK}-{sayfa_adi}"
 TARIH = datetime.date.today().strftime("%d.%m.%Y")
 
 CSS = """
@@ -28,7 +37,7 @@ ol li,ul li{margin:4px 0}.tablo{overflow-x:auto;-webkit-overflow-scrolling:touch
 def sayfa(dosya, baslik, govde_tr, govde_en, aciklama):
     diger = [("gizlilik", "Gizlilik Politikası"), ("kullanim-sartlari", "Kullanım Şartları"),
              ("oyun-kurallari", "Oyun Kuralları"), ("hesap-silme", "Hesap Silme")]
-    nav = " ".join(f'<a href="{SITE}/{d}">{html.escape(a)}</a>' for d, a in diger)
+    nav = " ".join(f'<a href="{adres(d)}">{html.escape(a)}</a>' for d, a in diger)
     metin = f"""<!doctype html>
 <html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{html.escape(baslik)} · {html.escape(OYUN)}</title><meta name="description" content="{html.escape(aciklama)}">
@@ -45,6 +54,21 @@ def sayfa(dosya, baslik, govde_tr, govde_en, aciklama):
     metin = metin.replace("<table>", '<div class="tablo"><table>').replace("</table>", "</table></div>")
     CIKIS.mkdir(parents=True, exist_ok=True)
     (CIKIS / dosya).write_text(metin, encoding="utf-8")
+    # Shopify: sayfa başlığını Shopify yazar; gövde temanın biçimiyle görünür (stil yok, tablolar kaydırılabilir)
+    govde = f"""<p><i>{html.escape(OYUN)} · {html.escape(GELISTIRICI)} · Son güncelleme / Last updated: {TARIH} · <a href="#english">English</a></i></p>
+<p>{nav}</p>
+{govde_tr}
+<h2 id="english">English</h2>
+{govde_en}
+<p><i>{html.escape(OYUN)} · {html.escape(GELISTIRICI)} · İletişim / Contact: <a href="mailto:{EPOSTA}">{EPOSTA}</a></i></p>
+"""
+    govde = govde.replace("<table>", '<div style="overflow-x:auto"><table>').replace("</table>", "</table></div>")
+    (CIKIS / "shopify").mkdir(exist_ok=True)
+    (CIKIS / "shopify" / f"{ONEK}-{dosya}").write_text(govde, encoding="utf-8")
+    sayfalar.append((baslik, f"{ONEK}-{dosya[:-5]}"))
+
+
+sayfalar = []
 
 O = html.escape(OYUN)
 E = f'<a href="mailto:{EPOSTA}">{EPOSTA}</a>'
@@ -90,7 +114,7 @@ gizlilik_tr = f"""
 </table>
 <p>Süre dolunca veriler silinir ya da anonim hâle getirilir.</p>
 <h2>7. Hesabını ve verilerini silme</h2>
-<p>Oyunda <b>Menü &gt; Hesap &gt; Hesabımı sil</b> ile hesabını ve bütün karakter verilerini hemen silebilirsin. Oyuna giremiyorsan: <a href="{SITE}/hesap-silme">{SITE.replace('https://','')}/hesap-silme</a></p>
+<p>Oyunda <b>Menü &gt; Hesap &gt; Hesabımı sil</b> ile hesabını ve bütün karakter verilerini hemen silebilirsin. Oyuna giremiyorsan: <a href="{adres('hesap-silme')}">{adres('hesap-silme').replace('https://','')}</a></p>
 <h2>8. Çocuklar</h2>
 <p>Oyun 13 yaşından küçük çocuklara yönelik değildir. 18 yaşından küçüksen satın alma yapmadan önce ebeveyninin iznini al. 13 yaşından küçük bir çocuğun hesap açtığını fark edersek hesabı sileriz; bize {E} adresinden bildirebilirsin.</p>
 <h2>9. Güvenlik</h2>
@@ -118,7 +142,7 @@ gizlilik_en = f"""
 <h3>Payments</h3><p>Kut purchases are processed by <b>Google Play</b>. We only receive the order ID, product ID and purchase token for verification.</p>
 <h3>Processors and transfers</h3><p>Game server: Hostinger (may be located outside Türkiye). Error reports: ntfy.sh and GitHub (USA). Payments: Google. Rewarded ads: Google AdMob (USA). Transfers follow Article 9 of the Turkish Personal Data Protection Law (KVKK). Your data is never sold, and your account and game data are not used for advertising.</p>
 <h3>Retention</h3><p>Account and game data: until you delete your account. Chat logs: 30 days. Reports: 1 year. Trade and shop records: 2 years. Purchase records: statutory period (up to 10 years). Error reports: 1 year; server technical logs: 30 days.</p>
-<h3>Deleting your account</h3><p>In the Game: <b>Menu &gt; Account &gt; Delete my account</b> deletes your account and all character data immediately. If you cannot sign in, see <a href="{SITE}/hesap-silme">{SITE.replace('https://','')}/hesap-silme</a>.</p>
+<h3>Deleting your account</h3><p>In the Game: <b>Menu &gt; Account &gt; Delete my account</b> deletes your account and all character data immediately. If you cannot sign in, see <a href="{adres('hesap-silme')}">{adres('hesap-silme').replace('https://','')}</a>.</p>
 <h3>Children</h3><p>The Game is not directed at children under 13. If you are under 18, ask a parent before buying anything.</p>
 <h3>Your rights</h3><p>You may request access, correction, deletion, objection and other rights under KVKK Article 11 (and the GDPR where applicable) by emailing {E} with your character name. We reply within 30 days.</p>
 """
@@ -126,7 +150,7 @@ sayfa("gizlilik.html", "Gizlilik Politikası", gizlilik_tr, gizlilik_en, f"{OYUN
 
 # ---------------------------------------------------------------- kullanım şartları
 sartlar_tr = f"""
-<p>Bu şartlar, <b>{O}</b> ("Oyun") ile {html.escape(GELISTIRICI)} ("biz") arasındaki kullanım sözleşmesidir. Oyunu indirip "Kabul Ediyorum"a dokunarak bu şartları, <a href="{SITE}/oyun-kurallari">Oyun Kuralları</a>'nı kabul etmiş ve <a href="{SITE}/gizlilik">Gizlilik Politikası</a>'nı okumuş olursun.</p>
+<p>Bu şartlar, <b>{O}</b> ("Oyun") ile {html.escape(GELISTIRICI)} ("biz") arasındaki kullanım sözleşmesidir. Oyunu indirip "Kabul Ediyorum"a dokunarak bu şartları, <a href="{adres("oyun-kurallari")}">Oyun Kuralları</a>'nı kabul etmiş ve <a href="{adres("gizlilik")}">Gizlilik Politikası</a>'nı okumuş olursun.</p>
 <h2>1. Oyunu kullanma izni</h2>
 <p>Oyunu kişisel ve ticari olmayan amaçla oynaman için sana devredilemez, münhasır olmayan bir izin veriyoruz. Oyunun kodu, hikâyesi, görselleri ve markası bize ya da lisans verenlerimize aittir. Oyunu kopyalamak, değiştirmek, tersine mühendislik yapmak, sunucuya yetkisiz erişmek yasaktır.</p>
 <h2>2. Hesap</h2>
@@ -141,7 +165,7 @@ sartlar_tr = f"""
 <h2>4. Satın almalar ve iade</h2>
 <p>Ödemeler Google Play tarafından alınır; fiyatlar Google Play'de gösterilir. Kut dijital içerik olup satın alma onaylandığı anda hesabına yüklenir; Mesafeli Sözleşmeler Yönetmeliği uyarınca anında ifa edilen dijital içeriklerde cayma hakkı, onayınla sona erer. İade istekleri Google Play'in iade kurallarına göre Google'a yapılır. Yasal haklarının saklı olduğu durumlar dışında kullanılmış Kut iade edilmez. Hesabın kurallar ihlali yüzünden kapatılırsa kalan Kut iade edilmez.</p>
 <h2>5. Davranış kuralları</h2>
-<p><a href="{SITE}/oyun-kurallari">Oyun Kuralları</a> bu şartların parçasıdır. Kurallara aykırı davranışta uyarı, susturma, ticaret yasağı, geçici ya da kalıcı hesap kapatma uygulayabiliriz.</p>
+<p><a href="{adres("oyun-kurallari")}">Oyun Kuralları</a> bu şartların parçasıdır. Kurallara aykırı davranışta uyarı, susturma, ticaret yasağı, geçici ya da kalıcı hesap kapatma uygulayabiliriz.</p>
 <h2>6. Oyuncu içeriği</h2>
 <p>Sohbet yazıları, pazar adları ve karakter adların senin sorumluluğundadır. Bu içerikleri Oyun'u sunmak için saklama ve gösterme iznini bize verirsin. Uygunsuz içeriği silebilir, süzgeçten geçirebiliriz. Uygunsuz içerik ve oyuncuları oyundaki <b>Şikâyet Et</b> ve <b>Engelle</b> ile bildirebilirsin.</p>
 <h2>7. Hizmetin sürekliliği</h2>
@@ -156,7 +180,7 @@ sartlar_tr = f"""
 <p>Şartları güncelleyebiliriz; önemli değişikliklerde oyunda yeniden onayını isteriz. Sorular için: {E}</p>
 """
 sartlar_en = f"""
-<p>These Terms are an agreement between you and {html.escape(GELISTIRICI)} for <b>{O}</b>. By tapping "I Agree" you accept these Terms and the <a href="{SITE}/oyun-kurallari">Game Rules</a> and acknowledge the <a href="{SITE}/gizlilik">Privacy Policy</a>.</p>
+<p>These Terms are an agreement between you and {html.escape(GELISTIRICI)} for <b>{O}</b>. By tapping "I Agree" you accept these Terms and the <a href="{adres("oyun-kurallari")}">Game Rules</a> and acknowledge the <a href="{adres("gizlilik")}">Privacy Policy</a>.</p>
 <ul>
 <li><b>License:</b> a personal, non-commercial, non-transferable license to play. No copying, modification, reverse engineering or unauthorized server access.</li>
 <li><b>Account:</b> you are responsible for your password; accounts may not be shared or sold. Users under 13 may not create accounts; under 18 need parental permission.</li>
@@ -241,4 +265,12 @@ silme_en = f"""
 <p>Purchased Kut is not refunded by deletion; contact Google Play for refunds. Offline saves stay only on your device; clear them via the Game or your phone's app settings.</p>
 """
 sayfa("hesap-silme.html", "Hesap ve Veri Silme", silme_tr, silme_en, f"{OYUN} hesap ve veri silme")
-print("yazıldı:", ", ".join(sorted(p.name for p in CIKIS.glob("*.html"))))
+oku = [f"{OYUN} — Shopify sayfaları (Online Mağaza > Sayfalar > Sayfa ekle)", ""]
+for baslik, tanitici in sayfalar:
+    oku.append(f"Başlık: {OYUN} – {baslik}")
+    oku.append(f"  Sayfa tanıtıcısı (Arama motoru listelemesi > URL): {tanitici}")
+    oku.append(f"  Adres: {SITE}/pages/{tanitici}")
+    oku.append(f"  İçerik: shopify/{tanitici}.html (düzenleyicide <> HTML moduna geçip yapıştır)")
+    oku.append("")
+(CIKIS / "shopify" / "OKU.txt").write_text("\n".join(oku), encoding="utf-8")
+print("yazıldı:", ", ".join(sorted(p.name for p in CIKIS.glob("*.html"))), "+ shopify/")
