@@ -1,5 +1,5 @@
 {
- "son_zaman": 1791402900,
+ "son_zaman": 1791407643,
  "islenen": [
   "ZA4f7jqHrQMP",
   "ECmsu6OF1Jgp",
@@ -164,7 +164,8 @@
   "0aCyzSG4l1zp",
   "I9Eq1euPzaEK",
   "RBjcx3ucF4LW",
-  "9bgicIQqSjLh"
+  "9bgicIQqSjLh",
+  "DxE50zjJe6ck"
  ],
  "kayitlar": {
   "istisna-d581f62b": {
@@ -811,6 +812,28 @@
    "yeniden": false,
    "issue": null,
    "notlar": []
+  },
+  "hata-00000000": {
+   "tur": "hata",
+   "baslik": "Hata: Deneme raporu (sistem sınaması)",
+   "adet": 1,
+   "cihazlar": [
+    "GitHub Actions"
+   ],
+   "surumler": [
+    "deneme"
+   ],
+   "ilk": 1791407643,
+   "son": 1791407643,
+   "ilk_rapor": "**Hata** · sürüm **deneme** · GitHub Actions · ubuntu · ekran - · -\n\n### Mesaj\n```text\nDeneme raporu (08.10.2026 00:14): hata bildirim sistemi çalışıyor.\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: hata\nsurum: deneme\ncihaz: GitHub Actions\nsistem: ubuntu\nekran: -\nsahne: -\noyuncu: -\nsure: 0 sn\n```\n\n</details>\n\n\n",
+   "gorulmeler": [
+    "08.10.2026 00:14 · deneme · GitHub Actions · - · - · -"
+   ],
+   "ekler": [],
+   "duzeltildi": null,
+   "yeniden": false,
+   "issue": null,
+   "notlar": []
   }
  },
  "kimlikler": {
@@ -963,7 +986,8 @@
   "a3a2ccf315": "cokme-b56b62e3",
   "829d88fc10": "cokme-0136878a",
   "80d33e8a68": "cokme-b56b62e3",
-  "7082852d64": "cokme-b56b62e3"
+  "7082852d64": "cokme-b56b62e3",
+  "deneme1791407643": "hata-00000000"
  },
  "derleme": {
   "sonuc": "basarili",
