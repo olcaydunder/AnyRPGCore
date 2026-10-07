@@ -1,0 +1,6 @@
+# Google Play Oyun Hizmetleri (Ötüken Destanı). Bu kimlikler gizli değildir.
+# proje: Play Console > Play Oyun Hizmetleri > Yapılandırma'daki "Proje Kimliği" (manifestte com.google.android.gms.games.APP_ID)
+# web_istemci: "Oyun sunucusu" kimlik bilgisinin OAuth istemci kimliği (sunucu girişi bununla doğrular).
+#              Gizli anahtarı (client secret) buraya YAZILMAZ: yalnız sunucuda /var/lib/otuken/google-istemci.txt
+proje=752811978873
+web_istemci=

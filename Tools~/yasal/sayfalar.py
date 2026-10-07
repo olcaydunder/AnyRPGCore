@@ -86,6 +86,7 @@ gizlilik_tr = f"""
 <tr><td><b>Oyun verileri:</b> karakter adı, sınıfı, seviyesi, eşyalar, oyun parası, Kut bakiyesi, görev ve günlük ilerleme, konum (oyun haritası içinde)</td><td>Çevrimiçi oynarken</td><td>Oyunu sunmak, ilerlemeni saklamak</td><td>Sözleşmenin ifası</td></tr>
 <tr><td><b>Sohbet yazıları, pazar adları, şikâyetler</b></td><td>Sohbette yazınca, pazar açınca, şikâyet edince</td><td>Oyuncuları korumak, kural ihlallerini incelemek (küfür süzgeci, şikâyet incelemesi)</td><td>Meşru menfaat; hukuki yükümlülük</td></tr>
 <tr><td><b>Takas, pazar satışı ve satın alma kayıtları:</b> karakter adları, eşyalar, tutarlar, Google Play sipariş numarası ve ürün</td><td>Takas, satış ya da Kut satın alınca</td><td>Dolandırıcılığı önlemek, anlaşmazlıkları çözmek, satın alınanı teslim etmek, muhasebe</td><td>Sözleşmenin ifası; hukuki yükümlülük; meşru menfaat</td></tr>
+<tr><td><b>Google Play Oyun Hizmetleri (isteğe bağlı):</b> Play Games oyuncu kimliği ve görünen adı</td><td>"Google Play ile Gir"e dokununca ya da hesabını Ayarlar'dan Google'a bağlayınca</td><td>Hesabına şifresiz girmek, başka telefonda ya da yeniden kurulumda aynı hesabı bulmak; ilk girişte kullanıcı adını Play Games adından oluşturmak</td><td>Sözleşmenin ifası</td></tr>
 <tr><td><b>Teknik veriler:</b> IP adresi (bağlantı sırasında), oyun sürümü</td><td>Sunucuya bağlanınca</td><td>Bağlantıyı kurmak, saldırıları önlemek</td><td>Meşru menfaat</td></tr>
 <tr><td><b>Hata raporları:</b> cihaz modeli, Android sürümü, ekran boyutu, grafik ayarları, oyun sürümü, hata metni ve son oyun kayıtları; "Sorun Bildir" ile yazdığın not ve o anki oyun ekranının görüntüsü</td><td>Oyun hata verince ya da sen bildirince (Ayarlar'dan kapatılabilir)</td><td>Hataları düzeltmek</td><td>Meşru menfaat</td></tr>
 </table>
@@ -101,6 +102,7 @@ gizlilik_tr = f"""
 <li><b>Hata raporları:</b> ntfy.sh (bildirim iletimi) ve GitHub (geliştirme aracı, ABD).</li>
 <li><b>Ödeme:</b> Google (Google Play Faturalandırma).</li>
 <li><b>Ödüllü reklamlar:</b> Google (AdMob, ABD).</li>
+<li><b>Google ile giriş:</b> Google (Play Oyun Hizmetleri, ABD): giriş kodu Google'da doğrulanır; e-posta adresin bize gelmez.</li>
 </ul>
 <p>Yurt dışına aktarım KVKK m.9'a uygun olarak (uygun güvenceler ya da gerektiğinde açık rızan ile) ve yalnız yukarıdaki amaçlarla yapılır. Verilerin satılmaz. Hesap ve oyun verilerin reklam için kullanılmaz; ödüllü reklamlarda Google'ın topladıkları için 3a'ya bak.</p>
 <h2>6. Saklama süreleri</h2>
@@ -133,6 +135,7 @@ gizlilik_en = f"""
 <li><b>Game data:</b> character name, class, level, items, in-game currency, Kut balance, quest and daily progress — to provide the game.</li>
 <li><b>Chat messages, shop titles, reports</b> — to protect players and investigate rule violations (profanity filter, report review).</li>
 <li><b>Trade, shop sale and purchase records</b> (character names, items, amounts, Google Play order ID and product) — fraud prevention, dispute resolution, delivering purchases, accounting.</li>
+<li><b>Google Play Games Services (optional):</b> your Play Games player ID and display name, when you tap "Sign in with Google Play" or link your account in Settings — to sign you in without a password and find the same account on another phone or after reinstalling; the first username is made from your Play Games name. We never receive your email address.</li>
 <li><b>Technical data:</b> IP address while connected, game version — to run the connection and prevent abuse.</li>
 <li><b>Error reports:</b> device model, Android version, screen size, graphics settings, game version, error text and recent game log lines; if you use "Report a problem", your note and a screenshot of the game — to fix bugs (can be turned off in Settings).</li>
 </ul>

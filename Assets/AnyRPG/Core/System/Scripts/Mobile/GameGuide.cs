@@ -581,7 +581,10 @@ namespace AnyRPG {
                 "köydeki ustalardan öğrenilir, tezgâhlarda yapılır. <b>Obanın Zanaatları</b> görevi seni yönlendirir."),
 
             new Section("Çevrim İçi",
-                "• Ana menüde <b>Çevrim İçi Oyna</b>: kullanıcı adı ve şifre yaz, <b>Giriş</b>'e bas. İlk girişte hesabın açılır; şifreni unutma.\n" +
+                "• En kolayı: ana menünün sol altındaki <b>Google Play ile Gir</b>. Şifre gerekmez; hesabın Google Play Games hesabına bağlanır, " +
+                "başka telefonda ya da oyunu silip yeniden kurduğunda da aynı hesaba girersin.\n" +
+                "• Ya da <b>Çevrim İçi Oyna</b>: kullanıcı adı ve şifre yaz, <b>Giriş</b>'e bas. İlk girişte hesabın açılır; şifreni unutma. " +
+                "Bu hesabı sonradan <b>Ayarlar > Hesap > Google Play Games > Bağla</b> ile Google'a bağlayabilirsin.\n" +
                 "• Aynı diyardaki öteki oyuncuları görür, birlikte savaşırsın. Düşmanları, ganimeti ve kayıtları sunucu yönetir.\n" +
                 "• Yere düşen ganimeti herkes görür; 3 dakika içinde ilk alan alır.\n" +
                 "• <b>Menü > Sohbet</b>: aynı diyardakiler yazdıklarını görür.\n" +

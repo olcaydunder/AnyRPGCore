@@ -105,6 +105,17 @@ namespace AnyRPG {
         public void LoginOrCreateAccount(int clientId, string username, string password) {
             //Debug.Log($"AuthenticationService.LoginOrCreateAccount({clientId}, {username}, ****)");
 
+            // Ötüken: Google Play Oyun Hizmetleri girişi (kullanıcı adı "@google", şifre yerine Google'ın tek kullanımlık kodu)
+            if (username == GoogleGiris.KullaniciAdi) {
+                networkManagerServer.StartCoroutine(GoogleGiris.Dogrula(password, (googleId, ad, hata) => GoogleIleGir(clientId, googleId, ad, hata)));
+                return;
+            }
+            // "@" ile başlayan adlar sistemindir (ör. @google): hesap açılmaz
+            if (string.IsNullOrEmpty(username) || username.StartsWith("@")) {
+                ProcessLoginResponse(clientId, -1, false, string.Empty);
+                return;
+            }
+
             if (userAccountService.AccountExists(username) == false) {
                 UserAccount userAccount = userAccountService.CreateNewAccount(username, password);
                 if (userAccount == null) {
@@ -125,6 +136,37 @@ namespace AnyRPG {
                     return;
                 }
             }
+        }
+
+        /// <summary>
+        /// Ötüken: Google'ın doğruladığı oyuncunun hesabına girer; hesabı yoksa Play Games adından yeni hesap açar ve bağlar
+        /// </summary>
+        private void GoogleIleGir(int clientId, string googleId, string ad, string hata) {
+            if (loginRequests.ContainsKey(clientId) == false) {
+                // bağlantı doğrulama sürerken koptu
+                return;
+            }
+            if (hata != null) {
+                Debug.Log($"[Sunucu] Google girişi reddedildi (istemci {clientId}): {hata}");
+                ProcessLoginResponse(clientId, -1, false, string.Empty);
+                return;
+            }
+            UserAccount hesap = userAccountService.GoogleHesabi(googleId);
+            if (hesap == null) {
+                string kullaniciAdi = GoogleGiris.YeniKullaniciAdi(userAccountService, ad);
+                hesap = userAccountService.CreateNewAccount(kullaniciAdi, GoogleGiris.RastgeleSifre());
+                if (hesap == null) {
+                    ProcessLoginResponse(clientId, -1, false, string.Empty);
+                    return;
+                }
+                hesap.GoogleId = googleId;
+                serverDataService.SaveAccount(hesap);
+                Debug.Log($"[Sunucu] Google ile yeni hesap: {hesap.UserName} (#{hesap.Id})");
+            } else {
+                Debug.Log($"[Sunucu] Google ile giriş: {hesap.UserName} (#{hesap.Id})");
+            }
+            loginRequests[clientId] = hesap.UserName;
+            ProcessLoginResponse(clientId, hesap.Id, true, string.Empty);
         }
 
         public void ProcessLoginResponse(int clientId, int accountId, bool correctPassword, string token) {

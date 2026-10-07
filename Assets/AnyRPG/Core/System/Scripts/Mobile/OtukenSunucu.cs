@@ -65,6 +65,7 @@ namespace AnyRPG {
             Calistir("kayıt budama", Ticaret.KayitlariBuda);
             // canavar ganimeti 3 dakika yerde durur
             Calistir("yerdeki ganimet", YerdekiGanimet.SunucuTick);
+            Calistir("google girişi", () => GoogleGiris.SunucuTick(oyun));
             foreach (UnitController u in gidenler) {
                 gorulenler.Remove(u);
                 ilkTurlar.Remove(u);

@@ -233,7 +233,7 @@ jobs:
           echo "boyut_mb=$((boyut / 1048576))" >> "$GITHUB_OUTPUT"
           echo "APK: $apk ($((boyut / 1048576)) MB)"
 
-      - name: AdMob kimliği manifestte mi
+      - name: AdMob ve Play Oyun Hizmetleri kimlikleri manifestte mi
         # reklam kitaplığı uygulama kimliği olmadan açılışta uygulamayı çökertir: kimlik yoksa yayımlanmaz
         if: ${{ !inputs.sadece_arayuz && !inputs.sadece_sunucu && steps.apk.outcome == 'success' }}
         env:
@@ -249,11 +249,15 @@ jobs:
               return s.encode() in b or s.encode("utf-16-le") in b
           isim = var("com.google.android.gms.ads.APPLICATION_ID")
           kimlik = var("ca-app-pub-6275447087051506~1917343558")
-          print("manifest:", ad, "| APPLICATION_ID:", isim, "| kimlik:", kimlik)
+          oyun = var("com.google.android.gms.games.APP_ID")
+          print("manifest:", ad, "| APPLICATION_ID:", isim, "| kimlik:", kimlik, "| games.APP_ID:", oyun)
           if not (isim and kimlik):
               print("::error title=AdMob kimliği yok::Manifestte AdMob uygulama kimliği yok; uygulama açılışta çöker (OdemeGradle).")
               sys.exit(1)
-          print("::notice title=AdMob::Uygulama kimliği manifestte (" + ad + ")")
+          if not oyun:
+              print("::error title=Play Oyun Hizmetleri kimliği yok::Manifestte com.google.android.gms.games.APP_ID yok; Google ile giriş çalışmaz (OdemeGradle, Google.txt).")
+              sys.exit(1)
+          print("::notice title=AdMob::Uygulama kimliği ve Play Oyun Hizmetleri proje kimliği manifestte (" + ad + ")")
           PY
 
       - name: APK'yı çalıştırma sayfasına ekle (5 gün)

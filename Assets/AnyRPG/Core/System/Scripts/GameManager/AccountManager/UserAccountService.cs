@@ -86,6 +86,19 @@ namespace AnyRPG {
             }
         }
 
+        /// <summary>Ötüken: Google Play Oyun Hizmetleri oyuncu kimliğine bağlı hesap (yoksa null)</summary>
+        public UserAccount GoogleHesabi(string googleId) {
+            if (string.IsNullOrEmpty(googleId)) {
+                return null;
+            }
+            foreach (UserAccount hesap in userAccounts.Values) {
+                if (hesap.GoogleId == googleId) {
+                    return hesap;
+                }
+            }
+            return null;
+        }
+
         public bool AccountExists(string userName) {
             //Debug.Log($"UserAccountService.AccountExists({userName})");
             

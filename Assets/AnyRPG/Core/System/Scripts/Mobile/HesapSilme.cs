@@ -37,7 +37,10 @@ namespace AnyRPG {
                     OtukenAg.Yanitla(oyuncu, "hesap-sil", "0|Hesap bulunamadı.");
                     return;
                 }
-                if (AuthenticationHelpers.ComputeHash(sifre ?? string.Empty, hesap.Salt) != hesap.PasswordHash) {
+                // Google Play Oyun Hizmetleri'ne bağlı hesapta (Google ile girilir, şifresi bilinmez) şifre sorulmaz:
+                // istek zaten bu hesapla girmiş oyuncudan geliyor
+                bool googleHesabi = string.IsNullOrEmpty(hesap.GoogleId) == false && string.IsNullOrEmpty(sifre);
+                if (googleHesabi == false && AuthenticationHelpers.ComputeHash(sifre ?? string.Empty, hesap.Salt) != hesap.PasswordHash) {
                     OtukenAg.Yanitla(oyuncu, "hesap-sil", "0|Şifre yanlış.");
                     return;
                 }
@@ -163,7 +166,9 @@ namespace AnyRPG {
                 Bilgi("Onaylamak için SİL yaz.", false);
                 return;
             }
-            if (string.IsNullOrEmpty(sifreAlani.text)) {
+            // Google Play ile girenin şifresi yoktur: oturum Google'la doğrulandı, sunucu Google'a bağlı hesapta şifre sormaz
+            bool google = Oyun != null && Oyun.NetworkManagerClient != null && Oyun.NetworkManagerClient.Username == GoogleGiris.KullaniciAdi;
+            if (string.IsNullOrEmpty(sifreAlani.text) && google == false) {
                 Bilgi("Şifreni yaz.", false);
                 return;
             }

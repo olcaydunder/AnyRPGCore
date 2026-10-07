@@ -23,7 +23,7 @@ namespace AnyRPG {
         public const string HesapSilmeAdresi = Sayfalar + "hesap-silme";
 
         // şartlar değişince artırılır: herkes yeniden kabul eder
-        private const int Surum = 2;   // 2: isteğe bağlı ödüllü reklamlar (AdMob) gizlilik politikasına eklendi
+        private const int Surum = 3;   // 2: isteğe bağlı ödüllü reklamlar (AdMob); 3: Google Play Games ile giriş
         private const string Anahtar = "sartlar-kabul";
 
         public static bool KabulEdildi {

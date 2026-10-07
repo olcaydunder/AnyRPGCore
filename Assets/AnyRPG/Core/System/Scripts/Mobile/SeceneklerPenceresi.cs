@@ -222,6 +222,10 @@ namespace AnyRPG {
                 () => Application.OpenURL(Sartlar.GizlilikAdresi));
             s.Eylem("Oyun kuralları", "Sohbet, ticaret ve adlar için kurallar; yaptırımlar (web sayfası).", "Aç",
                 () => Application.OpenURL(Sartlar.OyunKurallariAdresi));
+            if (GoogleGiris.Kurulu) {
+                s.Eylem("Google Play Games", "Çevrimiçi hesabını Google'a bağla: başka telefonda \"Google Play ile Gir\" ile aynı hesaba girersin.", "Bağla",
+                    GoogleGiris.HesabiBagla);
+            }
             s.Eylem("Reklam gizlilik seçenekleri", "Ödüllü reklamlar için Google'ın onay ayarları (Avrupa'da gerekli).", "Aç",
                 Reklam.GizlilikSecenekleri);
             s.Eylem("Engellenen oyuncular", "Engellediğin oyuncuların listesi ve engel kaldırma.", "Göster",

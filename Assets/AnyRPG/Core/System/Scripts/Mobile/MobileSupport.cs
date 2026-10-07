@@ -570,6 +570,13 @@ namespace AnyRPG {
                 Debug.LogWarning($"MobileBootstrap: GameGuide: {exception.Message}");
             }
             try {
+                // Google Play Oyun Hizmetleri: açılışta giriş; ana menüde "Google Play ile Gir"
+                GoogleGiris.Baslat();
+                GoogleGiris.MenuDugmesiGoster(inGame == false && MainMenuOpen());
+            } catch (System.Exception exception) {
+                Debug.LogWarning($"MobileBootstrap: GoogleGiris: {exception.Message}");
+            }
+            try {
                 if (inGame) {
                     // ödüllü reklam: onay penceresi (gerekirse) ve ilk reklamın yüklenmesi (bir kez)
                     Reklam.Baslat();
