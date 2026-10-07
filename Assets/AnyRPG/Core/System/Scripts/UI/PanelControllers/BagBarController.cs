@@ -24,8 +24,8 @@ namespace AnyRPG {
         public int FreeBagSlots {
             get {
                 int freeBagSlots = 0;
-                for (int i = 0; i < bagButtonCount; i++) {
-                    if (bagButtons[i].BagNode.InstantiatedBag == null) {
+                for (int i = 0; i < KullanilanDugme; i++) {
+                    if (bagButtons[i].BagNode == null || bagButtons[i].BagNode.InstantiatedBag == null) {
                         freeBagSlots++;
                     }
                 }
@@ -33,6 +33,14 @@ namespace AnyRPG {
             }
         }
         public List<BagButton> MyBagButtons { get => bagButtons; set => bagButtons = value; }
+
+        /// <summary>
+        /// Ötüken: çantaya bağ sayısı düğme sayısından çok olabilir (depo 99 sandık alır, banka çubuğunda 8 düğme var);
+        /// düğmesi olmayan bağ düğümü çubukta görünmez (depo kendi penceresinde gösterilir)
+        /// </summary>
+        private int KullanilanDugme {
+            get { return Mathf.Min(bagButtonCount, bagButtons != null ? bagButtons.Count : 0); }
+        }
 
         public override void Configure(SystemGameManager systemGameManager) {
             base.Configure(systemGameManager);
@@ -91,7 +99,7 @@ namespace AnyRPG {
 
         public BagButton AddBagButton(BagNode bagNode) {
             //Debug.Log($"{gameObject.name}BagBarController.AddBagButton()");
-            for (int i = 0; i < bagButtonCount; i++) {
+            for (int i = 0; i < KullanilanDugme; i++) {
                 if (bagButtons[i].BagNode == null) {
                     //Debug.Log("BagBarController.AddBagButton(): found an empty bag button");
                     bagButtons[i].BagNode = bagNode;
