@@ -830,28 +830,49 @@ namespace AnyRPG {
                 if (target != autoHuntTarget) {
                     autoHuntTarget = target;
                     autoHuntTargetTime = Time.time;
+                    autoHuntFollowTime = 0f;
                 }
-                if (player.CharacterCombat.GetInCombat()) {
-                    // fighting: it is reachable
+                bool melee = MeleeAutoAttack(player);
+                float distance = Vector3.Distance(player.transform.position, target.transform.position);
+                float reach = melee ? SavasAyarlari.TakipMesafesi(player, target) + 0.9f : AutoAttackRange(player);
+                if (player.CharacterCombat.GetInCombat() && distance <= reach + 2f) {
+                    // fighting and close: it is reachable
                     autoHuntTargetTime = Time.time;
-                    if (TryAutoSkill(player)) {
+                    if (distance <= reach && TryAutoSkill(player)) {
                         return;
                     }
                     if (player.CharacterCombat.AutoAttackActive == false) {
-                        RightMouseInteraction(target);
+                        FollowForHunt(target, true);
+                    } else if (distance > reach) {
+                        // the monster stepped back: follow it instead of swinging at the air
+                        FollowForHunt(target, false);
                     }
                     return;
                 }
                 if (Time.time - autoHuntTargetTime < 10f) {
-                    if (player.UnitMotor == null || player.UnitMotor.AttackTarget != target) {
-                        RightMouseInteraction(target);
-                    }
+                    FollowForHunt(target, false);
                     return;
                 }
                 // not reached in 10 seconds: probably behind a wall or on a cliff
                 autoHuntExcluded[target.GetInstanceID()] = Time.time + 30f;
                 player.ClearTarget();
                 autoHuntTarget = null;
+            }
+
+            // items on the ground (picked up automatically within reach): walk to the nearest one
+            if (player.CharacterInventoryManager != null && player.CharacterInventoryManager.EmptySlotCount() > 0) {
+                InteractableBase groundItem = YerdekiGanimet.EnYakin(player, YerdekiGanimet.AvMesafesi);
+                if (groundItem != null) {
+                    int tries;
+                    autoHuntLootTries.TryGetValue(groundItem.GetInstanceID(), out tries);
+                    if (tries < 3) {
+                        autoHuntLootTries[groundItem.GetInstanceID()] = tries + 1;
+                        if (Vector3.Distance(player.transform.position, groundItem.transform.position) > YerdekiGanimet.ToplamaMesafesi * 0.8f) {
+                            WalkTo(player, groundItem.transform.position);
+                        }
+                        return;
+                    }
+                }
             }
 
             InteractableBase corpse = FindNearbyLoot(player);
@@ -866,7 +887,50 @@ namespace AnyRPG {
             }
             autoHuntTarget = next;
             autoHuntTargetTime = Time.time;
-            RightMouseInteraction(next);
+            autoHuntFollowTime = 0f;
+            FollowForHunt(next, true);
+        }
+
+        // ---- oto av: hareket yardımcıları (gereksiz yeniden yol bulma karakteri titretiyordu)
+
+        private float autoHuntFollowTime = 0f;
+        private Vector3 autoHuntFollowPosition = Vector3.zero;
+
+        private static bool MeleeAutoAttack(UnitController player) {
+            AbilityProperties autoAttack = player.CharacterAbilityManager != null ? player.CharacterAbilityManager.AutoAttackAbility : null;
+            return autoAttack == null || autoAttack.GetTargetOptions(player).UseMeleeRange;
+        }
+
+        private static float AutoAttackRange(UnitController player) {
+            AbilityProperties autoAttack = player.CharacterAbilityManager != null ? player.CharacterAbilityManager.AutoAttackAbility : null;
+            return autoAttack != null ? Mathf.Max(2f, autoAttack.GetTargetOptions(player).MaxRange) : 2f;
+        }
+
+        /// <summary>
+        /// attack / move to the target, but only ask for a new path when the target moved more than 1.5 m or 2 seconds passed
+        /// </summary>
+        private void FollowForHunt(InteractableBase target, bool force) {
+            Vector3 position = target.transform.position;
+            bool moved = (position - autoHuntFollowPosition).sqrMagnitude > 1.5f * 1.5f;
+            if (force == false && moved == false && Time.time - autoHuntFollowTime < 2f) {
+                return;
+            }
+            autoHuntFollowTime = Time.time;
+            autoHuntFollowPosition = position;
+            RightMouseInteraction(target);
+        }
+
+        private void WalkTo(UnitController player, Vector3 position) {
+            if (Time.time - autoHuntFollowTime < 0.8f && (position - autoHuntFollowPosition).sqrMagnitude < 0.25f) {
+                return;
+            }
+            autoHuntFollowTime = Time.time;
+            autoHuntFollowPosition = position;
+            if (systemGameManager.GameMode == GameMode.Local) {
+                player.UnitMotor.ClickToMove(position);
+            } else {
+                player.UnitEventController.NotifyOnRequestClickToMove(position);
+            }
         }
 
         /// <summary>
@@ -896,6 +960,7 @@ namespace AnyRPG {
                 if (abilityManager.CanCastAbility(ability) == false
                     || ability.CanUseOn(player.Target, player) == false
                     || ability.CanCast(player) == false
+                    || abilityManager.IsTargetInRange(player.Target, ability) == false
                     || abilityManager.PerformLOSCheck(player.Target, ability) == false) {
                     continue;
                 }

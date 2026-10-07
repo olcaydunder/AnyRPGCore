@@ -721,6 +721,11 @@ namespace AnyRPG {
                 bool targetIsPlayer = targetInteractable != null && targetInteractable.gameObject == unitController.gameObject;
                 bool sourceIsPlayer = abilityEffectContext?.AbilityCaster != null && abilityEffectContext.AbilityCaster.gameObject == unitController.gameObject;
                 MobileFeedback.OnCombatText(targetIsPlayer, sourceIsPlayer, combatTextType, combatMagnitude);
+                // Ötüken: oyuncunun vurduğu canavar kısa bir an sarsılır
+                if (sourceIsPlayer && targetIsPlayer == false && amount > 0
+                    && (combatTextType == CombatTextType.normal || combatTextType == CombatTextType.ability)) {
+                    VurusEtkisi.Vur(targetInteractable, unitController, combatMagnitude == CombatMagnitude.critical);
+                }
             }
 
             string textColor = ColorUtility.ToHtmlStringRGB(Color.white);

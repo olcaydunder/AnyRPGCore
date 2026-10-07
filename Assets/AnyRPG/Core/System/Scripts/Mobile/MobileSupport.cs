@@ -360,7 +360,18 @@ namespace AnyRPG {
             OyunAyarlari.SahneYuklendi();
         }
 
+        private float nextGroundLootTick = 0f;
+
         private void Update() {
+            if (Time.unscaledTime >= nextGroundLootTick) {
+                nextGroundLootTick = Time.unscaledTime + 0.35f;
+                try {
+                    // yerdeki ganimeti otomatik topla (tek oyunculu oyunda süresi dolanı da kaldırır)
+                    YerdekiGanimet.IstemciTick(GetSystemGameManager());
+                } catch (System.Exception exception) {
+                    Debug.LogWarning($"MobileBootstrap: YerdekiGanimet.IstemciTick(): {exception.Message}");
+                }
+            }
             if (Time.unscaledTime >= nextCanvasScan) {
                 nextCanvasScan = Time.unscaledTime + canvasScanInterval;
                 UpdateTouchButtons();

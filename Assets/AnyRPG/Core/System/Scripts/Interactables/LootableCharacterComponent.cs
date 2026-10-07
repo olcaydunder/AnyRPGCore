@@ -213,6 +213,31 @@ namespace AnyRPG {
                     if (playerManagerServer.ActiveUnitControllerLookup.ContainsKey(aggroNode.aggroTarget)) {
                         //lootCount += GetLootCount(aggroNode.aggroTarget.UnitController);
                         List <LootDrop> lootDrops = DropLoot(aggroNode.aggroTarget);
+                        // Ötüken: para ve görev eşyası hemen alınır; öteki eşyalar cesedin çevresine yere düşer (3 dk, herkes
+                        // alabilir: YerdekiGanimet). Cesette yalnız alınamayanlar (çanta dolu) kalır.
+                        int hesap = playerManagerServer.ActiveUnitControllerLookup[aggroNode.aggroTarget];
+                        List<InstantiatedItem> yereDusenler = new List<InstantiatedItem>();
+                        List<LootDrop> kalanlar = new List<LootDrop>();
+                        foreach (LootDrop lootDrop in lootDrops) {
+                            InstantiatedItem esya = lootDrop.InstantiatedItem;
+                            if (YerdekiGanimet.YereDuser(esya)) {
+                                lootManager.TakeLoot(hesap, lootDrop);
+                                yereDusenler.Add(esya);
+                            } else {
+                                kalanlar.Add(lootDrop);
+                            }
+                        }
+                        List<LootDrop> alinamayanlar = new List<LootDrop>();
+                        foreach (LootDrop lootDrop in kalanlar) {
+                            lootDrop.TakeLoot(aggroNode.aggroTarget);
+                            if (lootManager.CesetteMi(lootDrop.LootDropId)) {
+                                alinamayanlar.Add(lootDrop);
+                            }
+                        }
+                        lootDrops = alinamayanlar;
+                        if (yereDusenler.Count > 0) {
+                            YerdekiGanimet.CanavardanDusur(characterUnit.UnitController, aggroNode.aggroTarget, yereDusenler);
+                        }
                         // turn the list of lootDrops into a new list of lootDropIds
                         List<int> lootDropIds = new List<int>();
                         foreach (LootDrop lootDrop in lootDrops) {

@@ -32,6 +32,12 @@ namespace AnyRPG {
         }
 
         public BoxCollider BoxCollider { get => boxCollider; set => boxCollider = value; }
+
+        // Ötüken: yerdeki eşya (YerdekiGanimet): sayı, ilk eşyanın kimliği, nesne
+        public int EsyaSayisi { get => instantiatedItems.Count; }
+        public long IlkKimlik { get => instantiatedItems.Count > 0 ? instantiatedItems[0].InstanceId : -1; }
+        public InteractableBase Nesne { get => interactable; }
+        public List<InstantiatedItem> Esyalar { get => instantiatedItems; }
         public Rigidbody Rigidbody { get => rigidbody; set => rigidbody = value; }
 
         public DroppedItemComponent(InteractableBase interactable, DroppedItemProps interactableOptionProps, SystemGameManager systemGameManager) : base(interactable, interactableOptionProps, systemGameManager) {
@@ -95,9 +101,14 @@ namespace AnyRPG {
                 return;
             }
             InstantiatedItem instantiatedItem = instantiatedItems[0];
-            if (instantiatedItem.Item.ItemPickupPrefabProfile?.Prefab != null) {
-                spawnObject = objectPooler.GetPooledObject(instantiatedItem.Item.ItemPickupPrefabProfile.Prefab,
-                                                interactable.transform.TransformPoint(instantiatedItem.Item.ItemPickupPrefabProfile.PickupPosition),
+            // Ötüken: yerde görünecek modeli olmayan eşyalar (ganimet, cevher...) heybe olarak görünür
+            PrefabProfile modelProfili = instantiatedItem.Item.ItemPickupPrefabProfile;
+            if (modelProfili?.Prefab == null) {
+                modelProfili = systemDataFactory.GetResource<PrefabProfile>(YerdekiGanimet.VarsayilanModel);
+            }
+            if (modelProfili?.Prefab != null) {
+                spawnObject = objectPooler.GetPooledObject(modelProfili.Prefab,
+                                                interactable.transform.TransformPoint(modelProfili.PickupPosition),
                                                 interactable.transform.rotation,
                                                 interactable.transform);
             } else {
@@ -257,6 +268,7 @@ namespace AnyRPG {
             }
 
             instantiatedItems = itemsToDrop;
+            YerdekiGanimet.Kaydol(this);
             interactable.DisplayName = itemsToDrop[0].DisplayName;
             if (itemsToDrop.Count > 1) {
                 interactable.DisplayName += $" ({itemsToDrop.Count})";
@@ -270,6 +282,7 @@ namespace AnyRPG {
 
             base.Cleanup();
             DespawnSpawnObject();
+            YerdekiGanimet.Birak(this);
             levelManagerServer.UnregisterDroppedItem(interactable);
 
             // in network mode, we need to delete any items that are still in the dropped item component when it is cleaned up

@@ -261,6 +261,11 @@ namespace AnyRPG {
             }
         }
 
+        /// <summary>Ötüken: ganimet hâlâ cesette mi (alınmadı)</summary>
+        public bool CesetteMi(int lootDropId) {
+            return lootTableStateDict.ContainsKey(lootDropId);
+        }
+
         public void RemoveLootTableStateIndex(int lootDropId) {
             if (lootTableStateDict.ContainsKey(lootDropId) == false) {
                 return;

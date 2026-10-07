@@ -947,23 +947,31 @@ namespace AnyRPG {
         }
 
         private void DropItemsOnGround(List<InstantiatedItem> itemsToDrop) {
+            YereBirak(itemsToDrop, unitController.transform.position, unitController.transform.forward, unitController.Collider.bounds.extents.y, true, unitController.gameObject.scene);
+        }
+
+        /// <summary>
+        /// Ötüken: eşyaları verilen yere düşürür (oyuncunun "At"ı ve canavar ganimeti, YerdekiGanimet).
+        /// kaydet = false: sahne kaydına girmez (canavar ganimeti süreli; sunucu yeniden açılınca kalmaz)
+        /// </summary>
+        public InteractableBase YereBirak(List<InstantiatedItem> itemsToDrop, Vector3 konum, Vector3 ileri, float yukseklik, bool kaydet, Scene sahne) {
             //Debug.Log($"{unitController.gameObject.name}.CharacterInventoryManager.DropItemsOnGround(count: {itemsToDrop.Count})");
 
             GameObject droppedPrefab = null;
             // spawn the item drop prefab for each item we are dropping
             if (systemGameManager.GameMode == GameMode.Local) {
-                droppedPrefab = objectPooler.GetPooledObject(systemGameManager.DroppedItemPrefab, unitController.transform.position, Quaternion.identity, null);
+                droppedPrefab = objectPooler.GetPooledObject(systemGameManager.DroppedItemPrefab, konum, Quaternion.identity, null);
             } else {
-                droppedPrefab = networkManagerServer.SpawnDroppedItem(unitController.gameObject.scene, unitController.transform.position, Quaternion.identity);
+                droppedPrefab = networkManagerServer.SpawnDroppedItem(sahne, konum, Quaternion.identity);
             }
             if (droppedPrefab == null) {
                 Debug.LogWarning($"{unitController.gameObject.name}.CharacterInventoryManager.DropItemOnGround() could not spawn dropped item prefab");
-                return;
+                return null;
             }
             if (systemGameManager.GameMode == GameMode.Local) {
-                droppedPrefab.transform.position = unitController.transform.position;
+                droppedPrefab.transform.position = konum;
             }
-            SceneManager.MoveGameObjectToScene(droppedPrefab, unitController.gameObject.scene);
+            SceneManager.MoveGameObjectToScene(droppedPrefab, sahne);
             UUID uuidComponent = droppedPrefab.GetComponent<UUID>();
             if (uuidComponent != null) {
                 // generate a new uuid for this dropped item so it doesn't conflict with the UUID of the prefab it was spawned from
@@ -972,7 +980,7 @@ namespace AnyRPG {
             InteractableBase _interactable = droppedPrefab.GetComponent<InteractableBase>();
             if (_interactable == null) {
                 Debug.LogWarning($"{unitController.gameObject.name}.CharacterInventoryManager.DropItemOnGround() could not find interactable component on dropped item prefab");
-                return;
+                return null;
             }
             _interactable.Configure(systemGameManager);
             _interactable.PersistentObjectComponent.MoveOnStart = false;
@@ -982,7 +990,9 @@ namespace AnyRPG {
             } else {
                 Debug.LogWarning($"{unitController.gameObject.name}.CharacterInventoryManager.DropItemOnGround() could not find DroppedItemComponent on dropped item prefab");
             }
-            levelManagerServer.RegisterDroppedItem(_interactable);
+            if (kaydet) {
+                levelManagerServer.RegisterDroppedItem(_interactable);
+            }
             _interactable.Init();
 
             if (droppedItemComponent.Rigidbody != null) {
@@ -992,7 +1002,7 @@ namespace AnyRPG {
                 droppedItemComponent.Rigidbody.position = new Vector3(droppedItemComponent.Rigidbody.position.x, droppedItemComponent.Rigidbody.position.y + yOffset, droppedItemComponent.Rigidbody.position.z);
 
                 // move the object up by half the character height so it looks like we are dropping it from the character's hands instead of the ground
-                droppedItemComponent.Rigidbody.position += Vector3.up * (unitController.Collider.bounds.extents.y);
+                droppedItemComponent.Rigidbody.position += Vector3.up * yukseklik;
                 droppedItemComponent.Rigidbody.linearVelocity = Vector3.zero;
                 droppedItemComponent.Rigidbody.angularVelocity = Vector3.zero;
                 // 2. Calculate a random angle within a 45-degree arc to the left or right (-45 to 45)
@@ -1000,7 +1010,7 @@ namespace AnyRPG {
 
                 // 3. Rotate the player's forward vector by that random angle
                 // This ensures the spread is always relative to where the player is facing
-                Vector3 spreadDirection = Quaternion.Euler(0, randomAngle, 0) * unitController.transform.forward;
+                Vector3 spreadDirection = Quaternion.Euler(0, randomAngle, 0) * ileri;
                 //Debug.Log($"{unitController.gameObject.name}.CharacterInventoryManager.DropItemOnGround() randomAngle: {randomAngle}, spreadDirection: {spreadDirection} forward: {unitController.transform.forward}");
 
                 // 4. Add a smaller upward lift
@@ -1016,7 +1026,7 @@ namespace AnyRPG {
                 // 6. Gentle spin
                 droppedItemComponent.Rigidbody.angularVelocity = UnityEngine.Random.insideUnitSphere * 2f;
             }
-
+            return _interactable;
         }
 
         public void RequestDropItemFromInventorySlot(InventorySlot fromSlot, InventorySlot toSlot, bool fromSlotIsInventory, bool toSlotIsInventory) {

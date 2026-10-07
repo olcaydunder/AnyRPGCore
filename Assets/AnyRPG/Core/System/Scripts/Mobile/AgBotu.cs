@@ -292,6 +292,10 @@ namespace AnyRPG {
                 Dene("CevrimdisiKazanc", () => CevrimdisiKazanc.Tick(oyun, oyunda));
                 Dene("Gelisim", () => Gelisim.Tick(oyun, oyunda));
                 Dene("Pazar", () => Pazar.Tick(oyun, oyunda));
+                if (oyunda) {
+                    Dene("YerdekiGanimet", () => YerdekiGanimet.IstemciTick(oyun));
+                    Dene("Etkinlikler", () => Etkinlikler.Tick(oyun));
+                }
             }
         }
 
@@ -573,7 +577,8 @@ namespace AnyRPG {
                 + "; seviye ödülü " + Gelisim.VerilenOdulSayisi + (Gelisim.SonOdul.Length > 0 ? " (" + Gelisim.SonOdul + ")" : string.Empty)
                 + "; binek " + (Binek.Var ? "öğrenildi" : "yok")
                 + "; ticaret: " + ticaretOzeti
-                + "; kuşanma: " + kusanmaOzeti;
+                + "; kuşanma: " + kusanmaOzeti
+                + "; yerdeki ganimet: en çok " + YerdekiGanimet.EnCokGorulen + " görüldü, " + YerdekiGanimet.IstekSayisi + " alma isteği";
             Not("kolaylıklar: " + kolaylik);
             Vector3 son = ben != null ? ben.transform.position : ilkKonum;
             Bitir("SONUÇ: " + (enCokOyuncu > 0 ? "öteki oyuncu GÖRÜLDÜ (" + string.Join(", ", gorulenOyuncular) + ", onun yürüyüşü " + otekiYuruyus.ToString("0") + " m)" : "öteki oyuncu görülmedi")
