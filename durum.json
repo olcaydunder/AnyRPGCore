@@ -1,5 +1,5 @@
 {
- "son_zaman": 1791325449,
+ "son_zaman": 1791351347,
  "islenen": [
   "ZA4f7jqHrQMP",
   "ECmsu6OF1Jgp",
@@ -134,7 +134,9 @@
   "AWNtfn5yZsJt",
   "41wVH2tfzL9d",
   "EEVopTA4ieNV",
-  "bQF4jrrVmEd8"
+  "bQF4jrrVmEd8",
+  "IdBMXwAkgd1d",
+  "lwnR45tzDbmo"
  ],
  "kayitlar": {
   "istisna-d581f62b": {
@@ -634,6 +636,50 @@
    "yeniden": false,
    "issue": null,
    "notlar": []
+  },
+  "istisna-eda0aac7": {
+   "tur": "istisna",
+   "baslik": "İstisna: KeyNotFoundException: The given key '5' was not present in the dictionary.",
+   "adet": 1,
+   "cihazlar": [
+    "samsung SM-S911B"
+   ],
+   "surumler": [
+    "1.0.70"
+   ],
+   "ilk": 1791351320,
+   "son": 1791351320,
+   "ilk_rapor": "**İstisna** · sürüm **1.0.70** · samsung SM-S911B · Android OS 16 / API-36 (BP2A.250605.031.A3/S911BXXS8EYK5) · ekran 2340x990 · FeaturesDemoZone\n\n### Mesaj\n```text\nKeyNotFoundException: The given key '5' was not present in the dictionary.\n```\n\n### Yığın izi\n```text\nSystem.Collections.Generic.Dictionary`2[TKey,TValue].get_Item (TKey key) (at <00000000000000000000000000000000>:0)\nAnyRPG.PlayerManagerServer.RequestSpawnPlayerUnit (System.Int32 accountId, System.String sceneName) (at <00000000000000000000000000000000>:0)\nAnyRPG.PlayerManagerClient.RequestSpawnPlayerUnit (System.Int32 accountId) (at <00000000000000000000000000000000>:0)\nAnyRPG.PlayerManagerClient.HandleLevelLoad () (at <00000000000000000000000000000000>:0)\nAnyRPG.LevelManagerClient.PerformLevelLoadActivities (UnityEngine.SceneManagement.Scene newScene) (at <00000000000000000000000000000000>:0)\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: istisna\nsurum: 1.0.70\ncihaz: samsung SM-S911B\nsistem: Android OS 16 / API-36 (BP2A.250605.031.A3/S911BXXS8EYK5)\ngrafik: Vulkan / Adreno (TM) 740 / bellek 7073 MB\nekran: 2340x990\nayarlar: kalite 3, çözünürlük 0, gölge 0, fps sınırı 1\nsahne: FeaturesDemoZone\noyuncu: oyunda değil\nsure: 94 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.70 | samsung SM-S911B | Android OS 16 / API-36 (BP2A.250605.031.A3/S911BXXS8EYK5)\nVulkan Adreno (TM) 740 | Bellek 7073 MB | 2340x990 | FPS 114 | Süre 91 sn\nKare süresi: işlemci 9.4 ms | ekran kartı 8.0 ms | ekran 120 Hz | hedef 500 | kalite Ultra | çizim 3840x1625 (ekran 2340x990, ölçek 1.64) | pil 30%\nSahneler: FeaturesDemoZone\nGiriş: dokunmatik var | fare bağlı | ekran tuşları açık\nSon dokunuş: 1371,338 -> Right/ConfirmNewGameBtn_Yes [SystemMenuUICanvas 19]\nOyuncu karakteri: yok | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n<details><summary>Son kayıt satırları</summary>\n\n```text\n08:35:20 [Exception] KeyNotFoundException: The given key '5' was not present in the dictionary.\n08:33:48 [Log] OyunAyarlari: 4K açıldı (Adreno (TM) 740, bellek 7073 MB)\n```\n\n</details>\n",
+   "gorulmeler": [
+    "07.10.2026 08:35 · 1.0.70 · samsung SM-S911B · FeaturesDemoZone · oyunda değil · 2340x990"
+   ],
+   "ekler": [],
+   "duzeltildi": null,
+   "yeniden": false,
+   "issue": null,
+   "notlar": []
+  },
+  "cokme-b56b62e3": {
+   "tur": "cokme",
+   "baslik": "Çökme: Çökme (yerel kod): crash",
+   "adet": 1,
+   "cihazlar": [
+    "samsung SM-S911B"
+   ],
+   "surumler": [
+    "1.0.70"
+   ],
+   "ilk": 1791351347,
+   "son": 1791351347,
+   "ilk_rapor": "**Çökme** · sürüm **1.0.70** · samsung SM-S911B · Android OS 16 / API-36 (BP2A.250605.031.A3/S911BXXS8EYK5) · ekran 2340x990 · FeaturesDemoMainMenu\n\n### Mesaj\n```text\nÇökme (yerel kod): crash\n```\n\n### Ayrıntı\n```text\nZaman 2026-10-07 08:35:31 | bellek (PSS) 0 MB | önem 100 (100 = ön planda)\nÖnceki oturumun kaydı:\nOturum başladı 2026-10-07 08:33:48\nOyuna dönüldü 08:33:50\n08:35:20 [Exception] KeyNotFoundException: The given key '5' was not present in the dictionary.\n   System.Collections.Generic.Dictionary`2[TKey,TValue].get_Item (TKey key) (at <00000000000000000000000000000000>:0)\n   AnyRPG.PlayerManagerServer.RequestSpawnPlayerUnit (System.Int32 accountId, System.String sceneName) (at <00000000000000000000000000000000>:0)\n   AnyRPG.PlayerManagerClient.RequestSpawnPlayerUnit (System.Int32 accountId) (at <00000000000000000000000000000000>:0)\n   AnyRPG.PlayerManagerClient.HandleLevelLoad () (at <00000000000000000000000000000000>:0)\n   AnyRPG.LevelManagerClient.PerformLevelLoadActivities (UnityEngine.SceneManagement.Scene newScene) (at <00000000000000000000000000000000>:0)\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: cokme\nsurum: 1.0.70\ncihaz: samsung SM-S911B\nsistem: Android OS 16 / API-36 (BP2A.250605.031.A3/S911BXXS8EYK5)\ngrafik: Vulkan / Adreno (TM) 740 / bellek 7073 MB\nekran: 2340x990\nayarlar: kalite 3, çözünürlük 0, gölge 0, fps sınırı 1\nsahne: FeaturesDemoMainMenu\noyuncu: oyunda değil\nsure: 12 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.70 | samsung SM-S911B | Android OS 16 / API-36 (BP2A.250605.031.A3/S911BXXS8EYK5)\nVulkan Adreno (TM) 740 | Bellek 7073 MB | 2340x990 | FPS 137 | Süre 10 sn\nKare süresi: işlemci 8.4 ms | ekran kartı 6.8 ms | ekran 120 Hz | hedef 500 | kalite Ultra | çizim 3840x1625 (ekran 2340x990, ölçek 1.64) | pil 29%\nSahneler: FeaturesDemoMainMenu\nGiriş: dokunmatik var | fare bağlı | ekran tuşları açık\nSon dokunuş: 1375,319 -> NetworkLoginPanel/NetworkLoginBtn_Yes [SystemMenuUICanvas 19]\nOyuncu karakteri: yok | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n",
+   "gorulmeler": [
+    "07.10.2026 08:35 · 1.0.70 · samsung SM-S911B · FeaturesDemoMainMenu · oyunda değil · 2340x990"
+   ],
+   "ekler": [],
+   "duzeltildi": null,
+   "yeniden": false,
+   "issue": null,
+   "notlar": []
   }
  },
  "kimlikler": {
@@ -757,7 +803,9 @@
   "bd89c51183": "hata-60de498e",
   "543b3fd588": "hata-60de498e",
   "73318dc05d": "hata-60de498e",
-  "0126bb5843": "arayuz-3120x1335"
+  "0126bb5843": "arayuz-3120x1335",
+  "64548994f2": "istisna-eda0aac7",
+  "07531f07ac": "cokme-b56b62e3"
  },
  "derleme": {
   "sonuc": "basarili",

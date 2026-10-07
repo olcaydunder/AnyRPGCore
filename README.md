@@ -1,8 +1,8 @@
 # Ötüken Destanı · Hata panosu
 
-Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 07.10.2026 03:04.
+Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 07.10.2026 08:45.
 
-**11** açık sorun · **5** düzeltilen · toplam **128** rapor
+**13** açık sorun · **5** düzeltilen · toplam **130** rapor
 
 ## Son APK derlemesi
 
@@ -15,6 +15,8 @@ Tanı raporunda uyarı yok.
 | Durum | Sorun | Tür | Tekrar | Cihaz | Sürüm | Son görülme |
 |---|---|---|---|---|---|---|
 | 🔁 yeniden görüldü | [Arayüz yerleşimi, 3120x1335 ekran](kayitlar/arayuz-3120x1335.md) | Arayüz | 10 | 1 | 0.1.67, 1.0.69, 1.0.70 | 07.10.2026 01:24 |
+| 🔴 açık | [Çökme: Çökme (yerel kod): crash](kayitlar/cokme-b56b62e3.md) | Çökme | 1 | 1 | 1.0.70 | 07.10.2026 08:35 |
+| 🔴 açık | [İstisna: KeyNotFoundException: The given key '5' was not present in the dictionary.](kayitlar/istisna-eda0aac7.md) | İstisna | 1 | 1 | 1.0.70 | 07.10.2026 08:35 |
 | 🔴 açık | [İstisna: NullReferenceException: Object reference not set to an instance of an object.](kayitlar/istisna-44cafcb8.md) | İstisna | 2 | 1 | 0.1.36, 0.1.67 | 06.10.2026 20:25 |
 | 🔴 açık | [İstisna: NullReferenceException: Object reference not set to an instance of an object.](kayitlar/istisna-8f946662.md) | İstisna | 1 | 1 | 0.1.64 | 06.10.2026 11:26 |
 | 🔴 açık | [İstisna: NullReferenceException: Object reference not set to an instance of an object.](kayitlar/istisna-9434295e.md) | İstisna | 2 | 1 | 0.1.52, 0.1.64 | 06.10.2026 11:26 |
