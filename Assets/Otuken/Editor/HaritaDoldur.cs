@@ -399,15 +399,15 @@ namespace Otuken.EditorAraclari {
             return false;
         }
 
-        /// <summary>girişin 4-24 m çevresinde, yürüme ağında, girişten yürünerek ulaşılan, dolu yerlerden 2,5 m uzak bir nokta</summary>
+        /// <summary>girişin 4-40 m çevresinde (24 m'den sonra koşullar gevşer), yürüme ağında, girişten yürünerek ulaşılan, dolu yerlerden 2,5 m uzak bir nokta</summary>
         private static bool GenisArama(Vector3 giris, List<Vector3> dolu, out Vector3 yer) {
             NavMeshPath yol = new NavMeshPath();
-            for (float r = 4f; r <= 24f; r += 2f) {
+            for (float r = 4f; r <= 40f; r += 2f) {
                 for (int k = 0; k < 24; k++) {
                     float a = k * Mathf.PI / 12f + r * 0.37f;
                     Vector3 q = giris + new Vector3(Mathf.Cos(a), 0f, Mathf.Sin(a)) * r;
-                    if (NavMesh.SamplePosition(q, out NavMeshHit h, 2.5f, NavMesh.AllAreas) && Mathf.Abs(h.position.y - giris.y) < 4f
-                        && Yatay(h.position, giris) >= 3.5f && dolu.All(e => Yatay(h.position, e) >= 2.5f)
+                    if (NavMesh.SamplePosition(q, out NavMeshHit h, 2.5f, NavMesh.AllAreas) && Mathf.Abs(h.position.y - giris.y) < (r > 24f ? 8f : 4f)
+                        && Yatay(h.position, giris) >= 3.5f && dolu.All(e => Yatay(h.position, e) >= (r > 24f ? 2f : 2.5f))
                         && NavMesh.CalculatePath(giris, h.position, NavMesh.AllAreas, yol) && yol.status == NavMeshPathStatus.PathComplete) {
                         yer = h.position;
                         return true;
