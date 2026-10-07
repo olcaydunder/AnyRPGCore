@@ -549,6 +549,10 @@ namespace AnyRPG {
             if (inRangeInteractables.Count == 1 && inRangeInteractables.First().Value.InteractionType == InteractionType.Attack) {
                 if (playerManagerClient.UnitController.CharacterAbilityManager.AutoAttackAbility != null) {
                     float attackRange = playerManagerClient.UnitController.CharacterAbilityManager.AutoAttackAbility.GetTargetOptions(playerManagerClient.UnitController).MaxRange;
+                    // Ötüken: yakın dövüşte 5 m'de değil vurabileceği yerde dur
+                    if (playerManagerClient.UnitController.CharacterAbilityManager.AutoAttackAbility.GetTargetOptions(playerManagerClient.UnitController).UseMeleeRange) {
+                        attackRange = Mathf.Min(attackRange, SavasAyarlari.TakipMesafesi(playerManagerClient.UnitController, interactable));
+                    }
                     float distanceToTarget = Vector3.Distance(playerManagerClient.ActiveUnitController.transform.position, interactable.transform.position);
                     if (distanceToTarget > attackRange) {
                         if (playerManagerClient.ActiveUnitController.UnitMovementController.useMeshNav && systemConfigurationManager.AllowClickToMove) {

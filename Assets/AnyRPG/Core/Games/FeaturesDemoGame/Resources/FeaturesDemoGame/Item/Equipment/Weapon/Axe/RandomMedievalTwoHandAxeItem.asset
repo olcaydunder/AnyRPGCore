@@ -64,7 +64,7 @@ MonoBehaviour:
   secondaryStats: []
   onEquipStatusEffect: 
   learnedAbilityNames: []
-  requireWeaponSkill: 0
+  requireWeaponSkill: 1
   weaponType: Two Hand Axe
   defaultHitEffects: []
   onHitEffects: []

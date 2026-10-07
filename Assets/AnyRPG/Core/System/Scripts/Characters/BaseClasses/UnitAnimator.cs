@@ -488,7 +488,7 @@ namespace AnyRPG {
 
             //if (unitController.IsOwner) {
                 // tell the animator to play the animation
-                SetAttacking(true, true, unitController.CharacterStats.GetSpeedModifiers() / 100f);
+                SetAttacking(true, true, unitController.CharacterStats.GetSpeedModifiers() / 100f * SavasAyarlari.AnimasyonCarpani(unitController, baseAbility));
             //}
 
             // there were 2 pieces of code that were setting animation speed.  One was using 1f / and one was not.  Not sure which one is correct?!!!

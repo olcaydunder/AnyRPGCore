@@ -891,6 +891,11 @@ namespace AnyRPG {
                     maxAttackSpeed = (equipmentInventorySlot.InstantiatedEquipment.Equipment as Weapon).WeaponSkill.WeaponSkillProps.AttackSpeed;
                 }
             }
+            // Ötüken: silah türüne göre vuruş aralıkları oyuncular için kısaltıldı (WeaponSkill attackSpeed 0,8–1,5 sn);
+            // silahlı canavarlar eskisi gibi en çok 2 saniyede bir vurur
+            if (unitController.UnitControllerMode != UnitControllerMode.Player && maxAttackSpeed > 0f) {
+                maxAttackSpeed = Mathf.Max(maxAttackSpeed, 2f);
+            }
             attackSpeed = maxAttackSpeed;
         }
 

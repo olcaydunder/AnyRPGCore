@@ -410,6 +410,21 @@ namespace AnyRPG {
                 if (TestKipi == false) {
                     return;
                 }
+                // "@silah" / "@yabanci": sınıfa uygun / uygun olmayan bir silah (kuşanma denemesi)
+                if (ad == "@silah" || ad == "@yabanci") {
+                    bool uygunIste = ad == "@silah";
+                    ad = null;
+                    foreach (Weapon w in OtukenAg.Oyun.SystemDataFactory.GetResourceList<Weapon>()) {
+                        if (w != null && w.RequireWeaponSkill && w.WeaponSkill != null && w.EquipmentSlotType != null
+                            && SinifUygunlugu.Uygun(w, oyuncu) == uygunIste) {
+                            ad = w.ResourceName;
+                            break;
+                        }
+                    }
+                    if (ad == null) {
+                        return;
+                    }
+                }
                 InstantiatedItem esya = oyuncu.CharacterInventoryManager.GetNewInstantiatedItem(ad);
                 if (esya != null) {
                     oyuncu.CharacterInventoryManager.AddItem(esya, false);

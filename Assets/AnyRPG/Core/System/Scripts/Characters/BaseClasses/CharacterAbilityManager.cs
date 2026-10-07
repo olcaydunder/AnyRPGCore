@@ -512,7 +512,8 @@ namespace AnyRPG {
         */
 
         public override bool IsTargetInMeleeRange(InteractableBase target) {
-            return unitController.IsTargetInHitBox(target);
+            // Ötüken: oyuncuda açıdan bağımsız yakın menzil de geçerli (yanındaki/arkasındaki düşmana vuruş boşa gitmesin)
+            return unitController.IsTargetInHitBox(target) || SavasAyarlari.YakinMenzilde(unitController, target);
         }
 
         public override bool PerformLOSCheck(InteractableBase target, ITargetable targetable, AbilityEffectContext abilityEffectContext = null) {
@@ -629,7 +630,8 @@ namespace AnyRPG {
 
             float speedNormalizedAnimationLength = 1f;
             if (unitController.CharacterStats != null) {
-                speedNormalizedAnimationLength = (1f / (unitController.CharacterStats.GetSpeedModifiers() / 100f)) * animationClip.length;
+                // Ötüken: oyuncunun normal saldırısı daha hızlı oynar (SavasAyarlari)
+                speedNormalizedAnimationLength = (1f / (unitController.CharacterStats.GetSpeedModifiers() / 100f * SavasAyarlari.AnimasyonCarpani(unitController, baseAbility))) * animationClip.length;
             }
 
             // setup event tracking to ensure hit events fire regardless of frame rates / drops / animation compression etc

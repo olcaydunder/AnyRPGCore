@@ -88,19 +88,20 @@ namespace AnyRPG {
                             //int randomNumber = UnityEngine.Random.Range(0, lootGroup.Loot.Count);
 
                             // weighted
+                            // Ötüken: ağırlık sınıfa göre (sınıfa uygun silah/zırh 2,5 kat, uygun olmayan yarı)
                             int usedIndex = 0;
-                            int sum_of_weight = 0;
-                            int accumulatedWeight = 0;
+                            float sum_of_weight = 0;
+                            float accumulatedWeight = 0;
 
                             for (int i = 0; i < validLoot.Count; i++) {
-                                sum_of_weight += (int)validLoot[i].DropChance;
+                                sum_of_weight += validLoot[i].DropChance * SinifUygunlugu.DusmeCarpani(validLoot[i].Item, sourceUnitController);
                             }
                             //Debug.Log(DisplayName + ".Item.InitilizeNewItem(): sum_of_weight: " + sum_of_weight);
-                            int rnd = UnityEngine.Random.Range(0, sum_of_weight);
+                            float rnd = UnityEngine.Random.Range(0f, sum_of_weight);
                             //Debug.Log(DisplayName + ".Item.InitilizeNewItem(): sum_of_weight: " + sum_of_weight + "; rnd: " + rnd);
                             for (int i = 0; i < validLoot.Count; i++) {
                                 //Debug.Log(DisplayName + ".Item.InitilizeNewItem(): weightCompare: " + validItemQualities[i].RandomWeight + "; rnd: " + rnd);
-                                accumulatedWeight += (int)validLoot[i].DropChance;
+                                accumulatedWeight += validLoot[i].DropChance * SinifUygunlugu.DusmeCarpani(validLoot[i].Item, sourceUnitController);
                                 if (rnd < accumulatedWeight) {
                                     usedIndex = i;
                                     //Debug.Log(DisplayName + ".Item.InitilizeNewItem(): break");
@@ -126,7 +127,8 @@ namespace AnyRPG {
                         foreach (Loot item in validLoot) {
                             //Debug.Log("LootTable.RollLoot(): " + item.MyItem.DisplayName + " rolling");
                             int roll = Random.Range(0, 100);
-                            if (roll <= item.DropChance) {
+                            // Ötüken: sınıfa göre düşme şansı ve bölge etkinliği (ganimet bereketi)
+                            if (roll <= item.DropChance * SinifUygunlugu.DusmeCarpani(item.Item, sourceUnitController) * Etkinlikler.GanimetCarpani(sourceUnitController)) {
                                 AddDroppedItems(GetLootDrop(sourceUnitController, item, lootGroupUnlimitedDrops, ignoreDropLimit, lootTableUnlimitedDrops, ref lootGroupRemainingDrops));
                             }
                             if ((lootGroupUnlimitedDrops == false && lootGroupRemainingDrops <= 0) || (lootTableUnlimitedDrops == false && lootTableRemainingDrops <= 0)) {

@@ -22,7 +22,7 @@ MonoBehaviour:
   optionalOverride: 0
   weaponSkillProps:
     defaultWeaponSkill: 0
-    attackSpeed: 2
+    attackSpeed: 1.2
     defaultHitEffects:
     - Arrow Projectile
     onHitEffects: []

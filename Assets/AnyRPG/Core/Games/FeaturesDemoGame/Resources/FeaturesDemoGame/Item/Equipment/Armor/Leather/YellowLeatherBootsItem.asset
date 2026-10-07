@@ -57,7 +57,7 @@ MonoBehaviour:
   secondaryStats: []
   onEquipStatusEffect: 
   learnedAbilityNames: []
-  requireArmorClass: 0
+  requireArmorClass: 1
   armorClassName: Leather
   references:
     version: 2

@@ -2062,8 +2062,33 @@ namespace AnyRPG {
             //Debug.Log($"{gameObject.name}.FishNetUnitController.RequestEquipToSlot({itemInstanceId}, {equipmentSlotProfileName})");
 
             if (systemItemManager.InstantiatedItems.ContainsKey(itemInstanceId) && systemItemManager.InstantiatedItems[itemInstanceId] is InstantiatedEquipment) {
-                unitController.CharacterEquipmentManager.Equip(systemItemManager.InstantiatedItems[itemInstanceId] as InstantiatedEquipment);
+                InstantiatedEquipment esya = systemItemManager.InstantiatedItems[itemInstanceId] as InstantiatedEquipment;
+                // Ötüken: yalnız kendi çantasındaki eşya kuşanılır (başkasının eşyası kimliğiyle istenemez)
+                if (KendiCantasinda(esya) == false) {
+                    unitController.WriteMessageFeedMessage(esya.DisplayName + " çantanda değil");
+                    return;
+                }
+                unitController.CharacterEquipmentManager.Equip(esya);
+            } else {
+                unitController.WriteMessageFeedMessage("Eşya sunucuda bulunamadı; çantanı kapatıp yeniden aç");
             }
+        }
+
+        /// <summary>Ötüken: eşya bu oyuncunun çanta yuvalarından birinde mi</summary>
+        private bool KendiCantasinda(InstantiatedItem esya) {
+            if (esya == null || unitController.CharacterInventoryManager == null) {
+                return false;
+            }
+            if (esya.Slot != null && unitController.CharacterInventoryManager.InventorySlots.Contains(esya.Slot)) {
+                return true;
+            }
+            // zaten kuşanılı (yuvalar arası taşıma)
+            foreach (EquipmentInventorySlot yuva in unitController.CharacterEquipmentManager.CurrentEquipment.Values) {
+                if (yuva != null && yuva.InstantiatedEquipment == esya) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public void HandleRequestEquipToSlot(InstantiatedEquipment equipment, EquipmentSlotProfile profile) {
@@ -2079,6 +2104,9 @@ namespace AnyRPG {
             if (systemItemManager.InstantiatedItems.ContainsKey(itemInstanceId) && systemItemManager.InstantiatedItems[itemInstanceId] is InstantiatedEquipment) {
                 EquipmentSlotProfile equipmentSlotProfile = systemDataFactory.GetResource<EquipmentSlotProfile>(equipmentSlotProfileName);
                 if (equipmentSlotProfile == null) {
+                    return;
+                }
+                if (KendiCantasinda(systemItemManager.InstantiatedItems[itemInstanceId]) == false) {
                     return;
                 }
                 unitController.CharacterEquipmentManager.EquipToSlot(systemItemManager.InstantiatedItems[itemInstanceId] as InstantiatedEquipment, equipmentSlotProfile);

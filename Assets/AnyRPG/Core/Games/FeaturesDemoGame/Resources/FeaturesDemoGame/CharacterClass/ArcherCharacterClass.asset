@@ -41,6 +41,7 @@ MonoBehaviour:
     - Leather
     weaponSkills:
     - Bow
+    - Crossbow
   unitTypeCapabilities: []
   primaryStats:
   - statName: Agility

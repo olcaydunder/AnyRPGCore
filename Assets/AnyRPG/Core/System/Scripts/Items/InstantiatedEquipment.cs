@@ -112,6 +112,10 @@ namespace AnyRPG {
             if (basamak > 0 && playerManagerClient.UnitController != null) {
                 aciklama += "\n<color=#FFD54A>Demirci +" + basamak + ": " + Demirci.KazancYazisi(this, basamak, playerManagerClient.UnitController.CharacterStats.Level) + "</color>";
             }
+            // Ötüken: sınıfa uygunluk, saldırı gücü/zırh ve kuşanılı eşyayla fark
+            if (playerManagerClient.UnitController != null) {
+                aciklama += "\n" + SinifUygunlugu.Aciklama(this, playerManagerClient.UnitController, systemDataFactory);
+            }
             return aciklama;
         }
 

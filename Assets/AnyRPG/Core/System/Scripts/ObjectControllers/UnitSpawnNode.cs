@@ -703,7 +703,8 @@ namespace AnyRPG {
             if (respawnTimer > -1) {
                 //Debug.Log($"{gameObject.name}.UnitSpawnNode.HandleDespawn(): timer: " + DespawnTimer + "; starting despawn countdown");
                 if (countDownRoutine == null) {
-                    countDownRoutine = StartCoroutine(StartSpawnCountdown(respawnTimer));
+                    // Ötüken: bölge etkinliğinde (Canavar İstilası, Boss Avı) daha çabuk doğar
+                    countDownRoutine = StartCoroutine(StartSpawnCountdown(respawnTimer <= 5 ? respawnTimer : Mathf.Max(5, Mathf.RoundToInt(respawnTimer * Etkinlikler.DogmaCarpani(gameObject.scene.name, respawnTimer)))));
                 } else {
                     //Debug.Log("Countdown routine already in progress, not starting new countdown");
                 }

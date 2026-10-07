@@ -496,7 +496,8 @@ namespace AnyRPG {
             UnitController oyuncu = oyun != null && oyun.PlayerManagerClient != null ? oyun.PlayerManagerClient.UnitController : null;
             InstantiatedEquipment esya = gosterilen != null ? gosterilen.esya : null;
             if (oyuncu != null && esya != null && esya.Slot != null && esya.Slot.InstantiatedItems.ContainsValue(esya)) {
-                oyuncu.CharacterInventoryManager.RequestUseItem(esya.Slot);
+                // eşyanın kimliğiyle kuşan: çanta yuvası numarası sıralamadan sonra sunucuyla tutmayabilir
+                oyuncu.CharacterEquipmentManager.RequestEquip(esya);
             }
             Gec();
         }

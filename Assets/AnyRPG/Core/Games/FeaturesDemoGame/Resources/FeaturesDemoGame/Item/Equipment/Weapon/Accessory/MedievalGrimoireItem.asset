@@ -33,7 +33,9 @@ MonoBehaviour:
   pricePerLevel: 10
   basePrice: 0
   uniqueItem: 0
-  characterClassRequirementList: []
+  characterClassRequirementList:
+  - Mage
+  - Priest
   weight: 0.2
   itemPickupPrefabProfileName: Medieval Grimoire
   equipmentSlotType: Off Hand

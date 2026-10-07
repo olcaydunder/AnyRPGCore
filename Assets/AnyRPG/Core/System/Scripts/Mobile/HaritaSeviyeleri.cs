@@ -25,6 +25,19 @@ namespace AnyRPG {
             "AyDedeKoyu", "FeaturesDemoDungeon", "TamuZindani",
         };
 
+        // Sira ile aynı dizinde görünen adlar
+        public static readonly string[] Adlar = {
+            "Ötüken Yaylası", "Umay Tarlaları", "Börü Tepesi", "Ak Deniz Kıyısı", "Ordubalık Çarşısı", "Ordubalık Kenti",
+            "Ulukayın Ormanı", "Koncolos İni", "Kağan Ordası", "Kaf Dağı Yolu", "Ergenekon Mağarası", "Kurgan Mezarlığı",
+            "Ay Dede Koyu", "Erlik'in Mağarası", "Tamu Zindanı",
+        };
+
+        /// <summary>sahnenin görünen adı (bilinmiyorsa sahne adı)</summary>
+        public static string Ad(string sahne) {
+            int i = System.Array.IndexOf(Sira, sahne);
+            return i >= 0 ? Adlar[i] : sahne;
+        }
+
         private static readonly HashSet<string> bossDayanikliliklari = new HashSet<string>() {
             "Solo Dungeon Boss", "2 Man", "5 Man", "10 Man", "25 Man"
         };

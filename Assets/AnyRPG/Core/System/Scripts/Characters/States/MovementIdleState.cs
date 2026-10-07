@@ -81,6 +81,8 @@ namespace AnyRPG {
                 unitMovementController.ChangeState(CharacterMovementState.Move, isReplay);
                 return;
             }
+            // Ötüken: duran oyuncu saldırdığı düşmana döner
+            SavasAyarlari.HedefeDon(unitController, timeInterval);
         }
     }
 

@@ -192,13 +192,35 @@ namespace AnyRPG {
         }
 
 
+        /// <summary>Ötüken: sınıf kısıtları yalnız oyuncu karakterine uygulanır</summary>
+        public static bool SinifKisitiUygulanir(UnitController unitController) {
+            return unitController != null && unitController.UnitControllerMode == UnitControllerMode.Player;
+        }
+
+        /// <summary>Ötüken: kuşanılamıyorsa oyuncuya gösterilecek neden (kuşanılabiliyorsa null)</summary>
+        public virtual string KusanmaEngeli(int usedItemLevel, UnitController unitController) {
+            if (SinifKisitiUygulanir(unitController) && !CharacterClassRequirementIsMet(unitController.BaseCharacter)) {
+                return "senin sınıfına uygun değil";
+            }
+            if (SinifKisitiUygulanir(unitController) && !CapabilityConsumerSupported(unitController.BaseCharacter)) {
+                return "senin sınıfın bu türü kullanamaz";
+            }
+            if (usedItemLevel > unitController.CharacterStats.Level) {
+                return "için seviyen yetersiz (" + usedItemLevel + ". seviye gerekir)";
+            }
+            return null;
+        }
+
         public virtual bool CanEquip(int usedItemLevel, UnitController unitController) {
             //Debug.Log(DisplayName + ".Equipment.CanEquip(" + baseCharacter.gameObject.name + ")");
-            if (!CharacterClassRequirementIsMet(unitController.BaseCharacter)) {
+            // Ötüken: sınıfa özel silah/zırh kısıtı yalnız oyuncu karakterlerine uygulanır; canavarlar ve vitrin
+            // karakterleri kendi donanımlarını her zaman giyer
+            bool kisit = SinifKisitiUygulanir(unitController);
+            if (kisit && !CharacterClassRequirementIsMet(unitController.BaseCharacter)) {
                 //Debug.Log(baseCharacter.gameObject.name + "." + DisplayName + ".Equipment.CanEquip(): not the right character class");
                 return false;
             }
-            if (!CapabilityConsumerSupported(unitController.BaseCharacter)) {
+            if (kisit && !CapabilityConsumerSupported(unitController.BaseCharacter)) {
                 //Debug.Log(baseCharacter.gameObject.name + "." + DisplayName + ".Equipment.CanEquip(): CapabilityConsumer unsupported");
                 return false;
             }

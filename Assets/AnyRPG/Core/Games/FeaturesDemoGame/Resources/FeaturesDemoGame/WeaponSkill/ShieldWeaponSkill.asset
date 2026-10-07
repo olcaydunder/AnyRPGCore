@@ -21,6 +21,7 @@ MonoBehaviour:
   resourceDescriptionProfile: 
   weaponSkillProps:
     defaultWeaponSkill: 0
+    attackSpeed: 0
     defaultHitEffects: []
     onHitEffects: []
     animationProfileName: 

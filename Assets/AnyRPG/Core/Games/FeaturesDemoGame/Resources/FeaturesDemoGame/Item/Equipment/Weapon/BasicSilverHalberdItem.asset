@@ -58,7 +58,7 @@ MonoBehaviour:
   secondaryStats: []
   onEquipStatusEffect: 
   learnedAbilityNames: []
-  requireWeaponSkill: 0
+  requireWeaponSkill: 1
   weaponType: Polearm
   defaultHitEffects: []
   onHitEffects: []

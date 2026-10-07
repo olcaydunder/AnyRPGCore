@@ -98,6 +98,61 @@ namespace AnyRPG {
         }
 
         private string ticaretOzeti = "-";
+        private string kusanmaOzeti = "-";
+
+        private static InstantiatedEquipment CantadaSilah(UnitController ben, bool uygun) {
+            foreach (InventorySlot yuva in ben.CharacterInventoryManager.InventorySlots) {
+                if (yuva == null || yuva.IsEmpty) {
+                    continue;
+                }
+                InstantiatedEquipment e = yuva.InstantiatedItem as InstantiatedEquipment;
+                Weapon w = e != null ? e.Equipment as Weapon : null;
+                if (w != null && w.RequireWeaponSkill && SinifUygunlugu.Uygun(w, ben) == uygun) {
+                    return e;
+                }
+            }
+            return null;
+        }
+
+        private static bool Kusanili(UnitController ben, long kimlik) {
+            foreach (EquipmentInventorySlot y in ben.CharacterEquipmentManager.CurrentEquipment.Values) {
+                if (y != null && y.InstantiatedEquipment != null && y.InstantiatedEquipment.InstanceId == kimlik) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Kuşanma: sınıfa uygun silah çantaya gelir, çanta sıralanır, eşya kimliğiyle kuşanılır (eskiden yuva numarası
+        /// gönderildiği için sıralamadan sonra kuşanma boşa çıkıyordu); başka sınıfın silahı reddedilmeli.
+        /// </summary>
+        private IEnumerator KusanmaDenemesi(SystemGameManager oyun) {
+            UnitController ben = oyun.PlayerManagerClient.UnitController;
+            List<string> ozet = new List<string>();
+            Odeme.TestIcinEsya("@silah");
+            Odeme.TestIcinEsya("@yabanci");
+            yield return new WaitForSecondsRealtime(2.5f);
+            InstantiatedEquipment uygun = CantadaSilah(ben, true);
+            InstantiatedEquipment yabanci = CantadaSilah(ben, false);
+            Canta.SiralaDugmesi();
+            yield return new WaitForSecondsRealtime(2.5f);
+            if (uygun == null) {
+                ozet.Add("uygun silah gelmedi");
+            } else {
+                ben.CharacterEquipmentManager.RequestEquip(uygun);
+                yield return new WaitForSecondsRealtime(2.5f);
+                ozet.Add("uygun " + uygun.DisplayName + (Kusanili(ben, uygun.InstanceId) ? " kuşanıldı" : " KUŞANILAMADI"));
+            }
+            if (yabanci == null) {
+                ozet.Add("yabancı silah gelmedi");
+            } else {
+                ben.CharacterEquipmentManager.RequestEquip(yabanci);
+                yield return new WaitForSecondsRealtime(2.5f);
+                ozet.Add("başka sınıfın " + yabanci.DisplayName + (Kusanili(ben, yabanci.InstanceId) ? " YANLIŞLIKLA KUŞANILDI" : " reddedildi"));
+            }
+            kusanmaOzeti = string.Join(", ", ozet);
+        }
 
         private UnitController YakindakiOyuncu(SystemGameManager oyun, float mesafe) {
             UnitController ben = oyun.PlayerManagerClient.UnitController;
@@ -393,6 +448,8 @@ namespace AnyRPG {
             // ticaret: Kut (deneme satın alması), Kut Dükkânı, iki bot arasında takas ve pazar (yürümeden önce, yan yanayken)
             yield return TicaretDenemesi(oyun);
             Not("ticaret: " + ticaretOzeti);
+            yield return KusanmaDenemesi(oyun);
+            Not("kuşanma: " + kusanmaOzeti);
 
             // yürüme: hareket çubuğu 4 sn ileri (sunucu hareketi kabul edip ötekilere yayıyor mu)
             Vector3 yurumeOncesi = ben.transform.position;
@@ -515,7 +572,8 @@ namespace AnyRPG {
                 + "; sıralama " + Canta.SonSiralama
                 + "; seviye ödülü " + Gelisim.VerilenOdulSayisi + (Gelisim.SonOdul.Length > 0 ? " (" + Gelisim.SonOdul + ")" : string.Empty)
                 + "; binek " + (Binek.Var ? "öğrenildi" : "yok")
-                + "; ticaret: " + ticaretOzeti;
+                + "; ticaret: " + ticaretOzeti
+                + "; kuşanma: " + kusanmaOzeti;
             Not("kolaylıklar: " + kolaylik);
             Vector3 son = ben != null ? ben.transform.position : ilkKonum;
             Bitir("SONUÇ: " + (enCokOyuncu > 0 ? "öteki oyuncu GÖRÜLDÜ (" + string.Join(", ", gorulenOyuncular) + ", onun yürüyüşü " + otekiYuruyus.ToString("0") + " m)" : "öteki oyuncu görülmedi")

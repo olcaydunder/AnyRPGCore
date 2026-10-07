@@ -22,7 +22,7 @@ MonoBehaviour:
   optionalOverride: 0
   weaponSkillProps:
     defaultWeaponSkill: 1
-    attackSpeed: 2
+    attackSpeed: 1.0
     defaultHitEffects: []
     onHitEffects: []
     animationProfileName: 

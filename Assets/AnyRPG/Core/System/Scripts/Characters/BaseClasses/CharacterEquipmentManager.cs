@@ -147,6 +147,11 @@ namespace AnyRPG {
         }
 
         public bool Equip(InstantiatedEquipment newItem, EquipmentSlotProfile equipmentSlotProfile) {
+            return Equip(newItem, equipmentSlotProfile, false);
+        }
+
+        /// <param name="sessiz">Ötüken: kuşanılamazsa oyuncuya ileti yazma (kayıttan yükleme)</param>
+        public bool Equip(InstantiatedEquipment newItem, EquipmentSlotProfile equipmentSlotProfile, bool sessiz) {
             //Debug.Log($"{unitController.gameObject.name}.CharacterEquipmentManager.Equip({(newItem != null ? newItem.ResourceName : "null")}, {(equipmentSlotProfile == null ? "null" : equipmentSlotProfile.DisplayName)})");
 
             if (newItem == null) {
@@ -161,6 +166,11 @@ namespace AnyRPG {
 
             if (newItem.Equipment.CanEquip(newItem.GetItemLevel(unitController.CharacterStats.Level), unitController) == false) {
                 //Debug.Log(baseCharacter.gameObject.name + "CharacterEquipmentManager.Equip(" + (newItem != null ? newItem.DisplayName : "null") + "; could not equip");
+                // Ötüken: neden kuşanılamadığını oyuncuya söyle (eskiden sessizce geçiyordu)
+                if (sessiz == false && unitController.UnitControllerMode == UnitControllerMode.Player) {
+                    string neden = newItem.Equipment.KusanmaEngeli(newItem.GetItemLevel(unitController.CharacterStats.Level), unitController);
+                    unitController.WriteMessageFeedMessage(newItem.DisplayName + " " + (neden ?? "kuşanılamadı"));
+                }
                 return false;
             }
 

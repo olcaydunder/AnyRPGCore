@@ -738,7 +738,12 @@ namespace AnyRPG {
                 //Debug.Log($"{unitController.gameObject.name}.CharacterSavemanager.LoadEquipmentData() {(equipmentSaveData.EquipmentName)}");
                 InstantiatedEquipment newInstantiatedEquipment = unitController.CharacterInventoryManager.GetInstantiatedEquipmentFromSaveData(equipmentSaveData);
                 if (newInstantiatedEquipment != null) {
-                    unitController.CharacterEquipmentManager.Equip(newInstantiatedEquipment, null);
+                    // Ötüken: kayıtlı donanım kontrolsüz giyilir; sınıf kısıtları sonradan geldiği için eski kayıttaki
+                    // başka sınıfın eşyası kaybolmasın (çıkarılınca bir daha giyilemez, takas edilebilir)
+                    if (unitController.CharacterEquipmentManager.Equip(newInstantiatedEquipment, null, true) == false
+                        && newInstantiatedEquipment.Equipment.EquipmentSlotType != null) {
+                        unitController.CharacterEquipmentManager.EquipEquipment(newInstantiatedEquipment, null);
+                    }
                 }
             }
         }
