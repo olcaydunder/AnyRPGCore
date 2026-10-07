@@ -484,6 +484,18 @@ jobs:
               eval "pid_$b=\$!"
               sleep 10
             done
+            # yönetim paneli (YonetimPaneli, TCP 8081): sayfa açılıyor mu, şifresiz API kapalı mı, şifreyle oyuncular görünüyor mu
+            sleep 15
+            p_sayfa=$(curl -s -o /dev/null -w '%{http_code}' --max-time 5 http://127.0.0.1:8081/yonetim)
+            p_kapali=$(curl -s -o /dev/null -w '%{http_code}' --max-time 5 http://127.0.0.1:8081/yonetim/api/genel)
+            p_sifre=$(head -n 1 "$HOME/yonetim-sifresi.txt" 2>/dev/null)
+            p_giris=$(curl -s -o /dev/null -w '%{http_code}' --max-time 10 -c tani/panel_cerez.txt -H 'Content-Type: application/json' \
+              -d "{\"sifre\":\"$p_sifre\"}" http://127.0.0.1:8081/yonetim/giris)
+            curl -s --max-time 5 -b tani/panel_cerez.txt http://127.0.0.1:8081/yonetim/api/genel > tani/panel_genel.json
+            curl -s --max-time 5 -b tani/panel_cerez.txt http://127.0.0.1:8081/yonetim/api/oyuncular > tani/panel_oyuncular.json
+            rm -f tani/panel_cerez.txt
+            p_oyuncu=$(grep -o '"karakter"' tani/panel_oyuncular.json 2>/dev/null | wc -l)
+            echo "::notice title=Yönetim paneli::sayfa=$p_sayfa şifresiz=$p_kapali giriş=$p_giris oyuncu=$p_oyuncu $(head -c 300 tani/panel_genel.json)"
             for i in $(seq 1 360); do
               sleep 1
               kill -0 $pid_Bot1 2>/dev/null || kill -0 $pid_Bot2 2>/dev/null || break

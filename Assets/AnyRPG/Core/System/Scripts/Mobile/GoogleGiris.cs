@@ -163,16 +163,22 @@ namespace AnyRPG {
         /// sunucu: gizli anahtarı oyuncu olmadan sınar. Uydurma bir kod her durumda reddedilir; anahtar doğruysa
         /// "invalid_grant", yanlışsa "invalid_client" döner. Sonuç sunucu günlüğüne yazılır.
         /// </summary>
+        /// <summary>son anahtar sınamasının sonucu (yönetim panelinde görünür)</summary>
+        public static volatile string SinamaSonucu = null;
+
         public static IEnumerator AnahtariSina() {
             if (Kurulu == false) {
+                SinamaSonucu = "kapalı: oyunda web istemci kimliği yok";
                 Debug.Log("[Sunucu] Google girişi: Google.txt'te kimlikler yok, kapalı");
                 yield break;
             }
             string anahtar = Anahtar();
             if (anahtar.Length == 0) {
+                SinamaSonucu = "gizli anahtar girilmedi";
                 Debug.Log("[Sunucu] Google girişi: gizli anahtar girilmedi (" + AnahtarYolu + ")");
                 yield break;
             }
+            SinamaSonucu = "sınanıyor...";
             using (UnityWebRequest istek = JetonIstegi("otuken-anahtar-sinama", anahtar)) {
                 yield return istek.SendWebRequest();
                 string hata = string.Empty;
@@ -181,11 +187,15 @@ namespace AnyRPG {
                     hata = j != null ? j.error : string.Empty;
                 } catch (Exception) {
                 }
+                string saat = Etkinlikler.TurkiyeSaati.ToString("HH:mm", System.Globalization.CultureInfo.InvariantCulture);
                 if (hata == "invalid_grant") {
+                    SinamaSonucu = "DOĞRU ✓ (" + saat + ")";
                     Debug.Log("[Sunucu] Google girişi: anahtar DOĞRU (Google istemciyi tanıdı)");
                 } else if (hata == "invalid_client" || hata == "unauthorized_client") {
+                    SinamaSonucu = "YANLIŞ ✗ (" + hata + ", " + saat + ")";
                     Debug.LogWarning("[Sunucu] Google girişi: anahtar YANLIŞ (" + hata + ")");
                 } else {
+                    SinamaSonucu = "Google beklenmeyen cevap verdi (" + istek.responseCode + " " + hata + ", " + saat + ")";
                     Debug.LogWarning("[Sunucu] Google girişi: Google beklenmeyen cevap verdi (" + istek.responseCode + " " + hata + ")");
                 }
             }

@@ -78,6 +78,11 @@ namespace AnyRPG {
             return null;
         }
 
+        /// <summary>Ötüken: bütün hesaplar (yönetim paneli)</summary>
+        public List<UserAccount> TumHesaplar() {
+            return new List<UserAccount>(userAccounts.Values);
+        }
+
         /// <summary>Ötüken: silinen hesabı bellekten çıkarır (ad yeniden alınabilir)</summary>
         public void HesapKaldir(int id) {
             UserAccount hesap = HesapBul(id);

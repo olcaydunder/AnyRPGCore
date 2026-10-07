@@ -58,6 +58,7 @@ namespace AnyRPG {
             int kullanilan = Sinir(amac) - kalan + 1;
             OtukenVeri.Yaz(oyuncu, "reklam-" + amac, Bugun + "|" + kullanilan.ToString(CultureInfo.InvariantCulture));
             OtukenVeri.Kaydet();
+            YonetimPaneli.ReklamOdulu();
             return true;
         }
 

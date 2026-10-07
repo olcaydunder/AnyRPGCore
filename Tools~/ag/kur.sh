@@ -9,7 +9,7 @@
 #  - /usr/local/bin/otuken-guncelle: GitHub'daki "sunucu" sürümüne bakar (surum.txt); yeni sürüm varsa
 #    OtukenSunucu.zip'i indirir, kurar, oyunu yeniden başlatır. 5 dakikada bir çalışır (systemd zamanlayıcı).
 #  - otuken.service: oyunu başsız sunucu kipinde çalıştırır (paketteki baslat.sh; UDP 7770), çökerse yeniden açar
-#  - güvenlik duvarı (ufw) açıksa UDP 7770'e izin verir
+#  - güvenlik duvarı (ufw) açıksa UDP 7770'e (oyun) ve TCP 8081'e (yönetim paneli) izin verir
 # Şifre, anahtar, jeton içermez; sunucu yalnız herkese açık sürüm dosyalarını indirir. Yeniden çalıştırmak zararsızdır.
 # Kısa durum: otuken-durum     Günlük: journalctl -u otuken -n 100
 set -e
@@ -72,6 +72,8 @@ echo "Kurulu sürüm : $(cat /opt/otuken/surum.txt 2>/dev/null || echo yok)"
 echo "Yayımdaki    : $(curl -fsSL https://github.com/olcaydunder/AnyRPGCore/releases/download/sunucu/surum.txt 2>/dev/null | tr -d '[:space:]')"
 echo "Oyun sunucusu: $(systemctl is-active otuken 2>/dev/null)   Güncelleyici: $(systemctl is-active otuken-guncelle.timer 2>/dev/null)"
 echo "UDP 7770     : $(ss -lun 2>/dev/null | grep -q ':7770 ' && echo dinleniyor || echo DİNLENMİYOR)"
+echo "Yönetim      : http://$(curl -fsS4 --max-time 3 https://api.ipify.org 2>/dev/null || hostname -I | cut -d' ' -f1):8081/yonetim ($(ss -ltn 2>/dev/null | grep -q ':8081 ' && echo açık || echo KAPALI))"
+[ -f /var/lib/otuken/yonetim-sifresi.txt ] && echo "Panel ilk şifresi: $(cat /var/lib/otuken/yonetim-sifresi.txt)"
 echo "--- son sunucu satırları"
 journalctl -u otuken --no-pager -n 400 2>/dev/null | grep -E "\[Sunucu\]|Exception|signal|Killed|oom" | tail -n 8
 journalctl -t otuken --no-pager -n 3 2>/dev/null
@@ -127,6 +129,7 @@ BIRIM
 # güvenlik duvarı: yalnız oyunun portu eklenir (öteki kurallar olduğu gibi kalır)
 if command -v ufw >/dev/null 2>&1 && ufw status 2>/dev/null | grep -q "Status: active"; then
   ufw allow $PORT/udp
+  ufw allow 8081/tcp
 fi
 
 systemctl daemon-reload

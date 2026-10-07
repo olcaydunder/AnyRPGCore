@@ -172,6 +172,14 @@ namespace AnyRPG {
         public void ProcessLoginResponse(int clientId, int accountId, bool correctPassword, string token) {
             //Debug.Log($"AuthenticationService.ProcessLoginResponse(clientId: {clientId}, accountId: {accountId}, correctPassword: {correctPassword}, token: {token})");
 
+            // Ötüken: yönetim panelinden yasaklanan hesap giremez
+            if (correctPassword == true && YonetimPaneli.YasakliMi(accountId)) {
+                Debug.Log($"[Sunucu] yasaklı hesap girmeye çalıştı: #{accountId}");
+                correctPassword = false;
+                accountId = -1;
+                token = string.Empty;
+            }
+
             SpawnPlayerRequest spawnPlayerRequest = null;
             if (correctPassword == true) {
                 if (loggedInAccounts.ContainsKey(accountId) && loggedInAccounts[accountId].disconnected == false) {
