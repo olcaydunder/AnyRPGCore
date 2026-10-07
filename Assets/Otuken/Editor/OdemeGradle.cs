@@ -1,18 +1,25 @@
 using System.IO;
 using System.Text.RegularExpressions;
 using UnityEditor.Android;
+using UnityEditor.Build;
 using UnityEngine;
 
 namespace Otuken.EditorAraclari {
 
     /// <summary>
-    /// Android derlemesinde Unity'nin ürettiği Gradle projesine Google Play Faturalandırma Kitaplığı'nı ekler
-    /// (Assets/Plugins/Android/OtukenOdeme.java onu kullanır). Kitaplık derlemede Google'ın Maven deposundan iner.
-    /// Küçültme (R8) açılırsa köprü sınıfları silinmesin diye koruma kuralı da yazılır.
+    /// Android derlemesinde Unity'nin ürettiği Gradle projesine:
+    ///  - Google Play Faturalandırma Kitaplığı (Assets/Plugins/Android/OtukenOdeme.java),
+    ///  - Google Mobile Ads (AdMob) ve kullanıcı onayı (UMP) kitaplıkları (OtukenReklam.java),
+    ///  - AdMob uygulama kimliği (AndroidManifest meta-data; yoksa reklam kitaplığı açılışta uygulamayı çökertir)
+    /// eklenir. Kitaplıklar derlemede Google'ın Maven deposundan iner. Küçültme (R8) açılırsa köprü sınıfları silinmesin
+    /// diye koruma kuralı da yazılır. Reklam kimlikleri Assets/Otuken/Resources/Reklam.txt'tedir.
     /// </summary>
     public class OdemeGradle : IPostGenerateGradleAndroidProject {
 
         public const string Kitaplik = "com.android.billingclient:billing:8.0.0";
+        public const string ReklamKitapligi = "com.google.android.gms:play-services-ads:24.6.0";
+        public const string IzinKitapligi = "com.google.android.ump:user-messaging-platform:3.2.0";
+        private const string UygulamaKimligiAdi = "com.google.android.gms.ads.APPLICATION_ID";
 
         public int callbackOrder {
             get { return 100; }
@@ -25,21 +32,107 @@ namespace Otuken.EditorAraclari {
                 return;
             }
             string s = File.ReadAllText(gradle);
+            Match m = Regex.Match(s, @"dependencies\s*\{");
+            if (m.Success == false) {
+                Debug.LogError("[OdemeGradle] build.gradle'da dependencies bölümü yok");
+                return;
+            }
+            string eklenecek = string.Empty;
             if (s.Contains("com.android.billingclient:billing") == false) {
-                Match m = Regex.Match(s, @"dependencies\s*\{");
-                if (m.Success == false) {
-                    Debug.LogError("[OdemeGradle] build.gradle'da dependencies bölümü yok");
-                    return;
+                eklenecek += "\n    implementation '" + Kitaplik + "'";
+            }
+            string uygulamaKimligi = UygulamaKimligi();
+            if (uygulamaKimligi != null) {
+                if (s.Contains("com.google.android.gms:play-services-ads") == false) {
+                    eklenecek += "\n    implementation '" + ReklamKitapligi + "'";
                 }
-                s = s.Insert(m.Index + m.Length, "\n    implementation '" + Kitaplik + "'");
+                if (s.Contains("com.google.android.ump:user-messaging-platform") == false) {
+                    eklenecek += "\n    implementation '" + IzinKitapligi + "'";
+                }
+            }
+            if (eklenecek.Length > 0) {
+                s = s.Insert(m.Index + m.Length, eklenecek);
                 File.WriteAllText(gradle, s);
             }
+
+            if (uygulamaKimligi != null) {
+                ManifesteYaz(path, uygulamaKimligi);
+                AndroidXAc(path);
+            } else {
+                Debug.LogWarning("[OdemeGradle] Reklam.txt'te uygulama kimliği yok: reklam kitaplığı eklenmedi");
+            }
+
             string proguard = Path.Combine(path, "proguard-unity.txt");
             string kural = "-keep class com.zootopiayazilim.otuken.** { *; }";
             if (File.Exists(proguard) && File.ReadAllText(proguard).Contains(kural) == false) {
                 File.AppendAllText(proguard, "\n" + kural + "\n");
             }
-            Debug.Log("[OdemeGradle] Google Play Faturalandırma Kitaplığı eklendi: " + Kitaplik);
+            Debug.Log("[OdemeGradle] eklendi: " + Kitaplik + (uygulamaKimligi != null ? ", " + ReklamKitapligi + ", " + IzinKitapligi + ", AdMob " + uygulamaKimligi : string.Empty));
+        }
+
+        /// <summary>Reklam.txt'teki "uygulama=" (yoksa null)</summary>
+        public static string UygulamaKimligi() {
+            string yol = Path.Combine(Application.dataPath, "Otuken/Resources/Reklam.txt");
+            if (File.Exists(yol) == false) {
+                return null;
+            }
+            foreach (string satir in File.ReadAllLines(yol)) {
+                string t = satir.Trim();
+                if (t.StartsWith("uygulama=")) {
+                    string k = t.Substring("uygulama=".Length).Trim();
+                    return Regex.IsMatch(k, @"^ca-app-pub-\d+~\d+$") ? k : null;
+                }
+            }
+            return null;
+        }
+
+        private static void ManifesteYaz(string path, string kimlik) {
+            string manifest = Path.Combine(path, "src", "main", "AndroidManifest.xml");
+            if (File.Exists(manifest) == false) {
+                throw new BuildFailedException("[OdemeGradle] AndroidManifest.xml bulunamadı: " + manifest);
+            }
+            string s = File.ReadAllText(manifest);
+            if (s.Contains(UygulamaKimligiAdi)) {
+                return;
+            }
+            string meta = "<meta-data android:name=\"" + UygulamaKimligiAdi + "\" android:value=\"" + kimlik + "\" />";
+            Match bas = Regex.Match(s, @"<application\b[^>]*?(/?)>", RegexOptions.Singleline);
+            if (bas.Success) {
+                if (bas.Groups[1].Value == "/") {
+                    // <application ... /> : içi boş, açılıp kapatılır
+                    string acik = bas.Value.Substring(0, bas.Value.Length - 2).TrimEnd() + ">";
+                    s = s.Substring(0, bas.Index) + acik + "\n    " + meta + "\n  </application>" + s.Substring(bas.Index + bas.Length);
+                } else {
+                    s = s.Insert(bas.Index + bas.Length, "\n    " + meta);
+                }
+            } else {
+                int son = s.LastIndexOf("</manifest>");
+                if (son < 0) {
+                    throw new BuildFailedException("[OdemeGradle] AndroidManifest.xml çözülemedi");
+                }
+                s = s.Insert(son, "  <application>\n    " + meta + "\n  </application>\n");
+            }
+            File.WriteAllText(manifest, s);
+            Debug.Log("[OdemeGradle] AdMob uygulama kimliği manifeste yazıldı");
+        }
+
+        /// <summary>reklam kitaplığı AndroidX ister; Unity çoğunlukla açar, açık değilse gradle.properties'e yazılır</summary>
+        private static void AndroidXAc(string path) {
+            string ozellik = Path.Combine(Directory.GetParent(path).FullName, "gradle.properties");
+            if (File.Exists(ozellik) == false) {
+                return;
+            }
+            string s = File.ReadAllText(ozellik);
+            string ek = string.Empty;
+            if (Regex.IsMatch(s, @"^\s*android\.useAndroidX\s*=\s*true", RegexOptions.Multiline) == false) {
+                ek += "\nandroid.useAndroidX=true";
+            }
+            if (Regex.IsMatch(s, @"^\s*android\.enableJetifier\s*=", RegexOptions.Multiline) == false) {
+                ek += "\nandroid.enableJetifier=true";
+            }
+            if (ek.Length > 0) {
+                File.AppendAllText(ozellik, ek + "\n");
+            }
         }
     }
 }

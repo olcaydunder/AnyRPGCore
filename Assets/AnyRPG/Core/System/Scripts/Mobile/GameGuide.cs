@@ -543,13 +543,16 @@ namespace AnyRPG {
                 "5. <b>Zanaat</b>: topladıklarını sat ya da daha değerli eşyalar yap.\n" +
                 "6. <b>Günlük Armağan</b>: her gün oyuna girince; 7 gün üst üste gelirsen en büyüğünü alırsın.\n" +
                 "7. <b>Seviye ödülleri</b>: 2, 3, 4, 5, 7, 10, 12, 15, 20, 25 ve 30. seviyelerde iksir, akçe, Gök Taşı Parçası ve altın.\n" +
-                "8. <b>Sen yokken</b>: yarım saatten uzun ara verip dönersen yiğitlerinin topladığı akçe ve tecrübe seni bekler (en çok 10 saat).\n\n" +
+                "8. <b>Sen yokken</b>: yarım saatten uzun ara verip dönersen yiğitlerinin topladığı akçe ve tecrübe seni bekler (en çok 10 saat). " +
+                "İstersen kısa bir reklam izleyip <b>2 katını</b> alırsın (günde 3 kez).\n\n" +
                 H + "Kut Dükkânı" + HE + "\n" +
                 "<b>Kut</b>, Google Play'den alınan oyun parasıdır. <b>Menü > Ticaret > Kut Dükkânı</b> (ya da Demirci penceresi) ile açılır.\n" +
                 "• <b>Demirci Kutsaması</b>: yükseltme şansı +15 puan.\n" +
                 "• <b>Deneyim Muskası</b>: 1 saat %50 fazla tecrübe.\n" +
                 "• <b>Ulu Heybe</b>: 24 gözlü çanta.\n" +
                 "• <b>Depo gözü</b>: Depo penceresinden, 10'ar göz.\n" +
+                "• <b>Reklam izle · +5 Kut</b>: Kut Dükkânı'nın en üstünde; günde 5 kez. Reklam yalnız sen istersen açılır, " +
+                "sonuna kadar izlersen ödül gelir. Avrupa'daysan reklam onayını Ayarlar > Hesap > Reklam gizlilik seçenekleri'nden değiştirirsin.\n" +
                 "Rastgele ödül satılmaz. Kut ve Kut ile alınanlar hesabına bağlıdır: takas edilemez, satılamaz, gerçek paraya çevrilemez."),
 
             new Section("Ticaret",

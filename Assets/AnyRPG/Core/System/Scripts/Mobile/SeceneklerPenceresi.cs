@@ -222,6 +222,8 @@ namespace AnyRPG {
                 () => Application.OpenURL(Sartlar.GizlilikAdresi));
             s.Eylem("Oyun kuralları", "Sohbet, ticaret ve adlar için kurallar; yaptırımlar (web sayfası).", "Aç",
                 () => Application.OpenURL(Sartlar.OyunKurallariAdresi));
+            s.Eylem("Reklam gizlilik seçenekleri", "Ödüllü reklamlar için Google'ın onay ayarları (Avrupa'da gerekli).", "Aç",
+                Reklam.GizlilikSecenekleri);
             s.Eylem("Engellenen oyuncular", "Engellediğin oyuncuların listesi ve engel kaldırma.", "Göster",
                 () => { Close(); TicaretPenceresi.EngellenenleriGoster(); });
             s.Eylem("Açık kaynak lisansları", "Oyunda kullanılan açık kaynak yazılımlar ve ücretsiz içerikler.", "Göster",

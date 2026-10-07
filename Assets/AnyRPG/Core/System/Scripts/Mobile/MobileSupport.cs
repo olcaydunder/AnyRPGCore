@@ -570,6 +570,14 @@ namespace AnyRPG {
                 Debug.LogWarning($"MobileBootstrap: GameGuide: {exception.Message}");
             }
             try {
+                if (inGame) {
+                    // ödüllü reklam: onay penceresi (gerekirse) ve ilk reklamın yüklenmesi (bir kez)
+                    Reklam.Baslat();
+                }
+            } catch (System.Exception exception) {
+                Debug.LogWarning($"MobileBootstrap: Reklam.Baslat(): {exception.Message}");
+            }
+            try {
                 if (inGame == false) {
                     AnaMenuArkaplani();
                 }

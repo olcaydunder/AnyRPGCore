@@ -252,7 +252,19 @@ namespace AnyRPG {
                     Yenile();
                 }
             };
+            Reklam.Degisti += () => {
+                if (Acik == false) {
+                    return;
+                }
+                Yenile();
+                if (Reklam.SonSonuc != sonReklamSonucu) {
+                    sonReklamSonucu = Reklam.SonSonuc;
+                    Bilgi(Reklam.SonSonuc, Reklam.SonSonuc.StartsWith("+"));
+                }
+            };
         }
+
+        private string sonReklamSonucu = "-";
 
         public void Bilgi(string mesaj, bool iyi) {
             bilgiYazisi.text = mesaj;
@@ -262,6 +274,9 @@ namespace AnyRPG {
         private void Ac() {
             kok.SetActive(true);
             Odeme.Baslat();
+            Reklam.Baslat();
+            Reklam.DurumIste();
+            sonReklamSonucu = Reklam.SonSonuc;
             if (Cevrimici.Acik) {
                 OtukenAg.Gonder("kut-durum");
             }
@@ -280,6 +295,26 @@ namespace AnyRPG {
 
             ListeyiTemizle(paketListesi);
             int i = 0;
+            if (Reklam.Kurulu) {
+                // ödüllü reklam: izleyene Kut (günde sınırlı)
+                int kalan = Reklam.IstemciKalan(Reklam.Kut);
+                GameObject satir = Satir(paketListesi, i, 64f, SatirRengi, null);
+                Simge(satir.transform, Kut != null ? Kut.Icon : null, new Vector2(8f, -26f), new Vector2(60f, 26f));
+                Yazi(Kutu(satir.transform, "Ad", Vector2.zero, new Vector2(0.62f, 1f), new Vector2(70f, 0f), Vector2.zero),
+                    "<b>+" + Reklam.KutOdulu + " Kut</b>\n<size=15><color=#B8A890>Reklam izle · bugün " + kalan + "/" + Reklam.Sinir(Reklam.Kut) + "</color></size>",
+                    20, TextAnchor.MiddleLeft, YaziRengi);
+                bool olur = kalan > 0 && Reklam.Hazir;
+                GameObject izle = Dugme(satir.transform, kalan <= 0 ? "Yarın" : (Reklam.Hazir ? "İzle" : "Bekle"), new Vector2(1f, 0.5f), new Vector2(-90f, 0f),
+                    new Vector2(160f, 50f), 20, olur ? VurguRengi : DugmeRengi, () => {
+                        MobileFeedback.Tap();
+                        string hata = Reklam.KutIcinIzle();
+                        if (hata != null) {
+                            Bilgi(hata, false);
+                        }
+                    });
+                izle.GetComponent<Button>().interactable = olur;
+                i++;
+            }
             foreach (Odeme.Paket paket in Odeme.Paketler) {
                 if (paket.kut <= 0) {
                     // depo gözü Depo penceresinde satılır

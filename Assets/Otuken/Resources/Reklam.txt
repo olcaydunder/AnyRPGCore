@@ -1,0 +1,6 @@
+# AdMob (Ötüken Destanı). Bu kimlikler gizli değildir: uygulamanın içinde zaten açıkça durur.
+# uygulama: AdMob uygulama kimliği (AndroidManifest'e derlemede OdemeGradle yazar)
+# odullu: ödüllü reklam birimi. Şimdilik Google'ın DENEME birimi (deneme reklamı gösterir, para kazandırmaz);
+#         AdMob'da "Ödüllü" reklam birimi açılınca ca-app-pub-6275447087051506/XXXXXXXXXX ile değiştirilir.
+uygulama=ca-app-pub-6275447087051506~1917343558
+odullu=ca-app-pub-3940256099942544/5224354917

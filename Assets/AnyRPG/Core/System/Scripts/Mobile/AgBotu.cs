@@ -182,6 +182,13 @@ namespace AnyRPG {
             yield return new WaitForSecondsRealtime(3f);
             int kutSonra = KutDukkani.KutMiktari(oyun.PlayerManagerClient.UnitController);
             ozet.Add("Kut " + kutOnce + " → " + kutSonra + " (" + Odeme.SonSonuc + ")");
+            // ödüllü reklam ödülü (reklamın kendisi telefonda açılır; burada sunucunun ödülü ve günlük sınırı denenir)
+            int reklamOnce = KutDukkani.KutMiktari(oyun.PlayerManagerClient.UnitController);
+            OtukenAg.Gonder("reklam-odul", Reklam.Kut);
+            yield return new WaitForSecondsRealtime(2.5f);
+            ozet.Add("reklam ödülü: Kut " + reklamOnce + " → " + KutDukkani.KutMiktari(oyun.PlayerManagerClient.UnitController)
+                + " (" + Reklam.SonSonuc + ", kalan " + Reklam.IstemciKalan(Reklam.Kut) + ")");
+            kutSonra = KutDukkani.KutMiktari(oyun.PlayerManagerClient.UnitController);
             if (kutSonra >= 40) {
                 KutDukkani.TestIcinUrunAl("kutsama1");
                 yield return new WaitForSecondsRealtime(2.5f);

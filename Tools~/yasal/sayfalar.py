@@ -65,7 +65,9 @@ gizlilik_tr = f"""
 <tr><td><b>Teknik veriler:</b> IP adresi (bağlantı sırasında), oyun sürümü</td><td>Sunucuya bağlanınca</td><td>Bağlantıyı kurmak, saldırıları önlemek</td><td>Meşru menfaat</td></tr>
 <tr><td><b>Hata raporları:</b> cihaz modeli, Android sürümü, ekran boyutu, grafik ayarları, oyun sürümü, hata metni ve son oyun kayıtları; "Sorun Bildir" ile yazdığın not ve o anki oyun ekranının görüntüsü</td><td>Oyun hata verince ya da sen bildirince (Ayarlar'dan kapatılabilir)</td><td>Hataları düzeltmek</td><td>Meşru menfaat</td></tr>
 </table>
-<p>Oyun <b>reklam göstermez</b>, reklam ya da analiz (izleme) kitaplığı içermez, rehberine, konumuna (GPS), kamerana, mikrofonuna, fotoğraflarına erişmez. Ad-soyad, e-posta, telefon numarası istemez.</p>
+<p>Oyun rehberine, konumuna (GPS), kamerana, mikrofonuna, fotoğraflarına erişmez. Ad-soyad, e-posta, telefon numarası istemez.</p>
+<h2>3a. Ödüllü reklamlar (Google AdMob)</h2>
+<p>Oyunda yalnız <b>senin isteğinle açılan ödüllü reklamlar</b> vardır (ör. "Reklam izle · +5 Kut", "Sen yokken kazancını 2 katına çıkar"); kendiliğinden çıkan reklam yoktur. Reklamları <b>Google AdMob</b> gösterir. AdMob, reklam sunmak, ölçmek ve dolandırıcılığı önlemek için cihazından <b>reklam kimliği</b> (Android Advertising ID), IP adresi, cihaz ve uygulama bilgileri ile reklam etkileşimlerini toplayabilir. Avrupa Ekonomik Alanı, Birleşik Krallık ve İsviçre'deki oyunculardan Google'ın onay penceresiyle (User Messaging Platform) izin istenir; seçimini oyunda <b>Ayarlar &gt; Hesap &gt; Reklam gizlilik seçenekleri</b>'nden değiştirebilirsin. Reklam kimliğini telefonunun <b>Ayarlar &gt; Google &gt; Reklamlar</b> bölümünden sıfırlayabilir ya da silebilirsin. Biz bu verileri görmeyiz ve saklamayız; yalnız günlük kaç reklam ödülü aldığın oyun kaydında tutulur. Google'ın verileri nasıl kullandığı: <a href="https://policies.google.com/technologies/partner-sites">policies.google.com/technologies/partner-sites</a></p>
 <p><b>Bildirimler:</b> izin verirsen günlük armağan hatırlatması telefonunda yerel bildirim olarak kurulur; bunun için sunucuya bilgi gönderilmez. İzni telefonunun ayarlarından ya da oyundaki Menü &gt; Oyun &gt; Bildirimler'den kapatabilirsin.</p>
 <h2>4. Ödemeler</h2>
 <p>Kut satın almaları <b>Google Play</b> üzerinden yapılır. Kart ve ödeme bilgilerini Google işler; bize yalnız sipariş numarası, ürün kimliği ve satın alma belirteci (doğrulama için) gelir. Google'ın gizlilik politikası: <a href="https://policies.google.com/privacy">policies.google.com/privacy</a></p>
@@ -74,8 +76,9 @@ gizlilik_tr = f"""
 <li><b>Oyun sunucusu:</b> Hostinger (VPS hizmet sağlayıcısı). Sunucu yurt dışında bulunabilir.</li>
 <li><b>Hata raporları:</b> ntfy.sh (bildirim iletimi) ve GitHub (geliştirme aracı, ABD).</li>
 <li><b>Ödeme:</b> Google (Google Play Faturalandırma).</li>
+<li><b>Ödüllü reklamlar:</b> Google (AdMob, ABD).</li>
 </ul>
-<p>Yurt dışına aktarım KVKK m.9'a uygun olarak (uygun güvenceler ya da gerektiğinde açık rızan ile) ve yalnız yukarıdaki amaçlarla yapılır. Verilerin satılmaz, reklam için kullanılmaz.</p>
+<p>Yurt dışına aktarım KVKK m.9'a uygun olarak (uygun güvenceler ya da gerektiğinde açık rızan ile) ve yalnız yukarıdaki amaçlarla yapılır. Verilerin satılmaz. Hesap ve oyun verilerin reklam için kullanılmaz; ödüllü reklamlarda Google'ın topladıkları için 3a'ya bak.</p>
 <h2>6. Saklama süreleri</h2>
 <table><tr><th>Veri</th><th>Süre</th></tr>
 <tr><td>Hesap ve oyun verileri</td><td>Hesabın silinene kadar</td></tr>
@@ -109,10 +112,11 @@ gizlilik_en = f"""
 <li><b>Technical data:</b> IP address while connected, game version — to run the connection and prevent abuse.</li>
 <li><b>Error reports:</b> device model, Android version, screen size, graphics settings, game version, error text and recent game log lines; if you use "Report a problem", your note and a screenshot of the game — to fix bugs (can be turned off in Settings).</li>
 </ul>
-<p>The Game shows <b>no ads</b>, contains no advertising or analytics/tracking SDKs, and does not access your contacts, location, camera, microphone or photos. We never ask for your real name, email or phone number.</p>
+<p>The Game does not access your contacts, location, camera, microphone or photos. We never ask for your real name, email or phone number.</p>
+<h3>Rewarded ads (Google AdMob)</h3><p>The Game only shows <b>rewarded ads that you choose to watch</b> (e.g. "Watch an ad · +5 Kut", "double your offline earnings"); there are no forced ads. Ads are served by <b>Google AdMob</b>, which may collect your device's <b>advertising ID</b>, IP address, device and app information and ad interactions to serve and measure ads and prevent fraud. Players in the EEA, UK and Switzerland are asked for consent through Google's User Messaging Platform; you can change your choice in <b>Settings &gt; Account &gt; Ad privacy options</b>. You can reset or delete your advertising ID in your phone's <b>Settings &gt; Google &gt; Ads</b>. We do not see or store this data; we only keep how many ad rewards you claimed today. How Google uses data: <a href="https://policies.google.com/technologies/partner-sites">policies.google.com/technologies/partner-sites</a></p>
 <p><b>Notifications:</b> if you allow them, daily gift reminders are scheduled locally on your phone; no data is sent to our server for this.</p>
 <h3>Payments</h3><p>Kut purchases are processed by <b>Google Play</b>. We only receive the order ID, product ID and purchase token for verification.</p>
-<h3>Processors and transfers</h3><p>Game server: Hostinger (may be located outside Türkiye). Error reports: ntfy.sh and GitHub (USA). Payments: Google. Transfers follow Article 9 of the Turkish Personal Data Protection Law (KVKK). Your data is never sold or used for advertising.</p>
+<h3>Processors and transfers</h3><p>Game server: Hostinger (may be located outside Türkiye). Error reports: ntfy.sh and GitHub (USA). Payments: Google. Rewarded ads: Google AdMob (USA). Transfers follow Article 9 of the Turkish Personal Data Protection Law (KVKK). Your data is never sold, and your account and game data are not used for advertising.</p>
 <h3>Retention</h3><p>Account and game data: until you delete your account. Chat logs: 30 days. Reports: 1 year. Trade and shop records: 2 years. Purchase records: statutory period (up to 10 years). Error reports: 1 year; server technical logs: 30 days.</p>
 <h3>Deleting your account</h3><p>In the Game: <b>Menu &gt; Account &gt; Delete my account</b> deletes your account and all character data immediately. If you cannot sign in, see <a href="{SITE}/hesap-silme">{SITE.replace('https://','')}/hesap-silme</a>.</p>
 <h3>Children</h3><p>The Game is not directed at children under 13. If you are under 18, ask a parent before buying anything.</p>

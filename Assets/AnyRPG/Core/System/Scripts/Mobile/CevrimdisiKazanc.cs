@@ -197,9 +197,15 @@ namespace AnyRPG {
                 }
                 int gumus, tecrube;
                 Hesapla(bekleyen, oyuncu, out gumus, out tecrube);
+                // "2": oyuncu ödüllü reklam izledi; günlük hakkı varsa kazanç iki kat (Reklam)
+                bool ikiKat = veri == "2" && Reklam.HakKullan(oyuncu, Reklam.Kazanc);
+                if (ikiKat) {
+                    gumus *= 2;
+                    tecrube *= 2;
+                }
                 OtukenVeri.Yaz(oyuncu, BekleyenAnahtar, "0");
                 Ver(oyuncu, gumus, tecrube);
-                Debug.Log("[Sunucu] " + oyuncu.DisplayName + " çevrimdışı kazanç: " + gumus + " gümüş, " + tecrube + " tecrübe");
+                Debug.Log("[Sunucu] " + oyuncu.DisplayName + " çevrimdışı kazanç: " + gumus + " gümüş, " + tecrube + " tecrübe" + (ikiKat ? " (reklamla 2 kat)" : string.Empty));
             });
             OtukenAg.IstemciDinle("kazanc", veri => {
                 string[] p = veri.Split('|');
@@ -258,8 +264,8 @@ namespace AnyRPG {
 
             GameObject dugme = Kutu(panel.transform, "Topla", new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), Vector2.zero, Vector2.zero);
             RectTransform drt = dugme.GetComponent<RectTransform>();
-            drt.anchoredPosition = new Vector2(0f, 52f);
-            drt.sizeDelta = new Vector2(260f, 66f);
+            drt.anchoredPosition = new Vector2(Reklam.Kurulu ? -140f : 0f, 52f);
+            drt.sizeDelta = new Vector2(Reklam.Kurulu ? 250f : 260f, 66f);
             Image dresim = dugme.AddComponent<Image>();
             dresim.color = claimColor;
             Button b = dugme.AddComponent<Button>();
@@ -267,7 +273,64 @@ namespace AnyRPG {
             b.onClick.AddListener(Topla);
             Text dyazi = Yazi(Kutu(dugme.transform, "Yazi", Vector2.zero, Vector2.one, Vector2.zero, Vector2.zero), font, "Topla", 28, textColor);
             dyazi.fontStyle = FontStyle.Bold;
+
+            if (Reklam.Kurulu) {
+                // ödüllü reklam: kazancı iki katına çıkarır (günde sınırlı)
+                GameObject reklam = Kutu(panel.transform, "IkiKat", new Vector2(0.5f, 0f), new Vector2(0.5f, 0f), Vector2.zero, Vector2.zero);
+                RectTransform rrt = reklam.GetComponent<RectTransform>();
+                rrt.anchoredPosition = new Vector2(140f, 52f);
+                rrt.sizeDelta = new Vector2(250f, 66f);
+                Image rresim = reklam.AddComponent<Image>();
+                rresim.color = adColor;
+                reklamDugmesi = reklam.AddComponent<Button>();
+                reklamDugmesi.targetGraphic = rresim;
+                reklamDugmesi.onClick.AddListener(IkiKatIcinIzle);
+                reklamYazisi = Yazi(Kutu(reklam.transform, "Yazi", Vector2.zero, Vector2.one, new Vector2(6f, 0f), new Vector2(-6f, 0f)), font, string.Empty, 20, textColor);
+                durumYazisi = Yazi(Kutu(panel.transform, "Durum", new Vector2(0f, 0f), new Vector2(1f, 0f), new Vector2(20f, 1f), new Vector2(-20f, 17f)),
+                    font, string.Empty, 15, new Color(0.75f, 0.7f, 0.62f, 1f));
+                Reklam.Degisti += ReklamDugmesiniYenile;
+            }
             panelRoot.SetActive(false);
+        }
+
+        private static readonly Color adColor = new Color(0.7f, 0.32f, 0.12f, 1f);
+        private Button reklamDugmesi = null;
+        private Text reklamYazisi = null;
+        private Text durumYazisi = null;
+
+        private void ReklamDugmesiniYenile() {
+            if (reklamDugmesi == null || panelRoot == null || panelRoot.activeSelf == false) {
+                return;
+            }
+            int kalan = Reklam.IstemciKalan(Reklam.Kazanc);
+            reklamDugmesi.gameObject.SetActive(kalan > 0);
+            reklamDugmesi.interactable = Reklam.Hazir;
+            reklamYazisi.text = Reklam.Hazir ? "<b>Reklam izle · 2 kat</b>" : "Reklam hazırlanıyor...";
+            durumYazisi.text = kalan > 0 ? "Reklamla iki kat: bugün " + kalan + " hakkın var." : string.Empty;
+        }
+
+        private void IkiKatIcinIzle() {
+            MobileFeedback.Tap();
+            string hata = Reklam.Goster(Reklam.Kazanc, IkiKatTopla);
+            if (hata != null && durumYazisi != null) {
+                durumYazisi.text = hata;
+            }
+        }
+
+        /// <summary>reklam sonuna kadar izlendi: kazanç iki kat (hak sunucuda / tek oyunculu oyunda telefonda düşer)</summary>
+        private void IkiKatTopla() {
+            MobileFeedback.Success();
+            UnitController oyuncu = oyun != null && oyun.PlayerManagerClient != null ? oyun.PlayerManagerClient.UnitController : null;
+            if (Cevrimici.Acik) {
+                OtukenAg.Gonder("kazanc-topla", "2");
+            } else if (oyuncu != null && oyuncu.DisplayName == karakter) {
+                bool ikiKat = Reklam.HakKullan(oyuncu, Reklam.Kazanc);
+                Ver(oyuncu, bekleyenGumus * (ikiKat ? 2 : 1), bekleyenTecrube * (ikiKat ? 2 : 1));
+            }
+            bekleyenGumus = 0;
+            bekleyenTecrube = 0;
+            panelRoot.SetActive(false);
+            Reklam.DurumIste();
         }
 
         private void Ac(TimeSpan ara, bool sinirda, int gumus, int tecrube) {
@@ -279,6 +342,11 @@ namespace AnyRPG {
                 + (sinirda ? "\n<size=17>(En çok 10 saat sayılır.)</size>" : string.Empty);
             panelRoot.SetActive(true);
             MobileFeedback.Light();
+            if (reklamDugmesi != null) {
+                Reklam.Baslat();
+                Reklam.DurumIste();
+                ReklamDugmesiniYenile();
+            }
         }
 
         private void Topla() {

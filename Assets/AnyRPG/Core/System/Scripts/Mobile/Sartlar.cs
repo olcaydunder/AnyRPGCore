@@ -21,7 +21,7 @@ namespace AnyRPG {
         public const string HesapSilmeAdresi = Site + "/hesap-silme";
 
         // şartlar değişince artırılır: herkes yeniden kabul eder
-        private const int Surum = 1;
+        private const int Surum = 2;   // 2: isteğe bağlı ödüllü reklamlar (AdMob) gizlilik politikasına eklendi
         private const string Anahtar = "sartlar-kabul";
 
         public static bool KabulEdildi {
@@ -52,7 +52,8 @@ namespace AnyRPG {
                 "Oynamaya başlamadan önce lütfen aşağıdaki belgeleri oku. \"Kabul Ediyorum\"a dokunarak Kullanım Şartları'nı ve Oyun Kuralları'nı "
                 + "kabul etmiş, Gizlilik Politikası'nı okumuş olursun.\n\n"
                 + "Kısaca: küfür, hakaret, taciz, dolandırıcılık ve hile yasaktır; gerçek para karşılığı eşya, oyun parası ya da hesap satılamaz. "
-                + "Uygunsuz davranışları oyundaki \"Şikâyet Et\" ile bildirebilir, oyuncuları engelleyebilirsin.",
+                + "Uygunsuz davranışları oyundaki \"Şikâyet Et\" ile bildirebilir, oyuncuları engelleyebilirsin.\n"
+                + "Oyunda yalnız senin isteğinle açılan ödüllü reklamlar (Google AdMob) vardır.",
                 20, TextAnchor.UpperLeft, YaziRengi);
             Dugme(panel.transform, "Kullanım Şartları", new Vector2(0.5f, 0f), new Vector2(-290f, 230f), new Vector2(270f, 58f), 20, DugmeRengi,
                 () => { MobileFeedback.Tap(); Application.OpenURL(KullanimSartlariAdresi); });
