@@ -152,8 +152,97 @@ namespace AnyRPG {
                     Debug.LogWarning("[Yonetim] iş yapılamadı: " + e.Message);
                 }
             }
+            try {
+                YonetimIslemleri.Tick(oyun);
+            } catch (Exception e) {
+                Debug.LogWarning("[Yonetim] bekleyenler: " + e.Message);
+            }
             SureleriIzle(oyun);
             GoruntuYaz(oyun);
+        }
+
+        /// <summary>panelin işlerini her karede yapar (saniyede bir beklemesin; ayrıntı sayfası hızlı açılsın)</summary>
+        private class Isci : MonoBehaviour {
+            private void Update() {
+                SystemGameManager o = sonOyun ?? OtukenAg.Oyun;
+                if (o == null) {
+                    return;
+                }
+                Action<SystemGameManager> is_;
+                int n = 0;
+                while (n++ < 20 && isler.TryDequeue(out is_)) {
+                    try {
+                        is_(o);
+                    } catch (Exception e) {
+                        Debug.LogWarning("[Yonetim] iş yapılamadı: " + e.Message);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// HTTP iş parçacığından ana iş parçacığına iş gönderir ve sonucu (JSON) bekler. Oyun nesnelerine yalnız ana iş
+        /// parçacığından dokunulur.
+        /// </summary>
+        private static string AnaIstekte(Func<SystemGameManager, string> is_, int beklemeMs = 6000) {
+            string sonuc = null;
+            Exception hata = null;
+            ManualResetEventSlim bitti = new ManualResetEventSlim(false);
+            isler.Enqueue(o => {
+                try {
+                    sonuc = is_(o);
+                } catch (Exception e) {
+                    hata = e;
+                } finally {
+                    bitti.Set();
+                }
+            });
+            if (bitti.Wait(beklemeMs) == false) {
+                return YonetimIslemleri.Hata("Sunucu meşgul, biraz sonra yeniden dene.");
+            }
+            if (hata != null) {
+                Debug.LogWarning("[Yonetim] " + hata);
+                return YonetimIslemleri.Hata(hata.GetType().Name + ": " + hata.Message);
+            }
+            return sonuc ?? "{}";
+        }
+
+        // ---------------------------------------------------------------- YonetimIslemleri için
+
+        /// <summary>oyuncunun bu oturumda kaç saniyedir oyunda olduğu (çevrimdışıysa 0)</summary>
+        public static long OturumSaniyesi(int hesap) {
+            Canli c;
+            return cevrimici.TryGetValue(hesap, out c) ? Simdi - c.bas : 0;
+        }
+
+        public static void SureBilgisi(int hesap, YonetimIslemleri.Js js) {
+            SureKaydi k;
+            kayitDizini.TryGetValue(hesap, out k);
+            long oturum = OturumSaniyesi(hesap);
+            js.S("dakika", k != null ? k.Dakika : 0).S("oturum", k != null ? k.oturum : 0).S("buOturumDk", oturum / 60)
+                .Y("ilk", k != null ? Zaman(k.ilk) : string.Empty).Y("son", k != null ? Zaman(k.son) : string.Empty);
+        }
+
+        public static string OturumlarJson(int hesap, int adet) {
+            YonetimIslemleri.Js js = new YonetimIslemleri.Js().Dizi();
+            int n = 0;
+            for (int i = sureler.oturumlar.Count - 1; i >= 0 && n < adet; i--) {
+                OturumKaydi k = sureler.oturumlar[i];
+                if (k.hesap != hesap) {
+                    continue;
+                }
+                n++;
+                js.Nesne().Y("karakter", k.karakter).Y("bas", Zaman(k.bas)).S("dk", k.dk).Y("haritalar", k.haritalar).NesneBitir();
+            }
+            return js.DiziBitir().ToString();
+        }
+
+        public static void HesaplariYenile() {
+            sonrakiHesapGoruntusu = 0f;
+        }
+
+        public static List<string> SonSatirlarDisari(string yol, int adet) {
+            return SonSatirlar(yol, adet);
         }
 
         private static void Baslat(SystemGameManager oyun) {
@@ -174,6 +263,9 @@ namespace AnyRPG {
                 dinleyici.Start();
                 dinleyiciIsi = new Thread(Dinle) { IsBackground = true, Name = "YonetimPaneli" };
                 dinleyiciIsi.Start();
+                GameObject isci = new GameObject("YonetimPaneliIsci");
+                UnityEngine.Object.DontDestroyOnLoad(isci);
+                isci.AddComponent<Isci>();
                 Debug.Log("[Sunucu] yönetim paneli açıldı: http://<sunucu>:" + Port + "/yonetim");
             } catch (Exception e) {
                 Debug.LogWarning("[Sunucu] yönetim paneli açılamadı: " + e.Message);
@@ -777,6 +869,7 @@ namespace AnyRPG {
         [Serializable] private class MetinIstegi { public string metin = string.Empty; }
         [Serializable] private class AnahtarIstegi { public string anahtar = string.Empty; public bool sina; }
         [Serializable] private class SifreIstegi { public string eski = string.Empty; public string yeni = string.Empty; }
+        [Serializable] private class YeniHesapIstegi { public string ad = string.Empty; public string sifre = string.Empty; }
 
         private static void Isle(HttpListenerContext ctx) {
             HttpListenerRequest istek = ctx.Request;
@@ -834,8 +927,45 @@ namespace AnyRPG {
                 Yanit(ctx, 401, "{\"hata\":\"giriş gerekli\"}", "application/json");
                 return;
             }
+            string istekIp = istek.RemoteEndPoint != null ? istek.RemoteEndPoint.Address.ToString() : "?";
             string json;
             switch (yol) {
+                case "/yonetim/api/oyuncu": {
+                        int no;
+                        if (int.TryParse(istek.QueryString["hesap"], NumberStyles.Integer, CultureInfo.InvariantCulture, out no) == false) {
+                            json = YonetimIslemleri.Hata("hesap numarası yok");
+                            break;
+                        }
+                        json = AnaIstekte(o => YonetimIslemleri.OyuncuJson(o, no));
+                        break;
+                    }
+                case "/yonetim/api/islem": {
+                        YonetimIslemleri.Istek i = post ? Oku<YonetimIslemleri.Istek>(govde) : null;
+                        json = i == null ? YonetimIslemleri.Hata("istek okunamadı") : AnaIstekte(o => YonetimIslemleri.Islem(o, i, istekIp));
+                        break;
+                    }
+                case "/yonetim/api/herkese": {
+                        YonetimIslemleri.Istek i = post ? Oku<YonetimIslemleri.Istek>(govde) : null;
+                        json = i == null ? YonetimIslemleri.Hata("istek okunamadı") : AnaIstekte(o => YonetimIslemleri.Herkese(o, i, istekIp));
+                        break;
+                    }
+                case "/yonetim/api/hesap-ac": {
+                        YeniHesapIstegi h = post ? Oku<YeniHesapIstegi>(govde) : null;
+                        json = h == null ? YonetimIslemleri.Hata("istek okunamadı") : AnaIstekte(o => YonetimIslemleri.HesapAc(o, h.ad, h.sifre, istekIp));
+                        break;
+                    }
+                case "/yonetim/api/esyalar":
+                    json = AnaIstekte(o => YonetimIslemleri.EsyaListesi(o), 15000);
+                    break;
+                case "/yonetim/api/haritalar":
+                    json = AnaIstekte(o => YonetimIslemleri.Haritalar());
+                    break;
+                case "/yonetim/api/bekleyenler":
+                    json = AnaIstekte(o => YonetimIslemleri.Bekleyenler());
+                    break;
+                case "/yonetim/api/islemler":
+                    json = KayitOku("islem");
+                    break;
                 case "/yonetim/cikis":
                     Cookie c = istek.Cookies[Cerez];
                     lock (kilit) {
@@ -888,7 +1018,7 @@ namespace AnyRPG {
                     if (at != null) {
                         isler.Enqueue(o => {
                             o.NetworkManagerServer.KickPlayer(at.hesap);
-                            Debug.Log("[Sunucu] yönetim: #" + at.hesap + " oyundan atıldı");
+                            YonetimIslemleri.Defter(istekIp, "at → #" + at.hesap, "oyundan atıldı");
                         });
                     }
                     json = "{\"tamam\":true}";
@@ -910,7 +1040,7 @@ namespace AnyRPG {
                             if (yasakla && o.PlayerManagerServer.ActiveUnitControllers.ContainsKey(y.hesap)) {
                                 o.NetworkManagerServer.KickPlayer(y.hesap);
                             }
-                            Debug.Log("[Sunucu] yönetim: #" + y.hesap + (yasakla ? " yasaklandı" : " yasağı kaldırıldı"));
+                            YonetimIslemleri.Defter(istekIp, (yasakla ? "yasakla" : "yasak kaldır") + " → #" + y.hesap, yasakla ? "yasaklandı" : "yasağı kaldırıldı");
                             sonrakiHesapGoruntusu = 0f;
                         });
                     }
@@ -927,7 +1057,7 @@ namespace AnyRPG {
                                     OtukenAg.Mesaj(u, "<color=#FFD54A><b>[Duyuru]</b> " + metin + "</color>");
                                 }
                             }
-                            Debug.Log("[Sunucu] yönetim duyurusu: " + metin);
+                            YonetimIslemleri.Defter(istekIp, "duyuru", metin);
                         });
                     }
                     json = "{\"tamam\":true}";
@@ -996,6 +1126,7 @@ namespace AnyRPG {
                 case "sikayet": dosya = "sikayetler.log"; break;
                 case "ticaret": dosya = "ticaret.log"; break;
                 case "odeme": dosya = "odemeler.txt"; break;
+                case "islem": dosya = "yonetim-islemleri.log"; break;
                 default: return "[]";
             }
             string yol = Path.Combine(veriKlasoru, dosya);

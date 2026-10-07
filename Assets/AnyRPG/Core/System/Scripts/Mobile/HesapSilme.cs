@@ -66,6 +66,15 @@ namespace AnyRPG {
             });
         }
 
+        /// <summary>yönetim paneli: hesabı silme sırasına koyar (oyundaysa önce çıkarılır)</summary>
+        public static void YoneticiSil(int hesapNo, string ad) {
+            if (bekleyenler.Exists(b => b.hesap == hesapNo) == false) {
+                // 3 sn sonra oyundan atılır, 15 sn sonra (çıkış kaydı yazılınca) silinir
+                bekleyenler.Add(new Bekleyen() { hesap = hesapNo, ad = ad, zaman = Time.realtimeSinceStartup });
+            }
+            Ticaret.Defter("HESAP SİLME (yönetici) " + ad + " (#" + hesapNo + ")");
+        }
+
         /// <summary>sunucu, saniyede bir: oyuncu çıktıktan ve kayıtlar yazıldıktan sonra hesap silinir</summary>
         public static void SunucuTick(SystemGameManager o) {
             if (bekleyenler.Count == 0 || o == null) {

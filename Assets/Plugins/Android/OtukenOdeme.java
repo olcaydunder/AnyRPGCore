@@ -50,10 +50,16 @@ public class OtukenOdeme implements PurchasesUpdatedListener {
         etkinlik.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (ornek == null) {
-                    ornek = new OtukenOdeme(etkinlik, dinleyici, kodlar);
+                try {
+                    if (ornek == null) {
+                        ornek = new OtukenOdeme(etkinlik, dinleyici, kodlar);
+                    }
+                    ornek.baglan();
+                } catch (Throwable t) {
+                    if (ornek != null) {
+                        ornek.olay("hata", "başlatma: " + t.getMessage());
+                    }
                 }
-                ornek.baglan();
             }
         });
     }
@@ -65,7 +71,11 @@ public class OtukenOdeme implements PurchasesUpdatedListener {
         ornek.etkinlik.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                ornek.odemeAc(kod);
+                try {
+                    ornek.odemeAc(kod);
+                } catch (Throwable t) {
+                    ornek.olay("hata", "ödeme ekranı: " + t.getMessage());
+                }
             }
         });
     }
@@ -76,10 +86,14 @@ public class OtukenOdeme implements PurchasesUpdatedListener {
         }
         ConsumeParams p = ConsumeParams.newBuilder().setPurchaseToken(token).build();
         ornek.istemci.consumeAsync(p, (sonuc, t) -> {
-            if (sonuc.getResponseCode() == BillingClient.BillingResponseCode.OK) {
-                ornek.olay("tuketildi", t);
-            } else {
-                ornek.olay("hata", "tüketilemedi: " + sonuc.getDebugMessage());
+            try {
+                if (sonuc.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                    ornek.olay("tuketildi", t);
+                } else {
+                    ornek.olay("hata", "tüketilemedi: " + sonuc.getDebugMessage());
+                }
+            } catch (Throwable e) {
+                ornek.olay("hata", "tüketme: " + e.getMessage());
             }
         });
     }
@@ -92,6 +106,7 @@ public class OtukenOdeme implements PurchasesUpdatedListener {
         ornek.etkinlik.runOnUiThread(new Runnable() {
             @Override
             public void run() {
+              try {
                 if (ornek.bagli == false) {
                     ornek.baglan();
                     return;
@@ -100,6 +115,9 @@ public class OtukenOdeme implements PurchasesUpdatedListener {
                     ornek.urunleriSor();
                 }
                 ornek.satinAlmalariSor();
+              } catch (Throwable t) {
+                ornek.olay("hata", "bekleyenler: " + t.getMessage());
+              }
             }
         });
     }
@@ -107,7 +125,7 @@ public class OtukenOdeme implements PurchasesUpdatedListener {
     private void olay(String tur, String veri) {
         try {
             dinleyici.olay(tur, veri == null ? "" : veri);
-        } catch (Exception e) {
+        } catch (Throwable e) {
             // Unity tarafı kapandıysa
         }
     }
@@ -127,12 +145,16 @@ public class OtukenOdeme implements PurchasesUpdatedListener {
         istemci.startConnection(new BillingClientStateListener() {
             @Override
             public void onBillingSetupFinished(BillingResult sonuc) {
-                if (sonuc.getResponseCode() == BillingClient.BillingResponseCode.OK) {
-                    bagli = true;
-                    urunleriSor();
-                    satinAlmalariSor();
-                } else {
-                    olay("hata", "bağlantı " + sonuc.getResponseCode() + " " + sonuc.getDebugMessage());
+                try {
+                    if (sonuc.getResponseCode() == BillingClient.BillingResponseCode.OK) {
+                        bagli = true;
+                        urunleriSor();
+                        satinAlmalariSor();
+                    } else {
+                        olay("hata", "bağlantı " + sonuc.getResponseCode() + " " + sonuc.getDebugMessage());
+                    }
+                } catch (Throwable t) {
+                    olay("hata", "bağlantı: " + t.getMessage());
                 }
             }
 
@@ -150,6 +172,7 @@ public class OtukenOdeme implements PurchasesUpdatedListener {
         }
         QueryProductDetailsParams p = QueryProductDetailsParams.newBuilder().setProductList(liste).build();
         istemci.queryProductDetailsAsync(p, (sonuc, urunSonucu) -> {
+          try {
             if (sonuc.getResponseCode() == BillingClient.BillingResponseCode.OK) {
                 StringBuilder eksik = new StringBuilder();
                 for (ProductDetails d : urunSonucu.getProductDetailsList()) {
@@ -181,16 +204,23 @@ public class OtukenOdeme implements PurchasesUpdatedListener {
             } else {
                 olay("hata", "ürünler " + sonuc.getResponseCode() + " " + sonuc.getDebugMessage());
             }
+          } catch (Throwable t) {
+            olay("hata", "ürünler: " + t.getMessage());
+          }
         });
     }
 
     private void satinAlmalariSor() {
         QueryPurchasesParams p = QueryPurchasesParams.newBuilder().setProductType(BillingClient.ProductType.INAPP).build();
         istemci.queryPurchasesAsync(p, (sonuc, satinAlmalar) -> {
-            if (sonuc.getResponseCode() == BillingClient.BillingResponseCode.OK && satinAlmalar != null) {
-                for (Purchase s : satinAlmalar) {
-                    isle(s);
+            try {
+                if (sonuc.getResponseCode() == BillingClient.BillingResponseCode.OK && satinAlmalar != null) {
+                    for (Purchase s : satinAlmalar) {
+                        isle(s);
+                    }
                 }
+            } catch (Throwable t) {
+                olay("hata", "satın almalar: " + t.getMessage());
             }
         });
     }
@@ -217,6 +247,14 @@ public class OtukenOdeme implements PurchasesUpdatedListener {
 
     @Override
     public void onPurchasesUpdated(BillingResult sonuc, List<Purchase> satinAlmalar) {
+        try {
+            satinAlmaGeldi(sonuc, satinAlmalar);
+        } catch (Throwable t) {
+            olay("hata", "satın alma: " + t.getMessage());
+        }
+    }
+
+    private void satinAlmaGeldi(BillingResult sonuc, List<Purchase> satinAlmalar) {
         int kod = sonuc.getResponseCode();
         if (kod == BillingClient.BillingResponseCode.OK && satinAlmalar != null) {
             for (Purchase s : satinAlmalar) {

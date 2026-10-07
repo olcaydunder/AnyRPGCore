@@ -61,6 +61,28 @@ pre .h{color:var(--kirmizi)}pre .u{color:var(--altin)}
 .bos{color:var(--soluk);text-align:center;padding:24px}
 #bildirim{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:var(--kart2);border:1px solid var(--cizgi);padding:9px 16px;border-radius:20px;font-size:14px;opacity:0;transition:opacity .25s;pointer-events:none}
 #bildirim.goster{opacity:1}
+.ac{cursor:pointer}
+.ac:hover b{text-decoration:underline}
+#ayrinti{position:fixed;inset:0;z-index:20;background:var(--bg);overflow-y:auto;-webkit-overflow-scrolling:touch}
+#ayrinti .ust{position:sticky;top:0;background:#0d0b09f2;border-bottom:1px solid var(--cizgi);z-index:2}
+#ayrinti main{padding-top:10px}
+.bolum{background:var(--kart);border:1px solid var(--cizgi);border-radius:12px;padding:12px;margin-bottom:12px}
+.bolum h3{margin:0 0 10px;font-size:14px;color:var(--altin);text-transform:uppercase;letter-spacing:.5px}
+.islemler{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:10px}
+.islem{background:var(--kart2);border:1px solid var(--cizgi);border-radius:10px;padding:10px}
+.islem .baslik{font-size:13px;color:var(--soluk);margin-bottom:6px}
+.islem .sira{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.islem .sira input,.islem .sira select{flex:1;min-width:70px;padding:7px 9px}
+.islem .sira input.dar{flex:0 0 74px;min-width:0}
+table.t{width:100%;border-collapse:collapse;font-size:13px}
+table.t th{text-align:left;color:var(--soluk);font-weight:500;padding:5px 6px;border-bottom:1px solid var(--cizgi)}
+table.t td{padding:6px;border-bottom:1px solid #2b261e;vertical-align:middle}
+table.t td.sag{text-align:right;white-space:nowrap}
+.cubukk{height:8px;background:#2a2219;border-radius:4px;overflow:hidden;margin-top:4px}
+.cubukk i{display:block;height:100%;background:linear-gradient(90deg,#b8862c,var(--altin))}
+.cubukk.can i{background:linear-gradient(90deg,#3f9a4a,var(--yesil))}
+.mini{font-size:12px;padding:4px 9px}
+details>summary{cursor:pointer;color:var(--altin);margin:6px 0}
 </style>
 </head>
 <body>
@@ -104,6 +126,16 @@ pre .h{color:var(--kirmizi)}pre .u{color:var(--altin)}
     <textarea id="duyuru" maxlength="300" placeholder="Çevrimiçi bütün oyunculara sohbet penceresinde sarı yazıyla gider"></textarea>
     <div style="margin-top:8px;display:flex;justify-content:flex-end"><button class="d ana" onclick="duyuruGonder()">Duyuru gönder</button></div>
   </div>
+  <h2>Herkese hediye</h2>
+  <div class="kutu">
+    <div class="not" style="margin-bottom:8px">Şu an oyunda olan herkese aynı anda verilir; her oyuncu sohbet penceresinde ne aldığını görür.</div>
+    <div class="islem"><div class="sira">
+      <select id="hTur" style="flex:0 0 150px" onchange="herkesTurDegisti()"><option value="esya-ver">Eşya</option><option value="para-ekle">Akçe (bakır)</option><option value="kut-ekle">Kut</option><option value="tecrube-ver">Tecrübe</option><option value="iyilestir">İyileştir</option></select>
+      <input id="hAd" list="esyaListesi" placeholder="Eşya adı (yazınca önerir)">
+      <input id="hMiktar" class="dar" type="number" value="1" min="1">
+      <button class="d ana" onclick="herkeseVer()">Herkese ver</button>
+    </div></div>
+  </div>
 </section>
 
 <section id="s-oyuncular" class="gizli">
@@ -114,6 +146,13 @@ pre .h{color:var(--kirmizi)}pre .u{color:var(--altin)}
 <section id="s-hesaplar" class="gizli">
   <div class="arac"><input id="hesapAra" placeholder="Hesap veya karakter ara…" oninput="hesaplariCiz()">
     <select id="hesapSuz" style="width:auto" onchange="hesaplariCiz()"><option value="">Hepsi</option><option value="c">Çevrimiçi</option><option value="g">Google bağlı</option><option value="y">Yasaklı</option></select></div>
+  <details class="kutu" style="margin-bottom:10px"><summary>Yeni hesap aç</summary>
+    <div class="islem" style="margin-top:8px"><div class="sira">
+      <input id="yeniAd" placeholder="Kullanıcı adı" autocomplete="off">
+      <input id="yeniSifre" placeholder="Şifre (en az 6)" autocomplete="new-password">
+      <button class="d ana" onclick="hesapAc()">Aç</button>
+    </div><div class="hata" id="yeniSonuc"></div></div>
+  </details>
   <div class="not" id="hesapOzet" style="margin-bottom:8px"></div>
   <div class="liste" id="hesapListe"></div>
 </section>
@@ -129,6 +168,7 @@ pre .h{color:var(--kirmizi)}pre .u{color:var(--altin)}
     <button class="d kt" data-t="sikayet">Şikâyetler</button>
     <button class="d kt" data-t="ticaret">Ticaret</button>
     <button class="d kt" data-t="odeme">Ödemeler</button>
+    <button class="d kt" data-t="islem">Yönetici işlemleri</button>
   </div>
   <div class="arac"><input id="kayitAra" placeholder="Süz…" oninput="kayitlariCiz()"></div>
   <pre id="kayitMetin">Bir kayıt seç.</pre>
@@ -169,6 +209,11 @@ pre .h{color:var(--kirmizi)}pre .u{color:var(--altin)}
 
 </main>
 </div>
+<div id="ayrinti" class="gizli">
+  <div class="ust"><button class="d" onclick="ayrintiKapat()">‹ Geri</button><h1 id="aBaslik" style="font-size:16px">Oyuncu</h1><button class="d" onclick="ayrintiYukle()">Yenile</button></div>
+  <main id="aIcerik"><div class="bos">Yükleniyor…</div></main>
+</div>
+<datalist id="esyaListesi"></datalist>
 <div id="bildirim"></div>
 
 <script>
@@ -188,7 +233,7 @@ async function api(yol,veri){
   return j;
 }
 
-function girisGoster(){$('uygulama').classList.add('gizli');$('girisEkrani').classList.remove('gizli');clearInterval(zamanlayici);zamanlayici=null;setTimeout(()=>$('sifre').focus(),50);}
+function girisGoster(){if(aHesap>=0)ayrintiKapat();$('uygulama').classList.add('gizli');$('girisEkrani').classList.remove('gizli');clearInterval(zamanlayici);zamanlayici=null;setTimeout(()=>$('sifre').focus(),50);}
 async function girisYap(){
   $('girisHata').textContent='';
   try{await api('giris',{sifre:$('sifre').value});$('sifre').value='';basla();}
@@ -200,6 +245,7 @@ async function cikis(){try{await api('cikis',{});}catch(e){}girisGoster();}
 function basla(){
   $('girisEkrani').classList.add('gizli');$('uygulama').classList.remove('gizli');
   yenile(true);clearInterval(zamanlayici);zamanlayici=setInterval(()=>yenile(false),3000);
+  esyalariYukle();
 }
 
 document.querySelectorAll('#sekmeler button').forEach(b=>b.onclick=()=>{
@@ -256,7 +302,7 @@ function oyunculariCiz(){
   const l=oyuncular.filter(o=>!a||(o.hesap+' '+o.karakter+' '+o.harita+' '+o.sinif+' '+o.durum).toLocaleLowerCase('tr').includes(a));
   if(!l.length){$('oyuncuListe').innerHTML='<div class="bos">'+(oyuncular.length?'Eşleşen yok.':'Şu an oyunda kimse yok.')+'</div>';return;}
   $('oyuncuListe').innerHTML=l.map(o=>
-    '<div class="satir"><div class="bas"><b>'+esc(o.karakter)+'</b><span class="rozet a">Sv '+o.seviye+'</span><span class="rozet">'+esc(o.sinif||'-')+'</span>'+
+    '<div class="satir"><div class="bas"><span class="ac" onclick="ayrintiAc('+o.hesapNo+')"><b>'+esc(o.karakter)+'</b> ›</span><span class="rozet a">Sv '+o.seviye+'</span><span class="rozet">'+esc(o.sinif||'-')+'</span>'+
     (o.google?'<span class="rozet m">Google</span>':'')+
     '<div class="dugmeler"><button class="d" data-no="'+o.hesapNo+'" data-ad="'+esc(o.karakter)+'" onclick="at(this)">At</button><button class="d tehlike" data-no="'+o.hesapNo+'" data-ad="'+esc(o.hesap)+'" data-evet="1" onclick="yasakla(this)">Yasakla</button></div></div>'+
     '<div class="alt"><span class="durum">'+esc(o.durum)+'</span><span>📍 <b>'+esc(o.harita)+'</b></span><span>Can <span class="can"><i style="width:'+o.can+'%"></i></span> '+o.can+'%</span></div>'+
@@ -269,7 +315,7 @@ function hesaplariCiz(){
   const top=hesaplar.reduce((t,h)=>t+h.dakika,0);
   $('hesapOzet').textContent=hesaplar.length+' hesap (en son görülen üstte, en çok 1000) · hepsinin toplam oyun süresi '+sure(top);
   $('hesapListe').innerHTML=l.length?l.slice(0,300).map(h=>
-    '<div class="satir"><div class="bas"><b>'+esc(h.ad)+'</b><span class="not">#'+h.no+'</span>'+
+    '<div class="satir"><div class="bas"><span class="ac" onclick="ayrintiAc('+h.no+')"><b>'+esc(h.ad)+'</b> ›</span><span class="not">#'+h.no+'</span>'+
     (h.cevrimici?'<span class="rozet y">oyunda</span>':'')+(h.google?'<span class="rozet m">Google</span>':'')+(h.yasak?'<span class="rozet k">yasaklı</span>':'')+
     '<div class="dugmeler">'+(h.yasak?'<button class="d" data-no="'+h.no+'" data-ad="'+esc(h.ad)+'" onclick="yasakla(this)">Yasağı kaldır</button>':'<button class="d tehlike" data-no="'+h.no+'" data-ad="'+esc(h.ad)+'" data-evet="1" onclick="yasakla(this)">Yasakla</button>')+'</div></div>'+
     '<div class="alt"><span>Karakter <b>'+esc(h.karakter||'-')+'</b></span><span>Toplam <b>'+sure(h.dakika)+'</b></span><span>Oturum <b>'+h.oturum+'</b></span><span>İlk <b>'+esc(h.ilk||'-')+'</b></span><span>Son <b>'+esc(h.son||'-')+'</b></span></div></div>').join('')
@@ -289,7 +335,8 @@ function gunluguCiz(){
 }
 
 async function at(b){const no=+b.dataset.no,ad=b.dataset.ad;if(!confirm(ad+' oyundan atılsın mı? (yeniden girebilir)'))return;try{await api('api/at',{hesap:no});bildir(ad+' atıldı');}catch(e){bildir(e.message);}}
-async function yasakla(b){
+async function yasakla(b){ return yasaklaIc(b); }
+async function yasaklaIc(b){
   const no=+b.dataset.no,ad=b.dataset.ad,evet=b.dataset.evet==='1';
   if(!confirm(evet?ad+' yasaklansın mı? Oyundaysa atılır ve bir daha giremez.':ad+' hesabının yasağı kaldırılsın mı?'))return;
   try{await api(evet?'api/yasakla':'api/yasak-kaldir',{hesap:no});bildir(evet?ad+' yasaklandı':ad+' yasağı kaldırıldı');setTimeout(async()=>{if(sekme==='hesaplar'){hesaplar=await api('api/hesaplar');hesaplariCiz();}},2500);}catch(e){bildir(e.message);}
@@ -331,6 +378,114 @@ async function sifreDegistir(){
     alert('Şifre değişti. Yeni şifreyle yeniden gir.');girisGoster();
   }catch(e){s.textContent=e.message;}
 }
+
+// ================================================================ oyuncu ayrıntısı ve yetkiler
+let sonIslem={m:'',iyi:true},aHesap=-1,aVeri=null,haritalar=[],esyalarYuklendi=false,aZaman=null;
+const paraYaz=b=>{b=b|0;const a=Math.floor(b/10000),g=Math.floor(b%10000/100),k=b%100;return [a?a+' altın':'',g?g+' gümüş':'',(k||(!a&&!g))?k+' bakır':''].filter(x=>x).join(' ');};
+async function esyalariYukle(){
+  if(esyalarYuklendi)return;esyalarYuklendi=true;
+  try{const l=await api('api/esyalar');$('esyaListesi').innerHTML=l.map(e=>'<option value="'+esc(e.gorunen||e.ad)+'">'+esc(e.ad+' · '+e.tur)+'</option>').join('');}catch(e){esyalarYuklendi=false;}
+  try{haritalar=await api('api/haritalar');}catch(e){}
+}
+function ayrintiAc(no){aHesap=no;aVeri=null;sonIslem={m:'',iyi:true};$('ayrinti').classList.remove('gizli');$('aIcerik').innerHTML='<div class="bos">Yükleniyor…</div>';document.body.style.overflow='hidden';esyalariYukle();ayrintiYukle();clearInterval(aZaman);aZaman=setInterval(()=>{if(!document.hidden&&aVeri&&aVeri.cevrimici&&!document.activeElement.closest('#ayrinti .islem'))ayrintiYukle();},6000);}
+function ayrintiKapat(){$('ayrinti').classList.add('gizli');document.body.style.overflow='';clearInterval(aZaman);aHesap=-1;}
+async function ayrintiYukle(){
+  if(aHesap<0)return;
+  try{aVeri=await api('api/oyuncu?hesap='+aHesap);if(aVeri.hata)throw new Error(aVeri.hata);ayrintiCiz();}
+  catch(e){$('aIcerik').innerHTML='<div class="bos">'+esc(e.message)+'</div>';}
+}
+function tablo(bas,satirlar){return satirlar.length?'<table class="t"><tr>'+bas.map(b=>'<th>'+b+'</th>').join('')+'</tr>'+satirlar.join('')+'</table>':'<div class="not">Boş.</div>';}
+function islemKutusu(baslik,ic){return '<div class="islem"><div class="baslik">'+baslik+'</div><div class="sira">'+ic+'</div></div>';}
+function ayrintiCiz(){
+  const v=aVeri,h=v.hesap,c=v.canli;
+  $('aBaslik').textContent=(c?c.karakter+' · ':'')+h.ad+' #'+h.no;
+  let r='';
+  // ---- özet
+  r+='<div class="bolum"><h3>Hesap</h3><div class="izgara">'+
+    kutu('Durum',v.cevrimici?'Oyunda':'Çevrimdışı',true)+kutu('Toplam oyun',sure(h.dakika),true)+kutu('Oturum sayısı',h.oturum,true)+
+    (v.cevrimici?kutu('Bu oturum',sure(h.buOturumDk),true):'')+kutu('İlk görülme',h.ilk||'-',true)+kutu('Son görülme',h.son||'-',true)+
+    kutu('Google',h.google?'bağlı':'yok',true)+kutu('Yasak',h.yasak?'YASAKLI':'yok',true)+kutu('Sohbet',h.sustur?'susturuldu ('+h.sustur+')':'açık',true)+
+    (h.ip?kutu('IP',h.ip,true):'')+'</div></div>';
+  if(c){
+    const xp=c.gereken>0?Math.min(100,100*c.tecrube/c.gereken):0,can=c.canMax>0?100*c.can/c.canMax:0;
+    r+='<div class="bolum"><h3>Karakter (canlı)</h3><div class="izgara">'+
+      kutu('Karakter',c.karakter,true)+kutu('Sınıf',(c.sinif||'-')+(c.uzmanlik?' · '+c.uzmanlik:''),true)+
+      '<div class="kutu"><div class="ad">Seviye</div><div class="deger">'+c.seviye+'</div><div class="cubukk"><i style="width:'+xp+'%"></i></div><div class="not">'+c.tecrube+' / '+c.gereken+' tecrübe</div></div>'+
+      '<div class="kutu"><div class="ad">Can</div><div class="deger kucuk">'+(c.olu?'ÖLÜ':c.can+' / '+c.canMax)+'</div><div class="cubukk can"><i style="width:'+can+'%"></i></div></div>'+
+      kutu('Harita',c.harita,true)+kutu('Konum',c.konum,true)+kutu('Durum',(c.olu?'ölü':c.savasta?'savaşta':c.binek?'binekte':'—')+(c.hedef?' → '+c.hedef:''),true)+
+      kutu('Akçe',c.para,true)+kutu('Kut',c.kut,true)+kutu('Çanta',(c.cantaToplam-c.cantaBos)+' / '+c.cantaToplam+' dolu',true)+kutu('Depo',(c.depoToplam-c.depoBos)+' / '+c.depoToplam+' dolu',true)+
+      kutu('Biten görev',c.bitenGorev,true)+'</div></div>';
+  }
+  // ---- işlemler
+  const hOpt=haritalar.map(m=>'<option value="'+esc(m.sahne)+'">'+esc(m.ad)+' ('+esc(m.seviye)+')</option>').join('');
+  r+='<div class="bolum"><h3>Yetkiler</h3>'+(v.cevrimici?'':'<div class="not" style="margin-bottom:8px">Oyuncu çevrimdışı: eşya, akçe, Kut, tecrübe, seviye ve mesaj <b>oyuncu girince</b> verilir.</div>')+'<div class="islemler">'+
+    islemKutusu('Eşya ver','<input id="iEsya" list="esyaListesi" placeholder="Eşya adı (yazınca önerir)"><input id="iEsyaAdet" class="dar" type="number" value="1" min="1" max="200"><button class="d ana" onclick="islem(\'esya-ver\',$(\'iEsya\').value,+$(\'iEsyaAdet\').value)">Ver</button>')+
+    islemKutusu('Akçe (altın · gümüş · bakır)','<input id="iAl" class="dar" type="number" min="0" placeholder="altın"><input id="iGu" class="dar" type="number" min="0" placeholder="gümüş"><input id="iBa" class="dar" type="number" min="0" placeholder="bakır"><button class="d ana" onclick="paraIslem(1)">Ekle</button><button class="d" onclick="paraIslem(-1)">Çıkar</button><button class="d" onclick="paraIslem(0)">Ayarla</button>')+
+    islemKutusu('Kut','<input id="iKut" type="number" min="0" placeholder="miktar"><button class="d ana" onclick="kutIslem(1)">Ekle</button><button class="d" onclick="kutIslem(-1)">Çıkar</button><button class="d" onclick="kutIslem(0)">Ayarla</button>')+
+    islemKutusu('Tecrübe ve seviye','<input id="iXp" type="number" min="1" placeholder="tecrübe"><button class="d" onclick="islem(\'tecrube-ver\',\'\',+$(\'iXp\').value)">Ver</button><input id="iSv" class="dar" type="number" min="1" placeholder="sv"><button class="d" onclick="islem(\'seviye-ayarla\',\'\',+$(\'iSv\').value)">Seviye yap</button>')+
+    (v.cevrimici?islemKutusu('Can','<button class="d" onclick="islem(\'iyilestir\')">İyileştir</button><button class="d" onclick="islem(\'dirilt\')">Dirilt</button>'):'')+
+    (v.cevrimici?islemKutusu('Işınla','<select id="iHarita">'+hOpt+'</select><button class="d" onclick="islem(\'isinla\',$(\'iHarita\').value)">Işınla</button>'):'')+
+    islemKutusu('Özel mesaj (sohbet penceresine)','<input id="iMesaj" maxlength="300" placeholder="Mesaj"><button class="d ana" onclick="islem(\'mesaj\',\'\',0,$(\'iMesaj\').value)">Gönder</button>')+
+    islemKutusu('Sohbeti kapat','<select id="iSus"><option value="10">10 dakika</option><option value="60">1 saat</option><option value="1440">1 gün</option><option value="10080">1 hafta</option><option value="0">Kaldır</option></select><button class="d" onclick="islem(\'sustur\',\'\',+$(\'iSus\').value)">Uygula</button>')+
+    islemKutusu('Oyundan at / yasakla',(v.cevrimici?'<button class="d" onclick="islem(\'at\')">At</button>':'')+(h.yasak?'<button class="d" data-no="'+h.no+'" data-ad="'+esc(h.ad)+'" onclick="yasakla(this).then(ayrintiYukle)">Yasağı kaldır</button>':'<button class="d tehlike" data-no="'+h.no+'" data-ad="'+esc(h.ad)+'" data-evet="1" onclick="yasakla(this).then(ayrintiYukle)">Yasakla</button>'))+
+    islemKutusu('Şifre sıfırla','<input id="iSifre" placeholder="yeni şifre (en az 6)" autocomplete="new-password"><button class="d" onclick="islem(\'sifre\',\'\',0,$(\'iSifre\').value)">Değiştir</button>')+
+    (h.google?islemKutusu('Google','<button class="d" onclick="islem(\'google-ayir\')">Google bağını kaldır</button>'):'')+
+    islemKutusu('Hesabı sil (geri alınmaz)','<input id="iSil" placeholder="onay: hesap adını yaz"><button class="d tehlike" onclick="islem(\'hesap-sil\',\'\',0,$(\'iSil\').value)">Sil</button>')+
+    '</div><div class="hata'+(sonIslem.iyi?' tamam':'')+'" id="iSonuc">'+esc(sonIslem.m)+'</div></div>';
+  // ---- canlı envanter
+  if(c){
+    const satir=e=>'<tr><td>'+e.yuva+'</td><td><b>'+esc(e.ad)+'</b>'+(e.kalite?' <span class="not">'+esc(e.kalite)+'</span>':'')+'</td><td class="sag">×'+e.adet+'</td><td class="sag"><button class="d tehlike mini" data-no="'+e.no+'" data-ad="'+esc(e.ad)+'" onclick="esyaSil(this)">Sil</button></td></tr>';
+    r+='<div class="bolum"><h3>Kuşanılanlar</h3>'+tablo(['Yuva','Eşya',''],c.kusanilan.map(e=>'<tr><td>'+esc(e.yuva)+'</td><td><b>'+esc(e.ad)+'</b>'+(e.kalite?' <span class="not">'+esc(e.kalite)+'</span>':'')+'</td><td class="sag"><button class="d tehlike mini" data-no="'+e.no+'" data-ad="'+esc(e.ad)+'" onclick="esyaSil(this)">Sil</button></td></tr>'))+'</div>';
+    r+='<div class="bolum"><h3>Çanta ('+c.canta.length+' yuva dolu)</h3>'+tablo(['#','Eşya','Adet',''],c.canta.map(satir))+'</div>';
+    r+='<div class="bolum"><h3>Depo ('+c.depo.length+' yuva dolu)</h3>'+tablo(['#','Eşya','Adet',''],c.depo.map(satir))+'</div>';
+    r+='<div class="bolum"><h3>Paralar</h3>'+tablo(['Para','Miktar'],c.paralar.map(p=>'<tr><td>'+esc(p.ad)+'</td><td class="sag">'+p.miktar+'</td></tr>'))+'</div>';
+    r+='<div class="bolum"><h3>Görevler (sürenler)</h3>'+tablo(['Görev','Durum'],c.gorevler.map(g=>'<tr><td>'+esc(g.ad)+'</td><td>'+esc(g.durum)+'</td></tr>'))+'<div class="not" style="margin-top:6px">Teslim edilen görev: '+c.bitenGorev+'</div></div>';
+    r+='<div class="bolum"><h3>Son sohbetleri</h3>'+(c.sohbet.length?'<pre>'+c.sohbet.map(esc).join('\n')+'</pre>':'<div class="not">Yok.</div>')+'</div>';
+  }
+  // ---- diskteki karakterler
+  r+='<div class="bolum"><h3>Karakterleri ('+v.karakterler.length+')</h3>'+(v.karakterler.length?v.karakterler.map(k=>
+    '<details'+(c?'':' open')+'><summary><b>'+esc(k.ad)+'</b> · Sv '+k.seviye+' · '+esc(k.sinif||'-')+' · '+esc(k.harita||'-')+(k.oyunda?' · <span class="rozet y">oyunda</span>':'')+(k.olu?' · ölü':'')+'</summary>'+
+    '<div class="not">Tecrübe '+k.tecrube+' · konum '+esc(k.konum)+' · son kayıt '+esc(k.kayit||'-')+' · süren görev '+k.aktifGorev+', biten '+k.bitenGorev+'</div>'+
+    '<div class="not">Paralar: '+(k.paralar.map(p=>esc(p.ad)+' '+p.miktar).join(', ')||'-')+'</div>'+
+    '<div class="not">Kuşanılan: '+(k.kusanilan.map(e=>esc(e.ad)).join(', ')||'-')+'</div>'+
+    tablo(['#','Çanta','Adet'],k.canta.map(e=>'<tr><td>'+e.yuva+'</td><td>'+esc(e.ad)+'</td><td class="sag">×'+e.adet+'</td></tr>'))+
+    (k.depo.length?'<div class="not" style="margin-top:6px">Depo</div>'+tablo(['#','Eşya','Adet'],k.depo.map(e=>'<tr><td>'+e.yuva+'</td><td>'+esc(e.ad)+'</td><td class="sag">×'+e.adet+'</td></tr>')):'')+
+    '</details>').join(''):'<div class="not">Kayıtlı karakter yok.</div>')+'</div>';
+  // ---- bekleyen ve oturumlar
+  r+='<div class="bolum"><h3>Girince verilecekler</h3>'+(v.bekleyen.length?tablo(['İşlem','Ne','Miktar'],v.bekleyen.map(b=>'<tr><td>'+esc(b.tur)+'</td><td>'+esc(b.ad)+'</td><td class="sag">'+b.miktar+'</td></tr>'))+'<div style="margin-top:8px"><button class="d tehlike" onclick="islem(\'bekleyen-sil\')">Hepsini iptal et</button></div>':'<div class="not">Yok.</div>')+'</div>';
+  r+='<div class="bolum"><h3>Son oturumları</h3>'+tablo(['Giriş','Süre','Karakter','Haritalar'],v.oturumlar.map(o=>'<tr><td>'+esc(o.bas)+'</td><td>'+sure(o.dk)+'</td><td>'+esc(o.karakter)+'</td><td>'+esc(o.haritalar)+'</td></tr>'))+'</div>';
+  const acik=document.activeElement&&document.activeElement.id;const degerler={};
+  document.querySelectorAll('#aIcerik input,#aIcerik select').forEach(i=>{if(i.id)degerler[i.id]=i.value;});
+  $('aIcerik').innerHTML=r;
+  Object.keys(degerler).forEach(k=>{if($(k))$(k).value=degerler[k];});if(acik&&$(acik))$(acik).focus();
+}
+async function islem(tur,ad,miktar,metin){
+  const s=$('iSonuc');if(s){s.className='hata';s.textContent='';}
+  const onaylanacak={'at':'Oyundan atılsın mı?','hesap-sil':'HESAP VE BÜTÜN KARAKTERLERİ SİLİNECEK. Emin misin?','sifre':'Şifre değiştirilsin mi?','google-ayir':'Google bağı kaldırılsın mı?','bekleyen-sil':'Bekleyenler iptal edilsin mi?','seviye-ayarla':'Seviye '+miktar+' yapılsın mı?','isinla':'Işınlansın mı?'};
+  if(onaylanacak[tur]&&!confirm(onaylanacak[tur]))return;
+  try{const j=await api('api/islem',{hesap:aHesap,tur:tur,ad:ad||'',miktar:miktar||0,metin:metin||''});
+    sonIslem={m:'✓ '+j.mesaj,iyi:true};if(s){s.className='hata tamam';s.textContent=sonIslem.m;}bildir(j.mesaj);setTimeout(ayrintiYukle,700);
+  }catch(e){sonIslem={m:e.message,iyi:false};if(s)s.textContent=e.message;bildir(e.message);}
+}
+function paraBakir(){return (+$('iAl').value||0)*10000+(+$('iGu').value||0)*100+(+$('iBa').value||0);}
+function paraIslem(y){const b=paraBakir();if(!b&&y!==0){bildir('Miktar gir');return;}
+  if(y===0){if(!confirm('Akçesi '+paraYaz(b)+' yapılsın mı?'))return;islem('para-ayarla','',b);}else islem('para-ekle','',y*b);}
+function kutIslem(y){const k=+$('iKut').value||0;if(!k&&y!==0){bildir('Miktar gir');return;}
+  if(y===0){if(!confirm('Kut '+k+' yapılsın mı?'))return;islem('kut-ayarla','',k);}else islem('kut-ekle','',y*k);}
+async function esyaSil(b){if(!confirm(b.dataset.ad+' (bütün yığın) silinsin mi?'))return;islem('esya-sil',b.dataset.no);}
+async function hesapAc(){
+  const s=$('yeniSonuc');s.className='hata';s.textContent='';
+  try{const j=await api('api/hesap-ac',{ad:$('yeniAd').value,sifre:$('yeniSifre').value});s.className='hata tamam';s.textContent='✓ '+j.mesaj;$('yeniAd').value='';$('yeniSifre').value='';
+    setTimeout(async()=>{hesaplar=await api('api/hesaplar');hesaplariCiz();},2000);}catch(e){s.textContent=e.message;}
+}
+function herkesTurDegisti(){const t=$('hTur').value;$('hAd').style.display=t==='esya-ver'?'':'none';$('hMiktar').style.display=t==='iyilestir'?'none':'';if(t==='esya-ver')esyalariYukle();}
+async function herkeseVer(){
+  const t=$('hTur').value,ad=$('hAd').value,m=+$('hMiktar').value||0;
+  const ne=t==='esya-ver'?m+' × '+ad:t==='para-ekle'?paraYaz(m):t==='kut-ekle'?m+' Kut':t==='tecrube-ver'?m+' tecrübe':'iyileştirme';
+  if(!confirm('Çevrimiçi '+oyuncular.length+' oyuncunun HEPSİNE '+ne+' verilsin mi?'))return;
+  try{const j=await api('api/herkese',{tur:t,ad:ad,miktar:m});bildir(j.mesaj);}catch(e){bildir(e.message);}
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&aHesap>=0)ayrintiKapat();});
 
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&zamanlayici)yenile(true);});
 api('api/genel').then(()=>basla()).catch(()=>girisGoster());

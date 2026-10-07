@@ -416,16 +416,7 @@ namespace AnyRPG {
                     OtukenAg.Yanitla(oyuncu, "isinlan-sonuc", hata);
                     return;
                 }
-                if (oyuncu.gameObject.scene.name == sahne) {
-                    TeleportEffectProperties ayni = new TeleportEffectProperties();
-                    ayni.levelName = sahne;
-                    o.PlayerManagerServer.Teleport(oyuncu, ayni);
-                    OtukenAg.Yanitla(oyuncu, "isinlan-sonuc", string.Empty);
-                    return;
-                }
-                Debug.Log("[Sunucu] " + oyuncu.DisplayName + " ışınlanıyor: " + sahne);
-                o.PlayerManagerServer.AddSpawnRequest(oyuncu, new SpawnPlayerRequest());
-                oyuncu.StartCoroutine(SunucudaYukle(o.PlayerManagerServer, sahne, oyuncu));
+                SunucudaIsinla(o, oyuncu, sahne);
                 OtukenAg.Yanitla(oyuncu, "isinlan-sonuc", string.Empty);
             });
             OtukenAg.IstemciDinle("isinlan-sonuc", hata => {
@@ -439,6 +430,19 @@ namespace AnyRPG {
         }
 
         public static string SonCevrimiciSonuc { get; private set; } = "-";
+
+        /// <summary>sunucu: oyuncuyu bir diyarın girişine ışınlar (aynı diyardaysa girişe götürür). Yönetim paneli de kullanır.</summary>
+        public static void SunucudaIsinla(SystemGameManager o, UnitController oyuncu, string sahne) {
+            if (oyuncu.gameObject.scene.name == sahne) {
+                TeleportEffectProperties ayni = new TeleportEffectProperties();
+                ayni.levelName = sahne;
+                o.PlayerManagerServer.Teleport(oyuncu, ayni);
+                return;
+            }
+            Debug.Log("[Sunucu] " + oyuncu.DisplayName + " ışınlanıyor: " + sahne);
+            o.PlayerManagerServer.AddSpawnRequest(oyuncu, new SpawnPlayerRequest());
+            oyuncu.StartCoroutine(SunucudaYukle(o.PlayerManagerServer, sahne, oyuncu));
+        }
 
         private static IEnumerator SunucudaYukle(PlayerManagerServer sunucu, string sahne, UnitController oyuncu) {
             // ekransız sunucuda WaitForEndOfFrame gelmez: bir kare bekle

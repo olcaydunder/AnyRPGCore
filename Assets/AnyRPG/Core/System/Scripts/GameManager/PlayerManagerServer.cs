@@ -173,6 +173,13 @@ namespace AnyRPG {
         private void SavePlayerCharacter(PlayerCharacterMonitor playerCharacterMonitor) {
             //Debug.Log($"PlayerManagerServer.SavePlayerCharacter()");
 
+            // Ötüken: Ötüken'in verdiği eşyaların (ödüller, hediyeler, depo sandıkları) kayıt dosyası yoksa yazılır;
+            // yoksa sunucu yeniden başlayınca o eşyalar kaybolurdu
+            try {
+                EsyaKaydi.Denetle(systemGameManager, playerCharacterMonitor.unitController);
+            } catch (System.Exception e) {
+                Debug.LogWarning("[EsyaKaydi] " + e.Message);
+            }
             playerCharacterService.SavePlayerCharacter(playerCharacterMonitor);
         }
 

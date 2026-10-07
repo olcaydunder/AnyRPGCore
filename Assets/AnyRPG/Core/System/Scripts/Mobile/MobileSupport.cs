@@ -336,6 +336,8 @@ namespace AnyRPG {
                 ApplyMobileUiDefaults();
                 // ilk açılışta cihaza göre grafik kalitesi
                 OyunAyarlari.IlkAcilisAyari();
+                // belleği az telefonda dokular yarı çözünürlükte (bellek dolup oyun kapanmasın)
+                BellekKoruma.Tick();
             }
         }
 
@@ -363,6 +365,17 @@ namespace AnyRPG {
         private float nextGroundLootTick = 0f;
 
         private void Update() {
+            try {
+                // ana menünün düğme sütunu (yalnız ana menü tek başına açıkken) ve bütün düğmelere basma hissi;
+                // ekransız sunucuda gerekmez
+                if (SystemInfo.graphicsDeviceType != UnityEngine.Rendering.GraphicsDeviceType.Null) {
+                    SystemGameManager o = GetSystemGameManager();
+                    AnaMenu.Tick(o, PlayerInGame());
+                    DugmeHissi.Kur(o);
+                }
+            } catch (System.Exception exception) {
+                Debug.LogWarning($"MobileBootstrap: AnaMenu: {exception.Message}");
+            }
             if (Time.unscaledTime >= nextGroundLootTick) {
                 nextGroundLootTick = Time.unscaledTime + 0.35f;
                 try {
@@ -565,14 +578,16 @@ namespace AnyRPG {
                 if (inGame) {
                     GameGuide.ShowFirstTimeIfNeeded();
                 }
-                GameGuide.SetMenuLauncherVisible(inGame == false && MainMenuOpen());
+                // ana menüdeki "Oyun Kılavuzu" artık AnaMenu sütununda; eski köşe düğmesi gösterilmez
+                GameGuide.SetMenuLauncherVisible(false);
             } catch (System.Exception exception) {
                 Debug.LogWarning($"MobileBootstrap: GameGuide: {exception.Message}");
             }
             try {
                 // Google Play Oyun Hizmetleri: açılışta giriş; ana menüde "Google Play ile Gir"
                 GoogleGiris.Baslat();
-                GoogleGiris.MenuDugmesiGoster(inGame == false && MainMenuOpen());
+                // "Google Play ile Gir" artık AnaMenu sütununda; eski köşe düğmesi gösterilmez
+                GoogleGiris.MenuDugmesiGoster(false);
             } catch (System.Exception exception) {
                 Debug.LogWarning($"MobileBootstrap: GoogleGiris: {exception.Message}");
             }
@@ -626,6 +641,11 @@ namespace AnyRPG {
                 Gelisim.Tick(GetSystemGameManager(), inGame);
             } catch (System.Exception exception) {
                 Debug.LogWarning($"MobileBootstrap: Gelisim.Tick(): {exception.Message}");
+            }
+            try {
+                BellekKoruma.Tick();
+            } catch (System.Exception exception) {
+                Debug.LogWarning($"MobileBootstrap: BellekKoruma.Tick(): {exception.Message}");
             }
             try {
                 OyunAyarlari.Tick(GetSystemGameManager());

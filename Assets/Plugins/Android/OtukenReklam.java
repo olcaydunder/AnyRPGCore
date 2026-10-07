@@ -78,26 +78,42 @@ public class OtukenReklam {
                 new ConsentInformation.OnConsentInfoUpdateSuccessListener() {
                     @Override
                     public void onConsentInfoUpdateSuccess() {
-                        UserMessagingPlatform.loadAndShowConsentFormIfRequired(etkinlik, new ConsentForm.OnConsentFormDismissedListener() {
-                            @Override
-                            public void onConsentFormDismissed(FormError hata) {
-                                if (hata != null) {
-                                    olay("hata", "onay penceresi: " + hata.getMessage());
-                                }
-                                izinBildir();
-                                if (izin.canRequestAds()) {
-                                    adsBaslat();
-                                }
+                        // geri çağrılar sonradan, dıştaki try'ın dışında çalışır: hata oyunu kapatmasın
+                        try {
+                            if (etkinlik.isFinishing()) {
+                                return;
                             }
-                        });
+                            UserMessagingPlatform.loadAndShowConsentFormIfRequired(etkinlik, new ConsentForm.OnConsentFormDismissedListener() {
+                                @Override
+                                public void onConsentFormDismissed(FormError hata) {
+                                    try {
+                                        if (hata != null) {
+                                            olay("hata", "onay penceresi: " + hata.getMessage());
+                                        }
+                                        izinBildir();
+                                        if (izin.canRequestAds()) {
+                                            adsBaslat();
+                                        }
+                                    } catch (Throwable t) {
+                                        olay("hata", "onay sonrası: " + t.getMessage());
+                                    }
+                                }
+                            });
+                        } catch (Throwable t) {
+                            olay("hata", "onay penceresi: " + t.getMessage());
+                        }
                     }
                 },
                 new ConsentInformation.OnConsentInfoUpdateFailureListener() {
                     @Override
                     public void onConsentInfoUpdateFailure(FormError hata) {
-                        olay("hata", "onay bilgisi: " + (hata != null ? hata.getMessage() : "?"));
-                        if (izin.canRequestAds()) {
-                            adsBaslat();
+                        try {
+                            olay("hata", "onay bilgisi: " + (hata != null ? hata.getMessage() : "?"));
+                            if (izin.canRequestAds()) {
+                                adsBaslat();
+                            }
+                        } catch (Throwable t) {
+                            olay("hata", "onay bilgisi: " + t.getMessage());
                         }
                     }
                 });
@@ -112,9 +128,13 @@ public class OtukenReklam {
     }
 
     private void izinBildir() {
-        boolean gerekli = izin != null
-            && izin.getPrivacyOptionsRequirementStatus() == ConsentInformation.PrivacyOptionsRequirementStatus.REQUIRED;
-        olay("izin", gerekli ? "1" : "0");
+        try {
+            boolean gerekli = izin != null
+                && izin.getPrivacyOptionsRequirementStatus() == ConsentInformation.PrivacyOptionsRequirementStatus.REQUIRED;
+            olay("izin", gerekli ? "1" : "0");
+        } catch (Throwable t) {
+            olay("hata", "izin: " + t.getMessage());
+        }
     }
 
     /** Ayarlar'daki "Reklam gizlilik seçenekleri": onayı değiştirme penceresi */
@@ -130,12 +150,16 @@ public class OtukenReklam {
                     UserMessagingPlatform.showPrivacyOptionsForm(o.etkinlik, new ConsentForm.OnConsentFormDismissedListener() {
                         @Override
                         public void onConsentFormDismissed(FormError hata) {
-                            if (hata != null) {
-                                o.olay("hata", "gizlilik: " + hata.getMessage());
-                            }
-                            o.izinBildir();
-                            if (o.izin != null && o.izin.canRequestAds()) {
-                                o.adsBaslat();
+                            try {
+                                if (hata != null) {
+                                    o.olay("hata", "gizlilik: " + hata.getMessage());
+                                }
+                                o.izinBildir();
+                                if (o.izin != null && o.izin.canRequestAds()) {
+                                    o.adsBaslat();
+                                }
+                            } catch (Throwable t) {
+                                o.olay("hata", "gizlilik: " + t.getMessage());
                             }
                         }
                     });
@@ -161,12 +185,16 @@ public class OtukenReklam {
                     MobileAds.initialize(etkinlik, new OnInitializationCompleteListener() {
                         @Override
                         public void onInitializationComplete(InitializationStatus durum) {
-                            etkinlik.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    yukle();
-                                }
-                            });
+                            try {
+                                etkinlik.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        yukle();
+                                    }
+                                });
+                            } catch (Throwable t) {
+                                olay("hata", "başlatma sonrası: " + t.getMessage());
+                            }
                         }
                     });
                 } catch (Throwable t) {
@@ -177,7 +205,7 @@ public class OtukenReklam {
     }
 
     private void yukle() {
-        if (adsBaslatildi == false || reklam != null || yukleniyor) {
+        if (adsBaslatildi == false || reklam != null || yukleniyor || etkinlik.isFinishing()) {
             return;
         }
         yukleniyor = true;
@@ -196,7 +224,7 @@ public class OtukenReklam {
                     reklam = null;
                     yukleniyor = false;
                     deneme++;
-                    olay("yuklenemedi", hata.getCode() + " " + hata.getMessage());
+                    olay("yuklenemedi", hata != null ? hata.getCode() + " " + hata.getMessage() : "?");
                 }
             });
         } catch (Throwable t) {
@@ -245,14 +273,22 @@ public class OtukenReklam {
             public void onAdDismissedFullScreenContent() {
                 reklam = null;
                 olay(odulKazanildi ? "odul" : "kapandi", "");
-                yukle();
+                try {
+                    yukle();
+                } catch (Throwable t) {
+                    olay("hata", "yükleme: " + t.getMessage());
+                }
             }
 
             @Override
             public void onAdFailedToShowFullScreenContent(AdError hata) {
                 reklam = null;
                 olay("gosterilemedi", hata != null ? hata.getMessage() : "");
-                yukle();
+                try {
+                    yukle();
+                } catch (Throwable t) {
+                    olay("hata", "yükleme: " + t.getMessage());
+                }
             }
         });
         try {

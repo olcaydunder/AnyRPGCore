@@ -31,6 +31,10 @@ namespace AnyRPG {
             if (playerCharacterId == -1) {
                 return;
             }
+            // Ötüken: yönetim panelinden susturulan oyuncu yazamaz
+            if (YonetimIslemleri.SohbetEngeli(systemGameManager, accountId)) {
+                return;
+            }
             string playerName = playerCharacterService.GetPlayerNameFromId(playerCharacterId);
             // Ötüken: küfür, hakaret ve bağlantılar yıldızlanır; satır şikâyet incelemesi için saklanır (Engelleme)
             if (newMessage.Length > 200) {
@@ -70,7 +74,7 @@ namespace AnyRPG {
 
         public void SendGroupMessage(int accountId, string messageText) {
             int playerCharacterId = playerManagerServer.GetPlayerCharacterId(accountId);
-            if (playerCharacterId == -1) {
+            if (playerCharacterId == -1 || YonetimIslemleri.SohbetEngeli(systemGameManager, accountId)) {
                 return;
             }
 
@@ -96,7 +100,7 @@ namespace AnyRPG {
 
         public void SendGuildMessage(int accountId, string messageText) {
             int playerCharacterId = playerManagerServer.GetPlayerCharacterId(accountId);
-            if (playerCharacterId == -1) {
+            if (playerCharacterId == -1 || YonetimIslemleri.SohbetEngeli(systemGameManager, accountId)) {
                 return;
             }
             string playerName = playerCharacterService.GetPlayerNameFromId(playerCharacterId);
@@ -120,7 +124,7 @@ namespace AnyRPG {
             //Debug.Log($"MessageLogServer.SendPrivateMessage({sourceAccountId}, {targetPlayerName}, {messageText})");
 
             int sourcePlayerCharacterId = playerManagerServer.GetPlayerCharacterId(sourceAccountId);
-            if (sourcePlayerCharacterId == -1) {
+            if (sourcePlayerCharacterId == -1 || YonetimIslemleri.SohbetEngeli(systemGameManager, sourceAccountId)) {
                 return;
             }
             string sourcePlayerName = playerCharacterService.GetPlayerNameFromId(sourcePlayerCharacterId);

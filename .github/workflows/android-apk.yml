@@ -493,9 +493,17 @@ jobs:
               -d "{\"sifre\":\"$p_sifre\"}" http://127.0.0.1:8081/yonetim/giris)
             curl -s --max-time 5 -b tani/panel_cerez.txt http://127.0.0.1:8081/yonetim/api/genel > tani/panel_genel.json
             curl -s --max-time 5 -b tani/panel_cerez.txt http://127.0.0.1:8081/yonetim/api/oyuncular > tani/panel_oyuncular.json
-            rm -f tani/panel_cerez.txt
             p_oyuncu=$(grep -o '"karakter"' tani/panel_oyuncular.json 2>/dev/null | wc -l)
-            echo "::notice title=Yönetim paneli::sayfa=$p_sayfa şifresiz=$p_kapali giriş=$p_giris oyuncu=$p_oyuncu $(head -c 300 tani/panel_genel.json)"
+            # oyuncu ayrıntısı, eşya listesi ve bir işlem (bota yönetici mesajı)
+            p_no=$(grep -o '"hesapNo":[0-9]*' tani/panel_oyuncular.json 2>/dev/null | head -n 1 | cut -d: -f2)
+            curl -s --max-time 10 -b tani/panel_cerez.txt "http://127.0.0.1:8081/yonetim/api/oyuncu?hesap=${p_no:-0}" > tani/panel_oyuncu.json
+            curl -s --max-time 20 -b tani/panel_cerez.txt http://127.0.0.1:8081/yonetim/api/esyalar > tani/panel_esyalar.json
+            curl -s --max-time 10 -b tani/panel_cerez.txt -H 'Content-Type: application/json' \
+              -d "{\"hesap\":${p_no:-0},\"tur\":\"mesaj\",\"metin\":\"CI denemesi\"}" http://127.0.0.1:8081/yonetim/api/islem > tani/panel_islem.json
+            rm -f tani/panel_cerez.txt
+            p_canta=$(grep -o '"canta"' tani/panel_oyuncu.json 2>/dev/null | wc -l)
+            p_esya=$(grep -o '"gorunen"' tani/panel_esyalar.json 2>/dev/null | wc -l)
+            echo "::notice title=Yönetim paneli::sayfa=$p_sayfa şifresiz=$p_kapali giriş=$p_giris oyuncu=$p_oyuncu ayrıntı(çanta bölümü)=$p_canta eşya listesi=$p_esya işlem=$(head -c 120 tani/panel_islem.json) $(head -c 200 tani/panel_genel.json)"
             for i in $(seq 1 360); do
               sleep 1
               kill -0 $pid_Bot1 2>/dev/null || kill -0 $pid_Bot2 2>/dev/null || break
