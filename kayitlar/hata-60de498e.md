@@ -4,7 +4,7 @@ Durum: 🔴 açık
 
 | Tekrar | Cihaz | Sürümler | İlk görülme | Son görülme |
 |---|---|---|---|---|
-| 89 | 1 | 0.1.64, 0.1.65, 0.1.66, 0.1.67, 1.0.69, 1.0.70, 0.1.71, 0.1.73 | 04.10.2026 23:44 | 07.10.2026 15:19 |
+| 92 | 1 | 0.1.65, 0.1.66, 0.1.67, 1.0.69, 1.0.70, 0.1.71, 0.1.73, 1.0.74 | 04.10.2026 23:44 | 07.10.2026 15:58 |
 
 
 ## İlk rapor
@@ -53,6 +53,9 @@ Oyuncu karakteri: oluştu (MecanimMale133) | Önizleme karakteri: yok | Önizlem
 
 | Zaman · sürüm · cihaz · harita · oyuncu · ekran |
 |---|
+| 07.10.2026 15:58 · 1.0.74 · PC · FeaturesDemoZone · seviye 1 · 640x480 |
+| 07.10.2026 15:58 · 1.0.74 · PC · FeaturesDemoZone · seviye 1 · 640x480 |
+| 07.10.2026 15:56 · 1.0.74 · PC · FeaturesDemoZone · seviye 1 · 640x480 |
 | 07.10.2026 15:19 · 0.1.73 · PC · FeaturesDemoZone · seviye 1 · 640x480 |
 | 07.10.2026 15:19 · 0.1.73 · PC · FeaturesDemoZone · seviye 1 · 640x480 |
 | 07.10.2026 15:16 · 0.1.73 · PC · FeaturesDemoZone · seviye 1 · 640x480 |
@@ -110,8 +113,5 @@ Oyuncu karakteri: oluştu (MecanimMale133) | Önizleme karakteri: yok | Önizlem
 | 05.10.2026 17:10 · 0.1.52 · PC · FeaturesDemoZone · seviye 1 · 640x480 |
 | 05.10.2026 17:10 · 0.1.52 · PC · FeaturesDemoZone · seviye 1 · 640x480 |
 | 05.10.2026 17:09 · 0.1.52 · PC · FeaturesDemoZone · seviye 1 · 640x480 |
-| 05.10.2026 16:12 · 0.1.51 · PC · FeaturesDemoZone · seviye 1 · 640x480 |
-| 05.10.2026 16:12 · 0.1.51 · PC · FeaturesDemoZone · seviye 1 · 640x480 |
-| 05.10.2026 16:11 · 0.1.51 · PC · FeaturesDemoZone · seviye 1 · 640x480 |
 
 Anahtar: `hata-60de498e`

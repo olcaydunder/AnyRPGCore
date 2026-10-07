@@ -1,5 +1,5 @@
 {
- "son_zaman": 1791375557,
+ "son_zaman": 1791377917,
  "islenen": [
   "ZA4f7jqHrQMP",
   "ECmsu6OF1Jgp",
@@ -143,7 +143,10 @@
   "naEuu0kBJrY7",
   "cxPXDSOVFYf6",
   "2byGi4G5WHfE",
-  "yJajAlHC3RJ0"
+  "yJajAlHC3RJ0",
+  "kCpGktrZWyeK",
+  "MaUjywE20bFI",
+  "lX8vCworg6aL"
  ],
  "kayitlar": {
   "istisna-d581f62b": {
@@ -412,7 +415,7 @@
   "hata-60de498e": {
    "tur": "hata",
    "baslik": "Hata: Screen position out of view frustum (screen pos inf, -inf) (Camera rect 0 0 640 480)",
-   "adet": 89,
+   "adet": 92,
    "cihazlar": [
     "PC"
    ],
@@ -440,15 +443,13 @@
     "1.0.69",
     "1.0.70",
     "0.1.71",
-    "0.1.73"
+    "0.1.73",
+    "1.0.74"
    ],
    "ilk": 1791146643,
-   "son": 1791375557,
+   "son": 1791377917,
    "ilk_rapor": "**Hata** · sürüm **0.1.43** · PC · Linux 6.17 Ubuntu 24.04 64bit · ekran 640x480 · FeaturesDemoZone\n\n### Mesaj\n```text\nScreen position out of view frustum (screen pos inf, -inf) (Camera rect 0 0 640 480)\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: hata\nsurum: 0.1.43\ncihaz: PC\nsistem: Linux 6.17 Ubuntu 24.04 64bit\ngrafik: OpenGLCore / llvmpipe (LLVM 20.1.2, 256 bits) / bellek 15989 MB\nekran: 640x480\nayarlar: kalite -1, çözünürlük 0, gölge 0, fps sınırı 1\nsahne: FeaturesDemoZone\noyuncu: seviye 1\nsure: 38 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 0.1.43 | PC | Linux 6.17 Ubuntu 24.04 64bit\nOpenGLCore llvmpipe (LLVM 20.1.2, 256 bits) | Bellek 15989 MB | 640x480 | FPS ? | Süre 37 sn\nKare süresi: işlemci ? | ekran kartı ? | ekran 0 Hz | hedef 500 | kalite Ultra | pil -100%\nSahneler: MovedObjectsHolder FeaturesDemoZone\nGiriş: dokunmatik yok | fare bağlı | ekran tuşları kapalı\nSon dokunuş: -\nOyuncu karakteri: oluştu (MecanimMale133) | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n",
    "gorulmeler": [
-    "05.10.2026 16:11 · 0.1.51 · PC · FeaturesDemoZone · seviye 1 · 640x480",
-    "05.10.2026 16:12 · 0.1.51 · PC · FeaturesDemoZone · seviye 1 · 640x480",
-    "05.10.2026 16:12 · 0.1.51 · PC · FeaturesDemoZone · seviye 1 · 640x480",
     "05.10.2026 17:09 · 0.1.52 · PC · FeaturesDemoZone · seviye 1 · 640x480",
     "05.10.2026 17:10 · 0.1.52 · PC · FeaturesDemoZone · seviye 1 · 640x480",
     "05.10.2026 17:10 · 0.1.52 · PC · FeaturesDemoZone · seviye 1 · 640x480",
@@ -505,7 +506,10 @@
     "07.10.2026 13:25 · 0.1.71 · PC · FeaturesDemoZone · seviye 1 · 640x480",
     "07.10.2026 15:16 · 0.1.73 · PC · FeaturesDemoZone · seviye 1 · 640x480",
     "07.10.2026 15:19 · 0.1.73 · PC · FeaturesDemoZone · seviye 1 · 640x480",
-    "07.10.2026 15:19 · 0.1.73 · PC · FeaturesDemoZone · seviye 1 · 640x480"
+    "07.10.2026 15:19 · 0.1.73 · PC · FeaturesDemoZone · seviye 1 · 640x480",
+    "07.10.2026 15:56 · 1.0.74 · PC · FeaturesDemoZone · seviye 1 · 640x480",
+    "07.10.2026 15:58 · 1.0.74 · PC · FeaturesDemoZone · seviye 1 · 640x480",
+    "07.10.2026 15:58 · 1.0.74 · PC · FeaturesDemoZone · seviye 1 · 640x480"
    ],
    "ekler": [],
    "duzeltildi": null,
@@ -867,7 +871,10 @@
   "ca33144394": "hata-60de498e",
   "0f527f3915": "hata-60de498e",
   "07ff50746d": "hata-60de498e",
-  "ec0938197d": "hata-60de498e"
+  "ec0938197d": "hata-60de498e",
+  "3aaea06bb8": "hata-60de498e",
+  "354ba2e136": "hata-60de498e",
+  "a5c93f7056": "hata-60de498e"
  },
  "derleme": {
   "sonuc": "basarili",
