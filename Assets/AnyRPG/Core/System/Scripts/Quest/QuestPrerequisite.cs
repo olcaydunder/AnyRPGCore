@@ -41,16 +41,7 @@ namespace AnyRPG {
                 Debug.LogError($"QuestPrerequisite.IsMet(): prerequisiteQuest IS NULL FOR {prerequisiteName}!  FIX THIS!  DO NOT COMMENT THIS LINE");
                 return;
             }
-            if (requireTurnedIn && prerequisiteQuest.TurnedIn(sourceUnitController) == true) {
-                //Debug.Log("QuestPrerequisite.UpdateStatus(): " + prerequisiteQuest.DisplayName + ";requireTurnedIn = true and prerequisiteQuest.TurnedIn == true; originalresult: " + originalResult);
-                prerequisiteMet = true;
-            } else if (!requireTurnedIn && requireComplete && prerequisiteQuest.IsComplete(sourceUnitController) && sourceUnitController.CharacterQuestLog.HasQuest(prerequisiteQuest.ResourceName)) {
-                prerequisiteMet = true;
-            } else if (!requireTurnedIn && !requireComplete && sourceUnitController.CharacterQuestLog.HasQuest(prerequisiteQuest.ResourceName) && (stepIndex == -1 || prerequisiteQuest.CurrentStep(sourceUnitController) == stepIndex)) {
-                prerequisiteMet = true;
-            } else {
-                prerequisiteMet = false;
-            }
+            prerequisiteMet = Hesapla(sourceUnitController);
             if (prerequisiteMet != originalResult && notify == true) {
                 //Debug.Log("QuestPrerequisite.UpdateStatus(): " + prerequisiteQuest.DisplayName + "; calling OnStatusUpated; originalresult: " + originalResult + "; notify: " + notify);
                 OnStatusUpdated(sourceUnitController);
@@ -59,9 +50,27 @@ namespace AnyRPG {
             }
         }
 
+        /// <summary>
+        /// Ötüken: koşul bu oyuncu için o an hesaplanır. AnyRPG sonucu nesnede saklıyordu; sunucuda tek nesne bütün
+        /// oyunculara ortak olduğundan son güncellenen oyuncunun sonucu ötekilere de dönüyordu.
+        /// </summary>
+        private bool Hesapla(UnitController sourceUnitController) {
+            if (prerequisiteQuest == null || sourceUnitController == null) {
+                return prerequisiteMet;
+            }
+            if (requireTurnedIn && prerequisiteQuest.TurnedIn(sourceUnitController) == true) {
+                return true;
+            } else if (!requireTurnedIn && requireComplete && prerequisiteQuest.IsComplete(sourceUnitController) && sourceUnitController.CharacterQuestLog.HasQuest(prerequisiteQuest.ResourceName)) {
+                return true;
+            } else if (!requireTurnedIn && !requireComplete && sourceUnitController.CharacterQuestLog.HasQuest(prerequisiteQuest.ResourceName) && (stepIndex == -1 || prerequisiteQuest.CurrentStep(sourceUnitController) == stepIndex)) {
+                return true;
+            }
+            return false;
+        }
+
         public virtual bool IsMet(UnitController sourceUnitController) {
             //Debug.Log("QuestPrerequisite.IsMet(): " + prerequisiteQuest.DisplayName + " returning " + prerequisiteMet);
-            return prerequisiteMet;
+            return Hesapla(sourceUnitController);
         }
 
         public void SetupScriptableObjects(SystemGameManager systemGameManager, string ownerName) {

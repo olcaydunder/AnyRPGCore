@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b491a306145b8e4aa064bbcf71f8e01, type: 3}
+  m_Name: Yan1211KemikAkinciAvi
+  m_EditorClassIdentifier: 
+  resourceName: Yan 12-1-1 KemikAkinciAvi
+  displayName: "Kemik Ak\u0131nc\u0131 Av\u0131 (1/9)"
+  icon: {fileID: 0}
+  iconBackgroundImage: {fileID: 0}
+  description: "Ben Gece Bek\u00e7isi Y\u0131ld\u0131z. Ay \u0131\u015f\u0131\u011f\u0131 her gece biraz daha s\u00f6n\u00fck; karanl\u0131kta \u00f6l\u00fcler y\u00fcr\u00fcyor. Ay Dede K\u00f6y\u00fc'nde Kemik Ak\u0131nc\u0131 say\u0131s\u0131 her g\u00fcn art\u0131yor. 4 tanesini yen ki k\u00f6y\u00fc rahat b\u0131raks\u0131nlar."
+  useRegionalDescription: 0
+  resourceDescriptionProfile: 
+  optionalOverride: 0
+  isAchievement: 0
+  repeatableQuest: 0
+  hasOpeningDialog: 0
+  experienceLevel: 1
+  dynamicLevel: 1
+  extraLevels: 0
+  baseExperienceReward: 1310
+  experienceRewardPerLevel: 0
+  automaticCurrencyReward: 0
+  rewardCurrencyName: Silver
+  baseCurrencyReward: 29
+  currencyRewardPerLevel: 0
+  maxItemRewards: 0
+  itemRewardNames: []
+  maxFactionRewards: 0
+  factionRewards: []
+  maxAbilityRewards: 0
+  abilityRewardNames: []
+  maxSkillRewards: 0
+  skillRewardNames: []
+  steps:
+  - questObjectives:
+    - rid: 4325812556057541676
+  prerequisiteConditions: []
+  turnInItems: 0
+  allowRawComplete: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 4325812556057541676
+      type: {class: KillObjective, ns: AnyRPG, asm: Assembly-CSharp}
+      data:
+        amount: 4
+        deprecatedType: 
+        overrideDisplayName: "Kemik Ak\u0131nc\u0131 yen"
+        targetName: Kemik Akinci

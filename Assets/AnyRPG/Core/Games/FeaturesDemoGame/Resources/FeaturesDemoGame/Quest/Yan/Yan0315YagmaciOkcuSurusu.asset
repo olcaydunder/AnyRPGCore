@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b491a306145b8e4aa064bbcf71f8e01, type: 3}
+  m_Name: Yan0315YagmaciOkcuSurusu
+  m_EditorClassIdentifier: 
+  resourceName: Yan 03-1-5 YagmaciOkcuSurusu
+  displayName: "Ya\u011fmac\u0131 Ok\u00e7u S\u00fcr\u00fcs\u00fc (5/9)"
+  icon: {fileID: 0}
+  iconBackgroundImage: {fileID: 0}
+  description: "D\u00fcn gece bir Ya\u011fmac\u0131 Ok\u00e7u s\u00fcr\u00fcs\u00fc teknelerimizi bast\u0131. Pe\u015flerine d\u00fc\u015f ve 6 tanesini yen."
+  useRegionalDescription: 0
+  resourceDescriptionProfile: 
+  optionalOverride: 0
+  isAchievement: 0
+  repeatableQuest: 0
+  hasOpeningDialog: 0
+  experienceLevel: 1
+  dynamicLevel: 1
+  extraLevels: 0
+  baseExperienceReward: 100
+  experienceRewardPerLevel: 0
+  automaticCurrencyReward: 0
+  rewardCurrencyName: Silver
+  baseCurrencyReward: 15
+  currencyRewardPerLevel: 0
+  maxItemRewards: 0
+  itemRewardNames: []
+  maxFactionRewards: 0
+  factionRewards: []
+  maxAbilityRewards: 0
+  abilityRewardNames: []
+  maxSkillRewards: 0
+  skillRewardNames: []
+  steps:
+  - questObjectives:
+    - rid: 1934568889777151964
+  prerequisiteConditions:
+  - requireAny: 0
+    reverseMatch: 0
+    questPrerequisites:
+    - prerequisiteName: Yan 03-1-4 BirlikOlmusDusman
+      stepIndex: -1
+      requireComplete: 1
+      requireTurnedIn: 1
+  turnInItems: 0
+  allowRawComplete: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 1934568889777151964
+      type: {class: KillObjective, ns: AnyRPG, asm: Assembly-CSharp}
+      data:
+        amount: 6
+        deprecatedType: 
+        overrideDisplayName: "Ya\u011fmac\u0131 Ok\u00e7u yen"
+        targetName: Yagmaci Okcu

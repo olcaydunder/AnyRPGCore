@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b491a306145b8e4aa064bbcf71f8e01, type: 3}
+  m_Name: Yan0429KaraRuhlaraKarsi
+  m_EditorClassIdentifier: 
+  resourceName: Yan 04-2-9 KaraRuhlaraKarsi
+  displayName: "Kara Ruhlara Kar\u015f\u0131 (9/9)"
+  icon: {fileID: 0}
+  iconBackgroundImage: {fileID: 0}
+  description: "Bu son g\u00f6rev, alp: Ordubal\u0131k \u00c7ar\u015f\u0131s\u0131'nda ne kadar kara ruh varsa \u00fczerine y\u00fcr\u00fc. Kara Otac\u0131, \u015eulmus ve \u00d6t\u00fcken Ta\u015flar\u0131\u2026 hepsinden pay\u0131n\u0131 al."
+  useRegionalDescription: 0
+  resourceDescriptionProfile: 
+  optionalOverride: 0
+  isAchievement: 0
+  repeatableQuest: 0
+  hasOpeningDialog: 0
+  experienceLevel: 1
+  dynamicLevel: 1
+  extraLevels: 0
+  baseExperienceReward: 460
+  experienceRewardPerLevel: 0
+  automaticCurrencyReward: 0
+  rewardCurrencyName: Silver
+  baseCurrencyReward: 63
+  currencyRewardPerLevel: 0
+  maxItemRewards: 0
+  itemRewardNames:
+  - Demir Cevheri
+  maxFactionRewards: 0
+  factionRewards: []
+  maxAbilityRewards: 0
+  abilityRewardNames: []
+  maxSkillRewards: 0
+  skillRewardNames: []
+  steps:
+  - questObjectives:
+    - rid: 2857357421504632348
+    - rid: 2906741143372216561
+    - rid: 2793065881080954723
+  prerequisiteConditions:
+  - requireAny: 0
+    reverseMatch: 0
+    questPrerequisites:
+    - prerequisiteName: Yan 04-2-8 KaraOtaciBaskini
+      stepIndex: -1
+      requireComplete: 1
+      requireTurnedIn: 1
+  turnInItems: 0
+  allowRawComplete: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 2857357421504632348
+      type: {class: KillObjective, ns: AnyRPG, asm: Assembly-CSharp}
+      data:
+        amount: 11
+        deprecatedType: 
+        overrideDisplayName: "Kara Otac\u0131 yen"
+        targetName: Kara Otaci
+    - rid: 2906741143372216561
+      type: {class: KillObjective, ns: AnyRPG, asm: Assembly-CSharp}
+      data:
+        amount: 8
+        deprecatedType: 
+        overrideDisplayName: "\u015eulmus yen"
+        targetName: Sulmus
+    - rid: 2793065881080954723
+      type: {class: KillObjective, ns: AnyRPG, asm: Assembly-CSharp}
+      data:
+        amount: 5
+        deprecatedType: 
+        overrideDisplayName: "\u00d6t\u00fcken Ta\u015f\u0131 k\u0131r"
+        targetName: Otuken Tasi

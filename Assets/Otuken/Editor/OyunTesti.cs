@@ -1073,7 +1073,52 @@ namespace Otuken.EditorAraclari {
                         }
                     }
                 }
-                return gorev + " görev yüklü" + (bos > 0 ? " (" + bos + " görevin hedefi YOK)" : string.Empty)
+                // yan görevler (yan_gorevler.py): hedefleri var mı, hedef birimleri ve ödül cevherleri var mı
+                int yan = 0;
+                int yanBos = 0;
+                int yanHedefsiz = 0;
+                int yanOdulsuz = 0;
+                foreach (AnyRPG.Quest g in oyun.SystemDataFactory.GetResourceList<AnyRPG.Quest>()) {
+                    if (g == null || g.ResourceName == null || g.ResourceName.StartsWith("Yan ", StringComparison.Ordinal) == false) {
+                        continue;
+                    }
+                    yan++;
+                    int hedef = 0;
+                    foreach (AnyRPG.QuestStep adim_ in g.Steps) {
+                        foreach (AnyRPG.QuestObjective h in adim_.QuestObjectives) {
+                            hedef++;
+                            if (h is AnyRPG.KillObjective && oyun.SystemDataFactory.GetResource<AnyRPG.UnitProfile>(h.ObjectiveName) == null) {
+                                yanHedefsiz++;
+                            }
+                        }
+                    }
+                    if (hedef == 0) {
+                        yanBos++;
+                    }
+                    // zincirin son görevi ("Yan HH-K-9 ...") 3. haritadan sonra bir cevher verir
+                    int haritaNo;
+                    if (g.ResourceName.Length > 10 && g.ResourceName[9] == '9' && int.TryParse(g.ResourceName.Substring(4, 2), out haritaNo)
+                        && haritaNo >= 2 && (g.ItemRewards == null || g.ItemRewards.Count == 0 || g.ItemRewards.Exists(e => e == null))) {
+                        yanOdulsuz++;
+                    }
+                }
+                int yanVeren = 0;
+                int yanEksik = 0;
+                foreach (string[] kisiler in Otuken.EditorAraclari.YanGorevVerisi.Haritalar.Values) {
+                    foreach (string kisi in kisiler) {
+                        if (oyun.SystemDataFactory.GetResource<AnyRPG.UnitProfile>(kisi) == null) {
+                            yanEksik++;
+                        } else {
+                            yanVeren++;
+                        }
+                    }
+                }
+                string yanOzet = "; " + yan + " yan görev, " + yanVeren + " yan görev veren"
+                    + (yanBos > 0 ? ", " + yanBos + " yan görevin hedefi YOK" : string.Empty)
+                    + (yanHedefsiz > 0 ? ", " + yanHedefsiz + " hedef birimi BULUNAMADI" : string.Empty)
+                    + (yanOdulsuz > 0 ? ", " + yanOdulsuz + " ödül eşyası BULUNAMADI" : string.Empty)
+                    + (yanEksik > 0 ? ", " + yanEksik + " görev veren profili EKSİK" : string.Empty);
+                return gorev + " görev yüklü" + (bos > 0 ? " (" + bos + " görevin hedefi YOK)" : string.Empty) + yanOzet
                     + ", ilk: " + (ilk ?? "YOK") + "; " + yardimci + " yardımcı, " + boss + " yeni boss profili"
                     + (eksik > 0 ? ", " + eksik + " profil EKSİK" : string.Empty)
                     + "; yolculukta " + HikayeIlerlemesi(oyun);
@@ -1117,6 +1162,29 @@ namespace Otuken.EditorAraclari {
                 if (ulasilir == false) {
                     notlar.Add("hikâye birimine yürüyerek ulaşılamıyor: " + profil);
                 }
+            }
+            // yan görev verenler doğdu mu, yürüyerek ulaşılıyor mu
+            string[] kisiler;
+            if (Otuken.EditorAraclari.YanGorevVerisi.Haritalar.TryGetValue(sonuc.sahne, out kisiler)) {
+                int dogan = 0;
+                foreach (string kisi in kisiler) {
+                    AnyRPG.UnitController bulunan = null;
+                    foreach (AnyRPG.UnitController u in birimler) {
+                        if (u != null && u.UnitProfile != null && u.UnitProfile.ResourceName == kisi) {
+                            bulunan = u;
+                            break;
+                        }
+                    }
+                    if (bulunan == null) {
+                        notlar.Add("yan görev veren doğmadı: " + kisi);
+                        continue;
+                    }
+                    dogan++;
+                    if (yolVar && NoktayaUlasilir(baslangic.position, bulunan.transform.position, yol) == false) {
+                        notlar.Add("yan görev verene yürüyerek ulaşılamıyor: " + kisi);
+                    }
+                }
+                parcalar.Add(dogan + "/" + kisiler.Length + " yan görev veren");
             }
             sonuc.hikaye = string.Join(", ", parcalar);
         }

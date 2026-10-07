@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b491a306145b8e4aa064bbcf71f8e01, type: 3}
+  m_Name: Yan0621YoluAcmak
+  m_EditorClassIdentifier: 
+  resourceName: Yan 06-2-1 YoluAcmak
+  displayName: "Yolu A\u00e7mak (1/9)"
+  icon: {fileID: 0}
+  iconBackgroundImage: {fileID: 0}
+  description: "Ben Otac\u0131 B\u00f6rte. \u015eifa bah\u00e7emin otlar\u0131 kurudu; a\u011fu topra\u011fa s\u0131z\u0131yor. Kara Otac\u0131 y\u00fcz\u00fcnden ocaklar s\u00f6nd\u00fc. 4 tanesini yen; oca\u011f\u0131m\u0131z\u0131 yeniden yakal\u0131m."
+  useRegionalDescription: 0
+  resourceDescriptionProfile: 
+  optionalOverride: 0
+  isAchievement: 0
+  repeatableQuest: 0
+  hasOpeningDialog: 0
+  experienceLevel: 1
+  dynamicLevel: 1
+  extraLevels: 0
+  baseExperienceReward: 390
+  experienceRewardPerLevel: 0
+  automaticCurrencyReward: 0
+  rewardCurrencyName: Silver
+  baseCurrencyReward: 17
+  currencyRewardPerLevel: 0
+  maxItemRewards: 0
+  itemRewardNames: []
+  maxFactionRewards: 0
+  factionRewards: []
+  maxAbilityRewards: 0
+  abilityRewardNames: []
+  maxSkillRewards: 0
+  skillRewardNames: []
+  steps:
+  - questObjectives:
+    - rid: 3268228998490904328
+  prerequisiteConditions: []
+  turnInItems: 0
+  allowRawComplete: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 3268228998490904328
+      type: {class: KillObjective, ns: AnyRPG, asm: Assembly-CSharp}
+      data:
+        amount: 4
+        deprecatedType: 
+        overrideDisplayName: "Kara Otac\u0131 yen"
+        targetName: Kara Otaci

@@ -136,6 +136,8 @@ namespace Otuken.EditorAraclari {
             // 3. ana hikâye (HikayeVerisi, Tools~/dunya/hikaye.py): görev veren yardımcı girişin yanına, haritanın yeni
             //    boss'u girişten en uzak açıklığa (sahnedeki öteki boss'lardan uzak)
             string hikaye = Hikaye(sahne, ad, prefab, giris, noktalar, engeller);
+            // 4. yan görevler (YanGorevVerisi, Tools~/dunya/yan_gorevler.py): üç görev veren girişin çevresine
+            hikaye += YanGorevciler(sahne, ad, prefab, giris, noktalar);
             return $"taş/kamp: {taslar.Count} Ötüken Taşı, {kampSayisi} ek kamp ({canavar} canavar)" + hikaye
                 + (tasinan > 0 ? $", girişten uzaklaştırılan {tasinan} düşman" : string.Empty)
                 + $" | açık alan ~{alan:0} m² ({noktalar.Count} nokta)" + (silinen > 0 ? $", eskiden {silinen} silindi" : string.Empty);
@@ -332,6 +334,48 @@ namespace Otuken.EditorAraclari {
         }
 
         private const float BossUzakligi = 35f;
+
+        /// <summary>
+        /// yan görev verenler: girişe 6-16 m (taşların ve kampların konmadığı güvenli halka), birbirinden, yardımcıdan,
+        /// geçit taşından ve öteki doğma noktalarından 5 m uzak, girişe dönük. Dar girişlerde girişin yanı.
+        /// </summary>
+        private static string YanGorevciler(Scene sahne, string ad, GameObject prefab, Vector3 giris, List<Vector3> noktalar) {
+            string[] kisiler;
+            if (YanGorevVerisi.Haritalar.TryGetValue(ad, out kisiler) == false || kisiler.Length == 0) {
+                return string.Empty;
+            }
+            List<Vector3> dolu = Object.FindObjectsByType<AnyRPG.InteractableBase>(FindObjectsInactive.Include, FindObjectsSortMode.None)
+                .Where(e => e.gameObject.scene == sahne).Select(e => e.transform.position).ToList();
+            dolu.AddRange(Object.FindObjectsByType<AnyRPG.UnitSpawnNode>(FindObjectsInactive.Include, FindObjectsSortMode.None)
+                .Where(n => n.gameObject.scene == sahne).Select(n => n.transform.position));
+            List<Vector3> halka = noktalar.Where(p => Mathf.Abs(p.y - giris.y) < 2.5f && Yatay(p, giris) >= 6f && Yatay(p, giris) <= 16f).ToList();
+            Dictionary<Vector3, float> kenar = new Dictionary<Vector3, float>();
+            foreach (Vector3 p in halka) {
+                kenar[p] = Mathf.Min(KenarUzakligi(p), 3f);
+            }
+            List<Vector3> konanlar = new List<Vector3>();
+            int eksik = 0;
+            foreach (string kisi in kisiler) {
+                Vector3? yer = null;
+                List<Vector3> uygun = halka.Where(p => dolu.All(d => Yatay(p, d) >= 5f)).ToList();
+                if (uygun.Count > 0) {
+                    // açık, girişe ~10 m ve öncekilerden uzak: girişin çevresine dağılsınlar
+                    yer = uygun.OrderByDescending(p => kenar[p] - Mathf.Abs(Yatay(p, giris) - 10f) * 0.2f
+                        + (konanlar.Count > 0 ? Mathf.Min(konanlar.Min(k => Yatay(p, k)), 12f) * 0.4f : 0f)).First();
+                } else if (GirisYani(giris, dolu, out Vector3 yan)) {
+                    yer = yan;
+                }
+                if (yer.HasValue == false) {
+                    eksik++;
+                    continue;
+                }
+                int yon = Mathf.RoundToInt(Mathf.Atan2(giris.x - yer.Value.x, giris.z - yer.Value.z) * Mathf.Rad2Deg);
+                konanlar.Add(yer.Value);
+                dolu.Add(yer.Value);
+                DogmaNoktasi(prefab, sahne, Onek + "YanGorev_" + konanlar.Count, yer.Value, yon, kisi, 30);
+            }
+            return $", {konanlar.Count} yan görev veren" + (eksik > 0 ? $" (!! {eksik} tanesine yer bulunamadı)" : string.Empty);
+        }
 
         /// <summary>girişin 5-10 m yanında, yürüme ağında, girişten yürünerek ulaşılan bir yer (kapı ve geçit taşından 3 m uzak)</summary>
         private static bool GirisYani(Vector3 giris, List<Vector3> etkilesimler, out Vector3 yer) {

@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b491a306145b8e4aa064bbcf71f8e01, type: 3}
+  m_Name: Yan0718IkiYandan
+  m_EditorClassIdentifier: 
+  resourceName: Yan 07-1-8 IkiYandan
+  displayName: "\u0130ki Yandan (8/9)"
+  icon: {fileID: 0}
+  iconBackgroundImage: {fileID: 0}
+  description: "\u0130ki yandan s\u0131k\u0131\u015ft\u0131k: bir yanda K\u0131z\u0131l Cin, \u00f6b\u00fcr yanda K\u00f6rm\u00f6s. \u0130kisinden de pay\u0131n\u0131 al."
+  useRegionalDescription: 0
+  resourceDescriptionProfile: 
+  optionalOverride: 0
+  isAchievement: 0
+  repeatableQuest: 0
+  hasOpeningDialog: 0
+  experienceLevel: 1
+  dynamicLevel: 1
+  extraLevels: 0
+  baseExperienceReward: 510
+  experienceRewardPerLevel: 0
+  automaticCurrencyReward: 0
+  rewardCurrencyName: Silver
+  baseCurrencyReward: 26
+  currencyRewardPerLevel: 0
+  maxItemRewards: 0
+  itemRewardNames: []
+  maxFactionRewards: 0
+  factionRewards: []
+  maxAbilityRewards: 0
+  abilityRewardNames: []
+  maxSkillRewards: 0
+  skillRewardNames: []
+  steps:
+  - questObjectives:
+    - rid: 4124043159546126831
+    - rid: 2295156259934904024
+  prerequisiteConditions:
+  - requireAny: 0
+    reverseMatch: 0
+    questPrerequisites:
+    - prerequisiteName: Yan 07-1-7 OcAvi
+      stepIndex: -1
+      requireComplete: 1
+      requireTurnedIn: 1
+  turnInItems: 0
+  allowRawComplete: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 4124043159546126831
+      type: {class: KillObjective, ns: AnyRPG, asm: Assembly-CSharp}
+      data:
+        amount: 10
+        deprecatedType: 
+        overrideDisplayName: "K\u0131z\u0131l Cin yen"
+        targetName: Kizil Cin
+    - rid: 2295156259934904024
+      type: {class: KillObjective, ns: AnyRPG, asm: Assembly-CSharp}
+      data:
+        amount: 8
+        deprecatedType: 
+        overrideDisplayName: "K\u00f6rm\u00f6s yen"
+        targetName: Kormos

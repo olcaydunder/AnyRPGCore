@@ -29,7 +29,7 @@ namespace AnyRPG {
         public static readonly string[] Adlar = {
             "Ötüken Yaylası", "Umay Tarlaları", "Börü Tepesi", "Ak Deniz Kıyısı", "Ordubalık Çarşısı", "Ordubalık Kenti",
             "Ulukayın Ormanı", "Koncolos İni", "Kağan Ordası", "Kaf Dağı Yolu", "Ergenekon Mağarası", "Kurgan Mezarlığı",
-            "Ay Dede Koyu", "Erlik'in Mağarası", "Tamu Zindanı",
+            "Ay Dede Köyü", "Erlik'in Mağarası", "Tamu Zindanı",
         };
 
         /// <summary>sahnenin görünen adı (bilinmiyorsa sahne adı)</summary>

@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b491a306145b8e4aa064bbcf71f8e01, type: 3}
+  m_Name: Yan0221GeceNobeti
+  m_EditorClassIdentifier: 
+  resourceName: Yan 02-2-1 GeceNobeti
+  displayName: "Gece N\u00f6beti (1/9)"
+  icon: {fileID: 0}
+  iconBackgroundImage: {fileID: 0}
+  description: "Ben G\u00f6zc\u00fc Tutuk. Kuleden bak\u0131nca her gece daha \u00e7ok kara g\u00f6lge g\u00f6r\u00fcyorum. Kam dedi ki: ne kadar \u00e7ok Ya\u011fmac\u0131 Ok\u00e7u d\u00fc\u015ferse Erlik'in g\u00f6z\u00fc buradan o kadar \u00e7ekilir. 4 tane yen, sonra yan\u0131ma d\u00f6n."
+  useRegionalDescription: 0
+  resourceDescriptionProfile: 
+  optionalOverride: 0
+  isAchievement: 0
+  repeatableQuest: 0
+  hasOpeningDialog: 0
+  experienceLevel: 1
+  dynamicLevel: 1
+  extraLevels: 0
+  baseExperienceReward: 20
+  experienceRewardPerLevel: 0
+  automaticCurrencyReward: 0
+  rewardCurrencyName: Silver
+  baseCurrencyReward: 9
+  currencyRewardPerLevel: 0
+  maxItemRewards: 0
+  itemRewardNames: []
+  maxFactionRewards: 0
+  factionRewards: []
+  maxAbilityRewards: 0
+  abilityRewardNames: []
+  maxSkillRewards: 0
+  skillRewardNames: []
+  steps:
+  - questObjectives:
+    - rid: 3514800096921340541
+  prerequisiteConditions: []
+  turnInItems: 0
+  allowRawComplete: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 3514800096921340541
+      type: {class: KillObjective, ns: AnyRPG, asm: Assembly-CSharp}
+      data:
+        amount: 4
+        deprecatedType: 
+        overrideDisplayName: "Ya\u011fmac\u0131 Ok\u00e7u yen"
+        targetName: Yagmaci Okcu

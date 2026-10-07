@@ -36,6 +36,10 @@ namespace AnyRPG {
         public virtual bool IsMet(UnitController sourceUnitController) {
             //Debug.Log("LevelPrerequisite.IsMet()");
 
+            // Ötüken: o an bu oyuncunun seviyesine bakılır (sunucuda nesne bütün oyunculara ortak)
+            if (sourceUnitController != null && sourceUnitController.CharacterStats != null) {
+                return sourceUnitController.CharacterStats.Level >= requiredLevel;
+            }
             return prerequisiteMet;
         }
 
