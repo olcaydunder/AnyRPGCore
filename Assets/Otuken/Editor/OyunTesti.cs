@@ -615,8 +615,10 @@ namespace Otuken.EditorAraclari {
             double gecen = EditorApplication.timeSinceStartup - binekZamani;
             switch (binekAsama) {
                 case 0:
-                    // otomatik avdan kalan savaş bitsin (savaşta binilmez)
-                    if (oyuncu.CharacterCombat != null && oyuncu.CharacterCombat.GetInCombat() && gecen < 15) {
+                    // otomatik av kapanır, kalan savaş bitsin (savaşta binilmez; oto av açıkken yeni düşmana saldırıp
+                    // savaşı sürdürüyordu, 1.0.71 denemesinde "binilemedi")
+                    AnyRPG.OtomatikAv.Kapat();
+                    if (oyuncu.CharacterCombat != null && oyuncu.CharacterCombat.GetInCombat() && gecen < 25) {
                         return false;
                     }
                     AnyRPG.Ability yetenek = oyun.SystemDataFactory.GetResource<AnyRPG.Ability>(AnyRPG.Binek.YetenekAdi);

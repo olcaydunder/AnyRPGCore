@@ -458,7 +458,9 @@ namespace AnyRPG {
                 if (ad == "@silah" || ad == "@yabanci") {
                     bool uygunIste = ad == "@silah";
                     ad = null;
-                    foreach (Weapon w in OtukenAg.Oyun.SystemDataFactory.GetResourceList<Weapon>()) {
+                    // veri fabrikası silahları Item olarak tutar (GetResourceList<Weapon> boş döner)
+                    foreach (Item i in OtukenAg.Oyun.SystemDataFactory.GetResourceList<Item>()) {
+                        Weapon w = i as Weapon;
                         if (w != null && w.RequireWeaponSkill && w.WeaponSkill != null && w.EquipmentSlotType != null
                             && SinifUygunlugu.Uygun(w, oyuncu) == uygunIste) {
                             ad = w.ResourceName;
