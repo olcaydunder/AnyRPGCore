@@ -1,5 +1,5 @@
 {
- "son_zaman": 1791351347,
+ "son_zaman": 1791368712,
  "islenen": [
   "ZA4f7jqHrQMP",
   "ECmsu6OF1Jgp",
@@ -136,7 +136,11 @@
   "EEVopTA4ieNV",
   "bQF4jrrVmEd8",
   "IdBMXwAkgd1d",
-  "lwnR45tzDbmo"
+  "lwnR45tzDbmo",
+  "z7O1ceCrgvzl",
+  "Wmh4peBLG9zf",
+  "uvVPRncDsbF3",
+  "naEuu0kBJrY7"
  ],
  "kayitlar": {
   "istisna-d581f62b": {
@@ -323,22 +327,24 @@
   "bellek-d3941b2d": {
    "tur": "bellek",
    "baslik": "Bellek: Bellek yetmedi, sistem oyunu kapattı",
-   "adet": 3,
+   "adet": 4,
    "cihazlar": [
     "samsung SM-S938B"
    ],
    "surumler": [
     "0.1.36",
     "0.1.47",
-    "0.1.54"
+    "0.1.54",
+    "1.0.70"
    ],
    "ilk": 1791130056,
-   "son": 1791222762,
+   "son": 1791361612,
    "ilk_rapor": "**Bellek** · sürüm **0.1.36** · samsung SM-S938B · Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3) · ekran 3120x1335 · UmayTarlalari\n\n### Mesaj\n```text\nBellek yetmedi, sistem oyunu kapattı\n```\n\n### Ayrıntı\n```text\nZaman 2026-10-04 14:47:35 | bellek (PSS) 0 MB | önem 400 (100 = ön planda)\nÖnceki oturumun kaydı:\nOturum başladı 2026-10-04 11:40:55\nOyuna dönüldü 11:40:57\n\nOyuna dönüldü 11:42:41\n\nOyuna dönüldü 11:45:29\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: bellek\nsurum: 0.1.36\ncihaz: samsung SM-S938B\nsistem: Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3)\ngrafik: Vulkan / Adreno (TM) 830 / bellek 11113 MB\nekran: 3120x1335\nayarlar: kalite 2, çözünürlük 3, gölge 3, fps sınırı 1\nsahne: UmayTarlalari\noyuncu: seviye 1\nsure: 12 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 0.1.36 | samsung SM-S938B | Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3)\nVulkan Adreno (TM) 830 | Bellek 11113 MB | 3120x1335 | FPS 60 | Süre 9 sn\nKare süresi: işlemci 16.7 ms | ekran kartı 11.5 ms | ekran 60 Hz | hedef 60 | kalite High | pil 2%\nSahneler: UmayTarlalari\nGiriş: dokunmatik var | fare bağlı | ekran tuşları açık\nSon dokunuş: 2811,236 -> MobileHudCanvas/SaldırButton [MobileHudCanvas 5]\nOyuncu karakteri: oluştu (MecanimMale1) | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n",
    "gorulmeler": [
     "04.10.2026 19:07 · 0.1.36 · samsung SM-S938B · UmayTarlalari · seviye 1 · 3120x1335",
     "05.10.2026 17:05 · 0.1.47 · samsung SM-S938B · FeaturesDemoMainMenu · oyunda değil · 3120x1335",
-    "05.10.2026 20:52 · 0.1.54 · samsung SM-S938B · FeaturesDemoMainMenu · oyunda değil · 3120x1335"
+    "05.10.2026 20:52 · 0.1.54 · samsung SM-S938B · FeaturesDemoMainMenu · oyunda değil · 3120x1335",
+    "07.10.2026 11:26 · 1.0.70 · samsung SM-S938B · FeaturesDemoZone · seviye 1 · 3120x1335"
    ],
    "ekler": [],
    "duzeltildi": null,
@@ -403,7 +409,7 @@
   "hata-60de498e": {
    "tur": "hata",
    "baslik": "Hata: Screen position out of view frustum (screen pos inf, -inf) (Camera rect 0 0 640 480)",
-   "adet": 83,
+   "adet": 86,
    "cihazlar": [
     "PC"
    ],
@@ -429,15 +435,13 @@
     "0.1.66",
     "0.1.67",
     "1.0.69",
-    "1.0.70"
+    "1.0.70",
+    "0.1.71"
    ],
    "ilk": 1791146643,
-   "son": 1791323906,
+   "son": 1791368712,
    "ilk_rapor": "**Hata** · sürüm **0.1.43** · PC · Linux 6.17 Ubuntu 24.04 64bit · ekran 640x480 · FeaturesDemoZone\n\n### Mesaj\n```text\nScreen position out of view frustum (screen pos inf, -inf) (Camera rect 0 0 640 480)\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: hata\nsurum: 0.1.43\ncihaz: PC\nsistem: Linux 6.17 Ubuntu 24.04 64bit\ngrafik: OpenGLCore / llvmpipe (LLVM 20.1.2, 256 bits) / bellek 15989 MB\nekran: 640x480\nayarlar: kalite -1, çözünürlük 0, gölge 0, fps sınırı 1\nsahne: FeaturesDemoZone\noyuncu: seviye 1\nsure: 38 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 0.1.43 | PC | Linux 6.17 Ubuntu 24.04 64bit\nOpenGLCore llvmpipe (LLVM 20.1.2, 256 bits) | Bellek 15989 MB | 640x480 | FPS ? | Süre 37 sn\nKare süresi: işlemci ? | ekran kartı ? | ekran 0 Hz | hedef 500 | kalite Ultra | pil -100%\nSahneler: MovedObjectsHolder FeaturesDemoZone\nGiriş: dokunmatik yok | fare bağlı | ekran tuşları kapalı\nSon dokunuş: -\nOyuncu karakteri: oluştu (MecanimMale133) | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n",
    "gorulmeler": [
-    "05.10.2026 14:50 · 0.1.49 · PC · FeaturesDemoZone · seviye 1 · 640x480",
-    "05.10.2026 14:50 · 0.1.49 · PC · FeaturesDemoZone · seviye 1 · 640x480",
-    "05.10.2026 14:50 · 0.1.49 · PC · FeaturesDemoZone · seviye 1 · 640x480",
     "05.10.2026 15:46 · 0.1.50 · PC · FeaturesDemoZone · seviye 1 · 640x480",
     "05.10.2026 15:47 · 0.1.50 · PC · FeaturesDemoZone · seviye 1 · 640x480",
     "05.10.2026 15:47 · 0.1.50 · PC · FeaturesDemoZone · seviye 1 · 640x480",
@@ -494,7 +498,10 @@
     "06.10.2026 21:24 · 1.0.69 · PC · FeaturesDemoZone · seviye 1 · 640x480",
     "07.10.2026 00:56 · 1.0.70 · PC · FeaturesDemoZone · seviye 1 · 640x480",
     "07.10.2026 00:58 · 1.0.70 · PC · FeaturesDemoZone · seviye 1 · 640x480",
-    "07.10.2026 00:58 · 1.0.70 · PC · FeaturesDemoZone · seviye 1 · 640x480"
+    "07.10.2026 00:58 · 1.0.70 · PC · FeaturesDemoZone · seviye 1 · 640x480",
+    "07.10.2026 13:22 · 0.1.71 · PC · FeaturesDemoZone · seviye 1 · 640x480",
+    "07.10.2026 13:25 · 0.1.71 · PC · FeaturesDemoZone · seviye 1 · 640x480",
+    "07.10.2026 13:25 · 0.1.71 · PC · FeaturesDemoZone · seviye 1 · 640x480"
    ],
    "ekler": [],
    "duzeltildi": null,
@@ -805,7 +812,11 @@
   "73318dc05d": "hata-60de498e",
   "0126bb5843": "arayuz-3120x1335",
   "64548994f2": "istisna-eda0aac7",
-  "07531f07ac": "cokme-b56b62e3"
+  "07531f07ac": "cokme-b56b62e3",
+  "c65e45a762": "bellek-d3941b2d",
+  "39ff880ce2": "hata-60de498e",
+  "df6303d754": "hata-60de498e",
+  "ca33144394": "hata-60de498e"
  },
  "derleme": {
   "sonuc": "basarili",
