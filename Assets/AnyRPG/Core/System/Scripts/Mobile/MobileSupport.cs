@@ -605,6 +605,20 @@ namespace AnyRPG {
             } catch (System.Exception exception) {
                 Debug.LogWarning($"MobileBootstrap: MobilArayuzDuzeni.Tick(): {exception.Message}");
             }
+            try {
+                // bölge etkinlikleri: başlayınca oyuncuya duyuru
+                if (inGame) {
+                    Etkinlikler.Tick(GetSystemGameManager());
+                    // Koş/Yürü düğmesi kalktı: hız hareket çubuğuyla ayarlanır, eski yürüme ayarı takılı kalmasın
+                    SystemGameManager o = GetSystemGameManager();
+                    if (o != null && o.PlayerManagerClient != null && o.PlayerManagerClient.ActiveUnitController != null
+                        && o.PlayerManagerClient.ActiveUnitController.Walking) {
+                        o.PlayerManagerClient.ActiveUnitController.Walking = false;
+                    }
+                }
+            } catch (System.Exception exception) {
+                Debug.LogWarning($"MobileBootstrap: Etkinlikler.Tick(): {exception.Message}");
+            }
             Bildirimler.Tick(inGame);
             if (inGame == false && MainMenuOpen()) {
                 // ana menüye dönünce otomatik av kapanır (harita değişirken açık kalır)

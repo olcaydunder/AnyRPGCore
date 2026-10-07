@@ -57,6 +57,8 @@ namespace AnyRPG {
             if (unitMovementController.CurrentMovementData.HasMoveInput()) {
                 float clampValue = unitMovementController.MaxMovementSpeed;
                 calculatedSpeed = Mathf.Clamp(unitController.MovementSpeed, 0, clampValue);
+                // Ötüken: hareket çubuğu ne kadar itilirse o kadar hızlı
+                calculatedSpeed *= SavasAyarlari.JoystickHizi(unitController, unitMovementController.CurrentMovementData);
 
                 // 3. CALCULATE WORLD INTENT
                 // We use the raw World Direction we gathered from the camera

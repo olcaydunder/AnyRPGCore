@@ -1927,6 +1927,11 @@ namespace AnyRPG {
 
         [ServerRpc]
         public void RequestSwapBags(long oldBagInstanceId, long newBagInstanceId) {
+            // Ötüken: Depo Sandığı yerinden çıkarılamaz
+            if ((systemItemManager.InstantiatedItems.ContainsKey(oldBagInstanceId) && Depo.SandikMi(systemItemManager.InstantiatedItems[oldBagInstanceId]))
+                || (systemItemManager.InstantiatedItems.ContainsKey(newBagInstanceId) && Depo.SandikMi(systemItemManager.InstantiatedItems[newBagInstanceId]))) {
+                return;
+            }
             if (systemItemManager.InstantiatedItems.ContainsKey(oldBagInstanceId)
                 && systemItemManager.InstantiatedItems[oldBagInstanceId] is InstantiatedBag
                 && systemItemManager.InstantiatedItems.ContainsKey(newBagInstanceId)
@@ -1956,6 +1961,10 @@ namespace AnyRPG {
 
         [ServerRpc]
         public void RequestUnequipBagToSlot(long itemInstanceId, int slotIndex, bool isBank) {
+            // Ötüken: Depo Sandığı (satın alınmış depo gözü) yerinden çıkarılamaz
+            if (systemItemManager.InstantiatedItems.ContainsKey(itemInstanceId) && Depo.SandikMi(systemItemManager.InstantiatedItems[itemInstanceId])) {
+                return;
+            }
             if (systemItemManager.InstantiatedItems.ContainsKey(itemInstanceId) && systemItemManager.InstantiatedItems[itemInstanceId] is InstantiatedBag) {
                 unitController.CharacterInventoryManager.UnequipBagToSlot(systemItemManager.InstantiatedItems[itemInstanceId] as InstantiatedBag, slotIndex, isBank);
             }
@@ -1967,6 +1976,10 @@ namespace AnyRPG {
 
         [ServerRpc]
         public void RequestUnequipBag(long itemInstanceId, bool isBank) {
+            // Ötüken: Depo Sandığı (satın alınmış depo gözü) yerinden çıkarılamaz
+            if (systemItemManager.InstantiatedItems.ContainsKey(itemInstanceId) && Depo.SandikMi(systemItemManager.InstantiatedItems[itemInstanceId])) {
+                return;
+            }
             if (systemItemManager.InstantiatedItems.ContainsKey(itemInstanceId) && systemItemManager.InstantiatedItems[itemInstanceId] is InstantiatedBag) {
                 unitController.CharacterInventoryManager.UnequipBag(systemItemManager.InstantiatedItems[itemInstanceId] as InstantiatedBag, isBank);
             }
@@ -1978,6 +1991,10 @@ namespace AnyRPG {
 
         [ServerRpc]
         public void RequestMoveBag(long itemInstanceId, int nodeIndex, bool isBankNode) {
+            // Ötüken: Depo Sandığı (satın alınmış depo gözü) yerinden çıkarılamaz
+            if (systemItemManager.InstantiatedItems.ContainsKey(itemInstanceId) && Depo.SandikMi(systemItemManager.InstantiatedItems[itemInstanceId])) {
+                return;
+            }
             if (systemItemManager.InstantiatedItems.ContainsKey(itemInstanceId) && systemItemManager.InstantiatedItems[itemInstanceId] is InstantiatedBag) {
                 unitController.CharacterInventoryManager.MoveBag(systemItemManager.InstantiatedItems[itemInstanceId] as InstantiatedBag, nodeIndex, isBankNode);
             }

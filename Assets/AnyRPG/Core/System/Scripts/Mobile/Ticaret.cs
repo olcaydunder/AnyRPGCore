@@ -23,7 +23,7 @@ namespace AnyRPG {
         public const float PazarMesafesi = 25f;
 
         // hesaba bağlı (takas ve pazar dışı) eşyalar: Kut Dükkânı'ndan alınanlar
-        private static readonly HashSet<string> bagliEsyalar = new HashSet<string>() { KutDukkani.UluHeybe };
+        private static readonly HashSet<string> bagliEsyalar = new HashSet<string>() { KutDukkani.UluHeybe, Depo.SandikAdi };
 
         public static Currency Bakir {
             get {

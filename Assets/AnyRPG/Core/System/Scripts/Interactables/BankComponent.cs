@@ -16,9 +16,8 @@ namespace AnyRPG {
         public override void ClientInteraction(UnitController sourceUnitController, int componentIndex, int choiceIndex) {
             base.ClientInteraction(sourceUnitController, componentIndex, choiceIndex);
             uIManager.interactionWindow.CloseWindow();
-            if (!uIManager.bankWindow.IsOpen) {
-                uIManager.bankWindow.OpenWindow();
-            }
+            // Ötüken: banka yerine sayfalı Depo penceresi (her yerden de açılır: Menü > Depo)
+            Depo.Goster();
         }
 
         public override void StopInteract() {

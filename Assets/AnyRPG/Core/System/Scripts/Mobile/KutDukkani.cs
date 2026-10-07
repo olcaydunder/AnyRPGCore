@@ -281,6 +281,10 @@ namespace AnyRPG {
             ListeyiTemizle(paketListesi);
             int i = 0;
             foreach (Odeme.Paket paket in Odeme.Paketler) {
+                if (paket.kut <= 0) {
+                    // depo gözü Depo penceresinde satılır
+                    continue;
+                }
                 Odeme.Paket p = paket;
                 GameObject satir = Satir(paketListesi, i, 64f, SatirRengi, null);
                 Simge(satir.transform, Kut != null ? Kut.Icon : null, new Vector2(8f, -26f), new Vector2(60f, 26f));

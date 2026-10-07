@@ -518,7 +518,8 @@ namespace AnyRPG {
             if (bankSlots.Count > slotIndex) {
                 return bankSlots[slotIndex].AddItem(instantiatedItem);
             }
-            return AddItem(instantiatedItem, true);
+            // Ötüken: depo küçüldüyse (ücretsiz göz 48 → 10) eşya kaybolmasın: boş depo gözüne, yoksa çantaya
+            return AddItem(instantiatedItem, true) || AddItem(instantiatedItem, false);
         }
 
         public void RemoveInventoryItem(InstantiatedItem instantiatedItem, int slotIndex) {

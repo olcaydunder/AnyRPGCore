@@ -27,6 +27,8 @@ namespace AnyRPG {
         public class Paket {
             public string kod;
             public int kut;
+            // Ötüken: depo gözü (Depo; "depo_10")
+            public int depoGoz;
         }
 
         public static readonly Paket[] Paketler = {
@@ -35,6 +37,7 @@ namespace AnyRPG {
             new Paket() { kod = "kut_1200", kut = 1200 },
             new Paket() { kod = "kut_2500", kut = 2500 },
             new Paket() { kod = "kut_6500", kut = 6500 },
+            new Paket() { kod = Depo.UrunKodu, kut = 0, depoGoz = Depo.SandikGozu },
         };
 
         public static event Action Degisti = delegate { };
@@ -295,6 +298,24 @@ namespace AnyRPG {
                 SonSonuc = "Bilinmeyen ürün: " + s.productId;
                 return;
             }
+            if (paket.depoGoz > 0) {
+                if (YerelKullanildiMi(s.purchaseToken) == false) {
+                    int eklenen = Depo.KareEkle(oyuncu, paket.depoGoz * Mathf.Max(1, s.quantity));
+                    if (eklenen <= 0) {
+                        SonSonuc = "Depo en büyük boyutunda (1000 göz).";
+                        Mesaj(SonSonuc);
+                        return;
+                    }
+                    YerelKullanildi(s.purchaseToken);
+                    YuklenenSayisi++;
+                    Mesaj("Depoya " + eklenen + " göz eklendi. Teşekkürler!");
+                    MobileFeedback.Success();
+                }
+#if UNITY_ANDROID && !UNITY_EDITOR
+                Cagir("tuket", s.purchaseToken);
+#endif
+                return;
+            }
             if (YerelKullanildiMi(s.purchaseToken) == false) {
                 Currency kut = KutDukkani.Kut;
                 oyuncu.CharacterCurrencyManager.AddCurrency(kut, paket.kut * s.quantity);
@@ -390,6 +411,29 @@ namespace AnyRPG {
                     return;
                 }
                 int miktar = 0;
+                if (paket.depoGoz > 0) {
+                    // depo gözü: sunucu karaktere Depo Sandığı takar
+                    string sonuc = "0";
+                    if (SunucudaKullanildiMi(s.purchaseToken) == false) {
+                        int eklenen = Depo.KareEkle(oyuncu, paket.depoGoz * Mathf.Max(1, s.quantity));
+                        if (eklenen <= 0) {
+                            // depo en büyük boyutunda: tüketilmez, Google 3 gün içinde iade eder
+                            OtukenAg.Yanitla(oyuncu, "odeme-sonuc", "0\u001F\u001FDepo en büyük boyutunda (1000 göz).");
+                            return;
+                        }
+                        sonuc = eklenen.ToString(CultureInfo.InvariantCulture);
+                        try {
+                            SunucudaKullanildi(s.purchaseToken, DateTime.UtcNow.ToString("o", CultureInfo.InvariantCulture) + " " + s.orderId + " "
+                                + s.productId + " x" + s.quantity + " " + Ticaret.Duz(oyuncu.DisplayName).Replace(' ', '_'));
+                        } catch (Exception e) {
+                            Debug.LogError("[Odeme] odemeler.txt yazılamadı: " + e.Message);
+                        }
+                        Ticaret.Defter("ODEME " + oyuncu.DisplayName + " " + s.orderId + " " + s.productId + " x" + s.quantity + " +" + eklenen + " depo gözü");
+                        OtukenAg.Mesaj(oyuncu, "<color=#FFD54A>Depo:</color> " + eklenen + " göz eklendi. Teşekkürler!");
+                    }
+                    OtukenAg.Yanitla(oyuncu, "odeme-sonuc", "1\u001F" + s.purchaseToken + "\u001Fdepo:" + sonuc);
+                    return;
+                }
                 if (SunucudaKullanildiMi(s.purchaseToken) == false) {
                     miktar = paket.kut * s.quantity;
                     oyuncu.CharacterCurrencyManager.AddCurrency(KutDukkani.Kut, miktar);
@@ -440,7 +484,7 @@ namespace AnyRPG {
                 bekleyenTeslimler.RemoveAll(b => b.Contains(token) && token.Length > 0);
                 if (p[0] == "1") {
                     YuklenenSayisi++;
-                    SonSonuc = p[2] + " Kut yüklendi.";
+                    SonSonuc = p[2].StartsWith("depo:") ? "Depoya " + p[2].Substring(5) + " göz eklendi." : p[2] + " Kut yüklendi.";
                     MobileFeedback.Success();
 #if UNITY_ANDROID && !UNITY_EDITOR
                     if (token.StartsWith("test-") == false) {

@@ -168,9 +168,9 @@ namespace AnyRPG {
             List<string> satirlar = new List<string>();
             if (Kisitli(esya.Equipment)) {
                 if (Uygun(esya.Equipment, oyuncu)) {
-                    satirlar.Add("<color=#7CE07C>✓ Sınıfına uygun</color>");
+                    satirlar.Add("<color=#7CE07C>Sınıfına uygun</color>");
                 } else {
-                    satirlar.Add("<color=#FF7A6E>✗ Sınıfına uygun değil</color> <size=85%>(" + KullananSiniflar(esya.Equipment, veri) + ")</size>");
+                    satirlar.Add("<color=#FF7A6E>× Sınıfına uygun değil</color> <size=85%>(" + KullananSiniflar(esya.Equipment, veri) + ")</size>");
                 }
             }
             int esyaSeviyesi = esya.GetItemLevel(seviye);

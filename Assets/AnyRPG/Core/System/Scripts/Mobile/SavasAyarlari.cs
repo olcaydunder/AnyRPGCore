@@ -70,6 +70,24 @@ namespace AnyRPG {
         }
 
         /// <summary>
+        /// Hareket çubuğu ne kadar itilirse o kadar hızlı: az itince yürüyüş (koşunun %25'i), kenara yakın tam koşu.
+        /// Klavye ve oyun kolu tam değer verir (değişmez). Telefon ve sunucu aynı çoğaltılan girdiyle aynı hızı bulur.
+        /// </summary>
+        public static float JoystickHizi(UnitController uc, MovementData md) {
+            if (uc == null || (uc.UnitControllerMode != UnitControllerMode.Player && uc.UnitControllerMode != UnitControllerMode.Mount)) {
+                return 1f;
+            }
+            float m = Mathf.Clamp01(new Vector2(md.InputHorizontal, md.InputVertical).magnitude);
+            if (m >= 0.85f || m <= 0.0001f) {
+                return 1f;
+            }
+            if (m <= 0.25f) {
+                return 0.25f;
+            }
+            return Mathf.Lerp(0.25f, 1f, (m - 0.25f) / 0.6f);
+        }
+
+        /// <summary>
         /// Duran oyuncu, hedefi canlı bir düşmansa ve yakınsa ona döner (MovementIdleState her tikte çağırır).
         /// Telefonda tahmin, sunucuda asıl simülasyon aynı veriyle çalışır; küçük farkı uzlaştırma düzeltir.
         /// </summary>

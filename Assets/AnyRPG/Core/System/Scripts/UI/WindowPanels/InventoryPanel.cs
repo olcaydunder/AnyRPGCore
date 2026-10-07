@@ -35,6 +35,8 @@ namespace AnyRPG {
             currencyBarController.Configure(systemGameManager);
             // Ötüken: para satırının altında "Sırala" ve "Toplu Sat" (Canta)
             Canta.CantaDugmeleriniEkle(transform, currencyBarController != null ? currencyBarController.transform : null);
+            // Ötüken: 40'ar gözlük sayfalar ve donanım uygunluk işaretleri
+            CantaSayfalari.Ekle(this);
         }
 
         public override void SetGameManagerReferences() {
