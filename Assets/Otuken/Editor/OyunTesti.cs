@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -73,6 +74,7 @@ namespace Otuken.EditorAraclari {
             public string dunyaHaritasi;
             public string ilkHaritaAvi;
             public string demirciTesti;
+            public string pencereTesti;
             public string cantaTesti;
             public string gelisim;
             public string hikaye;
@@ -323,6 +325,7 @@ namespace Otuken.EditorAraclari {
 
                 case Adim.DemirciTesti:
                     if (DemirciTesti(oyun)) {
+                        PencereTesti(oyun);
                         SavasaBasla();
                     }
                     break;
@@ -683,6 +686,68 @@ namespace Otuken.EditorAraclari {
         /// (seviye ödülleri), çantaya aynı eşyanın +9'u konur ("daha iyi eşya" kartı). 3) kart gelince Kuşan'a basılır.
         /// Bitince true döner; sonuç rapor.demirciTesti'ne yazılır.
         /// </summary>
+        /// <summary>
+        /// Yeni pencereler açılıp kapanıyor mu (Depo, Etkinlikler, Kut Dükkânı, Dünya Haritası, Oyun Kılavuzu) ve depo:
+        /// 10 göz eklenir (Google Play alışının tek oyunculu karşılığı), çantadan bir eşya depoya konup geri alınır.
+        /// </summary>
+        private static void PencereTesti(AnyRPG.SystemGameManager oyun) {
+            List<string> ozet = new List<string>();
+            AnyRPG.UnitController oyuncu = oyun != null && oyun.PlayerManagerClient != null ? oyun.PlayerManagerClient.UnitController : null;
+            System.Action<string, System.Action> dene = (ad, ac) => {
+                try {
+                    ac();
+                    ozet.Add(ad + " açıldı");
+                } catch (Exception e) {
+                    ozet.Add(ad + " HATA: " + e.GetType().Name + " " + e.Message);
+                    Debug.LogException(e);
+                }
+            };
+            dene("Depo", AnyRPG.Depo.Goster);
+            dene("Etkinlikler", AnyRPG.EtkinlikPenceresi.Goster);
+            dene("Kut Dükkânı", AnyRPG.KutDukkani.Goster);
+            dene("Kılavuz", () => AnyRPG.GameGuide.Show(false));
+            try {
+                foreach (AnyRPG.OtukenPencere p in Object.FindObjectsByType<AnyRPG.OtukenPencere>(FindObjectsInactive.Include, FindObjectsSortMode.None)) {
+                    if (p.Acik) {
+                        p.Kapat();
+                    }
+                }
+                AnyRPG.GameGuide.Kapat();
+            } catch (Exception e) {
+                ozet.Add("kapatma HATA: " + e.Message);
+            }
+            if (oyuncu != null) {
+                try {
+                    int once = AnyRPG.Depo.GozSayisi(oyuncu);
+                    int eklenen = AnyRPG.Depo.KareEkle(oyuncu, AnyRPG.Depo.SandikGozu);
+                    int sonra = AnyRPG.Depo.GozSayisi(oyuncu);
+                    string tasima = "taşınacak eşya yok";
+                    foreach (AnyRPG.InventorySlot yuva in oyuncu.CharacterInventoryManager.InventorySlots) {
+                        if (yuva == null || yuva.IsEmpty) {
+                            continue;
+                        }
+                        string ad = yuva.InstantiatedItem.DisplayName;
+                        int cantaOnce = oyuncu.CharacterInventoryManager.InventorySlots.Count(y => y != null && y.IsEmpty == false);
+                        oyuncu.CharacterInventoryManager.RequestMoveFromInventoryToBank(yuva);
+                        int depoda = oyuncu.CharacterInventoryManager.BankSlots.Count(y => y != null && y.IsEmpty == false);
+                        AnyRPG.InventorySlot depoYuvasi = oyuncu.CharacterInventoryManager.BankSlots.FirstOrDefault(y => y != null && y.IsEmpty == false);
+                        if (depoYuvasi != null) {
+                            oyuncu.CharacterInventoryManager.RequestMoveFromBankToInventory(depoYuvasi);
+                        }
+                        int cantaSonra = oyuncu.CharacterInventoryManager.InventorySlots.Count(y => y != null && y.IsEmpty == false);
+                        tasima = ad + " depoya kondu (" + depoda + " dolu göz), geri alındı" + (cantaSonra == cantaOnce ? string.Empty : " (çanta " + cantaOnce + " → " + cantaSonra + ")");
+                        break;
+                    }
+                    ozet.Add("depo " + once + " → " + sonra + " göz (+" + eklenen + "), " + tasima);
+                } catch (Exception e) {
+                    ozet.Add("depo HATA: " + e.GetType().Name + " " + e.Message);
+                    Debug.LogException(e);
+                }
+            }
+            rapor.pencereTesti = string.Join("; ", ozet);
+            Debug.Log("[OyunTesti] pencereler: " + rapor.pencereTesti);
+        }
+
         private static bool DemirciTesti(AnyRPG.SystemGameManager oyun) {
             try {
                 AnyRPG.UnitController oyuncu = oyun != null && oyun.PlayerManagerClient != null ? oyun.PlayerManagerClient.UnitController : null;
@@ -1417,6 +1482,9 @@ namespace Otuken.EditorAraclari {
             sb.Append("Haritalar: ").Append(rapor.haritalar.Count).Append(", hata/istisna: ").Append(rapor.toplamHata)
                 .Append(" (").Append(rapor.hatalar.Count).Append(" farklı)\n");
             sb.Append("Binek denemesi: ").Append(rapor.binekTesti).Append('\n');
+            if (rapor.pencereTesti != null) {
+                sb.Append("Pencereler ve depo: ").Append(rapor.pencereTesti).Append('\n');
+            }
             sb.Append("Günlük görevler: ").Append(rapor.gunlukGorevler).Append('\n');
             sb.Append("Umay Tarlaları'nda 40 sn av: ").Append(rapor.ilkHaritaAvi).Append('\n');
             sb.Append("Dünya haritası: ").Append(rapor.dunyaHaritasi).Append('\n');
