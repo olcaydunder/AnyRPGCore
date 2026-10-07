@@ -570,6 +570,13 @@ namespace AnyRPG {
                 Debug.LogWarning($"MobileBootstrap: GameGuide: {exception.Message}");
             }
             try {
+                if (inGame == false) {
+                    AnaMenuArkaplani();
+                }
+            } catch (System.Exception exception) {
+                Debug.LogWarning($"MobileBootstrap: AnaMenuArkaplani: {exception.Message}");
+            }
+            try {
                 // the daily gift: opens a few seconds after entering the world, after the guide is closed
                 GunlukArmagan.Tick(GetSystemGameManager(), inGame);
             } catch (System.Exception exception) {
@@ -634,6 +641,29 @@ namespace AnyRPG {
             if (inGame == false && MainMenuOpen()) {
                 // ana menüye dönünce otomatik av kapanır (harita değişirken açık kalır)
                 OtomatikAv.Kapat();
+            }
+        }
+
+        private int arkaplanSahnesi = 0;
+
+        /// <summary>
+        /// Ana menünün arka plan resmi (Tools~/logo/ana_menu.py, 2:1) ekranı kaplasın ama sünmesin: Unity sahnesinde
+        /// ekrana gerilerek konmuştu (20:9 telefonda yatay uzuyordu). Sahne başına bir kez oranı korunarak ekranı
+        /// dolduracak biçimde ayarlanır; taşan kısım (16:9'da yanlar, 20:9'da üst-alt) kırpılır.
+        /// </summary>
+        private void AnaMenuArkaplani() {
+            Scene sahne = SceneManager.GetActiveScene();
+            if (sahne.handle == arkaplanSahnesi || MainMenuOpen() == false) {
+                return;
+            }
+            arkaplanSahnesi = sahne.handle;
+            foreach (Image resim in FindObjectsByType<Image>(FindObjectsInactive.Include, FindObjectsSortMode.None)) {
+                if (resim.sprite == null || resim.sprite.name != "FeaturesDemoMainMenu" || resim.GetComponent<AspectRatioFitter>() != null) {
+                    continue;
+                }
+                AspectRatioFitter oran = resim.gameObject.AddComponent<AspectRatioFitter>();
+                oran.aspectRatio = resim.sprite.rect.width / Mathf.Max(1f, resim.sprite.rect.height);
+                oran.aspectMode = AspectRatioFitter.AspectMode.EnvelopeParent;
             }
         }
 

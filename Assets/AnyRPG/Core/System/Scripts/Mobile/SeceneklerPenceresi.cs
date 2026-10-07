@@ -9,7 +9,7 @@ namespace AnyRPG {
     /// <summary>
     /// Metin2 tarzı "Seçenekler" penceresi: Görüntü, Akıcılık, Ses ve Oyun bölümleri.
     /// Oyunda sol sütundaki "Menü" düğmesiyle açılır. Değerler OyunAyarlari'nda saklanır ve uygulanır.
-    /// Alttaki düğmeler: Nasıl Oynanır rehberi ve ekran görüntüsü paylaşma (NativeShare, yasirkula, MIT).
+    /// Alttaki düğmeler: Oyun Kılavuzu ve ekran görüntüsü paylaşma (NativeShare, yasirkula, MIT).
     /// Kodla kurulur, hiçbir prefab ya da resim dosyası gerektirmez.
     /// </summary>
     public class SeceneklerPenceresi : MonoBehaviour {
@@ -124,7 +124,7 @@ namespace AnyRPG {
 
             // alt düğmeler
             // dört düğme 4:3 tablette de sığsın diye toplam 920 birim
-            CreateButton(panel.transform, "Nasıl Oynanır", new Vector2(0.5f, 0f), new Vector2(-350f, 46f), new Vector2(220f, 64f), 23,
+            CreateButton(panel.transform, "Oyun Kılavuzu", new Vector2(0.5f, 0f), new Vector2(-350f, 46f), new Vector2(220f, 64f), 23,
                 tabColor, () => { Close(); GameGuide.Show(false); MobileFeedback.Tap(); });
             CreateButton(panel.transform, "Sorun Bildir", new Vector2(0.5f, 0f), new Vector2(-114f, 46f), new Vector2(220f, 64f), 23,
                 new Color(0.12f, 0.45f, 0.5f, 1f), () => { MobileFeedback.Tap(); Close(); HataBildirici.SorunBildir(); });

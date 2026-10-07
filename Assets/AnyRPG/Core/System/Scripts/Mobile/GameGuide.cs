@@ -5,8 +5,9 @@ using UnityEngine.UI;
 namespace AnyRPG {
 
     /// <summary>
-    /// "Nasıl Oynanır" rehberi: kontroller, savaş, para, ganimet, görevler, zanaatlar, bölgeler, geçit taşları ve gereksinimler.
-    /// İlk kez oyuna girince kendiliğinden açılır; oyunda Menü > "Nasıl Oynanır", ana menüde "Nasıl Oynanır" düğmesiyle yeniden açılır.
+    /// Oyun Kılavuzu: oyunun mantığı, ekran ve kontroller, savaş, sınıflar ve silahlar, çanta ve kuşanma, ganimet, demirci,
+    /// depo, görevler, etkinlikler, diyarlar ve ışınlanma, para ve Kut, ticaret, çevrim içi, ayarlar.
+    /// İlk kez oyuna girince kendiliğinden açılır; oyunda Menü > "Oyun Kılavuzu", ana menüde ve Ayarlar'da "Oyun Kılavuzu" düğmesiyle yeniden açılır.
     /// Kodla kurulur, hiçbir prefab ya da resim dosyası gerektirmez.
     /// </summary>
     public class GameGuide : MonoBehaviour {
@@ -100,7 +101,7 @@ namespace AnyRPG {
             font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
 
             // main menu launcher, bottom right
-            menuLauncher = CreateButton(transform, "Nasıl Oynanır", new Vector2(1f, 0f), new Vector2(-180f, 64f), new Vector2(300f, 76f), 28,
+            menuLauncher = CreateButton(transform, "Oyun Kılavuzu", new Vector2(1f, 0f), new Vector2(-180f, 64f), new Vector2(300f, 76f), 28,
                 tabSelectedColor, () => { Open(false); MobileFeedback.Tap(); }, out _);
             menuLauncher.SetActive(false);
 
@@ -118,7 +119,7 @@ namespace AnyRPG {
 
             // title
             GameObject title = CreateRect(panel.transform, "Baslik", new Vector2(0f, 1f), new Vector2(1f, 1f), new Vector2(20f, -66f), new Vector2(-20f, -8f));
-            Text titleText = CreateText(title, "ÖTÜKEN DESTANI  •  NASIL OYNANIR", 34, TextAnchor.MiddleCenter);
+            Text titleText = CreateText(title, "ÖTÜKEN DESTANI  •  OYUN KILAVUZU", 34, TextAnchor.MiddleCenter);
             titleText.color = gold;
             titleText.fontStyle = FontStyle.Bold;
 
@@ -279,328 +280,327 @@ namespace AnyRPG {
         private const string HE = "</b></color>";
 
         private static readonly Section[] sections = new Section[] {
-            new Section("Hoş Geldin",
-                "<b>Ötüken Destanı</b>'na hoş geldin, yiğit!\n\n" +
-                "Yeraltının efendisi Erlik Han'ın kara kulları yeryüzüne çıktı; Ötüken'in obaları tehlikede. " +
-                "Sen, Olcayto Han'ın çağrısına uyan bir alpsın. Obanı koru, canavarları yen, ganimet topla, güçlen ve destanını yaz.\n\n" +
+            new Section("Oyunun Mantığı",
+                "<b>Ötüken Destanı</b>'na hoş geldin, alp!\n\n" +
+                "Yeraltının efendisi <b>Erlik Han</b> Tamu'nun mührünü kırdı; kara ruhları on beş diyara saçıldı. " +
+                "Sen, <b>Olcayto Han</b>'ın çağrısına uyan bir alpsın. Diyar diyar ilerleyip Erlik'in başbuğlarını yenecek, " +
+                "sonunda Tamu Zindanı'nın dibinde Erlik Han'la yüzleşeceksin.\n\n" +
+                H + "Oyunun döngüsü" + HE + "\n" +
+                "1. <b>Görev al.</b> Başının üstünde sarı <b>!</b> olan kişiler görev verir. Her diyarda bir hikâye yardımcısı ve üç yan görev veren vardır.\n" +
+                "2. <b>Avlan.</b> Canavarları yen, Ötüken Taşlarını kır. Tecrübe kazanır, seviye atlarsın.\n" +
+                "3. <b>Ganimet topla.</b> Düşenler yere saçılır; yanından geçince kendiliğinden çantana girer.\n" +
+                "4. <b>Güçlen.</b> Sınıfına uygun silah ve zırhı kuşan, <b>Demirci</b>'de +9'a kadar yükselt.\n" +
+                "5. <b>İlerle.</b> Seviyen yetince <b>Işınlan</b> ile bir sonraki diyara geç. Her diyar bir öncekinden zor ve zengindir.\n\n" +
                 H + "İlk adımların" + HE + "\n" +
-                "1. Oyuna köyün güney kapısının dışında başlarsın. Kuzeye, köye doğru yürü.\n" +
-                "2. Başının üstünde sarı <b>!</b> işareti olan kişiler sana görev verir. Köydeki <b>Olcayto Han</b>'ı bul ve ona dokun.\n" +
-                "3. Görevi kabul et, hedefleri yap, sonra görevi veren kişiye dön. Sarı <b>?</b> işareti, teslim edebileceğin görevi gösterir.\n" +
-                "4. Başladığın yerin hemen güneyindeki çayırda <b>Kara Yek</b>'ler dolaşır: ilk savaşların için en kolay düşmanlar.\n" +
-                "5. Seviye atladıkça köyden uzaklaş: uzak kamplar, dağlar ve mağara daha zorlu ama daha zengindir.\n\n" +
+                "• Ötüken Yaylası'nda köyün güney kapısının dışında başlarsın. Köydeki <b>Olcayto Han</b>'a dokun, <b>Kutun Çağrısı</b>'nı al.\n" +
+                "• Girişin yanındaki <b>Avcı Batur</b>, <b>Otacı Ay Hatun</b> ve <b>Yılkıcı Erdem</b> de sana görev verir.\n" +
+                "• İlk savaşların için en kolay düşmanlar <b>Kara Yek</b> ve <b>Çalı Cini</b>'dir.\n" +
+                "• Sağ alttaki <b>Oto Av</b>'ı açarsan karakterin kendisi avlanır, ganimeti toplar.\n\n" +
                 H + "Bilmen gerekenler" + HE + "\n" +
-                "• Oyun internetsiz, tek kişilik oynanır.\n" +
-                "• Oyun kendiliğinden kaydedilir: 3 dakikada bir ve uygulamadan çıktığında.\n" +
-                "• Her gün oyuna girdiğinde <b>Günlük Armağan</b> seni bekler; 7 gün üst üste gelirsen en büyüğünü alırsın.\n" +
-                "• Bu rehberi istediğin zaman sol kenardaki <b>Menü</b> düğmesinden <b>Nasıl Oynanır</b> ile yeniden açabilirsin.\n" +
-                "• Soldaki bölümlere dokunarak konular arasında gezin; uzun metinleri parmağınla yukarı kaydır."),
+                "• Oyun tek kişilik (internetsiz) ya da çevrim içi oynanır. İkisinin kayıtları ayrıdır.\n" +
+                "• Oyun kendiliğinden kaydedilir; çevrim içinde karakterin sunucuda saklanır.\n" +
+                "• Bu kılavuzu istediğin zaman sol kenardaki <b>Menü</b> simgesinden <b>Oyun Kılavuzu</b> ile açarsın. " +
+                "Soldaki bölümlere dokunarak gezin, uzun metni parmağınla kaydır."),
 
-            new Section("Kontroller",
+            new Section("Ekran ve Kontroller",
                 H + "Yürümek ve koşmak" + HE + "\n" +
-                "• Sol alttaki <b>yuvarlak çubuğu</b> parmağınla it: kahramanın o yöne döner ve yürür. Ne kadar uzağa itersen o kadar hızlı gider.\n" +
-                "• Çubuğu yukarı itmek, kameranın baktığı yöne gitmektir. Sağa itersen sağa döner, aşağı itersen kameraya doğru gelir.\n" +
-                "• <b>Koş/Yürü</b>: koşmakla yürümek arasında geçiş yapar. Ekranda \"Koşuyorsun\" ya da \"Yürüyorsun\" yazar.\n" +
-                "• <b>Zıpla</b>: zıplar; çitlerin, taşların ve basamakların üstünden geçmene yarar.\n\n" +
-                H + "Kamerayı çevirmek" + HE + "\n" +
-                "• Ekranın boş bir yerine tek parmağını koy ve <b>sağa-sola kaydır</b>: kamera kahramanın etrafında döner.\n" +
-                "• Aynı şekilde <b>yukarı-aşağı kaydırırsan</b> kameranın açısı değişir.\n" +
-                "• İki parmağını ekrana koyup <b>aç ya da kıstır</b>: yakınlaşır, uzaklaşırsın.\n" +
-                "• Bir parmağın çubuktayken öbür parmağınla kamerayı çevirebilirsin.\n\n" +
+                "• Sol alttaki <b>yuvarlak çubuğu</b> parmağınla it: karakterin o yöne gider. <b>Az itersen yürür</b>, ileri ittikçe hızlanır, " +
+                "sonuna kadar itersen <b>koşar</b>.\n" +
+                "• <b>Oto koşu</b>: çubuğu en uca it ve bir an (yaklaşık 1 saniye) tut: çubukta <b>OTO KOŞU</b> yazar. Artık parmağını kaldırsan da " +
+                "karakterin koşmaya devam eder. Çubuğu ortaya doğru geri çekince ya da yeniden dokununca yavaşlar ve durur.\n" +
+                "• Zıplama yoktur; yollar ve basamaklar yürüyerek geçilir.\n\n" +
+                H + "Kamera" + HE + "\n" +
+                "• Ekranın boş yerinde tek parmakla <b>sağa-sola kaydır</b>: kamera döner; <b>yukarı-aşağı</b> kaydırınca açı değişir.\n" +
+                "• İki parmakla <b>aç-kıstır</b>: yakınlaş, uzaklaş. Bir parmağın çubuktayken öbürüyle kamerayı çevirebilirsin.\n\n" +
                 H + "Dokunmak" + HE + "\n" +
-                "• <b>Yere dokun</b>: kahramanın oraya yürür.\n" +
-                "• <b>Bir kişiye, düşmana ya da eşyaya dokun</b>: onu seçer. Yakınsan konuşursun, saldırırsın ya da toplarsın; uzaksan yanına gidersin.\n" +
-                "• <b>Parmağını basılı tut (uzun bas)</b>: bilgisayardaki sağ tık gibidir. Çantadaki eşyalarda Kullan / Kuşan / Sat menüsünü açar.\n\n" +
-                H + "Ekrandaki düğmeler" + HE + "\n" +
-                "• <b>Saldır</b>: seçili düşmana saldırır. Seçili düşman yoksa en yakın düşmanı bulur, yanına koşar ve vurur.\n" +
-                "• <b>Oto Av</b>: açınca (düğme altın rengi olur) karakter yakındaki düşmanları kendisi bulur, saldırır ve ölenlerin " +
-                "ganimetini toplar. Dövüşte yeteneklerini de bekleme süreleri dolunca kendisi kullanır (Menü > Oyun'dan kapatılabilir). " +
-                "Hareket çubuğuna dokununca kısa bir süre durur, sen yönetirsin. Yeniden dokununca kapanır.\n" +
-                "• <b>Hedef</b>: önündeki düşmanlar arasında sırayla hedef değiştirir.\n" +
-                "• <b>Harita</b>: <b>Dünya Haritası</b>; 15 diyar tek haritada. İki parmakla kıstırarak yakınlaş, sürükleyerek gez. " +
-                "Yakınlaşınca mavi elmas Geçit Taşı'nı, altın noktalar komşu diyarlara kapıları, mavi ok seni gösterir. " +
-                "Bir diyara dokun, <b>Işınlan</b>'a bas. Bulunduğun bölgenin ayrıntılı haritası için <b>Bölge Haritası</b>.\n" +
-                "• <b>Işınlan</b> (Harita'nın yanında): aynı dünya haritası; sıralı liste için <b>Liste</b>.\n" +
-                "• <b>Karakter</b>: giydiğin donanım ve değerlerin.\n" +
-                "• <b>Günlük</b> (Karakter'in yanında): her gün yenilenen 3 görev (düşman yen, ganimet topla, sandık boşalt, diyar gez). " +
-                "Biten görevin ödülünü al; üçü de bitince büyük ödül. Ödül bekleyince düğmede altın nokta yanar.\n" +
-                "• <b>Binek</b>: 5. seviyede ejderha Evren seni seçer. Dokununca binersin (iki kat hızlı), yeniden dokununca inersin. " +
-                "Zindanlarda ve savaşta binilmez.\n" +
-                "• <b>Görev oku</b>: ekranda sarı ok sıradaki görev hedefini (teslim edilecek kişi, avlanacak düşman, yeni görev veren) " +
-                "ve uzaklığını gösterir. Okun yanındaki yazıya (<b>[Git]</b>) dokunursan karakterin oraya kendiliğinden yürür; " +
-                "varınca konuşur, toplar ya da saldırır. Menü > Oyun'dan kapatılabilir.\n" +
-                "• <b>Sen yokken</b>: oyuna yarım saatten uzun ara verip dönersen yiğitlerin topladığı Gümüş Akçe ve tecrübe seni bekler " +
-                "(en çok 10 saat sayılır).\n" +
-                "• <b>Demirci</b> (Işınlan'ın yanında): silahını ve zırhını Gümüş Akçe ile, +4'ten sonra Gök Taşı Parçası da vererek " +
-                "+9'a kadar güçlendir. +1 kesin tutar, sonra şans azalır (+9 %25). Tutmazsa eşyan bozulmaz, yalnız malzeme gider. " +
-                "Silah hasar, zırh zırh, takılar temel değer kazanır. Üstte <b>Güç Puanı</b>'nı görürsün.\n" +
-                "• <b>Seviye ödülleri</b>: 2, 3, 4, 5, 7, 10, 12, 15, 20, 25 ve 30. seviyelerde iksir, Gümüş Akçe, Gök Taşı Parçası ve Altın armağan edilir.\n" +
-                "• <b>Daha iyi eşya</b>: çantana giydiğinden güçlü bir eşya girerse solda kart çıkar; <b>Kuşan</b>'a dokunman yeter.\n" +
-                "• <b>Acemi koruması</b>: 5. seviyeye kadar düşmanlardan %40 daha az hasar alırsın.\n" +
-                "• <b>Çanta</b>: eşyaların ve paran. Altındaki <b>Sırala</b> eşyaları türe ve kaliteye göre dizer, yığınları birleştirir; " +
-                "<b>Toplu Sat</b> satıcıya gitmeden değersiz (gri) eşyaları ve giydiğinden zayıf ya da kullanamadığın donanımı satar " +
-                "(tutmak istediğine dokun; demirciden geçmiş eşyalar listelenmez).\n" +
-                "• <b>Görevler</b>: aldığın görevler ve kalan hedefleri.\n" +
-                "• <b>Menü</b>: seçenekler (grafik, akıcılık, ses, oyun), bu rehber, ekran görüntüsü paylaşma ve <b>Sorun Bildir</b> " +
-                "(bir sorun görürsen kısaca yaz; ekran görüntüsüyle geliştiriciye gider). Hatalar ve çökmeler zaten kendiliğinden bildirilir.\n" +
-                "• Ekrandaki düğmeler hiçbir göstergenin üstüne binmez: telefonun ekranına göre kendiliğinden boş yere kayarlar.\n" +
-                "• <b>Menü > Oyun</b>: otomatik iksir (can %30 ya da %50'nin altına inince Şifa İksiri içilir), büyük yetenek çubuğu, " +
-                "ekran düğmelerinin boyutu ve saydamlığı.\n" +
-                "• Alttaki sıra <b>yetenek çubuğu</b>dur: yeteneklerine dokunarak kullanırsın.\n" +
-                "• Pencereleri sağ üst köşelerindeki <b>X</b> ile kapatırsın.\n" +
-                "• Üstteki <b>Durum</b> düğmesi teşhis raporudur. Bir sorun yaşarsan açıp <b>Kopyala</b>'ya bas ve yapımcıya gönder.\n\n" +
-                H + "Çevrimiçi oyun" + HE + "\n" +
-                "• Ana menüde <b>Çevrim İçi Oyna</b>: kullanıcı adı ve şifre yaz, <b>Giriş</b>'e bas. İlk girişte hesabın kendiliğinden açılır; " +
-                "şifreni unutma. Sonra karakterini oluşturup oyuna gir.\n" +
-                "• Aynı diyardaki öteki oyuncuları görürsün, birlikte savaşırsın. Düşmanları ve ganimeti sunucu yönetir.\n" +
-                "• <b>Sohbet</b> düğmesi (yalnız çevrimiçi): yaz ve gönder; aynı diyardakiler görür.\n" +
-                "• Diyarlar arası: kapılardan geçersin ya da bir <b>Geçit Taşı</b>'na dokunup haritadan seçersin.\n" +
-                "• Günlük armağan ve görevler, demirci, toplu satış, çanta sıralama, seviye ödülleri, sen yokken kazancı ve binek " +
-                "çevrimiçi oyunda da var: hepsini sunucu verir ve karakterinle birlikte sunucuda saklanır. Çevrimiçi günler Türkiye saatiyle " +
-                "gece yarısı yenilenir. Tek oyunculu oyunun ve kayıtların ayrıdır, etkilenmez.\n\n" +
-                H + "Oyun takılıyorsa" + HE + "\n" +
-                "• <b>Menü > Görüntü</b>: Grafik kalitesini 4K'dan Yüksek'e ya da Orta'ya al; Çözünürlüğü Düşük, Gölgeleri Kapalı yap; " +
-                "Görüş mesafesini ve İsim mesafesini kısalt.\n" +
-                "• <b>Akıcılık</b> bölümünde FPS göstergesini açarsan kare hızını sol üstte görürsün.\n" +
-                "• FPS sınırını 30 yaparsan telefon daha az ısınır ve pil daha uzun gider."),
+                "• <b>Yere dokun</b>: karakterin oraya yürür.\n" +
+                "• <b>Kişiye, düşmana, eşyaya dokun</b>: seçer; yakınsan konuşur, saldırır ya da toplarsın, uzaksan yanına gidersin.\n" +
+                "• <b>Uzun bas</b>: çantadaki eşyada Kullan / Kuşan / Sat menüsünü açar.\n\n" +
+                H + "Ekranın düzeni" + HE + "\n" +
+                "• <b>Sol alt</b>: <b>Çanta</b> simgesi (çantan), yanında <b>Ayarlar</b> çarkı ve <b>Işınlan</b> simgesi.\n" +
+                "• <b>Sol kenar</b>: <b>Menü</b> simgesi. Ekran dolmasın diye öteki her şey onun içindedir: Karakter, Görevler, Günlük Görevler, " +
+                "Demirci, Ticaret, Depo, Dünya Haritası, Etkinlikler, Sohbet (çevrim içi) ve Oyun Kılavuzu. Ödül bekleyince Menü'de altın nokta yanar.\n" +
+                "• <b>Sağ alt</b>: büyük <b>Saldır</b> düğmesi ve çevresinde sınıfının <b>yetenekleri</b> (beceri halkası). " +
+                "Yanında <b>Oto Av</b>, <b>Binek</b> ve <b>Hedef</b> (önündeki düşmanlar arasında sırayla hedef değiştirir).\n" +
+                "• <b>Sağ üst</b>: küçük harita. Üstündeki <b>HARİTA</b>'ya dokununca büyük Dünya Haritası açılır. " +
+                "Altında süren bölge etkinliğinin afişi görünür; dokununca etkinlik penceresi açılır.\n" +
+                "• <b>Sol üst</b>: canın (kırmızı), manan / enerjin ve hedefinin çubukları.\n" +
+                "• <b>Görev oku</b>: sarı ok sıradaki görev hedefini gösterir; yanındaki <b>[Git]</b>'e dokunursan karakterin oraya kendisi yürür.\n" +
+                "• Pencereleri sağ üst köşelerindeki <b>X</b> ile kapatırsın."),
 
             new Section("Savaş",
                 H + "Nasıl savaşılır" + HE + "\n" +
-                "• Bir düşmana dokun ya da <b>Saldır</b>'a bas. Kahramanın elindeki silahla kendiliğinden vurmaya başlar.\n" +
-                "• Alttaki yetenek çubuğundaki <b>yeteneklerine</b> dokunarak güçlü vuruşlar, büyüler ve iyileştirmeler yaparsın. " +
-                "Kullanılan yetenek bir süre bekler; simgesi kararır ve geri sayar.\n" +
-                "• Sol üstte kendi <b>can</b> (kırmızı) ve <b>mana / enerji / öfke</b> çubukların, yanında hedefinin çubukları görünür.\n" +
-                "• Düşmanın uzaktaysa \"Hedef menzil dışında, yaklaş\" yazar. Manan bitmişse \"Yeterli Mana yok\" yazar: biraz bekle, mana dolar.\n\n" +
+                "• Bir düşmana dokun ya da <b>Saldır</b>'a bas. Seçili düşman yoksa en yakınını bulur, yanına koşar ve vurur.\n" +
+                "• Karakterin vururken yüzünü hedefe döner; her vuruşta düşman sarsılır, vurduğun belli olur.\n" +
+                "• <b>Saldırı hızı silahına göredir</b>: pençe ve hançer en hızlı (0,8–0,9 sn), tek elli kılıç 1 sn, balta, gürz ve asa 1,1–1,3 sn, " +
+                "yay 1,2 sn, iki elli silahlar 1,4–1,5 sn. Yavaş silah daha sert vurur.\n" +
+                "• <b>Beceri halkası</b>: Saldır düğmesinin çevresindeki simgeler sınıfının yetenekleridir. Dokununca kullanılır; " +
+                "kullanılan yetenek bir süre bekler, simgesi kararır. Yeni öğrendiğin yetenekler halkaya kendiliğinden eklenir.\n\n" +
+                H + "Oto Av" + HE + "\n" +
+                "• Açınca (düğme altın rengi olur) karakterin yakındaki düşmanları bulur, menziline girip saldırır, yeteneklerini bekleme süreleri " +
+                "dolunca kendisi kullanır ve 15 m içindeki yerdeki ganimete yürüyüp toplar. Ötüken Taşlarını da kırar.\n" +
+                "• Çubuğa dokununca kısa bir süre sen yönetirsin; düğmeye yeniden dokununca kapanır.\n" +
+                "• <b>Otomatik iksir</b>: Ayarlar > Oyun'dan açılır; can %30 ya da %50'nin altına inince Şifa İksiri içilir.\n\n" +
                 H + "Hayatta kalmak" + HE + "\n" +
-                "• Savaş bitince canın yavaş yavaş kendiliğinden dolar.\n" +
-                "• Hızlı iyileşmek için çantada <b>Şifa İksiri</b>'ne uzun bas → <b>Kullan</b>. Ekmek ve peynir de can verir.\n" +
-                "• Aynı anda çok düşmana saldırma: kamplarda birini uzaktan seç, o sana gelince diğerlerinden uzakta dövüş.\n" +
-                "• <b>Kara Otacı</b> yanındaki düşmanları iyileştirir: kampta önce onu düşür.\n" +
-                "• Okçular ve kamlar uzaktan vurur: üstlerine koşup yakından dövüş.\n" +
-                "• Ölürsen ekranda <b>Yeniden Doğ</b> düğmesi çıkar; güvenli bir yerde yeniden başlarsın.\n\n" +
+                "• Savaş bitince canın yavaş yavaş dolar. Hızlı iyileşmek için çantada Şifa İksiri'ne uzun bas → Kullan.\n" +
+                "• Kamplara toptan dalma: birini uzaktan seç, o sana gelince ötekilerden uzakta dövüş.\n" +
+                "• <b>Kara Otacı</b> yanındakileri iyileştirir: önce onu düşür. Okçular ve kamlar uzaktan vurur: üstlerine koş.\n" +
+                "• 5. seviyeye kadar <b>acemi koruması</b>: düşmanlardan %40 daha az hasar alırsın.\n" +
+                "• Ölürsen <b>Yeniden Doğ</b> düğmesi çıkar; güvenli bir yerde yeniden başlarsın.\n\n" +
                 H + "Düşmanların gücü" + HE + "\n" +
-                "• Düşmanların seviyesi senin seviyene göre ayarlanır. Köyün çevresindekiler seninle aynı seviyededir; dağlarda ve haritanın köşelerinde 1-3 seviye daha güçlüdürler.\n" +
-                "• Abası, Kan Süvarisi, Buz Bekçisi ve Yağmacı Başı sıradan düşmanlardan sağlamdır.\n" +
-                "• <b>Cinler ve Körmösler</b>: Erlik'in yeraltından salıverdiği yaratıklar. Cüce <b>Çalı Cinleri</b> en kolaylarıdır, sürüyle gezerler. " +
-                "Boynuzlu, gürzlü <b>Körmösler</b> daha güçlüdür; <b>Ayaz Körmösü</b> en irileridir.\n" +
-                "• <b>Kemik erler</b>: Erlik'in eski kurganlardan kaldırdığı iskeletler. <b>Kemik Er</b> kılıç ve kalkanla, <b>Kemik Akıncı</b> iki kılıçla, " +
-                "<b>Kemik Kam</b> asasıyla vurur; boynuzlu miğferli <b>Kemik Alp</b> en sağlamlarıdır. Yıkılınca kemik yığınına dönerler.\n" +
-                "• Dağ doruklarındaki <b>Ulu Evren</b> (ejderha) ve <b>Yelbegen</b> (yedi başlı dev) en zorlu düşmanlardır. İyi donanım ve iksir olmadan gitme!\n" +
-                "• Öldürdüğün düşmanların yerine 90 saniye sonra yenileri gelir; Ulu Evren ve Yelbegen 10 dakikada döner."),
+                "• Her diyarın bir seviye aralığı vardır. Canavarlar girişe yakın yerde aralığın altında, derinlerde üstünde doğar.\n" +
+                "• <b>Seçkin</b> canavarlar (Abası, Kan Süvarisi, Yağmacı Başı, Buz Bekçisi, Kemik Alp) bir seviye yukarıdadır, daha sağlamdır ve daha iyi ganimet bırakır.\n" +
+                "• <b>Boss</b>'lar diyarın en uzak ucundadır, aralığın tepesindedir; 10 dakikada bir yeniden doğar.\n" +
+                "• Öldürdüğün düşmanların yerine 90 saniye sonra yenileri gelir."),
 
-            new Section("Para Kazanma",
-                H + "Para birimleri" + HE + "\n" +
-                "• <b>Bakır Akçe</b>, <b>Gümüş Akçe</b> ve <b>Altın</b>.\n" +
-                "• 100 bakır = 1 gümüş, 100 gümüş = 1 altın. Paranı çanta penceresinin altında görürsün.\n\n" +
-                H + "Para nereden kazanılır" + HE + "\n" +
-                "1. <b>Düşman öldür.</b> Her düşmanın üstünden para çıkar: seviyesi kadar gümüş, güçlü düşmanlardan daha fazlası. " +
-                "Ölen düşmanın üstü parlıyorsa ona dokun: ganimet <b>kendiliğinden çantana girer</b>, ekranda yeşil, mavi, mor yazıyla \"+ Kurt Dişi\" gibi görünür. " +
-                "Çantan doluysa ganimet penceresi açılır; yer açıp <b>Hepsini Al</b>'a bas.\n" +
-                "2. <b>Hazine sandıklarını aç.</b> Düşman kamplarının ortasında ve dağ doruklarında sandıklar var. " +
-                "İçlerinden <b>Akçe Kesesi</b>, <b>Dolu Akçe Kesesi</b>, hatta <b>Altın Kese</b> çıkar. Kese alınınca para doğrudan cebine geçer. " +
-                "Boşalttığın sandık birkaç dakika sonra yeniden dolar.\n" +
-                "3. <b>Görev yap.</b> Görevler bitince altın, tecrübe ve eşya ödülü verir. Tekrarlanabilir görevleri (Obaya Yardım, Mağara Nöbeti, Albastı Avı) istediğin kadar yapabilirsin.\n" +
-                "4. <b>Ganimet ve eşya sat.</b> Düşmanlardan düşen kurt dişi, kartal tüyü, gök taşı, eski altın sikke gibi ganimetler yalnızca satmak içindir. " +
-                "İşine yaramayan silah, zırh, kolye, cevher, ot ve kereste de satılır. " +
-                "Köydeki <b>Tüccar Karaçor</b>'a ya da bir malzemeciye dokun; satıcı penceresi açıkken çantadaki eşyaya uzun bas → <b>Sat</b>. " +
-                "Satıcı penceresinin sol altındaki <b>Değersizleri Sat</b> düğmesi gri eşyaların hepsini tek dokunuşla satar. " +
-                "Değerli (renkli) eşyalar çok daha pahalıya gider. Yanlışlıkla sattığını satıcının ilk sayfasından geri alabilirsin.\n" +
-                "5. <b>Zanaatla uğraş.</b> Maden kaz, ot topla, ağaç kes, balık tut. Topladıklarını sat ya da onlardan daha değerli eşyalar yap.\n" +
-                "6. <b>Günlük Armağan.</b> Her gün oyuna girince gümüş, iksir, heybe ya da altın kazanırsın. 7. gün: 1 altın ve bir Gök Taşı Parçası. " +
-                "Bir gün kaçırırsan seri 1. günden yeniden başlar.\n\n" +
-                H + "Para ne işe yarar" + HE + "\n" +
-                "• Satıcılardan iksir, yiyecek, silah, zırh ve daha büyük <b>heybeler</b> (daha çok eşya taşırsın) alırsın. " +
-                "Fiyatlar seviyene göre artar: 1. seviyede bir silah 2 gümüş, bir şifa iksiri 1 gümüş eder; renkli eşyalar çok daha pahalıdır.\n" +
-                "• Bir eşyanın satış değeri, bilgi kutusunun altında <b>Satış Fiyatı</b> olarak yazar.\n" +
-                "• Zanaat malzemeleri ve tarifler alırsın.\n" +
-                "• Ustalardan yeni yetenek ve zanaat öğrenirsin."),
+            new Section("Sınıflar ve Silahlar",
+                "Her sınıfın kendine ait silahları ve zırhı vardır. Başka sınıfın eşyası <b>kuşanılamaz</b>: denersen nedeni yazar " +
+                "(ör. \"... senin sınıfın bu türü kullanamaz\"). Canavarlar sınıfına uygun eşyayı <b>2,5 kat daha sık</b> düşürür.\n\n" +
+                "• <b>Alp</b> — kılıç, gürz ve balta (tek ya da iki elli), kalkan · <b>plaka zırh</b>. Ağır zırhlı ön saf savaşçısı; yeni başlayana en kolayı.\n" +
+                "• <b>Batur</b> — pençe (yumruk silahı), mızrak · <b>deri zırh</b>. Art arda vuran hızlı yakın dövüşçü.\n" +
+                "• <b>Akıncı</b> — hançer · <b>deri zırh</b>. Gizlenir, arkadan vurur, zehir kullanır.\n" +
+                "• <b>Okçu</b> — yay, arbalet · <b>deri zırh</b>. Uzaktan vurur, düşmanı yavaşlatır.\n" +
+                "• <b>Kam</b> — asa, değnek, büyü kitabı · <b>kumaş giysi</b>. Kasırga, ateş ve buz büyüleri; güçlü ama kırılgan.\n" +
+                "• <b>Otacı</b> — asa, değnek, büyü kitabı · <b>kumaş giysi</b>. İyileştirir, zehri temizler, düşenleri diriltir.\n\n" +
+                H + "Uzmanlık" + HE + "\n" +
+                "İlerledikçe köydeki uzmanlık ustalarından bir yol seçersin: Alp için Süvari ya da Kan Süvarisi, Kam için Ateş, Ayaz ya da Kara Kam, " +
+                "Okçu için Nişancı ya da İzci. Köydeki <b>sınıf ustaları</b> yeni yetenekler öğretir.\n\n" +
+                H + "Değerler" + HE + "\n" +
+                "• <b>Güç</b>: yakın dövüş hasarı  • <b>Çeviklik</b>: ok ve hançer hasarı, kritik vuruş\n" +
+                "• <b>Zekâ</b>: büyü gücü ve mana  • <b>Dayanıklılık</b>: can\n\n" +
+                H + "Boylar" + HE + "\n" +
+                "• <b>Bozoklar</b> (Gün, Ay, Yıldız Han'ın soyu): armağanları <b>Mavi Kanatlar</b>. <b>Üçoklar</b> (Gök, Dağ, Deniz Han'ın soyu): <b>Kızıl Kanatlar</b>.\n" +
+                "• Kanatlarla kısa süre uçarsın. İki boyun arası soğuktur; öbür boyun askerleri sana düşman davranır.\n" +
+                "• Görünüşünü köydeki <b>Ayna Kam</b>'da, adını <b>Dede Korkut</b>'ta, boyunu elçilerde değiştirebilirsin."),
 
-            new Section("Eşya ve Ganimet",
-                H + "Eşya bulabileceğin yerler" + HE + "\n" +
-                "• <b>Düşman cesetleri:</b> iksir, heybe, tomar, silah ve zırh düşer. Ağır zırhlı düşmanlardan zırh takımları, kamlardan kumaş giysiler çıkar.\n" +
-                "• <b>Hazine Sandığı:</b> düşman kamplarının ortasında. Akçe kesesi, iksir, mücevher, kolye, heybe, silah.\n" +
-                "• <b>Büyük Hazine Sandığı:</b> Ateş Dağı ve Buz Dağı'nda, mağarada ve haritanın uzak köşelerinde. Altın kese, destansı silahlar, değerli zırhlar.\n" +
-                "• <b>Ekmek ve Peynir:</b> kampların yanında ve yol kenarlarında; dokunup alırsın.\n" +
-                "• <b>Toplama:</b> çiçekler ve otlar, maden damarları ve kristaller, ağaçlar, göldeki balıklar. Bunları toplamak için önce zanaatı öğrenmelisin (Zanaatlar bölümüne bak).\n\n" +
-                H + "Bozkır ganimeti" + HE + "\n" +
-                "Her düşmandan, silah ve zırhın yanında satmak için ganimet de düşebilir:\n" +
-                "• <color=#9A9A9A>Gri</color> (sık): Kırık Ok Ucu, Paslı Kemer Tokası, Çatlak Boncuk. Birkaç bakır eder.\n" +
-                "• Beyaz ve <color=#4CE04C>yeşil</color>: Kurt Dişi, Kurt Pençesi, Kartal Tüyü. 1-4 gümüş.\n" +
-                "• <color=#5A8CFF>Mavi</color> ve <color=#E040E0>mor</color> (seyrek): Gök Taşı Parçası, Eski Altın Sikke, Altın Tamga Yüzüğü. 15-60 gümüş.\n" +
-                "• <color=#FF8000>Turuncu</color> (çok nadir): <b>Ergenekon Demiri</b>. 3 altın!\n" +
-                "• Ulu Evren, Yelbegen ve Tepegöz her yenilişte mavi, mor ya da turuncu bir hazine ve bir kese bırakır.\n" +
-                "Nadir bir ganimet aldığında telefon titrer.\n\n" +
-                H + "Çantayı kullanmak" + HE + "\n" +
-                "• <b>Çanta</b> düğmesine bas. Eşyanın üstüne parmağını basılı tutarsan bir menü açılır: <b>Kullan</b>, <b>Kuşan</b>, <b>Sat</b>, <b>At</b>, <b>Yok Et</b>.\n" +
-                "• Bir eşyaya kısa dokunursan onu tutarsın; başka bir kutuya dokunursan oraya bırakırsın.\n" +
-                "• Bulduğun silah ve zırhları <b>Kuşan</b> ile giy. Neyi giydiğini <b>Karakter</b> penceresinde görürsün.\n" +
-                "• Çanta dolarsa eşya sat ya da daha büyük bir <b>heybe</b> al. Heybeler çanta penceresinin üstündeki heybe yuvalarına takılır.\n\n" +
+            new Section("Çanta ve Kuşanma",
+                H + "Çanta" + HE + "\n" +
+                "• Sol alttaki <b>Çanta</b> simgesine dokun. Her sayfada 40 göz görünür; çantan büyüdükçe alttaki <b>‹ ›</b> ve sayfa numaralarıyla " +
+                "sayfalar arasında geçersin (en çok 20 sayfa).\n" +
+                "• <b>Menü > Karakter</b> açılınca çanta da yanında açılır: giydiklerin solda, kuşanabileceklerin sağda.\n" +
+                "• <b>Sırala</b>: eşyaları türe ve kaliteye göre dizer, yığınları birleştirir. <b>Toplu Sat</b>: satıcıya gitmeden gri eşyaları ve " +
+                "giydiğinden zayıf ya da kullanamadığın sıradan donanımı satar (tutmak istediğine dokun).\n" +
+                "• Çanta dolarsa daha büyük <b>heybe</b> al ya da eşyalarını <b>Depo</b>'ya koy.\n\n" +
+                H + "Eşyanın köşesindeki işaretler" + HE + "\n" +
+                "• <color=#E8C47A><b>▲</b></color> altın: şu an kuşandığından <b>güçlü</b> — hemen kuşan!\n" +
+                "• <color=#7CDC6A><b>●</b></color> yeşil: sınıfına uygun, kuşanabilirsin.\n" +
+                "• <color=#FF7359><b>×</b></color> kırmızı: başka sınıfın eşyası, kuşanamazsın (satabilir ya da takas edebilirsin).\n\n" +
+                H + "Karşılaştırma" + HE + "\n" +
+                "Eşyaya dokununca açılan bilgi kutusunda yazar:\n" +
+                "• \"Sınıfına uygun\" ya da \"Sınıfına uygun değil\" (kimin kullandığıyla) ve gereken seviye,\n" +
+                "• silahta <b>Saldırı gücü</b>, zırhta <b>Zırh</b> değeri,\n" +
+                "• şu an kuşandığın eşyayla <b>farkı</b>: <color=#7CDC6A>yeşil +</color> daha iyi, <color=#FF7359>kırmızı −</color> daha kötü.\n\n" +
+                H + "Kuşanmak" + HE + "\n" +
+                "• Eşyaya uzun bas → <b>Kuşan</b>. Çantana giydiğinden güçlü bir eşya girerse solda kart çıkar; <b>Kuşan</b>'a dokunman yeter.\n" +
+                "• Kuşanamazsan nedeni ekranda yazar: seviyen yetmiyor ya da eşya başka sınıfın.\n\n" +
                 H + "Eşya renkleri" + HE + "\n" +
-                "Gri: değersiz  •  Beyaz: sıradan  •  Yeşil: sıradışı  •  Mavi: nadir  •  Mor: destansı  •  Turuncu: efsanevi.\n" +
+                "Gri: değersiz • Beyaz: sıradan • <color=#4CE04C>Yeşil</color>: sıradışı • <color=#5A8CFF>Mavi</color>: nadir • " +
+                "<color=#E040E0>Mor</color>: destansı • <color=#FF8000>Turuncu</color>: efsanevi. " +
                 "Adının önünde \"Kusurlu\", \"Güçlü\", \"Üstün\", \"Eşsiz\" ya da \"Tanrısal\" yazan silahların gücü rastgeledir."),
 
-            new Section("Ticaret ve Kut",
-                H + "Takas" + HE + "\n" +
-                "• Sol sütundaki <b>Ticaret</b> düğmesi: yakındaki oyuncular listelenir. 15 m yakınındaki oyuncuya <b>Takas</b> teklif edersin.\n" +
-                "• İkiniz de çantanızdan en çok 9 yuva eşya ve para koyarsınız. Bir şey değişince onaylar düşer; ikiniz de onaylayınca takas olur ve <b>geri alınamaz</b>.\n\n" +
-                H + "Pazar kurmak" + HE + "\n" +
-                "• <b>Ticaret > Pazar Kur</b>: çantandaki en çok 8 eşyaya fiyat yaz (ör. <b>5a 20g</b> = 5 Altın 20 Gümüş; çıplak sayı gümüştür), pazarına ad ver ve aç.\n" +
-                "• Pazarının adı başının üstünde görünür. Yakındakiler dokunup mallarını alır, para sana gelir. Yürürsen pazar kapanır.\n" +
-                "• Başkalarının pazarları <b>Ticaret</b> penceresinde ve başlarının üstünde görünür.\n\n" +
-                H + "Sayılabilen eşyalar ve değer" + HE + "\n" +
-                "• İksirler, malzemeler ve ganimetler bir yuvada <b>200</b>'e kadar yığılır.\n" +
-                "• Demirciden geçmiş eşya daha değerlidir: satıcı fiyatı +1'de 1,3 kat, +5'te 4 kat, +9'da 14 kat olur.\n\n" +
-                H + "Kut Dükkânı" + HE + "\n" +
-                "• <b>Kut</b>, Google Play'den alınan oyun parasıdır. Kut ile <b>Demirci Kutsaması</b> (yükseltme şansı +15 puan), " +
-                "<b>Deneyim Muskası</b> (1 saat %50 fazla tecrübe) ve <b>Ulu Heybe</b> (24 göz) alınır. Rastgele ödül satılmaz; şanslar açıkça yazar.\n" +
-                "• Kut ve Kut ile alınanlar hesabına bağlıdır: takas edilemez, satılamaz, gerçek paraya çevrilemez.\n\n" +
-                H + "Kurallar" + HE + "\n" +
-                "• Küfür, hakaret, taciz, dolandırıcılık, hile ve <b>gerçek parayla eşya, para ya da hesap satmak yasaktır</b>.\n" +
-                "• Rahatsız eden oyuncuyu <b>Ticaret</b> penceresinden <b>Şikâyet Et</b> ve <b>Engelle</b>. Engellediğin oyuncunun yazıları görünmez, takas teklifleri gelmez.\n" +
-                "• Şartlar, gizlilik ve hesap silme: <b>Menü > Hesap</b>."),
+            new Section("Ganimet",
+                H + "Yere düşen ganimet" + HE + "\n" +
+                "• Ölen canavarın ganimeti cesedin çevresine, <b>yere saçılır</b>.\n" +
+                "• Yanından geçince (2–3 m) <b>kendiliğinden çantana girer</b>; Oto Av açıksa karakterin 15 m içindekilere kendisi yürür.\n" +
+                "• Yerdeki eşya <b>3 dakika</b> durur, sonra kaybolur. Bu sürede <b>başka oyuncular da alabilir</b>: ganimetini bekletme!\n" +
+                "• Akçe ve görev eşyaları doğrudan sana gelir, yere düşmez.\n" +
+                "• Çantan doluysa eşya yerde kalır; yer açınca gidip al.\n\n" +
+                H + "Nereden ne düşer" + HE + "\n" +
+                "• <b>Canavarlar</b>: iksir, heybe, tomar, silah, zırh, kolye. Sınıfına uygun donanım daha sık düşer.\n" +
+                "• <b>Hazine sandıkları</b>: kampların ortasında ve dağ doruklarında; akçe kesesi, mücevher, silah. Boşalan sandık birkaç dakikada dolar.\n" +
+                "• <b>Ötüken Taşları</b>: akçe kesesi, Gök Taşı Parçası, iksir (Ötüken Taşları bölümüne bak).\n" +
+                "• <b>Bozkır ganimeti</b> (yalnız satmak için): gri Kırık Ok Ucu'ndan turuncu <b>Ergenekon Demiri</b>'ne (3 altın) kadar.\n" +
+                "• Boss'lar her yenilişte değerli bir hazine ve kese bırakır. Nadir bir şey aldığında telefon titrer.\n\n" +
+                H + "Cevherler (Demirci için)" + HE + "\n" +
+                "• <b>Demir Cevheri</b>: Börü Tepesi'nden itibaren (canavar başına %4)\n" +
+                "• <b>Gümüş Cevheri</b>: Ordubalık Kenti'nden itibaren (%2,5)\n" +
+                "• <b>Altın Cevheri</b>: Kağan Ordası'ndan itibaren (%1,5)\n" +
+                "• <b>Gök Demiri</b>: Kurgan Mezarlığı'ndan itibaren (%0,8)\n" +
+                "Seçkin canavarlarda şans 2,5 kat. Boss diyarın en iyi cevherinden bir tane bırakır (bazen bir tane daha). " +
+                "Yan görev zincirlerinin son görevi de bir cevher verir. Cevherler takas ve pazarda satılabilir."),
+
+            new Section("Demirci",
+                "<b>Menü > Demirci</b>: silahını, zırhını ve takılarını <b>+9</b>'a kadar güçlendir. Silah hasar, zırh zırh, takı temel değer kazanır; " +
+                "üstte <b>Güç Puanı</b>'nı görürsün.\n\n" +
+                H + "Bedel ve şans" + HE + "\n" +
+                "• Her basamak <b>Gümüş Akçe</b> ister (basamak büyüdükçe artar: +1 6 gümüş, +5 150, +9 486).\n" +
+                "• +4, +5, +6 için 1, +7, +8, +9 için 2 <b>Gök Taşı Parçası</b> gerekir.\n" +
+                "• Şans: +1 kesin, +2 %95, +3 %90, +4 %80, +5 %70, +6 %60, +7 %45, +8 %35, +9 %25.\n" +
+                "• Tutmazsa <b>eşyan bozulmaz</b>, yalnız malzeme gider.\n" +
+                "• <b>Demirci Kutsaması</b> (Kut Dükkânı) şansı 15 puan artırır.\n\n" +
+                H + "Cevher yuvası (+6 ve üstü)" + HE + "\n" +
+                "+5'ten sonra Demirci penceresinde bir <b>cevher yuvası</b> açılır. Yuvaya cevheri koymadan <b>Yükselt</b> çalışmaz:\n" +
+                "• +6 için <b>Demir Cevheri</b>  • +7 için <b>Gümüş Cevheri</b>  • +8 için <b>Altın Cevheri</b>  • +9 için <b>Gök Demiri</b>\n" +
+                "<b>Cevher Ekle</b>'ye dokun, sonra <b>Yükselt</b>. Cevher yükseltmeyle birlikte harcanır (tutmasa da).\n\n" +
+                H + "Değer" + HE + "\n" +
+                "Demirciden geçmiş eşya daha değerlidir: satıcı fiyatı +1'de 1,3 kat, +5'te 4 kat, +9'da 14 kat olur."),
+
+            new Section("Depo",
+                "<b>Depo</b> çantana sığmayanları sakladığın yerdir. <b>Menü > Depo</b> ile her yerden açılır (köydeki hazinedar da açar).\n\n" +
+                "• <b>10 göz ücretsizdir.</b>\n" +
+                "• Depo penceresindeki <b>10 Göz Al</b> düğmesiyle Google Play'den her alışta <b>10 göz</b> eklenir.\n" +
+                "• Depoda her sayfa <b>50 göz</b>dur; en çok <b>20 sayfa</b> (1000 göz). Eklenen gözler sayfaları sırayla doldurur: " +
+                "4 alışta ilk sayfa (50 göz) dolar, sonrakiler ikinci sayfaya geçer.\n" +
+                "• Pencerenin solu depo, sağı çantandır. <b>Eşyaya dokun</b>: öbür tarafa geçer. Alttaki ‹ › ile sayfa değiştir.\n" +
+                "• Depo gözleri hesabına bağlıdır: karakterinle birlikte saklanır, takas edilemez.\n" +
+                "• Çevrim içinde depo sunucuda durur; aldığın gözler hemen gelir."),
 
             new Section("Görevler",
-                "• Başının üstünde sarı <b>!</b> olan kişiler görev verir; sarı <b>?</b> olanlara biten görevi teslim edersin. Bunları haritada da görürsün.\n" +
-                "• <b>Görevler</b> penceresi aldığın görevleri ve kalan hedefleri gösterir. Sağdaki görev takibi ilerlemeni anlık gösterir.\n" +
-                "• Görev ödülleri: tecrübe, altın ve eşya. Bazı görevlerde ödülü sen seçersin.\n\n" +
-                H + "Ötüken Destanı (ana hikâye)" + HE + "\n" +
-                "Erlik Han Tamu'nun mührünü kırdı; kara ruhları on beş diyara saçıldı. Olcayto Han'dan <b>Kutun Çağrısı</b> görevini al ve yola çık.\n" +
-                "• Her diyarın girişinin yanında bir <b>yardımcı</b> bekler (Ak Ana, Börü Alp Tonga, Kıyı Beyi Aybars...). Önce o diyarın düşmanlarını dağıtırsın, " +
-                "sonra Erlik'in o diyardaki başbuğunu (<b>boss</b>) yenersin; boss haritanın en uzak ucundadır ve kendi savaş müziği çalar.\n" +
-                "• Yardımcı seni bir sonraki diyara gönderir: Umay Tarlaları'ndan Tamu Zindanı'na kadar 15 diyar, 45 görev.\n" +
-                "• Sonunda Tamu'nun dibinde <b>Erlik Han</b>'ı yen ve Ötüken'e, Olcayto Han'a dön.\n" +
-                "• Görev oku sıradaki yardımcıyı ve hedefi gösterir. Diyarın seviyesi adının altında yazar; zorlanırsan bir önceki diyarda biraz daha avlan.\n\n" +
-                H + "Ötüken Yaylası'nın görevleri" + HE + "\n" +
-                "• <b>Olcayto Han'ın Çağrısı</b>: her şeyin başladığı yer.\n" +
-                "• <b>Alp'in Donanımı</b> ve <b>Sefere Hazırlık</b>: Tüccar Karaçor'dan hançer ve kalkan satın al (birkaç gümüş tutar; paran yoksa önce birkaç Kara Yek avla).\n" +
-                "• <b>Bilgeden Öğüt</b>: Bilge Tonyukuk'u dinle.\n" +
-                "• <b>Karanlığın Kapısı</b> ve <b>Tepegöz'ün Laneti</b>: Erlik'in Mağarası'na gir, Albastıları ve Tepegöz'ü yen.\n" +
-                "• <b>İlk Kan</b>, <b>Ayaz Ata'nın Nefesi</b>, <b>Umay'ın Şefkati</b>: savaş ve yetenek görevleri.\n" +
-                "• <b>Obanın Zanaatları</b>: toplama zanaatlarını öğren.\n" +
-                "• <b>Er Meydanı</b>: arenada rakip çağır ve dövüş.\n\n" +
+                "• Sarı <b>!</b>: görev verir. Sarı <b>?</b>: biten görevi teslim et. Bunları haritada da görürsün.\n" +
+                "• <b>Menü > Görevler</b>: aldığın görevler ve kalan hedefler. Aynı anda 25 görev taşıyabilirsin.\n" +
+                "• Ödüller: tecrübe, Gümüş Akçe, bazen eşya ya da cevher.\n\n" +
+                H + "Ana hikâye: Ötüken Destanı (45 görev)" + HE + "\n" +
+                "Olcayto Han'dan <b>Kutun Çağrısı</b>'nı al. Her diyarın girişinde bir <b>yardımcı</b> bekler (Ak Ana, Börü Alp Tonga, Kıyı Beyi Aybars...). " +
+                "Önce diyarın düşmanlarını dağıtırsın, sonra Erlik'in o diyardaki başbuğunu (boss) yenersin; yardımcı seni bir sonraki diyara gönderir. " +
+                "Sonunda Tamu'nun dibinde <b>Erlik Han</b>'ı yen ve Ötüken'e dön.\n\n" +
+                H + "Yan görevler (405 görev)" + HE + "\n" +
+                "• Her diyarın girişinin çevresinde <b>üç görev veren</b> durur: avcılar, otacılar, ustalar, bekçiler, ozanlar...\n" +
+                "• Her biri <b>9 görevlik bir zincir</b> verir; biri bitince sıradaki açılır. Görev başlığındaki (3/9) kaçıncıda olduğunu gösterir.\n" +
+                "• Zincirde canavar avı, iki türü birden avlama, Ötüken Taşı kırma, seçkin canavarlar ve diyarın boss'u vardır.\n" +
+                "• Zincirin son görevi daha çok tecrübe ve akçe verir; Börü Tepesi'nden itibaren bir de <b>cevher</b>.\n\n" +
+                H + "Günlük görevler" + HE + "\n" +
+                "<b>Menü > Günlük Görevler</b>: her gün yenilenen 3 görev (düşman yen, ganimet topla, sandık boşalt, diyar gez). " +
+                "Biten görevin ödülünü al; üçü de bitince büyük ödül.\n\n" +
                 H + "Tekrarlanabilir görevler" + HE + "\n" +
-                "<b>Obaya Yardım</b>, <b>Mağara Nöbeti</b>, <b>Keşif Kolu</b>, <b>Albastı Avı</b>, <b>Kamın Bohçası</b>, <b>Boyların Armağanı</b>: bitirdikten sonra yeniden alınabilir; sürekli para ve tecrübe kaynağıdır."),
+                "Ötüken Yaylası'nda <b>Obaya Yardım</b>, <b>Mağara Nöbeti</b>, <b>Keşif Kolu</b>, <b>Albastı Avı</b>, <b>Kamın Bohçası</b>, " +
+                "<b>Boyların Armağanı</b>: bitirdikten sonra yeniden alınır."),
 
-            new Section("Seviye ve Yetenekler",
-                "• Düşman öldürmek ve görev bitirmek <b>tecrübe</b> kazandırır. Tecrübe dolunca <b>seviye atlarsın</b>: canın ve gücün artar, yeni yeteneklerin açılır.\n" +
-                "• Yeni öğrendiğin yetenekler çoğunlukla yetenek çubuğuna kendiliğinden eklenir.\n" +
-                "• Köydeki <b>sınıf ustaları</b> (Alp Ustası, Okçu Ustası, Kam Ustası...) sınıfının yeteneklerini öğretir.\n" +
-                "• İlerledikçe <b>uzmanlık ustalarından</b> bir yol seçebilirsin: Alp için Süvari ya da Kan Süvarisi, Kam için Ateş, Ayaz ya da Kara Kam, Okçu için Nişancı ya da İzci.\n" +
-                "• Daha iyi silah ve zırh kuşanmak seni en hızlı güçlendiren yoldur. Eşyanın üstüne uzun bas, açıklamasında değerlerini gör.\n\n" +
-                H + "Değerler" + HE + "\n" +
-                "• <b>Güç</b>: yakın dövüş hasarı.  • <b>Çeviklik</b>: ok ve hançer hasarı, kritik vuruş.\n" +
-                "• <b>Zekâ</b>: büyü gücü ve mana.  • <b>Dayanıklılık</b>: can.\n" +
-                "Sol kenardaki <b>Karakter</b> düğmesiyle açılan pencerede tüm değerlerini ve giydiklerini görürsün."),
+            new Section("Etkinlikler",
+                "Diyarlarda her gün Türkiye saatiyle etkinlikler olur. Süren etkinlik küçük haritanın altında afiş olarak görünür; " +
+                "<b>Menü > Etkinlikler</b> günün takvimini gösterir.\n\n" +
+                H + "Bölge etkinlikleri" + HE + "\n" +
+                "Her 2 saatte bir (00:00, 02:00 ... 22:00) bir diyarda <b>45 dakika</b> sürer:\n" +
+                "• <b>Çifte Tecrübe</b>: o diyarda canavarlardan 2 kat tecrübe.\n" +
+                "• <b>Ganimet Bereketi</b>: eşya düşme şansı 2 kat.\n" +
+                "• <b>Canavar İstilası</b>: canavarlar 2,5 kat hızlı yeniden doğar, tecrübe 1,5 kat.\n" +
+                "• <b>Boss Avı</b>: diyarın boss'u 10 dakika yerine 2 dakikada yeniden doğar, ganimeti 1,5 kat.\n\n" +
+                H + "Bozkır Şöleni" + HE + "\n" +
+                "Cumartesi ve pazar 20:00–23:00: <b>bütün diyarlarda</b> tecrübe 1,5 kat.\n\n" +
+                "İpucu: etkinlik başlayınca ekranda duyurulur. <b>Işınlan</b> ile o diyara geçip fırsatı kaçırma."),
 
-            new Section("Sınıflar ve Boylar",
-                H + "Sınıflar" + HE + "\n" +
-                "• <b>Alp</b>: ağır plaka zırhlı, iki elli baltalı ön saf savaşçısı. Dayanıklı ve güçlü; yeni başlayanlar için en kolayı.\n" +
-                "• <b>Batur</b>: pençeleriyle art arda yumruk indiren hızlı yakın dövüşçü.\n" +
-                "• <b>Akıncı</b>: gizlenir, arkadan vurur, zehirli hançer kullanır. Dikkatli oynamak ister.\n" +
-                "• <b>Okçu</b>: uzaktan ok yağdırır, düşmanı yavaşlatır. Düşmanı yaklaştırmadan öldürmeyi sever.\n" +
-                "• <b>Kam</b>: kasırga çağıran, ileride ateş ya da buz büyüleri öğrenen şaman. Güçlü ama kırılgan.\n" +
-                "• <b>Otacı</b>: kendini ve dostlarını iyileştiren, zehri temizleyen, düşmüşleri dirilten şifacı.\n\n" +
-                H + "Boylar" + HE + "\n" +
-                "• <b>Bozoklar</b>: Gün Han, Ay Han ve Yıldız Han'ın soyu. Armağanları <b>Mavi Kanatlar</b>.\n" +
-                "• <b>Üçoklar</b>: Gök Han, Dağ Han ve Deniz Han'ın soyu. Armağanları <b>Kızıl Kanatlar</b>.\n" +
-                "• Kanatlarla kısa süre uçabilirsin. İki boyun arası soğuktur; öbür boyun askerleri sana düşman davranır.\n\n" +
-                "Sınıfını ve boyunu yeni oyun başlatırken seçersin. Görünüşünü köydeki <b>Ayna Kam</b>'da, adını <b>Dede Korkut</b>'ta, boyunu elçilerde değiştirebilirsin."),
-
-            new Section("Zanaatlar",
-                H + "Toplama zanaatları" + HE + "\n" +
-                "• <b>Madencilik</b> (Madenci Usta): köyün kuzeyindeki taşlıkta ve dağ yamaçlarında bakır, kalay, demir, gümüş, altın ve kristal damarları.\n" +
-                "• <b>Otacılık</b> (Otacı Usta): köyde, çayırlarda ve kamp yakınlarında renkli çiçekler, keten ve kenevir.\n" +
-                "• <b>Odunculuk</b> (Oduncu Usta): köyün batısındaki ağaçlar ve ormanlar.\n" +
-                "• <b>Balıkçılık</b> (Balıkçı Usta): köyün batısındaki gölde.\n" +
-                "Önce ustaya git, ona dokun ve zanaatı öğren. Sonra toplanacak şeye dokunduğunda kahramanın onu toplar. Toplanan yer bir süre sonra yeniden dolar.\n\n" +
-                H + "Yapım zanaatları" + HE + "\n" +
-                "<b>Demircilik</b>, <b>Terzilik</b>, <b>Dericilik</b>, <b>Simya</b>, <b>Aşçılık</b>, <b>Kuyumculuk</b>, <b>Yazıcılık</b>, <b>Marangozluk</b>.\n" +
-                "Her biri köydeki ustasından öğrenilir ve köydeki tezgâhlarda (örs, kazan, tezgâh) yapılır. " +
-                "Topladığın malzemelerden silah, zırh, iksir, yemek ve takı yaparsın. Yaptıklarını kullanabilir ya da satabilirsin.\n\n" +
-                "İpucu: <b>Obanın Zanaatları</b> görevi seni toplama zanaatlarına yönlendirir."),
-
-            new Section("Bölgeler",
-                "Haritada yukarısı kuzeydir. Köy haritanın ortasındadır.\n\n" +
-                "• <b>Köy</b> (orta): güvenli. Olcayto Han, ustalar, tüccarlar, banka (Hazinedar Toktamış) ve zanaat tezgâhları.\n" +
-                "• <b>Güney çayırı</b> (başladığın yerin hemen güneyi): Kara Yek kampları. Çok kolay; ilk durağın.\n" +
-                "• <b>Cin çayırları</b> (köyün güneydoğusu ve güneybatısı, biraz uzakta): Çalı Cini sürüleri. Kolay.\n" +
-                "• <b>Ağulu Bataklık</b> (güneydoğuda, uzakta): Ağulu Körmösler ve Çalı Cinleri. Orta.\n" +
-                "• <b>Yağmacı Obası</b> (güneyde, uzakça): Yağmacı Okçular ve Yağmacı Başı. Kolay-orta.\n" +
-                "• <b>Doğu ve güneydoğu koruları</b>: Şulmuslar ve bir Kara Otacı. Orta.\n" +
-                "• <b>Kuzeydoğu ormanı</b>: Yağmacılar ve Kara Yekler. Orta.\n" +
-                "• <b>Güneybatı çayırı</b>: Kara Yekler. Kolay.\n" +
-                "• <b>Eski kurganlar</b> (biri kuzeydoğuda, biri güneybatıda; ikisi de çok uzakta): Kemik Erler, Kemik Akıncı, Kemik Kam ve Kemik Alp. Orta-zor.\n" +
-                "• <b>Ateş Dağı</b> (köyün kuzeyindeki lavlı dağ): Kara Kamlar, Abasılar, Kan Süvarileri, Körmösler ve Kızıl Cinler. Doruğunda <b>Ulu Evren</b>. Zor.\n" +
-                "• <b>Buz Dağı</b> (batıdaki karlı dağ): Kırağı Cadıları, Buz Bekçileri, Buz Cinleri ve Ayaz Körmösleri. Doruğunda <b>Yelbegen</b>. Zor.\n" +
-                "• <b>Erlik'in Mağarası</b> (köyün kuzey duvarının dışındaki taş kapı): Albastılar, Şulmuslar, Kara Kamlar, Körmösler, kemik erler ve en dipte <b>Tepegöz</b>. Zindan.\n" +
-                "• <b>Er Meydanı</b> (köyün doğu ucu): Er Meydanı Ağası'ndan rakip çağırıp dövüşebilirsin.\n" +
-                "• <b>Dört uzak köşe</b>: haritanın köşelerinde güçlü kamplar ve büyük hazine sandıkları.\n\n" +
-                "Önerilen sıra: Güney çayırı → Yağmacı Obası ve korular → mağara → Ateş Dağı ve Buz Dağı → doruklar.\n\n" +
-                "Ötüken Yaylası'ndan başka diyarlara <b>Geçit Taşı</b> ile gidilir: bir sonraki bölüme bak."),
-
-            new Section("Geçit Taşları",
-                H + "Kök Taş: diyarlar arası yol" + HE + "\n" +
-                "Her haritada, girdiğin yerin hemen yanında Göktürk harfleriyle yazılmış, kaplumbağa kaideli bir dikili taş durur: " +
-                "<b>Geçit Taşı</b>. Harfleri gök turkuazı ışıkla parlar. Ötüken Yaylası'nda köyün güney kapısına giden yolun doğusundadır.\n" +
-                "• Taşa dokun: <b>Dünya Haritası</b> açılır. Gitmek istediğin diyara dokun, <b>Işınlan</b>'a bas.\n" +
-                "• Her haritadan her haritaya gidebilirsin; eve dönmek için <b>Ötüken Yaylası</b>'nı seç.\n" +
-                "• Taşa yürümeden de gidebilirsin: sol kenarda Harita'nın yanındaki <b>Işınlan</b> düğmesine dokun, haritayı seç, " +
-                "<b>Işınlan</b>'a bas. Haritanın girişinde, Geçit Taşı'nın yanında belirirsin. Bulunduğun haritayı seçersen " +
-                "girişine dönersin (bir yere sıkışırsan işe yarar). Savaşın ortasında ve ölüyken ışınlanamazsın.\n" +
-                "• Ordubalık ve çevresindeki haritalar birbirine yollarla da bağlıdır: yolun sonunda üstünde yer adı yazan " +
-                "geçitten yürüyerek komşu haritaya geçersin.\n\n" +
-                H + "Haritalar (kolaydan zora)" + HE + "\n" +
-                "1. <color=#8FE07A>Sv 1–4</color> <b>Ötüken Yaylası</b>: köy ve çevresi. Başlangıç.\n" +
-                "2. <color=#8FE07A>Sv 3–6</color> <b>Umay Tarlaları</b>: ekinler, limon bahçeleri. Çalı Cinleri, yağmacılar.\n" +
-                "3. <color=#8FE07A>Sv 5–8</color> <b>Börü Tepesi</b>: meşaleli patikalar, denize inen yamaç.\n" +
-                "4. <color=#8FE07A>Sv 7–10</color> <b>Ak Deniz Kıyısı</b>: bambu korulukları, kumsal. Yağmacılar ve Şulmuslar.\n" +
-                "5. <color=#8FE07A>Sv 9–12</color> <b>Ordubalık Çarşısı</b>: başkentin şenlikli çarşısı.\n" +
+            new Section("Diyarlar ve Işınlanma",
+                H + "Işınlanma" + HE + "\n" +
+                "• Sol alttaki <b>Işınlan</b> simgesi: her yerden, diyar listesinden seçip ışınlanırsın. Diyarın girişinde, Geçit Taşı'nın yanında belirirsin.\n" +
+                "• Diyarlar <b>seviyene göre</b> açılır: bir diyar, en düşük seviyesinin bir altına geldiğinde açılır. Kilitli diyarın kartında " +
+                "\"Kilitli · N. seviyede açılır\" yazar.\n" +
+                "• Bulunduğun diyarı seçersen girişine dönersin (bir yere sıkışırsan işe yarar). Savaşta ve ölüyken ışınlanamazsın.\n" +
+                "• <b>Geçit Taşı</b>: her diyarın girişindeki Göktürk harfli dikili taş. Dokununca Dünya Haritası açılır.\n" +
+                "• Ordubalık ve çevresindeki diyarlar yollarla da bağlıdır: üstünde yer adı yazan geçitten yürüyerek geçersin.\n" +
+                "• <b>Dünya Haritası</b> (sağ üstteki HARİTA ya da Menü): 15 diyar tek haritada; iki parmakla yakınlaş, sürükleyerek gez.\n\n" +
+                H + "Diyarlar (kolaydan zora)" + HE + "\n" +
+                "1. <color=#8FE07A>Sv 1–4</color> <b>Ötüken Yaylası</b>: köy ve çevresi; başlangıç.\n" +
+                "2. <color=#8FE07A>Sv 3–6</color> <b>Umay Tarlaları</b>: ekinler; Çalı Cinleri, yağmacılar.\n" +
+                "3. <color=#8FE07A>Sv 5–8</color> <b>Börü Tepesi</b>: meşaleli patikalar; ilk cevherler.\n" +
+                "4. <color=#8FE07A>Sv 7–10</color> <b>Ak Deniz Kıyısı</b>: kumsal; yağmacılar ve Şulmuslar.\n" +
+                "5. <color=#8FE07A>Sv 9–12</color> <b>Ordubalık Çarşısı</b>: başkentin çarşısı.\n" +
                 "6. <color=#8FE07A>Sv 11–14</color> <b>Ordubalık Kenti</b>: değirmenler, taş köprüler.\n" +
-                "7. <color=#8FE07A>Sv 13–16</color> <b>Ulukayın Ormanı</b>: şelalenin ardındaki gölgeli orman.\n" +
-                "8. <color=#8FE07A>Sv 15–18</color> <b>Koncolos İni</b>: kemiklerle dolu mağara; dipte <b>Kara Koncolos</b>.\n" +
-                "9. <color=#8FE07A>Sv 17–20</color> <b>Kağan Ordası</b>: kentin tepesi; Erlik'in en güçlü yandaşları.\n" +
+                "7. <color=#8FE07A>Sv 13–16</color> <b>Ulukayın Ormanı</b>: şelalenin ardındaki orman.\n" +
+                "8. <color=#8FE07A>Sv 15–18</color> <b>Koncolos İni</b>: dipte <b>Kara Koncolos</b>.\n" +
+                "9. <color=#8FE07A>Sv 17–20</color> <b>Kağan Ordası</b>: Erlik'in en güçlü yandaşları.\n" +
                 "10. <color=#8FE07A>Sv 19–22</color> <b>Kaf Dağı Yolu</b>: sarp kayalıklar, Kızıl Cinler.\n" +
                 "11. <color=#8FE07A>Sv 21–24</color> <b>Ergenekon Mağarası</b>: atalarımızın demir dağı.\n" +
-                "12. <color=#8FE07A>Sv 23–26</color> <b>Kurgan Mezarlığı</b>: gece; kemik erler ve <b>Kemik Kağan</b>.\n" +
-                "13. <color=#8FE07A>Sv 25–28</color> <b>Ay Dede Koyu</b>: ay ışığında ölülerin indiği koy.\n" +
+                "12. <color=#8FE07A>Sv 23–26</color> <b>Kurgan Mezarlığı</b>: kemik erler ve <b>Kemik Kağan</b>.\n" +
+                "13. <color=#8FE07A>Sv 25–28</color> <b>Ay Dede Köyü</b>: ay ışığında ölülerin indiği köy.\n" +
                 "14. <color=#8FE07A>Sv 27–30</color> <b>Erlik'in Mağarası</b>: lavlı zindan; dipte <b>Tepegöz</b>.\n" +
-                "15. <color=#8FE07A>Sv 29–32</color> <b>Tamu Zindanı</b>: Erlik Han'ın yeraltı zindanı; kapıda <b>Tamu Bekçisi</b>.\n\n" +
-                H + "Haritaların seviyesi" + HE + "\n" +
-                "Her haritanın bir seviye aralığı vardır; Işınlan penceresinde ve Dünya Haritası'nda haritanın adının " +
-                "altında yazar, haritaya girince de ekranın üstünde görünür. Renk senin seviyene göredir: " +
-                "<color=#8FE07A>yeşil</color> sana göre, <color=#FF7359>kırmızı</color> henüz zor, gri artık kolay.\n" +
-                "• Canavarlar haritanın seviyesinde doğar: girişe yakın olanlar aralığın altında, haritanın derinlerindekiler üstünde.\n" +
-                "• İri, dayanıklı canavarlar bir seviye yukarıda; boss'lar aralığın tepesindedir.\n" +
-                "• Kampların ortasındaki sandıklar ve bosslar en iyi ganimeti verir.\n" +
-                "• Aralığın altındaysan önce bir önceki haritada güçlen; çok üstündeysen canavarlar az tecrübe verir, sonraki haritaya geç."),
+                "15. <color=#8FE07A>Sv 29–32</color> <b>Tamu Zindanı</b>: kapıda <b>Tamu Bekçisi</b>, dipte <b>Erlik Han</b>.\n\n" +
+                "Diyarın seviyesi adının altında yazar: <color=#8FE07A>yeşil</color> sana göre, <color=#FF7359>kırmızı</color> henüz zor, gri artık kolay. " +
+                "Çok üstündeysen canavarlar az tecrübe verir; sonraki diyara geç."),
+
+            new Section("Ötüken Yaylası",
+                "Haritada yukarısı kuzeydir. Köy haritanın ortasındadır.\n\n" +
+                "• <b>Köy</b> (orta): güvenli. Olcayto Han, ustalar, tüccarlar, hazinedar ve zanaat tezgâhları.\n" +
+                "• <b>Güney çayırı</b> (başladığın yerin güneyi): Kara Yek kampları. Çok kolay; ilk durağın.\n" +
+                "• <b>Cin çayırları</b> (güneydoğu ve güneybatı): Çalı Cini sürüleri. Kolay.\n" +
+                "• <b>Ağulu Bataklık</b> (güneydoğu, uzakta): Ağulu Körmösler. Orta.\n" +
+                "• <b>Yağmacı Obası</b> (güney, uzakça): Yağmacı Okçular ve Yağmacı Başı. Kolay-orta.\n" +
+                "• <b>Doğu korular</b>: Şulmuslar ve Kara Otacı. <b>Kuzeydoğu ormanı</b>: yağmacılar ve Kara Yekler. Orta.\n" +
+                "• <b>Eski kurganlar</b> (kuzeydoğu ve güneybatı, çok uzakta): kemik erler. Orta-zor.\n" +
+                "• <b>Ateş Dağı</b> (kuzey): Kara Kamlar, Abasılar, Kan Süvarileri, Kızıl Cinler; doruğunda <b>Ulu Evren</b>. Zor.\n" +
+                "• <b>Buz Dağı</b> (batı): Kırağı Cadıları, Buz Bekçileri, Buz Cinleri; doruğunda <b>Yelbegen</b>. Zor.\n" +
+                "• <b>Er Meydanı</b> (köyün doğu ucu): Er Meydanı Ağası'ndan rakip çağırıp dövüşürsün.\n\n" +
+                H + "Ötüken Yaylası'nın görevleri" + HE + "\n" +
+                "<b>Olcayto Han'ın Çağrısı</b>, <b>Alp'in Donanımı</b>, <b>Sefere Hazırlık</b> (Tüccar Karaçor), <b>Bilgeden Öğüt</b> (Bilge Tonyukuk), " +
+                "<b>Karanlığın Kapısı</b> ve <b>Tepegöz'ün Laneti</b> (Erlik'in Mağarası), <b>Obanın Zanaatları</b>, <b>Er Meydanı</b>."),
 
             new Section("Ötüken Taşları",
-                "Her haritaya saçılmış, gök turkuazı kristalleri olan, üstünde Göktürk harfleri parlayan kayalar: <b>Ötüken Taşları</b>.\n\n" +
-                "• Taşa dokun: kahramanın taşa vurur. Her vuruşta taş sarsılır, kristal kıymıkları sıçrar.\n" +
-                "• Canı bitince taş <b>parçalanır</b> ve içinden ödül çıkar; kahramanın kırıntıya yürüyüp ödülü kendiliğinden toplar.\n" +
-                "• Ödül: her seferinde <b>akçe kesesi</b>; çoğu zaman <b>Gök Taşı Parçası</b> (Demirci'de güçlendirme için); sık sık iksir; " +
-                "bazen değerli taş, silah, gerdanlık ya da çanta; çok nadiren efsanevi <b>Ergenekon Demiri</b>.\n" +
-                "• Taşlar karşılık vermez ama seviyeleri haritanın seviyesidir: zor haritadaki taş daha çok vuruşta kırılır.\n" +
-                "• Kırılan taşın yerinde birkaç dakika sonra yenisi biter.\n" +
-                "• <b>Oto Av</b> açıkken kahramanın canavarlarla birlikte taşları da kırar.\n" +
-                "• Günlük görevlerde \"Ötüken Taşı kır\" görevi çıkabilir."),
+                "Her diyara saçılmış, gök turkuazı kristalleri olan, üstünde Göktürk harfleri parlayan kayalar: <b>Ötüken Taşları</b>.\n\n" +
+                "• Taşa dokun: karakterin vurur. Canı bitince taş <b>parçalanır</b> ve içinden ödül çıkar.\n" +
+                "• Ödül: her seferinde <b>akçe kesesi</b>; çoğu zaman <b>Gök Taşı Parçası</b> (Demirci için); sık sık iksir; " +
+                "bazen değerli taş, silah, gerdanlık ya da heybe; çok nadiren efsanevi <b>Ergenekon Demiri</b>.\n" +
+                "• Taşlar karşılık vermez ama seviyeleri diyarın seviyesidir: zor diyardaki taş daha çok vuruşta kırılır.\n" +
+                "• Kırılan taşın yerinde birkaç dakika sonra yenisi biter. Oto Av taşları da kırar.\n" +
+                "• Ana hikâyede, yan görevlerde ve günlük görevlerde \"Ötüken Taşı kır\" hedefi çıkar."),
 
-            new Section("Gereksinimler",
-                H + "Cihaz" + HE + "\n" +
-                "• Android 7.1 ya da üstü.\n" +
-                "• En az 3 GB bellek (RAM); rahat oynamak için 4 GB ve üstü önerilir.\n" +
-                "• Yaklaşık 1,5 GB boş depolama alanı.\n" +
-                "• İnternet gerekmez.\n\n" +
-                H + "Kayıt" + HE + "\n" +
-                "• Oyun 3 dakikada bir ve uygulamayı arka plana attığında kendiliğinden kaydeder.\n" +
-                "• Ana menüdeki <b>Çevrim Dışı</b> → <b>Oyna</b> ile kayıtlı karakterini seçip kaldığın yerden devam edersin.\n\n" +
-                H + "İpuçları" + HE + "\n" +
-                "• Telefon ısınırsa ya da oyun yavaşlarsa: <b>Ayarlar → Görüntü → Grafik Kalitesi</b>'ni <b>Düşük</b> yap.\n" +
-                "• Ses ayarları <b>Ayarlar → Ses</b>'tedir.\n" +
-                "• Kamera hızı <b>Ayarlar → Kontroller → Kamera Hızı</b>'ndan değişir.\n" +
-                "• Bir hata görürsen üstteki <b>Durum</b> düğmesine bas, <b>Kopyala</b> ile raporu yapımcıya gönder.\n\n" +
+            new Section("Para ve Kut",
+                H + "Para birimleri" + HE + "\n" +
+                "<b>Bakır Akçe</b>, <b>Gümüş Akçe</b> ve <b>Altın</b>: 100 bakır = 1 gümüş, 100 gümüş = 1 altın.\n\n" +
+                H + "Para nereden kazanılır" + HE + "\n" +
+                "1. <b>Düşman öldür</b>: her düşmandan akçe çıkar, güçlülerden daha çok.\n" +
+                "2. <b>Sandık aç</b> ve <b>Ötüken Taşı kır</b>: akçe keseleri.\n" +
+                "3. <b>Görev yap</b>: her görev akçe verir; zincirlerin son görevi üç katını.\n" +
+                "4. <b>Ganimet sat</b>: satıcıya dokun, çantadaki eşyaya uzun bas → <b>Sat</b>. <b>Değersizleri Sat</b> gri eşyaların hepsini satar. " +
+                "Yanlışlıkla sattığını satıcının ilk sayfasından geri alırsın.\n" +
+                "5. <b>Zanaat</b>: topladıklarını sat ya da daha değerli eşyalar yap.\n" +
+                "6. <b>Günlük Armağan</b>: her gün oyuna girince; 7 gün üst üste gelirsen en büyüğünü alırsın.\n" +
+                "7. <b>Seviye ödülleri</b>: 2, 3, 4, 5, 7, 10, 12, 15, 20, 25 ve 30. seviyelerde iksir, akçe, Gök Taşı Parçası ve altın.\n" +
+                "8. <b>Sen yokken</b>: yarım saatten uzun ara verip dönersen yiğitlerinin topladığı akçe ve tecrübe seni bekler (en çok 10 saat).\n\n" +
+                H + "Kut Dükkânı" + HE + "\n" +
+                "<b>Kut</b>, Google Play'den alınan oyun parasıdır. <b>Menü > Ticaret > Kut Dükkânı</b> (ya da Demirci penceresi) ile açılır.\n" +
+                "• <b>Demirci Kutsaması</b>: yükseltme şansı +15 puan.\n" +
+                "• <b>Deneyim Muskası</b>: 1 saat %50 fazla tecrübe.\n" +
+                "• <b>Ulu Heybe</b>: 24 gözlü çanta.\n" +
+                "• <b>Depo gözü</b>: Depo penceresinden, 10'ar göz.\n" +
+                "Rastgele ödül satılmaz. Kut ve Kut ile alınanlar hesabına bağlıdır: takas edilemez, satılamaz, gerçek paraya çevrilemez."),
+
+            new Section("Ticaret",
+                H + "Takas" + HE + "\n" +
+                "• <b>Menü > Ticaret</b>: yakındaki oyuncular listelenir. 15 m yakınındaki oyuncuya <b>Takas</b> teklif edersin.\n" +
+                "• İkiniz de en çok 9 yuva eşya ve para koyarsınız. Bir şey değişince onaylar düşer; ikiniz de onaylayınca takas olur ve <b>geri alınamaz</b>.\n\n" +
+                H + "Pazar kurmak" + HE + "\n" +
+                "• <b>Ticaret > Pazar Kur</b>: çantandaki en çok 8 eşyaya fiyat yaz (ör. <b>5a 20g</b> = 5 Altın 20 Gümüş; çıplak sayı gümüştür), pazarına ad ver ve aç.\n" +
+                "• Pazarının adı başının üstünde görünür; yakındakiler dokunup alır, para sana gelir. Yürürsen pazar kapanır.\n\n" +
+                H + "Kurallar" + HE + "\n" +
+                "• Küfür, hakaret, taciz, dolandırıcılık, hile ve <b>gerçek parayla eşya, para ya da hesap satmak yasaktır</b>.\n" +
+                "• Rahatsız eden oyuncuyu Ticaret penceresinden <b>Şikâyet Et</b> ve <b>Engelle</b>.\n" +
+                "• İksirler, malzemeler ve ganimetler bir yuvada 200'e kadar yığılır."),
+
+            new Section("Seviye, Binek, Zanaat",
+                H + "Seviye" + HE + "\n" +
+                "• Düşman öldürmek ve görev bitirmek <b>tecrübe</b> kazandırır; dolunca seviye atlarsın: canın ve gücün artar, yeni yeteneklerin açılır.\n" +
+                "• En hızlı güçlenme yolu: sınıfına uygun, ▲ işaretli eşyaları kuşanmak ve Demirci'de yükseltmek.\n\n" +
+                H + "Binek" + HE + "\n" +
+                "5. seviyede ejderha <b>Evren</b> seni seçer. Sağdaki <b>Binek</b> düğmesine dokununca binersin (iki kat hızlı), yeniden dokununca inersin. " +
+                "Zindanlarda ve savaşta binilmez.\n\n" +
+                H + "Toplama zanaatları" + HE + "\n" +
+                "<b>Madencilik</b>, <b>Otacılık</b>, <b>Odunculuk</b>, <b>Balıkçılık</b>: önce köydeki ustasından öğren, sonra damara, çiçeğe, ağaca ya da göle dokun.\n\n" +
+                H + "Yapım zanaatları" + HE + "\n" +
+                "<b>Demircilik</b>, <b>Terzilik</b>, <b>Dericilik</b>, <b>Simya</b>, <b>Aşçılık</b>, <b>Kuyumculuk</b>, <b>Yazıcılık</b>, <b>Marangozluk</b>: " +
+                "köydeki ustalardan öğrenilir, tezgâhlarda yapılır. <b>Obanın Zanaatları</b> görevi seni yönlendirir."),
+
+            new Section("Çevrim İçi",
+                "• Ana menüde <b>Çevrim İçi Oyna</b>: kullanıcı adı ve şifre yaz, <b>Giriş</b>'e bas. İlk girişte hesabın açılır; şifreni unutma.\n" +
+                "• Aynı diyardaki öteki oyuncuları görür, birlikte savaşırsın. Düşmanları, ganimeti ve kayıtları sunucu yönetir.\n" +
+                "• Yere düşen ganimeti herkes görür; 3 dakika içinde ilk alan alır.\n" +
+                "• <b>Menü > Sohbet</b>: aynı diyardakiler yazdıklarını görür.\n" +
+                "• Günlük armağan ve görevler, demirci, depo, etkinlikler, seviye ödülleri ve binek çevrim içinde de vardır; hepsini sunucu verir. " +
+                "Günler Türkiye saatiyle gece yarısı yenilenir.\n" +
+                "• Oyunun yeni sürümü çıktığında giriş ekranı seni Google Play'e yönlendirir; güncelleyip yeniden gir."),
+
+            new Section("Ayarlar ve Sorunlar",
+                H + "Ayarlar (sol alttaki çark)" + HE + "\n" +
+                "• <b>Görüntü</b>: grafik kalitesi, çözünürlük, gölgeler, görüş ve isim mesafesi.\n" +
+                "• <b>Akıcılık</b>: FPS sınırı ve FPS göstergesi. 30 FPS telefonu daha az ısıtır, pili uzatır.\n" +
+                "• <b>Ses</b>: müzik ve efekt sesleri.\n" +
+                "• <b>Oyun</b>: otomatik iksir, Oto Av becerileri, görev oku, mini harita, titreşim, bildirimler, ekran düğmelerinin boyutu ve saydamlığı.\n" +
+                "• <b>Hesap</b>: şartlar, gizlilik ve hesap silme.\n\n" +
+                H + "Oyun takılıyorsa" + HE + "\n" +
+                "Grafik kalitesini düşür, çözünürlüğü Düşük, gölgeleri Kapalı yap, görüş mesafesini kısalt.\n\n" +
+                H + "Sorun bildirmek" + HE + "\n" +
+                "Ayarlar penceresindeki <b>Sorun Bildir</b>: kısaca yaz, ekran görüntüsüyle geliştiriciye gider. Hatalar ve çökmeler zaten kendiliğinden bildirilir.\n\n" +
+                H + "Gereksinimler" + HE + "\n" +
+                "Android 7.1 ya da üstü, en az 3 GB bellek (4 GB önerilir), yaklaşık 1,5 GB boş alan. Çevrim içi oyun için internet.\n\n" +
                 H + "Yapımcı" + HE + "\n" +
-                "Oyun tasarımı ve yapımcılık: <b>Olcay Yasin Dünder</b>\n" +
+                "Oyun tasarımı ve yapımcılık: <b>Olcay Yasin Dünder</b> · zootopiayazilim.com\n" +
                 "Oyun motoru: AnyRPG (açık kaynak, MIT lisansı)"),
         };
     }
