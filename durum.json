@@ -1,5 +1,5 @@
 {
- "son_zaman": 1791400399,
+ "son_zaman": 1791402900,
  "islenen": [
   "ZA4f7jqHrQMP",
   "ECmsu6OF1Jgp",
@@ -158,7 +158,13 @@
   "8h8UDEo1cemv",
   "jw0R7eAIppil",
   "KhbJP6KUiUGO",
-  "sXrmLY7WvgWq"
+  "sXrmLY7WvgWq",
+  "JVr4kUUR28ed",
+  "zsb0ZafArjUw",
+  "0aCyzSG4l1zp",
+  "I9Eq1euPzaEK",
+  "RBjcx3ucF4LW",
+  "9bgicIQqSjLh"
  ],
  "kayitlar": {
   "istisna-d581f62b": {
@@ -693,18 +699,22 @@
   "cokme-b56b62e3": {
    "tur": "cokme",
    "baslik": "Çökme: Çökme (yerel kod): crash",
-   "adet": 1,
+   "adet": 4,
    "cihazlar": [
     "samsung SM-S911B"
    ],
    "surumler": [
-    "1.0.70"
+    "1.0.70",
+    "1.0.78"
    ],
    "ilk": 1791351347,
-   "son": 1791351347,
+   "son": 1791402900,
    "ilk_rapor": "**Çökme** · sürüm **1.0.70** · samsung SM-S911B · Android OS 16 / API-36 (BP2A.250605.031.A3/S911BXXS8EYK5) · ekran 2340x990 · FeaturesDemoMainMenu\n\n### Mesaj\n```text\nÇökme (yerel kod): crash\n```\n\n### Ayrıntı\n```text\nZaman 2026-10-07 08:35:31 | bellek (PSS) 0 MB | önem 100 (100 = ön planda)\nÖnceki oturumun kaydı:\nOturum başladı 2026-10-07 08:33:48\nOyuna dönüldü 08:33:50\n08:35:20 [Exception] KeyNotFoundException: The given key '5' was not present in the dictionary.\n   System.Collections.Generic.Dictionary`2[TKey,TValue].get_Item (TKey key) (at <00000000000000000000000000000000>:0)\n   AnyRPG.PlayerManagerServer.RequestSpawnPlayerUnit (System.Int32 accountId, System.String sceneName) (at <00000000000000000000000000000000>:0)\n   AnyRPG.PlayerManagerClient.RequestSpawnPlayerUnit (System.Int32 accountId) (at <00000000000000000000000000000000>:0)\n   AnyRPG.PlayerManagerClient.HandleLevelLoad () (at <00000000000000000000000000000000>:0)\n   AnyRPG.LevelManagerClient.PerformLevelLoadActivities (UnityEngine.SceneManagement.Scene newScene) (at <00000000000000000000000000000000>:0)\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: cokme\nsurum: 1.0.70\ncihaz: samsung SM-S911B\nsistem: Android OS 16 / API-36 (BP2A.250605.031.A3/S911BXXS8EYK5)\ngrafik: Vulkan / Adreno (TM) 740 / bellek 7073 MB\nekran: 2340x990\nayarlar: kalite 3, çözünürlük 0, gölge 0, fps sınırı 1\nsahne: FeaturesDemoMainMenu\noyuncu: oyunda değil\nsure: 12 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.70 | samsung SM-S911B | Android OS 16 / API-36 (BP2A.250605.031.A3/S911BXXS8EYK5)\nVulkan Adreno (TM) 740 | Bellek 7073 MB | 2340x990 | FPS 137 | Süre 10 sn\nKare süresi: işlemci 8.4 ms | ekran kartı 6.8 ms | ekran 120 Hz | hedef 500 | kalite Ultra | çizim 3840x1625 (ekran 2340x990, ölçek 1.64) | pil 29%\nSahneler: FeaturesDemoMainMenu\nGiriş: dokunmatik var | fare bağlı | ekran tuşları açık\nSon dokunuş: 1375,319 -> NetworkLoginPanel/NetworkLoginBtn_Yes [SystemMenuUICanvas 19]\nOyuncu karakteri: yok | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n",
    "gorulmeler": [
-    "07.10.2026 08:35 · 1.0.70 · samsung SM-S911B · FeaturesDemoMainMenu · oyunda değil · 2340x990"
+    "07.10.2026 08:35 · 1.0.70 · samsung SM-S911B · FeaturesDemoMainMenu · oyunda değil · 2340x990",
+    "07.10.2026 22:52 · 1.0.78 · samsung SM-S911B · FeaturesDemoMainMenu · oyunda değil · 2340x990",
+    "07.10.2026 22:53 · 1.0.78 · samsung SM-S911B · FeaturesDemoMainMenu · oyunda değil · 2340x990",
+    "07.10.2026 22:55 · 1.0.78 · samsung SM-S911B · FeaturesDemoMainMenu · oyunda değil · 2340x990"
    ],
    "ekler": [],
    "duzeltildi": null,
@@ -749,6 +759,52 @@
    "ilk_rapor": "**uyarı** · sürüm **0.1.73** · Otomatik oyun testi (CI) · Unity editör · ekran - · UmayTarlalari, BoruTepesi, OrdubalikCarsisi, OrdubalikKenti, UlukayinOrmani, KoncolosIni, KaganOrdasi, ErgenekonMagarasi, KurganMezarligi, AyDedeKoyu, FeaturesDemoDungeon\n\n### Mesaj\n```text\nMobileBootstrap: YerdekiGanimet.IstemciTick(): Collection was modified; enumeration operation may not execute.\n```\n\n### Yığın izi\n```text\nUnityEngine.Debug:LogWarning (object)\nAnyRPG.MobileBootstrap:Update () (at Assets/AnyRPG/Core/System/Scripts/Mobile/MobileSupport.cs:372)\n\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: uyarı\nsurum: 0.1.73\ncihaz: Otomatik oyun testi (CI)\nsistem: Unity editör\nekran: -\nsahne: UmayTarlalari, BoruTepesi, OrdubalikCarsisi, OrdubalikKenti, UlukayinOrmani, KoncolosIni, KaganOrdasi, ErgenekonMagarasi, KurganMezarligi, AyDedeKoyu, FeaturesDemoDungeon\n```\n\n</details>\n\n\n",
    "gorulmeler": [
     "07.10.2026 15:21 · derleme 73 · 22 kez · UmayTarlalari, BoruTepesi, OrdubalikCarsisi, OrdubalikKenti, UlukayinOrmani, KoncolosIni, KaganOrdasi, ErgenekonMagarasi, KurganMezarligi, AyDedeKoyu, FeaturesDemoDungeon"
+   ],
+   "ekler": [],
+   "duzeltildi": null,
+   "yeniden": false,
+   "issue": null,
+   "notlar": []
+  },
+  "arayuz-2340x1001": {
+   "tur": "arayuz",
+   "baslik": "Arayüz yerleşimi, 2340x1001 ekran",
+   "adet": 1,
+   "cihazlar": [
+    "samsung SM-S938B"
+   ],
+   "surumler": [
+    "1.0.78"
+   ],
+   "ilk": 1791401377,
+   "son": 1791401377,
+   "ilk_rapor": "**Arayüz** · sürüm **1.0.78** · samsung SM-S938B · Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3) · ekran 2340x1001 · FeaturesDemoZone\n\n### Mesaj\n```text\n2 çakışma (2340x1001)\n```\n\n### Ayrıntı\n```text\nEkran 2340x1001, güvenli alan (96,0 2244x1001)\nBeceri2 kaydırıldı (-10, -40)\nBeceri3 kaydırıldı (-40, -20)\nBeceri4 kaydırıldı (20, -20)\nBeceri5 kaydırıldı (20, 0)\nBeceri6 kaydırıldı (110, 120)\nÇakışmalar (2):\n- düğme Beceri7 ~ QuestTrackerWindow (QuestTrackerWindow/Contents/QuestTrackerPanel)\n- düğme Beceri3 ~ düğme Beceri8\nDüğmeler:\nHareket (202,151 288x288)\nÇanta (110,14 98x98)\nAyarlar (217,14 98x98)\nIşınlan (325,14 98x98)\nMenü (111,636 105x105)\nSaldır (2058,94 188x188)\nBeceri1 (2084,320 105x105)\nBeceri2 (1981,237 105x105)\nBeceri3 (1882,188 105x105)\nBeceri4 (1940,94 105x105)\nBeceri5 (2079,431 95x95)\nBeceri6 (2082,538 95x95)\nBeceri7 (1860,305 95x95)\nBeceri8 (1815,196 95x95)\nOto Av (2207,348 110x110)\nBinek (2212,488 100x100)\nHedef (1789,38 105x105)\nGöstergeler:\nMiniMap (2112,716 188x255)\nPlayerUnitFrame (40,867 250x100)\nQuestTrackerWindow (1739,353 325x294)\nSystemBar (863,872 614x50)\nXPBarPanel (554,6 1231x19)\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: arayuz\nsurum: 1.0.78\ncihaz: samsung SM-S938B\nsistem: Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3)\ngrafik: Vulkan / Adreno (TM) 830 / bellek 11113 MB\nekran: 2340x1001\nayarlar: kalite 0, çözünürlük 0, gölge 0, fps sınırı 1\nsahne: FeaturesDemoZone\noyuncu: seviye 2\nsure: 56 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.78 | samsung SM-S938B | Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3)\nVulkan Adreno (TM) 830 | Bellek 11113 MB | 2340x1001 | FPS 115 | Süre 54 sn\nKare süresi: işlemci 8.7 ms | ekran kartı 5.1 ms | ekran 120 Hz | hedef 500 | kalite Low | çizim 2340x1001 (ekran 2340x1001, ölçek 1.00) | pil 63%\nSahneler: MovedObjectsHolder FeaturesDemoZone\nGiriş: dokunmatik var | fare bağlı | ekran tuşları açık\nSon dokunuş: 791,805 -> Kart/X [GelisimCanvas 27]\nOyuncu karakteri: oluştu (MecanimMale205) | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n<details><summary>Son kayıt satırları</summary>\n\n```text\n22:29:22 [Warning] [Reklam] onay bilgisi: Publisher misconfiguration: Failed to read publisher's account configuration; no form(s) configured for the input app ID. Verify that you have configured one or more forms for t...\n```\n\n</details>\n",
+   "gorulmeler": [
+    "07.10.2026 22:29 · 1.0.78 · samsung SM-S938B · FeaturesDemoZone · seviye 2 · 2340x1001"
+   ],
+   "ekler": [
+    "ab2f746060.jpg"
+   ],
+   "duzeltildi": null,
+   "yeniden": false,
+   "issue": null,
+   "notlar": []
+  },
+  "cokme-0136878a": {
+   "tur": "cokme",
+   "baslik": "Çökme: Çökme (Java): crash",
+   "adet": 1,
+   "cihazlar": [
+    "samsung SM-S911B"
+   ],
+   "surumler": [
+    "1.0.78"
+   ],
+   "ilk": 1791402825,
+   "son": 1791402825,
+   "ilk_rapor": "**Çökme** · sürüm **1.0.78** · samsung SM-S911B · Android OS 16 / API-36 (BP2A.250605.031.A3/S911BXXS8EYK5) · ekran 2340x990 · FeaturesDemoMainMenu\n\n### Mesaj\n```text\nÇökme (Java): crash\n```\n\n### Ayrıntı\n```text\nZaman 2026-10-07 22:53:25 | bellek (PSS) 0 MB | önem 100 (100 = ön planda)\nÖnceki oturumun kaydı:\nOturum başladı 2026-10-07 22:52:47\nOyuna dönüldü 22:52:49\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: cokme\nsurum: 1.0.78\ncihaz: samsung SM-S911B\nsistem: Android OS 16 / API-36 (BP2A.250605.031.A3/S911BXXS8EYK5)\ngrafik: Vulkan / Adreno (TM) 740 / bellek 7073 MB\nekran: 2340x990\nayarlar: kalite 3, çözünürlük 0, gölge 0, fps sınırı 1\nsahne: FeaturesDemoMainMenu\noyuncu: oyunda değil\nsure: 12 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.78 | samsung SM-S911B | Android OS 16 / API-36 (BP2A.250605.031.A3/S911BXXS8EYK5)\nVulkan Adreno (TM) 740 | Bellek 7073 MB | 2340x990 | FPS 51 | Süre 10 sn\nKare süresi: işlemci 25.2 ms | ekran kartı 21.2 ms | ekran 60 Hz | hedef 60 | kalite Ultra | çizim 3840x1625 (ekran 2340x990, ölçek 1.64) | pil 4%\nSahneler: FeaturesDemoMainMenu\nGiriş: dokunmatik var | fare bağlı | ekran tuşları açık\nSon dokunuş: 2281,892 -> NewGameDetailsClassButton/HighlightLine [SystemMenuUICanvas 19]\nOyuncu karakteri: yok | Önizleme karakteri: var | Önizleme kamerası: açık\n```\n\n</details>\n\n",
+   "gorulmeler": [
+    "07.10.2026 22:53 · 1.0.78 · samsung SM-S911B · FeaturesDemoMainMenu · oyunda değil · 2340x990"
    ],
    "ekler": [],
    "duzeltildi": null,
@@ -902,7 +958,12 @@
   "b1d0475100": "hata-60de498e",
   "809104b6ff": "hata-60de498e",
   "c218b5ed72": "hata-60de498e",
-  "a99f846f91": "hata-60de498e"
+  "a99f846f91": "hata-60de498e",
+  "ab2f746060": "arayuz-2340x1001",
+  "a3a2ccf315": "cokme-b56b62e3",
+  "829d88fc10": "cokme-0136878a",
+  "80d33e8a68": "cokme-b56b62e3",
+  "7082852d64": "cokme-b56b62e3"
  },
  "derleme": {
   "sonuc": "basarili",
