@@ -367,6 +367,14 @@ namespace Otuken.EditorAraclari {
                 } else if (GenisArama(giris, dolu, out Vector3 genis)) {
                     // dar, eğimli girişler (Ulukayın Ormanı, Kaf Dağı Yolu): 4-24 m, gevşek koşullar
                     yer = genis;
+                } else {
+                    // son çare (1.0.77'de Ulukayın'ın üçüncüsü yersiz kaldı): girişten yürünerek ulaşılan açık noktaların
+                    // girişe en yakını, dolu yerlerden 3 m uzak
+                    List<Vector3> son = noktalar.Where(p => Mathf.Abs(p.y - giris.y) < 6f && Yatay(p, giris) >= 4f
+                        && dolu.All(d => Yatay(p, d) >= 3f)).OrderBy(p => Yatay(p, giris)).Take(1).ToList();
+                    if (son.Count > 0) {
+                        yer = son[0];
+                    }
                 }
                 if (yer.HasValue == false) {
                     eksik++;
@@ -402,6 +410,10 @@ namespace Otuken.EditorAraclari {
         /// <summary>girişin 4-40 m çevresinde (24 m'den sonra koşullar gevşer), yürüme ağında, girişten yürünerek ulaşılan, dolu yerlerden 2,5 m uzak bir nokta</summary>
         private static bool GenisArama(Vector3 giris, List<Vector3> dolu, out Vector3 yer) {
             NavMeshPath yol = new NavMeshPath();
+            // yol hesabı yürüme ağının üstünden başlasın (giriş ağdan biraz yukarıda olabilir)
+            if (NavMesh.SamplePosition(giris, out NavMeshHit g, 3f, NavMesh.AllAreas)) {
+                giris = g.position;
+            }
             for (float r = 4f; r <= 40f; r += 2f) {
                 for (int k = 0; k < 24; k++) {
                     float a = k * Mathf.PI / 12f + r * 0.37f;
