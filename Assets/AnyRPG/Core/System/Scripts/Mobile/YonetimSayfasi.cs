@@ -58,7 +58,7 @@ pre .h{color:var(--kirmizi)}pre .u{color:var(--altin)}
 .giris h1{color:var(--altin);font-size:22px;text-align:center}
 .not{color:var(--soluk);font-size:13px}
 .hata{color:var(--kirmizi);font-size:14px;min-height:20px;margin-top:8px}
-.tamam{color:var(--yesil)}
+.tamam,.satir .alt span b.tamam{color:var(--yesil)}
 .cubuk{display:flex;align-items:center;gap:8px;margin:4px 0}
 .cubuk .e{width:130px;color:var(--soluk);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cubuk .b{flex:1;height:14px;background:var(--kart2);border-radius:7px;overflow:hidden}

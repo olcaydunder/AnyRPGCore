@@ -351,7 +351,11 @@ namespace AnyRPG {
         private static void YasaklariYaz(SystemGameManager oyun) {
             try {
                 StringBuilder sb = new StringBuilder();
-                foreach (int id in yasaklar) {
+                List<int> liste;
+                lock (kilit) {
+                    liste = new List<int>(yasaklar);
+                }
+                foreach (int id in liste) {
                     UserAccount h = oyun.UserAccountService.HesapBul(id);
                     sb.Append(id).Append(' ').Append(h != null ? h.UserName : "?").Append('\n');
                 }
@@ -371,6 +375,8 @@ namespace AnyRPG {
         // ---------------------------------------------------------------- anlık görüntü
 
         private static float sonrakiGoruntu = 0f;
+        private static float sonrakiOdemeSayimi = 0f;
+        private static int odemeBugun = 0;
 
         private static void GoruntuYaz(SystemGameManager oyun) {
             float t = Time.realtimeSinceStartup;
@@ -454,8 +460,14 @@ namespace AnyRPG {
             Alan(g, "etkinlik", Etkinlikler.AfisYazisi());
             Alan(g, "reklamOdulu", reklamOdulu);
             Alan(g, "yerdekiGanimet", YerdekiGanimet.DusenSayisi + " düştü, " + YerdekiGanimet.AlinanSayisi + " alındı, " + YerdekiGanimet.KaybolanSayisi + " kayboldu");
-            Alan(g, "odemeBugun", SatirSay("odemeler.txt", Bugun));
-            Alan(g, "bellekMb", (int)(System.Diagnostics.Process.GetCurrentProcess().WorkingSet64 / 1048576));
+            if (t >= sonrakiOdemeSayimi) {
+                sonrakiOdemeSayimi = t + 30f;
+                odemeBugun = BugunkuOdemeler();
+            }
+            Alan(g, "odemeBugun", odemeBugun);
+            using (System.Diagnostics.Process surec = System.Diagnostics.Process.GetCurrentProcess()) {
+                Alan(g, "bellekMb", (int)(surec.WorkingSet64 / 1048576));
+            }
             Alan(g, "yuk", DosyaSatiri("/proc/loadavg"));
             Alan(g, "makineBellek", MakineBellegi());
             googleKurulu = GoogleGiris.Kurulu;
@@ -570,15 +582,20 @@ namespace AnyRPG {
             }
         }
 
-        private static int SatirSay(string dosya, string onEk) {
+        /// <summary>odemeler.txt satırları UTC zamanla başlar ("2026-10-07T17:12:31.0000000Z ..."); Türkiye gününe göre sayılır</summary>
+        private static int BugunkuOdemeler() {
             try {
-                string yol = Path.Combine(veriKlasoru, dosya);
+                string yol = Path.Combine(veriKlasoru, "odemeler.txt");
                 if (File.Exists(yol) == false) {
                     return 0;
                 }
+                DateTime bugun = Etkinlikler.TurkiyeSaati.Date;
                 int n = 0;
                 foreach (string satir in SonSatirlar(yol, 2000)) {
-                    if (satir.Contains(onEk)) {
+                    int bosluk = satir.IndexOf(' ');
+                    DateTime zaman;
+                    if (bosluk > 0 && DateTime.TryParse(satir.Substring(0, bosluk), CultureInfo.InvariantCulture,
+                        DateTimeStyles.AdjustToUniversal | DateTimeStyles.AssumeUniversal, out zaman) && zaman.AddHours(3).Date == bugun) {
                         n++;
                     }
                 }
