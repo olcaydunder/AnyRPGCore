@@ -99,8 +99,11 @@ def etiketleri_hazirla():
 
 def ntfy_oku(since):
     url = f"{NTFY}/{urllib.parse.quote(kanal)}/json?poll=1&since={since}"
-    with urllib.request.urlopen(url, timeout=60) as yanit:
-        satirlar = yanit.read().decode("utf-8", "replace").splitlines()
+    istek = urllib.request.Request(url, headers={"User-Agent": "otuken-hata-raporlari/1.0"})
+    with urllib.request.urlopen(istek, timeout=60) as yanit:
+        govde = yanit.read().decode("utf-8", "replace")
+        gunluk(f"::notice title=ntfy okuma::HTTP {yanit.status}, {len(govde)} bayt, since={since}")
+        satirlar = govde.splitlines()
     mesajlar = []
     for s in satirlar:
         s = s.strip()
@@ -125,8 +128,10 @@ def ntfy_deneme():
                         "tags": ["white_check_mark"]}).encode()
     istek = urllib.request.Request(NTFY, data=govde, method="POST")
     istek.add_header("Content-Type", "application/json")
+    istek.add_header("User-Agent", "otuken-hata-raporlari/1.0")
     with urllib.request.urlopen(istek, timeout=30) as yanit:
-        gunluk("deneme raporu gönderildi", yanit.status)
+        cevap = yanit.read().decode("utf-8", "replace")
+        gunluk(f"::notice title=ntfy deneme::HTTP {yanit.status} {cevap[:160]}")
 
 
 def ek_indir(url):
@@ -573,7 +578,7 @@ def main():
     mesajlar = ntfy_oku(since)
     islenen = set(durum["islenen"])
     yeni = sorted([m for m in mesajlar if m.get("id") not in islenen], key=lambda m: m.get("time", 0))
-    gunluk(f"kanalda {len(mesajlar)} mesaj, {len(yeni)} yeni")
+    gunluk(f"::notice title=Hata kanalı::kanalda {len(mesajlar)} mesaj, {len(yeni)} yeni")
     if not yeni and os.path.exists(yol("README.md")):
         return 0
 
