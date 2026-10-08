@@ -4,7 +4,7 @@ Durum: 🔴 açık
 
 | Tekrar | Cihaz | Sürümler | İlk görülme | Son görülme |
 |---|---|---|---|---|
-| 1 | 1 | 0.1.64 | 06.10.2026 11:26 | 06.10.2026 11:26 |
+| 2 | 1 | 0.1.64, 1.0.79 | 06.10.2026 11:26 | 08.10.2026 22:28 |
 
 
 ## İlk rapor
@@ -63,6 +63,7 @@ Oyuncu karakteri: yok | Önizleme karakteri: yok | Önizleme kamerası: kapalı
 
 | Zaman · sürüm · cihaz · harita · oyuncu · ekran |
 |---|
+| 08.10.2026 22:28 · 1.0.79 · PC · KoncolosIni · oyunda değil · 640x480 |
 | 06.10.2026 11:26 · 0.1.64 · PC · FeaturesDemoZone · oyunda değil · 640x480 |
 
 Anahtar: `istisna-8f946662`

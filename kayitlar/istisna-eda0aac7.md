@@ -4,7 +4,7 @@ Durum: 🔴 açık
 
 | Tekrar | Cihaz | Sürümler | İlk görülme | Son görülme |
 |---|---|---|---|---|
-| 1 | 1 | 1.0.70 | 07.10.2026 08:35 | 07.10.2026 08:35 |
+| 2 | 2 | 1.0.70, 1.0.79 | 07.10.2026 08:35 | 08.10.2026 22:29 |
 
 
 ## İlk rapor
@@ -70,6 +70,7 @@ Oyuncu karakteri: yok | Önizleme karakteri: yok | Önizleme kamerası: kapalı
 
 | Zaman · sürüm · cihaz · harita · oyuncu · ekran |
 |---|
+| 08.10.2026 22:29 · 1.0.79 · Xiaomi 2209116AG · FeaturesDemoZone · oyunda değil · 2307x987 |
 | 07.10.2026 08:35 · 1.0.70 · samsung SM-S911B · FeaturesDemoZone · oyunda değil · 2340x990 |
 
 Anahtar: `istisna-eda0aac7`

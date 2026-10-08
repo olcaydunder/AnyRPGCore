@@ -1,5 +1,5 @@
 {
- "son_zaman": 1791477619,
+ "son_zaman": 1791489732,
  "islenen": [
   "ZA4f7jqHrQMP",
   "ECmsu6OF1Jgp",
@@ -185,7 +185,25 @@
   "oypBfOhqiwFp",
   "pepWZBoAywlp",
   "cGIT0HxZi3Np",
-  "JLoFFoDOLibS"
+  "JLoFFoDOLibS",
+  "ss9otvoY19ac",
+  "fsVQ34uahb52",
+  "2w3crDG3VEGg",
+  "fKgzVvtjnMlg",
+  "1HSaExH2JWWa",
+  "QkniOWaHllz6",
+  "JiEcJY2dFfWx",
+  "NN7975e4Du68",
+  "JfEYx6r4zXxt",
+  "Cpx904ByeZT5",
+  "3OcuBDMlOiu5",
+  "cywMR5zLb0bm",
+  "t1x46YxyE0xt",
+  "WVmhzeHkgqFL",
+  "Ka3WyiZtGcSt",
+  "9S8UjcZybcfJ",
+  "o0WMC9F9qH5E",
+  "JLOQj8GmCp45"
  ],
  "kayitlar": {
   "istisna-d581f62b": {
@@ -372,9 +390,10 @@
   "bellek-d3941b2d": {
    "tur": "bellek",
    "baslik": "Bellek: Bellek yetmedi, sistem oyunu kapattı",
-   "adet": 5,
+   "adet": 6,
    "cihazlar": [
-    "samsung SM-S938B"
+    "samsung SM-S938B",
+    "samsung SM-S911B"
    ],
    "surumler": [
     "0.1.36",
@@ -384,14 +403,15 @@
     "1.0.79"
    ],
    "ilk": 1791130056,
-   "son": 1791463746,
+   "son": 1791487039,
    "ilk_rapor": "**Bellek** · sürüm **0.1.36** · samsung SM-S938B · Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3) · ekran 3120x1335 · UmayTarlalari\n\n### Mesaj\n```text\nBellek yetmedi, sistem oyunu kapattı\n```\n\n### Ayrıntı\n```text\nZaman 2026-10-04 14:47:35 | bellek (PSS) 0 MB | önem 400 (100 = ön planda)\nÖnceki oturumun kaydı:\nOturum başladı 2026-10-04 11:40:55\nOyuna dönüldü 11:40:57\n\nOyuna dönüldü 11:42:41\n\nOyuna dönüldü 11:45:29\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: bellek\nsurum: 0.1.36\ncihaz: samsung SM-S938B\nsistem: Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3)\ngrafik: Vulkan / Adreno (TM) 830 / bellek 11113 MB\nekran: 3120x1335\nayarlar: kalite 2, çözünürlük 3, gölge 3, fps sınırı 1\nsahne: UmayTarlalari\noyuncu: seviye 1\nsure: 12 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 0.1.36 | samsung SM-S938B | Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3)\nVulkan Adreno (TM) 830 | Bellek 11113 MB | 3120x1335 | FPS 60 | Süre 9 sn\nKare süresi: işlemci 16.7 ms | ekran kartı 11.5 ms | ekran 60 Hz | hedef 60 | kalite High | pil 2%\nSahneler: UmayTarlalari\nGiriş: dokunmatik var | fare bağlı | ekran tuşları açık\nSon dokunuş: 2811,236 -> MobileHudCanvas/SaldırButton [MobileHudCanvas 5]\nOyuncu karakteri: oluştu (MecanimMale1) | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n",
    "gorulmeler": [
     "04.10.2026 19:07 · 0.1.36 · samsung SM-S938B · UmayTarlalari · seviye 1 · 3120x1335",
     "05.10.2026 17:05 · 0.1.47 · samsung SM-S938B · FeaturesDemoMainMenu · oyunda değil · 3120x1335",
     "05.10.2026 20:52 · 0.1.54 · samsung SM-S938B · FeaturesDemoMainMenu · oyunda değil · 3120x1335",
     "07.10.2026 11:26 · 1.0.70 · samsung SM-S938B · FeaturesDemoZone · seviye 1 · 3120x1335",
-    "08.10.2026 15:49 · 1.0.79 · samsung SM-S938B · FeaturesDemoMainMenu · oyunda değil · 2340x1001"
+    "08.10.2026 15:49 · 1.0.79 · samsung SM-S938B · FeaturesDemoMainMenu · oyunda değil · 2340x1001",
+    "08.10.2026 22:17 · 1.0.79 · samsung SM-S911B · FeaturesDemoMainMenu · oyunda değil · 2340x990"
    ],
    "ekler": [],
    "duzeltildi": null,
@@ -588,20 +608,22 @@
   "istisna-9434295e": {
    "tur": "istisna",
    "baslik": "İstisna: NullReferenceException: Object reference not set to an instance of an object.",
-   "adet": 2,
+   "adet": 3,
    "cihazlar": [
     "PC"
    ],
    "surumler": [
     "0.1.52",
-    "0.1.64"
+    "0.1.64",
+    "1.0.79"
    ],
    "ilk": 1791209543,
-   "son": 1791275191,
+   "son": 1791487354,
    "ilk_rapor": "**İstisna** · sürüm **0.1.52** · PC · Linux 6.17 Ubuntu 24.04 64bit · ekran 640x480 · FeaturesDemoZone\n\n### Mesaj\n```text\nNullReferenceException: Object reference not set to an instance of an object.\n```\n\n### Yığın izi\n```text\nUnityEngine.Bindings.ThrowHelper.ThrowNullReferenceException (System.Object obj) (at <3d65f019da6044168f2ccd81096ed5c5>:0)\nUnityEngine.Component.get_gameObject () (at <3d65f019da6044168f2ccd81096ed5c5>:0)\nAnyRPG.AggroTable.get_TopAgroNode () (at <17dd357545d54fc1a5592b386b164ec8>:0)\nAnyRPG.UnitController.UpdateTarget () (at <17dd357545d54fc1a5592b386b164ec8>:0)\nAnyRPG.AttackState.Update () (at <17dd357545d54fc1a5592b386b164ec8>:0)\nAnyRPG.UnitController.FixedUpdate () (at <17dd357545d54fc1a5592b386b164ec8>:0)\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: istisna\nsurum: 0.1.52\ncihaz: PC\nsistem: Linux 6.17 Ubuntu 24.04 64bit\ngrafik: Null / Null Device / bellek 15989 MB\nekran: 640x480\nayarlar: kalite -1, çözünürlük 0, gölge 0, fps sınırı 1\nsahne: FeaturesDemoZone\noyuncu: oyunda değil\nsure: 194 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 0.1.52 | PC | Linux 6.17 Ubuntu 24.04 64bit\nNull Null Device | Bellek 15989 MB | 640x480 | FPS ? | Süre 193 sn\nKare süresi: işlemci ? | ekran kartı ? | ekran 0 Hz | hedef 45 | kalite Very Low | pil -100%\nSahneler: MovedObjectsHolder FeaturesDemoZone\nGiriş: dokunmatik yok | fare yok | ekran tuşları kapalı\nSon dokunuş: -\nOyuncu karakteri: yok | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n",
    "gorulmeler": [
     "05.10.2026 17:12 · 0.1.52 · PC · FeaturesDemoZone · oyunda değil · 640x480",
-    "06.10.2026 11:26 · 0.1.64 · PC · FeaturesDemoZone · oyunda değil · 640x480"
+    "06.10.2026 11:26 · 0.1.64 · PC · FeaturesDemoZone · oyunda değil · 640x480",
+    "08.10.2026 22:22 · 1.0.79 · PC · FeaturesDemoDungeon · oyunda değil · 640x480"
    ],
    "ekler": [],
    "duzeltildi": null,
@@ -656,18 +678,20 @@
   "istisna-8f946662": {
    "tur": "istisna",
    "baslik": "İstisna: NullReferenceException: Object reference not set to an instance of an object.",
-   "adet": 1,
+   "adet": 2,
    "cihazlar": [
     "PC"
    ],
    "surumler": [
-    "0.1.64"
+    "0.1.64",
+    "1.0.79"
    ],
    "ilk": 1791275194,
-   "son": 1791275194,
+   "son": 1791487737,
    "ilk_rapor": "**İstisna** · sürüm **0.1.64** · PC · Linux 6.8 Ubuntu 24.04 64bit · ekran 640x480 · FeaturesDemoZone\n\n### Mesaj\n```text\nNullReferenceException: Object reference not set to an instance of an object.\n```\n\n### Yığın izi\n```text\nUnityEngine.Bindings.ThrowHelper.ThrowNullReferenceException (System.Object obj) (at <3d65f019da6044168f2ccd81096ed5c5>:0)\nUnityEngine.Component.get_gameObject () (at <3d65f019da6044168f2ccd81096ed5c5>:0)\nAnyRPG.AggroTable.get_TopAgroNode () (at <4279f169e03540928411c6f637104929>:0)\nAnyRPG.CharacterCombat.TryToDropCombat () (at <4279f169e03540928411c6f637104929>:0)\nAnyRPG.CharacterCombat.Tick () (at <4279f169e03540928411c6f637104929>:0)\nAnyRPG.UnitController.Update () (at <4279f169e03540928411c6f637104929>:0)\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: istisna\nsurum: 0.1.64\ncihaz: PC\nsistem: Linux 6.8 Ubuntu 24.04 64bit\ngrafik: Null / Null Device / bellek 7940 MB\nekran: 640x480\nayarlar: kalite -1, çözünürlük 0, gölge 0, fps sınırı 1\nsahne: FeaturesDemoZone\noyuncu: oyunda değil\nsure: 20667 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 0.1.64 | PC | Linux 6.8 Ubuntu 24.04 64bit\nNull Null Device | Bellek 7940 MB | 640x480 | FPS ? | Süre 20666 sn\nKare süresi: işlemci ? | ekran kartı ? | ekran 0 Hz | hedef 45 | kalite Very Low | çizim 640x480 (ekran 640x480, ölçek 1.00) | pil -100%\nSahneler: MovedObjectsHolder FeaturesDemoZone FeaturesDemoDungeon(yükleniyor)\nGiriş: dokunmatik yok | fare yok | ekran tuşları kapalı\nSon dokunuş: -\nOyuncu karakteri: yok | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n",
    "gorulmeler": [
-    "06.10.2026 11:26 · 0.1.64 · PC · FeaturesDemoZone · oyunda değil · 640x480"
+    "06.10.2026 11:26 · 0.1.64 · PC · FeaturesDemoZone · oyunda değil · 640x480",
+    "08.10.2026 22:28 · 1.0.79 · PC · KoncolosIni · oyunda değil · 640x480"
    ],
    "ekler": [],
    "duzeltildi": null,
@@ -701,18 +725,21 @@
   "istisna-eda0aac7": {
    "tur": "istisna",
    "baslik": "İstisna: KeyNotFoundException: The given key '5' was not present in the dictionary.",
-   "adet": 1,
+   "adet": 2,
    "cihazlar": [
-    "samsung SM-S911B"
+    "samsung SM-S911B",
+    "Xiaomi 2209116AG"
    ],
    "surumler": [
-    "1.0.70"
+    "1.0.70",
+    "1.0.79"
    ],
    "ilk": 1791351320,
-   "son": 1791351320,
+   "son": 1791487749,
    "ilk_rapor": "**İstisna** · sürüm **1.0.70** · samsung SM-S911B · Android OS 16 / API-36 (BP2A.250605.031.A3/S911BXXS8EYK5) · ekran 2340x990 · FeaturesDemoZone\n\n### Mesaj\n```text\nKeyNotFoundException: The given key '5' was not present in the dictionary.\n```\n\n### Yığın izi\n```text\nSystem.Collections.Generic.Dictionary`2[TKey,TValue].get_Item (TKey key) (at <00000000000000000000000000000000>:0)\nAnyRPG.PlayerManagerServer.RequestSpawnPlayerUnit (System.Int32 accountId, System.String sceneName) (at <00000000000000000000000000000000>:0)\nAnyRPG.PlayerManagerClient.RequestSpawnPlayerUnit (System.Int32 accountId) (at <00000000000000000000000000000000>:0)\nAnyRPG.PlayerManagerClient.HandleLevelLoad () (at <00000000000000000000000000000000>:0)\nAnyRPG.LevelManagerClient.PerformLevelLoadActivities (UnityEngine.SceneManagement.Scene newScene) (at <00000000000000000000000000000000>:0)\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: istisna\nsurum: 1.0.70\ncihaz: samsung SM-S911B\nsistem: Android OS 16 / API-36 (BP2A.250605.031.A3/S911BXXS8EYK5)\ngrafik: Vulkan / Adreno (TM) 740 / bellek 7073 MB\nekran: 2340x990\nayarlar: kalite 3, çözünürlük 0, gölge 0, fps sınırı 1\nsahne: FeaturesDemoZone\noyuncu: oyunda değil\nsure: 94 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.70 | samsung SM-S911B | Android OS 16 / API-36 (BP2A.250605.031.A3/S911BXXS8EYK5)\nVulkan Adreno (TM) 740 | Bellek 7073 MB | 2340x990 | FPS 114 | Süre 91 sn\nKare süresi: işlemci 9.4 ms | ekran kartı 8.0 ms | ekran 120 Hz | hedef 500 | kalite Ultra | çizim 3840x1625 (ekran 2340x990, ölçek 1.64) | pil 30%\nSahneler: FeaturesDemoZone\nGiriş: dokunmatik var | fare bağlı | ekran tuşları açık\nSon dokunuş: 1371,338 -> Right/ConfirmNewGameBtn_Yes [SystemMenuUICanvas 19]\nOyuncu karakteri: yok | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n<details><summary>Son kayıt satırları</summary>\n\n```text\n08:35:20 [Exception] KeyNotFoundException: The given key '5' was not present in the dictionary.\n08:33:48 [Log] OyunAyarlari: 4K açıldı (Adreno (TM) 740, bellek 7073 MB)\n```\n\n</details>\n",
    "gorulmeler": [
-    "07.10.2026 08:35 · 1.0.70 · samsung SM-S911B · FeaturesDemoZone · oyunda değil · 2340x990"
+    "07.10.2026 08:35 · 1.0.70 · samsung SM-S911B · FeaturesDemoZone · oyunda değil · 2340x990",
+    "08.10.2026 22:29 · 1.0.79 · Xiaomi 2209116AG · FeaturesDemoZone · oyunda değil · 2307x987"
    ],
    "ekler": [],
    "duzeltildi": null,
@@ -723,23 +750,25 @@
   "cokme-b56b62e3": {
    "tur": "cokme",
    "baslik": "Çökme: Çökme (yerel kod): crash",
-   "adet": 5,
+   "adet": 6,
    "cihazlar": [
     "samsung SM-S911B"
    ],
    "surumler": [
     "1.0.70",
-    "1.0.78"
+    "1.0.78",
+    "1.0.79"
    ],
    "ilk": 1791351347,
-   "son": 1791451950,
+   "son": 1791487213,
    "ilk_rapor": "**Çökme** · sürüm **1.0.70** · samsung SM-S911B · Android OS 16 / API-36 (BP2A.250605.031.A3/S911BXXS8EYK5) · ekran 2340x990 · FeaturesDemoMainMenu\n\n### Mesaj\n```text\nÇökme (yerel kod): crash\n```\n\n### Ayrıntı\n```text\nZaman 2026-10-07 08:35:31 | bellek (PSS) 0 MB | önem 100 (100 = ön planda)\nÖnceki oturumun kaydı:\nOturum başladı 2026-10-07 08:33:48\nOyuna dönüldü 08:33:50\n08:35:20 [Exception] KeyNotFoundException: The given key '5' was not present in the dictionary.\n   System.Collections.Generic.Dictionary`2[TKey,TValue].get_Item (TKey key) (at <00000000000000000000000000000000>:0)\n   AnyRPG.PlayerManagerServer.RequestSpawnPlayerUnit (System.Int32 accountId, System.String sceneName) (at <00000000000000000000000000000000>:0)\n   AnyRPG.PlayerManagerClient.RequestSpawnPlayerUnit (System.Int32 accountId) (at <00000000000000000000000000000000>:0)\n   AnyRPG.PlayerManagerClient.HandleLevelLoad () (at <00000000000000000000000000000000>:0)\n   AnyRPG.LevelManagerClient.PerformLevelLoadActivities (UnityEngine.SceneManagement.Scene newScene) (at <00000000000000000000000000000000>:0)\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: cokme\nsurum: 1.0.70\ncihaz: samsung SM-S911B\nsistem: Android OS 16 / API-36 (BP2A.250605.031.A3/S911BXXS8EYK5)\ngrafik: Vulkan / Adreno (TM) 740 / bellek 7073 MB\nekran: 2340x990\nayarlar: kalite 3, çözünürlük 0, gölge 0, fps sınırı 1\nsahne: FeaturesDemoMainMenu\noyuncu: oyunda değil\nsure: 12 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.70 | samsung SM-S911B | Android OS 16 / API-36 (BP2A.250605.031.A3/S911BXXS8EYK5)\nVulkan Adreno (TM) 740 | Bellek 7073 MB | 2340x990 | FPS 137 | Süre 10 sn\nKare süresi: işlemci 8.4 ms | ekran kartı 6.8 ms | ekran 120 Hz | hedef 500 | kalite Ultra | çizim 3840x1625 (ekran 2340x990, ölçek 1.64) | pil 29%\nSahneler: FeaturesDemoMainMenu\nGiriş: dokunmatik var | fare bağlı | ekran tuşları açık\nSon dokunuş: 1375,319 -> NetworkLoginPanel/NetworkLoginBtn_Yes [SystemMenuUICanvas 19]\nOyuncu karakteri: yok | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n",
    "gorulmeler": [
     "07.10.2026 08:35 · 1.0.70 · samsung SM-S911B · FeaturesDemoMainMenu · oyunda değil · 2340x990",
     "07.10.2026 22:52 · 1.0.78 · samsung SM-S911B · FeaturesDemoMainMenu · oyunda değil · 2340x990",
     "07.10.2026 22:53 · 1.0.78 · samsung SM-S911B · FeaturesDemoMainMenu · oyunda değil · 2340x990",
     "07.10.2026 22:55 · 1.0.78 · samsung SM-S911B · FeaturesDemoMainMenu · oyunda değil · 2340x990",
-    "08.10.2026 12:32 · 1.0.78 · samsung SM-S911B · FeaturesDemoMainMenu · oyunda değil · 2340x990"
+    "08.10.2026 12:32 · 1.0.78 · samsung SM-S911B · FeaturesDemoMainMenu · oyunda değil · 2340x990",
+    "08.10.2026 22:20 · 1.0.79 · samsung SM-S911B · FeaturesDemoMainMenu · oyunda değil · 2340x990"
    ],
    "ekler": [],
    "duzeltildi": null,
@@ -794,7 +823,7 @@
   "arayuz-2340x1001": {
    "tur": "arayuz",
    "baslik": "Arayüz yerleşimi, 2340x1001 ekran",
-   "adet": 2,
+   "adet": 3,
    "cihazlar": [
     "samsung SM-S938B"
    ],
@@ -803,20 +832,23 @@
     "1.0.79"
    ],
    "ilk": 1791401377,
-   "son": 1791415576,
+   "son": 1791487332,
    "ilk_rapor": "**Arayüz** · sürüm **1.0.78** · samsung SM-S938B · Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3) · ekran 2340x1001 · FeaturesDemoZone\n\n### Mesaj\n```text\n2 çakışma (2340x1001)\n```\n\n### Ayrıntı\n```text\nEkran 2340x1001, güvenli alan (96,0 2244x1001)\nBeceri2 kaydırıldı (-10, -40)\nBeceri3 kaydırıldı (-40, -20)\nBeceri4 kaydırıldı (20, -20)\nBeceri5 kaydırıldı (20, 0)\nBeceri6 kaydırıldı (110, 120)\nÇakışmalar (2):\n- düğme Beceri7 ~ QuestTrackerWindow (QuestTrackerWindow/Contents/QuestTrackerPanel)\n- düğme Beceri3 ~ düğme Beceri8\nDüğmeler:\nHareket (202,151 288x288)\nÇanta (110,14 98x98)\nAyarlar (217,14 98x98)\nIşınlan (325,14 98x98)\nMenü (111,636 105x105)\nSaldır (2058,94 188x188)\nBeceri1 (2084,320 105x105)\nBeceri2 (1981,237 105x105)\nBeceri3 (1882,188 105x105)\nBeceri4 (1940,94 105x105)\nBeceri5 (2079,431 95x95)\nBeceri6 (2082,538 95x95)\nBeceri7 (1860,305 95x95)\nBeceri8 (1815,196 95x95)\nOto Av (2207,348 110x110)\nBinek (2212,488 100x100)\nHedef (1789,38 105x105)\nGöstergeler:\nMiniMap (2112,716 188x255)\nPlayerUnitFrame (40,867 250x100)\nQuestTrackerWindow (1739,353 325x294)\nSystemBar (863,872 614x50)\nXPBarPanel (554,6 1231x19)\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: arayuz\nsurum: 1.0.78\ncihaz: samsung SM-S938B\nsistem: Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3)\ngrafik: Vulkan / Adreno (TM) 830 / bellek 11113 MB\nekran: 2340x1001\nayarlar: kalite 0, çözünürlük 0, gölge 0, fps sınırı 1\nsahne: FeaturesDemoZone\noyuncu: seviye 2\nsure: 56 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.78 | samsung SM-S938B | Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3)\nVulkan Adreno (TM) 830 | Bellek 11113 MB | 2340x1001 | FPS 115 | Süre 54 sn\nKare süresi: işlemci 8.7 ms | ekran kartı 5.1 ms | ekran 120 Hz | hedef 500 | kalite Low | çizim 2340x1001 (ekran 2340x1001, ölçek 1.00) | pil 63%\nSahneler: MovedObjectsHolder FeaturesDemoZone\nGiriş: dokunmatik var | fare bağlı | ekran tuşları açık\nSon dokunuş: 791,805 -> Kart/X [GelisimCanvas 27]\nOyuncu karakteri: oluştu (MecanimMale205) | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n<details><summary>Son kayıt satırları</summary>\n\n```text\n22:29:22 [Warning] [Reklam] onay bilgisi: Publisher misconfiguration: Failed to read publisher's account configuration; no form(s) configured for the input app ID. Verify that you have configured one or more forms for t...\n```\n\n</details>\n",
    "gorulmeler": [
     "07.10.2026 22:29 · 1.0.78 · samsung SM-S938B · FeaturesDemoZone · seviye 2 · 2340x1001",
-    "08.10.2026 02:26 · 1.0.79 · samsung SM-S938B · FeaturesDemoZone · seviye 1 · 2340x1001"
+    "08.10.2026 02:26 · 1.0.79 · samsung SM-S938B · FeaturesDemoZone · seviye 1 · 2340x1001",
+    "08.10.2026 22:22 · 1.0.79 · samsung SM-S938B · FeaturesDemoZone · seviye 100 · 2340x1001"
    ],
    "ekler": [
-    "ab2f746060.jpg"
+    "ab2f746060.jpg",
+    "90c2e2b25b.jpg"
    ],
    "duzeltildi": null,
    "yeniden": false,
    "issue": null,
    "notlar": [
-    "08.10.2026 02:26 · 1.0.79 · samsung SM-S938B — Arayüz: 2 çakışma (2340x1001)\n\n```text\nEkran 2340x1001, güvenli alan (96,0 2244x1001)\nBeceri2 kaydırıldı (-10, -40)\nBeceri3 kaydırıldı (-40, -20)\nBeceri4 kaydırıldı (20, -20)\nBeceri5 kaydırıldı (20, 0)\nBeceri6 kaydırıldı (110, 120)\nÇakışmalar (2):\n- düğme Beceri7 ~ QuestTrackerWindow (QuestTrackerWindow/Contents/QuestTrackerPanel)\n- düğme Beceri3 ~ düğme Beceri8\nDüğmeler:\nHareket (202,151 288x288)\nÇanta (110,14 98x98)\nAyarlar (217,14 98x98)\nIşınlan (325,14 98x98)\nMenü (111,636 105x105)\nSaldır (2058,94 188x188)\nBeceri1 (2084,320 105x105)\nBeceri2 (1981,237 105x105)\nBeceri3 (1882,188 105x105)\nBeceri4 (1940,94 105x105)\nBeceri5 (2079,431 95x95)\nBeceri6 (2082,538 95x95)\nBeceri7 (1860,305 95x95)\nBeceri8 (1815,196 95x95)\nOto Av (2207,348 110x110)\nBinek (2212,488 100x100)\nHedef (1789,38 105x105)\nGöstergeler:\nMiniMap (2112,716 188x255)\nPlayerUnitFrame (40,867 250x100)\nQuestTrackerWindow (1739,353 325x294)\nSystemBar (863,872 614x50)\nXPBarPanel (554,6 1231x19)\n```"
+    "08.10.2026 02:26 · 1.0.79 · samsung SM-S938B — Arayüz: 2 çakışma (2340x1001)\n\n```text\nEkran 2340x1001, güvenli alan (96,0 2244x1001)\nBeceri2 kaydırıldı (-10, -40)\nBeceri3 kaydırıldı (-40, -20)\nBeceri4 kaydırıldı (20, -20)\nBeceri5 kaydırıldı (20, 0)\nBeceri6 kaydırıldı (110, 120)\nÇakışmalar (2):\n- düğme Beceri7 ~ QuestTrackerWindow (QuestTrackerWindow/Contents/QuestTrackerPanel)\n- düğme Beceri3 ~ düğme Beceri8\nDüğmeler:\nHareket (202,151 288x288)\nÇanta (110,14 98x98)\nAyarlar (217,14 98x98)\nIşınlan (325,14 98x98)\nMenü (111,636 105x105)\nSaldır (2058,94 188x188)\nBeceri1 (2084,320 105x105)\nBeceri2 (1981,237 105x105)\nBeceri3 (1882,188 105x105)\nBeceri4 (1940,94 105x105)\nBeceri5 (2079,431 95x95)\nBeceri6 (2082,538 95x95)\nBeceri7 (1860,305 95x95)\nBeceri8 (1815,196 95x95)\nOto Av (2207,348 110x110)\nBinek (2212,488 100x100)\nHedef (1789,38 105x105)\nGöstergeler:\nMiniMap (2112,716 188x255)\nPlayerUnitFrame (40,867 250x100)\nQuestTrackerWindow (1739,353 325x294)\nSystemBar (863,872 614x50)\nXPBarPanel (554,6 1231x19)\n```",
+    "08.10.2026 22:22 · 1.0.79 · samsung SM-S938B — Arayüz: 2 çakışma (2340x1001)\n\n```text\nEkran 2340x1001, güvenli alan (96,0 2244x1001)\nBeceri2 kaydırıldı (-10, -40)\nBeceri3 kaydırıldı (-40, -20)\nBeceri4 kaydırıldı (20, -20)\nBeceri5 kaydırıldı (20, 0)\nBeceri6 kaydırıldı (110, 120)\nÇakışmalar (2):\n- düğme Beceri7 ~ QuestTrackerWindow (QuestTrackerWindow/Contents/QuestTrackerPanel)\n- düğme Beceri3 ~ düğme Beceri8\nDüğmeler:\nHareket (202,151 288x288)\nÇanta (110,14 98x98)\nAyarlar (217,14 98x98)\nIşınlan (325,14 98x98)\nMenü (111,636 105x105)\nSaldır (2058,94 188x188)\nBeceri1 (2084,320 105x105)\nBeceri2 (1981,237 105x105)\nBeceri3 (1882,188 105x105)\nBeceri4 (1940,94 105x105)\nBeceri5 (2079,431 95x95)\nBeceri6 (2082,538 95x95)\nBeceri7 (1860,305 95x95)\nBeceri8 (1815,196 95x95)\nOto Av (2207,348 110x110)\nBinek (2212,488 100x100)\nHedef (1789,38 105x105)\nGöstergeler:\nMiniMap (2112,716 188x255)\nPlayerUnitFrame (40,867 250x100)\nQuestTrackerWindow (1739,353 325x294)\nSystemBar (863,872 614x50)\nXPBarPanel (554,6 1231x19)\n```"
    ]
   },
   "cokme-0136878a": {
@@ -868,20 +900,23 @@
   "hata-c7cbb399": {
    "tur": "hata",
    "baslik": "Hata: [2026.10.08 02:27:54] Client encountered an error while parsing data for packetId 28451. Message: Syste…",
-   "adet": 2,
+   "adet": 4,
    "cihazlar": [
     "samsung SM-S938B",
-    "samsung SM-S948B"
+    "samsung SM-S948B",
+    "samsung SM-S911B"
    ],
    "surumler": [
     "1.0.79"
    ],
    "ilk": 1791415674,
-   "son": 1791474556,
+   "son": 1791487426,
    "ilk_rapor": "**Hata** · sürüm **1.0.79** · samsung SM-S938B · Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3) · ekran 2340x1001 · FeaturesDemoDungeon\n\n### Mesaj\n```text\n[2026.10.08 02:27:54] Client encountered an error while parsing data for packetId 28451. Message: System.NullReferenceException: Object reference not set to an instance of an object.\n  at AnyRPG.AbilityEffectContext..ctor (AnyRPG.IAbilityCaster abilityCaster, AnyRPG.InteractableBase originalTarget, AnyRPG.SerializableAbilityEffectContext serializableAbilityEffectContext, AnyRPG.SystemGameManager systemGameManager) [0x00000] in <00000000000000000000000000000000>:0 \n  at AnyRPG.FishNetUnitController.RpcLogic___ReceiveCombatTextEventClient___1257465331 (AnyRPG.FishNetInteractable , AnyRPG.FishNetUnitController , System.Int32 , AnyRPG.CombatTextType …\n```\n\n### Yığın izi\n```text\nUnityEngine.DebugLogHandler:Internal_Log(LogType, LogOption, String, Object)\nFishNet.Managing.NetworkManagerExtensions:LogError(NetworkManager, String)\nFishNet.Managing.Client.ClientManager:ParseReader(PooledReader, Channel, Boolean)\nFishNet.Managing.Client.ClientManager:ParseReceived(ClientReceivedDataArgs)\nFishNet.Managing.Client.ClientManager:Transport_OnClientReceivedData(ClientReceivedDataArgs)\nFishNet.Transporting.Tugboat.Tugboat:HandleClientReceivedDataArgs(ClientReceivedDataArgs)\nFishNet.Transporting.Tugboat.Client.ClientSocket:IterateIncoming()\nFishNet.Managing.Transporting.TransportManager:IterateIncoming(Boolean)\nFishNet.Managing.Timing.TimeManager:IncreaseTick()\nFishNet.Managing.Timing.TimeManager:<TickUpdate>g__MethodLogic|112_0()\nFishNet.Managing.Timing.TimeManager:TickUpdate()\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: hata\nsurum: 1.0.79\ncihaz: samsung SM-S938B\nsistem: Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3)\ngrafik: Vulkan / Adreno (TM) 830 / bellek 11113 MB\nekran: 2340x1001\nayarlar: kalite 0, çözünürlük 0, gölge 0, fps sınırı 1\nsahne: FeaturesDemoDungeon\noyuncu: seviye 1\nsure: 137 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.79 | samsung SM-S938B | Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3)\nVulkan Adreno (TM) 830 | Bellek 11113 MB | 2340x1001 | FPS 101 | Süre 134 sn\nKare süresi: işlemci 11.4 ms | ekran kartı 8.6 ms | ekran 120 Hz | hedef 500 | kalite Low | çizim 2340x1001 (ekran 2340x1001, ölçek 1.00) | pil 21%\nSahneler: MovedObjectsHolder FeaturesDemoDungeon\nGiriş: dokunmatik var | fare bağlı | ekran tuşları açık\nSon dokunuş: 1640,532 -> oyun dünyası\nOyuncu karakteri: oluştu (MecanimMale260) | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n<details><summary>Son kayıt satırları</summary>\n\n```text\n02:27:54 [Error] [2026.10.08 02:27:54] Client encountered an error while parsing data for packetId 28451. Message: System.NullReferenceException: Object reference not set to an instance of an object.\n02:26:01 [Warning] [Reklam] onay bilgisi: Publisher misconfiguration: Failed to read publisher's account configuration; no form(s) configured for the input app ID. Verify that you have configured one or more forms for t...\n```\n\n</details>\n",
    "gorulmeler": [
     "08.10.2026 02:27 · 1.0.79 · samsung SM-S938B · FeaturesDemoDungeon · seviye 1 · 2340x1001",
-    "08.10.2026 18:49 · 1.0.79 · samsung SM-S948B · FeaturesDemoZone · seviye 150 · 2340x996"
+    "08.10.2026 18:49 · 1.0.79 · samsung SM-S948B · FeaturesDemoZone · seviye 150 · 2340x996",
+    "08.10.2026 22:23 · 1.0.79 · samsung SM-S911B · FeaturesDemoDungeon · seviye 60 · 2340x990",
+    "08.10.2026 22:23 · 1.0.79 · samsung SM-S938B · FeaturesDemoDungeon · seviye 100 · 2340x1001"
    ],
    "ekler": [],
    "duzeltildi": null,
@@ -892,20 +927,22 @@
   "performans-f57278a0": {
    "tur": "performans",
    "baslik": "Yavaşlık: FeaturesDemoZone haritasında kare hızı düşük: 20 saniyede ortalama 11.3 FPS",
-   "adet": 2,
+   "adet": 3,
    "cihazlar": [
     "samsung SM-S938B",
-    "Xiaomi 2312CRAD3C"
+    "Xiaomi 2312CRAD3C",
+    "Xiaomi M2101K6G"
    ],
    "surumler": [
     "1.0.79"
    ],
    "ilk": 1791415903,
-   "son": 1791476424,
+   "son": 1791483816,
    "ilk_rapor": "**Yavaşlık** · sürüm **1.0.79** · samsung SM-S938B · Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3) · ekran 2340x1001 · FeaturesDemoZone\n\n### Mesaj\n```text\nFeaturesDemoZone haritasında kare hızı düşük: 20 saniyede ortalama 11.3 FPS\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: performans\nsurum: 1.0.79\ncihaz: samsung SM-S938B\nsistem: Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3)\ngrafik: Vulkan / Adreno (TM) 830 / bellek 11113 MB\nekran: 2340x1001\nayarlar: kalite 3, çözünürlük 4, gölge 3, fps sınırı 1\nsahne: FeaturesDemoZone\noyuncu: seviye 1\nsure: 365 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.79 | samsung SM-S938B | Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3)\nVulkan Adreno (TM) 830 | Bellek 11113 MB | 2340x1001 | FPS 10 | Süre 362 sn\nKare süresi: işlemci 98.6 ms | ekran kartı 98.8 ms | ekran 60 Hz | hedef 60 | kalite Ultra | çizim 3840x1643 (ekran 2340x1001, ölçek 1.64) | pil 18%\nSahneler: MovedObjectsHolder FeaturesDemoZone\nGiriş: dokunmatik var | fare bağlı | ekran tuşları açık\nSon dokunuş: 433,277 -> CantaAraclari/Toplu Sat [PopupWindowContainerCanvas 12]\nOyuncu karakteri: oluştu (MecanimMale490) | Önizleme karakteri:…\n```\n\n</details>\n\n<details><summary>Son kayıt satırları</summary>\n\n```text\n02:29:27 [Error] [2026.10.08 02:29:27] Client encountered an error while parsing data for packetId 27054. Message: System.NullReferenceException: Object reference not set to an instance of an object.\n02:28:25 [Error] [2026.10.08 02:28:25] Client encountered an error while parsing data for packetId 28070. Message: System.NullReferenceException: Object reference not set to an instance of an object.\n02:27:54 [Error] [2026.10.08 02:27:54] Client encountered an error while parsing data for packetId 28451. Message: System.NullReferenceException: Object reference not set to an instance of an object.\n02:26:01 [Warning] [Reklam] onay bilgisi: Publisher misconfiguration: Failed to read publisher's account configuration; no form(s) configured for the input app ID. Verify that you have configured one or more forms for t...\n```\n\n</details>\n",
    "gorulmeler": [
     "08.10.2026 02:31 · 1.0.79 · samsung SM-S938B · FeaturesDemoZone · seviye 1 · 2340x1001",
-    "08.10.2026 19:20 · 1.0.79 · Xiaomi 2312CRAD3C · FeaturesDemoZone · seviye 1 · 2608x1116"
+    "08.10.2026 19:20 · 1.0.79 · Xiaomi 2312CRAD3C · FeaturesDemoZone · seviye 1 · 2608x1116",
+    "08.10.2026 21:23 · 1.0.79 · Xiaomi M2101K6G · FeaturesDemoZone · seviye 1 · 2307x987"
    ],
    "ekler": [],
    "duzeltildi": null,
@@ -983,6 +1020,140 @@
    "ekler": [
     "72361f2c5f.jpg"
    ],
+   "duzeltildi": null,
+   "yeniden": false,
+   "issue": null,
+   "notlar": []
+  },
+  "arayuz-2307x987": {
+   "tur": "arayuz",
+   "baslik": "Arayüz yerleşimi, 2307x987 ekran",
+   "adet": 1,
+   "cihazlar": [
+    "Xiaomi M2101K6G"
+   ],
+   "surumler": [
+    "1.0.79"
+   ],
+   "ilk": 1791483810,
+   "son": 1791483810,
+   "ilk_rapor": "**Arayüz** · sürüm **1.0.79** · Xiaomi M2101K6G · Android OS 13 / API-33 (TKQ1.221013.002/V14.0.2.0.TKFTRXM) · ekran 2307x987 · FeaturesDemoZone\n\n### Mesaj\n```text\n2 çakışma (2307x987)\n```\n\n### Ayrıntı\n```text\nEkran 2307x987, güvenli alan (0,0 2307x987)\nBeceri2 kaydırıldı (-10, -40)\nBeceri3 kaydırıldı (-40, -20)\nBeceri4 kaydırıldı (20, -20)\nBeceri5 kaydırıldı (20, 0)\nBeceri6 kaydırıldı (110, 120)\nÇakışmalar (2):\n- düğme Beceri7 ~ QuestTrackerWindow (QuestTrackerWindow/Contents/QuestTrackerPanel)\n- düğme Beceri3 ~ düğme Beceri8\nDüğmeler:\nHareket (105,149 284x284)\nÇanta (14,14 96x96)\nAyarlar (120,14 96x96)\nIşınlan (226,14 96x96)\nMenü (15,627 104x104)\nSaldır (2029,93 185x185)\nBeceri1 (2054,315 104x104)\nBeceri2 (1953,233 104x104)\nBeceri3 (1855,186 104x104)\nBeceri4 (1913,93 104x104)\nBeceri5 (2049,425 94x94)\nBeceri6 (2052,530 94x94)\nBeceri7 (1834,301 94x94)\nBeceri8 (1789,194 94x94)\nOto Av (2176,343 109x109)\nBinek (2181,481 99x99)\nHedef (1764,37 104x104)\nGöstergeler:\nMiniMap (2082,706 185x252)\nPlayerUnitFrame (39,855 247x99)\nQuestTrackerWindow (1715,349 321x290)\nSystemBar (851,860 606x49)\nXPBarPanel (546,6 1214x19)\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: arayuz\nsurum: 1.0.79\ncihaz: Xiaomi M2101K6G\nsistem: Android OS 13 / API-33 (TKQ1.221013.002/V14.0.2.0.TKFTRXM)\ngrafik: Vulkan / Adreno (TM) 618 / bellek 7568 MB\nekran: 2307x987\nayarlar: kalite 2, çözünürlük 0, gölge 0, fps sınırı 1\nsahne: FeaturesDemoZone\noyuncu: seviye 1\nsure: 68 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.79 | Xiaomi M2101K6G | Android OS 13 / API-33 (TKQ1.221013.002/V14.0.2.0.TKFTRXM)\nVulkan Adreno (TM) 618 | Bellek 7568 MB | 2307x987 | FPS 21 | Süre 64 sn\nKare süresi: işlemci 469.0 ms | ekran kartı 498394200000.0 ms | ekran 60 Hz | hedef 60 | kalite High | çizim 2307x987 (ekran 2307x987, ölçek 1.00) | pil 89%\nSahneler: FeaturesDemoZone\nGiriş: dokunmatik var | fare yok | ekran tuşları açık\nSon dokunuş: 1429,238 -> ImageContainer/Image [SystemMenuUICanvas 19]\nOyuncu karakteri: oluştu (MecanimMale2) | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n<details><summary>Son kayıt satırları</summary>\n\n```text\n21:23:20 [Warning] [Reklam] onay bilgisi: Publisher misconfiguration: Failed to read publisher's account configuration; no form(s) configured for the input app ID. Verify that you have configured one or more forms for t...\n21:22:24 [Log] OyunAyarlari: ilk açılış grafik seviyesi 2 (bellek 7568 MB, Adreno (TM) 618)\n```\n\n</details>\n",
+   "gorulmeler": [
+    "08.10.2026 21:23 · 1.0.79 · Xiaomi M2101K6G · FeaturesDemoZone · seviye 1 · 2307x987"
+   ],
+   "ekler": [],
+   "duzeltildi": null,
+   "yeniden": false,
+   "issue": null,
+   "notlar": []
+  },
+  "arayuz-2340x990": {
+   "tur": "arayuz",
+   "baslik": "Arayüz yerleşimi, 2340x990 ekran",
+   "adet": 1,
+   "cihazlar": [
+    "samsung SM-S911B"
+   ],
+   "surumler": [
+    "1.0.79"
+   ],
+   "ilk": 1791487250,
+   "son": 1791487250,
+   "ilk_rapor": "**Arayüz** · sürüm **1.0.79** · samsung SM-S911B · Android OS 16 / API-36 (BP2A.250605.031.A3/S911BXXS8EYK5) · ekran 2340x990 · FeaturesDemoZone\n\n### Mesaj\n```text\n2 çakışma (2340x990)\n```\n\n### Ayrıntı\n```text\nEkran 2340x990, güvenli alan (81,0 2259x990)\nBeceri2 kaydırıldı (-10, -40)\nBeceri3 kaydırıldı (-40, -20)\nBeceri4 kaydırıldı (20, -20)\nBeceri5 kaydırıldı (20, 0)\nBeceri6 kaydırıldı (110, 120)\nÇakışmalar (2):\n- düğme Beceri7 ~ QuestTrackerWindow (QuestTrackerWindow/Contents/QuestTrackerPanel)\n- düğme Beceri3 ~ düğme Beceri8\nDüğmeler:\nHareket (186,150 285x285)\nÇanta (95,14 97x97)\nAyarlar (201,14 97x97)\nIşınlan (307,14 97x97)\nMenü (96,629 104x104)\nSaldır (2062,93 186x186)\nBeceri1 (2086,316 104x104)\nBeceri2 (1985,234 104x104)\nBeceri3 (1887,186 104x104)\nBeceri4 (1945,93 104x104)\nBeceri5 (2081,426 94x94)\nBeceri6 (2084,532 94x94)\nBeceri7 (1865,302 94x94)\nBeceri8 (1821,194 94x94)\nOto Av (2209,344 109x109)\nBinek (2214,483 99x99)\nHedef (1796,37 104x104)\nGöstergeler:\nMiniMap (2115,708 186x252)\nPlayerUnitFrame (40,858 248x99)\nQuestTrackerWindow (1746,350 322x291)\nSystemBar (866,863 608x50)\nXPBarPanel (561,6 1218x19)\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: arayuz\nsurum: 1.0.79\ncihaz: samsung SM-S911B\nsistem: Android OS 16 / API-36 (BP2A.250605.031.A3/S911BXXS8EYK5)\ngrafik: Vulkan / Adreno (TM) 740 / bellek 7073 MB\nekran: 2340x990\nayarlar: kalite -1, çözünürlük 0, gölge 0, fps sınırı 1\nsahne: FeaturesDemoZone\noyuncu: seviye 60\nsure: 50 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.79 | samsung SM-S911B | Android OS 16 / API-36 (BP2A.250605.031.A3/S911BXXS8EYK5)\nVulkan Adreno (TM) 740 | Bellek 7073 MB | 2340x990 | FPS 83 | Süre 47 sn\nKare süresi: işlemci 14.2 ms | ekran kartı 9.7 ms | ekran 120 Hz | hedef 500 | kalite Very Low | çizim 2340x990 (ekran 2340x990, ölçek 1.00) | pil 30%\nSahneler: MovedObjectsHolder FeaturesDemoZone\nGiriş: dokunmatik var | fare bağlı | ekran tuşları açık\nSon dokunuş: 1155,213 -> Panel/Armağanı Al [GunlukArmaganCanvas 28]\nOyuncu karakteri: oluştu (MecanimMale209) | Önizleme karakteri: yo…\n```\n\n</details>\n\n<details><summary>Son kayıt satırları</summary>\n\n```text\n22:20:35 [Warning] [Reklam] onay bilgisi: Publisher misconfiguration: Failed to read publisher's account configuration; no form(s) configured for the input app ID. Verify that you have configured one or more forms for t...\n```\n\n</details>\n",
+   "gorulmeler": [
+    "08.10.2026 22:20 · 1.0.79 · samsung SM-S911B · FeaturesDemoZone · seviye 60 · 2340x990"
+   ],
+   "ekler": [
+    "2d67300994.jpg"
+   ],
+   "duzeltildi": null,
+   "yeniden": false,
+   "issue": null,
+   "notlar": []
+  },
+  "istisna-3addc771": {
+   "tur": "istisna",
+   "baslik": "İstisna: NullReferenceException: Object reference not set to an instance of an object.",
+   "adet": 1,
+   "cihazlar": [
+    "samsung SM-S938B"
+   ],
+   "surumler": [
+    "1.0.79"
+   ],
+   "ilk": 1791487354,
+   "son": 1791487354,
+   "ilk_rapor": "**İstisna** · sürüm **1.0.79** · samsung SM-S938B · Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3) · ekran 2340x1001 · FeaturesDemoDungeon\n\n### Mesaj\n```text\nNullReferenceException: Object reference not set to an instance of an object.\n```\n\n### Yığın izi\n```text\nFishNet.Object.Prediction.PredictionRigidbody.Reconcile (FishNet.Object.Prediction.PredictionRigidbody pr) (at <00000000000000000000000000000000>:0)\nAnyRPG.FishNetUnitController.ReconcileState___UL (AnyRPG.ReconcileData data, FishNet.Transporting.Channel channel) (at <00000000000000000000000000000000>:0)\nFishNet.Object.NetworkBehaviour.Reconcile_Client[T,T2] (FishNet.Object.Prediction.Delegating.ReconcileUserLogicDelegate`1[T] reconcileDel, GameKit.Dependencies.Utilities.Types.RingBuffer`1[T] replicatesHistory, GameKit.Dependencies.Utilities.Types.RingBuffer`1[T] reconcilesHistory, T data) (at <00000000000000000000000000000000>:0)\nAnyRPG.FishNetUnitController.Reconcile_Client_Start () (at <00000000000000000000000000000000>:0)\nFishNet.Object.NetworkObject.PredictionManager_OnReconcile (System.UInt32 clientReconcileTick, System.UInt32 serverReconcileTick) (at <00000000000000000000000000000000>:0)\nFishNet.Managing.Predicting.PredictionManager.ReconcileToStates () (at <00000000000000000000000000000000>:0)\nFishNet.Managing.Timing.TimeManager.IncreaseTick () (at <00000000000000000000000000000000>:0)\nFishNet.Managing.Timing.TimeManager.<TickUpdate>g__MethodLogic|112_0 () (at <00000000000000000000000000000000>:0)\nFishNet.Managing.Timing.TimeManager.TickUpdate () (at <00000000000000000000000000000000>:0)\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: istisna\nsurum: 1.0.79\ncihaz: samsung SM-S938B\nsistem: Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3)\ngrafik: Vulkan / Adreno (TM) 830 / bellek 11113 MB\nekran: 2340x1001\nayarlar: kalite 3, çözünürlük 0, gölge 0, fps sınırı 1\nsahne: FeaturesDemoDungeon\noyuncu: oyunda değil\nsure: 59 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.79 | samsung SM-S938B | Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3)\nVulkan Adreno (TM) 830 | Bellek 11113 MB | 2340x1001 | FPS 82 | Süre 56 sn\nKare süresi: işlemci 15.4 ms | ekran kartı 12.1 ms | ekran 120 Hz | hedef 500 | kalite Ultra | çizim 3840x1643 (ekran 2340x1001, ölçek 1.64) | pil 58%\nSahneler: MovedObjectsHolder FeaturesDemoDungeon\nGiriş: dokunmatik var | fare bağlı | ekran tuşları açık\nSon dokunuş: 1374,351 -> oyun dünyası\nOyuncu karakteri: yok | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n<details><summary>Son kayıt satırları</summary>\n\n```text\n22:22:34 [Exception] NullReferenceException: Object reference not set to an instance of an object.\n22:22:34 [Warning] To Debug, run app with -diag-job-temp-memory-leak-validation cmd line argument. This will output the callstacks of the leaked allocations.\n22:22:34 [Warning] Internal: JobTempAlloc has allocations that are more than the maximum lifespan of 4 frames old - this is not allowed and likely a leak\n22:21:57 [Warning] [Reklam] onay bilgisi: Publisher misconfiguration: Failed to read publisher's account configuration; no form(s) configured for the input app ID. Verify that you have configured one or more forms for t...\n```\n\n</details>\n",
+   "gorulmeler": [
+    "08.10.2026 22:22 · 1.0.79 · samsung SM-S938B · FeaturesDemoDungeon · oyunda değil · 2340x1001"
+   ],
+   "ekler": [],
+   "duzeltildi": null,
+   "yeniden": false,
+   "issue": null,
+   "notlar": []
+  },
+  "istisna-9f34fb84": {
+   "tur": "istisna",
+   "baslik": "İstisna: NullReferenceException: Object reference not set to an instance of an object.",
+   "adet": 1,
+   "cihazlar": [
+    "PC"
+   ],
+   "surumler": [
+    "1.0.79"
+   ],
+   "ilk": 1791487357,
+   "son": 1791487357,
+   "ilk_rapor": "**İstisna** · sürüm **1.0.79** · PC · Linux 6.8 Ubuntu 24.04 64bit · ekran 640x480 · FeaturesDemoDungeon\n\n### Mesaj\n```text\nNullReferenceException: Object reference not set to an instance of an object.\n```\n\n### Yığın izi\n```text\nUnityEngine.Bindings.ThrowHelper.ThrowNullReferenceException (System.Object obj) (at <3d65f019da6044168f2ccd81096ed5c5>:0)\nUnityEngine.Component.get_gameObject () (at <3d65f019da6044168f2ccd81096ed5c5>:0)\nAnyRPG.AggroTable.get_TopAgroNode () (at <b7cb74514d1143989d294b3eff07b130>:0)\nAnyRPG.CharacterCombat.Tick () (at <b7cb74514d1143989d294b3eff07b130>:0)\nAnyRPG.UnitController.Update () (at <b7cb74514d1143989d294b3eff07b130>:0)\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: istisna\nsurum: 1.0.79\ncihaz: PC\nsistem: Linux 6.8 Ubuntu 24.04 64bit\ngrafik: Null / Null Device / bellek 7940 MB\nekran: 640x480\nayarlar: kalite -1, çözünürlük 0, gölge 0, fps sınırı 1\nsahne: FeaturesDemoDungeon\noyuncu: oyunda değil\nsure: 74547 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.79 | PC | Linux 6.8 Ubuntu 24.04 64bit\nNull Null Device | Bellek 7940 MB | 640x480 | FPS ? | Süre 74547 sn\nKare süresi: işlemci ? | ekran kartı ? | ekran 0 Hz | hedef 45 | kalite Very Low | çizim 640x480 (ekran 640x480, ölçek 1.00) | pil -100%\nSahneler: MovedObjectsHolder UmayTarlalari FeaturesDemoDungeon TamuZindani FeaturesDemoZone\nGiriş: dokunmatik yok | fare yok | ekran tuşları kapalı\nSon dokunuş: -\nOyuncu karakteri: yok | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n",
+   "gorulmeler": [
+    "08.10.2026 22:22 · 1.0.79 · PC · FeaturesDemoDungeon · oyunda değil · 640x480"
+   ],
+   "ekler": [],
+   "duzeltildi": null,
+   "yeniden": false,
+   "issue": null,
+   "notlar": []
+  },
+  "istisna-46cdc5d0": {
+   "tur": "istisna",
+   "baslik": "İstisna: NullReferenceException: Object reference not set to an instance of an object",
+   "adet": 1,
+   "cihazlar": [
+    "PC"
+   ],
+   "surumler": [
+    "1.0.79"
+   ],
+   "ilk": 1791487931,
+   "son": 1791487931,
+   "ilk_rapor": "**İstisna** · sürüm **1.0.79** · PC · Linux 6.8 Ubuntu 24.04 64bit · ekran 640x480 · KaganOrdasi\n\n### Mesaj\n```text\nNullReferenceException: Object reference not set to an instance of an object\n```\n\n### Yığın izi\n```text\nAnyRPG.CharacterInventoryManager.GetNewInstantiatedItem (AnyRPG.Item item, AnyRPG.ItemQuality itemQuality, AnyRPG.IInstantiatedItemRequestor requestor) (at <b7cb74514d1143989d294b3eff07b130>:0)\nAnyRPG.LootTableState.GetLootDrop (AnyRPG.UnitController sourceUnitController, AnyRPG.Loot loot, System.Boolean lootGroupUnlimitedDrops, System.Boolean ignoreDropLimit, System.Boolean lootTableUnlimitedDrops, System.Int32& lootGroupRemainingDrops) (at <b7cb74514d1143989d294b3eff07b130>:0)\nAnyRPG.LootTableState.RollLoot (AnyRPG.UnitController sourceUnitController, AnyRPG.LootTable lootTable) (at <b7cb74514d1143989d294b3eff07b130>:0)\nAnyRPG.LootTableState.GetLoot (AnyRPG.UnitController sourceUnitController, AnyRPG.LootTable lootTable, System.Boolean rollLoot) (at <b7cb74514d1143989d294b3eff07b130>:0)\nAnyRPG.LootHolder.GetLoot (AnyRPG.UnitController sourceUnitController, AnyRPG.LootTable lootTable, System.Boolean rollLoot) (at <b7cb74514d1143989d294b3eff07b130>:0)\nAnyRPG.LootableCharacterComponent.DropLoot (AnyRPG.UnitController sourceUnitController) (at <b7cb74514d1143989d294b3eff07b130>:0)\nAnyRPG.LootableCharacterComponent.HandleBeforeDie (AnyRPG.UnitController sourceUnitController) (at <b7cb74514d1143989d294b3eff07b130>:0)\nAnyRPG.UnitEventController.NotifyOnBeforeDie (AnyRPG.UnitController targetUnitController) (at <b7cb74514d1143989d294b3eff07b130>:0)\nAnyRPG.CharacterStats.Die () (at <b7cb74514d11439…\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: istisna\nsurum: 1.0.79\ncihaz: PC\nsistem: Linux 6.8 Ubuntu 24.04 64bit\ngrafik: Null / Null Device / bellek 7940 MB\nekran: 640x480\nayarlar: kalite -1, çözünürlük 0, gölge 0, fps sınırı 1\nsahne: KaganOrdasi\noyuncu: oyunda değil\nsure: 75124 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.79 | PC | Linux 6.8 Ubuntu 24.04 64bit\nNull Null Device | Bellek 7940 MB | 640x480 | FPS ? | Süre 75124 sn\nKare süresi: işlemci ? | ekran kartı ? | ekran 0 Hz | hedef 45 | kalite Very Low | çizim 640x480 (ekran 640x480, ölçek 1.00) | pil -100%\nSahneler: MovedObjectsHolder UmayTarlalari FeaturesDemoDungeon TamuZindani FeaturesDemoZone KoncolosIni AyDedeKoyu OrdubalikKenti KaganOrdasi\nGiriş: dokunmatik yok | fare yok | ekran tuşları kapalı\nSon dokunuş: -\nOyuncu karakteri: yok | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n",
+   "gorulmeler": [
+    "08.10.2026 22:32 · 1.0.79 · PC · KaganOrdasi · oyunda değil · 640x480"
+   ],
+   "ekler": [],
+   "duzeltildi": null,
+   "yeniden": false,
+   "issue": null,
+   "notlar": []
+  },
+  "istisna-14a3da0f": {
+   "tur": "istisna",
+   "baslik": "İstisna: NullReferenceException: Object reference not set to an instance of an object.",
+   "adet": 1,
+   "cihazlar": [
+    "PC"
+   ],
+   "surumler": [
+    "1.0.79"
+   ],
+   "ilk": 1791489732,
+   "son": 1791489732,
+   "ilk_rapor": "**İstisna** · sürüm **1.0.79** · PC · Linux 6.8 Ubuntu 24.04 64bit · ekran 640x480 · KaganOrdasi\n\n### Mesaj\n```text\nNullReferenceException: Object reference not set to an instance of an object.\n```\n\n### Yığın izi\n```text\nUnityEngine.Bindings.ThrowHelper.ThrowNullReferenceException (System.Object obj) (at <3d65f019da6044168f2ccd81096ed5c5>:0)\nUnityEngine.Component.get_gameObject () (at <3d65f019da6044168f2ccd81096ed5c5>:0)\nAnyRPG.PlayerManagerServer.RemoveActivePlayer (System.Int32 accountId) (at <b7cb74514d1143989d294b3eff07b130>:0)\nAnyRPG.PlayerManagerServer.PauseMonitoringPlayerUnit (System.Int32 accountId) (at <b7cb74514d1143989d294b3eff07b130>:0)\nAnyRPG.PlayerManagerServer.ProcessDisconnect (System.Int32 accountId) (at <b7cb74514d1143989d294b3eff07b130>:0)\nAnyRPG.AuthenticationService.ProcessClientDisconnect (System.Int32 clientId) (at <b7cb74514d1143989d294b3eff07b130>:0)\nAnyRPG.NetworkManagerServer.ProcessClientDisconnect (System.Int32 clientId) (at <b7cb74514d1143989d294b3eff07b130>:0)\nAnyRPG.FishNetNetworkController.HandleRemoteConnectionState (FishNet.Connection.NetworkConnection networkConnection, FishNet.Transporting.RemoteConnectionStateArgs args) (at <b7cb74514d1143989d294b3eff07b130>:0)\nFishNet.Managing.Server.ServerManager.Transport_OnRemoteConnectionState (FishNet.Transporting.RemoteConnectionStateArgs args) (at <390e558a63404733a277412dab1b4d45>:0)\nFishNet.Transporting.Tugboat.Tugboat.HandleRemoteConnectionState (FishNet.Transporting.RemoteConnectionStateArgs connectionStateArgs) (at <390e558a63404733a277412dab1b4d45>:0)\nFishNet.Transporting.Tugboat.Server.ServerSocket.IterateIncoming () (at…\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: istisna\nsurum: 1.0.79\ncihaz: PC\nsistem: Linux 6.8 Ubuntu 24.04 64bit\ngrafik: Null / Null Device / bellek 7940 MB\nekran: 640x480\nayarlar: kalite -1, çözünürlük 0, gölge 0, fps sınırı 1\nsahne: KaganOrdasi\noyuncu: oyunda değil\nsure: 76925 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.79 | PC | Linux 6.8 Ubuntu 24.04 64bit\nNull Null Device | Bellek 7940 MB | 640x480 | FPS ? | Süre 76925 sn\nKare süresi: işlemci ? | ekran kartı ? | ekran 0 Hz | hedef 45 | kalite Very Low | çizim 640x480 (ekran 640x480, ölçek 1.00) | pil -100%\nSahneler: MovedObjectsHolder UmayTarlalari FeaturesDemoDungeon TamuZindani FeaturesDemoZone KoncolosIni AyDedeKoyu OrdubalikKenti KaganOrdasi\nGiriş: dokunmatik yok | fare yok | ekran tuşları kapalı\nSon dokunuş: -\nOyuncu karakteri: yok | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n",
+   "gorulmeler": [
+    "08.10.2026 23:02 · 1.0.79 · PC · KaganOrdasi · oyunda değil · 640x480"
+   ],
+   "ekler": [],
    "duzeltildi": null,
    "yeniden": false,
    "issue": null,
@@ -1156,7 +1327,22 @@
   "8047591b4b": "anr-7d743acc",
   "72361f2c5f": "arayuz-2608x1116",
   "1a175273a7": "performans-f57278a0",
-  "20e3feab75": "arayuz-2340x996"
+  "20e3feab75": "arayuz-2340x996",
+  "978ec112c3": "arayuz-2307x987",
+  "7f5c690d9a": "performans-f57278a0",
+  "b5933d312e": "bellek-d3941b2d",
+  "4805e80cea": "cokme-b56b62e3",
+  "2d67300994": "arayuz-2340x990",
+  "90c2e2b25b": "arayuz-2340x1001",
+  "38840b0884": "istisna-3addc771",
+  "b7e5e06c91": "istisna-9434295e",
+  "df64d6bbf9": "istisna-9f34fb84",
+  "2ec6d5cfd8": "hata-c7cbb399",
+  "be51b727cd": "hata-c7cbb399",
+  "11d3aeb2c9": "istisna-8f946662",
+  "4fd60e75c4": "istisna-eda0aac7",
+  "ab37f69a04": "istisna-46cdc5d0",
+  "252bcce301": "istisna-14a3da0f"
  },
  "derleme": {
   "sonuc": "basarili",
