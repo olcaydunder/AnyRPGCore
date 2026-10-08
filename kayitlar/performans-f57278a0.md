@@ -4,7 +4,7 @@ Durum: 🔴 açık
 
 | Tekrar | Cihaz | Sürümler | İlk görülme | Son görülme |
 |---|---|---|---|---|
-| 1 | 1 | 1.0.79 | 08.10.2026 02:31 | 08.10.2026 02:31 |
+| 2 | 2 | 1.0.79 | 08.10.2026 02:31 | 08.10.2026 19:20 |
 
 
 ## İlk rapor
@@ -63,6 +63,7 @@ Oyuncu karakteri: oluştu (MecanimMale490) | Önizleme karakteri:…
 
 | Zaman · sürüm · cihaz · harita · oyuncu · ekran |
 |---|
+| 08.10.2026 19:20 · 1.0.79 · Xiaomi 2312CRAD3C · FeaturesDemoZone · seviye 1 · 2608x1116 |
 | 08.10.2026 02:31 · 1.0.79 · samsung SM-S938B · FeaturesDemoZone · seviye 1 · 2340x1001 |
 
 Anahtar: `performans-f57278a0`

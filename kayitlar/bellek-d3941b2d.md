@@ -4,7 +4,7 @@ Durum: 🔴 açık
 
 | Tekrar | Cihaz | Sürümler | İlk görülme | Son görülme |
 |---|---|---|---|---|
-| 4 | 1 | 0.1.36, 0.1.47, 0.1.54, 1.0.70 | 04.10.2026 19:07 | 07.10.2026 11:26 |
+| 5 | 1 | 0.1.36, 0.1.47, 0.1.54, 1.0.70, 1.0.79 | 04.10.2026 19:07 | 08.10.2026 15:49 |
 
 
 ## İlk rapor
@@ -65,6 +65,7 @@ Oyuncu karakteri: oluştu (MecanimMale1) | Önizleme karakteri: yok | Önizleme 
 
 | Zaman · sürüm · cihaz · harita · oyuncu · ekran |
 |---|
+| 08.10.2026 15:49 · 1.0.79 · samsung SM-S938B · FeaturesDemoMainMenu · oyunda değil · 2340x1001 |
 | 07.10.2026 11:26 · 1.0.70 · samsung SM-S938B · FeaturesDemoZone · seviye 1 · 3120x1335 |
 | 05.10.2026 20:52 · 0.1.54 · samsung SM-S938B · FeaturesDemoMainMenu · oyunda değil · 3120x1335 |
 | 05.10.2026 17:05 · 0.1.47 · samsung SM-S938B · FeaturesDemoMainMenu · oyunda değil · 3120x1335 |
