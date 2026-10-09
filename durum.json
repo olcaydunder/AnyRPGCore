@@ -1,5 +1,5 @@
 {
- "son_zaman": 1791505425,
+ "son_zaman": 1791545787,
  "islenen": [
   "ZA4f7jqHrQMP",
   "ECmsu6OF1Jgp",
@@ -228,7 +228,10 @@
   "Ig9qk61ZvV9r",
   "vB4PIi1sUffo",
   "WLvfNtZHECTo",
-  "NotALB23fwJd"
+  "NotALB23fwJd",
+  "xcux29NEdoic",
+  "eWPwLwXfCnih",
+  "vyMihHGIWFS9"
  ],
  "kayitlar": {
   "istisna-d581f62b": {
@@ -958,20 +961,21 @@
   "performans-f57278a0": {
    "tur": "performans",
    "baslik": "Yavaşlık: FeaturesDemoZone haritasında kare hızı düşük: 20 saniyede ortalama 11.3 FPS",
-   "adet": 7,
+   "adet": 8,
    "cihazlar": [
     "samsung SM-S938B",
     "Xiaomi 2312CRAD3C",
     "Xiaomi M2101K6G",
     "samsung SM-M146B",
     "samsung SM-T547",
-    "Xiaomi 25078RA3EY"
+    "Xiaomi 25078RA3EY",
+    "HONOR ELN2-W29"
    ],
    "surumler": [
     "1.0.79"
    ],
    "ilk": 1791415903,
-   "son": 1791505425,
+   "son": 1791545787,
    "ilk_rapor": "**Yavaşlık** · sürüm **1.0.79** · samsung SM-S938B · Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3) · ekran 2340x1001 · FeaturesDemoZone\n\n### Mesaj\n```text\nFeaturesDemoZone haritasında kare hızı düşük: 20 saniyede ortalama 11.3 FPS\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: performans\nsurum: 1.0.79\ncihaz: samsung SM-S938B\nsistem: Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3)\ngrafik: Vulkan / Adreno (TM) 830 / bellek 11113 MB\nekran: 2340x1001\nayarlar: kalite 3, çözünürlük 4, gölge 3, fps sınırı 1\nsahne: FeaturesDemoZone\noyuncu: seviye 1\nsure: 365 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.79 | samsung SM-S938B | Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3)\nVulkan Adreno (TM) 830 | Bellek 11113 MB | 2340x1001 | FPS 10 | Süre 362 sn\nKare süresi: işlemci 98.6 ms | ekran kartı 98.8 ms | ekran 60 Hz | hedef 60 | kalite Ultra | çizim 3840x1643 (ekran 2340x1001, ölçek 1.64) | pil 18%\nSahneler: MovedObjectsHolder FeaturesDemoZone\nGiriş: dokunmatik var | fare bağlı | ekran tuşları açık\nSon dokunuş: 433,277 -> CantaAraclari/Toplu Sat [PopupWindowContainerCanvas 12]\nOyuncu karakteri: oluştu (MecanimMale490) | Önizleme karakteri:…\n```\n\n</details>\n\n<details><summary>Son kayıt satırları</summary>\n\n```text\n02:29:27 [Error] [2026.10.08 02:29:27] Client encountered an error while parsing data for packetId 27054. Message: System.NullReferenceException: Object reference not set to an instance of an object.\n02:28:25 [Error] [2026.10.08 02:28:25] Client encountered an error while parsing data for packetId 28070. Message: System.NullReferenceException: Object reference not set to an instance of an object.\n02:27:54 [Error] [2026.10.08 02:27:54] Client encountered an error while parsing data for packetId 28451. Message: System.NullReferenceException: Object reference not set to an instance of an object.\n02:26:01 [Warning] [Reklam] onay bilgisi: Publisher misconfiguration: Failed to read publisher's account configuration; no form(s) configured for the input app ID. Verify that you have configured one or more forms for t...\n```\n\n</details>\n",
    "gorulmeler": [
     "08.10.2026 02:31 · 1.0.79 · samsung SM-S938B · FeaturesDemoZone · seviye 1 · 2340x1001",
@@ -980,7 +984,8 @@
     "09.10.2026 02:32 · 1.0.79 · samsung SM-M146B · FeaturesDemoZone · seviye 1 · 2408x1012",
     "09.10.2026 02:47 · 1.0.79 · samsung SM-T547 · FeaturesDemoZone · seviye 1 · 1920x1164",
     "09.10.2026 02:51 · 1.0.79 · Xiaomi 25078RA3EY · FeaturesDemoZone · seviye 1 · 1600x646",
-    "09.10.2026 03:23 · 1.0.79 · Xiaomi 25078RA3EY · FeaturesDemoZone · seviye 1 · 1600x646"
+    "09.10.2026 03:23 · 1.0.79 · Xiaomi 25078RA3EY · FeaturesDemoZone · seviye 1 · 1600x646",
+    "09.10.2026 14:36 · 1.0.79 · HONOR ELN2-W29 · FeaturesDemoZone · seviye 1 · 2508x1432"
    ],
    "ekler": [],
    "duzeltildi": null,
@@ -1348,6 +1353,28 @@
    "yeniden": false,
    "issue": null,
    "notlar": []
+  },
+  "arayuz-2508x1432": {
+   "tur": "arayuz",
+   "baslik": "Arayüz yerleşimi, 2508x1432 ekran",
+   "adet": 1,
+   "cihazlar": [
+    "HONOR ELN2-W29"
+   ],
+   "surumler": [
+    "1.0.79"
+   ],
+   "ilk": 1791545780,
+   "son": 1791545780,
+   "ilk_rapor": "**Arayüz** · sürüm **1.0.79** · HONOR ELN2-W29 · Android OS 16 / API-36 (HONORELN2-W29/10.0.0.149C185E2R103P1) · ekran 2508x1432 · FeaturesDemoZone\n\n### Mesaj\n```text\nçakışma yok (2508x1432)\n```\n\n### Ayrıntı\n```text\nEkran 2508x1432, güvenli alan (0,0 2508x1432)\nIşınlan kaydırıldı (0, 20)\nBeceri2 kaydırıldı (-10, -40)\nBeceri3 kaydırıldı (-40, -20)\nBeceri4 kaydırıldı (20, -20)\nBeceri5 kaydırıldı (20, 0)\nBeceri6 kaydırıldı (110, 120)\nBeceri7 kaydırıldı (-60, -50)\nBeceri8 kaydırıldı (-20, -50)\nHedef kaydırıldı (40, 0)\nÇakışmalar (0):\nDüğmeler:\nHareket (152,217 412x412)\nÇanta (20,20 140x140)\nAyarlar (174,20 140x140)\nIşınlan (328,55 140x140)\nMenü (21,909 150x150)\nSaldır (2105,134 268x268)\nBeceri1 (2141,457 150x150)\nBeceri2 (1994,339 150x150)\nBeceri3 (1853,269 150x150)\nBeceri4 (1936,134 150x150)\nBeceri5 (2134,617 136x136)\nBeceri6 (2138,770 136x136)\nBeceri7 (1714,347 136x136)\nBeceri8 (1721,192 136x136)\nOto Av (2318,498 158x158)\nBinek (2325,698 143x143)\nHedef (1792,54 150x150)\nGöstergeler:\nMiniMap (2182,1024 268x365)\nPlayerUnitFrame (57,1240 358x143)\nQuestTrackerWindow (1649,506 465x421)\nSystemBar (815,1248 879x72)\nXPBarPanel (373,9 1761x27)\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: arayuz\nsurum: 1.0.79\ncihaz: HONOR ELN2-W29\nsistem: Android OS 16 / API-36 (HONORELN2-W29/10.0.0.149C185E2R103P1)\ngrafik: Vulkan / Adreno (TM) 610 / bellek 7753 MB\nekran: 2508x1432\nayarlar: kalite 2, çözünürlük 0, gölge 0, fps sınırı 1\nsahne: FeaturesDemoZone\noyuncu: seviye 1\nsure: 145 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.79 | HONOR ELN2-W29 | Android OS 16 / API-36 (HONORELN2-W29/10.0.0.149C185E2R103P1)\nVulkan Adreno (TM) 610 | Bellek 7753 MB | 2508x1432 | FPS 5 | Süre 142 sn\nKare süresi: işlemci 412.3 ms | ekran kartı 272.6 ms | ekran 60 Hz | hedef 500 | kalite High | çizim 2508x1432 (ekran 2508x1432, ölçek 1.00) | pil 52%\nSahneler: MovedObjectsHolder FeaturesDemoZone\nGiriş: dokunmatik var | fare yok | ekran tuşları açık\nSon dokunuş: 1329,314 -> Panel/Armağanı Al [GunlukArmaganCanvas 28]\nOyuncu karakteri: oluştu (MecanimMale206) | Önizleme karakteri: yo…\n```\n\n</details>\n\n<details><summary>Son kayıt satırları</summary>\n\n```text\n14:36:05 [Warning] [Reklam] onay bilgisi: Publisher misconfiguration: Failed to read publisher's account configuration; no form(s) configured for the input app ID. Verify that you have configured one or more forms for t...\n```\n\n</details>\n",
+   "gorulmeler": [
+    "09.10.2026 14:36 · 1.0.79 · HONOR ELN2-W29 · FeaturesDemoZone · seviye 1 · 2508x1432"
+   ],
+   "ekler": [],
+   "duzeltildi": null,
+   "yeniden": false,
+   "issue": null,
+   "notlar": []
   }
  },
  "kimlikler": {
@@ -1550,7 +1577,9 @@
   "4dcbd3f68e": "bellek-d3941b2d",
   "878a948e84": "bellek-d3941b2d",
   "6fcf271ecb": "arayuz-1600x646",
-  "2b33cf3d6c": "performans-f57278a0"
+  "2b33cf3d6c": "performans-f57278a0",
+  "1234795bfc": "arayuz-2508x1432",
+  "f06751fd7b": "performans-f57278a0"
  },
  "derleme": {
   "sonuc": "basarili",

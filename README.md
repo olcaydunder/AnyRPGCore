@@ -1,8 +1,8 @@
 # Ötüken Destanı · Hata panosu
 
-Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 09.10.2026 04:23.
+Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 09.10.2026 18:12.
 
-**35** açık sorun · **5** düzeltilen · toplam **230** rapor
+**36** açık sorun · **5** düzeltilen · toplam **232** rapor
 
 ## Son APK derlemesi
 
@@ -37,7 +37,8 @@ Tanı raporunda uyarı yok.
 | 🔴 açık | [Hata: InputManager not found in scene.  Is the GameManager in the scene?](kayitlar/hata-8f05154f.md) | Hata | 8 | 2 | 0.1.43 | 05.10.2026 00:12 |
 | 🔴 açık | [Bellek: Bellek yetmedi, sistem oyunu kapattı](kayitlar/bellek-d3941b2d.md) | Bellek | 10 | 4 | 0.1.54, 1.0.70, 1.0.79 | 09.10.2026 03:15 |
 | 🔴 açık | [Bellek: Cihazın belleği azaldı (Android bellek uyarısı)](kayitlar/bellek-45b65e0c.md) | Bellek | 3 | 2 | 1.0.79 | 09.10.2026 03:00 |
-| 🔴 açık | [Yavaşlık: FeaturesDemoZone haritasında kare hızı düşük: 20 saniyede ortalama 11.3 FPS](kayitlar/performans-f57278a0.md) | Yavaşlık | 7 | 6 | 1.0.79 | 09.10.2026 03:23 |
+| 🔴 açık | [Yavaşlık: FeaturesDemoZone haritasında kare hızı düşük: 20 saniyede ortalama 11.3 FPS](kayitlar/performans-f57278a0.md) | Yavaşlık | 8 | 7 | 1.0.79 | 09.10.2026 14:36 |
+| 🔴 açık | [Arayüz yerleşimi, 2508x1432 ekran](kayitlar/arayuz-2508x1432.md) | Arayüz | 1 | 1 | 1.0.79 | 09.10.2026 14:36 |
 | 🔴 açık | [Arayüz yerleşimi, 1600x646 ekran](kayitlar/arayuz-1600x646.md) | Arayüz | 3 | 1 | 1.0.79 | 09.10.2026 03:23 |
 | 🔴 açık | [Arayüz yerleşimi, 1920x1164 ekran](kayitlar/arayuz-1920x1164.md) | Arayüz | 1 | 1 | 1.0.79 | 09.10.2026 02:47 |
 | 🔴 açık | [Arayüz yerleşimi, 1640x652 ekran](kayitlar/arayuz-1640x652.md) | Arayüz | 1 | 1 | 1.0.79 | 09.10.2026 02:43 |
