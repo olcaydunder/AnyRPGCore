@@ -1,5 +1,5 @@
 {
- "son_zaman": 1791489732,
+ "son_zaman": 1791505425,
  "islenen": [
   "ZA4f7jqHrQMP",
   "ECmsu6OF1Jgp",
@@ -203,7 +203,32 @@
   "Ka3WyiZtGcSt",
   "9S8UjcZybcfJ",
   "o0WMC9F9qH5E",
-  "JLOQj8GmCp45"
+  "JLOQj8GmCp45",
+  "59Y7zXI490I8",
+  "I8S5SxXZMfWX",
+  "iWGBayfijGql",
+  "iSs4xnxOj5Xx",
+  "hwrsfpRMUJlW",
+  "AsUONPmu1N93",
+  "3SoKIKTiR8AZ",
+  "hmnxTuczTFbf",
+  "Mw5cS9SFqZD4",
+  "GVm8Qmvb8Jaz",
+  "FjWEeSjNfUMO",
+  "2R05foFFfttI",
+  "G6T5VykJzo9o",
+  "af0k3w2zoyMr",
+  "f7CtrIPKlyH7",
+  "gKt7Ft3XgOnU",
+  "Qs441NAIn1XZ",
+  "ArnPUL4G9gmG",
+  "fEGTwrSMNlXG",
+  "R0OjMvvUDEge",
+  "LNPaQsWC4SB0",
+  "Ig9qk61ZvV9r",
+  "vB4PIi1sUffo",
+  "WLvfNtZHECTo",
+  "NotALB23fwJd"
  ],
  "kayitlar": {
   "istisna-d581f62b": {
@@ -390,10 +415,12 @@
   "bellek-d3941b2d": {
    "tur": "bellek",
    "baslik": "Bellek: Bellek yetmedi, sistem oyunu kapattı",
-   "adet": 6,
+   "adet": 10,
    "cihazlar": [
     "samsung SM-S938B",
-    "samsung SM-S911B"
+    "samsung SM-S911B",
+    "samsung SM-M146B",
+    "samsung SM-A075F"
    ],
    "surumler": [
     "0.1.36",
@@ -403,7 +430,7 @@
     "1.0.79"
    ],
    "ilk": 1791130056,
-   "son": 1791487039,
+   "son": 1791504902,
    "ilk_rapor": "**Bellek** · sürüm **0.1.36** · samsung SM-S938B · Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3) · ekran 3120x1335 · UmayTarlalari\n\n### Mesaj\n```text\nBellek yetmedi, sistem oyunu kapattı\n```\n\n### Ayrıntı\n```text\nZaman 2026-10-04 14:47:35 | bellek (PSS) 0 MB | önem 400 (100 = ön planda)\nÖnceki oturumun kaydı:\nOturum başladı 2026-10-04 11:40:55\nOyuna dönüldü 11:40:57\n\nOyuna dönüldü 11:42:41\n\nOyuna dönüldü 11:45:29\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: bellek\nsurum: 0.1.36\ncihaz: samsung SM-S938B\nsistem: Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3)\ngrafik: Vulkan / Adreno (TM) 830 / bellek 11113 MB\nekran: 3120x1335\nayarlar: kalite 2, çözünürlük 3, gölge 3, fps sınırı 1\nsahne: UmayTarlalari\noyuncu: seviye 1\nsure: 12 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 0.1.36 | samsung SM-S938B | Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3)\nVulkan Adreno (TM) 830 | Bellek 11113 MB | 3120x1335 | FPS 60 | Süre 9 sn\nKare süresi: işlemci 16.7 ms | ekran kartı 11.5 ms | ekran 60 Hz | hedef 60 | kalite High | pil 2%\nSahneler: UmayTarlalari\nGiriş: dokunmatik var | fare bağlı | ekran tuşları açık\nSon dokunuş: 2811,236 -> MobileHudCanvas/SaldırButton [MobileHudCanvas 5]\nOyuncu karakteri: oluştu (MecanimMale1) | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n",
    "gorulmeler": [
     "04.10.2026 19:07 · 0.1.36 · samsung SM-S938B · UmayTarlalari · seviye 1 · 3120x1335",
@@ -411,7 +438,11 @@
     "05.10.2026 20:52 · 0.1.54 · samsung SM-S938B · FeaturesDemoMainMenu · oyunda değil · 3120x1335",
     "07.10.2026 11:26 · 1.0.70 · samsung SM-S938B · FeaturesDemoZone · seviye 1 · 3120x1335",
     "08.10.2026 15:49 · 1.0.79 · samsung SM-S938B · FeaturesDemoMainMenu · oyunda değil · 2340x1001",
-    "08.10.2026 22:17 · 1.0.79 · samsung SM-S911B · FeaturesDemoMainMenu · oyunda değil · 2340x990"
+    "08.10.2026 22:17 · 1.0.79 · samsung SM-S911B · FeaturesDemoMainMenu · oyunda değil · 2340x990",
+    "09.10.2026 02:33 · 1.0.79 · samsung SM-M146B · FeaturesDemoMainMenu · oyunda değil · 2408x1012",
+    "09.10.2026 03:12 · 1.0.79 · samsung SM-A075F · FeaturesDemoMainMenu · oyunda değil · 1600x664",
+    "09.10.2026 03:12 · 1.0.79 · samsung SM-A075F · FeaturesDemoMainMenu · oyunda değil · 1600x664",
+    "09.10.2026 03:15 · 1.0.79 · samsung SM-A075F · FeaturesDemoMainMenu · oyunda değil · 1600x664"
    ],
    "ekler": [],
    "duzeltildi": null,
@@ -927,22 +958,29 @@
   "performans-f57278a0": {
    "tur": "performans",
    "baslik": "Yavaşlık: FeaturesDemoZone haritasında kare hızı düşük: 20 saniyede ortalama 11.3 FPS",
-   "adet": 3,
+   "adet": 7,
    "cihazlar": [
     "samsung SM-S938B",
     "Xiaomi 2312CRAD3C",
-    "Xiaomi M2101K6G"
+    "Xiaomi M2101K6G",
+    "samsung SM-M146B",
+    "samsung SM-T547",
+    "Xiaomi 25078RA3EY"
    ],
    "surumler": [
     "1.0.79"
    ],
    "ilk": 1791415903,
-   "son": 1791483816,
+   "son": 1791505425,
    "ilk_rapor": "**Yavaşlık** · sürüm **1.0.79** · samsung SM-S938B · Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3) · ekran 2340x1001 · FeaturesDemoZone\n\n### Mesaj\n```text\nFeaturesDemoZone haritasında kare hızı düşük: 20 saniyede ortalama 11.3 FPS\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: performans\nsurum: 1.0.79\ncihaz: samsung SM-S938B\nsistem: Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3)\ngrafik: Vulkan / Adreno (TM) 830 / bellek 11113 MB\nekran: 2340x1001\nayarlar: kalite 3, çözünürlük 4, gölge 3, fps sınırı 1\nsahne: FeaturesDemoZone\noyuncu: seviye 1\nsure: 365 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.79 | samsung SM-S938B | Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3)\nVulkan Adreno (TM) 830 | Bellek 11113 MB | 2340x1001 | FPS 10 | Süre 362 sn\nKare süresi: işlemci 98.6 ms | ekran kartı 98.8 ms | ekran 60 Hz | hedef 60 | kalite Ultra | çizim 3840x1643 (ekran 2340x1001, ölçek 1.64) | pil 18%\nSahneler: MovedObjectsHolder FeaturesDemoZone\nGiriş: dokunmatik var | fare bağlı | ekran tuşları açık\nSon dokunuş: 433,277 -> CantaAraclari/Toplu Sat [PopupWindowContainerCanvas 12]\nOyuncu karakteri: oluştu (MecanimMale490) | Önizleme karakteri:…\n```\n\n</details>\n\n<details><summary>Son kayıt satırları</summary>\n\n```text\n02:29:27 [Error] [2026.10.08 02:29:27] Client encountered an error while parsing data for packetId 27054. Message: System.NullReferenceException: Object reference not set to an instance of an object.\n02:28:25 [Error] [2026.10.08 02:28:25] Client encountered an error while parsing data for packetId 28070. Message: System.NullReferenceException: Object reference not set to an instance of an object.\n02:27:54 [Error] [2026.10.08 02:27:54] Client encountered an error while parsing data for packetId 28451. Message: System.NullReferenceException: Object reference not set to an instance of an object.\n02:26:01 [Warning] [Reklam] onay bilgisi: Publisher misconfiguration: Failed to read publisher's account configuration; no form(s) configured for the input app ID. Verify that you have configured one or more forms for t...\n```\n\n</details>\n",
    "gorulmeler": [
     "08.10.2026 02:31 · 1.0.79 · samsung SM-S938B · FeaturesDemoZone · seviye 1 · 2340x1001",
     "08.10.2026 19:20 · 1.0.79 · Xiaomi 2312CRAD3C · FeaturesDemoZone · seviye 1 · 2608x1116",
-    "08.10.2026 21:23 · 1.0.79 · Xiaomi M2101K6G · FeaturesDemoZone · seviye 1 · 2307x987"
+    "08.10.2026 21:23 · 1.0.79 · Xiaomi M2101K6G · FeaturesDemoZone · seviye 1 · 2307x987",
+    "09.10.2026 02:32 · 1.0.79 · samsung SM-M146B · FeaturesDemoZone · seviye 1 · 2408x1012",
+    "09.10.2026 02:47 · 1.0.79 · samsung SM-T547 · FeaturesDemoZone · seviye 1 · 1920x1164",
+    "09.10.2026 02:51 · 1.0.79 · Xiaomi 25078RA3EY · FeaturesDemoZone · seviye 1 · 1600x646",
+    "09.10.2026 03:23 · 1.0.79 · Xiaomi 25078RA3EY · FeaturesDemoZone · seviye 1 · 1600x646"
    ],
    "ekler": [],
    "duzeltildi": null,
@@ -1158,6 +1196,158 @@
    "yeniden": false,
    "issue": null,
    "notlar": []
+  },
+  "arayuz-2960x1788": {
+   "tur": "arayuz",
+   "baslik": "Arayüz yerleşimi, 2960x1788 ekran",
+   "adet": 1,
+   "cihazlar": [
+    "samsung SM-X930"
+   ],
+   "surumler": [
+    "1.0.79"
+   ],
+   "ilk": 1791497585,
+   "son": 1791497585,
+   "ilk_rapor": "**Arayüz** · sürüm **1.0.79** · samsung SM-X930 · Android OS 16 / API-36 (BP4A.251205.006/X930XXS8BZH4) · ekran 2960x1788 · UmayTarlalari\n\n### Mesaj\n```text\n3 çakışma (2960x1788)\n```\n\n### Ayrıntı\n```text\nEkran 2960x1788, güvenli alan (0,0 2960x1788)\nIşınlan kaydırıldı (0, 20)\nBeceri2 kaydırıldı (-10, -40)\nBeceri3 kaydırıldı (-40, -20)\nBeceri4 kaydırıldı (20, -20)\nBeceri5 kaydırıldı (20, 0)\nBeceri6 kaydırıldı (110, 120)\nÇakışmalar (3):\n- düğme Beceri7 ~ QuestTrackerWindow (QuestTrackerWindow/Contents/QuestTrackerPanel)\n- düğme Beceri3 ~ düğme Beceri8\n- FocusUnitFrame | SystemBar  (SystemBar/SystemSettingsButton ~ FocusUnitFrame/ContentPanel/BarPanel)\nDüğmeler:\nHareket (190,270 514x514)\nÇanta (25,25 174x174)\nAyarlar (217,25 174x174)\nIşınlan (409,69 174x174)\nMenü (27,1135 188x188)\nSaldır (2465,176 319x319)\nBeceri1 (2502,571 188x188)\nBeceri2 (2319,423 188x188)\nBeceri3 (2142,336 188x188)\nBeceri4 (2246,168 188x188)\nBeceri5 (2493,770 170x170)\nBeceri6 (2498,961 170x170)\nBeceri7 (2103,545 170x170)\nBeceri8 (2022,351 170x170)\nOto Av (2723,621 197x197)\nBinek (2732,872 179x179)\nHedef (1977,67 188x188)\nGöstergeler:\nFocusUnitFrame (554,1551 447x179)\nMiniMap (2553,1278 335x456)\nPlayerUnitFrame (72,1549 447x179)\nQuestTrackerWindow (1887,631 581x525)\nSystemBar (931,1558 1097x89)\nXPBarPanel (380,11 2199x34)\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: arayuz\nsurum: 1.0.79\ncihaz: samsung SM-X930\nsistem: Android OS 16 / API-36 (BP4A.251205.006/X930XXS8BZH4)\ngrafik: Vulkan / Mali-G925-Immortalis MC12 / bellek 11511 MB\nekran: 2960x1788\nayarlar: kalite 3, çözünürlük 0, gölge 0, fps sınırı 1\nsahne: UmayTarlalari\noyuncu: seviye 100\nsure: 35 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.79 | samsung SM-X930 | Android OS 16 / API-36 (BP4A.251205.006/X930XXS8BZH4)\nVulkan Mali-G925-Immortalis MC12 | Bellek 11511 MB | 2960x1788 | FPS 94 | Süre 32 sn\nKare süresi: işlemci 12.4 ms | ekran kartı 10.6 ms | ekran 120 Hz | hedef 500 | kalite Ultra | çizim 3840x2320 (ekran 2960x1788, ölçek 1.30) | pil 71%\nSahneler: MovedObjectsHolder UmayTarlalari\nGiriş: dokunmatik var | fare bağlı | ekran tuşları açık\nSon dokunuş: 2568,348 -> MobileHudCanvas/SaldırButton [MobileHudCanvas 5]\nOyuncu karakteri: oluştu (MecanimMale64) | Önizleme karakteri: …\n```\n\n</details>\n\n<details><summary>Son kayıt satırları</summary>\n\n```text\n01:12:52 [Warning] [Reklam] onay bilgisi: Publisher misconfiguration: Failed to read publisher's account configuration; no form(s) configured for the input app ID. Verify that you have configured one or more forms for t...\n01:12:34 [Log] OyunAyarlari: 4K açıldı (Mali-G925-Immortalis MC12, bellek 11511 MB)\n```\n\n</details>\n",
+   "gorulmeler": [
+    "09.10.2026 01:13 · 1.0.79 · samsung SM-X930 · UmayTarlalari · seviye 100 · 2960x1788"
+   ],
+   "ekler": [
+    "35c68a0c27.jpg"
+   ],
+   "duzeltildi": null,
+   "yeniden": false,
+   "issue": null,
+   "notlar": []
+  },
+  "arayuz-2408x1012": {
+   "tur": "arayuz",
+   "baslik": "Arayüz yerleşimi, 2408x1012 ekran",
+   "adet": 1,
+   "cihazlar": [
+    "samsung SM-M146B"
+   ],
+   "surumler": [
+    "1.0.79"
+   ],
+   "ilk": 1791502219,
+   "son": 1791502219,
+   "ilk_rapor": "**Arayüz** · sürüm **1.0.79** · samsung SM-M146B · Android OS 15 / API-35 (AP3A.240905.015.A2/M146BXXSDDZE4) · ekran 2408x1012 · FeaturesDemoZone\n\n### Mesaj\n```text\n2 çakışma (2408x1012)\n```\n\n### Ayrıntı\n```text\nEkran 2408x1012, güvenli alan (65,0 2343x1012)\nBeceri2 kaydırıldı (-10, -40)\nBeceri3 kaydırıldı (-40, -20)\nBeceri4 kaydırıldı (20, -20)\nBeceri5 kaydırıldı (20, 0)\nBeceri6 kaydırıldı (110, 120)\nÇakışmalar (2):\n- düğme Beceri7 ~ QuestTrackerWindow (QuestTrackerWindow/Contents/QuestTrackerPanel)\n- düğme Beceri3 ~ düğme Beceri8\nDüğmeler:\nHareket (173,153 291x291)\nÇanta (79,14 99x99)\nAyarlar (188,14 99x99)\nIşınlan (296,14 99x99)\nMenü (80,643 106x106)\nSaldır (2123,95 190x190)\nBeceri1 (2149,323 106x106)\nBeceri2 (2045,239 106x106)\nBeceri3 (1945,190 106x106)\nBeceri4 (2004,95 106x106)\nBeceri5 (2144,436 96x96)\nBeceri6 (2147,544 96x96)\nBeceri7 (1923,309 96x96)\nBeceri8 (1877,199 96x96)\nOto Av (2274,352 111x111)\nBinek (2279,493 101x101)\nHedef (1851,38 106x106)\nGöstergeler:\nMiniMap (2178,724 190x258)\nPlayerUnitFrame (40,877 253x101)\nQuestTrackerWindow (1801,357 329x297)\nSystemBar (893,882 621x51)\nXPBarPanel (582,6 1245x19)\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: arayuz\nsurum: 1.0.79\ncihaz: samsung SM-M146B\nsistem: Android OS 15 / API-35 (AP3A.240905.015.A2/M146BXXSDDZE4)\ngrafik: Vulkan / Mali-G68 / bellek 3450 MB\nekran: 2408x1012\nayarlar: kalite 0, çözünürlük 2, gölge 0, fps sınırı 0\nsahne: FeaturesDemoZone\noyuncu: seviye 1\nsure: 160 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.79 | samsung SM-M146B | Android OS 15 / API-35 (AP3A.240905.015.A2/M146BXXSDDZE4)\nVulkan Mali-G68 | Bellek 3450 MB | 2408x1012 | FPS 24 | Süre 157 sn\nKare süresi: işlemci 46.7 ms | ekran kartı 0.2 ms | ekran 90 Hz | hedef 30 | kalite Low | çizim 1926x810 (ekran 2408x1012, ölçek 0.80) | pil 60%\nSahneler: FeaturesDemoZone\nGiriş: dokunmatik var | fare yok | ekran tuşları açık\nSon dokunuş: 1601,73 -> oyun dünyası\nOyuncu karakteri: oluştu (MecanimMale2) | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n<details><summary>Son kayıt satırları</summary>\n\n```text\n02:30:03 [Warning] [Reklam] onay bilgisi: Publisher misconfiguration: Failed to read publisher's account configuration; no form(s) configured for the input app ID. Verify that you have configured one or more forms for t...\n02:27:39 [Log] OyunAyarlari: ilk açılış grafik seviyesi 0 (bellek 3450 MB, Mali-G68)\n```\n\n</details>\n",
+   "gorulmeler": [
+    "09.10.2026 02:30 · 1.0.79 · samsung SM-M146B · FeaturesDemoZone · seviye 1 · 2408x1012"
+   ],
+   "ekler": [
+    "cffe3c5a8c.jpg"
+   ],
+   "duzeltildi": null,
+   "yeniden": false,
+   "issue": null,
+   "notlar": []
+  },
+  "bellek-45b65e0c": {
+   "tur": "bellek",
+   "baslik": "Bellek: Cihazın belleği azaldı (Android bellek uyarısı)",
+   "adet": 3,
+   "cihazlar": [
+    "samsung SM-M146B",
+    "samsung SM-G975F"
+   ],
+   "surumler": [
+    "1.0.79"
+   ],
+   "ilk": 1791502438,
+   "son": 1791504040,
+   "ilk_rapor": "**Bellek** · sürüm **1.0.79** · samsung SM-M146B · Android OS 15 / API-35 (AP3A.240905.015.A2/M146BXXSDDZE4) · ekran 2408x1012 · FeaturesDemoZone\n\n### Mesaj\n```text\nCihazın belleği azaldı (Android bellek uyarısı)\n```\n\n### Ayrıntı\n```text\nAyrılan 559 MB | ayrılmış 804 MB | betik 155 MB | cihaz 3450 MB | ekran kartı 3395 MB\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: bellek\nsurum: 1.0.79\ncihaz: samsung SM-M146B\nsistem: Android OS 15 / API-35 (AP3A.240905.015.A2/M146BXXSDDZE4)\ngrafik: Vulkan / Mali-G68 / bellek 3450 MB\nekran: 2408x1012\nayarlar: kalite -1, çözünürlük 2, gölge 0, fps sınırı 0\nsahne: FeaturesDemoZone\noyuncu: seviye 1\nsure: 68 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.79 | samsung SM-M146B | Android OS 15 / API-35 (AP3A.240905.015.A2/M146BXXSDDZE4)\nVulkan Mali-G68 | Bellek 3450 MB | 2408x1012 | FPS 27 | Süre 65 sn\nKare süresi: işlemci 40.2 ms | ekran kartı 2.4 ms | ekran 30 Hz | hedef 30 | kalite Very Low | çizim 1926x810 (ekran 2408x1012, ölçek 0.80) | pil 59%\nSahneler: FeaturesDemoZone\nGiriş: dokunmatik var | fare yok | ekran tuşları açık\nSon dokunuş: 1314,580 -> PlayMenuPanel(Clone)/PlayBtn_Continue [SystemMenuUICanvas 19]\nOyuncu karakteri: oluştu (MecanimMale1) | Önizleme karakteri: yok…\n```\n\n</details>\n\n<details><summary>Son kayıt satırları</summary>\n\n```text\n02:33:58 [Bellek] Cihazın belleği azaldı (3450 MB toplam)\n02:33:22 [Warning] [Reklam] onay bilgisi: Publisher misconfiguration: Failed to read publisher's account configuration; no form(s) configured for the input app ID. Verify that you have configured one or more forms for t...\n```\n\n</details>\n",
+   "gorulmeler": [
+    "09.10.2026 02:33 · 1.0.79 · samsung SM-M146B · FeaturesDemoZone · seviye 1 · 2408x1012",
+    "09.10.2026 02:58 · 1.0.79 · samsung SM-G975F · FeaturesDemoZone · seviye 1 · 2898x1356",
+    "09.10.2026 03:00 · 1.0.79 · samsung SM-G975F · FeaturesDemoZone · seviye 1 · 2898x1356"
+   ],
+   "ekler": [],
+   "duzeltildi": null,
+   "yeniden": false,
+   "issue": null,
+   "notlar": []
+  },
+  "arayuz-1640x652": {
+   "tur": "arayuz",
+   "baslik": "Arayüz yerleşimi, 1640x652 ekran",
+   "adet": 1,
+   "cihazlar": [
+    "Xiaomi 2409BRN2CA"
+   ],
+   "surumler": [
+    "1.0.79"
+   ],
+   "ilk": 1791503019,
+   "son": 1791503019,
+   "ilk_rapor": "**Arayüz** · sürüm **1.0.79** · Xiaomi 2409BRN2CA · Android OS 16 / API-36 (BP2A.250605.031.A3/OS3.0.301.0.WGTTRXM) · ekran 1640x652 · FeaturesDemoZone\n\n### Mesaj\n```text\n2 çakışma (1640x652)\n```\n\n### Ayrıntı\n```text\nEkran 1640x652, güvenli alan (68,0 1572x652)\nBeceri2 kaydırıldı (-10, -40)\nBeceri3 kaydırıldı (-40, -20)\nBeceri4 kaydırıldı (20, -20)\nBeceri5 kaydırıldı (20, 0)\nBeceri6 kaydırıldı (110, 120)\nÇakışmalar (2):\n- düğme Beceri7 ~ QuestTrackerWindow (QuestTrackerWindow/Contents/QuestTrackerPanel)\n- düğme Beceri3 ~ düğme Beceri8\nDüğmeler:\nHareket (137,99 187x187)\nÇanta (77,9 64x64)\nAyarlar (147,9 64x64)\nIşınlan (217,9 64x64)\nMenü (78,414 68x68)\nSaldır (1457,61 122x122)\nBeceri1 (1473,208 68x68)\nBeceri2 (1406,154 68x68)\nBeceri3 (1342,123 68x68)\nBeceri4 (1380,61 68x68)\nBeceri5 (1470,281 62x62)\nBeceri6 (1472,350 62x62)\nBeceri7 (1327,199 62x62)\nBeceri8 (1298,128 62x62)\nOto Av (1554,227 72x72)\nBinek (1557,318 65x65)\nHedef (1281,24 68x68)\nGöstergeler:\nMiniMap (1492,466 122x166)\nPlayerUnitFrame (26,565 163x65)\nQuestTrackerWindow (1249,230 212x192)\nSystemBar (620,568 400x33)\nXPBarPanel (419,4 802x12)\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: arayuz\nsurum: 1.0.79\ncihaz: Xiaomi 2409BRN2CA\nsistem: Android OS 16 / API-36 (BP2A.250605.031.A3/OS3.0.301.0.WGTTRXM)\ngrafik: Vulkan / Mali-G52 MC2 / bellek 7664 MB\nekran: 1640x652\nayarlar: kalite -1, çözünürlük 0, gölge 0, fps sınırı 1\nsahne: FeaturesDemoZone\noyuncu: seviye 1\nsure: 117 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.79 | Xiaomi 2409BRN2CA | Android OS 16 / API-36 (BP2A.250605.031.A3/OS3.0.301.0.WGTTRXM)\nVulkan Mali-G52 MC2 | Bellek 7664 MB | 1640x652 | FPS 18 | Süre 113 sn\nKare süresi: işlemci 58.4 ms | ekran kartı 47.7 ms | ekran 60 Hz | hedef 60 | kalite Very Low | çizim 1640x652 (ekran 1640x652, ölçek 1.00) | pil 100%\nSahneler: FeaturesDemoZone\nGiriş: dokunmatik var | fare yok | ekran tuşları açık\nSon dokunuş: 990,145 -> Panel/Sonra [GunlukArmaganCanvas 28]\nOyuncu karakteri: oluştu (MecanimMale2) | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n<details><summary>Son kayıt satırları</summary>\n\n```text\n02:43:22 [Warning] [Reklam] onay bilgisi: Publisher misconfiguration: Failed to read publisher's account configuration; no form(s) configured for the input app ID. Verify that you have configured one or more forms for t...\n02:41:44 [Log] OyunAyarlari: ilk açılış grafik seviyesi 1 (bellek 7664 MB, Mali-G52 MC2)\n```\n\n</details>\n",
+   "gorulmeler": [
+    "09.10.2026 02:43 · 1.0.79 · Xiaomi 2409BRN2CA · FeaturesDemoZone · seviye 1 · 1640x652"
+   ],
+   "ekler": [
+    "57e420f9de.jpg"
+   ],
+   "duzeltildi": null,
+   "yeniden": false,
+   "issue": null,
+   "notlar": []
+  },
+  "arayuz-1600x646": {
+   "tur": "arayuz",
+   "baslik": "Arayüz yerleşimi, 1600x646 ekran",
+   "adet": 3,
+   "cihazlar": [
+    "Xiaomi 25078RA3EY"
+   ],
+   "surumler": [
+    "1.0.79"
+   ],
+   "ilk": 1791503020,
+   "son": 1791505423,
+   "ilk_rapor": "**Arayüz** · sürüm **1.0.79** · Xiaomi 25078RA3EY · Android OS 15 / API-35 (AP3A.240905.015.A2/OS2.0.207.0.VBNTRXM) · ekran 1600x646 · FeaturesDemoZone\n\n### Mesaj\n```text\n4 çakışma (1600x646)\n```\n\n### Ayrıntı\n```text\nEkran 1600x646, güvenli alan (74,0 1526x646)\nBeceri2 kaydırıldı (-10, -40)\nBeceri3 kaydırıldı (-40, -20)\nBeceri4 kaydırıldı (20, -20)\nÇakışmalar (4):\n- düğme Beceri5 ~ QuestTrackerWindow (QuestTrackerWindow/Contents/QuestTrackerPanel)\n- düğme Beceri6 ~ QuestTrackerWindow (QuestTrackerWindow/Contents/QuestTrackerPanel)\n- düğme Beceri7 ~ QuestTrackerWindow (QuestTrackerWindow/Contents/QuestTrackerPanel)\n- düğme Beceri3 ~ düğme Beceri8\nDüğmeler:\nHareket (143,98 186x186)\nÇanta (83,9 63x63)\nAyarlar (152,9 63x63)\nIşınlan (222,9 63x63)\nMenü (84,410 68x68)\nSaldır (1418,61 121x121)\nBeceri1 (1435,206 68x68)\nBeceri2 (1368,153 68x68)\nBeceri3 (1304,122 68x68)\nBeceri4 (1342,61 68x68)\nBeceri5 (1415,278 61x61)\nBeceri6 (1344,250 61x61)\nBeceri7 (1290,197 61x61)\nBeceri8 (1261,127 61x61)\nOto Av (1514,224 71x71)\nBinek (1518,315 65x65)\nHedef (1245,24 68x68)\nGöstergeler:\nMiniMap (1453,462 121x165)\nPlayerUnitFrame (26,560 162x65)\nQuestTrackerWindow (1212,228 210x190)\nSystemBar (602,563 396x32)\nXPBarPanel (403,4 795x12)\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: arayuz\nsurum: 1.0.79\ncihaz: Xiaomi 25078RA3EY\nsistem: Android OS 15 / API-35 (AP3A.240905.015.A2/OS2.0.207.0.VBNTRXM)\ngrafik: Vulkan / Mali-G52 MC2 / bellek 7665 MB\nekran: 1600x646\nayarlar: kalite -1, çözünürlük 0, gölge 0, fps sınırı 1\nsahne: FeaturesDemoZone\noyuncu: seviye 1\nsure: 115 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.79 | Xiaomi 25078RA3EY | Android OS 15 / API-35 (AP3A.240905.015.A2/OS2.0.207.0.VBNTRXM)\nVulkan Mali-G52 MC2 | Bellek 7665 MB | 1600x646 | FPS 18 | Süre 112 sn\nKare süresi: işlemci 63.4 ms | ekran kartı 48.4 ms | ekran 60 Hz | hedef 60 | kalite Very Low | çizim 1600x646 (ekran 1600x646, ölçek 1.00) | pil 100%\nSahneler: FeaturesDemoZone\nGiriş: dokunmatik var | fare yok | ekran tuşları açık\nSon dokunuş: 977,145 -> Panel/Sonra [GunlukArmaganCanvas 28]\nOyuncu karakteri: oluştu (MecanimMale2) | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n<details><summary>Son kayıt satırları</summary>\n\n```text\n02:43:24 [Warning] [Reklam] onay bilgisi: Publisher misconfiguration: Failed to read publisher's account configuration; no form(s) configured for the input app ID. Verify that you have configured one or more forms for t...\n02:41:47 [Log] OyunAyarlari: ilk açılış grafik seviyesi 1 (bellek 7665 MB, Mali-G52 MC2)\n```\n\n</details>\n",
+   "gorulmeler": [
+    "09.10.2026 02:43 · 1.0.79 · Xiaomi 25078RA3EY · FeaturesDemoZone · seviye 1 · 1600x646",
+    "09.10.2026 02:50 · 1.0.79 · Xiaomi 25078RA3EY · FeaturesDemoZone · seviye 1 · 1600x646",
+    "09.10.2026 03:23 · 1.0.79 · Xiaomi 25078RA3EY · FeaturesDemoZone · seviye 1 · 1600x646"
+   ],
+   "ekler": [
+    "9937a3249c.jpg",
+    "62ef824725.jpg",
+    "6fcf271ecb.jpg"
+   ],
+   "duzeltildi": null,
+   "yeniden": false,
+   "issue": null,
+   "notlar": [
+    "09.10.2026 02:50 · 1.0.79 · Xiaomi 25078RA3EY — Arayüz: 4 çakışma (1600x646)\n\n```text\nEkran 1600x646, güvenli alan (0,0 1526x646)\nBeceri1 kaydırıldı (80, -40)\nBeceri2 kaydırıldı (-10, -40)\nBeceri3 kaydırıldı (-40, -20)\nBeceri4 kaydırıldı (20, -20)\nBeceri5 kaydırıldı (110, 0)\nBeceri6 kaydırıldı (-160, 0)\nOto Av kaydırıldı (0, 150)\nBinek kaydırıldı (-80, 140)\nÇakışmalar (4):\n- düğme Beceri7 ~ QuestTrackerWindow (QuestTrackerWindow/Contents/QuestTrackerPanel)\n- düğme Beceri2 ~ düğme Beceri7\n- düğme Beceri2 ~ düğme Beceri8\n- düğme Beceri3 ~ düğme Beceri8\nDüğmeler:\nHareket (69,98 186x186)\nÇanta (9,9 63x63)\nAyarlar (78,9 63x63)\nIşınlan (148,9 63x63)\nMenü (10,410 68x68)\nSaldır (1344,61 121x121)\nBeceri1 (1425,174 68x68)\nBeceri2 (1294,153 68x68)\nBeceri3 (1230,122 68x68)\nBeceri4 (1268,61 68x68)\nBeceri5 (1430,278 61x61)\nBeceri6 (1141,250 61x61)\nBeceri7 (1290,197 61x61)\nBeceri8 (1261,127 61x61)\nOto Av (1440,346 71x71)\nBinek (1379,428 65x65)\nHedef (1171,24 68x68)\nGöstergeler:\nMiniMap (1453,462 121x165)\nPlayerUnitFrame (26,560 162x65)\nQuestTrackerWindow (1212,228 210x190)\nSystemBar (602,563 396x32)\nXPBarPanel (403,4 795x12)\n```",
+    "09.10.2026 03:23 · 1.0.79 · Xiaomi 25078RA3EY — Arayüz: çakışma yok (1600x646)\n\n```text\nEkran 1600x646, güvenli alan (74,0 1526x646)\nBeceri2 kaydırıldı (-10, -10)\nBeceri3 kaydırıldı (-20, -20)\nBeceri4 kaydırıldı (20, -30)\nÇakışmalar (0):\nDüğmeler:\nHareket (143,98 186x186)\nÇanta (83,9 63x63)\nAyarlar (152,9 63x63)\nIşınlan (222,9 63x63)\nMenü (84,410 68x68)\nSaldır (1418,61 121x121)\nBeceri1 (1435,206 68x68)\nBeceri2 (1368,177 68x68)\nBeceri3 (1320,122 68x68)\nBeceri4 (1342,53 68x68)\nBeceri5 (1415,278 61x61)\nBeceri6 (1344,250 61x61)\nBeceri7 (1290,197 61x61)\nBeceri8 (1261,127 61x61)\nOto Av (1514,224 71x71)\nBinek (1518,315 65x65)\nHedef (1245,24 68x68)\nGöstergeler:\nMiniMap (1453,462 121x165)\nPlayerUnitFrame (26,560 162x65)\nSystemBar (602,563 396x32)\nXPBarPanel (403,4 795x12)\n```"
+   ]
+  },
+  "arayuz-1920x1164": {
+   "tur": "arayuz",
+   "baslik": "Arayüz yerleşimi, 1920x1164 ekran",
+   "adet": 1,
+   "cihazlar": [
+    "samsung SM-T547"
+   ],
+   "surumler": [
+    "1.0.79"
+   ],
+   "ilk": 1791503272,
+   "son": 1791503272,
+   "ilk_rapor": "**Arayüz** · sürüm **1.0.79** · samsung SM-T547 · Android OS 11 / API-30 (RP1A.200720.012/T547JXS3CWJ3_B2BF) · ekran 1920x1164 · FeaturesDemoZone\n\n### Mesaj\n```text\n2 çakışma (1920x1164)\n```\n\n### Ayrıntı\n```text\nEkran 1920x1164, güvenli alan (0,0 1920x1164)\nAyarlar kaydırıldı (0, 10)\nIşınlan kaydırıldı (0, 20)\nBeceri2 kaydırıldı (-10, -40)\nBeceri3 kaydırıldı (-40, -20)\nBeceri4 kaydırıldı (20, -20)\nBeceri5 kaydırıldı (20, 0)\nBeceri6 kaydırıldı (110, 120)\nÇakışmalar (2):\n- düğme Beceri7 ~ QuestTrackerWindow (QuestTrackerWindow/Contents/QuestTrackerPanel)\n- düğme Beceri3 ~ düğme Beceri8\nDüğmeler:\nHareket (124,176 335x335)\nÇanta (16,16 113x113)\nAyarlar (141,31 113x113)\nIşınlan (266,45 113x113)\nMenü (17,739 122x122)\nSaldır (1593,109 218x218)\nBeceri1 (1622,372 122x122)\nBeceri2 (1503,275 122x122)\nBeceri3 (1387,219 122x122)\nBeceri4 (1455,109 122x122)\nBeceri5 (1616,501 111x111)\nBeceri6 (1619,626 111x111)\nBeceri7 (1362,355 111x111)\nBeceri8 (1309,228 111x111)\nOto Av (1766,404 128x128)\nBinek (1772,567 116x116)\nHedef (1280,44 122x122)\nGöstergeler:\nMiniMap (1655,832 218x297)\nPlayerUnitFrame (47,1008 291x116)\nQuestTrackerWindow (1222,411 378x342)\nSystemBar (603,1014 714x58)\nXPBarPanel (244,7 1432x22)\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: arayuz\nsurum: 1.0.79\ncihaz: samsung SM-T547\nsistem: Android OS 11 / API-30 (RP1A.200720.012/T547JXS3CWJ3_B2BF)\ngrafik: Vulkan / Adreno (TM) 615 / bellek 3643 MB\nekran: 1920x1164\nayarlar: kalite 0, çözünürlük 2, gölge 0, fps sınırı 1\nsahne: FeaturesDemoZone\noyuncu: seviye 1\nsure: 124 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.79 | samsung SM-T547 | Android OS 11 / API-30 (RP1A.200720.012/T547JXS3CWJ3_B2BF)\nVulkan Adreno (TM) 615 | Bellek 3643 MB | 1920x1164 | FPS 17 | Süre 121 sn\nKare süresi: işlemci 61.6 ms | ekran kartı 49.7 ms | ekran 60 Hz | hedef 60 | kalite Low | çizim 1536x931 (ekran 1920x1164, ölçek 0.80) | pil 100%\nSahneler: FeaturesDemoZone\nGiriş: dokunmatik var | fare bağlı | ekran tuşları açık\nSon dokunuş: 1250,71 -> oyun dünyası\nOyuncu karakteri: oluştu (MecanimMale2) | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n<details><summary>Son kayıt satırları</summary>\n\n```text\n02:47:45 [Log] OyunAyarlari: Akıcılık için çözünürlük Orta yapıldı (16 FPS ölçüldü).\n02:47:21 [Log] OyunAyarlari: Akıcılık için grafik kalitesi Düşük yapıldı (13 FPS ölçüldü).\n02:46:54 [Warning] [Reklam] onay bilgisi: Publisher misconfiguration: Failed to read publisher's account configuration; no form(s) configured for the input app ID. Verify that you have configured one or more forms for t...\n02:45:58 [Warning] [Bellek] cihazın belleği azaldı (3643 MB): varlıklar boşaltıldı, dokular küçültüldü (1. uyarı)\n02:45:57 [Bellek] Cihazın belleği azaldı (3643 MB toplam)\n02:45:51 [Log] OyunAyarlari: ilk açılış grafik seviyesi 1 (bellek 3643 MB, Adreno (TM) 615)\n```\n\n</details>\n",
+   "gorulmeler": [
+    "09.10.2026 02:47 · 1.0.79 · samsung SM-T547 · FeaturesDemoZone · seviye 1 · 1920x1164"
+   ],
+   "ekler": [
+    "a55bb57c99.jpg"
+   ],
+   "duzeltildi": null,
+   "yeniden": false,
+   "issue": null,
+   "notlar": []
   }
  },
  "kimlikler": {
@@ -1342,7 +1532,25 @@
   "11d3aeb2c9": "istisna-8f946662",
   "4fd60e75c4": "istisna-eda0aac7",
   "ab37f69a04": "istisna-46cdc5d0",
-  "252bcce301": "istisna-14a3da0f"
+  "252bcce301": "istisna-14a3da0f",
+  "35c68a0c27": "arayuz-2960x1788",
+  "cffe3c5a8c": "arayuz-2408x1012",
+  "f956a82676": "performans-f57278a0",
+  "fe4a19667d": "bellek-d3941b2d",
+  "85b4db9a2d": "bellek-45b65e0c",
+  "57e420f9de": "arayuz-1640x652",
+  "9937a3249c": "arayuz-1600x646",
+  "6e04bece03": "performans-f57278a0",
+  "a55bb57c99": "arayuz-1920x1164",
+  "62ef824725": "arayuz-1600x646",
+  "db8f5620bb": "performans-f57278a0",
+  "e9f7e6e170": "bellek-45b65e0c",
+  "48fa4d2ce6": "bellek-45b65e0c",
+  "da4f51b55e": "bellek-d3941b2d",
+  "4dcbd3f68e": "bellek-d3941b2d",
+  "878a948e84": "bellek-d3941b2d",
+  "6fcf271ecb": "arayuz-1600x646",
+  "2b33cf3d6c": "performans-f57278a0"
  },
  "derleme": {
   "sonuc": "basarili",

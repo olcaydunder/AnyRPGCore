@@ -1,8 +1,8 @@
 # Ötüken Destanı · Hata panosu
 
-Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 09.10.2026 00:34.
+Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 09.10.2026 04:23.
 
-**29** açık sorun · **5** düzeltilen · toplam **212** rapor
+**35** açık sorun · **5** düzeltilen · toplam **230** rapor
 
 ## Son APK derlemesi
 
@@ -35,8 +35,14 @@ Tanı raporunda uyarı yok.
 | 🔴 açık | [Hata: Deneme raporu (sistem sınaması)](kayitlar/hata-00000000.md) | Hata | 2 | 1 | deneme | 08.10.2026 00:16 |
 | 🔴 açık | [Hata: [2026.10.06 14:54:05] Client encountered an error while parsing data for packetId 35771. Message: Objec…](kayitlar/hata-dc1219d9.md) | Hata | 2 | 1 | 0.1.66 | 06.10.2026 17:54 |
 | 🔴 açık | [Hata: InputManager not found in scene.  Is the GameManager in the scene?](kayitlar/hata-8f05154f.md) | Hata | 8 | 2 | 0.1.43 | 05.10.2026 00:12 |
-| 🔴 açık | [Bellek: Bellek yetmedi, sistem oyunu kapattı](kayitlar/bellek-d3941b2d.md) | Bellek | 6 | 2 | 0.1.54, 1.0.70, 1.0.79 | 08.10.2026 22:17 |
-| 🔴 açık | [Yavaşlık: FeaturesDemoZone haritasında kare hızı düşük: 20 saniyede ortalama 11.3 FPS](kayitlar/performans-f57278a0.md) | Yavaşlık | 3 | 3 | 1.0.79 | 08.10.2026 21:23 |
+| 🔴 açık | [Bellek: Bellek yetmedi, sistem oyunu kapattı](kayitlar/bellek-d3941b2d.md) | Bellek | 10 | 4 | 0.1.54, 1.0.70, 1.0.79 | 09.10.2026 03:15 |
+| 🔴 açık | [Bellek: Cihazın belleği azaldı (Android bellek uyarısı)](kayitlar/bellek-45b65e0c.md) | Bellek | 3 | 2 | 1.0.79 | 09.10.2026 03:00 |
+| 🔴 açık | [Yavaşlık: FeaturesDemoZone haritasında kare hızı düşük: 20 saniyede ortalama 11.3 FPS](kayitlar/performans-f57278a0.md) | Yavaşlık | 7 | 6 | 1.0.79 | 09.10.2026 03:23 |
+| 🔴 açık | [Arayüz yerleşimi, 1600x646 ekran](kayitlar/arayuz-1600x646.md) | Arayüz | 3 | 1 | 1.0.79 | 09.10.2026 03:23 |
+| 🔴 açık | [Arayüz yerleşimi, 1920x1164 ekran](kayitlar/arayuz-1920x1164.md) | Arayüz | 1 | 1 | 1.0.79 | 09.10.2026 02:47 |
+| 🔴 açık | [Arayüz yerleşimi, 1640x652 ekran](kayitlar/arayuz-1640x652.md) | Arayüz | 1 | 1 | 1.0.79 | 09.10.2026 02:43 |
+| 🔴 açık | [Arayüz yerleşimi, 2408x1012 ekran](kayitlar/arayuz-2408x1012.md) | Arayüz | 1 | 1 | 1.0.79 | 09.10.2026 02:30 |
+| 🔴 açık | [Arayüz yerleşimi, 2960x1788 ekran](kayitlar/arayuz-2960x1788.md) | Arayüz | 1 | 1 | 1.0.79 | 09.10.2026 01:13 |
 | 🔴 açık | [Arayüz yerleşimi, 2340x1001 ekran](kayitlar/arayuz-2340x1001.md) | Arayüz | 3 | 1 | 1.0.78, 1.0.79 | 08.10.2026 22:22 |
 | 🔴 açık | [Arayüz yerleşimi, 2340x990 ekran](kayitlar/arayuz-2340x990.md) | Arayüz | 1 | 1 | 1.0.79 | 08.10.2026 22:20 |
 | 🔴 açık | [Arayüz yerleşimi, 2307x987 ekran](kayitlar/arayuz-2307x987.md) | Arayüz | 1 | 1 | 1.0.79 | 08.10.2026 21:23 |
