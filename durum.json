@@ -1,5 +1,5 @@
 {
- "son_zaman": 1791545787,
+ "son_zaman": 1791576317,
  "islenen": [
   "ZA4f7jqHrQMP",
   "ECmsu6OF1Jgp",
@@ -231,7 +231,10 @@
   "NotALB23fwJd",
   "xcux29NEdoic",
   "eWPwLwXfCnih",
-  "vyMihHGIWFS9"
+  "vyMihHGIWFS9",
+  "lVhA5yrEO80H",
+  "TSg3T6ayRM4v",
+  "YrhyHxcuQvQj"
  ],
  "kayitlar": {
   "istisna-d581f62b": {
@@ -961,7 +964,7 @@
   "performans-f57278a0": {
    "tur": "performans",
    "baslik": "Yavaşlık: FeaturesDemoZone haritasında kare hızı düşük: 20 saniyede ortalama 11.3 FPS",
-   "adet": 8,
+   "adet": 9,
    "cihazlar": [
     "samsung SM-S938B",
     "Xiaomi 2312CRAD3C",
@@ -969,13 +972,14 @@
     "samsung SM-M146B",
     "samsung SM-T547",
     "Xiaomi 25078RA3EY",
-    "HONOR ELN2-W29"
+    "HONOR ELN2-W29",
+    "samsung SM-S901E"
    ],
    "surumler": [
     "1.0.79"
    ],
    "ilk": 1791415903,
-   "son": 1791545787,
+   "son": 1791571428,
    "ilk_rapor": "**Yavaşlık** · sürüm **1.0.79** · samsung SM-S938B · Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3) · ekran 2340x1001 · FeaturesDemoZone\n\n### Mesaj\n```text\nFeaturesDemoZone haritasında kare hızı düşük: 20 saniyede ortalama 11.3 FPS\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: performans\nsurum: 1.0.79\ncihaz: samsung SM-S938B\nsistem: Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3)\ngrafik: Vulkan / Adreno (TM) 830 / bellek 11113 MB\nekran: 2340x1001\nayarlar: kalite 3, çözünürlük 4, gölge 3, fps sınırı 1\nsahne: FeaturesDemoZone\noyuncu: seviye 1\nsure: 365 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.79 | samsung SM-S938B | Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3)\nVulkan Adreno (TM) 830 | Bellek 11113 MB | 2340x1001 | FPS 10 | Süre 362 sn\nKare süresi: işlemci 98.6 ms | ekran kartı 98.8 ms | ekran 60 Hz | hedef 60 | kalite Ultra | çizim 3840x1643 (ekran 2340x1001, ölçek 1.64) | pil 18%\nSahneler: MovedObjectsHolder FeaturesDemoZone\nGiriş: dokunmatik var | fare bağlı | ekran tuşları açık\nSon dokunuş: 433,277 -> CantaAraclari/Toplu Sat [PopupWindowContainerCanvas 12]\nOyuncu karakteri: oluştu (MecanimMale490) | Önizleme karakteri:…\n```\n\n</details>\n\n<details><summary>Son kayıt satırları</summary>\n\n```text\n02:29:27 [Error] [2026.10.08 02:29:27] Client encountered an error while parsing data for packetId 27054. Message: System.NullReferenceException: Object reference not set to an instance of an object.\n02:28:25 [Error] [2026.10.08 02:28:25] Client encountered an error while parsing data for packetId 28070. Message: System.NullReferenceException: Object reference not set to an instance of an object.\n02:27:54 [Error] [2026.10.08 02:27:54] Client encountered an error while parsing data for packetId 28451. Message: System.NullReferenceException: Object reference not set to an instance of an object.\n02:26:01 [Warning] [Reklam] onay bilgisi: Publisher misconfiguration: Failed to read publisher's account configuration; no form(s) configured for the input app ID. Verify that you have configured one or more forms for t...\n```\n\n</details>\n",
    "gorulmeler": [
     "08.10.2026 02:31 · 1.0.79 · samsung SM-S938B · FeaturesDemoZone · seviye 1 · 2340x1001",
@@ -985,7 +989,8 @@
     "09.10.2026 02:47 · 1.0.79 · samsung SM-T547 · FeaturesDemoZone · seviye 1 · 1920x1164",
     "09.10.2026 02:51 · 1.0.79 · Xiaomi 25078RA3EY · FeaturesDemoZone · seviye 1 · 1600x646",
     "09.10.2026 03:23 · 1.0.79 · Xiaomi 25078RA3EY · FeaturesDemoZone · seviye 1 · 1600x646",
-    "09.10.2026 14:36 · 1.0.79 · HONOR ELN2-W29 · FeaturesDemoZone · seviye 1 · 2508x1432"
+    "09.10.2026 14:36 · 1.0.79 · HONOR ELN2-W29 · FeaturesDemoZone · seviye 1 · 2508x1432",
+    "09.10.2026 21:43 · 1.0.79 · samsung SM-S901E · FeaturesDemoZone · seviye 5 · 2340x996"
    ],
    "ekler": [],
    "duzeltildi": null,
@@ -1117,7 +1122,7 @@
   "istisna-3addc771": {
    "tur": "istisna",
    "baslik": "İstisna: NullReferenceException: Object reference not set to an instance of an object.",
-   "adet": 1,
+   "adet": 2,
    "cihazlar": [
     "samsung SM-S938B"
    ],
@@ -1125,10 +1130,11 @@
     "1.0.79"
    ],
    "ilk": 1791487354,
-   "son": 1791487354,
+   "son": 1791576317,
    "ilk_rapor": "**İstisna** · sürüm **1.0.79** · samsung SM-S938B · Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3) · ekran 2340x1001 · FeaturesDemoDungeon\n\n### Mesaj\n```text\nNullReferenceException: Object reference not set to an instance of an object.\n```\n\n### Yığın izi\n```text\nFishNet.Object.Prediction.PredictionRigidbody.Reconcile (FishNet.Object.Prediction.PredictionRigidbody pr) (at <00000000000000000000000000000000>:0)\nAnyRPG.FishNetUnitController.ReconcileState___UL (AnyRPG.ReconcileData data, FishNet.Transporting.Channel channel) (at <00000000000000000000000000000000>:0)\nFishNet.Object.NetworkBehaviour.Reconcile_Client[T,T2] (FishNet.Object.Prediction.Delegating.ReconcileUserLogicDelegate`1[T] reconcileDel, GameKit.Dependencies.Utilities.Types.RingBuffer`1[T] replicatesHistory, GameKit.Dependencies.Utilities.Types.RingBuffer`1[T] reconcilesHistory, T data) (at <00000000000000000000000000000000>:0)\nAnyRPG.FishNetUnitController.Reconcile_Client_Start () (at <00000000000000000000000000000000>:0)\nFishNet.Object.NetworkObject.PredictionManager_OnReconcile (System.UInt32 clientReconcileTick, System.UInt32 serverReconcileTick) (at <00000000000000000000000000000000>:0)\nFishNet.Managing.Predicting.PredictionManager.ReconcileToStates () (at <00000000000000000000000000000000>:0)\nFishNet.Managing.Timing.TimeManager.IncreaseTick () (at <00000000000000000000000000000000>:0)\nFishNet.Managing.Timing.TimeManager.<TickUpdate>g__MethodLogic|112_0 () (at <00000000000000000000000000000000>:0)\nFishNet.Managing.Timing.TimeManager.TickUpdate () (at <00000000000000000000000000000000>:0)\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: istisna\nsurum: 1.0.79\ncihaz: samsung SM-S938B\nsistem: Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3)\ngrafik: Vulkan / Adreno (TM) 830 / bellek 11113 MB\nekran: 2340x1001\nayarlar: kalite 3, çözünürlük 0, gölge 0, fps sınırı 1\nsahne: FeaturesDemoDungeon\noyuncu: oyunda değil\nsure: 59 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.79 | samsung SM-S938B | Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3)\nVulkan Adreno (TM) 830 | Bellek 11113 MB | 2340x1001 | FPS 82 | Süre 56 sn\nKare süresi: işlemci 15.4 ms | ekran kartı 12.1 ms | ekran 120 Hz | hedef 500 | kalite Ultra | çizim 3840x1643 (ekran 2340x1001, ölçek 1.64) | pil 58%\nSahneler: MovedObjectsHolder FeaturesDemoDungeon\nGiriş: dokunmatik var | fare bağlı | ekran tuşları açık\nSon dokunuş: 1374,351 -> oyun dünyası\nOyuncu karakteri: yok | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n<details><summary>Son kayıt satırları</summary>\n\n```text\n22:22:34 [Exception] NullReferenceException: Object reference not set to an instance of an object.\n22:22:34 [Warning] To Debug, run app with -diag-job-temp-memory-leak-validation cmd line argument. This will output the callstacks of the leaked allocations.\n22:22:34 [Warning] Internal: JobTempAlloc has allocations that are more than the maximum lifespan of 4 frames old - this is not allowed and likely a leak\n22:21:57 [Warning] [Reklam] onay bilgisi: Publisher misconfiguration: Failed to read publisher's account configuration; no form(s) configured for the input app ID. Verify that you have configured one or more forms for t...\n```\n\n</details>\n",
    "gorulmeler": [
-    "08.10.2026 22:22 · 1.0.79 · samsung SM-S938B · FeaturesDemoDungeon · oyunda değil · 2340x1001"
+    "08.10.2026 22:22 · 1.0.79 · samsung SM-S938B · FeaturesDemoDungeon · oyunda değil · 2340x1001",
+    "09.10.2026 23:05 · 1.0.79 · samsung SM-S938B · UmayTarlalari · oyunda değil · 2340x1001"
    ],
    "ekler": [],
    "duzeltildi": null,
@@ -1375,6 +1381,28 @@
    "yeniden": false,
    "issue": null,
    "notlar": []
+  },
+  "istisna-d52957a1": {
+   "tur": "istisna",
+   "baslik": "İstisna: NullReferenceException: Object reference not set to an instance of an object.",
+   "adet": 1,
+   "cihazlar": [
+    "samsung SM-S901E"
+   ],
+   "surumler": [
+    "1.0.79"
+   ],
+   "ilk": 1791571750,
+   "son": 1791571750,
+   "ilk_rapor": "**İstisna** · sürüm **1.0.79** · samsung SM-S901E · Android OS 16 / API-36 (BP2A.250605.031.A3/S901EXXSEGZH4) · ekran 2340x996 · FeaturesDemoZone\n\n### Mesaj\n```text\nNullReferenceException: Object reference not set to an instance of an object.\n```\n\n### Yığın izi\n```text\nAnyRPG.FocusTargetManager.SpawnUnit (AnyRPG.UnitController targetUnitController) (at <00000000000000000000000000000000>:0)\nAnyRPG.UnitFramePanel.PostTargetInitialization () (at <00000000000000000000000000000000>:0)\nAnyRPG.UnitFramePanel.SetTarget (AnyRPG.UnitController unitController) (at <00000000000000000000000000000000>:0)\nAnyRPG.PlayerController.HandleSetTarget (AnyRPG.InteractableBase newTarget) (at <00000000000000000000000000000000>:0)\nAnyRPG.UnitController.SetTarget (AnyRPG.InteractableBase newTarget) (at <00000000000000000000000000000000>:0)\nAnyRPG.PlayerController.RightMouseInteraction (AnyRPG.InteractableBase interactable) (at <00000000000000000000000000000000>:0)\nAnyRPG.GorevOku.Git () (at <00000000000000000000000000000000>:0)\nUnityEngine.Events.UnityEvent.Invoke () (at <00000000000000000000000000000000>:0)\nUnityEngine.EventSystems.ExecuteEvents.Execute[T] (UnityEngine.GameObject target, UnityEngine.EventSystems.BaseEventData eventData, UnityEngine.EventSystems.ExecuteEvents+EventFunction`1[T1] functor) (at <00000000000000000000000000000000>:0)\nUnityEngine.InputSystem.UI.InputSystemUIInputModule.ProcessPointerButton (UnityEngine.InputSystem.UI.PointerModel+ButtonState& button, UnityEngine.EventSystems.PointerEventData eventData) (at <00000000000000000000000000000000>:0)\nUnityEngine.InputSystem.UI.InputSystemUIInputModule.ProcessPointer (UnityEngine.InputSystem.UI.PointerModel& sta…\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: istisna\nsurum: 1.0.79\ncihaz: samsung SM-S901E\nsistem: Android OS 16 / API-36 (BP2A.250605.031.A3/S901EXXSEGZH4)\ngrafik: Vulkan / Adreno (TM) 730 / bellek 7220 MB\nekran: 2340x996\nayarlar: kalite -1, çözünürlük 2, gölge 0, fps sınırı 1\nsahne: FeaturesDemoZone\noyuncu: seviye 6\nsure: 1035 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.79 | samsung SM-S901E | Android OS 16 / API-36 (BP2A.250605.031.A3/S901EXXSEGZH4)\nVulkan Adreno (TM) 730 | Bellek 7220 MB | 2340x996 | FPS 47 | Süre 1032 sn\nKare süresi: işlemci 24.8 ms | ekran kartı 19.5 ms | ekran 60 Hz | hedef 60 | kalite Very High | çizim 1872x797 (ekran 2340x996, ölçek 0.80) | pil 32%\nSahneler: FeaturesDemoZone\nGiriş: dokunmatik var | fare bağlı | ekran tuşları açık\nSon dokunuş: 1408,200 -> GorevOkuCanvas/Yazi [GorevOkuCanvas 4]\nOyuncu karakteri: oluştu (MecanimMale1) | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n<details><summary>Son kayıt satırları</summary>\n\n```text\n21:49:08 [Exception] NullReferenceException: Object reference not set to an instance of an object.\n21:49:08 [Warning] CharacterConfigurationRequest.SetUnitProfileProperties() received a null UnitProfile\n21:32:08 [Warning] [Reklam] onay bilgisi: Publisher misconfiguration: Failed to read publisher's account configuration; no form(s) configured for the input app ID. Verify that you have configured one or more forms for t...\n```\n\n</details>\n",
+   "gorulmeler": [
+    "09.10.2026 21:49 · 1.0.79 · samsung SM-S901E · FeaturesDemoZone · seviye 6 · 2340x996"
+   ],
+   "ekler": [],
+   "duzeltildi": null,
+   "yeniden": false,
+   "issue": null,
+   "notlar": []
   }
  },
  "kimlikler": {
@@ -1579,7 +1607,10 @@
   "6fcf271ecb": "arayuz-1600x646",
   "2b33cf3d6c": "performans-f57278a0",
   "1234795bfc": "arayuz-2508x1432",
-  "f06751fd7b": "performans-f57278a0"
+  "f06751fd7b": "performans-f57278a0",
+  "9a8a35505c": "performans-f57278a0",
+  "4ea1823c57": "istisna-d52957a1",
+  "d71f381a75": "istisna-3addc771"
  },
  "derleme": {
   "sonuc": "basarili",

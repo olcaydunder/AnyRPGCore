@@ -4,7 +4,7 @@ Durum: 🔴 açık
 
 | Tekrar | Cihaz | Sürümler | İlk görülme | Son görülme |
 |---|---|---|---|---|
-| 1 | 1 | 1.0.79 | 08.10.2026 22:22 | 08.10.2026 22:22 |
+| 2 | 1 | 1.0.79 | 08.10.2026 22:22 | 09.10.2026 23:05 |
 
 
 ## İlk rapor
@@ -76,6 +76,7 @@ Oyuncu karakteri: yok | Önizleme karakteri: yok | Önizleme kamerası: kapalı
 
 | Zaman · sürüm · cihaz · harita · oyuncu · ekran |
 |---|
+| 09.10.2026 23:05 · 1.0.79 · samsung SM-S938B · UmayTarlalari · oyunda değil · 2340x1001 |
 | 08.10.2026 22:22 · 1.0.79 · samsung SM-S938B · FeaturesDemoDungeon · oyunda değil · 2340x1001 |
 
 Anahtar: `istisna-3addc771`

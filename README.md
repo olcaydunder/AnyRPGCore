@@ -1,8 +1,8 @@
 # Ötüken Destanı · Hata panosu
 
-Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 09.10.2026 18:12.
+Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 09.10.2026 23:08.
 
-**36** açık sorun · **5** düzeltilen · toplam **232** rapor
+**37** açık sorun · **5** düzeltilen · toplam **235** rapor
 
 ## Son APK derlemesi
 
@@ -18,13 +18,14 @@ Tanı raporunda uyarı yok.
 | 🔴 açık | [Çökme: Çökme (yerel kod): crash](kayitlar/cokme-b56b62e3.md) | Çökme | 6 | 1 | 1.0.70, 1.0.78, 1.0.79 | 08.10.2026 22:20 |
 | 🔴 açık | [Çökme: Çökme (Java): crash](kayitlar/cokme-0136878a.md) | Çökme | 2 | 1 | 1.0.78 | 08.10.2026 12:32 |
 | 🔴 açık | [Donma: Donma (ANR): oyun 5 saniyeden uzun yanıt vermedi: user request after error](kayitlar/anr-7d743acc.md) | Donma | 1 | 1 | 1.0.79 | 08.10.2026 18:52 |
+| 🔴 açık | [İstisna: NullReferenceException: Object reference not set to an instance of an object.](kayitlar/istisna-3addc771.md) | İstisna | 2 | 1 | 1.0.79 | 09.10.2026 23:05 |
+| 🔴 açık | [İstisna: NullReferenceException: Object reference not set to an instance of an object.](kayitlar/istisna-d52957a1.md) | İstisna | 1 | 1 | 1.0.79 | 09.10.2026 21:49 |
 | 🔴 açık | [İstisna: NullReferenceException: Object reference not set to an instance of an object.](kayitlar/istisna-14a3da0f.md) | İstisna | 1 | 1 | 1.0.79 | 08.10.2026 23:02 |
 | 🔴 açık | [İstisna: NullReferenceException: Object reference not set to an instance of an object](kayitlar/istisna-46cdc5d0.md) | İstisna | 1 | 1 | 1.0.79 | 08.10.2026 22:32 |
 | 🔴 açık | [İstisna: KeyNotFoundException: The given key '5' was not present in the dictionary.](kayitlar/istisna-eda0aac7.md) | İstisna | 2 | 2 | 1.0.70, 1.0.79 | 08.10.2026 22:29 |
 | 🔴 açık | [İstisna: NullReferenceException: Object reference not set to an instance of an object.](kayitlar/istisna-8f946662.md) | İstisna | 2 | 1 | 0.1.64, 1.0.79 | 08.10.2026 22:28 |
 | 🔴 açık | [İstisna: NullReferenceException: Object reference not set to an instance of an object.](kayitlar/istisna-9f34fb84.md) | İstisna | 1 | 1 | 1.0.79 | 08.10.2026 22:22 |
 | 🔴 açık | [İstisna: NullReferenceException: Object reference not set to an instance of an object.](kayitlar/istisna-9434295e.md) | İstisna | 3 | 1 | 0.1.52, 0.1.64, 1.0.79 | 08.10.2026 22:22 |
-| 🔴 açık | [İstisna: NullReferenceException: Object reference not set to an instance of an object.](kayitlar/istisna-3addc771.md) | İstisna | 1 | 1 | 1.0.79 | 08.10.2026 22:22 |
 | 🔴 açık | [Oyun testi: ArgumentOutOfRangeException: Index was out of range. Must be non-negative and less than the size o](kayitlar/bot-fa268bdb.md) | İstisna | 1 | 1 | 0.1.72 | 07.10.2026 14:23 |
 | 🔴 açık | [İstisna: NullReferenceException: Object reference not set to an instance of an object.](kayitlar/istisna-44cafcb8.md) | İstisna | 2 | 1 | 0.1.36, 0.1.67 | 06.10.2026 20:25 |
 | 🔴 açık | [Oyun testi: NullReferenceException: Object reference not set to an instance of an object](kayitlar/bot-6148c624.md) | İstisna | 1 | 1 | 0.1.60 | 06.10.2026 01:33 |
@@ -37,7 +38,7 @@ Tanı raporunda uyarı yok.
 | 🔴 açık | [Hata: InputManager not found in scene.  Is the GameManager in the scene?](kayitlar/hata-8f05154f.md) | Hata | 8 | 2 | 0.1.43 | 05.10.2026 00:12 |
 | 🔴 açık | [Bellek: Bellek yetmedi, sistem oyunu kapattı](kayitlar/bellek-d3941b2d.md) | Bellek | 10 | 4 | 0.1.54, 1.0.70, 1.0.79 | 09.10.2026 03:15 |
 | 🔴 açık | [Bellek: Cihazın belleği azaldı (Android bellek uyarısı)](kayitlar/bellek-45b65e0c.md) | Bellek | 3 | 2 | 1.0.79 | 09.10.2026 03:00 |
-| 🔴 açık | [Yavaşlık: FeaturesDemoZone haritasında kare hızı düşük: 20 saniyede ortalama 11.3 FPS](kayitlar/performans-f57278a0.md) | Yavaşlık | 8 | 7 | 1.0.79 | 09.10.2026 14:36 |
+| 🔴 açık | [Yavaşlık: FeaturesDemoZone haritasında kare hızı düşük: 20 saniyede ortalama 11.3 FPS](kayitlar/performans-f57278a0.md) | Yavaşlık | 9 | 8 | 1.0.79 | 09.10.2026 21:43 |
 | 🔴 açık | [Arayüz yerleşimi, 2508x1432 ekran](kayitlar/arayuz-2508x1432.md) | Arayüz | 1 | 1 | 1.0.79 | 09.10.2026 14:36 |
 | 🔴 açık | [Arayüz yerleşimi, 1600x646 ekran](kayitlar/arayuz-1600x646.md) | Arayüz | 3 | 1 | 1.0.79 | 09.10.2026 03:23 |
 | 🔴 açık | [Arayüz yerleşimi, 1920x1164 ekran](kayitlar/arayuz-1920x1164.md) | Arayüz | 1 | 1 | 1.0.79 | 09.10.2026 02:47 |
