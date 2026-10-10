@@ -4,7 +4,7 @@ Durum: 🔴 açık
 
 | Tekrar | Cihaz | Sürümler | İlk görülme | Son görülme |
 |---|---|---|---|---|
-| 10 | 8 | 1.0.79 | 08.10.2026 02:31 | 10.10.2026 11:37 |
+| 11 | 9 | 1.0.79 | 08.10.2026 02:31 | 10.10.2026 20:47 |
 
 
 ## İlk rapor
@@ -63,6 +63,7 @@ Oyuncu karakteri: oluştu (MecanimMale490) | Önizleme karakteri:…
 
 | Zaman · sürüm · cihaz · harita · oyuncu · ekran |
 |---|
+| 10.10.2026 20:47 · 1.0.79 · samsung SM-A346E · FeaturesDemoZone · seviye 1 · 2340x1007 |
 | 10.10.2026 11:37 · 1.0.79 · HONOR ELN2-W29 · FeaturesDemoZone · seviye 1 · 2508x1432 |
 | 09.10.2026 21:43 · 1.0.79 · samsung SM-S901E · FeaturesDemoZone · seviye 5 · 2340x996 |
 | 09.10.2026 14:36 · 1.0.79 · HONOR ELN2-W29 · FeaturesDemoZone · seviye 1 · 2508x1432 |

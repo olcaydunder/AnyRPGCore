@@ -1,5 +1,5 @@
 {
- "son_zaman": 1791630110,
+ "son_zaman": 1791654440,
  "islenen": [
   "ZA4f7jqHrQMP",
   "ECmsu6OF1Jgp",
@@ -237,7 +237,13 @@
   "YrhyHxcuQvQj",
   "yNBdXEByqX1p",
   "V27VfreBE86l",
-  "DXVXEBlrZOQL"
+  "DXVXEBlrZOQL",
+  "OzeZrIrJckpb",
+  "fkpK6KzcdSj0",
+  "ZTckqQ6xSUYe",
+  "rmf33PLAhsDZ",
+  "Nyi3LHRqFVgi",
+  "YGMSZMOlsDYh"
  ],
  "kayitlar": {
   "istisna-d581f62b": {
@@ -424,13 +430,14 @@
   "bellek-d3941b2d": {
    "tur": "bellek",
    "baslik": "Bellek: Bellek yetmedi, sistem oyunu kapattı",
-   "adet": 11,
+   "adet": 14,
    "cihazlar": [
     "samsung SM-S938B",
     "samsung SM-S911B",
     "samsung SM-M146B",
     "samsung SM-A075F",
-    "Xiaomi 25078RA3EY"
+    "Xiaomi 25078RA3EY",
+    "samsung SM-M346B2"
    ],
    "surumler": [
     "0.1.36",
@@ -440,7 +447,7 @@
     "1.0.79"
    ],
    "ilk": 1791130056,
-   "son": 1791624540,
+   "son": 1791653995,
    "ilk_rapor": "**Bellek** · sürüm **0.1.36** · samsung SM-S938B · Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3) · ekran 3120x1335 · UmayTarlalari\n\n### Mesaj\n```text\nBellek yetmedi, sistem oyunu kapattı\n```\n\n### Ayrıntı\n```text\nZaman 2026-10-04 14:47:35 | bellek (PSS) 0 MB | önem 400 (100 = ön planda)\nÖnceki oturumun kaydı:\nOturum başladı 2026-10-04 11:40:55\nOyuna dönüldü 11:40:57\n\nOyuna dönüldü 11:42:41\n\nOyuna dönüldü 11:45:29\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: bellek\nsurum: 0.1.36\ncihaz: samsung SM-S938B\nsistem: Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3)\ngrafik: Vulkan / Adreno (TM) 830 / bellek 11113 MB\nekran: 3120x1335\nayarlar: kalite 2, çözünürlük 3, gölge 3, fps sınırı 1\nsahne: UmayTarlalari\noyuncu: seviye 1\nsure: 12 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 0.1.36 | samsung SM-S938B | Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3)\nVulkan Adreno (TM) 830 | Bellek 11113 MB | 3120x1335 | FPS 60 | Süre 9 sn\nKare süresi: işlemci 16.7 ms | ekran kartı 11.5 ms | ekran 60 Hz | hedef 60 | kalite High | pil 2%\nSahneler: UmayTarlalari\nGiriş: dokunmatik var | fare bağlı | ekran tuşları açık\nSon dokunuş: 2811,236 -> MobileHudCanvas/SaldırButton [MobileHudCanvas 5]\nOyuncu karakteri: oluştu (MecanimMale1) | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n",
    "gorulmeler": [
     "04.10.2026 19:07 · 0.1.36 · samsung SM-S938B · UmayTarlalari · seviye 1 · 3120x1335",
@@ -453,7 +460,10 @@
     "09.10.2026 03:12 · 1.0.79 · samsung SM-A075F · FeaturesDemoMainMenu · oyunda değil · 1600x664",
     "09.10.2026 03:12 · 1.0.79 · samsung SM-A075F · FeaturesDemoMainMenu · oyunda değil · 1600x664",
     "09.10.2026 03:15 · 1.0.79 · samsung SM-A075F · FeaturesDemoMainMenu · oyunda değil · 1600x664",
-    "10.10.2026 12:29 · 1.0.79 · Xiaomi 25078RA3EY · FeaturesDemoMainMenu · oyunda değil · 1600x646"
+    "10.10.2026 12:29 · 1.0.79 · Xiaomi 25078RA3EY · FeaturesDemoMainMenu · oyunda değil · 1600x646",
+    "10.10.2026 20:32 · 1.0.79 · samsung SM-M346B2 · FeaturesDemoMainMenu · oyunda değil · 2340x996",
+    "10.10.2026 20:32 · 1.0.79 · samsung SM-M146B · FeaturesDemoMainMenu · oyunda değil · 2408x1012",
+    "10.10.2026 20:39 · 1.0.79 · samsung SM-A075F · FeaturesDemoMainMenu · oyunda değil · 1600x664"
    ],
    "ekler": [],
    "duzeltildi": null,
@@ -969,7 +979,7 @@
   "performans-f57278a0": {
    "tur": "performans",
    "baslik": "Yavaşlık: FeaturesDemoZone haritasında kare hızı düşük: 20 saniyede ortalama 11.3 FPS",
-   "adet": 10,
+   "adet": 11,
    "cihazlar": [
     "samsung SM-S938B",
     "Xiaomi 2312CRAD3C",
@@ -978,13 +988,14 @@
     "samsung SM-T547",
     "Xiaomi 25078RA3EY",
     "HONOR ELN2-W29",
-    "samsung SM-S901E"
+    "samsung SM-S901E",
+    "samsung SM-A346E"
    ],
    "surumler": [
     "1.0.79"
    ],
    "ilk": 1791415903,
-   "son": 1791621448,
+   "son": 1791654440,
    "ilk_rapor": "**Yavaşlık** · sürüm **1.0.79** · samsung SM-S938B · Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3) · ekran 2340x1001 · FeaturesDemoZone\n\n### Mesaj\n```text\nFeaturesDemoZone haritasında kare hızı düşük: 20 saniyede ortalama 11.3 FPS\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: performans\nsurum: 1.0.79\ncihaz: samsung SM-S938B\nsistem: Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3)\ngrafik: Vulkan / Adreno (TM) 830 / bellek 11113 MB\nekran: 2340x1001\nayarlar: kalite 3, çözünürlük 4, gölge 3, fps sınırı 1\nsahne: FeaturesDemoZone\noyuncu: seviye 1\nsure: 365 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.79 | samsung SM-S938B | Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3)\nVulkan Adreno (TM) 830 | Bellek 11113 MB | 2340x1001 | FPS 10 | Süre 362 sn\nKare süresi: işlemci 98.6 ms | ekran kartı 98.8 ms | ekran 60 Hz | hedef 60 | kalite Ultra | çizim 3840x1643 (ekran 2340x1001, ölçek 1.64) | pil 18%\nSahneler: MovedObjectsHolder FeaturesDemoZone\nGiriş: dokunmatik var | fare bağlı | ekran tuşları açık\nSon dokunuş: 433,277 -> CantaAraclari/Toplu Sat [PopupWindowContainerCanvas 12]\nOyuncu karakteri: oluştu (MecanimMale490) | Önizleme karakteri:…\n```\n\n</details>\n\n<details><summary>Son kayıt satırları</summary>\n\n```text\n02:29:27 [Error] [2026.10.08 02:29:27] Client encountered an error while parsing data for packetId 27054. Message: System.NullReferenceException: Object reference not set to an instance of an object.\n02:28:25 [Error] [2026.10.08 02:28:25] Client encountered an error while parsing data for packetId 28070. Message: System.NullReferenceException: Object reference not set to an instance of an object.\n02:27:54 [Error] [2026.10.08 02:27:54] Client encountered an error while parsing data for packetId 28451. Message: System.NullReferenceException: Object reference not set to an instance of an object.\n02:26:01 [Warning] [Reklam] onay bilgisi: Publisher misconfiguration: Failed to read publisher's account configuration; no form(s) configured for the input app ID. Verify that you have configured one or more forms for t...\n```\n\n</details>\n",
    "gorulmeler": [
     "08.10.2026 02:31 · 1.0.79 · samsung SM-S938B · FeaturesDemoZone · seviye 1 · 2340x1001",
@@ -996,7 +1007,8 @@
     "09.10.2026 03:23 · 1.0.79 · Xiaomi 25078RA3EY · FeaturesDemoZone · seviye 1 · 1600x646",
     "09.10.2026 14:36 · 1.0.79 · HONOR ELN2-W29 · FeaturesDemoZone · seviye 1 · 2508x1432",
     "09.10.2026 21:43 · 1.0.79 · samsung SM-S901E · FeaturesDemoZone · seviye 5 · 2340x996",
-    "10.10.2026 11:37 · 1.0.79 · HONOR ELN2-W29 · FeaturesDemoZone · seviye 1 · 2508x1432"
+    "10.10.2026 11:37 · 1.0.79 · HONOR ELN2-W29 · FeaturesDemoZone · seviye 1 · 2508x1432",
+    "10.10.2026 20:47 · 1.0.79 · samsung SM-A346E · FeaturesDemoZone · seviye 1 · 2340x1007"
    ],
    "ekler": [],
    "duzeltildi": null,
@@ -1410,6 +1422,30 @@
    "yeniden": false,
    "issue": null,
    "notlar": []
+  },
+  "arayuz-2340x1007": {
+   "tur": "arayuz",
+   "baslik": "Arayüz yerleşimi, 2340x1007 ekran",
+   "adet": 1,
+   "cihazlar": [
+    "samsung SM-A346E"
+   ],
+   "surumler": [
+    "1.0.79"
+   ],
+   "ilk": 1791654123,
+   "son": 1791654123,
+   "ilk_rapor": "**Arayüz** · sürüm **1.0.79** · samsung SM-A346E · Android OS 15 / API-35 (AP3A.240905.015.A2/A346EXXU9DYF4) · ekran 2340x1007 · FeaturesDemoZone\n\n### Mesaj\n```text\n2 çakışma (2340x1007)\n```\n\n### Ayrıntı\n```text\nEkran 2340x1007, güvenli alan (73,0 2267x1007)\nBeceri2 kaydırıldı (-10, -40)\nBeceri3 kaydırıldı (-40, -20)\nBeceri4 kaydırıldı (20, -20)\nBeceri5 kaydırıldı (20, 0)\nBeceri6 kaydırıldı (110, 120)\nÇakışmalar (2):\n- düğme Beceri7 ~ QuestTrackerWindow (QuestTrackerWindow/Contents/QuestTrackerPanel)\n- düğme Beceri3 ~ düğme Beceri8\nDüğmeler:\nHareket (180,152 290x290)\nÇanta (87,14 98x98)\nAyarlar (195,14 98x98)\nIşınlan (303,14 98x98)\nMenü (88,639 106x106)\nSaldır (2057,94 189x189)\nBeceri1 (2082,322 106x106)\nBeceri2 (1979,238 106x106)\nBeceri3 (1879,190 106x106)\nBeceri4 (1938,95 106x106)\nBeceri5 (2077,434 96x96)\nBeceri6 (2080,541 96x96)\nBeceri7 (1857,307 96x96)\nBeceri8 (1812,198 96x96)\nOto Av (2207,350 111x111)\nBinek (2212,491 101x101)\nHedef (1786,38 106x106)\nGöstergeler:\nMiniMap (2111,720 189x257)\nPlayerUnitFrame (40,872 252x101)\nQuestTrackerWindow (1736,356 327x296)\nSystemBar (861,877 618x50)\nXPBarPanel (551,6 1239x19)\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: arayuz\nsurum: 1.0.79\ncihaz: samsung SM-A346E\nsistem: Android OS 15 / API-35 (AP3A.240905.015.A2/A346EXXU9DYF4)\ngrafik: Vulkan / Mali-G68 MC4 / bellek 7471 MB\nekran: 2340x1007\nayarlar: kalite 1, çözünürlük 0, gölge 0, fps sınırı 1\nsahne: FeaturesDemoZone\noyuncu: seviye 1\nsure: 145 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.79 | samsung SM-A346E | Android OS 15 / API-35 (AP3A.240905.015.A2/A346EXXU9DYF4)\nVulkan Mali-G68 MC4 | Bellek 7471 MB | 2340x1007 | FPS 36 | Süre 142 sn\nKare süresi: işlemci 30.4 ms | ekran kartı 26.1 ms | ekran 120 Hz | hedef 60 | kalite Medium | çizim 1755x755 (ekran 2340x1007, ölçek 0.75) | pil 100%\nSahneler: FeaturesDemoZone\nGiriş: dokunmatik var | fare bağlı | ekran tuşları açık\nSon dokunuş: 1381,138 -> CloseButton/Text [SystemMenuUICanvas 19]\nOyuncu karakteri: oluştu (MecanimMale2) | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n<details><summary>Son kayıt satırları</summary>\n\n```text\n20:41:48 [Warning] [Reklam] onay bilgisi: Publisher misconfiguration: Failed to read publisher's account configuration; no form(s) configured for the input app ID. Verify that you have configured one or more forms for t...\n```\n\n</details>\n",
+   "gorulmeler": [
+    "10.10.2026 20:42 · 1.0.79 · samsung SM-A346E · FeaturesDemoZone · seviye 1 · 2340x1007"
+   ],
+   "ekler": [
+    "2814f9e700.jpg"
+   ],
+   "duzeltildi": null,
+   "yeniden": false,
+   "issue": null,
+   "notlar": []
   }
  },
  "kimlikler": {
@@ -1620,7 +1656,12 @@
   "d71f381a75": "istisna-3addc771",
   "cbdfd83059": "performans-f57278a0",
   "ef99035006": "bellek-d3941b2d",
-  "4933c49798": "bellek-45b65e0c"
+  "4933c49798": "bellek-45b65e0c",
+  "18b6d29771": "bellek-d3941b2d",
+  "37d83edb1d": "bellek-d3941b2d",
+  "57ce1aeb4b": "bellek-d3941b2d",
+  "2814f9e700": "arayuz-2340x1007",
+  "645278025b": "performans-f57278a0"
  },
  "derleme": {
   "sonuc": "basarili",
