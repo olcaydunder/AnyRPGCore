@@ -8,11 +8,13 @@ namespace AnyRPG {
     ///    şok halkasıyla; beceri vuruşu mavi-beyaz ve halkalı.
     ///  - Oyuncu vurulunca kısa kızıl parlama; kaçınınca ayak altında toz ve arkasında ışık izi.
     ///  - Düşman ölünce yükselen mor ışıklar; seviye atlayınca altın halka ve ışık sütunu; şifa alınca yeşil ışıklar.
-    /// Beş parçacık sistemi kodla bir kez kurulur (prefab yok) ve her efekt onlara tek tek parçacık yayar
-    /// (ParticleSystem.Emit): nesne yaratılıp silinmez, telefonu yormaz. Malzemeler Resources/Efekt içindedir
-    /// (Tools~/logo/efekt_dokulari.py). Yalnız görüntüdür; oyun mantığına dokunmaz, ekransız sunucuda hiçbir şey yapmaz.
+    ///  - Beceri kullanınca oyuncunun ayağında büyü çemberi ve yükselen ışık çizgileri.
+    /// Parçacık sistemleri (doku başına bir tane) kodla bir kez kurulur (prefab yok) ve her efekt onlara tek tek parçacık
+    /// yayar (ParticleSystem.Emit): nesne yaratılıp silinmez, telefonu yormaz. Malzemeler Resources/Efekt içindedir
+    /// (Tools~/logo/efekt_dokulari.py; yıldız, pençe, girdap, rune, şimşek, duman... dokuları Kenney Particle Pack, CC0).
+    /// Yalnız görüntüdür; oyun mantığına dokunmaz, ekransız sunucuda hiçbir şey yapmaz.
     /// Çağıranlar: PlayerManagerClient.HandleReceiveCombatTextEvent, UnitMovementController.KacinmaGuncelle,
-    /// MobileBootstrap (Tick: oyuncunun öldürmelerini dinler).
+    /// MobileBootstrap (Tick: oyuncunun öldürmelerini ve beceri kullanmasını dinler).
     /// </summary>
     public static class Efektler {
 
@@ -34,6 +36,18 @@ namespace AnyRPG {
         private static ParticleSystem yay = null;
         private static ParticleSystem halka = null;
         private static ParticleSystem toz = null;
+        // Kenney Particle Pack dokuları
+        private static ParticleSystem yildiz = null;
+        private static ParticleSystem pence = null;
+        private static ParticleSystem girdap = null;
+        private static ParticleSystem rune = null;
+        private static ParticleSystem dalga = null;
+        private static ParticleSystem simsek = null;
+        private static ParticleSystem kor = null;
+        private static ParticleSystem cizgi = null;
+        private static ParticleSystem duman = null;
+        private static ParticleSystem toprak = null;
+        private static ParticleSystem[] hepsi = null;
         private static EfektIzi iz = null;
         private static UnitController izlenen = null;
         private static float sonSifa = -10f;
@@ -53,7 +67,7 @@ namespace AnyRPG {
             if (kullanilamaz || Acik == false) {
                 return false;
             }
-            if (isik != null && kivilcim != null && yay != null && halka != null && toz != null) {
+            if (hepsi != null && isik != null && toprak != null) {
                 return true;
             }
             // ekransız sunucu
@@ -65,7 +79,14 @@ namespace AnyRPG {
             Material yayMalzemesi = Resources.Load<Material>("Efekt/Yay");
             Material halkaMalzemesi = Resources.Load<Material>("Efekt/Halka");
             Material tozMalzemesi = Resources.Load<Material>("Efekt/Toz");
-            if (isikMalzemesi == null || yayMalzemesi == null || halkaMalzemesi == null || tozMalzemesi == null) {
+            string[] adlar = { "Yildiz", "Pence", "Girdap", "Rune", "Dalga", "Simsek", "Kor", "Cizgi", "Duman", "Toprak" };
+            Material[] m = new Material[adlar.Length];
+            bool eksik = false;
+            for (int i = 0; i < adlar.Length; i++) {
+                m[i] = Resources.Load<Material>("Efekt/" + adlar[i]);
+                eksik = eksik || m[i] == null;
+            }
+            if (eksik || isikMalzemesi == null || yayMalzemesi == null || halkaMalzemesi == null || tozMalzemesi == null) {
                 kullanilamaz = true;
                 Debug.LogWarning("Efektler: malzemeler bulunamadı (Resources/Efekt), savaş efektleri kapalı");
                 return false;
@@ -73,11 +94,25 @@ namespace AnyRPG {
             GameObject kok = new GameObject("[Efektler]");
             Object.DontDestroyOnLoad(kok);
             iz = kok.AddComponent<EfektIzi>();
-            isik = Sistem(kok.transform, "Isik", isikMalzemesi, ParticleSystemRenderMode.Billboard, 0f, 0.65f, 1.35f, 300);
-            kivilcim = Sistem(kok.transform, "Kivilcim", isikMalzemesi, ParticleSystemRenderMode.Stretch, 1.6f, 1f, 0.25f, 400);
-            yay = Sistem(kok.transform, "Yay", yayMalzemesi, ParticleSystemRenderMode.Billboard, 0f, 0.55f, 1.3f, 60);
-            halka = Sistem(kok.transform, "Halka", halkaMalzemesi, ParticleSystemRenderMode.HorizontalBillboard, 0f, 0.15f, 1f, 40);
-            toz = Sistem(kok.transform, "Toz", tozMalzemesi, ParticleSystemRenderMode.Billboard, -0.05f, 0.5f, 1.6f, 120);
+            Transform k = kok.transform;
+            ParticleSystemRenderMode duz = ParticleSystemRenderMode.Billboard;
+            ParticleSystemRenderMode yatay = ParticleSystemRenderMode.HorizontalBillboard;
+            isik = Sistem(k, "Isik", isikMalzemesi, duz, 0f, 0.65f, 1.35f, 300, 0f);
+            kivilcim = Sistem(k, "Kivilcim", isikMalzemesi, ParticleSystemRenderMode.Stretch, 1.6f, 1f, 0.25f, 400, 0f);
+            yay = Sistem(k, "Yay", yayMalzemesi, duz, 0f, 0.55f, 1.3f, 60, 0f);
+            halka = Sistem(k, "Halka", halkaMalzemesi, yatay, 0f, 0.15f, 1f, 40, 0f);
+            toz = Sistem(k, "Toz", tozMalzemesi, duz, -0.05f, 0.5f, 1.6f, 120, 0f);
+            yildiz = Sistem(k, "Yildiz", m[0], duz, 0f, 0.45f, 1.25f, 80, 1.5f);
+            pence = Sistem(k, "Pence", m[1], duz, 0f, 0.7f, 1.2f, 40, 0f);
+            girdap = Sistem(k, "Girdap", m[2], duz, 0f, 0.5f, 1.3f, 40, 9f);
+            rune = Sistem(k, "Rune", m[3], yatay, 0f, 0.55f, 1f, 30, 1.6f);
+            dalga = Sistem(k, "Dalga", m[4], yatay, 0f, 0.2f, 1f, 40, 0f);
+            simsek = Sistem(k, "Simsek", m[5], duz, 0f, 0.8f, 1.15f, 40, 0f);
+            kor = Sistem(k, "Kor", m[6], duz, 0f, 0.5f, 1.35f, 60, 1f);
+            cizgi = Sistem(k, "Cizgi", m[7], duz, 0f, 0.9f, 1.1f, 150, 0f);
+            duman = Sistem(k, "Duman", m[8], duz, -0.04f, 0.5f, 1.7f, 120, 0.6f);
+            toprak = Sistem(k, "Toprak", m[9], duz, 1.2f, 0.7f, 1.1f, 60, 0f);
+            hepsi = new ParticleSystem[] { isik, kivilcim, yay, halka, toz, yildiz, pence, girdap, rune, dalga, simsek, kor, cizgi, duman, toprak };
             return true;
         }
 
@@ -86,7 +121,7 @@ namespace AnyRPG {
         /// Boyut ömür boyunca ilkBoyut → sonBoyut katına gider, saydamlık sona doğru söner.
         /// </summary>
         private static ParticleSystem Sistem(Transform kok, string ad, Material malzeme, ParticleSystemRenderMode mod, float yercekimi,
-            float ilkBoyut, float sonBoyut, int enCok) {
+            float ilkBoyut, float sonBoyut, int enCok, float donmeHizi) {
             GameObject go = new GameObject(ad);
             go.transform.SetParent(kok, false);
             ParticleSystem ps = go.AddComponent<ParticleSystem>();
@@ -119,6 +154,13 @@ namespace AnyRPG {
             boyut.enabled = true;
             float enBuyuk = Mathf.Max(ilkBoyut, sonBoyut);
             boyut.size = new ParticleSystem.MinMaxCurve(enBuyuk, AnimationCurve.EaseInOut(0f, ilkBoyut / enBuyuk, 1f, sonBoyut / enBuyuk));
+
+            if (donmeHizi != 0f) {
+                // ömür boyunca kendi çevresinde döner (radyan/saniye)
+                ParticleSystem.RotationOverLifetimeModule donme = ps.rotationOverLifetime;
+                donme.enabled = true;
+                donme.z = new ParticleSystem.MinMaxCurve(donmeHizi);
+            }
 
             ParticleSystemRenderer cizici = go.GetComponent<ParticleSystemRenderer>();
             cizici.sharedMaterial = malzeme;
@@ -196,12 +238,24 @@ namespace AnyRPG {
             }
             Color renk = kritik ? kritikRengi : (beceri ? beceriRengi : vurusRengi);
             float guc = kritik ? 1.6f : (beceri ? 1.25f : 1f);
-            // parlama ve savurma yayı
+            // parlama, yıldız ve savurma yayı
             Parcacik(isik, nokta, Vector3.zero, 1.7f * guc, 0.16f, renk);
-            Parcacik(isik, nokta, Vector3.zero, 0.8f * guc, 0.22f, Color.white);
+            Parcacik(yildiz, nokta, Vector3.zero, 1.5f * guc, 0.18f, Color.white, Random.Range(0f, 360f));
             Parcacik(yay, nokta, Vector3.zero, 1.9f * guc, 0.2f, renk, Random.Range(0f, 360f));
             if (kritik) {
-                Parcacik(yay, nokta, Vector3.zero, 2.5f, 0.24f, Color.white, Random.Range(0f, 360f));
+                // pençe izi, kor patlaması, yerden sıçrayan toprak
+                Parcacik(pence, nokta, Vector3.zero, 3f, 0.26f, Color.white, Random.Range(0f, 360f));
+                Parcacik(kor, nokta, Vector3.zero, 2.4f, 0.32f, renk, Random.Range(0f, 360f));
+                for (int i = 0; i < 5; i++) {
+                    Vector2 cember = Random.insideUnitCircle;
+                    Parcacik(toprak, zemin, new Vector3(cember.x * 2f, Random.Range(2.5f, 4.5f), cember.y * 2f), Random.Range(0.5f, 0.9f),
+                        Random.Range(0.45f, 0.7f), new Color(0.55f, 0.45f, 0.35f, 0.9f), Random.Range(0f, 360f));
+                }
+            } else if (beceri) {
+                // şimşek, dönen girdap, hedefin ayağında büyü çemberi
+                Parcacik(simsek, nokta, Vector3.zero, 2.6f, 0.2f, Color.white, Random.Range(0f, 360f));
+                Parcacik(girdap, nokta, Vector3.zero, 2.6f, 0.36f, renk, Random.Range(0f, 360f));
+                Parcacik(rune, zemin, Vector3.zero, 3.4f, 0.55f, renk, Random.Range(0f, 360f));
             }
             // kıvılcımlar: vuruş yönüne ve yukarı doğru saçılır, yere düşer
             int adet = kritik ? 24 : (beceri ? 16 : 12);
@@ -212,6 +266,7 @@ namespace AnyRPG {
             }
             if (kritik || beceri) {
                 Parcacik(halka, zemin, Vector3.zero, kritik ? 5f : 3.6f, 0.35f, renk);
+                Parcacik(dalga, zemin, Vector3.zero, kritik ? 4.2f : 3f, 0.4f, renk);
             }
         }
 
@@ -223,6 +278,7 @@ namespace AnyRPG {
             try {
                 Vector3 merkez = Govde(oyuncu);
                 Parcacik(isik, merkez, Vector3.zero, 1.5f, 0.16f, yaraRengi);
+                Parcacik(yildiz, merkez, Vector3.zero, 1.2f, 0.16f, yaraRengi, Random.Range(0f, 360f));
                 for (int i = 0; i < 5; i++) {
                     Parcacik(kivilcim, merkez, (Random.onUnitSphere + Vector3.up * 0.5f).normalized * Random.Range(2f, 4.5f),
                         Random.Range(0.08f, 0.14f), Random.Range(0.2f, 0.35f), yaraRengi);
@@ -244,9 +300,10 @@ namespace AnyRPG {
                 for (int i = 0; i < 9; i++) {
                     Vector2 cember = Random.insideUnitCircle.normalized;
                     Vector3 hiz = new Vector3(cember.x, 0.35f, cember.y) * Random.Range(1.2f, 2.8f);
-                    Parcacik(toz, ayak, hiz, Random.Range(0.7f, 1.2f), Random.Range(0.4f, 0.65f), tozRengi, Random.Range(0f, 360f));
+                    Parcacik(duman, ayak, hiz, Random.Range(0.9f, 1.5f), Random.Range(0.45f, 0.7f), tozRengi, Random.Range(0f, 360f));
                 }
                 Parcacik(halka, ayak, Vector3.zero, 2.6f, 0.3f, izRengi);
+                Parcacik(dalga, ayak, Vector3.zero, 2.2f, 0.3f, izRengi);
                 if (iz != null) {
                     iz.Baslat(oyuncu.transform, SavasAyarlari.KacinmaSuresi + 0.08f);
                 }
@@ -279,8 +336,14 @@ namespace AnyRPG {
             }
             for (int i = 0; i < 6; i++) {
                 Vector2 cember = Random.insideUnitCircle;
-                Parcacik(toz, merkez + Vector3.down * 0.5f, new Vector3(cember.x, 0.4f, cember.y) * 1.4f, Random.Range(0.9f, 1.5f),
-                    Random.Range(0.5f, 0.8f), tozRengi, Random.Range(0f, 360f));
+                Parcacik(duman, merkez + Vector3.down * 0.3f, new Vector3(cember.x, 0.5f, cember.y) * 1.4f, Random.Range(1.2f, 2f),
+                    Random.Range(0.6f, 0.95f), new Color(0.5f, 0.42f, 0.6f, 0.6f), Random.Range(0f, 360f));
+            }
+            Parcacik(girdap, merkez, Vector3.zero, 2.2f, 0.45f, olumRengi, Random.Range(0f, 360f));
+            for (int i = 0; i < 6; i++) {
+                Vector2 cember = Random.insideUnitCircle * 0.6f;
+                Parcacik(cizgi, merkez + new Vector3(cember.x, 0f, cember.y), Vector3.up * Random.Range(2f, 4f), Random.Range(0.8f, 1.4f),
+                    Random.Range(0.5f, 0.8f), olumRengi);
             }
         }
 
@@ -293,6 +356,14 @@ namespace AnyRPG {
                 Vector3 ayak = oyuncu.transform.position + Vector3.up * 0.1f;
                 Parcacik(halka, ayak, Vector3.zero, 7f, 0.7f, altinRengi);
                 Parcacik(halka, ayak, Vector3.zero, 4.5f, 0.5f, Color.white);
+                Parcacik(rune, ayak, Vector3.zero, 5.5f, 1.1f, altinRengi);
+                Parcacik(dalga, ayak, Vector3.zero, 6f, 0.8f, altinRengi);
+                Parcacik(yildiz, ayak + Vector3.up * 2.4f, Vector3.zero, 3.2f, 0.6f, Color.white);
+                for (int i = 0; i < 14; i++) {
+                    Vector2 c = Random.insideUnitCircle * 1.1f;
+                    Parcacik(cizgi, ayak + new Vector3(c.x, Random.Range(0f, 0.8f), c.y), Vector3.up * Random.Range(3f, 6f), Random.Range(1.2f, 2.2f),
+                        Random.Range(0.6f, 1f), altinRengi);
+                }
                 for (int i = 0; i < 10; i++) {
                     Parcacik(isik, ayak + Vector3.up * (i * 0.28f), Vector3.up * Random.Range(1.5f, 3f), Random.Range(1.2f, 1.9f),
                         Random.Range(0.5f, 0.9f), altinRengi);
@@ -322,6 +393,50 @@ namespace AnyRPG {
                         Random.Range(0.25f, 0.45f), Random.Range(0.6f, 0.9f), sifaRengi);
                 }
                 Parcacik(halka, ayak + Vector3.up * 0.1f, Vector3.zero, 2.4f, 0.4f, sifaRengi);
+                for (int i = 0; i < 5; i++) {
+                    Vector2 c = Random.insideUnitCircle * 0.6f;
+                    Parcacik(cizgi, ayak + new Vector3(c.x, 0.2f, c.y), Vector3.up * Random.Range(2f, 3.5f), Random.Range(0.9f, 1.4f),
+                        Random.Range(0.5f, 0.8f), sifaRengi);
+                }
+            } catch (System.Exception e) {
+                Hata(e);
+            }
+        }
+
+        // ---------------------------------------------------------------- beceri kullanma
+
+        /// <summary>
+        /// oyuncu bir beceri kullanmaya başladı: ayağında dönen büyü çemberi, çevresinde yükselen ışık çizgileri.
+        /// Saldırı becerisi mavi-beyaz, kendine / dosta kullanılan (şifa, kutsama, binek) altın rengi.
+        /// </summary>
+        public static void BeceriBasladi(UnitController oyuncu, bool saldiri) {
+            if (oyuncu == null || Hazir() == false) {
+                return;
+            }
+            try {
+                Color renk = saldiri ? beceriRengi : altinRengi;
+                Vector3 ayak = oyuncu.transform.position + Vector3.up * 0.1f;
+                Parcacik(rune, ayak, Vector3.zero, 3.2f, 0.7f, renk, Random.Range(0f, 360f));
+                Parcacik(dalga, ayak, Vector3.zero, 2.6f, 0.45f, renk);
+                Parcacik(isik, ayak + Vector3.up * 1.1f, Vector3.zero, 1.6f, 0.25f, renk);
+                for (int i = 0; i < 8; i++) {
+                    float aci = i * (Mathf.PI * 2f / 8f) + Random.Range(-0.2f, 0.2f);
+                    Vector3 cember = new Vector3(Mathf.Cos(aci), 0f, Mathf.Sin(aci)) * 0.9f;
+                    Parcacik(cizgi, ayak + cember + Vector3.up * Random.Range(0f, 0.5f), Vector3.up * Random.Range(2.5f, 4.5f),
+                        Random.Range(0.9f, 1.5f), Random.Range(0.4f, 0.7f), renk);
+                }
+            } catch (System.Exception e) {
+                Hata(e);
+            }
+        }
+
+        private static void BeceriOlayi(AbilityProperties beceri, InteractableBase hedef, bool oyuncuBaslatti) {
+            try {
+                if (beceri == null || beceri.IsAutoAttack || izlenen == null) {
+                    return;
+                }
+                TargetProps secenekler = beceri.GetTargetOptions(izlenen);
+                BeceriBasladi(izlenen, secenekler != null && secenekler.CanCastOnEnemy);
             } catch (System.Exception e) {
                 Hata(e);
             }
@@ -337,10 +452,12 @@ namespace AnyRPG {
             }
             if (izlenen != null && izlenen.UnitEventController != null) {
                 izlenen.UnitEventController.OnKillEvent -= Oldurdu;
+                izlenen.UnitEventController.OnBeginAbility -= BeceriOlayi;
             }
             izlenen = oyuncu;
             if (izlenen != null && izlenen.UnitEventController != null) {
                 izlenen.UnitEventController.OnKillEvent += Oldurdu;
+                izlenen.UnitEventController.OnBeginAbility += BeceriOlayi;
             }
         }
 
@@ -361,7 +478,7 @@ namespace AnyRPG {
                 return -1;
             }
             int canli = 0;
-            foreach (ParticleSystem ps in new ParticleSystem[] { isik, kivilcim, yay, halka, toz }) {
+            foreach (ParticleSystem ps in hepsi) {
                 ps.Simulate(sure, true, false);
                 canli += ps.particleCount;
                 ps.Play();

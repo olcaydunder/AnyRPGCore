@@ -1,0 +1,3 @@
+Bu klasördeki kenney_*.png dokuları Kenney'nin "Particle Pack" (1.1) paketinden alınmış, 256 piksele
+küçültülmüştür. Kenney Vleugels (www.kenney.nl). Lisans: Creative Commons Zero (CC0),
+http://creativecommons.org/publicdomain/zero/1.0/

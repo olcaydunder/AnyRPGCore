@@ -790,6 +790,12 @@ namespace Otuken.EditorAraclari {
                 int canli2 = AnyRPG.Efektler.TestIlerlet(0.2f);
                 string ikinci = GoruntuAl(kamera, "efekt_diger");
                 AnyRPG.Efektler.TestIlerlet(2f);
+                AnyRPG.Efektler.BeceriBasladi(oyuncu, true);
+                AnyRPG.Efektler.VurusNoktasi(govde, ileri, zemin, false, true);
+                AnyRPG.Efektler.TestIlerlet(0.15f);
+                string ucuncu = GoruntuAl(kamera, "efekt_beceri");
+                AnyRPG.Efektler.TestIlerlet(2f);
+                ikinci = (ikinci ?? "yok") + ", " + (ucuncu ?? "yok");
                 rapor.efektTesti = (AnyRPG.Efektler.YayilanSayisi - once) + " parçacık yayıldı; vuruşlarda canlı " + canli
                     + ", kaçınma/ölüm/seviyede canlı " + canli2 + "; görüntüler: " + (ilk ?? "yok") + ", " + (ikinci ?? "yok");
             } catch (Exception e) {

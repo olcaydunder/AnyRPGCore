@@ -9,8 +9,13 @@ Savaş efektlerinin dokuları ve malzemeleri (AnyRPG.Efektler kodla kurduğu par
   Toz.mat                        olağan saydam (toz, duman)
 Malzemeler AnyRPG'nin ReflectDamageMaterial.mat'ı örnek alınarak yazılır (URP Particles/Unlit, saydam): böylece
 derlemede gölgelendirici türü atılmaz. Dokular beyazdır; renk parçacığın renginden gelir.
-Çalıştırma: python3 "Tools~/logo/efekt_dokulari.py"
+Kenney "Particle Pack" (CC0, kenney.nl) dokularından seçilenler de buradan alınır: 256 piksele küçültülür,
+her birine aynı örnekten malzeme yazılır (KENNEY sözlüğü: malzeme adı -> (doku, ışığı toplayan mı)).
+Çalıştırma: python3 "Tools~/logo/efekt_dokulari.py" [Kenney paketinin png klasörü]
+    git clone https://github.com/Calinou/kenney-particle-pack /tmp/kpp
+    python3 "Tools~/logo/efekt_dokulari.py" /tmp/kpp/addons/kenney_particle_pack
 """
+import sys
 import re
 import uuid
 from pathlib import Path
@@ -78,6 +83,41 @@ def yay():
     return a
 
 
+# malzeme adı -> (Kenney dokusu, ışığı toplayan mı)
+KENNEY = {
+    "Yildiz": ("star_09", True),      # isabet parlaması
+    "Pence": ("scratch_01", True),    # kritik vuruşun pençe izi
+    "Girdap": ("twirl_02", True),     # beceri vuruşunun dönen girdabı
+    "Rune": ("magic_02", True),       # büyü çemberi (yerde)
+    "Dalga": ("light_01", True),      # yerde yayılan dalga
+    "Simsek": ("spark_02", True),     # beceri vuruşunun şimşeği
+    "Kor": ("fire_01", True),         # kritik vuruşun kor patlaması
+    "Cizgi": ("trace_01", True),      # yükselen ışık çizgileri
+    "Duman": ("smoke_05", False),     # toz ve duman
+    "Toprak": ("dirt_02", False),     # yerden sıçrayan toprak
+}
+
+
+def kenney(klasor):
+    klasor = Path(klasor)
+    for ad, (doku, toplayan) in KENNEY.items():
+        kaynak = klasor / f"{doku}.png"
+        im = Image.open(kaynak).convert("RGBA").resize((256, 256), Image.LANCZOS)
+        # beyaz doku, parlaklık x saydamlık alfa olur (renk parçacıktan gelir)
+        d = np.asarray(im).astype(np.float32) / 255.0
+        alfa = d[..., 3] * d[..., :3].max(axis=2)
+        kaydet("kenney_" + doku, alfa / max(alfa.max(), 1e-4))
+        malzeme(ad, "kenney_" + doku, toplayan)
+    (CIKTI / "KENNEY_LISANS.txt").write_text(
+        "Bu klasördeki kenney_*.png dokuları Kenney'nin \"Particle Pack\" (1.1) paketinden alınmış, 256 piksele\n"
+        "küçültülmüştür. Kenney Vleugels (www.kenney.nl). Lisans: Creative Commons Zero (CC0),\n"
+        "http://creativecommons.org/publicdomain/zero/1.0/\n", encoding="utf-8")
+    meta = CIKTI / "KENNEY_LISANS.txt.meta"
+    if not meta.exists():
+        meta.write_text(f"fileFormatVersion: 2\nguid: {kimlik('KENNEY_LISANS.txt')}\nTextScriptImporter:\n  externalObjects: {{}}\n"
+                        "  userData: \n  assetBundleName: \n  assetBundleVariant: \n", encoding="utf-8")
+
+
 def malzeme(ad, doku, toplayan):
     s = ORNEK_MALZEME.read_text(encoding="utf-8")
     s = s.replace("m_Name: ReflectDamageMaterial", "m_Name: " + ad)
@@ -113,6 +153,8 @@ def main():
     malzeme("Halka", "halka", True)
     malzeme("Yay", "yay", True)
     malzeme("Toz", "isik", False)
+    if len(sys.argv) > 1:
+        kenney(sys.argv[1])
 
 
 if __name__ == "__main__":
