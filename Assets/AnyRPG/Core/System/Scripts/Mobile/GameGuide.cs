@@ -321,7 +321,7 @@ namespace AnyRPG {
                 "• <b>Sol kenar</b>: <b>Menü</b> simgesi. Ekran dolmasın diye öteki her şey onun içindedir: Karakter, Görevler, Günlük Görevler, " +
                 "Demirci, Ticaret, Depo, Dünya Haritası, Etkinlikler, Sohbet (çevrim içi) ve Oyun Kılavuzu. Ödül bekleyince Menü'de altın nokta yanar.\n" +
                 "• <b>Sağ alt</b>: büyük <b>Saldır</b> düğmesi ve çevresinde sınıfının <b>yetenekleri</b> (beceri halkası). " +
-                "Yanında <b>Oto Av</b>, <b>Binek</b>, <b>Hedef</b> (önündeki düşmanlar arasında sırayla hedef değiştirir) ve <b>Kaçın</b>.\n" +
+                "Yanında <b>Oto Av</b>, <b>Binek</b>, <b>Hedef</b> (önündeki düşmanlar arasında sırayla hedef değiştirir), <b>Kaçın</b> ve <b>Bitir</b>.\n" +
                 "• <b>Sağ üst</b>: küçük harita. Üstündeki <b>HARİTA</b>'ya dokununca büyük Dünya Haritası açılır. " +
                 "Altında süren bölge etkinliğinin afişi görünür; dokununca etkinlik penceresi açılır.\n" +
                 "• <b>Küçük haritanın solunda</b>: <b>Armağan</b> (günlük armağan), <b>Günlük</b> (günlük görevler) ve <b>Etkinlik</b> " +
@@ -342,9 +342,11 @@ namespace AnyRPG {
                 "kullanılan yetenek bir süre bekler, simgesi kararır. Yeni öğrendiğin yetenekler halkaya kendiliğinden eklenir.\n" +
                 "• <b>Kaçın</b>: hareket çubuğunu ittiğin yöne (itmiyorsan baktığın yöne) birkaç metre atılırsın. Atılırken gelen vuruş " +
                 "<b>boşa gider</b>; boss'un ağır vuruşundan sıyrılmanın yolu budur. 2,5 saniyede bir kullanılır, binekteyken kullanılmaz.\n" +
+                "• <b>Bitir</b>: düşmana vurdukça öfken dolar (düğmedeki koyu halka açılır). Dolunca düğme altın rengi olur; dokun, " +
+                "8 saniye içindeki ilk vuruşun <b>3 kat</b> vurur. Oto Av açıkken kendiliğinden kullanılır.\n" +
                 "• Düşmana vurduğun hasar başında eksiyle yazılır; <b>kritik vuruş turuncu</b> ve daha büyüktür.\n" +
                 "• Her vuruşta isabet noktasında kıvılcımlar saçılır; kritik vuruş turuncu parlar ve yerde halka açar, " +
-                "beceri vuruşları mavi-beyazdır. Seviye atlayınca altın bir ışık sütunu yükselir.\n\n" +
+                "beceri vuruşları mavi-beyazdır. Beceri kullanınca ayağında büyü çemberi döner; seviye atlayınca altın bir ışık sütunu yükselir.\n\n" +
                 H + "Oto Av" + HE + "\n" +
                 "• Açınca (düğme altın rengi olur) karakterin yakındaki düşmanları bulur, menziline girip saldırır, yeteneklerini bekleme süreleri " +
                 "dolunca kendisi kullanır ve 15 m içindeki yerdeki ganimete yürüyüp toplar. Ötüken Taşlarını da kırar.\n" +

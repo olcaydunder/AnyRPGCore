@@ -1585,7 +1585,8 @@ namespace Otuken.EditorAraclari {
                 AnyRPG.UnitController sonOyuncu = Object.FindAnyObjectByType<AnyRPG.SystemGameManager>()?.PlayerManagerClient?.UnitController;
                 rapor.gelisim = "Güç Puanı " + AnyRPG.Gelisim.GucPuani(sonOyuncu) + ", seviye ödülü " + AnyRPG.Gelisim.VerilenOdulSayisi
                     + (AnyRPG.Gelisim.SonOdul.Length > 0 ? " (son: " + AnyRPG.Gelisim.SonOdul + ")" : string.Empty)
-                    + ", daha iyi eşya önerisi " + AnyRPG.Gelisim.OneriSayisi + ", oto av becerisi " + AnyRPG.OtomatikAv.BeceriSayisi + " kez";
+                    + ", daha iyi eşya önerisi " + AnyRPG.Gelisim.OneriSayisi + ", oto av becerisi " + AnyRPG.OtomatikAv.BeceriSayisi + " kez"
+                    + ", bitirici vuruş " + AnyRPG.Bitirici.KullanilanSayisi + " kez, kaçınılan vuruş " + AnyRPG.SavasAyarlari.KacinilanVurus;
                 if (rapor.demirciTesti == null) {
                     rapor.demirciTesti = "yapılmadı";
                 }

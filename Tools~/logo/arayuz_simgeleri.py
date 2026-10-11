@@ -69,6 +69,8 @@ SIMGELER = {
     # çıkış: kapıdan dışarı ok
     "cikis": '''<path d="M106 38 L52 38 Q38 38 38 52 L38 140 Q38 154 52 154 L106 154"/>
 <path d="M82 96 L162 96 M132 64 L164 96 L132 128"/>''',
+    # bitir: dört köşeli yıldız (bitirici vuruş)
+    "bitir": '''<path d="M96 22 L114 78 L170 96 L114 114 L96 170 L78 114 L22 96 L78 78 Z"/><circle cx="96" cy="96" r="12" fill="{0}"/>'''.format(ALTIN),
     # güç: çapraz iki kılıç
     "guc": '''<path d="M38 38 L134 134 M146 146 L160 160 M116 152 L152 116"/>
 <path d="M154 38 L58 134 M46 146 L32 160 M40 116 L76 152"/>''',

@@ -430,6 +430,27 @@ namespace AnyRPG {
             }
         }
 
+        /// <summary>bitirici kuruldu: oyuncunun ayağında turuncu çember, gövdesinde kor ve yükselen çizgiler</summary>
+        public static void BitiriciHazir(UnitController oyuncu) {
+            if (oyuncu == null || Hazir() == false) {
+                return;
+            }
+            try {
+                Vector3 ayak = oyuncu.transform.position + Vector3.up * 0.1f;
+                Parcacik(rune, ayak, Vector3.zero, 3.6f, 0.9f, kritikRengi, Random.Range(0f, 360f));
+                Parcacik(dalga, ayak, Vector3.zero, 3.4f, 0.5f, kritikRengi);
+                Parcacik(kor, ayak + Vector3.up * 1.1f, Vector3.zero, 2.4f, 0.45f, kritikRengi, Random.Range(0f, 360f));
+                Parcacik(yildiz, ayak + Vector3.up * 1.3f, Vector3.zero, 2.2f, 0.35f, Color.white);
+                for (int i = 0; i < 12; i++) {
+                    float aci = i * (Mathf.PI * 2f / 12f);
+                    Vector3 cember = new Vector3(Mathf.Cos(aci), 0f, Mathf.Sin(aci)) * 0.8f;
+                    Parcacik(cizgi, ayak + cember, Vector3.up * Random.Range(3f, 5.5f), Random.Range(1f, 1.7f), Random.Range(0.45f, 0.8f), kritikRengi);
+                }
+            } catch (System.Exception e) {
+                Hata(e);
+            }
+        }
+
         private static void BeceriOlayi(AbilityProperties beceri, InteractableBase hedef, bool oyuncuBaslatti) {
             try {
                 if (beceri == null || beceri.IsAutoAttack || izlenen == null) {

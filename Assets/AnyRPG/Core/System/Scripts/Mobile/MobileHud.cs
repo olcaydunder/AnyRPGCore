@@ -117,6 +117,10 @@ namespace AnyRPG {
             // arasında beceri halkası ve (16:9 ekranda) tecrübe çubuğu yer bırakmıyor
             GameObject kacin = SimgeDugmesi("Kaçın", "kacin", Kacin, bottomRight, new Vector2(-52f, 50f), 80f);
             kacinBekleme = BeklemeResmi(kacin.transform);
+            // Bitir: vurdukça dolan öfke (halka açıldıkça dolar); dolunca dokun, sıradaki vuruş 3 kat vurur (Bitirici)
+            bitirDugmesi = SimgeDugmesi("Bitir", "bitir", Bitirici.Kullan, bottomRight, new Vector2(-45f, 235f), 76f).GetComponent<Image>();
+            bitirBekleme = BeklemeResmi(bitirDugmesi.transform);
+            bitirBekleme.fillAmount = 1f;
 
             // sağ üst, mini haritanın solunda: sık kullanılan pencereler tek dokunuşla (Menü'de de dururlar).
             // Sistem çubuğunun bandının altında dururlar: dar ekranlarda (16:9, tablet) çubukla yan yana gelmesinler
@@ -248,6 +252,9 @@ namespace AnyRPG {
         private const string VarsayilanDiyar = "FeaturesDemoZone";
 
         private Image kacinBekleme = null;
+        private Image bitirDugmesi = null;
+        private Image bitirBekleme = null;
+        private static readonly Color bitirKuruluRengi = new Color(0.9f, 0.4f, 0.1f, 0.95f);
         private GameObject armaganRozeti = null;
         private GameObject hizliGunlukRozeti = null;
         private GameObject cikisDugmesi = null;
@@ -283,6 +290,12 @@ namespace AnyRPG {
                 kalan = SavasAyarlari.KacinmaBekleme - (Time.time - oyuncu.UnitMovementController.KacinmaBaslangici);
             }
             kacinBekleme.fillAmount = kalan > 0f ? Mathf.Clamp01(kalan / SavasAyarlari.KacinmaBekleme) : 0f;
+            if (bitirBekleme != null && bitirDugmesi != null) {
+                // öfke doldukça koyu halka açılır; dolunca altın, kurulunca turuncu
+                float doluluk = Bitirici.Doluluk(oyuncu);
+                bitirBekleme.fillAmount = 1f - doluluk;
+                bitirDugmesi.color = Bitirici.Kurulu(oyuncu) ? bitirKuruluRengi : (doluluk >= 1f ? otoAvAcikRengi : dugmeRengi);
+            }
         }
 
         private void GucGostergesiKur() {

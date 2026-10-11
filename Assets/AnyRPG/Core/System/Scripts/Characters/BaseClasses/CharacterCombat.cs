@@ -667,6 +667,12 @@ namespace AnyRPG {
                 damage = Mathf.Max(1, Mathf.RoundToInt(damage * Gelisim.AcemiHasarCarpani));
             }
 
+            // Ötüken: bitirici vuruş (Bitirici): öfke dolunca kurulan sıradaki vuruş 3 kat vurur ve kritik görünür
+            if (damage > 0 && Bitirici.Vurus(source as UnitController, unitController, combatMagnitude == CombatMagnitude.critical)) {
+                damage = Mathf.RoundToInt(damage * Bitirici.Carpan);
+                combatMagnitude = CombatMagnitude.critical;
+            }
+
             Denge.HasarKaydet(unitController, source, damage);
             ProcessTakeDamage(abilityEffectContext, powerResource, damage, source, combatMagnitude, abilityEffect);
             //Debug.Log($"{unitController.gameObject.name} sending " + damage.ToString() + " to character stats");
