@@ -105,9 +105,9 @@ namespace AnyRPG {
 
         private string GetDisplayText(CombatTextType combatType, int damage) {
             if (combatType == CombatTextType.miss) {
-                return "(Miss)";
+                return "Iska";
             } else if (combatType == CombatTextType.immune) {
-                return "(Immune)";
+                return "Etkilenmedi";
             } else {
                 return damage.ToString();
             }

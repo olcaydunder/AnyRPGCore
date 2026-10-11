@@ -647,6 +647,8 @@ namespace AnyRPG {
             if (unitController.UnitControllerMode == UnitControllerMode.Player && unitController.UnitMovementController != null
                 && unitController.UnitMovementController.Dokunulmaz) {
                 SavasAyarlari.KacinilanVurus++;
+                // oyuncunun üstünde "Iska" yazısı (dokunulmazlıktaki bildirimle aynı yol: çevrimiçinde sahibine gider)
+                unitController.UnitEventController.NotifyOnReceiveCombatTextEvent(unitController, 0, CombatTextType.miss, CombatMagnitude.normal, abilityEffectContext);
                 return false;
             }
 
