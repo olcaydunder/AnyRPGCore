@@ -725,6 +725,16 @@ namespace AnyRPG {
                 if (sourceIsPlayer && targetIsPlayer == false && amount > 0
                     && (combatTextType == CombatTextType.normal || combatTextType == CombatTextType.ability)) {
                     VurusEtkisi.Vur(targetInteractable, unitController, combatMagnitude == CombatMagnitude.critical);
+                    Efektler.Vurus(targetInteractable, unitController, combatMagnitude == CombatMagnitude.critical, combatTextType == CombatTextType.ability);
+                }
+                // Ötüken: savaş efektleri (yalnız görüntü): oyuncu vurulunca, seviye atlayınca, şifa alınca
+                if (targetIsPlayer && sourceIsPlayer == false && amount > 0
+                    && (combatTextType == CombatTextType.normal || combatTextType == CombatTextType.ability)) {
+                    Efektler.OyuncuVuruldu(unitController);
+                } else if (combatTextType == CombatTextType.levelUp) {
+                    Efektler.SeviyeAtladi(unitController);
+                } else if (targetIsPlayer && amount > 0 && combatTextType == CombatTextType.gainHealth) {
+                    Efektler.Sifa(unitController);
                 }
             }
 

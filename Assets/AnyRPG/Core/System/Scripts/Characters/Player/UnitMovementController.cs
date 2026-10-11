@@ -1342,6 +1342,8 @@ namespace AnyRPG {
                 if (isReplay == false) {
                     kacinmaBaslangici = Time.time;
                     dokunulmazBitis = Time.time + SavasAyarlari.DokunulmazlikSuresi;
+                    // toz ve ışık izi (yalnız görüntü; ekransız sunucuda hiçbir şey yapmaz)
+                    Efektler.Kacinma(unitController);
                 }
             }
             if (kacinmaVar == false) {

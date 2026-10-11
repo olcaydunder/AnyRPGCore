@@ -342,7 +342,9 @@ namespace AnyRPG {
                 "kullanılan yetenek bir süre bekler, simgesi kararır. Yeni öğrendiğin yetenekler halkaya kendiliğinden eklenir.\n" +
                 "• <b>Kaçın</b>: hareket çubuğunu ittiğin yöne (itmiyorsan baktığın yöne) birkaç metre atılırsın. Atılırken gelen vuruş " +
                 "<b>boşa gider</b>; boss'un ağır vuruşundan sıyrılmanın yolu budur. 2,5 saniyede bir kullanılır, binekteyken kullanılmaz.\n" +
-                "• Düşmana vurduğun hasar başında eksiyle yazılır; <b>kritik vuruş turuncu</b> ve daha büyüktür.\n\n" +
+                "• Düşmana vurduğun hasar başında eksiyle yazılır; <b>kritik vuruş turuncu</b> ve daha büyüktür.\n" +
+                "• Her vuruşta isabet noktasında kıvılcımlar saçılır; kritik vuruş turuncu parlar ve yerde halka açar, " +
+                "beceri vuruşları mavi-beyazdır. Seviye atlayınca altın bir ışık sütunu yükselir.\n\n" +
                 H + "Oto Av" + HE + "\n" +
                 "• Açınca (düğme altın rengi olur) karakterin yakındaki düşmanları bulur, menziline girip saldırır, yeteneklerini bekleme süreleri " +
                 "dolunca kendisi kullanır ve 15 m içindeki yerdeki ganimete yürüyüp toplar. Ötüken Taşlarını da kırar.\n" +

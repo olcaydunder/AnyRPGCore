@@ -71,6 +71,7 @@ namespace Otuken.EditorAraclari {
             public List<HataKaydi> hatalar = new List<HataKaydi>();
             public string binekTesti;
             public string kacinmaTesti;
+            public string efektTesti;
             public string gunlukGorevler;
             public string dunyaHaritasi;
             public string ilkHaritaAvi;
@@ -327,6 +328,7 @@ namespace Otuken.EditorAraclari {
 
                 case Adim.KacinmaTesti:
                     if (KacinmaTesti(oyun)) {
+                        EfektTesti(oyun);
                         demirciAsama = 0;
                         Gec(Adim.DemirciTesti);
                     }
@@ -746,6 +748,49 @@ namespace Otuken.EditorAraclari {
                     Debug.Log("[OyunTesti] kaçınma denemesi: " + rapor.kacinmaTesti);
                     return true;
             }
+        }
+
+        /// <summary>
+        /// Efekt denemesi: oyuncunun önünde vuruş, kritik ve beceri efektleri, sonra kaçınma, ölüm ve seviye efektleri
+        /// yayılır; parçacıklar biraz ilerletilip iki görüntü alınır (tani/efekt_vurus.jpg, tani/efekt_diger.jpg).
+        /// </summary>
+        private static void EfektTesti(AnyRPG.SystemGameManager oyun) {
+            AnyRPG.UnitController oyuncu = oyun != null && oyun.PlayerManagerClient != null ? oyun.PlayerManagerClient.UnitController : null;
+            Camera kamera = oyun != null && oyun.CameraManager != null ? oyun.CameraManager.ActiveMainCamera : null;
+            if (kamera == null) {
+                kamera = Camera.main;
+            }
+            if (oyuncu == null || kamera == null) {
+                rapor.efektTesti = "oyuncu ya da kamera yok";
+                return;
+            }
+            try {
+                // kameranın baktığı yönde, oyuncunun 3 m ötesinde yan yana üç vuruş
+                Vector3 ileri = kamera.transform.forward;
+                ileri.y = 0f;
+                ileri = ileri.sqrMagnitude > 0.001f ? ileri.normalized : Vector3.forward;
+                Vector3 sag = Vector3.Cross(Vector3.up, ileri);
+                Vector3 zemin = oyuncu.transform.position + ileri * 3f;
+                Vector3 govde = zemin + Vector3.up * 1.1f;
+                int once = AnyRPG.Efektler.YayilanSayisi;
+                AnyRPG.Efektler.VurusNoktasi(govde - sag * 2.4f, ileri, zemin - sag * 2.4f, false, false);
+                AnyRPG.Efektler.VurusNoktasi(govde, ileri, zemin, true, false);
+                AnyRPG.Efektler.VurusNoktasi(govde + sag * 2.4f, ileri, zemin + sag * 2.4f, false, true);
+                int canli = AnyRPG.Efektler.TestIlerlet(0.07f);
+                string ilk = GoruntuAl(kamera, "efekt_vurus");
+                AnyRPG.Efektler.TestIlerlet(2f);
+                AnyRPG.Efektler.Kacinma(oyuncu);
+                AnyRPG.Efektler.OlumNoktasi(govde - sag * 2.4f);
+                AnyRPG.Efektler.SeviyeAtladi(oyuncu);
+                int canli2 = AnyRPG.Efektler.TestIlerlet(0.2f);
+                string ikinci = GoruntuAl(kamera, "efekt_diger");
+                AnyRPG.Efektler.TestIlerlet(2f);
+                rapor.efektTesti = (AnyRPG.Efektler.YayilanSayisi - once) + " parçacık yayıldı; vuruşlarda canlı " + canli
+                    + ", kaçınma/ölüm/seviyede canlı " + canli2 + "; görüntüler: " + (ilk ?? "yok") + ", " + (ikinci ?? "yok");
+            } catch (Exception e) {
+                rapor.efektTesti = "hata: " + e.Message;
+            }
+            Debug.Log("[OyunTesti] efekt denemesi: " + rapor.efektTesti);
         }
 
         private static int demirciAsama = 0;
@@ -1560,6 +1605,7 @@ namespace Otuken.EditorAraclari {
                 .Append(" (").Append(rapor.hatalar.Count).Append(" farklı)\n");
             sb.Append("Binek denemesi: ").Append(rapor.binekTesti).Append('\n');
             sb.Append("Kaçınma denemesi: ").Append(rapor.kacinmaTesti).Append('\n');
+            sb.Append("Efekt denemesi: ").Append(rapor.efektTesti ?? "yapılmadı").Append('\n');
             if (rapor.pencereTesti != null) {
                 sb.Append("Pencereler ve depo: ").Append(rapor.pencereTesti).Append('\n');
             }
