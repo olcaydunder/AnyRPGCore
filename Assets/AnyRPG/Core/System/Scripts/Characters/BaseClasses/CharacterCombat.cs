@@ -643,6 +643,13 @@ namespace AnyRPG {
                 return false;
             }
 
+            // Ötüken: kaçınma hamlesi sırasında gelen vuruş boşa gider (UnitMovementController.Dokunulmaz)
+            if (unitController.UnitControllerMode == UnitControllerMode.Player && unitController.UnitMovementController != null
+                && unitController.UnitMovementController.Dokunulmaz) {
+                SavasAyarlari.KacinilanVurus++;
+                return false;
+            }
+
             damage = (int)(damage * unitController.CharacterStats.GetIncomingDamageModifiers());
 
             // Ötüken: canavar gücü dengesi (Denge): canavarın oyuncuya vurduğu hasar

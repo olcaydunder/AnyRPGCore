@@ -70,6 +70,7 @@ namespace Otuken.EditorAraclari {
             public List<HaritaSonucu> haritalar = new List<HaritaSonucu>();
             public List<HataKaydi> hatalar = new List<HataKaydi>();
             public string binekTesti;
+            public string kacinmaTesti;
             public string gunlukGorevler;
             public string dunyaHaritasi;
             public string ilkHaritaAvi;
@@ -82,7 +83,7 @@ namespace Otuken.EditorAraclari {
             public List<string> dortKGoruntuleri = new List<string>();
         }
 
-        private enum Adim { OyunModu, Acilis, YeniOyun, Dogus, Bekle, Dirilis, BinekTesti, DemirciTesti, Savas, Bitti }
+        private enum Adim { OyunModu, Acilis, YeniOyun, Dogus, Bekle, Dirilis, BinekTesti, KacinmaTesti, DemirciTesti, Savas, Bitti }
 
         private static readonly object kilit = new object();
         private static Rapor rapor;
@@ -318,6 +319,14 @@ namespace Otuken.EditorAraclari {
 
                 case Adim.BinekTesti:
                     if (BinekTesti(oyun)) {
+                        kacinmaAsama = 0;
+                        kacinmaZamani = EditorApplication.timeSinceStartup;
+                        Gec(Adim.KacinmaTesti);
+                    }
+                    break;
+
+                case Adim.KacinmaTesti:
+                    if (KacinmaTesti(oyun)) {
                         demirciAsama = 0;
                         Gec(Adim.DemirciTesti);
                     }
@@ -671,6 +680,71 @@ namespace Otuken.EditorAraclari {
                         return true;
                     }
                     return false;
+            }
+        }
+
+        private static int kacinmaAsama = 0;
+        private static double kacinmaZamani = 0;
+        private static Vector3 kacinmaYeri;
+        private static float kacinmaYolu = 0f;
+        private static bool kacinmaDokunulmaz = false;
+
+        private static float YatayUzaklik(Vector3 a, Vector3 b) {
+            a.y = 0f;
+            b.y = 0f;
+            return Vector3.Distance(a, b);
+        }
+
+        /// <summary>
+        /// Kaçınma denemesi: HUD'daki Kaçın düğmesinin gönderdiği girdiyle (CROUCH) hamle yapılır; karakter kaç metre
+        /// atıldı, o sırada dokunulmaz oldu mu, bekleme süresi dolmadan ikinci basış yok sayıldı mı bakılır.
+        /// Bitince true döner; sonuç rapor.kacinmaTesti'ne yazılır.
+        /// </summary>
+        private static bool KacinmaTesti(AnyRPG.SystemGameManager oyun) {
+            AnyRPG.UnitController oyuncu = oyun != null && oyun.PlayerManagerClient != null ? oyun.PlayerManagerClient.UnitController : null;
+            if (oyuncu == null || oyuncu.UnitMovementController == null) {
+                rapor.kacinmaTesti = "oyuncu yok";
+                return true;
+            }
+            double gecen = EditorApplication.timeSinceStartup - kacinmaZamani;
+            switch (kacinmaAsama) {
+                case 0:
+                    // binekten inilsin, karakter dursun
+                    if (gecen < 1.5 || (oyuncu.IsMounted && gecen < 6)) {
+                        return false;
+                    }
+                    AnyRPG.OtomatikAv.Kapat();
+                    AnyRPG.MobileInput.SetJoystick(Vector2.zero, false);
+                    kacinmaDokunulmaz = false;
+                    kacinmaYeri = oyuncu.transform.position;
+                    AnyRPG.MobileInput.PressVirtualKey("CROUCH");
+                    kacinmaAsama = 1;
+                    kacinmaZamani = EditorApplication.timeSinceStartup;
+                    return false;
+                case 1:
+                    if (oyuncu.UnitMovementController.Dokunulmaz) {
+                        kacinmaDokunulmaz = true;
+                    }
+                    if (gecen < 1.0) {
+                        return false;
+                    }
+                    kacinmaYolu = YatayUzaklik(kacinmaYeri, oyuncu.transform.position);
+                    // bekleme süresi (2,5 sn) dolmadan ikinci basış: hamle yeniden başlamamalı
+                    kacinmaYeri = oyuncu.transform.position;
+                    AnyRPG.MobileInput.PressVirtualKey("CROUCH");
+                    kacinmaAsama = 2;
+                    kacinmaZamani = EditorApplication.timeSinceStartup;
+                    return false;
+                default:
+                    if (gecen < 0.8) {
+                        return false;
+                    }
+                    float ikinci = YatayUzaklik(kacinmaYeri, oyuncu.transform.position);
+                    rapor.kacinmaTesti = (kacinmaYolu >= 1.5f ? "atıldı " : "ATILMADI ") + kacinmaYolu.ToString("0.0") + " m, dokunulmazlık "
+                        + (kacinmaDokunulmaz ? "var" : "YOK") + ", bekleme süresindeki ikinci basış "
+                        + (ikinci < 0.5f ? "yok sayıldı" : "YİNE ATILDI (" + ikinci.ToString("0.0") + " m)");
+                    Debug.Log("[OyunTesti] kaçınma denemesi: " + rapor.kacinmaTesti);
+                    return true;
             }
         }
 
@@ -1462,6 +1536,9 @@ namespace Otuken.EditorAraclari {
                 if (rapor.binekTesti == null) {
                     rapor.binekTesti = "yapılmadı";
                 }
+                if (rapor.kacinmaTesti == null) {
+                    rapor.kacinmaTesti = "yapılmadı";
+                }
                 string klasor = Path.GetFullPath("tani");
                 Directory.CreateDirectory(klasor);
                 lock (kilit) {
@@ -1482,6 +1559,7 @@ namespace Otuken.EditorAraclari {
             sb.Append("Haritalar: ").Append(rapor.haritalar.Count).Append(", hata/istisna: ").Append(rapor.toplamHata)
                 .Append(" (").Append(rapor.hatalar.Count).Append(" farklı)\n");
             sb.Append("Binek denemesi: ").Append(rapor.binekTesti).Append('\n');
+            sb.Append("Kaçınma denemesi: ").Append(rapor.kacinmaTesti).Append('\n');
             if (rapor.pencereTesti != null) {
                 sb.Append("Pencereler ve depo: ").Append(rapor.pencereTesti).Append('\n');
             }

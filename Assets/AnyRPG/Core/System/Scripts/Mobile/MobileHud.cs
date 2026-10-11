@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace AnyRPG {
@@ -100,7 +101,7 @@ namespace AnyRPG {
             gunlukRozeti.SetActive(false);
             MenuPaneliKur();
 
-            // sağ alt: büyük Saldır, çevresinde sınıf becerileri; üstünde Oto Av ve Binek, solunda Hedef
+            // sağ alt: büyük Saldır, çevresinde sınıf becerileri; üstünde Oto Av ve Binek, solunda Hedef ve Kaçın
             Vector2 bottomRight = new Vector2(1f, 0f);
             CreateActionButton("Saldır", MobileInput.RequestAttack, bottomRight, SaldiriMerkezi, 150f, 26);
             HalkaKur(bottomRight);
@@ -111,6 +112,24 @@ namespace AnyRPG {
             binekDugmesi = SimgeDugmesi("Binek", "binek", Binek.Degistir, bottomRight, new Vector2(-62f, 430f), 80f);
             binekDugmesi.SetActive(false);
             SimgeDugmesi("Hedef", "hedef", () => MobileInput.PressVirtualKey("NEXTTARGET"), bottomRight, new Vector2(-398f, 72f), 84f);
+            // Kaçın: kısa bir atılma, o sırada gelen vuruş boşa gider (UnitMovementController.KacinmaGuncelle);
+            // bekleme süresi düğmenin üstündeki halkayla gösterilir
+            GameObject kacin = SimgeDugmesi("Kaçın", "kacin", Kacin, bottomRight, new Vector2(-286f, 48f), 80f);
+            kacinBekleme = BeklemeResmi(kacin.transform);
+
+            // sağ üst, mini haritanın solunda: sık kullanılan pencereler tek dokunuşla (Menü'de de dururlar)
+            Vector2 sagUst = new Vector2(1f, 1f);
+            GameObject armagan = SimgeDugmesi("Armağan", "armagan", GunlukArmagan.ElleAc, sagUst, new Vector2(-262f, -104f), 66f);
+            armaganRozeti = Rozet(armagan.transform);
+            GameObject gunluk = SimgeDugmesi("Günlük", "gunluk", GunlukGorevler.Goster, sagUst, new Vector2(-336f, -104f), 66f);
+            hizliGunlukRozeti = Rozet(gunluk.transform);
+            SimgeDugmesi("Etkinlik", "etkinlik", EtkinlikPenceresi.Goster, sagUst, new Vector2(-410f, -104f), 66f);
+            // yalnız zindan haritalarında görünür: son gezilen açık diyara dönüş
+            cikisDugmesi = SimgeDugmesi("Çıkış", "cikis", ZindandanCik, sagUst, new Vector2(-484f, -104f), 66f);
+            cikisDugmesi.SetActive(false);
+
+            // sol üst, karakter çerçevesinin altında: Güç Puanı (dokununca karakter penceresi)
+            GucGostergesiKur();
 
             // mini haritaya dokununca büyük harita; altında bölge etkinliği afişi
             HaritaKatmaniKur();
@@ -178,6 +197,190 @@ namespace AnyRPG {
                 im.raycastTarget = false;
             }
             return buttonObject;
+        }
+
+        /// <summary>düğmenin sağ üst köşesinde kırmızı işaret (alınmayı bekleyen ödül)</summary>
+        private GameObject Rozet(Transform dugme) {
+            GameObject rozet = CreateCircle(dugme, "Rozet", new Vector2(1f, 1f), new Vector2(-10f, -10f), 18f,
+                new Color(0.92f, 0.2f, 0.15f, 1f), new Color(0.3f, 0.05f, 0.03f, 1f));
+            rozet.GetComponent<Image>().raycastTarget = false;
+            rozet.SetActive(false);
+            return rozet;
+        }
+
+        /// <summary>düğmenin üstünde bekleme süresini gösteren koyu halka (fillAmount 1 → 0)</summary>
+        private static Image BeklemeResmi(Transform dugme) {
+            GameObject go = new GameObject("Bekleme");
+            go.transform.SetParent(dugme, false);
+            RectTransform rt = go.AddComponent<RectTransform>();
+            rt.anchorMin = Vector2.zero;
+            rt.anchorMax = Vector2.one;
+            rt.offsetMin = Vector2.zero;
+            rt.offsetMax = Vector2.zero;
+            Image resim = go.AddComponent<Image>();
+            resim.sprite = MobileShapes.Circle;
+            resim.type = Image.Type.Filled;
+            resim.fillMethod = Image.FillMethod.Radial360;
+            resim.fillOrigin = (int)Image.Origin360.Top;
+            resim.fillClockwise = false;
+            resim.color = new Color(0f, 0f, 0f, 0.62f);
+            resim.raycastTarget = false;
+            resim.fillAmount = 0f;
+            return resim;
+        }
+
+        private UnitController Oyuncu() {
+            if (oyunYoneticisi == null) {
+                oyunYoneticisi = FindAnyObjectByType<SystemGameManager>();
+            }
+            return oyunYoneticisi != null && oyunYoneticisi.PlayerManagerClient != null ? oyunYoneticisi.PlayerManagerClient.UnitController : null;
+        }
+
+        // ---------------------------------------------------------------- kaçınma, hızlı düğmeler, güç puanı, zindandan çıkış
+
+        // mağara ve zindan haritaları (IsinlanmaPenceresi'ndeki sahne adları)
+        private static readonly HashSet<string> zindanlar = new HashSet<string>() {
+            "KoncolosIni", "ErgenekonMagarasi", "FeaturesDemoDungeon", "TamuZindani"
+        };
+        private const string SonDiyarKey = "son-acik-diyar";
+        private const string VarsayilanDiyar = "FeaturesDemoZone";
+
+        private Image kacinBekleme = null;
+        private GameObject armaganRozeti = null;
+        private GameObject hizliGunlukRozeti = null;
+        private GameObject cikisDugmesi = null;
+        private Text gucYazisi = null;
+        private int gosterilenGuc = -1;
+        private string bilinenSahne = null;
+        private float cikisOnayi = -100f;
+
+        private void Kacin() {
+            UnitController oyuncu = Oyuncu();
+            if (oyuncu == null || oyuncu.UnitMovementController == null) {
+                return;
+            }
+            if (oyuncu.IsMounted) {
+                OtukenAg.Mesaj(oyuncu, "Binekteyken kaçınamazsın.");
+                return;
+            }
+            if (Time.time - oyuncu.UnitMovementController.KacinmaBaslangici < SavasAyarlari.KacinmaBekleme) {
+                // bekleme süresi dolmadı (düğmenin üstündeki halka)
+                return;
+            }
+            MobileInput.PressVirtualKey("CROUCH");
+        }
+
+        private void KacinmaHalkasiniGuncelle() {
+            if (kacinBekleme == null) {
+                return;
+            }
+            UnitController oyuncu = oyunYoneticisi != null && oyunYoneticisi.PlayerManagerClient != null
+                ? oyunYoneticisi.PlayerManagerClient.UnitController : null;
+            float kalan = 0f;
+            if (oyuncu != null && oyuncu.UnitMovementController != null) {
+                kalan = SavasAyarlari.KacinmaBekleme - (Time.time - oyuncu.UnitMovementController.KacinmaBaslangici);
+            }
+            kacinBekleme.fillAmount = kalan > 0f ? Mathf.Clamp01(kalan / SavasAyarlari.KacinmaBekleme) : 0f;
+        }
+
+        private void GucGostergesiKur() {
+            GameObject go = new GameObject("GucPuani");
+            go.transform.SetParent(transform, false);
+            RectTransform rt = go.AddComponent<RectTransform>();
+            rt.anchorMin = new Vector2(0f, 1f);
+            rt.anchorMax = new Vector2(0f, 1f);
+            rt.pivot = new Vector2(0f, 1f);
+            rt.anchoredPosition = new Vector2(30f, -134f);
+            rt.sizeDelta = new Vector2(204f, 30f);
+            Image zemin = go.AddComponent<Image>();
+            zemin.color = new Color(0.1f, 0.07f, 0.04f, 0.78f);
+            Button dugme = go.AddComponent<Button>();
+            dugme.targetGraphic = zemin;
+            dugme.onClick.AddListener(() => {
+                MobileFeedback.Tap();
+                CantaSayfalari.KarakterleAc(this);
+            });
+            Sprite sp = Simge("guc");
+            if (sp != null) {
+                GameObject resim = new GameObject("Simge");
+                resim.transform.SetParent(go.transform, false);
+                RectTransform rrt = resim.AddComponent<RectTransform>();
+                rrt.anchorMin = new Vector2(0f, 0.5f);
+                rrt.anchorMax = new Vector2(0f, 0.5f);
+                rrt.pivot = new Vector2(0.5f, 0.5f);
+                rrt.anchoredPosition = new Vector2(20f, 0f);
+                rrt.sizeDelta = new Vector2(26f, 26f);
+                Image im = resim.AddComponent<Image>();
+                im.sprite = sp;
+                im.preserveAspect = true;
+                im.raycastTarget = false;
+            }
+            gucYazisi = Etiket(go.transform, "Yazi", "Güç Puanı", 17, new Vector2(0.5f, 0.5f), new Vector2(16f, 0f), new Vector2(164f, 28f));
+            gucYazisi.color = new Color(1f, 0.88f, 0.55f, 1f);
+        }
+
+        /// <summary>güç puanı, ödül işaretleri ve Çıkış düğmesinin görünürlüğü (saniyede bir)</summary>
+        private void HizliDurumlariGuncelle() {
+            UnitController oyuncu = Oyuncu();
+            if (gucYazisi != null) {
+                int guc = oyuncu != null ? Gelisim.GucPuani(oyuncu) : 0;
+                if (guc != gosterilenGuc) {
+                    gosterilenGuc = guc;
+                    gucYazisi.text = "Güç Puanı " + guc;
+                }
+            }
+            if (armaganRozeti != null) {
+                bool bekliyor = GunlukArmagan.Bekliyor(oyunYoneticisi, oyuncu);
+                if (armaganRozeti.activeSelf != bekliyor) {
+                    armaganRozeti.SetActive(bekliyor);
+                }
+            }
+            if (hizliGunlukRozeti != null) {
+                bool odul = GunlukGorevler.OdulVar;
+                if (hizliGunlukRozeti.activeSelf != odul) {
+                    hizliGunlukRozeti.SetActive(odul);
+                }
+            }
+            if (cikisDugmesi != null) {
+                string sahne = SceneManager.GetActiveScene().name;
+                bool zindanda = zindanlar.Contains(sahne);
+                if (sahne != bilinenSahne) {
+                    bilinenSahne = sahne;
+                    // zindandan çıkınca dönülecek yer: son gezilen açık diyar
+                    if (zindanda == false && System.Array.IndexOf(IsinlanmaPenceresi.SahneAdlari, sahne) >= 0) {
+                        PlayerPrefs.SetString(SonDiyarKey, sahne);
+                    }
+                }
+                if (cikisDugmesi.activeSelf != zindanda) {
+                    cikisDugmesi.SetActive(zindanda);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Çıkış düğmesi: yanlışlıkla basılmasın diye iki dokunuş ister, sonra oyuncuyu zindana girmeden önce gezdiği
+        /// son açık diyara ışınlar (Işınlan penceresiyle aynı yol ve aynı kurallar: savaşta ışınlanılmaz)
+        /// </summary>
+        private void ZindandanCik() {
+            UnitController oyuncu = Oyuncu();
+            if (oyuncu == null) {
+                return;
+            }
+            if (Time.unscaledTime - cikisOnayi > 4f) {
+                cikisOnayi = Time.unscaledTime;
+                OtukenAg.Mesaj(oyuncu, "Zindandan çıkmak için Çıkış'a bir kez daha dokun.");
+                return;
+            }
+            cikisOnayi = -100f;
+            string hedef = PlayerPrefs.GetString(SonDiyarKey, VarsayilanDiyar);
+            if (zindanlar.Contains(hedef) || System.Array.IndexOf(IsinlanmaPenceresi.SahneAdlari, hedef) < 0) {
+                hedef = VarsayilanDiyar;
+            }
+            OtomatikAv.Kapat();
+            string hata = IsinlanmaPenceresi.Teleport(hedef);
+            if (hata != null) {
+                OtukenAg.Mesaj(oyuncu, hata);
+            }
         }
 
         // ---------------------------------------------------------------- menü (öteki pencereler)
@@ -424,6 +627,7 @@ namespace AnyRPG {
                     Debug.LogWarning("MobileHud beceri halkası: " + e.Message);
                 }
             }
+            KacinmaHalkasiniGuncelle();
         }
 
         private bool halkaHatasiYazildi = false;
@@ -877,6 +1081,7 @@ namespace AnyRPG {
                 }
             }
             HaritaKatmaniniGuncelle();
+            HizliDurumlariGuncelle();
             if (binekDugmesi != null) {
                 if (binekDugmesi.activeSelf != Binek.Var) {
                     binekDugmesi.SetActive(Binek.Var);
