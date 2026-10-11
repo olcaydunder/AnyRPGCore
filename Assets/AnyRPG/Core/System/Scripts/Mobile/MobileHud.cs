@@ -101,7 +101,7 @@ namespace AnyRPG {
             gunlukRozeti.SetActive(false);
             MenuPaneliKur();
 
-            // sağ alt: büyük Saldır, çevresinde sınıf becerileri; üstünde Oto Av ve Binek, solunda Hedef ve Kaçın
+            // sağ alt: büyük Saldır, çevresinde sınıf becerileri; üstünde Oto Av ve Binek, solunda Hedef, sağ altında Kaçın
             Vector2 bottomRight = new Vector2(1f, 0f);
             CreateActionButton("Saldır", MobileInput.RequestAttack, bottomRight, SaldiriMerkezi, 150f, 26);
             HalkaKur(bottomRight);
@@ -113,19 +113,21 @@ namespace AnyRPG {
             binekDugmesi.SetActive(false);
             SimgeDugmesi("Hedef", "hedef", () => MobileInput.PressVirtualKey("NEXTTARGET"), bottomRight, new Vector2(-398f, 72f), 84f);
             // Kaçın: kısa bir atılma, o sırada gelen vuruş boşa gider (UnitMovementController.KacinmaGuncelle);
-            // bekleme süresi düğmenin üstündeki halkayla gösterilir
-            GameObject kacin = SimgeDugmesi("Kaçın", "kacin", Kacin, bottomRight, new Vector2(-286f, 48f), 80f);
+            // bekleme süresi düğmenin üstündeki halkayla gösterilir. Saldır'ın sağ altındaki köşede: Hedef ile Saldır
+            // arasında beceri halkası ve (16:9 ekranda) tecrübe çubuğu yer bırakmıyor
+            GameObject kacin = SimgeDugmesi("Kaçın", "kacin", Kacin, bottomRight, new Vector2(-52f, 50f), 80f);
             kacinBekleme = BeklemeResmi(kacin.transform);
 
-            // sağ üst, mini haritanın solunda: sık kullanılan pencereler tek dokunuşla (Menü'de de dururlar)
+            // sağ üst, mini haritanın solunda: sık kullanılan pencereler tek dokunuşla (Menü'de de dururlar).
+            // Sistem çubuğunun bandının altında dururlar: dar ekranlarda (16:9, tablet) çubukla yan yana gelmesinler
             Vector2 sagUst = new Vector2(1f, 1f);
-            GameObject armagan = SimgeDugmesi("Armağan", "armagan", GunlukArmagan.ElleAc, sagUst, new Vector2(-262f, -104f), 66f);
+            GameObject armagan = SimgeDugmesi("Armağan", "armagan", GunlukArmagan.ElleAc, sagUst, new Vector2(-262f, -146f), 66f);
             armaganRozeti = Rozet(armagan.transform);
-            GameObject gunluk = SimgeDugmesi("Günlük", "gunluk", GunlukGorevler.Goster, sagUst, new Vector2(-336f, -104f), 66f);
+            GameObject gunluk = SimgeDugmesi("Günlük", "gunluk", GunlukGorevler.Goster, sagUst, new Vector2(-336f, -146f), 66f);
             hizliGunlukRozeti = Rozet(gunluk.transform);
-            SimgeDugmesi("Etkinlik", "etkinlik", EtkinlikPenceresi.Goster, sagUst, new Vector2(-410f, -104f), 66f);
+            SimgeDugmesi("Etkinlik", "etkinlik", EtkinlikPenceresi.Goster, sagUst, new Vector2(-410f, -146f), 66f);
             // yalnız zindan haritalarında görünür: son gezilen açık diyara dönüş
-            cikisDugmesi = SimgeDugmesi("Çıkış", "cikis", ZindandanCik, sagUst, new Vector2(-484f, -104f), 66f);
+            cikisDugmesi = SimgeDugmesi("Çıkış", "cikis", ZindandanCik, sagUst, new Vector2(-484f, -146f), 66f);
             cikisDugmesi.SetActive(false);
 
             // sol üst, karakter çerçevesinin altında: Güç Puanı (dokununca karakter penceresi)
