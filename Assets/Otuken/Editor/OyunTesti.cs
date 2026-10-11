@@ -716,7 +716,8 @@ namespace Otuken.EditorAraclari {
                         return false;
                     }
                     AnyRPG.OtomatikAv.Kapat();
-                    AnyRPG.MobileInput.SetJoystick(Vector2.zero, false);
+                    // binek denemesi karakteri bir ağaca ya da duvara dayamış olabilir: geldiği yöne (geriye) kaçınır
+                    AnyRPG.MobileInput.SetJoystick(Vector2.down, true);
                     kacinmaDokunulmaz = false;
                     kacinmaYeri = oyuncu.transform.position;
                     AnyRPG.MobileInput.PressVirtualKey("CROUCH");
@@ -726,6 +727,10 @@ namespace Otuken.EditorAraclari {
                 case 1:
                     if (oyuncu.UnitMovementController.Dokunulmaz) {
                         kacinmaDokunulmaz = true;
+                    }
+                    if (gecen > 0.25) {
+                        // hamle başladı: çubuk bırakılır (yönü hamle kendi tutar)
+                        AnyRPG.MobileInput.SetJoystick(Vector2.zero, false);
                     }
                     if (gecen < 1.0) {
                         return false;
@@ -742,7 +747,7 @@ namespace Otuken.EditorAraclari {
                         return false;
                     }
                     float ikinci = YatayUzaklik(kacinmaYeri, oyuncu.transform.position);
-                    rapor.kacinmaTesti = (kacinmaYolu >= 1.5f ? "atıldı " : "ATILMADI ") + kacinmaYolu.ToString("0.0") + " m, dokunulmazlık "
+                    rapor.kacinmaTesti = (kacinmaYolu >= 3.5f ? "atıldı " : "ATILMADI ") + kacinmaYolu.ToString("0.0") + " m, dokunulmazlık "
                         + (kacinmaDokunulmaz ? "var" : "YOK") + ", bekleme süresindeki ikinci basış "
                         + (ikinci < 0.5f ? "yok sayıldı" : "YİNE ATILDI (" + ikinci.ToString("0.0") + " m)");
                     Debug.Log("[OyunTesti] kaçınma denemesi: " + rapor.kacinmaTesti);
