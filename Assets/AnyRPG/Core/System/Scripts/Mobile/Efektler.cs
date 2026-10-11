@@ -126,7 +126,7 @@ namespace AnyRPG {
             cizici.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
             cizici.receiveShadows = false;
             if (mod == ParticleSystemRenderMode.Stretch) {
-                cizici.velocityScale = 0.07f;
+                cizici.velocityScale = 0.1f;
                 cizici.lengthScale = 1.2f;
             }
             ps.Play();
@@ -199,15 +199,15 @@ namespace AnyRPG {
             // parlama ve savurma yayı
             Parcacik(isik, nokta, Vector3.zero, 1.7f * guc, 0.16f, renk);
             Parcacik(isik, nokta, Vector3.zero, 0.8f * guc, 0.22f, Color.white);
-            Parcacik(yay, nokta, Vector3.zero, 2.3f * guc, 0.2f, renk, Random.Range(0f, 360f));
+            Parcacik(yay, nokta, Vector3.zero, 1.9f * guc, 0.2f, renk, Random.Range(0f, 360f));
             if (kritik) {
-                Parcacik(yay, nokta, Vector3.zero, 3.1f, 0.24f, Color.white, Random.Range(0f, 360f));
+                Parcacik(yay, nokta, Vector3.zero, 2.5f, 0.24f, Color.white, Random.Range(0f, 360f));
             }
             // kıvılcımlar: vuruş yönüne ve yukarı doğru saçılır, yere düşer
-            int adet = kritik ? 20 : (beceri ? 14 : 9);
+            int adet = kritik ? 24 : (beceri ? 16 : 12);
             for (int i = 0; i < adet; i++) {
                 Vector3 sacilma = (Random.onUnitSphere + yon * 0.9f + Vector3.up * 0.6f).normalized;
-                Parcacik(kivilcim, nokta, sacilma * Random.Range(3.5f, 8f) * guc, Random.Range(0.1f, 0.2f) * guc,
+                Parcacik(kivilcim, nokta, sacilma * Random.Range(3.5f, 8f) * guc, Random.Range(0.18f, 0.34f) * guc,
                     Random.Range(0.25f, 0.5f), i % 3 == 0 ? Color.white : renk);
             }
             if (kritik || beceri) {

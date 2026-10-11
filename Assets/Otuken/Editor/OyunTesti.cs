@@ -776,7 +776,7 @@ namespace Otuken.EditorAraclari {
                 AnyRPG.Efektler.VurusNoktasi(govde - sag * 2.4f, ileri, zemin - sag * 2.4f, false, false);
                 AnyRPG.Efektler.VurusNoktasi(govde, ileri, zemin, true, false);
                 AnyRPG.Efektler.VurusNoktasi(govde + sag * 2.4f, ileri, zemin + sag * 2.4f, false, true);
-                int canli = AnyRPG.Efektler.TestIlerlet(0.07f);
+                int canli = AnyRPG.Efektler.TestIlerlet(0.1f);
                 string ilk = GoruntuAl(kamera, "efekt_vurus");
                 AnyRPG.Efektler.TestIlerlet(2f);
                 AnyRPG.Efektler.Kacinma(oyuncu);
