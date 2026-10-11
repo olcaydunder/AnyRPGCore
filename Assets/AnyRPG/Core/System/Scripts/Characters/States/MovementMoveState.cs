@@ -59,6 +59,10 @@ namespace AnyRPG {
                 calculatedSpeed = Mathf.Clamp(unitController.MovementSpeed, 0, clampValue);
                 // Ötüken: hareket çubuğu ne kadar itilirse o kadar hızlı
                 calculatedSpeed *= SavasAyarlari.JoystickHizi(unitController, unitMovementController.CurrentMovementData);
+                // Ötüken: kaçınma hamlesi sırasında birkaç kat hızlı (UnitMovementController.KacinmaGuncelle)
+                if (unitMovementController.KacinmaSuruyor) {
+                    calculatedSpeed *= SavasAyarlari.KacinmaHizCarpani;
+                }
 
                 // 3. CALCULATE WORLD INTENT
                 // We use the raw World Direction we gathered from the camera

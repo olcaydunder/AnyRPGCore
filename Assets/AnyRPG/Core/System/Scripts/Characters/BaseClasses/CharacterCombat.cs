@@ -643,6 +643,15 @@ namespace AnyRPG {
                 return false;
             }
 
+            // Ötüken: kaçınma hamlesi sırasında gelen vuruş boşa gider (UnitMovementController.Dokunulmaz)
+            if (unitController.UnitControllerMode == UnitControllerMode.Player && unitController.UnitMovementController != null
+                && unitController.UnitMovementController.Dokunulmaz) {
+                SavasAyarlari.KacinilanVurus++;
+                // oyuncunun üstünde "Iska" yazısı (dokunulmazlıktaki bildirimle aynı yol: çevrimiçinde sahibine gider)
+                unitController.UnitEventController.NotifyOnReceiveCombatTextEvent(unitController, 0, CombatTextType.miss, CombatMagnitude.normal, abilityEffectContext);
+                return false;
+            }
+
             damage = (int)(damage * unitController.CharacterStats.GetIncomingDamageModifiers());
 
             // Ötüken: canavar gücü dengesi (Denge): canavarın oyuncuya vurduğu hasar
@@ -656,6 +665,12 @@ namespace AnyRPG {
             // Ötüken: acemi koruması (birçok mobil RPG'deki yeni oyuncu koruması): 5. seviyeye kadar oyuncu %40 az hasar alır
             if (damage > 0 && unitController.UnitControllerMode == UnitControllerMode.Player && unitController.CharacterStats.Level < Gelisim.AcemiSeviyesi) {
                 damage = Mathf.Max(1, Mathf.RoundToInt(damage * Gelisim.AcemiHasarCarpani));
+            }
+
+            // Ötüken: bitirici vuruş (Bitirici): öfke dolunca kurulan sıradaki vuruş 3 kat vurur ve kritik görünür
+            if (damage > 0 && Bitirici.Vurus(source as UnitController, unitController, combatMagnitude == CombatMagnitude.critical)) {
+                damage = Mathf.RoundToInt(damage * Bitirici.Carpan);
+                combatMagnitude = CombatMagnitude.critical;
             }
 
             Denge.HasarKaydet(unitController, source, damage);

@@ -648,6 +648,18 @@ namespace AnyRPG {
                 Debug.LogWarning($"MobileBootstrap: BellekKoruma.Tick(): {exception.Message}");
             }
             try {
+                // savaş efektleri: oyuncunun yendiği düşmanların ölüm ışıkları
+                Efektler.Tick(GetSystemGameManager(), inGame);
+            } catch (System.Exception exception) {
+                Debug.LogWarning($"MobileBootstrap: Efektler.Tick(): {exception.Message}");
+            }
+            try {
+                // bitirici vuruş: Oto Av açıkken dolan öfke kendiliğinden kullanılır
+                Bitirici.Tick(GetSystemGameManager(), inGame);
+            } catch (System.Exception exception) {
+                Debug.LogWarning($"MobileBootstrap: Bitirici.Tick(): {exception.Message}");
+            }
+            try {
                 OyunAyarlari.Tick(GetSystemGameManager());
             } catch (System.Exception exception) {
                 Debug.LogWarning($"MobileBootstrap: OyunAyarlari.Tick(): {exception.Message}");

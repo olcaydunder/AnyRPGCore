@@ -299,6 +299,8 @@ namespace AnyRPG {
                 Dene("CevrimdisiKazanc", () => CevrimdisiKazanc.Tick(oyun, oyunda));
                 Dene("Gelisim", () => Gelisim.Tick(oyun, oyunda));
                 Dene("Pazar", () => Pazar.Tick(oyun, oyunda));
+                Dene("Efektler", () => Efektler.Tick(oyun, oyunda));
+                Dene("Bitirici", () => Bitirici.Tick(oyun, oyunda));
                 if (oyunda) {
                     Dene("YerdekiGanimet", () => YerdekiGanimet.IstemciTick(oyun));
                     Dene("Etkinlikler", () => Etkinlikler.Tick(oyun));
@@ -476,6 +478,26 @@ namespace AnyRPG {
                 yield break;
             }
 
+            // kaçınma: çubuk geriye itiliyken Kaçın (CROUCH girdisi). Hamleden hemen sonraki ve 2 sn sonraki yer değiştirme
+            // yazılır: sunucu hamleyi kabul etmezse telefonun tahmini geri alınır, ikinci sayı küçülür
+            Vector3 kacinmaOncesi = ben.transform.position;
+            MobileInput.SetJoystick(Vector2.down, true);
+            MobileInput.PressVirtualKey("CROUCH");
+            yield return new WaitForSecondsRealtime(0.25f);
+            MobileInput.SetJoystick(Vector2.zero, false);
+            yield return new WaitForSecondsRealtime(0.45f);
+            ben = oyun.PlayerManagerClient.UnitController;
+            float kacinmaHemen = ben != null ? YatayUzaklik(kacinmaOncesi, ben.transform.position) : 0f;
+            yield return new WaitForSecondsRealtime(2f);
+            ben = oyun.PlayerManagerClient.UnitController;
+            float kacinmaSonra = ben != null ? YatayUzaklik(kacinmaOncesi, ben.transform.position) : 0f;
+            kacinmaOzeti = kacinmaHemen.ToString("0.0") + " m (2 sn sonra " + kacinmaSonra.ToString("0.0") + " m)";
+            Not("kaçınma: " + kacinmaOzeti);
+            if (ben == null) {
+                Bitir("SONUÇ: oyuncu birimi kayboldu");
+                yield break;
+            }
+
             // gerçek oyuncu gibi otomatik av (beceriler, ganimet); ayrıca 5 sn'de bir en yakın düşmana saldırı isteği
             if (OtomatikAv.Acik == false) {
                 OtomatikAv.Degistir();
@@ -591,10 +613,19 @@ namespace AnyRPG {
             Bitir("SONUÇ: " + (enCokOyuncu > 0 ? "öteki oyuncu GÖRÜLDÜ (" + string.Join(", ", gorulenOyuncular) + ", onun yürüyüşü " + otekiYuruyus.ToString("0") + " m)" : "öteki oyuncu görülmedi")
                 + ", en çok NPC/düşman " + enCokNpc + ", çubukla " + yurunen.ToString("0") + " m, toplam yer değiştirme " + Vector3.Distance(ilkKonum, son).ToString("0") + " m"
                 + ", " + saldiri + " saldırı isteği, oto av becerisi " + OtomatikAv.BeceriSayisi
+                + ", kaçınma " + kacinmaOzeti + ", öfke %" + Mathf.RoundToInt(Bitirici.Doluluk(ben) * 100f) + ", bitirici " + Bitirici.KurulanSayisi + " kez kuruldu"
                 + (olum > 0 ? ", " + olum + " ölüm / " + dirilme + " yeniden doğma" + (olumPenceresi < olum ? " (ölüm penceresi " + olumPenceresi + " kez açıldı)" : string.Empty) : string.Empty)
                 + ", seviye " + ilkSeviye + " → " + (ben != null ? ben.CharacterStats.Level : 0)
                 + ", tecrübe " + ilkTecrube + " → " + (ben != null ? ben.CharacterStats.CurrentXP : 0)
                 + " | kolaylıklar: " + kolaylik);
+        }
+
+        private string kacinmaOzeti = "-";
+
+        private static float YatayUzaklik(Vector3 a, Vector3 b) {
+            a.y = 0f;
+            b.y = 0f;
+            return Vector3.Distance(a, b);
         }
 
         private int olum = 0;

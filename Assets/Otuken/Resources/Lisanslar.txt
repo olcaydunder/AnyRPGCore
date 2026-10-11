@@ -9,6 +9,7 @@ Oyunun kendi kodu, hikâyesi, haritaları, simgesi ve logosu Olcay Yasin Dünder
 - Çevre modelleri: Chop Chop, Unity Open Project #1 (Apache 2.0, değiştirilmiştir)
 - Modeller: KayKit (Kay Lousberg, CC0), Quaternius (CC0 / Quaternius lisansı)
 - Animasyonlar: Quaternius Universal Animation Library (CC0)
+- Savaş efekti dokuları: Kenney Particle Pack (Kenney Vleugels, www.kenney.nl, CC0)
 - AnyRPG içerikleri (simge, ses, model): kamu malı (CC0) kaynaklar
 - Müzik: Pixabay İçerik Lisansı
 - Yazı tipleri: Liberation Sans, Source Han Sans (SIL OFL 1.1), Open Sans (Apache 2.0)
@@ -698,6 +699,17 @@ https://www.patreon.com/quaternius
 
 ===== Quaternius Bestiary =====
 Modeller: Quaternius (quaternius.com). Quaternius varlık lisansı: ticari kullanım serbest, tek başına yeniden dağıtılamaz.
+
+===== Kenney Particle Pack =====
+Particle Pack (1.1)
+
+	by Kenney Vleugels (Kenney.nl)
+
+	License (Creative Commons Zero, CC0)
+	http://creativecommons.org/publicdomain/zero/1.0/
+
+	You may use these assets in personal and commercial projects.
+	Credit (Kenney or www.kenney.nl) would be nice but is not mandatory.
 
 ===== Müzik (Pixabay İçerik Lisansı) =====
 Unity Winds · NverAvetyanMusic · https://pixabay.com/music/main-title-unity-winds-ethnic-trailer-377495/

@@ -227,8 +227,17 @@ namespace AnyRPG {
                 int gun;
                 if (p.Length < 2 || p[1] == "1" || int.TryParse(p[0], out gun) == false) {
                     SonDurum = "bugün alınmış";
+                    alinabilir = false;
+                    if (elleIstendi) {
+                        // ekrandaki Armağan düğmesiyle soruldu: neden açılmadığı söylenir
+                        elleIstendi = false;
+                        SystemGameManager o = OtukenAg.Oyun;
+                        OtukenAg.Mesaj(o != null && o.PlayerManagerClient != null ? o.PlayerManagerClient.UnitController : null, ZatenAlindi);
+                    }
                     return;
                 }
+                elleIstendi = false;
+                alinabilir = true;
                 SonDurum = gun + ". gün alınabilir";
                 SystemGameManager oyun = OtukenAg.Oyun;
                 UnitController oyuncu = oyun != null && oyun.PlayerManagerClient != null ? oyun.PlayerManagerClient.UnitController : null;
@@ -240,6 +249,9 @@ namespace AnyRPG {
             });
             OtukenAg.IstemciDinle("armagan-sonuc", veri => {
                 SonDurum = veri.Length == 0 ? "alındı" : veri;
+                if (veri.Length == 0) {
+                    alinabilir = false;
+                }
                 if (instance == null) {
                     return;
                 }
@@ -251,6 +263,48 @@ namespace AnyRPG {
                     instance.statusText.text = veri;
                 }
             });
+        }
+
+        // ---------------------------------------------------------------- ekrandaki Armağan düğmesi (MobileHud)
+
+        private const string ZatenAlindi = "Bugünün armağanını aldın. Yarın yine gel!";
+        private static bool elleIstendi = false;
+        // çevrimiçi: sunucunun son yanıtına göre bugünün armağanı duruyor mu
+        private static bool alinabilir = false;
+
+        /// <summary>bugünün armağanı alınmayı bekliyor mu (düğmenin üstündeki işaret)</summary>
+        public static bool Bekliyor(SystemGameManager oyun, UnitController oyuncu) {
+            if (oyun == null || oyuncu == null) {
+                return false;
+            }
+            if (oyun.GameMode == GameMode.Network) {
+                return alinabilir;
+            }
+            return BugunAlindi(oyuncu) == false;
+        }
+
+        /// <summary>Armağan düğmesi: bugünün armağanı duruyorsa pencereyi açar, alındıysa bunu söyler</summary>
+        public static void ElleAc() {
+            SystemGameManager oyun = OtukenAg.Oyun;
+            UnitController oyuncu = oyun != null && oyun.PlayerManagerClient != null ? oyun.PlayerManagerClient.UnitController : null;
+            if (oyuncu == null || IsOpen) {
+                return;
+            }
+            if (oyun.GameMode == GameMode.Network) {
+                // armağanın durumunu sunucu bilir: yanıt gelince pencere açılır ya da "aldın" denir
+                elleIstendi = true;
+                if (OtukenAg.Gonder("armagan-durum") == false) {
+                    elleIstendi = false;
+                    OtukenAg.Mesaj(oyuncu, "Sunucuya ulaşılamadı, biraz sonra yeniden dene.");
+                }
+                return;
+            }
+            if (BugunAlindi(oyuncu)) {
+                OtukenAg.Mesaj(oyuncu, ZatenAlindi);
+                return;
+            }
+            Ensure();
+            instance.Open(oyun, oyuncu.DisplayName, AlinacakGun(oyuncu));
         }
 
         /// <summary>çevrimiçi armağanın son durumu (ağ botu raporu)</summary>
