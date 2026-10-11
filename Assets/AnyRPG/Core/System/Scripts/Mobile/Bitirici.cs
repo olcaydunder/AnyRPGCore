@@ -33,6 +33,9 @@ namespace AnyRPG {
         /// <summary>bu oturumda atılan bitirici vuruş sayısı (oyun testi okur)</summary>
         public static int KullanilanSayisi = 0;
 
+        /// <summary>bu oturumda bu telefonda bitiricinin kurulma sayısı (ağ botu okur)</summary>
+        public static int KurulanSayisi = 0;
+
         private static Durum Al(UnitController oyuncu) {
             Durum d;
             if (durumlar.TryGetValue(oyuncu, out d) == false) {
@@ -150,6 +153,7 @@ namespace AnyRPG {
         }
 
         private static void Kuruldu(UnitController oyuncu) {
+            KurulanSayisi++;
             OtukenAg.Mesaj(oyuncu, "<color=#FF9A2E>Bitirici hazır: sıradaki vuruşun 3 kat vurur!</color>");
             Efektler.BitiriciHazir(oyuncu);
             MobileFeedback.Medium();
