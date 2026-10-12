@@ -10,6 +10,7 @@
 #    OtukenSunucu.zip'i indirir, kurar, oyunu yeniden başlatır. 5 dakikada bir çalışır (systemd zamanlayıcı).
 #  - otuken.service: oyunu başsız sunucu kipinde çalıştırır (paketteki baslat.sh; UDP 7770), çökerse yeniden açar
 #  - güvenlik duvarı (ufw) açıksa UDP 7770'e (oyun) ve TCP 8081'e (yönetim paneli) izin verir
+#  - disk koruması: oyunun çıktısı /var/log/syslog'a yazılmaz, journald 1 GB ile sınırlı, syslog 500 MB'da döndürülür
 # Şifre, anahtar, jeton içermez; sunucu yalnız herkese açık sürüm dosyalarını indirir. Yeniden çalıştırmak zararsızdır.
 # Kısa durum: otuken-durum     Günlük: journalctl -u otuken -n 100
 set -e
@@ -74,12 +75,14 @@ echo "Oyun sunucusu: $(systemctl is-active otuken 2>/dev/null)   Güncelleyici: 
 echo "UDP 7770     : $(ss -lun 2>/dev/null | grep -q ':7770 ' && echo dinleniyor || echo DİNLENMİYOR)"
 echo "Yönetim      : http://$(curl -fsS4 --max-time 3 https://api.ipify.org 2>/dev/null || hostname -I | cut -d' ' -f1):8081/yonetim ($(ss -ltn 2>/dev/null | grep -q ':8081 ' && echo açık || echo KAPALI))"
 [ -f /var/lib/otuken/yonetim-sifresi.txt ] && echo "Panel ilk şifresi: $(cat /var/lib/otuken/yonetim-sifresi.txt)"
+echo "Disk         : $(df -h / | awk 'NR==2{print $5" dolu, "$4" boş"}')   syslog: $(du -ch /var/log/syslog* 2>/dev/null | tail -n1 | cut -f1)   journal: $(journalctl --disk-usage 2>/dev/null | grep -oE '[0-9.]+[KMGT]' | head -n1)"
 echo "--- son sunucu satırları"
 journalctl -u otuken --no-pager -n 400 2>/dev/null | grep -E "\[Sunucu\]|Exception|signal|Killed|oom" | tail -n 8
 journalctl -t otuken --no-pager -n 3 2>/dev/null
 BETIK
 chmod 755 /usr/local/bin/otuken-durum
 
+eski_birim=$(cat /etc/systemd/system/otuken.service 2>/dev/null || true)
 cat > /etc/systemd/system/otuken.service <<BIRIM
 [Unit]
 Description=Otuken Destani oyun sunucusu
@@ -99,10 +102,50 @@ LimitNOFILE=65536
 # aynı makinedeki öteki oyunu sıkıştırmasın
 MemoryMax=4G
 Nice=5
+# günlük: yalnız journald'a (boyutu sınırlı), /var/log/syslog'a yazılmaz (rsyslog süzgeci aşağıda);
+# her saniye tekrarlanan bir hata olursa 30 sn'de 1000 satırdan fazlası atılır
+SyslogIdentifier=otuken-oyun
+LogRateLimitIntervalSec=30s
+LogRateLimitBurst=1000
 
 [Install]
 WantedBy=multi-user.target
 BIRIM
+
+# --- disk koruması: oyunun çıktısı diski doldurmasın
+# 1) rsyslog: oyun satırları /var/log/syslog'a kopyalanmaz (journalctl -u otuken ile okunur; güncelleyicinin "otuken" notları kalır)
+if [ -d /etc/rsyslog.d ]; then
+  cat > /etc/rsyslog.d/10-otuken.conf <<'RSYS'
+# Ötüken Destanı oyun sunucusu: satırları journald'da kalır, syslog dosyalarına yazılmaz
+if ($programname == "otuken-oyun" or $programname == "baslat.sh" or $programname == "OtukenSunucu.x86_64") then {
+  stop
+}
+RSYS
+  systemctl restart rsyslog 2>/dev/null || true
+fi
+# 2) journald: en çok 1 GB, diskte en az 4 GB boş kalsın
+mkdir -p /etc/systemd/journald.conf.d
+cat > /etc/systemd/journald.conf.d/otuken.conf <<'JRN'
+[Journal]
+SystemMaxUse=1G
+SystemKeepFree=4G
+SystemMaxFileSize=128M
+JRN
+systemctl restart systemd-journald 2>/dev/null || true
+journalctl --vacuum-size=1G >/dev/null 2>&1 || true
+# 3) logrotate: syslog ve diğerleri 500 MB'ı geçince beklemeden döndürülsün; denetim saatte bir
+if [ -f /etc/logrotate.d/rsyslog ] && ! grep -q "maxsize" /etc/logrotate.d/rsyslog; then
+  sed -i -E 's/^([[:space:]]*)(daily|weekly|monthly)[[:space:]]*$/&\n\1maxsize 500M/' /etc/logrotate.d/rsyslog
+fi
+if systemctl cat logrotate.timer >/dev/null 2>&1; then
+  mkdir -p /etc/systemd/system/logrotate.timer.d
+  cat > /etc/systemd/system/logrotate.timer.d/otuken.conf <<'LRT'
+[Timer]
+OnCalendar=
+OnCalendar=hourly
+AccuracySec=1m
+LRT
+fi
 
 cat > /etc/systemd/system/otuken-guncelle.service <<'BIRIM'
 [Unit]
@@ -133,9 +176,14 @@ if command -v ufw >/dev/null 2>&1 && ufw status 2>/dev/null | grep -q "Status: a
 fi
 
 systemctl daemon-reload
+systemctl restart logrotate.timer 2>/dev/null || true
 systemctl enable otuken.service
 systemctl enable --now otuken-guncelle.timer
 /usr/local/bin/otuken-guncelle || true
+# hizmet tanımı değiştiyse (ör. günlük sınırları) yeni ayarlar için oyun yeniden başlatılır (oyuncular birkaç saniye kopar)
+if [ -n "$eski_birim" ] && [ "$eski_birim" != "$(cat /etc/systemd/system/otuken.service)" ] && systemctl is-active --quiet otuken; then
+  systemctl restart otuken || true
+fi
 systemctl is-active --quiet otuken || systemctl start otuken || true
 # sunucunun açılmasını bekle (en çok 2 dk)
 for i in $(seq 1 60); do

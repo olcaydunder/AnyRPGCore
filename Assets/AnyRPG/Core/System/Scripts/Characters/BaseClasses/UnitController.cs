@@ -1666,7 +1666,13 @@ namespace AnyRPG {
                 return;
             }
             if (currentState != null) {
-                currentState.Update();
+                // Ötüken: yapay zekâ durumundaki bir hata her fizik adımında (saniyede 50 kez) tekrarlanıp günlüğü doldurmasın
+                IState durum = currentState;
+                try {
+                    durum.Update();
+                } catch (System.Exception hata) {
+                    TekrarSuzgeci.Yaz(hata, "UnitController.FixedUpdate " + durum.GetType().Name, this);
+                }
             }
             if (motorEnabled) {
                 unitMotor?.FixedTick();

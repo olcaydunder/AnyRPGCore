@@ -23,7 +23,10 @@ namespace AnyRPG {
                 removeNodes.Clear();
                 // we need to remove stale nodes on each check because we could have aggro'd a target that was already fighting with someone and not got the message it died if we didn't hit it first
                 foreach (AggroNode node in aggroNodes) {
-                    if (node.aggroTarget?.gameObject == null
+                    // Ötüken: "?." Unity'nin yok edilmiş nesne denetimini atlar; oyuncu dövüşte çıkıp karakteri silinince
+                    // .gameObject her fizik adımında NullReferenceException atıyor, düğüm hiç temizlenmiyordu (sunucu günlüğünü dolduruyordu)
+                    if (node.aggroTarget == null
+                        || node.aggroTarget.gameObject == null
                         || node.aggroTarget.gameObject.activeInHierarchy == false
                         || node.aggroTarget.IsInitialized == false
                         || node.aggroTarget.CharacterStats.IsAlive == false
