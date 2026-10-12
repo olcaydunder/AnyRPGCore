@@ -1,8 +1,8 @@
 # Ötüken Destanı · Hata panosu
 
-Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 12.10.2026 12:40.
+Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 12.10.2026 22:22.
 
-**40** açık sorun · **5** düzeltilen · toplam **261** rapor
+**40** açık sorun · **5** düzeltilen · toplam **269** rapor
 
 ## Son APK derlemesi
 
@@ -15,7 +15,7 @@ Tanı raporunda uyarı yok.
 | Durum | Sorun | Tür | Tekrar | Cihaz | Sürüm | Son görülme |
 |---|---|---|---|---|---|---|
 | 🔁 yeniden görüldü | [Arayüz yerleşimi, 3120x1335 ekran](kayitlar/arayuz-3120x1335.md) | Arayüz | 10 | 1 | 0.1.67, 1.0.69, 1.0.70 | 07.10.2026 01:24 |
-| 🔴 açık | [Çökme: Çökme (yerel kod): crash](kayitlar/cokme-b56b62e3.md) | Çökme | 6 | 1 | 1.0.70, 1.0.78, 1.0.79 | 08.10.2026 22:20 |
+| 🔴 açık | [Çökme: Çökme (yerel kod): crash](kayitlar/cokme-b56b62e3.md) | Çökme | 8 | 3 | 1.0.70, 1.0.78, 1.0.79 | 12.10.2026 13:30 |
 | 🔴 açık | [Çökme: Çökme (Java): crash](kayitlar/cokme-0136878a.md) | Çökme | 2 | 1 | 1.0.78 | 08.10.2026 12:32 |
 | 🔴 açık | [Donma: Donma (ANR): oyun 5 saniyeden uzun yanıt vermedi: user request after error](kayitlar/anr-7d743acc.md) | Donma | 1 | 1 | 1.0.79 | 08.10.2026 18:52 |
 | 🔴 açık | [İstisna: NullReferenceException: Object reference not set to an instance of an object.](kayitlar/istisna-3addc771.md) | İstisna | 2 | 1 | 1.0.79 | 09.10.2026 23:05 |
@@ -36,9 +36,9 @@ Tanı raporunda uyarı yok.
 | 🔴 açık | [Hata: Deneme raporu (sistem sınaması)](kayitlar/hata-00000000.md) | Hata | 2 | 1 | deneme | 08.10.2026 00:16 |
 | 🔴 açık | [Hata: [2026.10.06 14:54:05] Client encountered an error while parsing data for packetId 35771. Message: Objec…](kayitlar/hata-dc1219d9.md) | Hata | 2 | 1 | 0.1.66 | 06.10.2026 17:54 |
 | 🔴 açık | [Hata: InputManager not found in scene.  Is the GameManager in the scene?](kayitlar/hata-8f05154f.md) | Hata | 8 | 2 | 0.1.43 | 05.10.2026 00:12 |
+| 🔴 açık | [Bellek: Bellek yetmedi, sistem oyunu kapattı](kayitlar/bellek-d3941b2d.md) | Bellek | 28 | 11 | 0.1.54, 1.0.70, 1.0.79 | 12.10.2026 13:34 |
+| 🔴 açık | [Bellek: Cihazın belleği azaldı (Android bellek uyarısı)](kayitlar/bellek-45b65e0c.md) | Bellek | 7 | 3 | 1.0.79 | 12.10.2026 13:09 |
 | 🔴 açık | [Bellek: Bellek yetmedi, sistem oyunu kapattı: [REMOVE TASK] remove task](kayitlar/bellek-e9291dad.md) | Bellek | 1 | 1 | 1.0.79 | 12.10.2026 12:35 |
-| 🔴 açık | [Bellek: Bellek yetmedi, sistem oyunu kapattı](kayitlar/bellek-d3941b2d.md) | Bellek | 23 | 11 | 0.1.54, 1.0.70, 1.0.79 | 12.10.2026 12:35 |
-| 🔴 açık | [Bellek: Cihazın belleği azaldı (Android bellek uyarısı)](kayitlar/bellek-45b65e0c.md) | Bellek | 6 | 3 | 1.0.79 | 11.10.2026 13:25 |
 | 🔴 açık | [Yavaşlık: FeaturesDemoZone haritasında kare hızı düşük: 20 saniyede ortalama 11.3 FPS](kayitlar/performans-f57278a0.md) | Yavaşlık | 13 | 10 | 1.0.79 | 12.10.2026 08:48 |
 | 🔴 açık | [Arayüz yerleşimi, 2412x960 ekran](kayitlar/arayuz-2412x960.md) | Arayüz | 1 | 1 | 1.0.79 | 11.10.2026 02:31 |
 | 🔴 açık | [Arayüz yerleşimi, 2340x1007 ekran](kayitlar/arayuz-2340x1007.md) | Arayüz | 1 | 1 | 1.0.79 | 10.10.2026 20:42 |
