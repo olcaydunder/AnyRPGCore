@@ -1,5 +1,5 @@
 {
- "son_zaman": 1791753418,
+ "son_zaman": 1791764009,
  "islenen": [
   "ZA4f7jqHrQMP",
   "ECmsu6OF1Jgp",
@@ -257,7 +257,8 @@
   "8Wk48qAOnlQB",
   "yhSaTrQsBEAK",
   "LuINE92bL4GB",
-  "xEOFx2HRIOny"
+  "xEOFx2HRIOny",
+  "cQQfCqgRo2Jt"
  ],
  "kayitlar": {
   "istisna-d581f62b": {
@@ -444,7 +445,7 @@
   "bellek-d3941b2d": {
    "tur": "bellek",
    "baslik": "Bellek: Bellek yetmedi, sistem oyunu kapattı",
-   "adet": 20,
+   "adet": 21,
    "cihazlar": [
     "samsung SM-S938B",
     "samsung SM-S911B",
@@ -454,7 +455,8 @@
     "samsung SM-M346B2",
     "samsung SM-T547",
     "samsung SM-G975F",
-    "samsung SM-A346E"
+    "samsung SM-A346E",
+    "samsung SM-A505F"
    ],
    "surumler": [
     "0.1.36",
@@ -464,7 +466,7 @@
     "1.0.79"
    ],
    "ilk": 1791130056,
-   "son": 1791718896,
+   "son": 1791764009,
    "ilk_rapor": "**Bellek** · sürüm **0.1.36** · samsung SM-S938B · Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3) · ekran 3120x1335 · UmayTarlalari\n\n### Mesaj\n```text\nBellek yetmedi, sistem oyunu kapattı\n```\n\n### Ayrıntı\n```text\nZaman 2026-10-04 14:47:35 | bellek (PSS) 0 MB | önem 400 (100 = ön planda)\nÖnceki oturumun kaydı:\nOturum başladı 2026-10-04 11:40:55\nOyuna dönüldü 11:40:57\n\nOyuna dönüldü 11:42:41\n\nOyuna dönüldü 11:45:29\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: bellek\nsurum: 0.1.36\ncihaz: samsung SM-S938B\nsistem: Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3)\ngrafik: Vulkan / Adreno (TM) 830 / bellek 11113 MB\nekran: 3120x1335\nayarlar: kalite 2, çözünürlük 3, gölge 3, fps sınırı 1\nsahne: UmayTarlalari\noyuncu: seviye 1\nsure: 12 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 0.1.36 | samsung SM-S938B | Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3)\nVulkan Adreno (TM) 830 | Bellek 11113 MB | 3120x1335 | FPS 60 | Süre 9 sn\nKare süresi: işlemci 16.7 ms | ekran kartı 11.5 ms | ekran 60 Hz | hedef 60 | kalite High | pil 2%\nSahneler: UmayTarlalari\nGiriş: dokunmatik var | fare bağlı | ekran tuşları açık\nSon dokunuş: 2811,236 -> MobileHudCanvas/SaldırButton [MobileHudCanvas 5]\nOyuncu karakteri: oluştu (MecanimMale1) | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n",
    "gorulmeler": [
     "04.10.2026 19:07 · 0.1.36 · samsung SM-S938B · UmayTarlalari · seviye 1 · 3120x1335",
@@ -486,7 +488,8 @@
     "11.10.2026 13:24 · 1.0.79 · samsung SM-M146B · FeaturesDemoMainMenu · oyunda değil · 2408x1012",
     "11.10.2026 13:24 · 1.0.79 · samsung SM-G975F · FeaturesDemoMainMenu · oyunda değil · 2898x1356",
     "11.10.2026 13:47 · 1.0.79 · samsung SM-A346E · FeaturesDemoMainMenu · oyunda değil · 2340x1007",
-    "11.10.2026 14:41 · 1.0.79 · samsung SM-A075F · FeaturesDemoMainMenu · oyunda değil · 1600x664"
+    "11.10.2026 14:41 · 1.0.79 · samsung SM-A075F · FeaturesDemoMainMenu · oyunda değil · 1600x664",
+    "12.10.2026 03:13 · 1.0.79 · samsung SM-A505F · FeaturesDemoMainMenu · oyunda değil · 2257x1017"
    ],
    "ekler": [],
    "duzeltildi": null,
@@ -1726,7 +1729,8 @@
   "5c7ab4d070": "bellek-d3941b2d",
   "daddc5327f": "hata-60de498e",
   "e8a76317c6": "hata-60de498e",
-  "cdd62c6990": "hata-60de498e"
+  "cdd62c6990": "hata-60de498e",
+  "98b12c47f6": "bellek-d3941b2d"
  },
  "derleme": {
   "sonuc": "basarili",

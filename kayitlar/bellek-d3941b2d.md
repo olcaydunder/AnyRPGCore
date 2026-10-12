@@ -4,7 +4,7 @@ Durum: 🔴 açık
 
 | Tekrar | Cihaz | Sürümler | İlk görülme | Son görülme |
 |---|---|---|---|---|
-| 20 | 9 | 0.1.36, 0.1.47, 0.1.54, 1.0.70, 1.0.79 | 04.10.2026 19:07 | 11.10.2026 14:41 |
+| 21 | 10 | 0.1.36, 0.1.47, 0.1.54, 1.0.70, 1.0.79 | 04.10.2026 19:07 | 12.10.2026 03:13 |
 
 
 ## İlk rapor
@@ -65,6 +65,7 @@ Oyuncu karakteri: oluştu (MecanimMale1) | Önizleme karakteri: yok | Önizleme 
 
 | Zaman · sürüm · cihaz · harita · oyuncu · ekran |
 |---|
+| 12.10.2026 03:13 · 1.0.79 · samsung SM-A505F · FeaturesDemoMainMenu · oyunda değil · 2257x1017 |
 | 11.10.2026 14:41 · 1.0.79 · samsung SM-A075F · FeaturesDemoMainMenu · oyunda değil · 1600x664 |
 | 11.10.2026 13:47 · 1.0.79 · samsung SM-A346E · FeaturesDemoMainMenu · oyunda değil · 2340x1007 |
 | 11.10.2026 13:24 · 1.0.79 · samsung SM-G975F · FeaturesDemoMainMenu · oyunda değil · 2898x1356 |
