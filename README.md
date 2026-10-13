@@ -1,8 +1,8 @@
 # Ötüken Destanı · Hata panosu
 
-Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 13.10.2026 11:22.
+Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 13.10.2026 19:21.
 
-**41** açık sorun · **5** düzeltilen · toplam **271** rapor
+**42** açık sorun · **5** düzeltilen · toplam **278** rapor
 
 ## Son APK derlemesi
 
@@ -18,6 +18,7 @@ Tanı raporunda uyarı yok.
 | 🔴 açık | [Çökme: Çökme (yerel kod): crash](kayitlar/cokme-b56b62e3.md) | Çökme | 8 | 3 | 1.0.70, 1.0.78, 1.0.79 | 12.10.2026 13:30 |
 | 🔴 açık | [Çökme: Çökme (Java): crash](kayitlar/cokme-0136878a.md) | Çökme | 2 | 1 | 1.0.78 | 08.10.2026 12:32 |
 | 🔴 açık | [Donma: Donma (ANR): oyun 5 saniyeden uzun yanıt vermedi: user request after error](kayitlar/anr-7d743acc.md) | Donma | 1 | 1 | 1.0.79 | 08.10.2026 18:52 |
+| 🔴 açık | [İstisna: IndexOutOfRangeException: Index was outside the bounds of the array.](kayitlar/istisna-2703ff55.md) | İstisna | 1 | 1 | 1.0.79 | 13.10.2026 12:46 |
 | 🔴 açık | [İstisna: NullReferenceException: Object reference not set to an instance of an object.](kayitlar/istisna-3addc771.md) | İstisna | 2 | 1 | 1.0.79 | 09.10.2026 23:05 |
 | 🔴 açık | [İstisna: NullReferenceException: Object reference not set to an instance of an object.](kayitlar/istisna-d52957a1.md) | İstisna | 1 | 1 | 1.0.79 | 09.10.2026 21:49 |
 | 🔴 açık | [İstisna: NullReferenceException: Object reference not set to an instance of an object.](kayitlar/istisna-14a3da0f.md) | İstisna | 1 | 1 | 1.0.79 | 08.10.2026 23:02 |
@@ -36,11 +37,11 @@ Tanı raporunda uyarı yok.
 | 🔴 açık | [Hata: Deneme raporu (sistem sınaması)](kayitlar/hata-00000000.md) | Hata | 2 | 1 | deneme | 08.10.2026 00:16 |
 | 🔴 açık | [Hata: [2026.10.06 14:54:05] Client encountered an error while parsing data for packetId 35771. Message: Objec…](kayitlar/hata-dc1219d9.md) | Hata | 2 | 1 | 0.1.66 | 06.10.2026 17:54 |
 | 🔴 açık | [Hata: InputManager not found in scene.  Is the GameManager in the scene?](kayitlar/hata-8f05154f.md) | Hata | 8 | 2 | 0.1.43 | 05.10.2026 00:12 |
-| 🔴 açık | [Bellek: Bellek yetmedi, sistem oyunu kapattı](kayitlar/bellek-d3941b2d.md) | Bellek | 29 | 11 | 0.1.54, 1.0.70, 1.0.79 | 13.10.2026 09:56 |
+| 🔴 açık | [Bellek: Cihazın belleği azaldı (Android bellek uyarısı)](kayitlar/bellek-45b65e0c.md) | Bellek | 8 | 3 | 1.0.79 | 13.10.2026 15:06 |
+| 🔴 açık | [Bellek: Bellek yetmedi, sistem oyunu kapattı](kayitlar/bellek-d3941b2d.md) | Bellek | 33 | 11 | 0.1.54, 1.0.70, 1.0.79 | 13.10.2026 15:05 |
 | 🔴 açık | [Bellek: Aşırı kaynak kullanımı, sistem oyunu kapattı: excessive cpu 52770 during 300052 dur=865492 limit=10](kayitlar/bellek-fa46790a.md) | Bellek | 1 | 1 | 1.0.79 | 13.10.2026 09:26 |
-| 🔴 açık | [Bellek: Cihazın belleği azaldı (Android bellek uyarısı)](kayitlar/bellek-45b65e0c.md) | Bellek | 7 | 3 | 1.0.79 | 12.10.2026 13:09 |
 | 🔴 açık | [Bellek: Bellek yetmedi, sistem oyunu kapattı: [REMOVE TASK] remove task](kayitlar/bellek-e9291dad.md) | Bellek | 1 | 1 | 1.0.79 | 12.10.2026 12:35 |
-| 🔴 açık | [Yavaşlık: FeaturesDemoZone haritasında kare hızı düşük: 20 saniyede ortalama 11.3 FPS](kayitlar/performans-f57278a0.md) | Yavaşlık | 13 | 10 | 1.0.79 | 12.10.2026 08:48 |
+| 🔴 açık | [Yavaşlık: FeaturesDemoZone haritasında kare hızı düşük: 20 saniyede ortalama 11.3 FPS](kayitlar/performans-f57278a0.md) | Yavaşlık | 14 | 10 | 1.0.79 | 13.10.2026 14:41 |
 | 🔴 açık | [Arayüz yerleşimi, 2412x960 ekran](kayitlar/arayuz-2412x960.md) | Arayüz | 1 | 1 | 1.0.79 | 11.10.2026 02:31 |
 | 🔴 açık | [Arayüz yerleşimi, 2340x1007 ekran](kayitlar/arayuz-2340x1007.md) | Arayüz | 1 | 1 | 1.0.79 | 10.10.2026 20:42 |
 | 🔴 açık | [Arayüz yerleşimi, 2508x1432 ekran](kayitlar/arayuz-2508x1432.md) | Arayüz | 1 | 1 | 1.0.79 | 09.10.2026 14:36 |
