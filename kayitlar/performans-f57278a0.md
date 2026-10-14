@@ -4,7 +4,7 @@ Durum: 🔴 açık
 
 | Tekrar | Cihaz | Sürümler | İlk görülme | Son görülme |
 |---|---|---|---|---|
-| 14 | 10 | 1.0.79 | 08.10.2026 02:31 | 13.10.2026 14:41 |
+| 15 | 10 | 1.0.79 | 08.10.2026 02:31 | 14.10.2026 02:17 |
 
 
 ## İlk rapor
@@ -63,6 +63,7 @@ Oyuncu karakteri: oluştu (MecanimMale490) | Önizleme karakteri:…
 
 | Zaman · sürüm · cihaz · harita · oyuncu · ekran |
 |---|
+| 14.10.2026 02:17 · 1.0.79 · Xiaomi 25078RA3EY · FeaturesDemoZone · seviye 2 · 1600x646 |
 | 13.10.2026 14:41 · 1.0.79 · Xiaomi 2409BRN2CA · FeaturesDemoZone · seviye 1 · 1640x652 |
 | 12.10.2026 08:48 · 1.0.79 · Xiaomi 2409BRN2CA · FeaturesDemoZone · seviye 1 · 1640x652 |
 | 11.10.2026 13:11 · 1.0.79 · Xiaomi 25078RA3EY · FeaturesDemoZone · seviye 1 · 1600x646 |
