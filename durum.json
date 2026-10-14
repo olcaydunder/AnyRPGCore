@@ -1,5 +1,5 @@
 {
- "son_zaman": 1791934031,
+ "son_zaman": 1791970376,
  "islenen": [
   "ZA4f7jqHrQMP",
   "ECmsu6OF1Jgp",
@@ -286,7 +286,11 @@
   "A7kgwmH47u1Q",
   "ZpDHKng5lLNt",
   "K6BaUCBghQmR",
-  "rSJHMcSl2es4"
+  "rSJHMcSl2es4",
+  "dydxkVBP4S28",
+  "JG9vZ064qwWv",
+  "6oPjjxFthDxT",
+  "I6Kc1YKNsYBq"
  ],
  "kayitlar": {
   "istisna-d581f62b": {
@@ -473,7 +477,7 @@
   "bellek-d3941b2d": {
    "tur": "bellek",
    "baslik": "Bellek: Bellek yetmedi, sistem oyunu kapattı",
-   "adet": 37,
+   "adet": 40,
    "cihazlar": [
     "samsung SM-S938B",
     "samsung SM-S911B",
@@ -495,7 +499,7 @@
     "1.0.79"
    ],
    "ilk": 1791130056,
-   "son": 1791934031,
+   "son": 1791970376,
    "ilk_rapor": "**Bellek** · sürüm **0.1.36** · samsung SM-S938B · Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3) · ekran 3120x1335 · UmayTarlalari\n\n### Mesaj\n```text\nBellek yetmedi, sistem oyunu kapattı\n```\n\n### Ayrıntı\n```text\nZaman 2026-10-04 14:47:35 | bellek (PSS) 0 MB | önem 400 (100 = ön planda)\nÖnceki oturumun kaydı:\nOturum başladı 2026-10-04 11:40:55\nOyuna dönüldü 11:40:57\n\nOyuna dönüldü 11:42:41\n\nOyuna dönüldü 11:45:29\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: bellek\nsurum: 0.1.36\ncihaz: samsung SM-S938B\nsistem: Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3)\ngrafik: Vulkan / Adreno (TM) 830 / bellek 11113 MB\nekran: 3120x1335\nayarlar: kalite 2, çözünürlük 3, gölge 3, fps sınırı 1\nsahne: UmayTarlalari\noyuncu: seviye 1\nsure: 12 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 0.1.36 | samsung SM-S938B | Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3)\nVulkan Adreno (TM) 830 | Bellek 11113 MB | 3120x1335 | FPS 60 | Süre 9 sn\nKare süresi: işlemci 16.7 ms | ekran kartı 11.5 ms | ekran 60 Hz | hedef 60 | kalite High | pil 2%\nSahneler: UmayTarlalari\nGiriş: dokunmatik var | fare bağlı | ekran tuşları açık\nSon dokunuş: 2811,236 -> MobileHudCanvas/SaldırButton [MobileHudCanvas 5]\nOyuncu karakteri: oluştu (MecanimMale1) | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n",
    "gorulmeler": [
     "04.10.2026 19:07 · 0.1.36 · samsung SM-S938B · UmayTarlalari · seviye 1 · 3120x1335",
@@ -534,7 +538,10 @@
     "14.10.2026 01:51 · 1.0.79 · samsung SM-T547 · FeaturesDemoMainMenu · oyunda değil · 1920x1164",
     "14.10.2026 02:06 · 1.0.79 · samsung SM-G975F · FeaturesDemoMainMenu · oyunda değil · 2898x1356",
     "14.10.2026 02:23 · 1.0.79 · samsung SM-A075F · FeaturesDemoMainMenu · oyunda değil · 1600x664",
-    "14.10.2026 02:27 · 1.0.79 · samsung SM-A075F · FeaturesDemoMainMenu · oyunda değil · 1600x664"
+    "14.10.2026 02:27 · 1.0.79 · samsung SM-A075F · FeaturesDemoMainMenu · oyunda değil · 1600x664",
+    "14.10.2026 12:05 · 1.0.79 · samsung SM-M146B · FeaturesDemoMainMenu · oyunda değil · 2408x1012",
+    "14.10.2026 12:21 · 1.0.79 · samsung SM-M346B2 · FeaturesDemoMainMenu · oyunda değil · 2340x996",
+    "14.10.2026 12:32 · 1.0.79 · samsung SM-A505F · FeaturesDemoMainMenu · oyunda değil · 2257x1017"
    ],
    "ekler": [],
    "duzeltildi": null,
@@ -874,11 +881,12 @@
   "cokme-b56b62e3": {
    "tur": "cokme",
    "baslik": "Çökme: Çökme (yerel kod): crash",
-   "adet": 8,
+   "adet": 9,
    "cihazlar": [
     "samsung SM-S911B",
     "samsung SM-M346B2",
-    "samsung SM-A075F"
+    "samsung SM-A075F",
+    "samsung SM-S918B"
    ],
    "surumler": [
     "1.0.70",
@@ -886,7 +894,7 @@
     "1.0.79"
    ],
    "ilk": 1791351347,
-   "son": 1791801041,
+   "son": 1791963518,
    "ilk_rapor": "**Çökme** · sürüm **1.0.70** · samsung SM-S911B · Android OS 16 / API-36 (BP2A.250605.031.A3/S911BXXS8EYK5) · ekran 2340x990 · FeaturesDemoMainMenu\n\n### Mesaj\n```text\nÇökme (yerel kod): crash\n```\n\n### Ayrıntı\n```text\nZaman 2026-10-07 08:35:31 | bellek (PSS) 0 MB | önem 100 (100 = ön planda)\nÖnceki oturumun kaydı:\nOturum başladı 2026-10-07 08:33:48\nOyuna dönüldü 08:33:50\n08:35:20 [Exception] KeyNotFoundException: The given key '5' was not present in the dictionary.\n   System.Collections.Generic.Dictionary`2[TKey,TValue].get_Item (TKey key) (at <00000000000000000000000000000000>:0)\n   AnyRPG.PlayerManagerServer.RequestSpawnPlayerUnit (System.Int32 accountId, System.String sceneName) (at <00000000000000000000000000000000>:0)\n   AnyRPG.PlayerManagerClient.RequestSpawnPlayerUnit (System.Int32 accountId) (at <00000000000000000000000000000000>:0)\n   AnyRPG.PlayerManagerClient.HandleLevelLoad () (at <00000000000000000000000000000000>:0)\n   AnyRPG.LevelManagerClient.PerformLevelLoadActivities (UnityEngine.SceneManagement.Scene newScene) (at <00000000000000000000000000000000>:0)\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: cokme\nsurum: 1.0.70\ncihaz: samsung SM-S911B\nsistem: Android OS 16 / API-36 (BP2A.250605.031.A3/S911BXXS8EYK5)\ngrafik: Vulkan / Adreno (TM) 740 / bellek 7073 MB\nekran: 2340x990\nayarlar: kalite 3, çözünürlük 0, gölge 0, fps sınırı 1\nsahne: FeaturesDemoMainMenu\noyuncu: oyunda değil\nsure: 12 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.70 | samsung SM-S911B | Android OS 16 / API-36 (BP2A.250605.031.A3/S911BXXS8EYK5)\nVulkan Adreno (TM) 740 | Bellek 7073 MB | 2340x990 | FPS 137 | Süre 10 sn\nKare süresi: işlemci 8.4 ms | ekran kartı 6.8 ms | ekran 120 Hz | hedef 500 | kalite Ultra | çizim 3840x1625 (ekran 2340x990, ölçek 1.64) | pil 29%\nSahneler: FeaturesDemoMainMenu\nGiriş: dokunmatik var | fare bağlı | ekran tuşları açık\nSon dokunuş: 1375,319 -> NetworkLoginPanel/NetworkLoginBtn_Yes [SystemMenuUICanvas 19]\nOyuncu karakteri: yok | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n",
    "gorulmeler": [
     "07.10.2026 08:35 · 1.0.70 · samsung SM-S911B · FeaturesDemoMainMenu · oyunda değil · 2340x990",
@@ -896,7 +904,8 @@
     "08.10.2026 12:32 · 1.0.78 · samsung SM-S911B · FeaturesDemoMainMenu · oyunda değil · 2340x990",
     "08.10.2026 22:20 · 1.0.79 · samsung SM-S911B · FeaturesDemoMainMenu · oyunda değil · 2340x990",
     "12.10.2026 13:04 · 1.0.79 · samsung SM-M346B2 · FeaturesDemoMainMenu · oyunda değil · 2340x996",
-    "12.10.2026 13:30 · 1.0.79 · samsung SM-A075F · FeaturesDemoMainMenu · oyunda değil · 1600x664"
+    "12.10.2026 13:30 · 1.0.79 · samsung SM-A075F · FeaturesDemoMainMenu · oyunda değil · 1600x664",
+    "14.10.2026 10:38 · 1.0.79 · samsung SM-S918B · FeaturesDemoMainMenu · oyunda değil · 2316x996"
    ],
    "ekler": [],
    "duzeltildi": null,
@@ -1902,7 +1911,11 @@
   "9d56ccbe2f": "hata-74874258",
   "093820ab9b": "performans-f57278a0",
   "20f85fe4ab": "bellek-d3941b2d",
-  "110a84ad13": "bellek-d3941b2d"
+  "110a84ad13": "bellek-d3941b2d",
+  "bd7c060d72": "cokme-b56b62e3",
+  "6d04b02905": "bellek-d3941b2d",
+  "06be30da01": "bellek-d3941b2d",
+  "ede1daacaa": "bellek-d3941b2d"
  },
  "derleme": {
   "sonuc": "basarili",
