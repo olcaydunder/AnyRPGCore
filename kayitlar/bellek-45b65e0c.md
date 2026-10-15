@@ -4,7 +4,7 @@ Durum: 🔴 açık
 
 | Tekrar | Cihaz | Sürümler | İlk görülme | Son görülme |
 |---|---|---|---|---|
-| 10 | 3 | 1.0.79 | 09.10.2026 02:33 | 15.10.2026 02:08 |
+| 12 | 4 | 1.0.79 | 09.10.2026 02:33 | 16.10.2026 02:29 |
 
 
 ## İlk rapor
@@ -66,6 +66,8 @@ Oyuncu karakteri: oluştu (MecanimMale1) | Önizleme karakteri: yok…
 
 | Zaman · sürüm · cihaz · harita · oyuncu · ekran |
 |---|
+| 16.10.2026 02:29 · 1.0.79 · samsung SM-G975F · FeaturesDemoZone · seviye 1 · 2898x1356 |
+| 16.10.2026 02:13 · 1.0.79 · samsung SM-A075F · FeaturesDemoZone · seviye 1 · 1600x664 |
 | 15.10.2026 02:08 · 1.0.79 · samsung SM-G975F · FeaturesDemoZone · seviye 1 · 2898x1356 |
 | 14.10.2026 01:52 · 1.0.79 · samsung SM-T547 · FeaturesDemoZone · seviye 1 · 1920x1164 |
 | 13.10.2026 15:06 · 1.0.79 · samsung SM-T547 · FeaturesDemoZone · seviye 1 · 1920x1164 |

@@ -1,5 +1,5 @@
 {
- "son_zaman": 1792065019,
+ "son_zaman": 1792107472,
  "islenen": [
   "ZA4f7jqHrQMP",
   "ECmsu6OF1Jgp",
@@ -298,7 +298,19 @@
   "ClTDxHpDmPBx",
   "gjv3t2ATtP9a",
   "tpIPMXl3TbYD",
-  "zOxqnjA6ft1u"
+  "zOxqnjA6ft1u",
+  "FonKRgUaDQIj",
+  "DVQffEeiwsJG",
+  "Gucl8SNSo1UD",
+  "0feF43Jd547i",
+  "K31cqC35biF9",
+  "kdlNoeOqXEG2",
+  "PfuFumJpQWra",
+  "xBBMBO9lT0Fk",
+  "xI4ojAMfH53P",
+  "GCXHqkSQSx32",
+  "IZSyrTNdkcBw",
+  "b7aRZ88dj6BK"
  ],
  "kayitlar": {
   "istisna-d581f62b": {
@@ -485,7 +497,7 @@
   "bellek-d3941b2d": {
    "tur": "bellek",
    "baslik": "Bellek: Bellek yetmedi, sistem oyunu kapattı",
-   "adet": 47,
+   "adet": 51,
    "cihazlar": [
     "samsung SM-S938B",
     "samsung SM-S911B",
@@ -507,7 +519,7 @@
     "1.0.79"
    ],
    "ilk": 1791130056,
-   "son": 1792065019,
+   "son": 1792107380,
    "ilk_rapor": "**Bellek** · sürüm **0.1.36** · samsung SM-S938B · Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3) · ekran 3120x1335 · UmayTarlalari\n\n### Mesaj\n```text\nBellek yetmedi, sistem oyunu kapattı\n```\n\n### Ayrıntı\n```text\nZaman 2026-10-04 14:47:35 | bellek (PSS) 0 MB | önem 400 (100 = ön planda)\nÖnceki oturumun kaydı:\nOturum başladı 2026-10-04 11:40:55\nOyuna dönüldü 11:40:57\n\nOyuna dönüldü 11:42:41\n\nOyuna dönüldü 11:45:29\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: bellek\nsurum: 0.1.36\ncihaz: samsung SM-S938B\nsistem: Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3)\ngrafik: Vulkan / Adreno (TM) 830 / bellek 11113 MB\nekran: 3120x1335\nayarlar: kalite 2, çözünürlük 3, gölge 3, fps sınırı 1\nsahne: UmayTarlalari\noyuncu: seviye 1\nsure: 12 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 0.1.36 | samsung SM-S938B | Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3)\nVulkan Adreno (TM) 830 | Bellek 11113 MB | 3120x1335 | FPS 60 | Süre 9 sn\nKare süresi: işlemci 16.7 ms | ekran kartı 11.5 ms | ekran 60 Hz | hedef 60 | kalite High | pil 2%\nSahneler: UmayTarlalari\nGiriş: dokunmatik var | fare bağlı | ekran tuşları açık\nSon dokunuş: 2811,236 -> MobileHudCanvas/SaldırButton [MobileHudCanvas 5]\nOyuncu karakteri: oluştu (MecanimMale1) | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n",
    "gorulmeler": [
     "04.10.2026 19:07 · 0.1.36 · samsung SM-S938B · UmayTarlalari · seviye 1 · 3120x1335",
@@ -556,7 +568,11 @@
     "15.10.2026 14:18 · 1.0.79 · samsung SM-A075F · FeaturesDemoMainMenu · oyunda değil · 1600x664",
     "15.10.2026 14:21 · 1.0.79 · samsung SM-A075F · FeaturesDemoMainMenu · oyunda değil · 1600x664",
     "15.10.2026 14:27 · 1.0.79 · samsung SM-A075F · FeaturesDemoMainMenu · oyunda değil · 1600x664",
-    "15.10.2026 14:50 · 1.0.79 · samsung SM-T547 · FeaturesDemoMainMenu · oyunda değil · 1920x1164"
+    "15.10.2026 14:50 · 1.0.79 · samsung SM-T547 · FeaturesDemoMainMenu · oyunda değil · 1920x1164",
+    "16.10.2026 01:59 · 1.0.79 · samsung SM-M146B · FeaturesDemoMainMenu · oyunda değil · 2408x1012",
+    "16.10.2026 02:12 · 1.0.79 · samsung SM-A075F · FeaturesDemoMainMenu · oyunda değil · 1600x664",
+    "16.10.2026 02:28 · 1.0.79 · samsung SM-G975F · FeaturesDemoMainMenu · oyunda değil · 2898x1356",
+    "16.10.2026 02:36 · 1.0.79 · samsung SM-T547 · FeaturesDemoMainMenu · oyunda değil · 1920x1164"
    ],
    "ekler": [],
    "duzeltildi": null,
@@ -896,12 +912,13 @@
   "cokme-b56b62e3": {
    "tur": "cokme",
    "baslik": "Çökme: Çökme (yerel kod): crash",
-   "adet": 9,
+   "adet": 11,
    "cihazlar": [
     "samsung SM-S911B",
     "samsung SM-M346B2",
     "samsung SM-A075F",
-    "samsung SM-S918B"
+    "samsung SM-S918B",
+    "samsung SM-G975F"
    ],
    "surumler": [
     "1.0.70",
@@ -909,7 +926,7 @@
     "1.0.79"
    ],
    "ilk": 1791351347,
-   "son": 1791963518,
+   "son": 1792106972,
    "ilk_rapor": "**Çökme** · sürüm **1.0.70** · samsung SM-S911B · Android OS 16 / API-36 (BP2A.250605.031.A3/S911BXXS8EYK5) · ekran 2340x990 · FeaturesDemoMainMenu\n\n### Mesaj\n```text\nÇökme (yerel kod): crash\n```\n\n### Ayrıntı\n```text\nZaman 2026-10-07 08:35:31 | bellek (PSS) 0 MB | önem 100 (100 = ön planda)\nÖnceki oturumun kaydı:\nOturum başladı 2026-10-07 08:33:48\nOyuna dönüldü 08:33:50\n08:35:20 [Exception] KeyNotFoundException: The given key '5' was not present in the dictionary.\n   System.Collections.Generic.Dictionary`2[TKey,TValue].get_Item (TKey key) (at <00000000000000000000000000000000>:0)\n   AnyRPG.PlayerManagerServer.RequestSpawnPlayerUnit (System.Int32 accountId, System.String sceneName) (at <00000000000000000000000000000000>:0)\n   AnyRPG.PlayerManagerClient.RequestSpawnPlayerUnit (System.Int32 accountId) (at <00000000000000000000000000000000>:0)\n   AnyRPG.PlayerManagerClient.HandleLevelLoad () (at <00000000000000000000000000000000>:0)\n   AnyRPG.LevelManagerClient.PerformLevelLoadActivities (UnityEngine.SceneManagement.Scene newScene) (at <00000000000000000000000000000000>:0)\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: cokme\nsurum: 1.0.70\ncihaz: samsung SM-S911B\nsistem: Android OS 16 / API-36 (BP2A.250605.031.A3/S911BXXS8EYK5)\ngrafik: Vulkan / Adreno (TM) 740 / bellek 7073 MB\nekran: 2340x990\nayarlar: kalite 3, çözünürlük 0, gölge 0, fps sınırı 1\nsahne: FeaturesDemoMainMenu\noyuncu: oyunda değil\nsure: 12 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.70 | samsung SM-S911B | Android OS 16 / API-36 (BP2A.250605.031.A3/S911BXXS8EYK5)\nVulkan Adreno (TM) 740 | Bellek 7073 MB | 2340x990 | FPS 137 | Süre 10 sn\nKare süresi: işlemci 8.4 ms | ekran kartı 6.8 ms | ekran 120 Hz | hedef 500 | kalite Ultra | çizim 3840x1625 (ekran 2340x990, ölçek 1.64) | pil 29%\nSahneler: FeaturesDemoMainMenu\nGiriş: dokunmatik var | fare bağlı | ekran tuşları açık\nSon dokunuş: 1375,319 -> NetworkLoginPanel/NetworkLoginBtn_Yes [SystemMenuUICanvas 19]\nOyuncu karakteri: yok | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n",
    "gorulmeler": [
     "07.10.2026 08:35 · 1.0.70 · samsung SM-S911B · FeaturesDemoMainMenu · oyunda değil · 2340x990",
@@ -920,7 +937,9 @@
     "08.10.2026 22:20 · 1.0.79 · samsung SM-S911B · FeaturesDemoMainMenu · oyunda değil · 2340x990",
     "12.10.2026 13:04 · 1.0.79 · samsung SM-M346B2 · FeaturesDemoMainMenu · oyunda değil · 2340x996",
     "12.10.2026 13:30 · 1.0.79 · samsung SM-A075F · FeaturesDemoMainMenu · oyunda değil · 1600x664",
-    "14.10.2026 10:38 · 1.0.79 · samsung SM-S918B · FeaturesDemoMainMenu · oyunda değil · 2316x996"
+    "14.10.2026 10:38 · 1.0.79 · samsung SM-S918B · FeaturesDemoMainMenu · oyunda değil · 2316x996",
+    "16.10.2026 02:13 · 1.0.79 · samsung SM-A075F · FeaturesDemoMainMenu · oyunda değil · 1600x664",
+    "16.10.2026 02:29 · 1.0.79 · samsung SM-G975F · FeaturesDemoMainMenu · oyunda değil · 2898x1356"
    ],
    "ekler": [],
    "duzeltildi": null,
@@ -1382,17 +1401,18 @@
   "bellek-45b65e0c": {
    "tur": "bellek",
    "baslik": "Bellek: Cihazın belleği azaldı (Android bellek uyarısı)",
-   "adet": 10,
+   "adet": 12,
    "cihazlar": [
     "samsung SM-M146B",
     "samsung SM-G975F",
-    "samsung SM-T547"
+    "samsung SM-T547",
+    "samsung SM-A075F"
    ],
    "surumler": [
     "1.0.79"
    ],
    "ilk": 1791502438,
-   "son": 1792019321,
+   "son": 1792106945,
    "ilk_rapor": "**Bellek** · sürüm **1.0.79** · samsung SM-M146B · Android OS 15 / API-35 (AP3A.240905.015.A2/M146BXXSDDZE4) · ekran 2408x1012 · FeaturesDemoZone\n\n### Mesaj\n```text\nCihazın belleği azaldı (Android bellek uyarısı)\n```\n\n### Ayrıntı\n```text\nAyrılan 559 MB | ayrılmış 804 MB | betik 155 MB | cihaz 3450 MB | ekran kartı 3395 MB\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: bellek\nsurum: 1.0.79\ncihaz: samsung SM-M146B\nsistem: Android OS 15 / API-35 (AP3A.240905.015.A2/M146BXXSDDZE4)\ngrafik: Vulkan / Mali-G68 / bellek 3450 MB\nekran: 2408x1012\nayarlar: kalite -1, çözünürlük 2, gölge 0, fps sınırı 0\nsahne: FeaturesDemoZone\noyuncu: seviye 1\nsure: 68 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.79 | samsung SM-M146B | Android OS 15 / API-35 (AP3A.240905.015.A2/M146BXXSDDZE4)\nVulkan Mali-G68 | Bellek 3450 MB | 2408x1012 | FPS 27 | Süre 65 sn\nKare süresi: işlemci 40.2 ms | ekran kartı 2.4 ms | ekran 30 Hz | hedef 30 | kalite Very Low | çizim 1926x810 (ekran 2408x1012, ölçek 0.80) | pil 59%\nSahneler: FeaturesDemoZone\nGiriş: dokunmatik var | fare yok | ekran tuşları açık\nSon dokunuş: 1314,580 -> PlayMenuPanel(Clone)/PlayBtn_Continue [SystemMenuUICanvas 19]\nOyuncu karakteri: oluştu (MecanimMale1) | Önizleme karakteri: yok…\n```\n\n</details>\n\n<details><summary>Son kayıt satırları</summary>\n\n```text\n02:33:58 [Bellek] Cihazın belleği azaldı (3450 MB toplam)\n02:33:22 [Warning] [Reklam] onay bilgisi: Publisher misconfiguration: Failed to read publisher's account configuration; no form(s) configured for the input app ID. Verify that you have configured one or more forms for t...\n```\n\n</details>\n",
    "gorulmeler": [
     "09.10.2026 02:33 · 1.0.79 · samsung SM-M146B · FeaturesDemoZone · seviye 1 · 2408x1012",
@@ -1404,7 +1424,9 @@
     "12.10.2026 13:09 · 1.0.79 · samsung SM-T547 · FeaturesDemoGame · oyunda değil · 1920x1164",
     "13.10.2026 15:06 · 1.0.79 · samsung SM-T547 · FeaturesDemoZone · seviye 1 · 1920x1164",
     "14.10.2026 01:52 · 1.0.79 · samsung SM-T547 · FeaturesDemoZone · seviye 1 · 1920x1164",
-    "15.10.2026 02:08 · 1.0.79 · samsung SM-G975F · FeaturesDemoZone · seviye 1 · 2898x1356"
+    "15.10.2026 02:08 · 1.0.79 · samsung SM-G975F · FeaturesDemoZone · seviye 1 · 2898x1356",
+    "16.10.2026 02:13 · 1.0.79 · samsung SM-A075F · FeaturesDemoZone · seviye 1 · 1600x664",
+    "16.10.2026 02:29 · 1.0.79 · samsung SM-G975F · FeaturesDemoZone · seviye 1 · 2898x1356"
    ],
    "ekler": [],
    "duzeltildi": null,
@@ -1664,6 +1686,74 @@
    "ilk_rapor": "**Hata** · sürüm **1.0.79** · PC · Linux 6.8 Ubuntu 24.04 64bit · ekran 640x480 · MovedObjectsHolder\n\n### Mesaj\n```text\n[Account Save Error] ID 13: Sharing violation on path /var/lib/otuken/.config/unity3d/Olcay Yasin Dünder/Ötüken Destanı/tkenDestan/Online/UserAccounts/13.json\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: hata\nsurum: 1.0.79\ncihaz: PC\nsistem: Linux 6.8 Ubuntu 24.04 64bit\ngrafik: Null / Null Device / bellek 7940 MB\nekran: 640x480\nayarlar: kalite -1, çözünürlük 0, gölge 0, fps sınırı 1\nsahne: MovedObjectsHolder\noyuncu: oyunda değil\nsure: 97415 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.79 | PC | Linux 6.8 Ubuntu 24.04 64bit\nNull Null Device | Bellek 7940 MB | 640x480 | FPS ? | Süre 97414 sn\nKare süresi: işlemci ? | ekran kartı ? | ekran 0 Hz | hedef 45 | kalite Very Low | çizim 640x480 (ekran 640x480, ölçek 1.00) | pil -100%\nSahneler: MovedObjectsHolder\nGiriş: dokunmatik yok | fare yok | ekran tuşları kapalı\nSon dokunuş: -\nOyuncu karakteri: yok | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n",
    "gorulmeler": [
     "14.10.2026 02:16 · 1.0.79 · PC · MovedObjectsHolder · oyunda değil · 640x480"
+   ],
+   "ekler": [],
+   "duzeltildi": null,
+   "yeniden": false,
+   "issue": null,
+   "notlar": []
+  },
+  "istisna-708ac3ce": {
+   "tur": "istisna",
+   "baslik": "İstisna: NullReferenceException: Object reference not set to an instance of an object.",
+   "adet": 1,
+   "cihazlar": [
+    "samsung SM-A346E"
+   ],
+   "surumler": [
+    "1.0.79"
+   ],
+   "ilk": 1792105810,
+   "son": 1792105810,
+   "ilk_rapor": "**İstisna** · sürüm **1.0.79** · samsung SM-A346E · Android OS 15 / API-35 (AP3A.240905.015.A2/A346EXXU9DYF4) · ekran 2340x1007 · FeaturesDemoZone\n\n### Mesaj\n```text\nNullReferenceException: Object reference not set to an instance of an object.\n```\n\n### Yığın izi\n```text\nAnyRPG.QuestGiverComponent.CanInteract (AnyRPG.UnitController sourceUnitController, System.Boolean processRangeCheck, System.Boolean passedRangeCheck, System.Boolean processNonCombatCheck, System.Boolean viaSwitch) (at <00000000000000000000000000000000>:0)\nAnyRPG.InteractableBase.GetCurrentInteractables (AnyRPG.UnitController sourceUnitController) (at <00000000000000000000000000000000>:0)\nAnyRPG.InteractableBase.HandlePrerequisiteUpdates () (at <00000000000000000000000000000000>:0)\nAnyRPG.InteractableBase.UpdateOnPlayerUnitSpawn (AnyRPG.UnitController sourceUnitController) (at <00000000000000000000000000000000>:0)\nAnyRPG.LevelManagerServer.HandlePlayerUnitSpawn (AnyRPG.UnitController sourceUnitController) (at <00000000000000000000000000000000>:0)\nAnyRPG.PlayerManagerClient.HandlePlayerUnitSpawn () (at <00000000000000000000000000000000>:0)\nAnyRPG.PlayerManagerClient.PostInit (AnyRPG.UnitController unitController) (at <00000000000000000000000000000000>:0)\nAnyRPG.CharacterManager.CompleteModelRequest (AnyRPG.UnitController unitController, System.Boolean isServerOwner) (at <00000000000000000000000000000000>:0)\nAnyRPG.CharacterManager.SpawnCharacterPrefab (AnyRPG.CharacterRequestData characterRequestData, UnityEngine.Transform parent, UnityEngine.Vector3 position, UnityEngine.Vector3 forward) (at <00000000000000000000000000000000>:0)\nAnyRPG.PlayerManagerServer.RequestSpawnPlayerUnit (System.Int32…\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: istisna\nsurum: 1.0.79\ncihaz: samsung SM-A346E\nsistem: Android OS 15 / API-35 (AP3A.240905.015.A2/A346EXXU9DYF4)\ngrafik: Vulkan / Mali-G68 MC4 / bellek 7471 MB\nekran: 2340x1007\nayarlar: kalite 0, çözünürlük 2, gölge 0, fps sınırı 1\nsahne: FeaturesDemoZone\noyuncu: seviye 2\nsure: 112 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.79 | samsung SM-A346E | Android OS 15 / API-35 (AP3A.240905.015.A2/A346EXXU9DYF4)\nVulkan Mali-G68 MC4 | Bellek 7471 MB | 2340x1007 | FPS 37 | Süre 109 sn\nKare süresi: işlemci 27.8 ms | ekran kartı 23.8 ms | ekran 120 Hz | hedef 60 | kalite Low | çizim 1872x806 (ekran 2340x1007, ölçek 0.80) | pil 54%\nSahneler: FeaturesDemoZone\nGiriş: dokunmatik var | fare bağlı | ekran tuşları açık\nSon dokunuş: 2181,48 -> Bilgi/Işınlan [DunyaHaritasiCanvas 31]\nOyuncu karakteri: oluştu (MecanimMale214) | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n<details><summary>Son kayıt satırları</summary>\n\n```text\n02:10:09 [Exception] NullReferenceException: Object reference not set to an instance of an object.\n02:08:52 [Warning] [Reklam] onay bilgisi: Publisher misconfiguration: Failed to read publisher's account configuration; no form(s) configured for the input app ID. Verify that you have configured one or more forms for t...\n```\n\n</details>\n",
+   "gorulmeler": [
+    "16.10.2026 02:10 · 1.0.79 · samsung SM-A346E · FeaturesDemoZone · seviye 2 · 2340x1007"
+   ],
+   "ekler": [],
+   "duzeltildi": null,
+   "yeniden": false,
+   "issue": null,
+   "notlar": []
+  },
+  "arayuz-1600x664": {
+   "tur": "arayuz",
+   "baslik": "Arayüz yerleşimi, 1600x664 ekran",
+   "adet": 1,
+   "cihazlar": [
+    "samsung SM-A075F"
+   ],
+   "surumler": [
+    "1.0.79"
+   ],
+   "ilk": 1792105972,
+   "son": 1792105972,
+   "ilk_rapor": "**Arayüz** · sürüm **1.0.79** · samsung SM-A075F · Android OS 16 / API-36 (BP2A.250605.031.A3/A075FXXS3BZA1) · ekran 1600x664 · FeaturesDemoZone\n\n### Mesaj\n```text\n2 çakışma (1600x664)\n```\n\n### Ayrıntı\n```text\nEkran 1600x664, güvenli alan (64,0 1536x664)\nBeceri2 kaydırıldı (-10, -40)\nBeceri3 kaydırıldı (-40, -20)\nBeceri4 kaydırıldı (20, -20)\nBeceri5 kaydırıldı (20, 0)\nBeceri6 kaydırıldı (110, 120)\nÇakışmalar (2):\n- düğme Beceri7 ~ QuestTrackerWindow (QuestTrackerWindow/Contents/QuestTrackerPanel)\n- düğme Beceri3 ~ düğme Beceri8\nDüğmeler:\nHareket (135,100 191x191)\nÇanta (73,9 65x65)\nAyarlar (145,9 65x65)\nIşınlan (216,9 65x65)\nMenü (74,422 70x70)\nSaldır (1413,62 124x124)\nBeceri1 (1430,212 70x70)\nBeceri2 (1362,157 70x70)\nBeceri3 (1296,125 70x70)\nBeceri4 (1335,62 70x70)\nBeceri5 (1427,286 63x63)\nBeceri6 (1429,357 63x63)\nBeceri7 (1282,202 63x63)\nBeceri8 (1252,130 63x63)\nOto Av (1512,231 73x73)\nBinek (1515,324 66x66)\nHedef (1235,25 70x70)\nGöstergeler:\nMiniMap (1449,475 124x169)\nPlayerUnitFrame (27,575 166x66)\nQuestTrackerWindow (1202,234 216x195)\nSystemBar (596,579 408x33)\nXPBarPanel (392,4 817x12)\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: arayuz\nsurum: 1.0.79\ncihaz: samsung SM-A075F\nsistem: Android OS 16 / API-36 (BP2A.250605.031.A3/A075FXXS3BZA1)\ngrafik: Vulkan / Mali-G57 MC2 / bellek 3614 MB\nekran: 1600x664\nayarlar: kalite -1, çözünürlük 2, gölge 0, fps sınırı 0\nsahne: FeaturesDemoZone\noyuncu: seviye 1\nsure: 53 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.79 | samsung SM-A075F | Android OS 16 / API-36 (BP2A.250605.031.A3/A075FXXS3BZA1)\nVulkan Mali-G57 MC2 | Bellek 3614 MB | 1600x664 | FPS 25 | Süre 51 sn\nKare süresi: işlemci 42.8 ms | ekran kartı 0.0 ms | ekran 60 Hz | hedef 30 | kalite Very Low | çizim 1280x531 (ekran 1600x664, ölçek 0.80) | pil 85%\nSahneler: FeaturesDemoZone\nGiriş: dokunmatik var | fare yok | ekran tuşları açık\nSon dokunuş: 235,176 -> MobileHudCanvas/MoveStick [MobileHudCanvas 5]\nOyuncu karakteri: oluştu (MecanimMale1) | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n<details><summary>Son kayıt satırları</summary>\n\n```text\n02:12:42 [Warning] [Reklam] onay bilgisi: Publisher misconfiguration: Failed to read publisher's account configuration; no form(s) configured for the input app ID. Verify that you have configured one or more forms for t...\n```\n\n</details>\n",
+   "gorulmeler": [
+    "16.10.2026 02:12 · 1.0.79 · samsung SM-A075F · FeaturesDemoZone · seviye 1 · 1600x664"
+   ],
+   "ekler": [
+    "75b785ce7c.jpg"
+   ],
+   "duzeltildi": null,
+   "yeniden": false,
+   "issue": null,
+   "notlar": []
+  },
+  "bellek-72c58f3a": {
+   "tur": "bellek",
+   "baslik": "Bellek: Aşırı kaynak kullanımı, sistem oyunu kapattı: [EXCESSIVE CPU USAGE] excessive cpu 30430 during 300047…",
+   "adet": 1,
+   "cihazlar": [
+    "samsung SM-M346B2"
+   ],
+   "surumler": [
+    "1.0.79"
+   ],
+   "ilk": 1792107472,
+   "son": 1792107472,
+   "ilk_rapor": "**Bellek** · sürüm **1.0.79** · samsung SM-M346B2 · Android OS 16 / API-36 (BP4A.251205.006/M346B2XUUCFZE6) · ekran 2340x996 · FeaturesDemoMainMenu\n\n### Mesaj\n```text\nAşırı kaynak kullanımı, sistem oyunu kapattı: [EXCESSIVE CPU USAGE] excessive cpu 30430 during 300047 dur=707350 limit=10\n```\n\n### Ayrıntı\n```text\nZaman 2026-10-15 14:07:21 | bellek (PSS) 0 MB | önem 400 (100 = ön planda)\nÖnceki oturumun kaydı:\nOturum başladı 2026-10-15 13:49:15\nOyuna dönüldü 13:49:19\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: bellek\nsurum: 1.0.79\ncihaz: samsung SM-M346B2\nsistem: Android OS 16 / API-36 (BP4A.251205.006/M346B2XUUCFZE6)\ngrafik: Vulkan / Mali-G68 / bellek 5388 MB\nekran: 2340x996\nayarlar: kalite -1, çözünürlük 2, gölge 0, fps sınırı 0\nsahne: FeaturesDemoMainMenu\noyuncu: oyunda değil\nsure: 14 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.79 | samsung SM-M346B2 | Android OS 16 / API-36 (BP4A.251205.006/M346B2XUUCFZE6)\nVulkan Mali-G68 | Bellek 5388 MB | 2340x996 | FPS 30 | Süre 11 sn\nKare süresi: işlemci 33.4 ms | ekran kartı 14.6 ms | ekran 120 Hz | hedef 30 | kalite Very Low | çizim 1872x797 (ekran 2340x996, ölçek 0.80) | pil 88%\nSahneler: FeaturesDemoMainMenu\nGiriş: dokunmatik var | fare bağlı | ekran tuşları açık\nSon dokunuş: -\nOyuncu karakteri: yok | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n",
+   "gorulmeler": [
+    "16.10.2026 02:37 · 1.0.79 · samsung SM-M346B2 · FeaturesDemoMainMenu · oyunda değil · 2340x996"
    ],
    "ekler": [],
    "duzeltildi": null,
@@ -1939,7 +2029,18 @@
   "f7d280c4d8": "bellek-d3941b2d",
   "c44d2085c1": "bellek-d3941b2d",
   "602d087565": "bellek-d3941b2d",
-  "6fa3d9e132": "bellek-d3941b2d"
+  "6fa3d9e132": "bellek-d3941b2d",
+  "653e87b236": "bellek-d3941b2d",
+  "73423870d2": "istisna-708ac3ce",
+  "0fe5e289f5": "bellek-d3941b2d",
+  "75b785ce7c": "arayuz-1600x664",
+  "d6a938f930": "bellek-45b65e0c",
+  "7ba9f31a42": "cokme-b56b62e3",
+  "92eb7b4172": "bellek-d3941b2d",
+  "6943103402": "bellek-45b65e0c",
+  "b40fc268ff": "cokme-b56b62e3",
+  "97968761bf": "bellek-d3941b2d",
+  "7a6235c55f": "bellek-72c58f3a"
  },
  "derleme": {
   "sonuc": "basarili",
