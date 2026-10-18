@@ -4,7 +4,7 @@ Durum: 🔴 açık
 
 | Tekrar | Cihaz | Sürümler | İlk görülme | Son görülme |
 |---|---|---|---|---|
-| 58 | 11 | 0.1.36, 0.1.47, 0.1.54, 1.0.70, 1.0.79 | 04.10.2026 19:07 | 18.10.2026 15:51 |
+| 62 | 11 | 0.1.36, 0.1.47, 0.1.54, 1.0.70, 1.0.79 | 04.10.2026 19:07 | 19.10.2026 02:05 |
 
 
 ## İlk rapor
@@ -65,6 +65,10 @@ Oyuncu karakteri: oluştu (MecanimMale1) | Önizleme karakteri: yok | Önizleme 
 
 | Zaman · sürüm · cihaz · harita · oyuncu · ekran |
 |---|
+| 19.10.2026 02:05 · 1.0.79 · samsung SM-G975F · FeaturesDemoMainMenu · oyunda değil · 2898x1356 |
+| 19.10.2026 01:56 · 1.0.79 · samsung SM-A075F · FeaturesDemoMainMenu · oyunda değil · 1600x664 |
+| 19.10.2026 01:56 · 1.0.79 · samsung SM-A075F · FeaturesDemoMainMenu · oyunda değil · 1600x664 |
+| 19.10.2026 01:49 · 1.0.79 · samsung SM-M146B · FeaturesDemoMainMenu · oyunda değil · 2408x1012 |
 | 18.10.2026 15:51 · 1.0.79 · samsung SM-M346B2 · FeaturesDemoMainMenu · oyunda değil · 2340x996 |
 | 18.10.2026 15:47 · 1.0.79 · samsung SM-T547 · FeaturesDemoMainMenu · oyunda değil · 1920x1164 |
 | 18.10.2026 14:34 · 1.0.79 · samsung SM-G975F · FeaturesDemoMainMenu · oyunda değil · 2898x1356 |
@@ -121,7 +125,5 @@ Oyuncu karakteri: oluştu (MecanimMale1) | Önizleme karakteri: yok | Önizleme 
 | 08.10.2026 15:49 · 1.0.79 · samsung SM-S938B · FeaturesDemoMainMenu · oyunda değil · 2340x1001 |
 | 07.10.2026 11:26 · 1.0.70 · samsung SM-S938B · FeaturesDemoZone · seviye 1 · 3120x1335 |
 | 05.10.2026 20:52 · 0.1.54 · samsung SM-S938B · FeaturesDemoMainMenu · oyunda değil · 3120x1335 |
-| 05.10.2026 17:05 · 0.1.47 · samsung SM-S938B · FeaturesDemoMainMenu · oyunda değil · 3120x1335 |
-| 04.10.2026 19:07 · 0.1.36 · samsung SM-S938B · UmayTarlalari · seviye 1 · 3120x1335 |
 
 Anahtar: `bellek-d3941b2d`
