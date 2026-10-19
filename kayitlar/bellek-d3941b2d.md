@@ -4,7 +4,7 @@ Durum: 🔴 açık
 
 | Tekrar | Cihaz | Sürümler | İlk görülme | Son görülme |
 |---|---|---|---|---|
-| 64 | 11 | 0.1.36, 0.1.47, 0.1.54, 1.0.70, 1.0.79 | 04.10.2026 19:07 | 19.10.2026 13:43 |
+| 65 | 11 | 0.1.36, 0.1.47, 0.1.54, 1.0.70, 1.0.79 | 04.10.2026 19:07 | 20.10.2026 02:36 |
 
 
 ## İlk rapor
@@ -65,6 +65,7 @@ Oyuncu karakteri: oluştu (MecanimMale1) | Önizleme karakteri: yok | Önizleme 
 
 | Zaman · sürüm · cihaz · harita · oyuncu · ekran |
 |---|
+| 20.10.2026 02:36 · 1.0.79 · samsung SM-M346B2 · FeaturesDemoMainMenu · oyunda değil · 2340x996 |
 | 19.10.2026 13:43 · 1.0.79 · samsung SM-T547 · FeaturesDemoMainMenu · oyunda değil · 1920x1164 |
 | 19.10.2026 09:36 · 1.0.79 · samsung SM-M346B2 · FeaturesDemoMainMenu · oyunda değil · 2340x996 |
 | 19.10.2026 02:05 · 1.0.79 · samsung SM-G975F · FeaturesDemoMainMenu · oyunda değil · 2898x1356 |
@@ -124,6 +125,5 @@ Oyuncu karakteri: oluştu (MecanimMale1) | Önizleme karakteri: yok | Önizleme 
 | 09.10.2026 03:12 · 1.0.79 · samsung SM-A075F · FeaturesDemoMainMenu · oyunda değil · 1600x664 |
 | 09.10.2026 02:33 · 1.0.79 · samsung SM-M146B · FeaturesDemoMainMenu · oyunda değil · 2408x1012 |
 | 08.10.2026 22:17 · 1.0.79 · samsung SM-S911B · FeaturesDemoMainMenu · oyunda değil · 2340x990 |
-| 08.10.2026 15:49 · 1.0.79 · samsung SM-S938B · FeaturesDemoMainMenu · oyunda değil · 2340x1001 |
 
 Anahtar: `bellek-d3941b2d`
