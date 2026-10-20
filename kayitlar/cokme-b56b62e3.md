@@ -4,7 +4,7 @@ Durum: 🔴 açık
 
 | Tekrar | Cihaz | Sürümler | İlk görülme | Son görülme |
 |---|---|---|---|---|
-| 11 | 5 | 1.0.70, 1.0.78, 1.0.79 | 07.10.2026 08:35 | 16.10.2026 02:29 |
+| 12 | 5 | 1.0.70, 1.0.78, 1.0.79 | 07.10.2026 08:35 | 20.10.2026 17:03 |
 
 
 ## İlk rapor
@@ -67,6 +67,7 @@ Oyuncu karakteri: yok | Önizleme karakteri: yok | Önizleme kamerası: kapalı
 
 | Zaman · sürüm · cihaz · harita · oyuncu · ekran |
 |---|
+| 20.10.2026 17:03 · 1.0.79 · samsung SM-A075F · FeaturesDemoMainMenu · oyunda değil · 1600x664 |
 | 16.10.2026 02:29 · 1.0.79 · samsung SM-G975F · FeaturesDemoMainMenu · oyunda değil · 2898x1356 |
 | 16.10.2026 02:13 · 1.0.79 · samsung SM-A075F · FeaturesDemoMainMenu · oyunda değil · 1600x664 |
 | 14.10.2026 10:38 · 1.0.79 · samsung SM-S918B · FeaturesDemoMainMenu · oyunda değil · 2316x996 |
