@@ -1,5 +1,5 @@
 {
- "son_zaman": 1792505029,
+ "son_zaman": 1792536750,
  "islenen": [
   "ZA4f7jqHrQMP",
   "ECmsu6OF1Jgp",
@@ -341,7 +341,8 @@
   "Ol9c6iP4PXjC",
   "2T67aDQPpkCH",
   "UEL8o32ERMX7",
-  "mNkHT2w5912Y"
+  "mNkHT2w5912Y",
+  "BXKW92pfdkkq"
  ],
  "kayitlar": {
   "istisna-d581f62b": {
@@ -1682,7 +1683,7 @@
   "bellek-fa46790a": {
    "tur": "bellek",
    "baslik": "Bellek: Aşırı kaynak kullanımı, sistem oyunu kapattı: excessive cpu 52770 during 300052 dur=865492 limit=10",
-   "adet": 3,
+   "adet": 4,
    "cihazlar": [
     "samsung SM-G975F",
     "samsung SM-A505F"
@@ -1691,12 +1692,13 @@
     "1.0.79"
    ],
    "ilk": 1791872798,
-   "son": 1792392260,
+   "son": 1792536750,
    "ilk_rapor": "**Bellek** · sürüm **1.0.79** · samsung SM-G975F · Android OS 12 / API-31 (SP1A.210812.016/G975FXXSGHWC1) · ekran 2898x1356 · FeaturesDemoMainMenu\n\n### Mesaj\n```text\nAşırı kaynak kullanımı, sistem oyunu kapattı: excessive cpu 52770 during 300052 dur=865492 limit=10\n```\n\n### Ayrıntı\n```text\nZaman 2026-10-12 13:29:55 | bellek (PSS) 1717 MB | önem 400 (100 = ön planda)\nÖnceki oturumun kaydı:\nOturum başladı 2026-10-12 13:13:17\nOyuna dönüldü 13:13:20\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: bellek\nsurum: 1.0.79\ncihaz: samsung SM-G975F\nsistem: Android OS 12 / API-31 (SP1A.210812.016/G975FXXSGHWC1)\ngrafik: Vulkan / Mali-G76 / bellek 5411 MB\nekran: 2898x1356\nayarlar: kalite 1, çözünürlük 0, gölge 0, fps sınırı 1\nsahne: FeaturesDemoMainMenu\noyuncu: oyunda değil\nsure: 14 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.79 | samsung SM-G975F | Android OS 12 / API-31 (SP1A.210812.016/G975FXXSGHWC1)\nVulkan Mali-G76 | Bellek 5411 MB | 2898x1356 | FPS 51 | Süre 11 sn\nKare süresi: işlemci 21.4 ms | ekran kartı 19.6 ms | ekran 60 Hz | hedef 60 | kalite Medium | çizim 2174x1017 (ekran 2898x1356, ölçek 0.75) | pil 67%\nSahneler: FeaturesDemoMainMenu\nGiriş: dokunmatik var | fare bağlı | ekran tuşları açık\nSon dokunuş: -\nOyuncu karakteri: yok | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n<details><summary>Son kayıt satırları</summary>\n\n```text\n09:26:29 [Warning] [Bellek] cihazın belleği azaldı (5411 MB): varlıklar boşaltıldı, dokular küçültüldü (7. uyarı)\n09:26:28 [Bellek] Cihazın belleği azaldı (5411 MB toplam)\n```\n\n</details>\n",
    "gorulmeler": [
     "13.10.2026 09:26 · 1.0.79 · samsung SM-G975F · FeaturesDemoMainMenu · oyunda değil · 2898x1356",
     "18.10.2026 15:59 · 1.0.79 · samsung SM-A505F · FeaturesDemoMainMenu · oyunda değil · 2257x1017",
-    "19.10.2026 09:44 · 1.0.79 · samsung SM-A505F · FeaturesDemoMainMenu · oyunda değil · 2257x1017"
+    "19.10.2026 09:44 · 1.0.79 · samsung SM-A505F · FeaturesDemoMainMenu · oyunda değil · 2257x1017",
+    "21.10.2026 01:52 · 1.0.79 · samsung SM-A505F · FeaturesDemoMainMenu · oyunda değil · 2257x1017"
    ],
    "ekler": [],
    "duzeltildi": null,
@@ -2126,7 +2128,8 @@
   "c808d98e2d": "bellek-d3941b2d",
   "3a0523c08e": "bellek-45b65e0c",
   "301d252108": "bellek-d3941b2d",
-  "2e818ffec3": "cokme-b56b62e3"
+  "2e818ffec3": "cokme-b56b62e3",
+  "a99a739d00": "bellek-fa46790a"
  },
  "derleme": {
   "sonuc": "basarili",
