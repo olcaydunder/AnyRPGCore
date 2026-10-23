@@ -1,5 +1,5 @@
 {
- "son_zaman": 1792728257,
+ "son_zaman": 1792750730,
  "islenen": [
   "ZA4f7jqHrQMP",
   "ECmsu6OF1Jgp",
@@ -354,7 +354,11 @@
   "7Oqn7c9Z8g5j",
   "EtwpW4mNelax",
   "Fd2rWprvULnJ",
-  "ouW7U6EKyDhS"
+  "ouW7U6EKyDhS",
+  "EBQuaTwHG9ai",
+  "yqlnv6MFRl6d",
+  "CrNLhBvnt52D",
+  "ejnOJeJt6ULt"
  ],
  "kayitlar": {
   "istisna-d581f62b": {
@@ -541,7 +545,7 @@
   "bellek-d3941b2d": {
    "tur": "bellek",
    "baslik": "Bellek: Bellek yetmedi, sistem oyunu kapattı",
-   "adet": 78,
+   "adet": 79,
    "cihazlar": [
     "samsung SM-S938B",
     "samsung SM-S911B",
@@ -563,10 +567,9 @@
     "1.0.79"
    ],
    "ilk": 1791130056,
-   "son": 1792728222,
+   "son": 1792744319,
    "ilk_rapor": "**Bellek** · sürüm **0.1.36** · samsung SM-S938B · Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3) · ekran 3120x1335 · UmayTarlalari\n\n### Mesaj\n```text\nBellek yetmedi, sistem oyunu kapattı\n```\n\n### Ayrıntı\n```text\nZaman 2026-10-04 14:47:35 | bellek (PSS) 0 MB | önem 400 (100 = ön planda)\nÖnceki oturumun kaydı:\nOturum başladı 2026-10-04 11:40:55\nOyuna dönüldü 11:40:57\n\nOyuna dönüldü 11:42:41\n\nOyuna dönüldü 11:45:29\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: bellek\nsurum: 0.1.36\ncihaz: samsung SM-S938B\nsistem: Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3)\ngrafik: Vulkan / Adreno (TM) 830 / bellek 11113 MB\nekran: 3120x1335\nayarlar: kalite 2, çözünürlük 3, gölge 3, fps sınırı 1\nsahne: UmayTarlalari\noyuncu: seviye 1\nsure: 12 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 0.1.36 | samsung SM-S938B | Android OS 16 / API-36 (BP4A.251205.006/S938BXXSBCZG3)\nVulkan Adreno (TM) 830 | Bellek 11113 MB | 3120x1335 | FPS 60 | Süre 9 sn\nKare süresi: işlemci 16.7 ms | ekran kartı 11.5 ms | ekran 60 Hz | hedef 60 | kalite High | pil 2%\nSahneler: UmayTarlalari\nGiriş: dokunmatik var | fare bağlı | ekran tuşları açık\nSon dokunuş: 2811,236 -> MobileHudCanvas/SaldırButton [MobileHudCanvas 5]\nOyuncu karakteri: oluştu (MecanimMale1) | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n",
    "gorulmeler": [
-    "11.10.2026 13:47 · 1.0.79 · samsung SM-A346E · FeaturesDemoMainMenu · oyunda değil · 2340x1007",
     "11.10.2026 14:41 · 1.0.79 · samsung SM-A075F · FeaturesDemoMainMenu · oyunda değil · 1600x664",
     "12.10.2026 03:13 · 1.0.79 · samsung SM-A505F · FeaturesDemoMainMenu · oyunda değil · 2257x1017",
     "12.10.2026 11:29 · 1.0.79 · samsung SM-S938B · FeaturesDemoMainMenu · oyunda değil · 2340x1001",
@@ -625,7 +628,8 @@
     "22.10.2026 15:43 · 1.0.79 · samsung SM-M146B · FeaturesDemoMainMenu · oyunda değil · 2408x1012",
     "22.10.2026 15:49 · 1.0.79 · samsung SM-M346B2 · FeaturesDemoMainMenu · oyunda değil · 2340x996",
     "22.10.2026 19:03 · 1.0.79 · samsung SM-A075F · FeaturesDemoMainMenu · oyunda değil · 1600x664",
-    "23.10.2026 07:03 · 1.0.79 · samsung SM-T547 · FeaturesDemoMainMenu · oyunda değil · 1920x1164"
+    "23.10.2026 07:03 · 1.0.79 · samsung SM-T547 · FeaturesDemoMainMenu · oyunda değil · 1920x1164",
+    "23.10.2026 11:31 · 1.0.79 · samsung SM-G975F · FeaturesDemoMainMenu · oyunda değil · 2898x1356"
    ],
    "ekler": [],
    "duzeltildi": null,
@@ -1460,7 +1464,7 @@
   "bellek-45b65e0c": {
    "tur": "bellek",
    "baslik": "Bellek: Cihazın belleği azaldı (Android bellek uyarısı)",
-   "adet": 20,
+   "adet": 21,
    "cihazlar": [
     "samsung SM-M146B",
     "samsung SM-G975F",
@@ -1471,7 +1475,7 @@
     "1.0.79"
    ],
    "ilk": 1791502438,
-   "son": 1792503641,
+   "son": 1792744382,
    "ilk_rapor": "**Bellek** · sürüm **1.0.79** · samsung SM-M146B · Android OS 15 / API-35 (AP3A.240905.015.A2/M146BXXSDDZE4) · ekran 2408x1012 · FeaturesDemoZone\n\n### Mesaj\n```text\nCihazın belleği azaldı (Android bellek uyarısı)\n```\n\n### Ayrıntı\n```text\nAyrılan 559 MB | ayrılmış 804 MB | betik 155 MB | cihaz 3450 MB | ekran kartı 3395 MB\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: bellek\nsurum: 1.0.79\ncihaz: samsung SM-M146B\nsistem: Android OS 15 / API-35 (AP3A.240905.015.A2/M146BXXSDDZE4)\ngrafik: Vulkan / Mali-G68 / bellek 3450 MB\nekran: 2408x1012\nayarlar: kalite -1, çözünürlük 2, gölge 0, fps sınırı 0\nsahne: FeaturesDemoZone\noyuncu: seviye 1\nsure: 68 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.79 | samsung SM-M146B | Android OS 15 / API-35 (AP3A.240905.015.A2/M146BXXSDDZE4)\nVulkan Mali-G68 | Bellek 3450 MB | 2408x1012 | FPS 27 | Süre 65 sn\nKare süresi: işlemci 40.2 ms | ekran kartı 2.4 ms | ekran 30 Hz | hedef 30 | kalite Very Low | çizim 1926x810 (ekran 2408x1012, ölçek 0.80) | pil 59%\nSahneler: FeaturesDemoZone\nGiriş: dokunmatik var | fare yok | ekran tuşları açık\nSon dokunuş: 1314,580 -> PlayMenuPanel(Clone)/PlayBtn_Continue [SystemMenuUICanvas 19]\nOyuncu karakteri: oluştu (MecanimMale1) | Önizleme karakteri: yok…\n```\n\n</details>\n\n<details><summary>Son kayıt satırları</summary>\n\n```text\n02:33:58 [Bellek] Cihazın belleği azaldı (3450 MB toplam)\n02:33:22 [Warning] [Reklam] onay bilgisi: Publisher misconfiguration: Failed to read publisher's account configuration; no form(s) configured for the input app ID. Verify that you have configured one or more forms for t...\n```\n\n</details>\n",
    "gorulmeler": [
     "09.10.2026 02:33 · 1.0.79 · samsung SM-M146B · FeaturesDemoZone · seviye 1 · 2408x1012",
@@ -1493,7 +1497,8 @@
     "19.10.2026 02:06 · 1.0.79 · samsung SM-G975F · FeaturesDemoZone · seviye 1 · 2898x1356",
     "19.10.2026 13:44 · 1.0.79 · samsung SM-T547 · FeaturesDemoZone · seviye 3 · 1920x1164",
     "20.10.2026 02:20 · 1.0.79 · samsung SM-G975F · FeaturesDemoMainMenu · oyunda değil · 2898x1356",
-    "20.10.2026 16:40 · 1.0.79 · samsung SM-T547 · FeaturesDemoZone · seviye 3 · 1920x1164"
+    "20.10.2026 16:40 · 1.0.79 · samsung SM-T547 · FeaturesDemoZone · seviye 3 · 1920x1164",
+    "23.10.2026 11:33 · 1.0.79 · samsung SM-G975F · FeaturesDemoZone · seviye 1 · 2898x1356"
    ],
    "ekler": [],
    "duzeltildi": null,
@@ -1697,7 +1702,7 @@
   "bellek-fa46790a": {
    "tur": "bellek",
    "baslik": "Bellek: Aşırı kaynak kullanımı, sistem oyunu kapattı: excessive cpu 52770 during 300052 dur=865492 limit=10",
-   "adet": 4,
+   "adet": 5,
    "cihazlar": [
     "samsung SM-G975F",
     "samsung SM-A505F"
@@ -1706,13 +1711,14 @@
     "1.0.79"
    ],
    "ilk": 1791872798,
-   "son": 1792536750,
+   "son": 1792750730,
    "ilk_rapor": "**Bellek** · sürüm **1.0.79** · samsung SM-G975F · Android OS 12 / API-31 (SP1A.210812.016/G975FXXSGHWC1) · ekran 2898x1356 · FeaturesDemoMainMenu\n\n### Mesaj\n```text\nAşırı kaynak kullanımı, sistem oyunu kapattı: excessive cpu 52770 during 300052 dur=865492 limit=10\n```\n\n### Ayrıntı\n```text\nZaman 2026-10-12 13:29:55 | bellek (PSS) 1717 MB | önem 400 (100 = ön planda)\nÖnceki oturumun kaydı:\nOturum başladı 2026-10-12 13:13:17\nOyuna dönüldü 13:13:20\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: bellek\nsurum: 1.0.79\ncihaz: samsung SM-G975F\nsistem: Android OS 12 / API-31 (SP1A.210812.016/G975FXXSGHWC1)\ngrafik: Vulkan / Mali-G76 / bellek 5411 MB\nekran: 2898x1356\nayarlar: kalite 1, çözünürlük 0, gölge 0, fps sınırı 1\nsahne: FeaturesDemoMainMenu\noyuncu: oyunda değil\nsure: 14 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.79 | samsung SM-G975F | Android OS 12 / API-31 (SP1A.210812.016/G975FXXSGHWC1)\nVulkan Mali-G76 | Bellek 5411 MB | 2898x1356 | FPS 51 | Süre 11 sn\nKare süresi: işlemci 21.4 ms | ekran kartı 19.6 ms | ekran 60 Hz | hedef 60 | kalite Medium | çizim 2174x1017 (ekran 2898x1356, ölçek 0.75) | pil 67%\nSahneler: FeaturesDemoMainMenu\nGiriş: dokunmatik var | fare bağlı | ekran tuşları açık\nSon dokunuş: -\nOyuncu karakteri: yok | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n<details><summary>Son kayıt satırları</summary>\n\n```text\n09:26:29 [Warning] [Bellek] cihazın belleği azaldı (5411 MB): varlıklar boşaltıldı, dokular küçültüldü (7. uyarı)\n09:26:28 [Bellek] Cihazın belleği azaldı (5411 MB toplam)\n```\n\n</details>\n",
    "gorulmeler": [
     "13.10.2026 09:26 · 1.0.79 · samsung SM-G975F · FeaturesDemoMainMenu · oyunda değil · 2898x1356",
     "18.10.2026 15:59 · 1.0.79 · samsung SM-A505F · FeaturesDemoMainMenu · oyunda değil · 2257x1017",
     "19.10.2026 09:44 · 1.0.79 · samsung SM-A505F · FeaturesDemoMainMenu · oyunda değil · 2257x1017",
-    "21.10.2026 01:52 · 1.0.79 · samsung SM-A505F · FeaturesDemoMainMenu · oyunda değil · 2257x1017"
+    "21.10.2026 01:52 · 1.0.79 · samsung SM-A505F · FeaturesDemoMainMenu · oyunda değil · 2257x1017",
+    "23.10.2026 13:18 · 1.0.79 · samsung SM-A505F · FeaturesDemoMainMenu · oyunda değil · 2257x1017"
    ],
    "ekler": [],
    "duzeltildi": null,
@@ -1745,7 +1751,7 @@
   "hata-74874258": {
    "tur": "hata",
    "baslik": "Hata: [Account Save Error] ID 13: Sharing violation on path /var/lib/otuken/.config/unity3d/Olcay Yasin Dünde…",
-   "adet": 1,
+   "adet": 2,
    "cihazlar": [
     "PC"
    ],
@@ -1753,10 +1759,11 @@
     "1.0.79"
    ],
    "ilk": 1791933413,
-   "son": 1791933413,
+   "son": 1792744923,
    "ilk_rapor": "**Hata** · sürüm **1.0.79** · PC · Linux 6.8 Ubuntu 24.04 64bit · ekran 640x480 · MovedObjectsHolder\n\n### Mesaj\n```text\n[Account Save Error] ID 13: Sharing violation on path /var/lib/otuken/.config/unity3d/Olcay Yasin Dünder/Ötüken Destanı/tkenDestan/Online/UserAccounts/13.json\n```\n\n<details><summary>Ortam</summary>\n\n```text\ntur: hata\nsurum: 1.0.79\ncihaz: PC\nsistem: Linux 6.8 Ubuntu 24.04 64bit\ngrafik: Null / Null Device / bellek 7940 MB\nekran: 640x480\nayarlar: kalite -1, çözünürlük 0, gölge 0, fps sınırı 1\nsahne: MovedObjectsHolder\noyuncu: oyunda değil\nsure: 97415 sn\n```\n\n</details>\n\n<details><summary>Oyunun durumu</summary>\n\n```text\nSürüm 1.0.79 | PC | Linux 6.8 Ubuntu 24.04 64bit\nNull Null Device | Bellek 7940 MB | 640x480 | FPS ? | Süre 97414 sn\nKare süresi: işlemci ? | ekran kartı ? | ekran 0 Hz | hedef 45 | kalite Very Low | çizim 640x480 (ekran 640x480, ölçek 1.00) | pil -100%\nSahneler: MovedObjectsHolder\nGiriş: dokunmatik yok | fare yok | ekran tuşları kapalı\nSon dokunuş: -\nOyuncu karakteri: yok | Önizleme karakteri: yok | Önizleme kamerası: kapalı\n```\n\n</details>\n\n",
    "gorulmeler": [
-    "14.10.2026 02:16 · 1.0.79 · PC · MovedObjectsHolder · oyunda değil · 640x480"
+    "14.10.2026 02:16 · 1.0.79 · PC · MovedObjectsHolder · oyunda değil · 640x480",
+    "23.10.2026 11:42 · 1.0.79 · PC · FeaturesDemoMainMenu · oyunda değil · 640x480"
    ],
    "ekler": [],
    "duzeltildi": null,
@@ -2155,7 +2162,11 @@
   "4817e91f6e": "bellek-d3941b2d",
   "8e6daf1261": "bellek-d3941b2d",
   "5ed9ff4137": "bellek-d3941b2d",
-  "5b7f2a3c69": "performans-f57278a0"
+  "5b7f2a3c69": "performans-f57278a0",
+  "3d44d95d87": "bellek-d3941b2d",
+  "1eeb372eb0": "bellek-45b65e0c",
+  "817b14a02c": "hata-74874258",
+  "ddb4737507": "bellek-fa46790a"
  },
  "derleme": {
   "sonuc": "basarili",
