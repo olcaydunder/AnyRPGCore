@@ -4,7 +4,7 @@ Durum: 🔴 açık
 
 | Tekrar | Cihaz | Sürümler | İlk görülme | Son görülme |
 |---|---|---|---|---|
-| 19 | 10 | 1.0.79 | 08.10.2026 02:31 | 22.10.2026 12:29 |
+| 20 | 10 | 1.0.79 | 08.10.2026 02:31 | 23.10.2026 07:04 |
 
 
 ## İlk rapor
@@ -63,6 +63,7 @@ Oyuncu karakteri: oluştu (MecanimMale490) | Önizleme karakteri:…
 
 | Zaman · sürüm · cihaz · harita · oyuncu · ekran |
 |---|
+| 23.10.2026 07:04 · 1.0.79 · samsung SM-T547 · FeaturesDemoZone · seviye 4 · 1920x1164 |
 | 22.10.2026 12:29 · 1.0.79 · Xiaomi 25078RA3EY · FeaturesDemoZone · seviye 3 · 1600x646 |
 | 19.10.2026 13:45 · 1.0.79 · samsung SM-T547 · FeaturesDemoZone · seviye 3 · 1920x1164 |
 | 18.10.2026 15:48 · 1.0.79 · samsung SM-T547 · FeaturesDemoZone · seviye 3 · 1920x1164 |
