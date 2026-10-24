@@ -1245,6 +1245,9 @@ namespace AnyRPG {
                 return;
             }
 
+            // Ötüken: kaçınma hamlesi sürerken hareket girdisi hamlenin yönüne çevrilir
+            KacinmaGuncelle(ref movementData, timeInterval, isReplay);
+
             currentMovementData = movementData;
 
             if (unitController.IsMounted == false) {
@@ -1261,6 +1264,131 @@ namespace AnyRPG {
             if (unitController.IsMounted == false) {
                 LateGlobalStateUpdate(timeInterval);
             }
+        }
+
+        // ---------------------------------------------------------------- Ötüken: kaçınma hamlesi
+        //
+        // "Kaçın" düğmesi (CROUCH girdisi, MovementData.InputCrouch) kısa bir atılma başlatır: SavasAyarlari.KacinmaSuresi
+        // boyunca hareket girdisi hamlenin başladığı andaki yöne çevrilir, Move durumu da KacinmaHizCarpani kat hızlı
+        // yürütür. Eğim, basamak ve engel hesapları olağan yürüyüşle aynıdır (ayrı bir fizik yok).
+        // Çevrimiçi oyunda yalnız çoğaltılan girdiden (InputCrouch, SimulatedTick, IntendedWorldDirection) hesaplanır:
+        // telefonun tahmini ile sunucunun asıl simülasyonu aynı sonucu bulur, yeniden oynatmada (replay) hamle aynı
+        // tikte yeniden başlar. Tek oyunculu oyunda tikler kare hızına bağlı olduğu için süre saatle ölçülür.
+
+        private bool kacinmaVar = false;
+        private uint kacinmaTik = 0;
+        private bool oncekiKacinmaVar = false;
+        private uint oncekiKacinmaTik = 0;
+        private uint kacinmaGecen = 0;
+        private Vector3 kacinmaYonu = Vector3.forward;
+        private bool kacinmaSuruyor = false;
+        private float kacinmaBaslangici = -100f;
+        private float dokunulmazBitis = -100f;
+
+        /// <summary>bu tikte kaçınma hamlesi sürüyor mu (Move durumu hızı buna göre çarpar)</summary>
+        public bool KacinmaSuruyor { get => kacinmaSuruyor; }
+
+        /// <summary>son kaçınmanın başladığı an (Time.time); ekrandaki düğmenin bekleme halkası bunu okur</summary>
+        public float KacinmaBaslangici { get => kacinmaBaslangici; }
+
+        /// <summary>kaçınma sırasında gelen vuruş boşa gider (CharacterCombat.TakeDamageCommon)</summary>
+        public bool Dokunulmaz { get => Time.time < dokunulmazBitis; }
+
+        private bool KacinmaBaslayabilir(uint tik, float sure, bool yerel) {
+            if (yerel) {
+                return Time.time - kacinmaBaslangici >= SavasAyarlari.KacinmaBekleme;
+            }
+            if (kacinmaVar == false || tik == kacinmaTik) {
+                // tik == kacinmaTik: yeniden oynatmada aynı hamle
+                return true;
+            }
+            if (tik > kacinmaTik) {
+                return (tik - kacinmaTik) * sure >= SavasAyarlari.KacinmaBekleme;
+            }
+            // yeniden oynatmada son hamleden önceki bir tik: ondan önceki hamleye göre
+            if (oncekiKacinmaVar == false || tik == oncekiKacinmaTik) {
+                return true;
+            }
+            return tik > oncekiKacinmaTik && (tik - oncekiKacinmaTik) * sure >= SavasAyarlari.KacinmaBekleme;
+        }
+
+        private void KacinmaGuncelle(ref MovementData movementData, double timeInterval, bool isReplay) {
+            kacinmaSuruyor = false;
+            if (unitController.UnitControllerMode != UnitControllerMode.Player || unitController.IsMounted
+                || unitController.CharacterStats.IsAlive == false || unitController.UnitMotor == null) {
+                return;
+            }
+            bool yerel = systemGameManager.GameMode == GameMode.Local;
+            uint tik = movementData.SimulatedTick;
+            float sure = (float)timeInterval;
+            bool yerde = currentCharacterMovementState == CharacterMovementState.Idle
+                || currentCharacterMovementState == CharacterMovementState.Move
+                || currentCharacterMovementState == CharacterMovementState.NavMesh;
+
+            if (movementData.InputCrouch && yerde && tik != 0 && unitController.UnitMotor.Frozen == false
+                && KacinmaBaslayabilir(tik, sure, yerel)) {
+                if (kacinmaVar == false || tik != kacinmaTik) {
+                    oncekiKacinmaVar = kacinmaVar;
+                    oncekiKacinmaTik = kacinmaTik;
+                    kacinmaVar = true;
+                    kacinmaTik = tik;
+                }
+                // hareket çubuğu itiliyorsa o yöne, değilse karakterin baktığı yöne
+                Vector3 yon = movementData.HasMoveInput() ? movementData.IntendedWorldDirection
+                    : unitController.UnitMotor.MovementBody.GetRotation() * Vector3.forward;
+                yon.y = 0f;
+                kacinmaYonu = yon.sqrMagnitude > 0.0001f ? yon.normalized : Vector3.forward;
+                kacinmaGecen = 0;
+                if (isReplay == false) {
+                    kacinmaBaslangici = Time.time;
+                    dokunulmazBitis = Time.time + SavasAyarlari.DokunulmazlikSuresi;
+                    // toz ve ışık izi (yalnız görüntü; ekransız sunucuda hiçbir şey yapmaz)
+                    Efektler.Kacinma(unitController);
+                }
+            }
+            if (kacinmaVar == false) {
+                return;
+            }
+
+            if (yerel) {
+                if (Time.time - kacinmaBaslangici >= SavasAyarlari.KacinmaSuresi) {
+                    return;
+                }
+            } else {
+                uint gecen;
+                if (tik == 0) {
+                    // sunucuya bu tikin girdisi ulaşmadı: hamle kaldığı yerden sürer
+                    gecen = kacinmaGecen + 1;
+                } else if (tik < kacinmaTik) {
+                    // yeniden oynatmada hamleden önceki bir tik
+                    return;
+                } else {
+                    gecen = tik - kacinmaTik;
+                }
+                kacinmaGecen = gecen;
+                if (gecen * sure >= SavasAyarlari.KacinmaSuresi) {
+                    return;
+                }
+            }
+            if (yerde == false) {
+                // hamle sırasında uçurumdan düştü, suya girdi ya da savruldu: hamle biter
+                return;
+            }
+
+            kacinmaSuruyor = true;
+            // hareket çubuğu ne gösterirse göstersin hamlenin yönünde, tam hızla
+            movementData.InputHorizontal = 0f;
+            movementData.InputVertical = 1f;
+            movementData.InputTurn = 0f;
+            movementData.InputJump = false;
+            movementData.InputStrafe = false;
+            movementData.RightMouseButtonDown = false;
+            movementData.FaceCameraDirection = false;
+            movementData.RightAnalogHorizontal = 0f;
+            movementData.RotateModelMode = true;
+            movementData.NormalizedMoveInput = Vector3.forward;
+            movementData.TurnInput = Vector3.zero;
+            movementData.IntendedWorldDirection = kacinmaYonu;
         }
 
         public void AddMovementData(MovementData frameData) {

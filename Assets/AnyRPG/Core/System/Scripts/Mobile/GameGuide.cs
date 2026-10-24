@@ -321,10 +321,14 @@ namespace AnyRPG {
                 "• <b>Sol kenar</b>: <b>Menü</b> simgesi. Ekran dolmasın diye öteki her şey onun içindedir: Karakter, Görevler, Günlük Görevler, " +
                 "Demirci, Ticaret, Depo, Dünya Haritası, Etkinlikler, Sohbet (çevrim içi) ve Oyun Kılavuzu. Ödül bekleyince Menü'de altın nokta yanar.\n" +
                 "• <b>Sağ alt</b>: büyük <b>Saldır</b> düğmesi ve çevresinde sınıfının <b>yetenekleri</b> (beceri halkası). " +
-                "Yanında <b>Oto Av</b>, <b>Binek</b> ve <b>Hedef</b> (önündeki düşmanlar arasında sırayla hedef değiştirir).\n" +
+                "Yanında <b>Oto Av</b>, <b>Binek</b>, <b>Hedef</b> (önündeki düşmanlar arasında sırayla hedef değiştirir), <b>Kaçın</b> ve <b>Bitir</b>.\n" +
                 "• <b>Sağ üst</b>: küçük harita. Üstündeki <b>HARİTA</b>'ya dokununca büyük Dünya Haritası açılır. " +
                 "Altında süren bölge etkinliğinin afişi görünür; dokununca etkinlik penceresi açılır.\n" +
-                "• <b>Sol üst</b>: canın (kırmızı), manan / enerjin ve hedefinin çubukları.\n" +
+                "• <b>Küçük haritanın solunda</b>: <b>Armağan</b> (günlük armağan), <b>Günlük</b> (günlük görevler) ve <b>Etkinlik</b> " +
+                "tek dokunuşla açılır; ödül bekleyince üstlerinde kırmızı nokta yanar. Mağara ve zindanlarda yanlarında <b>Çıkış</b> belirir: " +
+                "iki kez dokununca en son gezdiğin açık diyara dönersin.\n" +
+                "• <b>Sol üst</b>: canın (kırmızı), manan / enerjin ve hedefinin çubukları; altında <b>Güç Puanın</b> " +
+                "(dokununca karakter penceresi açılır).\n" +
                 "• <b>Görev oku</b>: sarı ok sıradaki görev hedefini gösterir; yanındaki <b>[Git]</b>'e dokunursan karakterin oraya kendisi yürür.\n" +
                 "• Pencereleri sağ üst köşelerindeki <b>X</b> ile kapatırsın."),
 
@@ -335,7 +339,14 @@ namespace AnyRPG {
                 "• <b>Saldırı hızı silahına göredir</b>: pençe ve hançer en hızlı (0,8–0,9 sn), tek elli kılıç 1 sn, balta, gürz ve asa 1,1–1,3 sn, " +
                 "yay 1,2 sn, iki elli silahlar 1,4–1,5 sn. Yavaş silah daha sert vurur.\n" +
                 "• <b>Beceri halkası</b>: Saldır düğmesinin çevresindeki simgeler sınıfının yetenekleridir. Dokununca kullanılır; " +
-                "kullanılan yetenek bir süre bekler, simgesi kararır. Yeni öğrendiğin yetenekler halkaya kendiliğinden eklenir.\n\n" +
+                "kullanılan yetenek bir süre bekler, simgesi kararır. Yeni öğrendiğin yetenekler halkaya kendiliğinden eklenir.\n" +
+                "• <b>Kaçın</b>: hareket çubuğunu ittiğin yöne (itmiyorsan baktığın yöne) birkaç metre atılırsın. Atılırken gelen vuruş " +
+                "<b>boşa gider</b>; boss'un ağır vuruşundan sıyrılmanın yolu budur. 2,5 saniyede bir kullanılır, binekteyken kullanılmaz.\n" +
+                "• <b>Bitir</b>: düşmana vurdukça öfken dolar (düğmedeki koyu halka açılır). Dolunca düğme altın rengi olur; dokun, " +
+                "8 saniye içindeki ilk vuruşun <b>3 kat</b> vurur. Oto Av açıkken kendiliğinden kullanılır.\n" +
+                "• Düşmana vurduğun hasar başında eksiyle yazılır; <b>kritik vuruş turuncu</b> ve daha büyüktür.\n" +
+                "• Her vuruşta isabet noktasında kıvılcımlar saçılır; kritik vuruş turuncu parlar ve yerde halka açar, " +
+                "beceri vuruşları mavi-beyazdır. Beceri kullanınca ayağında büyü çemberi döner; seviye atlayınca altın bir ışık sütunu yükselir.\n\n" +
                 H + "Oto Av" + HE + "\n" +
                 "• Açınca (düğme altın rengi olur) karakterin yakındaki düşmanları bulur, menziline girip saldırır, yeteneklerini bekleme süreleri " +
                 "dolunca kendisi kullanır ve 15 m içindeki yerdeki ganimete yürüyüp toplar. Ötüken Taşlarını da kırar.\n" +

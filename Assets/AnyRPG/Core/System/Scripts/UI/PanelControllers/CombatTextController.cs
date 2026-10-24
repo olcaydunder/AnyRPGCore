@@ -244,6 +244,17 @@ namespace AnyRPG {
                     break;
             }
 
+            // Otuken: damage dealt to enemies reads "-1234" like the damage the player takes; critical hits are orange
+            if (directionMultiplier == 1 && (textType == CombatTextType.normal || textType == CombatTextType.ability)) {
+                int dealtDamage;
+                if (int.TryParse(displayText, out dealtDamage) && dealtDamage > 0) {
+                    preText = "-" + preText;
+                    if (combatMagnitude == CombatMagnitude.critical) {
+                        textColor = new Color(1f, 0.55f, 0.15f, 1f);
+                    }
+                }
+            }
+
             tmpProtext.color = textColor;
             tmpProtext.text = preText + displayText + postText;
             if (combatMagnitude == CombatMagnitude.critical) {

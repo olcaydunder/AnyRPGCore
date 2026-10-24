@@ -15,6 +15,15 @@ namespace AnyRPG {
         public const float OyuncuSaldiriAnimasyonHizi = 1.35f;
         // karakterin önündeki vuruş kutusu dışında gövdeden gövdeye en çok bu kadar uzaktaki hedefe vurulur
         public const float YakinErisimPayi = 0.55f;
+        // Kaçınma hamlesi ("Kaçın" düğmesi): kısa bir atılma, o sırada gelen vuruş boşa gider
+        // (UnitMovementController.KacinmaGuncelle, MovementMoveState, CharacterCombat.TakeDamageCommon)
+        public const float KacinmaSuresi = 0.32f;
+        public const float KacinmaHizCarpani = 2.6f;
+        public const float KacinmaBekleme = 2.5f;
+        public const float DokunulmazlikSuresi = 0.5f;
+        /// <summary>bu oturumda kaçınmayla boşa giden vuruş sayısı (oyun testi okur)</summary>
+        public static int KacinilanVurus = 0;
+
         // derece/saniye
         private const float DonusHizi = 900f;
         private const float DonmeMenzili = 12f;

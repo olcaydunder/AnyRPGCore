@@ -70,6 +70,8 @@ namespace Otuken.EditorAraclari {
             public List<HaritaSonucu> haritalar = new List<HaritaSonucu>();
             public List<HataKaydi> hatalar = new List<HataKaydi>();
             public string binekTesti;
+            public string kacinmaTesti;
+            public string efektTesti;
             public string gunlukGorevler;
             public string dunyaHaritasi;
             public string ilkHaritaAvi;
@@ -82,7 +84,7 @@ namespace Otuken.EditorAraclari {
             public List<string> dortKGoruntuleri = new List<string>();
         }
 
-        private enum Adim { OyunModu, Acilis, YeniOyun, Dogus, Bekle, Dirilis, BinekTesti, DemirciTesti, Savas, Bitti }
+        private enum Adim { OyunModu, Acilis, YeniOyun, Dogus, Bekle, Dirilis, BinekTesti, KacinmaTesti, DemirciTesti, Savas, Bitti }
 
         private static readonly object kilit = new object();
         private static Rapor rapor;
@@ -318,6 +320,15 @@ namespace Otuken.EditorAraclari {
 
                 case Adim.BinekTesti:
                     if (BinekTesti(oyun)) {
+                        kacinmaAsama = 0;
+                        kacinmaZamani = EditorApplication.timeSinceStartup;
+                        Gec(Adim.KacinmaTesti);
+                    }
+                    break;
+
+                case Adim.KacinmaTesti:
+                    if (KacinmaTesti(oyun)) {
+                        EfektTesti(oyun);
                         demirciAsama = 0;
                         Gec(Adim.DemirciTesti);
                     }
@@ -672,6 +683,125 @@ namespace Otuken.EditorAraclari {
                     }
                     return false;
             }
+        }
+
+        private static int kacinmaAsama = 0;
+        private static double kacinmaZamani = 0;
+        private static Vector3 kacinmaYeri;
+        private static float kacinmaYolu = 0f;
+        private static bool kacinmaDokunulmaz = false;
+
+        private static float YatayUzaklik(Vector3 a, Vector3 b) {
+            a.y = 0f;
+            b.y = 0f;
+            return Vector3.Distance(a, b);
+        }
+
+        /// <summary>
+        /// Kaçınma denemesi: HUD'daki Kaçın düğmesinin gönderdiği girdiyle (CROUCH) hamle yapılır; karakter kaç metre
+        /// atıldı, o sırada dokunulmaz oldu mu, bekleme süresi dolmadan ikinci basış yok sayıldı mı bakılır.
+        /// Bitince true döner; sonuç rapor.kacinmaTesti'ne yazılır.
+        /// </summary>
+        private static bool KacinmaTesti(AnyRPG.SystemGameManager oyun) {
+            AnyRPG.UnitController oyuncu = oyun != null && oyun.PlayerManagerClient != null ? oyun.PlayerManagerClient.UnitController : null;
+            if (oyuncu == null || oyuncu.UnitMovementController == null) {
+                rapor.kacinmaTesti = "oyuncu yok";
+                return true;
+            }
+            double gecen = EditorApplication.timeSinceStartup - kacinmaZamani;
+            switch (kacinmaAsama) {
+                case 0:
+                    // binekten inilsin, karakter dursun
+                    if (gecen < 1.5 || (oyuncu.IsMounted && gecen < 6)) {
+                        return false;
+                    }
+                    AnyRPG.OtomatikAv.Kapat();
+                    // binek denemesi karakteri bir ağaca ya da duvara dayamış olabilir: geldiği yöne (geriye) kaçınır
+                    AnyRPG.MobileInput.SetJoystick(Vector2.down, true);
+                    kacinmaDokunulmaz = false;
+                    kacinmaYeri = oyuncu.transform.position;
+                    AnyRPG.MobileInput.PressVirtualKey("CROUCH");
+                    kacinmaAsama = 1;
+                    kacinmaZamani = EditorApplication.timeSinceStartup;
+                    return false;
+                case 1:
+                    if (oyuncu.UnitMovementController.Dokunulmaz) {
+                        kacinmaDokunulmaz = true;
+                    }
+                    if (gecen > 0.25) {
+                        // hamle başladı: çubuk bırakılır (yönü hamle kendi tutar)
+                        AnyRPG.MobileInput.SetJoystick(Vector2.zero, false);
+                    }
+                    if (gecen < 1.0) {
+                        return false;
+                    }
+                    kacinmaYolu = YatayUzaklik(kacinmaYeri, oyuncu.transform.position);
+                    // bekleme süresi (2,5 sn) dolmadan ikinci basış: hamle yeniden başlamamalı
+                    kacinmaYeri = oyuncu.transform.position;
+                    AnyRPG.MobileInput.PressVirtualKey("CROUCH");
+                    kacinmaAsama = 2;
+                    kacinmaZamani = EditorApplication.timeSinceStartup;
+                    return false;
+                default:
+                    if (gecen < 0.8) {
+                        return false;
+                    }
+                    float ikinci = YatayUzaklik(kacinmaYeri, oyuncu.transform.position);
+                    rapor.kacinmaTesti = (kacinmaYolu >= 3.5f ? "atıldı " : "ATILMADI ") + kacinmaYolu.ToString("0.0") + " m, dokunulmazlık "
+                        + (kacinmaDokunulmaz ? "var" : "YOK") + ", bekleme süresindeki ikinci basış "
+                        + (ikinci < 0.5f ? "yok sayıldı" : "YİNE ATILDI (" + ikinci.ToString("0.0") + " m)");
+                    Debug.Log("[OyunTesti] kaçınma denemesi: " + rapor.kacinmaTesti);
+                    return true;
+            }
+        }
+
+        /// <summary>
+        /// Efekt denemesi: oyuncunun önünde vuruş, kritik ve beceri efektleri, sonra kaçınma, ölüm ve seviye efektleri
+        /// yayılır; parçacıklar biraz ilerletilip iki görüntü alınır (tani/efekt_vurus.jpg, tani/efekt_diger.jpg).
+        /// </summary>
+        private static void EfektTesti(AnyRPG.SystemGameManager oyun) {
+            AnyRPG.UnitController oyuncu = oyun != null && oyun.PlayerManagerClient != null ? oyun.PlayerManagerClient.UnitController : null;
+            Camera kamera = oyun != null && oyun.CameraManager != null ? oyun.CameraManager.ActiveMainCamera : null;
+            if (kamera == null) {
+                kamera = Camera.main;
+            }
+            if (oyuncu == null || kamera == null) {
+                rapor.efektTesti = "oyuncu ya da kamera yok";
+                return;
+            }
+            try {
+                // kameranın baktığı yönde, oyuncunun 3 m ötesinde yan yana üç vuruş
+                Vector3 ileri = kamera.transform.forward;
+                ileri.y = 0f;
+                ileri = ileri.sqrMagnitude > 0.001f ? ileri.normalized : Vector3.forward;
+                Vector3 sag = Vector3.Cross(Vector3.up, ileri);
+                Vector3 zemin = oyuncu.transform.position + ileri * 3f;
+                Vector3 govde = zemin + Vector3.up * 1.1f;
+                int once = AnyRPG.Efektler.YayilanSayisi;
+                AnyRPG.Efektler.VurusNoktasi(govde - sag * 2.4f, ileri, zemin - sag * 2.4f, false, false);
+                AnyRPG.Efektler.VurusNoktasi(govde, ileri, zemin, true, false);
+                AnyRPG.Efektler.VurusNoktasi(govde + sag * 2.4f, ileri, zemin + sag * 2.4f, false, true);
+                int canli = AnyRPG.Efektler.TestIlerlet(0.1f);
+                string ilk = GoruntuAl(kamera, "efekt_vurus");
+                AnyRPG.Efektler.TestIlerlet(2f);
+                AnyRPG.Efektler.Kacinma(oyuncu);
+                AnyRPG.Efektler.OlumNoktasi(govde - sag * 2.4f);
+                AnyRPG.Efektler.SeviyeAtladi(oyuncu);
+                int canli2 = AnyRPG.Efektler.TestIlerlet(0.2f);
+                string ikinci = GoruntuAl(kamera, "efekt_diger");
+                AnyRPG.Efektler.TestIlerlet(2f);
+                AnyRPG.Efektler.BeceriBasladi(oyuncu, true);
+                AnyRPG.Efektler.VurusNoktasi(govde, ileri, zemin, false, true);
+                AnyRPG.Efektler.TestIlerlet(0.15f);
+                string ucuncu = GoruntuAl(kamera, "efekt_beceri");
+                AnyRPG.Efektler.TestIlerlet(2f);
+                ikinci = (ikinci ?? "yok") + ", " + (ucuncu ?? "yok");
+                rapor.efektTesti = (AnyRPG.Efektler.YayilanSayisi - once) + " parçacık yayıldı; vuruşlarda canlı " + canli
+                    + ", kaçınma/ölüm/seviyede canlı " + canli2 + "; görüntüler: " + (ilk ?? "yok") + ", " + (ikinci ?? "yok");
+            } catch (Exception e) {
+                rapor.efektTesti = "hata: " + e.Message;
+            }
+            Debug.Log("[OyunTesti] efekt denemesi: " + rapor.efektTesti);
         }
 
         private static int demirciAsama = 0;
@@ -1455,12 +1585,16 @@ namespace Otuken.EditorAraclari {
                 AnyRPG.UnitController sonOyuncu = Object.FindAnyObjectByType<AnyRPG.SystemGameManager>()?.PlayerManagerClient?.UnitController;
                 rapor.gelisim = "Güç Puanı " + AnyRPG.Gelisim.GucPuani(sonOyuncu) + ", seviye ödülü " + AnyRPG.Gelisim.VerilenOdulSayisi
                     + (AnyRPG.Gelisim.SonOdul.Length > 0 ? " (son: " + AnyRPG.Gelisim.SonOdul + ")" : string.Empty)
-                    + ", daha iyi eşya önerisi " + AnyRPG.Gelisim.OneriSayisi + ", oto av becerisi " + AnyRPG.OtomatikAv.BeceriSayisi + " kez";
+                    + ", daha iyi eşya önerisi " + AnyRPG.Gelisim.OneriSayisi + ", oto av becerisi " + AnyRPG.OtomatikAv.BeceriSayisi + " kez"
+                    + ", bitirici vuruş " + AnyRPG.Bitirici.KullanilanSayisi + " kez, kaçınılan vuruş " + AnyRPG.SavasAyarlari.KacinilanVurus;
                 if (rapor.demirciTesti == null) {
                     rapor.demirciTesti = "yapılmadı";
                 }
                 if (rapor.binekTesti == null) {
                     rapor.binekTesti = "yapılmadı";
+                }
+                if (rapor.kacinmaTesti == null) {
+                    rapor.kacinmaTesti = "yapılmadı";
                 }
                 string klasor = Path.GetFullPath("tani");
                 Directory.CreateDirectory(klasor);
@@ -1482,6 +1616,8 @@ namespace Otuken.EditorAraclari {
             sb.Append("Haritalar: ").Append(rapor.haritalar.Count).Append(", hata/istisna: ").Append(rapor.toplamHata)
                 .Append(" (").Append(rapor.hatalar.Count).Append(" farklı)\n");
             sb.Append("Binek denemesi: ").Append(rapor.binekTesti).Append('\n');
+            sb.Append("Kaçınma denemesi: ").Append(rapor.kacinmaTesti).Append('\n');
+            sb.Append("Efekt denemesi: ").Append(rapor.efektTesti ?? "yapılmadı").Append('\n');
             if (rapor.pencereTesti != null) {
                 sb.Append("Pencereler ve depo: ").Append(rapor.pencereTesti).Append('\n');
             }

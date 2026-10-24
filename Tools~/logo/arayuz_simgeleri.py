@@ -57,6 +57,23 @@ SIMGELER = {
     # depo: sandık
     "depo": '''<rect x="32" y="74" width="128" height="84" rx="8"/><path d="M32 74 Q32 40 66 40 L126 40 Q160 40 160 74"/>
 <path d="M32 100 L160 100"/><rect x="84" y="92" width="24" height="26" rx="4" fill="{0}"/>'''.format(ALTIN),
+    # kaçın: hız çizgileri ve ileri atılan çift ok
+    "kacin": '''<path d="M22 70 L66 70 M34 96 L86 96 M22 122 L66 122"/>
+<path d="M92 46 L140 96 L92 146"/><path d="M128 58 L164 96 L128 134"/>''',
+    # armağan: kurdeleli kutu
+    "armagan": '''<rect x="36" y="88" width="120" height="72" rx="8"/><rect x="26" y="60" width="140" height="30" rx="6"/>
+<path d="M96 60 L96 160"/><path d="M96 58 Q66 18 50 36 Q40 54 96 58 Q152 54 142 36 Q126 18 96 58"/>''',
+    # günlük: işaretli görev listesi
+    "gunluk": '''<rect x="42" y="36" width="108" height="130" rx="10"/><path d="M76 36 L76 22 L116 22 L116 36"/>
+<path d="M60 80 L72 92 L92 68"/><path d="M108 84 L134 84"/><path d="M60 126 L72 138 L92 114"/><path d="M108 130 L134 130"/>''',
+    # çıkış: kapıdan dışarı ok
+    "cikis": '''<path d="M106 38 L52 38 Q38 38 38 52 L38 140 Q38 154 52 154 L106 154"/>
+<path d="M82 96 L162 96 M132 64 L164 96 L132 128"/>''',
+    # bitir: dört köşeli yıldız (bitirici vuruş)
+    "bitir": '''<path d="M96 22 L114 78 L170 96 L114 114 L96 170 L78 114 L22 96 L78 78 Z"/><circle cx="96" cy="96" r="12" fill="{0}"/>'''.format(ALTIN),
+    # güç: çapraz iki kılıç
+    "guc": '''<path d="M38 38 L134 134 M146 146 L160 160 M116 152 L152 116"/>
+<path d="M154 38 L58 134 M46 146 L32 160 M40 116 L76 152"/>''',
 }
 
 
