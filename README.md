@@ -1,8 +1,8 @@
 # Ötüken Destanı · Hata panosu
 
-Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 25.10.2026 00:31.
+Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 25.10.2026 00:49.
 
-**46** açık sorun · **5** düzeltilen · toplam **362** rapor
+**46** açık sorun · **5** düzeltilen · toplam **363** rapor
 
 ## Son APK derlemesi
 
@@ -44,7 +44,7 @@ Tanı raporunda uyarı yok.
 | 🔴 açık | [Bellek: Cihazın belleği azaldı (Android bellek uyarısı)](kayitlar/bellek-45b65e0c.md) | Bellek | 21 | 4 | 1.0.79 | 23.10.2026 11:33 |
 | 🔴 açık | [Bellek: Aşırı kaynak kullanımı, sistem oyunu kapattı: [EXCESSIVE CPU USAGE] excessive cpu 30430 during 300047…](kayitlar/bellek-72c58f3a.md) | Bellek | 1 | 1 | 1.0.79 | 16.10.2026 02:37 |
 | 🔴 açık | [Bellek: Bellek yetmedi, sistem oyunu kapattı: [REMOVE TASK] remove task](kayitlar/bellek-e9291dad.md) | Bellek | 1 | 1 | 1.0.79 | 12.10.2026 12:35 |
-| 🔴 açık | [Yavaşlık: FeaturesDemoZone haritasında kare hızı düşük: 20 saniyede ortalama 11.3 FPS](kayitlar/performans-f57278a0.md) | Yavaşlık | 20 | 10 | 1.0.79 | 23.10.2026 07:04 |
+| 🔴 açık | [Yavaşlık: FeaturesDemoZone haritasında kare hızı düşük: 20 saniyede ortalama 11.3 FPS](kayitlar/performans-f57278a0.md) | Yavaşlık | 21 | 11 | 1.0.79, 1.0.88 | 25.10.2026 00:37 |
 | 🔴 açık | [Arayüz yerleşimi, 1600x664 ekran](kayitlar/arayuz-1600x664.md) | Arayüz | 1 | 1 | 1.0.79 | 16.10.2026 02:12 |
 | 🔴 açık | [Arayüz yerleşimi, 2412x960 ekran](kayitlar/arayuz-2412x960.md) | Arayüz | 1 | 1 | 1.0.79 | 11.10.2026 02:31 |
 | 🔴 açık | [Arayüz yerleşimi, 2340x1007 ekran](kayitlar/arayuz-2340x1007.md) | Arayüz | 1 | 1 | 1.0.79 | 10.10.2026 20:42 |
