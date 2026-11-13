@@ -1,8 +1,8 @@
 # Ötüken Destanı · Hata panosu
 
-Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 10.11.2026 03:06.
+Oyunun kendiliğinden gönderdiği hata, çökme, donma, yavaşlık ve arayüz raporları ile oyuncuların "Sorun Bildir" notları. Son güncelleme: 14.11.2026 00:32.
 
-**46** açık sorun · **5** düzeltilen · toplam **364** rapor
+**46** açık sorun · **5** düzeltilen · toplam **365** rapor
 
 ## Son APK derlemesi
 
@@ -39,7 +39,7 @@ Tanı raporunda uyarı yok.
 | 🔴 açık | [Hata: Deneme raporu (sistem sınaması)](kayitlar/hata-00000000.md) | Hata | 2 | 1 | deneme | 08.10.2026 00:16 |
 | 🔴 açık | [Hata: [2026.10.06 14:54:05] Client encountered an error while parsing data for packetId 35771. Message: Objec…](kayitlar/hata-dc1219d9.md) | Hata | 2 | 1 | 0.1.66 | 06.10.2026 17:54 |
 | 🔴 açık | [Hata: InputManager not found in scene.  Is the GameManager in the scene?](kayitlar/hata-8f05154f.md) | Hata | 8 | 2 | 0.1.43 | 05.10.2026 00:12 |
-| 🔴 açık | [Bellek: Bellek yetmedi, sistem oyunu kapattı](kayitlar/bellek-d3941b2d.md) | Bellek | 83 | 11 | 0.1.54, 1.0.70, 1.0.79 | 09.11.2026 20:37 |
+| 🔴 açık | [Bellek: Bellek yetmedi, sistem oyunu kapattı](kayitlar/bellek-d3941b2d.md) | Bellek | 84 | 11 | 0.1.54, 1.0.70, 1.0.79 | 13.11.2026 21:03 |
 | 🔴 açık | [Bellek: Aşırı kaynak kullanımı, sistem oyunu kapattı: excessive cpu 52770 during 300052 dur=865492 limit=10](kayitlar/bellek-fa46790a.md) | Bellek | 5 | 2 | 1.0.79 | 23.10.2026 13:18 |
 | 🔴 açık | [Bellek: Cihazın belleği azaldı (Android bellek uyarısı)](kayitlar/bellek-45b65e0c.md) | Bellek | 21 | 4 | 1.0.79 | 23.10.2026 11:33 |
 | 🔴 açık | [Bellek: Aşırı kaynak kullanımı, sistem oyunu kapattı: [EXCESSIVE CPU USAGE] excessive cpu 30430 during 300047…](kayitlar/bellek-72c58f3a.md) | Bellek | 1 | 1 | 1.0.79 | 16.10.2026 02:37 |
